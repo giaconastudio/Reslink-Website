@@ -50,24 +50,24 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="py-24" style={{ background: '#F7F8FA' }}>
+    <section style={{ padding: '96px 0', background: '#F7F8FA' }}>
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="max-w-xl mx-auto text-center mb-16"
+          style={{ textAlign: 'center', maxWidth: '480px', margin: '0 auto 56px' }}
         >
-          <p className="text-sm font-semibold uppercase tracking-widest mb-4" style={{ color: '#FF5A1F' }}>
+          <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#FF5A1F', marginBottom: '16px' }}>
             Success stories
           </p>
-          <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tight" style={{ color: '#0B1437' }}>
+          <h2 style={{ fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.025em', color: '#0B1437', lineHeight: 1.12 }}>
             Real results from real candidates
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
           {testimonials.map((t, i) => (
             <motion.div
               key={t.name}
@@ -75,27 +75,31 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.07 }}
-              className="bg-white rounded-2xl p-6 flex flex-col"
-              style={{ boxShadow: '0 1px 4px rgba(11,20,55,0.06)' }}
+              style={{
+                background: '#fff',
+                borderRadius: '14px',
+                padding: '24px',
+                display: 'flex',
+                flexDirection: 'column',
+                boxShadow: '0 1px 3px rgba(11,20,55,0.05)',
+              }}
             >
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, j) => (
-                  <Star key={j} size={13} fill="#FF5A1F" style={{ color: '#FF5A1F' }} />
-                ))}
+              <div style={{ display: 'flex', gap: '3px', marginBottom: '14px' }}>
+                {[...Array(5)].map((_, j) => <Star key={j} size={13} fill="#FF5A1F" color="#FF5A1F" />)}
               </div>
-              <p className="text-sm leading-relaxed flex-1 mb-5" style={{ color: '#5C6070' }}>
+              <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.7, flex: 1, marginBottom: '20px' }}>
                 &ldquo;{t.quote}&rdquo;
               </p>
-              <div className="flex items-center gap-3">
-                <div
-                  className="w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
-                  style={{ background: t.color }}
-                >
-                  {t.initials}
-                </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div style={{
+                  width: '36px', height: '36px', borderRadius: '50%',
+                  background: t.color, display: 'flex', alignItems: 'center',
+                  justifyContent: 'center', color: '#fff', fontSize: '11px',
+                  fontWeight: 700, flexShrink: 0,
+                }}>{t.initials}</div>
                 <div>
-                  <p className="text-sm font-bold" style={{ color: '#0B1437' }}>{t.name}</p>
-                  <p className="text-xs" style={{ color: '#9A9FA8' }}>{t.role}</p>
+                  <p style={{ fontSize: '13px', fontWeight: 700, color: '#0B1437' }}>{t.name}</p>
+                  <p style={{ fontSize: '12px', color: '#9A9FA8' }}>{t.role}</p>
                 </div>
               </div>
             </motion.div>

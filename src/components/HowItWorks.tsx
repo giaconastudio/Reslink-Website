@@ -5,99 +5,86 @@ import { UserPlus, Upload, Video, Share2 } from 'lucide-react';
 
 const steps = [
   {
-    number: '01',
     icon: UserPlus,
     title: 'Create your free account',
-    desc: 'Sign up in 30 seconds. No credit card needed — your Reslink profile is always free.',
+    desc: 'Sign up in 30 seconds. No credit card required.',
   },
   {
-    number: '02',
     icon: Upload,
     title: 'Upload your resume',
-    desc: 'Drop in your existing PDF. We parse it instantly and build your profile automatically.',
+    desc: 'Drop in your existing PDF and we build your profile automatically.',
   },
   {
-    number: '03',
     icon: Video,
-    title: 'Record your video pitch',
-    desc: "Use our built-in recorder or upload a video you've already made. Keep it under 2 minutes — punchy wins.",
+    title: 'Record a video pitch',
+    desc: "Use our built-in recorder or upload one you've already made.",
   },
   {
-    number: '04',
     icon: Share2,
     title: 'Share your Reslink',
-    desc: "Paste your link in job applications, emails, or LinkedIn. Track who's watching and when.",
+    desc: "Paste your link in applications and track who's watching.",
   },
 ];
 
 export default function HowItWorks() {
   return (
-    <section className="section" style={{ background: '#F8F9FC' }}>
+    <section id="how-it-works" className="py-24" style={{ background: '#F7F8FA' }}>
       <div className="container">
-        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-2xl mx-auto mb-16"
+          transition={{ duration: 0.5 }}
+          className="max-w-xl mx-auto text-center mb-16"
         >
-          <span className="inline-block text-xs font-bold uppercase tracking-widest mb-4" style={{ color: '#FF5A1F' }}>
+          <p className="text-sm font-semibold uppercase tracking-widest mb-4" style={{ color: '#FF5A1F' }}>
             How it works
-          </span>
-          <h2 className="text-4xl lg:text-5xl font-extrabold leading-tight" style={{ color: '#0B1437' }}>
-            Up and running in{' '}
-            <span className="gradient-text">under 10 minutes</span>
+          </p>
+          <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tight" style={{ color: '#0B1437' }}>
+            Up and running in minutes
           </h2>
         </motion.div>
 
-        {/* Steps */}
-        <div className="relative">
-          {/* Connector line (desktop) */}
-          <div className="hidden lg:block absolute top-12 left-0 right-0 h-px" style={{ background: 'linear-gradient(to right, transparent, #E5E7EB 10%, #E5E7EB 90%, transparent)', top: '52px' }} />
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {steps.map((step, i) => (
-              <motion.div
-                key={step.number}
-                initial={{ opacity: 0, y: 32 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.55, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="relative flex flex-col items-center text-center"
-              >
-                {/* Icon circle */}
-                <div className="relative mb-6 z-10">
-                  <div
-                    className="w-24 h-24 rounded-2xl flex items-center justify-center shadow-lg"
-                    style={{ background: 'white', boxShadow: '0 8px 32px rgba(11,20,55,0.1)' }}
-                  >
-                    <step.icon size={32} style={{ color: '#FF5A1F' }} />
-                  </div>
-                  <span
-                    className="absolute -top-3 -right-3 w-7 h-7 rounded-full text-white text-xs font-bold flex items-center justify-center"
-                    style={{ background: '#0B1437', fontSize: '11px' }}
-                  >
-                    {i + 1}
-                  </span>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {steps.map((step, i) => (
+            <motion.div
+              key={step.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.1 }}
+              className="bg-white rounded-2xl p-6"
+              style={{ boxShadow: '0 1px 4px rgba(11,20,55,0.06)' }}
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div
+                  className="w-9 h-9 rounded-xl flex items-center justify-center"
+                  style={{ background: '#FFF0EB' }}
+                >
+                  <step.icon size={16} style={{ color: '#FF5A1F' }} />
                 </div>
-                <h3 className="font-bold text-lg mb-2" style={{ color: '#0B1437' }}>{step.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{step.desc}</p>
-              </motion.div>
-            ))}
-          </div>
+                <span
+                  className="text-xs font-bold uppercase tracking-wider"
+                  style={{ color: '#C8CBD2' }}
+                >
+                  Step {i + 1}
+                </span>
+              </div>
+              <h3 className="font-bold text-base mb-2" style={{ color: '#0B1437' }}>{step.title}</h3>
+              <p className="text-sm leading-relaxed" style={{ color: '#5C6070' }}>{step.desc}</p>
+            </motion.div>
+          ))}
         </div>
 
-        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="text-center mt-14"
+          transition={{ duration: 0.4, delay: 0.4 }}
+          className="text-center mt-12"
         >
-          <a href="/signup" className="btn-primary text-base px-8 py-4 inline-flex">
-            Start for Free — No Credit Card
+          <a href="/signup" className="btn-primary">
+            Create your free video resume
           </a>
         </motion.div>
       </div>

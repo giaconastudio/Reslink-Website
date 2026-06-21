@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-const footerLinks = {
+const links = {
   Solutions: [
     { label: 'Job Seekers', href: '/job-seekers' },
     { label: 'Companies', href: '/companies' },
@@ -12,63 +12,36 @@ const footerLinks = {
     { label: 'Blog', href: '/blog' },
     { label: 'Help Center', href: '/help' },
     { label: 'Video Resume Guide', href: '/guide' },
-    { label: 'Templates', href: '/templates' },
   ],
   Company: [
     { label: 'About', href: '/about' },
     { label: 'Careers', href: '/careers' },
-    { label: 'Press', href: '/press' },
     { label: 'Contact', href: '/contact' },
   ],
 };
 
 export default function Footer() {
   return (
-    <footer style={{ background: '#0B1437' }}>
-      <div className="container py-16">
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-10 mb-14">
-          {/* Brand col */}
+    <footer className="border-t" style={{ borderColor: '#EEEEF0' }}>
+      <div className="container py-14">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
           <div className="col-span-2">
-            <Link href="/" className="inline-block mb-5">
-              <Image
-                src="/reslink-logo-white.png"
-                alt="Reslink"
-                width={130}
-                height={34}
-                style={{ height: 'auto' }}
-              />
+            <Link href="/" className="inline-block mb-4">
+              <Image src="/reslink-logo.png" alt="Reslink" width={120} height={30} style={{ height: '28px', width: 'auto' }} />
             </Link>
-            <p className="text-white/45 text-sm leading-relaxed max-w-xs mb-6">
-              The platform that helps job seekers stand out with personalized video resumes and helps companies discover top talent.
+            <p className="text-sm leading-relaxed max-w-xs" style={{ color: '#9A9FA8' }}>
+              The platform that helps job seekers stand out with personalized video resumes.
             </p>
-            {/* Social icons */}
-            <div className="flex items-center gap-3">
-              {['LinkedIn', 'Twitter', 'Instagram'].map((social) => (
-                <a
-                  key={social}
-                  href="#"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center text-white/40 hover:text-white transition-colors"
-                  style={{ background: 'rgba(255,255,255,0.06)' }}
-                  aria-label={social}
-                >
-                  <span className="text-xs font-bold">{social[0]}</span>
-                </a>
-              ))}
-            </div>
           </div>
 
-          {/* Link columns */}
-          {Object.entries(footerLinks).map(([col, links]) => (
+          {Object.entries(links).map(([col, items]) => (
             <div key={col}>
-              <p className="text-white/30 text-xs font-bold uppercase tracking-widest mb-5">{col}</p>
+              <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: '#C8CBD2' }}>{col}</p>
               <ul className="space-y-3">
-                {links.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-white/55 text-sm hover:text-white transition-colors"
-                    >
-                      {link.label}
+                {items.map((item) => (
+                  <li key={item.href}>
+                    <Link href={item.href} className="text-sm transition-colors hover:text-navy" style={{ color: '#5C6070' }}>
+                      {item.label}
                     </Link>
                   </li>
                 ))}
@@ -77,14 +50,13 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Bottom bar */}
-        <div className="border-t pt-8 flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
-          <p className="text-white/30 text-sm">
+        <div className="border-t pt-8 flex flex-col sm:flex-row items-center justify-between gap-3" style={{ borderColor: '#EEEEF0' }}>
+          <p className="text-sm" style={{ color: '#C8CBD2' }}>
             © {new Date().getFullYear()} Reslink. All rights reserved.
           </p>
-          <div className="flex items-center gap-6">
-            <Link href="/privacy" className="text-white/30 text-sm hover:text-white/60 transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="text-white/30 text-sm hover:text-white/60 transition-colors">Terms of Service</Link>
+          <div className="flex gap-5">
+            <Link href="/privacy" className="text-sm transition-colors" style={{ color: '#9A9FA8' }}>Privacy</Link>
+            <Link href="/terms" className="text-sm transition-colors" style={{ color: '#9A9FA8' }}>Terms</Link>
           </div>
         </div>
       </div>

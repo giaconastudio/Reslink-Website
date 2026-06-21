@@ -21,10 +21,10 @@ export default function ValueProp() {
           transition={{ duration: 0.5 }}
           style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto 64px' }}
         >
-          <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#C5E63A', marginBottom: '16px' }}>
+          <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '16px' }}>
             Why Reslink
           </p>
-          <h2 style={{ fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.025em', color: '#0C1E5B', lineHeight: 1.12, marginBottom: '20px' }}>
+          <h2 style={{ fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.025em', color: '#041635', lineHeight: 1.12, marginBottom: '20px' }}>
             Forget boring resumes.<br />Send a video pitch instead.
           </h2>
           <p style={{ fontSize: '17px', color: '#5C6070', lineHeight: 1.65 }}>
@@ -41,10 +41,10 @@ export default function ValueProp() {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
             >
-              <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#EBF5D6', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
+              <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#EDFDB0', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
                 <f.icon size={18} color="#FF5A1F" />
               </div>
-              <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#0C1E5B', marginBottom: '8px' }}>{f.title}</h3>
+              <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#041635', marginBottom: '8px' }}>{f.title}</h3>
               <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.65 }}>{f.desc}</p>
             </motion.div>
           ))}

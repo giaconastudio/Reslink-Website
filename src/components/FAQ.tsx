@@ -28,10 +28,10 @@ export default function FAQ() {
             transition={{ duration: 0.5 }}
             style={{ textAlign: 'center', marginBottom: '56px' }}
           >
-            <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#C5E63A', marginBottom: '16px' }}>
+            <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '16px' }}>
               FAQ
             </p>
-            <h2 style={{ fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.025em', color: '#0C1E5B', lineHeight: 1.12 }}>
+            <h2 style={{ fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.025em', color: '#041635', lineHeight: 1.12 }}>
               Common questions
             </h2>
           </motion.div>
@@ -55,10 +55,10 @@ export default function FAQ() {
                     cursor: 'pointer', textAlign: 'left',
                   }}
                 >
-                  <span style={{ fontSize: '15px', fontWeight: 600, color: '#0C1E5B' }}>{faq.q}</span>
+                  <span style={{ fontSize: '15px', fontWeight: 600, color: '#041635' }}>{faq.q}</span>
                   <span style={{
                     width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0,
-                    background: open === i ? '#C5E63A' : '#F7F8FA',
+                    background: open === i ? '#D8F950' : '#F7F8FA',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     transition: 'background 0.15s ease',
                   }}>

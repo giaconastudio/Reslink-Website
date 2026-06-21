@@ -47,13 +47,13 @@ export default function Navbar() {
                 Solutions <ChevronDown size={13} style={{ transform: solutionsOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.15s' }} />
               </button>
               {solutionsOpen && (
-                <div style={{ position: 'absolute', top: '100%', left: 0, marginTop: '4px', width: '240px', background: '#fff', borderRadius: '12px', border: '1px solid #EEEEF0', boxShadow: '0 8px 32px rgba(12,30,91,0.1)', padding: '8px', zIndex: 100 }}>
+                <div style={{ position: 'absolute', top: '100%', left: 0, marginTop: '4px', width: '240px', background: '#fff', borderRadius: '12px', border: '1px solid #EEEEF0', boxShadow: '0 8px 32px rgba(4,22,53,0.1)', padding: '8px', zIndex: 100 }}>
                   {solutions.map(s => (
                     <Link key={s.href} href={s.href} style={{ display: 'flex', flexDirection: 'column', padding: '10px 12px', borderRadius: '8px', textDecoration: 'none', transition: 'background 0.15s' }}
                       onMouseEnter={e => (e.currentTarget.style.background = '#F7F8FA')}
                       onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
                     >
-                      <span style={{ fontSize: '14px', fontWeight: 600, color: '#0C1E5B' }}>{s.label}</span>
+                      <span style={{ fontSize: '14px', fontWeight: 600, color: '#041635' }}>{s.label}</span>
                       <span style={{ fontSize: '12px', color: '#9A9FA8', marginTop: '2px' }}>{s.desc}</span>
                     </Link>
                   ))}
@@ -63,7 +63,7 @@ export default function Navbar() {
 
             {[['Resources', '/resources'], ['Company', '/company'], ['Pricing', '/pricing']].map(([label, href]) => (
               <Link key={href} href={href} style={navLinkStyle}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#0C1E5B'; (e.currentTarget as HTMLElement).style.background = '#F7F8FA'; }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#041635'; (e.currentTarget as HTMLElement).style.background = '#F7F8FA'; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = '#5C6070'; (e.currentTarget as HTMLElement).style.background = 'transparent'; }}
               >{label}</Link>
             ))}
@@ -71,7 +71,7 @@ export default function Navbar() {
 
           {/* Right CTAs */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }} className="desktop-nav">
-            <Link href="/login" style={{ fontSize: '14px', fontWeight: 600, color: '#0C1E5B', textDecoration: 'none', padding: '8px 14px', borderRadius: '8px', transition: 'background 0.15s' }}
+            <Link href="/login" style={{ fontSize: '14px', fontWeight: 600, color: '#041635', textDecoration: 'none', padding: '8px 14px', borderRadius: '8px', transition: 'background 0.15s' }}
               onMouseEnter={e => (e.currentTarget.style.background = '#F7F8FA')}
               onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
             >Log in</Link>
@@ -81,7 +81,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile toggle */}
-          <button onClick={() => setMobileOpen(!mobileOpen)} style={{ display: 'none', padding: '8px', background: 'none', border: 'none', cursor: 'pointer', color: '#0C1E5B' }} className="mobile-toggle">
+          <button onClick={() => setMobileOpen(!mobileOpen)} style={{ display: 'none', padding: '8px', background: 'none', border: 'none', cursor: 'pointer', color: '#041635' }} className="mobile-toggle">
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
@@ -89,8 +89,8 @@ export default function Navbar() {
 
       {mobileOpen && (
         <div style={{ background: '#fff', borderTop: '1px solid #EEEEF0', padding: '12px 24px 20px' }}>
-          {solutions.map(s => <Link key={s.href} href={s.href} style={{ display: 'block', padding: '10px 0', fontSize: '15px', fontWeight: 500, color: '#0C1E5B', textDecoration: 'none', borderBottom: '1px solid #F7F8FA' }} onClick={() => setMobileOpen(false)}>{s.label}</Link>)}
-          {[['Pricing', '/pricing'], ['Company', '/company']].map(([l, h]) => <Link key={h} href={h} style={{ display: 'block', padding: '10px 0', fontSize: '15px', fontWeight: 500, color: '#0C1E5B', textDecoration: 'none', borderBottom: '1px solid #F7F8FA' }} onClick={() => setMobileOpen(false)}>{l}</Link>)}
+          {solutions.map(s => <Link key={s.href} href={s.href} style={{ display: 'block', padding: '10px 0', fontSize: '15px', fontWeight: 500, color: '#041635', textDecoration: 'none', borderBottom: '1px solid #F7F8FA' }} onClick={() => setMobileOpen(false)}>{s.label}</Link>)}
+          {[['Pricing', '/pricing'], ['Company', '/company']].map(([l, h]) => <Link key={h} href={h} style={{ display: 'block', padding: '10px 0', fontSize: '15px', fontWeight: 500, color: '#041635', textDecoration: 'none', borderBottom: '1px solid #F7F8FA' }} onClick={() => setMobileOpen(false)}>{l}</Link>)}
           <Link href="/signup" className="btn-primary" style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }} onClick={() => setMobileOpen(false)}>Get started free</Link>
         </div>
       )}

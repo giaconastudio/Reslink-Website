@@ -21,10 +21,10 @@ export default function HowItWorks() {
           transition={{ duration: 0.5 }}
           style={{ textAlign: 'center', maxWidth: '480px', margin: '0 auto 56px' }}
         >
-          <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#C5E63A', marginBottom: '16px' }}>
+          <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '16px' }}>
             How it works
           </p>
-          <h2 style={{ fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.025em', color: '#0C1E5B', lineHeight: 1.12 }}>
+          <h2 style={{ fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.025em', color: '#041635', lineHeight: 1.12 }}>
             Up and running in minutes
           </h2>
         </motion.div>
@@ -40,14 +40,14 @@ export default function HowItWorks() {
               style={{ background: '#fff', borderRadius: '16px', padding: '24px', boxShadow: '0 1px 3px rgba(11,20,55,0.06)' }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-                <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: '#EBF5D6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: '#EDFDB0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <step.icon size={15} color="#FF5A1F" />
                 </div>
                 <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#C8CBD2' }}>
                   Step {i + 1}
                 </span>
               </div>
-              <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#0C1E5B', marginBottom: '8px' }}>{step.title}</h3>
+              <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#041635', marginBottom: '8px' }}>{step.title}</h3>
               <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.6 }}>{step.desc}</p>
             </motion.div>
           ))}

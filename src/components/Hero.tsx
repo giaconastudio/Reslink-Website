@@ -17,12 +17,12 @@ export default function Hero() {
         >
           <span style={{
             display: 'inline-flex', alignItems: 'center', gap: '8px',
-            background: '#EDF4FF', color: '#4A7AE0',
+            background: '#EBF0FF', color: "#0C63E3",
             fontSize: '13px', fontWeight: 600,
             padding: '6px 14px', borderRadius: '100px',
             fontFamily: 'var(--font-body)',
           }}>
-            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#4A7AE0', display: 'inline-block' }} />
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#0C63E3', display: 'inline-block' }} />
             The #1 platform for video resumes
           </span>
         </motion.div>
@@ -38,13 +38,13 @@ export default function Hero() {
             fontWeight: 900,
             lineHeight: 0.95,
             letterSpacing: '-0.02em',
-            color: '#0C1E5B',
+            color: '#041635',
             marginBottom: '24px',
             fontFamily: 'var(--font-phudu)',
           }}
         >
           Your resume,{' '}
-          <span style={{ color: '#C5E63A' }}>but better.</span>
+          <span style={{ color: '#D8F950' }}>but better.</span>
         </motion.h1>
 
         {/* Subheadline */}
@@ -104,12 +104,12 @@ export default function Hero() {
               {/* Left sidebar */}
               <div>
                 <div style={{
-                  width: '52px', height: '52px', borderRadius: '12px', background: '#0C1E5B',
+                  width: '52px', height: '52px', borderRadius: '12px', background: '#041635',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  color: '#C5E63A', fontWeight: 800, fontSize: '16px',
+                  color: '#D8F950', fontWeight: 800, fontSize: '16px',
                   marginBottom: '14px', fontFamily: 'var(--font-phudu)',
                 }}>OS</div>
-                <p style={{ fontWeight: 700, fontSize: '16px', color: '#0C1E5B', marginBottom: '3px', fontFamily: 'var(--font-body)' }}>Oliver Stone</p>
+                <p style={{ fontWeight: 700, fontSize: '16px', color: '#041635', marginBottom: '3px', fontFamily: 'var(--font-body)' }}>Oliver Stone</p>
                 <p style={{ fontSize: '13px', color: '#5C6070', marginBottom: '3px', fontFamily: 'var(--font-body)' }}>Supply Chain Operations</p>
                 <p style={{ fontSize: '12px', color: '#9A9FA8', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>New York, NY</p>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
@@ -121,16 +121,16 @@ export default function Hero() {
 
               {/* Video + stats */}
               <div>
-                <div style={{ background: '#0C1E5B', borderRadius: '10px', aspectRatio: '16/9', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', marginBottom: '14px' }}>
-                  <div style={{ width: '46px', height: '46px', borderRadius: '50%', background: '#C5E63A', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#0C1E5B"><path d="M8 5v14l11-7z"/></svg>
+                <div style={{ background: '#041635', borderRadius: '10px', aspectRatio: '16/9', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', marginBottom: '14px' }}>
+                  <div style={{ width: '46px', height: '46px', borderRadius: '50%', background: '#D8F950', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#041635"><path d="M8 5v14l11-7z"/></svg>
                   </div>
                   <span style={{ position: 'absolute', bottom: '10px', right: '12px', background: 'rgba(0,0,0,0.55)', color: '#fff', fontSize: '11px', padding: '2px 8px', borderRadius: '4px', fontFamily: 'var(--font-body)' }}>1:32</span>
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
                   {[{ label: 'Profile views', value: '1,204' }, { label: 'Video plays', value: '847' }, { label: 'Recruiter contacts', value: '23' }].map(s => (
                     <div key={s.label} style={{ background: '#F7F8FA', borderRadius: '10px', padding: '12px', textAlign: 'center' }}>
-                      <p style={{ fontWeight: 700, fontSize: '18px', color: '#0C1E5B', fontFamily: 'var(--font-phudu)' }}>{s.value}</p>
+                      <p style={{ fontWeight: 700, fontSize: '18px', color: '#041635', fontFamily: 'var(--font-phudu)' }}>{s.value}</p>
                       <p style={{ fontSize: '11px', color: '#9A9FA8', marginTop: '2px', fontFamily: 'var(--font-body)' }}>{s.label}</p>
                     </div>
                   ))}

@@ -1,11 +1,19 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Phudu } from 'next/font/google';
 import './globals.css';
 
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
+  weight: ['400', '500', '600', '700'],
+});
+
+const phudu = Phudu({
+  subsets: ['latin'],
+  variable: '--font-phudu',
+  display: 'swap',
+  weight: ['600', '700', '800', '900'],
 });
 
 export const metadata: Metadata = {
@@ -19,13 +27,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} antialiased`}>
+    <html lang="en" className={`${inter.variable} ${phudu.variable} antialiased`}>
       <body>{children}</body>
     </html>
   );

@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { ChevronDown, Menu, X } from 'lucide-react';
+import Logo from './Logo';
 
 const solutions = [
   { label: 'Job Seekers', href: '/job-seekers', desc: 'Stand out with a video resume' },
@@ -18,103 +18,89 @@ export default function Navbar() {
   const [solutionsOpen, setSolutionsOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
+    const fn = () => setScrolled(window.scrollY > 10);
+    window.addEventListener('scroll', fn);
+    return () => window.removeEventListener('scroll', fn);
   }, []);
 
-  return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
-        scrolled ? 'bg-white border-b border-gray-100' : 'bg-white'
-      }`}
-    >
-      <div className="container">
-        <div className="flex items-center justify-between" style={{ height: '68px' }}>
-          {/* Logo */}
-          <Link href="/" className="flex-shrink-0">
-            <Image
-              src="/reslink-logo.png"
-              alt="Reslink"
-              width={130}
-              height={34}
-              priority
-              style={{ height: '30px', width: 'auto' }}
-            />
-          </Link>
+  const navLinkStyle = { fontSize: '14px', fontWeight: 500, color: '#5C6070', textDecoration: 'none', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' } as const;
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1">
-            <div
-              className="relative"
+  return (
+    <header style={{
+      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
+      background: '#fff',
+      borderBottom: scrolled ? '1px solid #EEEEF0' : '1px solid transparent',
+      transition: 'border-color 0.2s',
+    }}>
+      <div className="container">
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '68px' }}>
+          <Link href="/"><Logo dark height={30} /></Link>
+
+          {/* Desktop nav */}
+          <nav style={{ display: 'flex', alignItems: 'center', gap: '4px' }} className="desktop-nav">
+            {/* Solutions dropdown */}
+            <div style={{ position: 'relative' }}
               onMouseEnter={() => setSolutionsOpen(true)}
               onMouseLeave={() => setSolutionsOpen(false)}
             >
-              <button className="flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-navy hover:bg-gray-50 transition-colors" style={{ color: '#5C6070' }}>
-                Solutions <ChevronDown size={13} className={`transition-transform ${solutionsOpen ? 'rotate-180' : ''}`} />
+              <button style={{ ...navLinkStyle, background: 'none', border: 'none', cursor: 'pointer' }}>
+                Solutions <ChevronDown size={13} style={{ transform: solutionsOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.15s' }} />
               </button>
               {solutionsOpen && (
-                <div className="absolute top-full left-0 mt-1 w-60 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50">
-                  {solutions.map((s) => (
-                    <Link key={s.href} href={s.href} className="flex flex-col px-4 py-3 hover:bg-gray-50 transition-colors">
-                      <span className="text-sm font-semibold" style={{ color: '#0B1437' }}>{s.label}</span>
-                      <span className="text-xs mt-0.5" style={{ color: '#9A9FA8' }}>{s.desc}</span>
+                <div style={{ position: 'absolute', top: '100%', left: 0, marginTop: '4px', width: '240px', background: '#fff', borderRadius: '12px', border: '1px solid #EEEEF0', boxShadow: '0 8px 32px rgba(12,30,91,0.1)', padding: '8px', zIndex: 100 }}>
+                  {solutions.map(s => (
+                    <Link key={s.href} href={s.href} style={{ display: 'flex', flexDirection: 'column', padding: '10px 12px', borderRadius: '8px', textDecoration: 'none', transition: 'background 0.15s' }}
+                      onMouseEnter={e => (e.currentTarget.style.background = '#F7F8FA')}
+                      onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+                    >
+                      <span style={{ fontSize: '14px', fontWeight: 600, color: '#0C1E5B' }}>{s.label}</span>
+                      <span style={{ fontSize: '12px', color: '#9A9FA8', marginTop: '2px' }}>{s.desc}</span>
                     </Link>
                   ))}
                 </div>
               )}
             </div>
 
-            {['Resources', 'Company', 'Pricing'].map((item) => (
-              <Link
-                key={item}
-                href={`/${item.toLowerCase()}`}
-                className="px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50"
-                style={{ color: '#5C6070' }}
-              >
-                {item}
-              </Link>
+            {[['Resources', '/resources'], ['Company', '/company'], ['Pricing', '/pricing']].map(([label, href]) => (
+              <Link key={href} href={href} style={navLinkStyle}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#0C1E5B'; (e.currentTarget as HTMLElement).style.background = '#F7F8FA'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = '#5C6070'; (e.currentTarget as HTMLElement).style.background = 'transparent'; }}
+              >{label}</Link>
             ))}
           </nav>
 
-          {/* CTA */}
-          <div className="hidden md:flex items-center gap-3">
-            <Link href="/login" className="text-sm font-semibold px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors" style={{ color: '#0B1437' }}>
-              Log in
-            </Link>
-            <Link href="/signup" className="btn-primary text-sm" style={{ padding: '10px 20px' }}>
+          {/* Right CTAs */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }} className="desktop-nav">
+            <Link href="/login" style={{ fontSize: '14px', fontWeight: 600, color: '#0C1E5B', textDecoration: 'none', padding: '8px 14px', borderRadius: '8px', transition: 'background 0.15s' }}
+              onMouseEnter={e => (e.currentTarget.style.background = '#F7F8FA')}
+              onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+            >Log in</Link>
+            <Link href="/signup" className="btn-primary" style={{ padding: '10px 18px', fontSize: '14px' }}>
               Get started free
             </Link>
           </div>
 
           {/* Mobile toggle */}
-          <button
-            className="md:hidden p-2 rounded-lg text-gray-600"
-            onClick={() => setMobileOpen(!mobileOpen)}
-          >
+          <button onClick={() => setMobileOpen(!mobileOpen)} style={{ display: 'none', padding: '8px', background: 'none', border: 'none', cursor: 'pointer', color: '#0C1E5B' }} className="mobile-toggle">
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100">
-          <div className="container py-4 flex flex-col gap-1">
-            {solutions.map((s) => (
-              <Link key={s.href} href={s.href} className="px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50" style={{ color: '#0B1437' }} onClick={() => setMobileOpen(false)}>
-                {s.label}
-              </Link>
-            ))}
-            <div className="border-t border-gray-100 my-2" />
-            <Link href="/pricing" className="px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50" style={{ color: '#0B1437' }} onClick={() => setMobileOpen(false)}>Pricing</Link>
-            <Link href="/company" className="px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50" style={{ color: '#0B1437' }} onClick={() => setMobileOpen(false)}>Company</Link>
-            <div className="border-t border-gray-100 my-2" />
-            <Link href="/login" className="px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50" style={{ color: '#0B1437' }} onClick={() => setMobileOpen(false)}>Log in</Link>
-            <Link href="/signup" className="btn-primary justify-center mt-1" onClick={() => setMobileOpen(false)}>Get started free</Link>
-          </div>
+        <div style={{ background: '#fff', borderTop: '1px solid #EEEEF0', padding: '12px 24px 20px' }}>
+          {solutions.map(s => <Link key={s.href} href={s.href} style={{ display: 'block', padding: '10px 0', fontSize: '15px', fontWeight: 500, color: '#0C1E5B', textDecoration: 'none', borderBottom: '1px solid #F7F8FA' }} onClick={() => setMobileOpen(false)}>{s.label}</Link>)}
+          {[['Pricing', '/pricing'], ['Company', '/company']].map(([l, h]) => <Link key={h} href={h} style={{ display: 'block', padding: '10px 0', fontSize: '15px', fontWeight: 500, color: '#0C1E5B', textDecoration: 'none', borderBottom: '1px solid #F7F8FA' }} onClick={() => setMobileOpen(false)}>{l}</Link>)}
+          <Link href="/signup" className="btn-primary" style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }} onClick={() => setMobileOpen(false)}>Get started free</Link>
         </div>
       )}
+
+      <style>{`
+        @media (max-width: 768px) {
+          .desktop-nav { display: none !important; }
+          .mobile-toggle { display: flex !important; }
+        }
+      `}</style>
     </header>
   );
 }

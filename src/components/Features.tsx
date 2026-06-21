@@ -14,7 +14,7 @@ function AnalyticsMockup() {
           { label: 'Recruiter contacts', value: '12', change: '+8' },
         ].map(s => (
           <div key={s.label} style={{ background: '#F7F8FA', borderRadius: '10px', padding: '14px' }}>
-            <p style={{ fontWeight: 700, fontSize: '22px', color: '#0B1437' }}>{s.value}</p>
+            <p style={{ fontWeight: 700, fontSize: '22px', color: '#0C1E5B' }}>{s.value}</p>
             <p style={{ fontSize: '11px', color: '#9A9FA8', marginTop: '2px' }}>{s.label}</p>
             <p style={{ fontSize: '11px', color: '#22c55e', marginTop: '4px', fontWeight: 600 }}>{s.change}</p>
           </div>
@@ -22,7 +22,7 @@ function AnalyticsMockup() {
       </div>
       <div style={{ display: 'flex', alignItems: 'flex-end', gap: '5px', height: '52px' }}>
         {[30, 50, 38, 68, 52, 88, 62].map((h, i) => (
-          <div key={i} style={{ flex: 1, borderRadius: '3px 3px 0 0', height: `${h}%`, background: i === 5 ? '#FF5A1F' : '#EEEEF0' }} />
+          <div key={i} style={{ flex: 1, borderRadius: '3px 3px 0 0', height: `${h}%`, background: i === 5 ? '#C5E63A' : '#EEEEF0' }} />
         ))}
       </div>
       <p style={{ fontSize: '11px', color: '#C8CBD2', textAlign: 'center', marginTop: '8px' }}>Views — last 7 days</p>
@@ -39,7 +39,7 @@ function SearchMockup() {
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
         {[
-          { name: 'Oliver Stone', role: 'Supply Chain · New York', initials: 'OS', color: '#0B1437' },
+          { name: 'Oliver Stone', role: 'Supply Chain · New York', initials: 'OS', color: '#0C1E5B' },
           { name: 'Priya Patel', role: 'UX Designer · London', initials: 'PP', color: '#A855F7' },
           { name: 'Marcus Lee', role: 'Finance Analyst · Toronto', initials: 'ML', color: '#10B981' },
         ].map(c => (
@@ -47,11 +47,11 @@ function SearchMockup() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: c.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '12px', fontWeight: 700, flexShrink: 0 }}>{c.initials}</div>
               <div>
-                <p style={{ fontSize: '14px', fontWeight: 600, color: '#0B1437' }}>{c.name}</p>
+                <p style={{ fontSize: '14px', fontWeight: 600, color: '#0C1E5B' }}>{c.name}</p>
                 <p style={{ fontSize: '12px', color: '#9A9FA8' }}>{c.role}</p>
               </div>
             </div>
-            <button style={{ background: '#FFF0EB', color: '#FF5A1F', fontSize: '12px', fontWeight: 600, padding: '6px 14px', borderRadius: '8px', border: 'none', cursor: 'pointer' }}>View</button>
+            <button style={{ background: '#EBF5D6', color: '#0C1E5B', fontSize: '12px', fontWeight: 600, padding: '6px 14px', borderRadius: '8px', border: 'none', cursor: 'pointer' }}>View</button>
           </div>
         ))}
       </div>
@@ -99,8 +99,8 @@ export default function Features() {
               }}
             >
               <div style={{ direction: 'ltr' }}>
-                <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#FF5A1F', marginBottom: '14px' }}>{s.label}</p>
-                <h2 style={{ fontSize: 'clamp(28px, 3vw, 40px)', fontWeight: 800, letterSpacing: '-0.025em', color: '#0B1437', lineHeight: 1.15, marginBottom: '16px' }}>{s.title}</h2>
+                <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#C5E63A', marginBottom: '14px' }}>{s.label}</p>
+                <h2 style={{ fontSize: 'clamp(28px, 3vw, 40px)', fontWeight: 800, letterSpacing: '-0.025em', color: '#0C1E5B', lineHeight: 1.15, marginBottom: '16px' }}>{s.title}</h2>
                 <p style={{ fontSize: '17px', color: '#5C6070', lineHeight: 1.65, marginBottom: '28px' }}>{s.desc}</p>
                 <a href={s.href} className="btn-outline" style={{ display: 'inline-flex' }}>Learn more →</a>
               </div>

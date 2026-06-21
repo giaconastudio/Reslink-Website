@@ -44,7 +44,7 @@ const testimonials = [
     name: 'James Chen',
     role: 'Supply Chain Analyst at Tesla',
     initials: 'JC',
-    color: '#0B1437',
+    color: '#0C1E5B',
   },
 ];
 
@@ -59,10 +59,10 @@ export default function Testimonials() {
           transition={{ duration: 0.5 }}
           style={{ textAlign: 'center', maxWidth: '480px', margin: '0 auto 56px' }}
         >
-          <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#FF5A1F', marginBottom: '16px' }}>
+          <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#C5E63A', marginBottom: '16px' }}>
             Success stories
           </p>
-          <h2 style={{ fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.025em', color: '#0B1437', lineHeight: 1.12 }}>
+          <h2 style={{ fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.025em', color: '#0C1E5B', lineHeight: 1.12 }}>
             Real results from real candidates
           </h2>
         </motion.div>
@@ -85,7 +85,7 @@ export default function Testimonials() {
               }}
             >
               <div style={{ display: 'flex', gap: '3px', marginBottom: '14px' }}>
-                {[...Array(5)].map((_, j) => <Star key={j} size={13} fill="#FF5A1F" color="#FF5A1F" />)}
+                {[...Array(5)].map((_, j) => <Star key={j} size={13} fill="#C5E63A" color="#C5E63A" />)}
               </div>
               <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.7, flex: 1, marginBottom: '20px' }}>
                 &ldquo;{t.quote}&rdquo;
@@ -98,7 +98,7 @@ export default function Testimonials() {
                   fontWeight: 700, flexShrink: 0,
                 }}>{t.initials}</div>
                 <div>
-                  <p style={{ fontSize: '13px', fontWeight: 700, color: '#0B1437' }}>{t.name}</p>
+                  <p style={{ fontSize: '13px', fontWeight: 700, color: '#0C1E5B' }}>{t.name}</p>
                   <p style={{ fontSize: '12px', color: '#9A9FA8' }}>{t.role}</p>
                 </div>
               </div>

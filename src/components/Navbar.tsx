@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ChevronDown, Menu, X } from 'lucide-react';
-import Logo from './Logo';
 
 const solutions = [
   { label: 'Job Seekers', href: '/job-seekers', desc: 'Stand out with a video resume' },
@@ -34,7 +34,7 @@ export default function Navbar() {
     }}>
       <div className="container">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '68px' }}>
-          <Link href="/"><Logo dark height={30} /></Link>
+          <Link href="/"><Image src="/reslink-logo.png" alt="Reslink" width={140} height={36} priority style={{ height: '30px', width: 'auto' }} /></Link>
 
           {/* Desktop nav */}
           <nav style={{ display: 'flex', alignItems: 'center', gap: '4px' }} className="desktop-nav">

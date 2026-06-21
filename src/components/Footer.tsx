@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 const links = {
   Solutions: [
@@ -27,14 +28,14 @@ export default function Footer() {
         <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '40px', marginBottom: '48px' }}>
           {/* Brand */}
           <div>
-            {/* Text logo fallback until image is uploaded */}
-            <Link href="/" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
-              <div style={{ width: '28px', height: '28px', background: '#FF5A1F', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
-                </svg>
-              </div>
-              <span style={{ fontSize: '17px', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em' }}>RESLINK</span>
+            <Link href="/" style={{ textDecoration: 'none', display: 'inline-block', marginBottom: '16px' }}>
+              <Image
+                src="/reslink-logo.png"
+                alt="Reslink"
+                width={140}
+                height={36}
+                style={{ height: '28px', width: 'auto', filter: 'brightness(0) invert(1)' }}
+              />
             </Link>
             <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.35)', lineHeight: 1.7, maxWidth: '240px' }}>
               The platform that helps job seekers stand out with personalized video resumes.

@@ -16,21 +16,21 @@ const steps = [
     label: 'Upload your resume',
     title: 'Your existing resume, supercharged.',
     desc: 'Drop in your PDF and we parse it instantly — work history, skills, education, all pulled in automatically. No manual entry.',
-    color: '#BFD7FF',
+    color: '#D8F950',
   },
   {
     num: '03',
     label: 'Record your pitch',
     title: 'Say hello to your next employer.',
     desc: 'Sixty seconds. Our built-in teleprompter scrolls your script on screen so you stay on camera looking natural, not down at notes.',
-    color: '#FFD6A5',
+    color: '#D8F950',
   },
   {
     num: '04',
     label: 'Share & track everything',
     title: 'One link. Infinite reach.',
     desc: 'Paste your Reslink into any application, email, or LinkedIn. See every recruiter who opens it and every second of video watched.',
-    color: '#C4B5FD',
+    color: '#D8F950',
   },
 ];
 

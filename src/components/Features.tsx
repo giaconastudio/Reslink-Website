@@ -32,37 +32,47 @@ const tabs = [
     color: '#D8F950',
     bg: '#041635',
     visual: (
-      <div style={{ width: '100%', height: '100%', padding: '28px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-        {/* Stat row */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px' }}>
-          {[{ v: '342', l: 'Views' }, { v: '189', l: 'Plays' }, { v: '47', l: 'Contacts' }].map(s => (
-            <div key={s.l} style={{ background: 'rgba(255,255,255,0.06)', borderRadius: '10px', padding: '14px 10px', textAlign: 'center' }}>
-              <p style={{ fontSize: '24px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)', lineHeight: 1 }}>{s.v}</p>
-              <p style={{ fontSize: '10px', color: 'rgba(255,255,255,0.3)', marginTop: '3px', fontFamily: 'var(--font-body)' }}>{s.l}</p>
+      <div style={{ width: '100%', height: '100%', padding: '24px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        {/* Top stat cards */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+          {[{ v: '1,284', l: 'Total Views', delta: '+18% this week' }, { v: '847', l: 'Video Plays', delta: '66% play rate' }].map(s => (
+            <div key={s.l} style={{ background: 'rgba(255,255,255,0.06)', borderRadius: '10px', padding: '14px 12px' }}>
+              <p style={{ fontSize: '22px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)', lineHeight: 1 }}>{s.v}</p>
+              <p style={{ fontSize: '10px', color: 'rgba(255,255,255,0.35)', marginTop: '3px', fontFamily: 'var(--font-body)' }}>{s.l}</p>
+              <p style={{ fontSize: '10px', color: '#D8F950', marginTop: '4px', fontFamily: 'var(--font-body)', fontWeight: 600 }}>{s.delta}</p>
             </div>
           ))}
         </div>
-        {/* Sparkline */}
-        <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '10px', padding: '16px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-          <div style={{ display: 'flex', alignItems: 'flex-end', gap: '4px', height: '60px', marginBottom: '8px' }}>
-            {[18, 32, 24, 48, 38, 72, 55, 80, 64, 88, 62, 96].map((h, i) => (
-              <div key={i} style={{ flex: 1, borderRadius: '3px 3px 0 0', height: `${h}%`, background: i >= 9 ? '#D8F950' : 'rgba(255,255,255,0.1)' }} />
-            ))}
+        {/* Watch time bar */}
+        <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '10px', padding: '12px 14px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+            <span style={{ fontSize: '11px', fontWeight: 600, color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)' }}>Avg. watch time</span>
+            <span style={{ fontSize: '11px', fontWeight: 700, color: '#D8F950', fontFamily: 'var(--font-body)' }}>0:44 / 0:47</span>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.2)', fontFamily: 'var(--font-body)' }}>7 days ago</span>
-            <span style={{ fontSize: '10px', color: '#D8F950', fontFamily: 'var(--font-body)' }}>Today</span>
+          <div style={{ height: '6px', borderRadius: '3px', background: 'rgba(255,255,255,0.1)' }}>
+            <div style={{ height: '100%', width: '93%', borderRadius: '3px', background: 'linear-gradient(90deg, #0C63E3, #D8F950)' }} />
           </div>
         </div>
-        {/* Feed */}
-        {[{ co: 'Amazon', a: 'Viewed profile', t: '2m ago', c: '#22c55e' }, { co: 'Meta', a: 'Watched 1:12', t: '18m ago', c: '#0C63E3' }].map(a => (
-          <div key={a.co} style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.04)', borderRadius: '8px', padding: '8px 12px' }}>
-            <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: a.c }} />
-            <span style={{ fontSize: '12px', fontWeight: 600, color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-body)' }}>{a.co}</span>
-            <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.25)', fontFamily: 'var(--font-body)' }}>{a.a}</span>
-            <span style={{ marginLeft: 'auto', fontSize: '11px', color: 'rgba(255,255,255,0.15)', fontFamily: 'var(--font-body)' }}>{a.t}</span>
-          </div>
-        ))}
+        {/* Location breakdown */}
+        <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '10px', padding: '12px 14px', flex: 1 }}>
+          <p style={{ fontSize: '10px', fontWeight: 700, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '10px', fontFamily: 'var(--font-body)' }}>Top locations</p>
+          {[{ city: 'New York, US', pct: 38 }, { city: 'London, UK', pct: 24 }, { city: 'San Francisco, US', pct: 17 }].map(l => (
+            <div key={l.city} style={{ marginBottom: '8px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}>
+                <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)' }}>{l.city}</span>
+                <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)' }}>{l.pct}%</span>
+              </div>
+              <div style={{ height: '4px', borderRadius: '2px', background: 'rgba(255,255,255,0.08)' }}>
+                <div style={{ height: '100%', width: `${l.pct}%`, borderRadius: '2px', background: '#0C63E3' }} />
+              </div>
+            </div>
+          ))}
+        </div>
+        {/* Link clicks row */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(255,255,255,0.04)', borderRadius: '10px', padding: '10px 14px' }}>
+          <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)' }}>LinkedIn link clicks</span>
+          <span style={{ fontSize: '16px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>63</span>
+        </div>
       </div>
     ),
   },
@@ -74,32 +84,45 @@ const tabs = [
     color: '#0C63E3',
     bg: '#fff',
     visual: (
-      <div style={{ width: '100%', height: '100%', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px', overflow: 'hidden' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', background: 'linear-gradient(135deg, #041635, #0C63E3)', borderRadius: '10px', marginBottom: '4px' }}>
-          <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: '#D8F950', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#041635" strokeWidth="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      <div style={{ width: '100%', height: '100%', padding: '24px', display: 'flex', flexDirection: 'column', gap: '10px', background: '#fff' }}>
+        {/* Header */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+          <div style={{ width: '26px', height: '26px', borderRadius: '7px', background: '#041635', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#D8F950" strokeWidth="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
           </div>
-          <div>
-            <p style={{ fontSize: '12px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)' }}>Reslink Pitch AI</p>
-            <p style={{ fontSize: '10px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)' }}>Generating your script...</p>
+          <span style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>Reslink Pitch AI</span>
+          <span style={{ marginLeft: 'auto', fontSize: '10px', fontWeight: 600, color: '#0C63E3', background: '#EBF0FF', padding: '2px 8px', borderRadius: '100px', fontFamily: 'var(--font-body)' }}>Free</span>
+        </div>
+        {/* Input: Job title */}
+        <div>
+          <p style={{ fontSize: '10px', fontWeight: 600, color: '#9A9FA8', marginBottom: '5px', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Job title</p>
+          <div style={{ background: '#F7F8FA', border: '1.5px solid #ECEEF1', borderRadius: '8px', padding: '9px 12px', fontSize: '13px', color: '#041635', fontFamily: 'var(--font-body)', fontWeight: 500 }}>
+            Software Engineer — Google
           </div>
         </div>
-        {[
-          { from: 'ai', msg: 'Here is your opening: I\'ve spent 3 years helping companies cut logistics costs by 23%. Here\'s what I\'d bring to your team. Want me to adjust the tone?' },
-          { from: 'user', msg: 'Make it more confident' },
-          { from: 'ai', msg: 'I cut logistics costs 23% across two companies. That\'s exactly what I\'ll do for you.' },
-        ].map((m, i) => (
-          <div key={i} style={{ display: 'flex', justifyContent: m.from === 'user' ? 'flex-end' : 'flex-start' }}>
-            <div style={{ maxWidth: '88%', borderRadius: m.from === 'user' ? '12px 12px 3px 12px' : '12px 12px 12px 3px', padding: '10px 13px', background: m.from === 'user' ? '#041635' : '#F7F8FA', border: m.from === 'ai' ? '1px solid #EEEEF0' : 'none' }}>
-              <p style={{ fontSize: '12px', color: m.from === 'user' ? '#fff' : '#041635', lineHeight: 1.55, whiteSpace: 'pre-line', fontFamily: 'var(--font-body)' }}>{m.msg}</p>
-            </div>
+        {/* Input: Job description */}
+        <div>
+          <p style={{ fontSize: '10px', fontWeight: 600, color: '#9A9FA8', marginBottom: '5px', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Job description</p>
+          <div style={{ background: '#F7F8FA', border: '1.5px solid #ECEEF1', borderRadius: '8px', padding: '9px 12px', fontSize: '12px', color: '#5C6070', fontFamily: 'var(--font-body)', lineHeight: 1.5, height: '52px', overflow: 'hidden' }}>
+            We are looking for a Software Engineer to join our Search team. You will build scalable systems...
           </div>
-        ))}
-        <div style={{ display: 'flex', gap: '6px', marginTop: 'auto' }}>
-          <div style={{ flex: 1, background: '#F7F8FA', border: '1px solid #EEEEF0', borderRadius: '8px', padding: '9px 12px', fontSize: '12px', color: '#C8CBD2', fontFamily: 'var(--font-body)' }}>Ask Pitch AI anything...</div>
-          <div style={{ width: '34px', height: '34px', borderRadius: '8px', background: '#0C63E3', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-          </div>
+        </div>
+        {/* Input: Resume uploaded */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#F0FFF0', border: '1.5px solid #D8F950', borderRadius: '8px', padding: '9px 12px' }}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <span style={{ fontSize: '12px', color: '#16a34a', fontFamily: 'var(--font-body)', fontWeight: 600 }}>resume_oliver_stone.pdf uploaded</span>
+          <svg style={{ marginLeft: 'auto' }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        {/* Generate button */}
+        <div style={{ background: '#041635', borderRadius: '8px', padding: '11px', textAlign: 'center', cursor: 'pointer' }}>
+          <span style={{ fontSize: '13px', fontWeight: 700, color: '#D8F950', fontFamily: 'var(--font-body)' }}>Generate my video script</span>
+        </div>
+        {/* Output preview */}
+        <div style={{ background: '#F7F8FA', border: '1px solid #ECEEF1', borderRadius: '8px', padding: '10px 12px', flex: 1 }}>
+          <p style={{ fontSize: '10px', fontWeight: 700, color: '#0C63E3', marginBottom: '6px', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Your script</p>
+          <p style={{ fontSize: '12px', color: '#3A3F4C', lineHeight: 1.6, fontFamily: 'var(--font-body)' }}>
+            "Hi, I'm Oliver. I've spent 3 years building backend systems that handle millions of requests per day. At HubSpot I cut API latency by 40%..."
+          </p>
         </div>
       </div>
     ),
@@ -109,28 +132,36 @@ const tabs = [
     label: 'Teleprompter',
     headline: 'Look confident. Sound confident.',
     sub: 'Write your script once. Our teleprompter scrolls it right on screen as you record — so you stay on camera, maintain eye contact, and deliver your pitch without ever glancing away.',
-    color: '#FFD6A5',
+    color: '#D8F950',
     bg: '#0B0F1A',
     visual: (
-      <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
-        {/* Camera view */}
-        <div style={{ flex: 1, position: 'relative', background: '#0B0F1A', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          {/* Silhouette */}
-          <div style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'rgba(255,255,255,0.08)' }} />
-          <div style={{ position: 'absolute', top: '12px', right: '12px', display: 'flex', alignItems: 'center', gap: '4px', background: 'rgba(239,68,68,0.2)', borderRadius: '6px', padding: '4px 8px' }}>
-            <motion.div animate={{ opacity: [1, 0.2, 1] }} transition={{ repeat: Infinity, duration: 1.2 }} style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#EF4444' }} />
-            <span style={{ fontSize: '9px', fontWeight: 700, color: '#EF4444', fontFamily: 'var(--font-body)' }}>REC 0:41</span>
-          </div>
+      <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
+        {/* Live camera feed — real person */}
+        <video
+          src="/videos/hero.mp4"
+          autoPlay muted loop playsInline
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+        />
+        {/* Dark overlay for readability */}
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(11,15,26,0.85) 0%, rgba(11,15,26,0.1) 50%, rgba(11,15,26,0.3) 100%)' }} />
+        {/* REC badge */}
+        <div style={{ position: 'absolute', top: '14px', right: '14px', display: 'flex', alignItems: 'center', gap: '5px', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(6px)', borderRadius: '6px', padding: '5px 10px', zIndex: 2 }}>
+          <motion.div animate={{ opacity: [1, 0.2, 1] }} transition={{ repeat: Infinity, duration: 1.2 }} style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#EF4444' }} />
+          <span style={{ fontSize: '10px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)' }}>REC 0:41</span>
         </div>
-        {/* Teleprompter strip */}
-        <div style={{ background: 'rgba(11,15,26,0.95)', backdropFilter: 'blur(8px)', padding: '14px 18px', borderTop: '1px solid rgba(255,214,165,0.2)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '7px' }}>
-            <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#FFD6A5' }} />
-            <span style={{ fontSize: '9px', fontWeight: 700, color: '#FFD6A5', letterSpacing: '0.1em', fontFamily: 'var(--font-body)' }}>TELEPROMPTER · 1.0x</span>
+        {/* Teleprompter overlay at bottom */}
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'rgba(4,22,53,0.82)', backdropFilter: 'blur(10px)', padding: '14px 18px', zIndex: 2, borderTop: '1px solid rgba(216,249,80,0.3)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
+            <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#D8F950' }} />
+            <span style={{ fontSize: '9px', fontWeight: 700, color: '#D8F950', letterSpacing: '0.12em', fontFamily: 'var(--font-body)' }}>TELEPROMPTER · 1.0x</span>
           </div>
-          <div style={{ overflow: 'hidden', height: '36px' }}>
-            <motion.p animate={{ y: [0, -36] }} transition={{ duration: 3, ease: 'linear', repeat: Infinity, repeatDelay: 1.5 }} style={{ fontSize: '13px', color: 'rgba(255,255,255,0.85)', lineHeight: 1.6, fontFamily: 'var(--font-body)' }}>
-              Hi, I&apos;m Oliver — a supply chain specialist who&apos;s reduced logistics costs by 23% across two companies. I&apos;d love to bring that to your team. Here&apos;s what I&apos;ve built...
+          <div style={{ overflow: 'hidden', height: '40px' }}>
+            <motion.p
+              animate={{ y: [0, -40] }}
+              transition={{ duration: 3.5, ease: 'linear', repeat: Infinity, repeatDelay: 1.5 }}
+              style={{ fontSize: '13px', color: 'rgba(255,255,255,0.9)', lineHeight: 1.65, fontFamily: 'var(--font-body)' }}
+            >
+              Hi, I&apos;m Oliver — I&apos;ve spent 3 years building backend systems that handle millions of requests. At HubSpot I cut API latency by 40%...
             </motion.p>
           </div>
         </div>
@@ -142,39 +173,44 @@ const tabs = [
     label: 'Apply Anywhere',
     headline: 'One link. Every opportunity.',
     sub: 'Paste your Reslink into any job board, ATS, or email. It works everywhere — LinkedIn, Indeed, Greenhouse, Workday, Lever. One link, infinite reach, zero friction.',
-    color: '#C4B5FD',
-    bg: '#fff',
+    color: '#D8F950',
+    bg: '#F7F8FA',
     visual: (
-      <div style={{ width: '100%', height: '100%', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-        <div style={{ background: '#041635', borderRadius: '10px', padding: '10px 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span style={{ fontSize: '13px', fontWeight: 600, color: '#0C63E3', fontFamily: 'var(--font-body)' }}>reslink.io/oliverstone</span>
-          <div style={{ background: '#D8F950', borderRadius: '5px', padding: '3px 10px', fontSize: '11px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>Copy</div>
+      <div style={{ width: '100%', height: '100%', padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px', background: '#F7F8FA' }}>
+        {/* Your link */}
+        <div style={{ background: '#041635', borderRadius: '10px', padding: '12px 16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D8F950" strokeWidth="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          <span style={{ fontSize: '12px', fontWeight: 600, color: 'rgba(255,255,255,0.8)', fontFamily: 'var(--font-body)', flex: 1 }}>reslink.io/oliverstone</span>
+          <div style={{ background: '#D8F950', borderRadius: '5px', padding: '4px 10px', fontSize: '11px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', cursor: 'pointer' }}>Copy</div>
         </div>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-          {[
-            { name: 'LinkedIn', color: '#0A66C2' },
-            { name: 'Indeed', color: '#003A9B' },
-            { name: 'Greenhouse', color: '#24A148' },
-            { name: 'Lever', color: '#3B82F6' },
-            { name: 'Workday', color: '#0875E1' },
-            { name: 'Ashby', color: '#111827' },
-            { name: 'Gmail', color: '#EA4335' },
-            { name: 'Zapier', color: '#FF4A00' },
-            { name: 'Slack', color: '#4A154B' },
-            { name: 'Outlook', color: '#0078D4' },
-          ].map((p, i) => (
-            <motion.div key={p.name} initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.04, duration: 0.25 }}
-              style={{ display: 'flex', alignItems: 'center', gap: '5px', background: '#F7F8FA', borderRadius: '100px', padding: '5px 10px 5px 7px', border: '1px solid #EEEEF0' }}>
-              <div style={{ width: '14px', height: '14px', borderRadius: '4px', background: p.color, flexShrink: 0 }} />
-              <span style={{ fontSize: '11px', fontWeight: 500, color: '#5C6070', fontFamily: 'var(--font-body)' }}>{p.name}</span>
-            </motion.div>
-          ))}
-        </div>
-        <div style={{ marginTop: 'auto', background: '#F7F8FA', borderRadius: '10px', padding: '12px 14px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#C4B5FD', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4C1D95" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg>
+        {/* LinkedIn apply */}
+        <div style={{ background: '#fff', borderRadius: '10px', border: '1px solid #E8EAF0', padding: '12px 14px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+            <div style={{ width: '20px', height: '20px', borderRadius: '4px', background: '#0A66C2', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span style={{ fontSize: '10px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>in</span>
+            </div>
+            <span style={{ fontSize: '11px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>LinkedIn — Easy Apply</span>
           </div>
-          <p style={{ fontSize: '12px', color: '#5C6070', fontFamily: 'var(--font-body)' }}>Works with <strong style={{ color: '#041635' }}>any ATS</strong> — just paste your link like a URL</p>
+          <div style={{ background: '#F7F8FA', border: '1px solid #ECEEF1', borderRadius: '6px', padding: '7px 10px', fontSize: '11px', color: '#0C63E3', fontFamily: 'var(--font-body)' }}>
+            reslink.io/oliverstone
+          </div>
+        </div>
+        {/* Indeed apply */}
+        <div style={{ background: '#fff', borderRadius: '10px', border: '1px solid #E8EAF0', padding: '12px 14px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+            <div style={{ width: '20px', height: '20px', borderRadius: '4px', background: '#003A9B', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span style={{ fontSize: '9px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>IN</span>
+            </div>
+            <span style={{ fontSize: '11px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>Indeed — Application</span>
+          </div>
+          <div style={{ background: '#F7F8FA', border: '1px solid #ECEEF1', borderRadius: '6px', padding: '7px 10px', fontSize: '11px', color: '#0C63E3', fontFamily: 'var(--font-body)' }}>
+            reslink.io/oliverstone
+          </div>
+        </div>
+        {/* Works anywhere note */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 14px', background: '#FAFFF0', border: '1px solid #D8F950', borderRadius: '10px', marginTop: 'auto' }}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span style={{ fontSize: '12px', color: '#3A3F4C', fontFamily: 'var(--font-body)' }}>Works in any application field — <strong>paste it like a URL</strong></span>
         </div>
       </div>
     ),

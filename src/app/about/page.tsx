@@ -78,60 +78,55 @@ const VALUES = [
   },
 ];
 
-function TeamCard({ member, i }: { member: typeof TEAM[0]; i: number }) {
+function TeamCard({ member }: { member: typeof TEAM[0] }) {
   const [expanded, setExpanded] = useState(false);
   return (
-    <div
-      style={{ background: '#fff', borderRadius: '20px', border: '1px solid #ECEEF1', overflow: 'hidden', boxShadow: '0 2px 16px rgba(4,22,53,0.06)' }}
-    >
-      {/* Photo area */}
-      <div style={{ height: '300px', background: '#F7F8FA', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', borderBottom: '1px solid #F3F4F6' }}>
-        <img
-          src={member.photo}
-          alt={member.name}
-          onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; (e.currentTarget.nextSibling as HTMLElement).style.display = 'flex'; }}
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center bottom' }}
-        />
-        <div style={{ display: 'none', width: '80px', height: '80px', borderRadius: '50%', background: member.color, alignItems: 'center', justifyContent: 'center', fontSize: '28px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)', letterSpacing: '-0.02em', flexShrink: 0 }}>
-          {member.initials}
-        </div>
+    <div style={{ borderRadius: '20px', overflow: 'hidden', position: 'relative', background: '#0a1628', boxShadow: '0 4px 24px rgba(4,22,53,0.14)', aspectRatio: '3/4' }}>
+      {/* Full-bleed photo */}
+      <img
+        src={member.photo}
+        alt={member.name}
+        onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
+      />
+      {/* Fallback initials */}
+      <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '52px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)', opacity: 0.3 }}>
+        {member.initials}
       </div>
 
-      {/* Info */}
-      <div style={{ padding: '20px 24px 24px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>
+      {/* Gradient overlay — always visible at bottom */}
+      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(to top, rgba(4,22,53,0.95) 0%, rgba(4,22,53,0.6) 50%, transparent 100%)', padding: '0 20px 20px' }}>
+
+        {/* Collapsible bio */}
+        <div style={{ overflow: 'hidden', maxHeight: expanded ? '160px' : '0px', opacity: expanded ? 1 : 0, transition: 'max-height 0.35s ease, opacity 0.3s ease', marginBottom: expanded ? '14px' : '0' }}>
+          <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.75)', lineHeight: 1.65, fontFamily: 'var(--font-body)' }}>{member.bio}</p>
+        </div>
+
+        {/* Name + title + buttons */}
+        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '10px' }}>
           <div>
-            <p style={{ fontSize: '17px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{member.name}</p>
-            <p style={{ fontSize: '12px', fontWeight: 700, color: '#0C63E3', fontFamily: 'var(--font-body)', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{member.title}</p>
+            <p style={{ fontSize: '17px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{member.name}</p>
+            <p style={{ fontSize: '11px', fontWeight: 700, color: '#D8F950', fontFamily: 'var(--font-body)', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{member.title}</p>
           </div>
-          <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexShrink: 0 }}>
+          <div style={{ display: 'flex', gap: '6px', flexShrink: 0 }}>
             <div
-              style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: member.linkedin ? 'pointer' : 'default' }}
               onClick={() => member.linkedin && window.open(member.linkedin, '_blank', 'noopener,noreferrer')}
-              onMouseEnter={e => (e.currentTarget.style.background = '#0C63E3')}
-              onMouseLeave={e => (e.currentTarget.style.background = '#EEF4FF')}
+              style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(6px)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: member.linkedin ? 'pointer' : 'default', border: '1px solid rgba(255,255,255,0.2)' }}
             >
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="#0C63E3">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="#fff">
                 <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
                 <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
               </svg>
             </div>
             <button
               onClick={() => setExpanded(p => !p)}
-              style={{ width: '32px', height: '32px', borderRadius: '8px', background: expanded ? '#041635' : '#F3F4F6', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.15s', flexShrink: 0 }}
-              onMouseEnter={e => (e.currentTarget.style.background = expanded ? '#0C63E3' : '#E5E7EB')}
-              onMouseLeave={e => (e.currentTarget.style.background = expanded ? '#041635' : '#F3F4F6')}
+              style={{ width: '32px', height: '32px', borderRadius: '8px', background: expanded ? '#D8F950' : 'rgba(255,255,255,0.15)', backdropFilter: 'blur(6px)', border: '1px solid rgba(255,255,255,0.2)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.2s' }}
             >
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={expanded ? '#fff' : '#5C6070'} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ transition: 'transform 0.25s', transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={expanded ? '#041635' : '#fff'} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ transition: 'transform 0.3s', transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)' }}>
                 <polyline points="6 9 12 15 18 9" />
               </svg>
             </button>
           </div>
-        </div>
-
-        {/* Collapsible bio */}
-        <div style={{ overflow: 'hidden', maxHeight: expanded ? '200px' : '0px', opacity: expanded ? 1 : 0, transition: 'max-height 0.3s ease, opacity 0.25s ease' }}>
-          <p style={{ fontSize: '13px', color: '#5C6070', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginTop: '14px' }}>{member.bio}</p>
         </div>
       </div>
     </div>
@@ -204,10 +199,9 @@ export default function AboutPage() {
               {/* Left — big pull quote */}
               <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.55 }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>Why we exist</p>
-                <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(34px, 5vw, 60px)', fontWeight: 900, color: '#041635', lineHeight: 0.93, letterSpacing: '-0.03em', marginBottom: '28px' }}>
-                  The best candidates<br />were getting<br /><span style={{ color: '#0C63E3', borderBottom: '5px solid #D8F950', paddingBottom: '2px' }}>overlooked.</span>
+                <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(34px, 5vw, 60px)', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em', marginBottom: '32px' }}>
+                  The best candidates<br />were getting<br /><span style={{ color: '#0C63E3', background: 'rgba(216,249,80,0.35)', borderRadius: '4px', padding: '0 6px 2px' }}>overlooked.</span>
                 </h2>
-                <div style={{ width: '48px', height: '4px', borderRadius: '2px', background: '#D8F950', marginBottom: '28px' }} />
                 <p style={{ fontSize: '15px', color: '#5C6070', lineHeight: 1.8, fontFamily: 'var(--font-body)' }}>
                   In 2023, Dominic was applying to jobs and watching qualified people — himself included — get passed over because their resume didn't capture who they actually were. Not their energy. Not their clarity. Not their drive. Just keywords on a page.
                 </p>
@@ -307,7 +301,7 @@ export default function AboutPage() {
                   .team-founders-grid { grid-template-columns: 1fr 1fr !important; }
                 }
               `}</style>
-              {TEAM.slice(0, 3).map((m, i) => <TeamCard key={m.name} member={m} i={i} />)}
+              {TEAM.slice(0, 3).map((m, i) => <TeamCard key={m.name} member={m} />)}
             </div>
 
             {/* Advisers label */}
@@ -319,7 +313,7 @@ export default function AboutPage() {
 
             {/* Advisers — 2 col centered */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', maxWidth: '760px', margin: '0 auto' }} className="team-advisers-grid">
-              {TEAM.slice(3).map((m, i) => <TeamCard key={m.name} member={m} i={i + 3} />)}
+              {TEAM.slice(3).map((m) => <TeamCard key={m.name} member={m} />)}
             </div>
           </div>
         </section>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -66,6 +66,15 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const [open, setOpen] = useState<DropdownKey>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const openDropdown = (key: DropdownKey) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setOpen(key);
+  };
+  const scheduleClose = () => {
+    closeTimer.current = setTimeout(() => setOpen(null), 180);
+  };
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 10);
@@ -103,12 +112,13 @@ export default function Navbar() {
           <nav style={{ display: 'flex', alignItems: 'center', gap: '2px' }} className="desktop-nav">
 
             {/* Solutions */}
-            <div style={{ position: 'relative' }} onMouseEnter={() => setOpen('solutions')} onMouseLeave={() => setOpen(null)}>
+            <div style={{ position: 'relative' }} onMouseEnter={() => openDropdown('solutions')} onMouseLeave={scheduleClose}>
               <button style={{ fontSize: '14px', fontWeight: 500, color: open === 'solutions' ? '#041635' : linkColor, background: open === 'solutions' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
                 Solutions <ChevronDown size={13} style={{ transform: open === 'solutions' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
               </button>
               {open === 'solutions' && (
-                <div style={{ position: 'absolute', top: 'calc(100% + 4px)', left: '-8px', background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 8px 30px rgba(4,22,53,0.1), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', zIndex: 100, minWidth: '240px' }}>
+                <div onMouseEnter={() => openDropdown('solutions')} onMouseLeave={scheduleClose} style={{ position: 'absolute', top: '100%', left: '-8px', paddingTop: '6px', zIndex: 100 }}>
+                <div style={{ background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 8px 30px rgba(4,22,53,0.1), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', minWidth: '240px' }}>
                   {solutions.map(s => <DropItem key={s.href} {...s} />)}
                   {/* Compact Pitch AI callout */}
                   <div style={{ marginTop: '6px', background: 'linear-gradient(135deg, #041635, #0C2B6E)', borderRadius: '8px', padding: '9px 12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
@@ -123,29 +133,34 @@ export default function Navbar() {
                     </div>
                   </div>
                 </div>
+                </div>
               )}
             </div>
 
             {/* Resources */}
-            <div style={{ position: 'relative' }} onMouseEnter={() => setOpen('resources')} onMouseLeave={() => setOpen(null)}>
+            <div style={{ position: 'relative' }} onMouseEnter={() => openDropdown('resources')} onMouseLeave={scheduleClose}>
               <button style={{ fontSize: '14px', fontWeight: 500, color: open === 'resources' ? '#041635' : linkColor, background: open === 'resources' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
                 Resources <ChevronDown size={13} style={{ transform: open === 'resources' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
               </button>
               {open === 'resources' && (
-                <div style={{ position: 'absolute', top: 'calc(100% + 4px)', left: '-8px', background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 8px 30px rgba(4,22,53,0.1), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', zIndex: 100, minWidth: '220px' }}>
+                <div onMouseEnter={() => openDropdown('resources')} onMouseLeave={scheduleClose} style={{ position: 'absolute', top: '100%', left: '-8px', paddingTop: '6px', zIndex: 100 }}>
+                <div style={{ background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 8px 30px rgba(4,22,53,0.1), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', minWidth: '220px' }}>
                   {resources.map(r => <DropItem key={r.href} {...r} />)}
+                </div>
                 </div>
               )}
             </div>
 
             {/* Company */}
-            <div style={{ position: 'relative' }} onMouseEnter={() => setOpen('company')} onMouseLeave={() => setOpen(null)}>
+            <div style={{ position: 'relative' }} onMouseEnter={() => openDropdown('company')} onMouseLeave={scheduleClose}>
               <button style={{ fontSize: '14px', fontWeight: 500, color: open === 'company' ? '#041635' : linkColor, background: open === 'company' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
                 Company <ChevronDown size={13} style={{ transform: open === 'company' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
               </button>
               {open === 'company' && (
-                <div style={{ position: 'absolute', top: 'calc(100% + 4px)', left: '-8px', background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 8px 30px rgba(4,22,53,0.1), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', zIndex: 100, minWidth: '220px' }}>
+                <div onMouseEnter={() => openDropdown('company')} onMouseLeave={scheduleClose} style={{ position: 'absolute', top: '100%', left: '-8px', paddingTop: '6px', zIndex: 100 }}>
+                <div style={{ background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 8px 30px rgba(4,22,53,0.1), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', minWidth: '220px' }}>
                   {company.map(c => <DropItem key={c.href} {...c} />)}
+                </div>
                 </div>
               )}
             </div>

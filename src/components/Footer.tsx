@@ -30,7 +30,7 @@ export default function Footer() {
           <div>
             <Link href="/" style={{ textDecoration: 'none', display: 'inline-block', marginBottom: '16px' }}>
               <Image
-                src="/reslink-logo.png"
+                src="/reslink-logo.svg"
                 alt="Reslink"
                 width={140}
                 height={36}

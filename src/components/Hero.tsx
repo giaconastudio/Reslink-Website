@@ -32,7 +32,7 @@ export default function Hero() {
   const co = COMPANIES[coIdx];
 
   return (
-    <section style={{ background: '#fff', position: 'relative', overflow: 'hidden' }}>
+    <section style={{ background: '#fff', position: 'relative', overflow: 'hidden', paddingBottom: '72px' }}>
       <div style={{ position: 'absolute', top: '-10%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '700px', background: 'radial-gradient(ellipse at center, rgba(12,99,227,0.08), transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
 
       <style>{`
@@ -63,10 +63,9 @@ export default function Hero() {
 
         .hero-stage { max-width: 920px; margin: 0 auto; position: relative; z-index: 1; }
         .hero-frame {
-          border-radius: 18px 18px 0 0;
+          border-radius: 18px;
           overflow: hidden;
           border: 1px solid #E6E8EC;
-          border-bottom: none;
           background: #fff;
           box-shadow: 0 40px 120px rgba(4,22,53,0.18), 0 8px 28px rgba(4,22,53,0.08);
         }
@@ -77,7 +76,6 @@ export default function Hero() {
           background: #060D24;
           aspect-ratio: 16/9;
           width: 100%;
-          border-radius: 0 0 14px 14px;
         }
         .hero-float {
           position: absolute; background: #fff; border-radius: 14px;

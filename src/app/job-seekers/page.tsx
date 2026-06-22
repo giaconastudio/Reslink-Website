@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Video, BarChart2, Zap, Globe, ArrowRight, CheckCircle } from 'lucide-react';
+import { Video, BarChart2, Zap, Globe, FileText, Share2, ArrowRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -11,7 +11,17 @@ const FEATURES = [
   { icon: BarChart2, color: '#7C3AED', bg: '#F3EEFF', title: 'See who\'s watching', body: 'Know when recruiters view your profile, how long they watch, and how many times. No more sending into the void.' },
   { icon: Zap, color: '#D97706', bg: '#FFFBEB', title: 'AI-powered script', body: 'Paste your resume and get a personalized 90-second script tailored to the roles you\'re targeting.' },
   { icon: Globe, color: '#059669', bg: '#ECFDF5', title: 'One link. Everywhere.', body: 'Share your Reslink on LinkedIn, in email, or anywhere you apply. It works on every device.' },
+  { icon: FileText, color: '#E11D48', bg: '#FFF1F2', title: 'Your resume, but alive', body: 'Reslink pairs your video pitch with your resume highlights in one clean profile. Recruiters get the full picture instantly.' },
+  { icon: Share2, color: '#0891B2', bg: '#ECFEFF', title: 'Stand out in any inbox', body: 'Most applications look identical. A Reslink link in your email signature or cover letter is impossible to ignore.' },
 ];
+
+const STATS = [
+  { val: '300+', label: 'interviews landed globally' },
+  { val: '10k+', label: 'active job seekers on Reslink' },
+  { val: '48h', label: 'fastest interview booked after signup' },
+];
+
+const LOGOS = ['Amazon', 'Google', 'Meta', 'Stripe', 'HubSpot', 'Revolut', 'Adobe', 'Accenture'];
 
 export default function JobSeekersPage() {
   return (
@@ -28,7 +38,7 @@ export default function JobSeekersPage() {
               <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 8vw, 96px)', fontWeight: 900, color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '28px' }}>
                 Stop blending in.<br /><span style={{ color: '#D8F950' }}>Start standing out.</span>
               </h1>
-              <p style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '40px', maxWidth: '540px', margin: '0 auto 40px' }}>
+              <p style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '540px', margin: '0 auto 40px' }}>
                 A video resume that shows recruiters who you really are — your energy, your clarity, your drive. Not just another PDF.
               </p>
               <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -52,18 +62,18 @@ export default function JobSeekersPage() {
                 Built for the<br />job seeker.
               </h2>
             </motion.div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }} className="js-feat-grid">
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }} className="js-feat-grid">
               <style>{`
-                .js-feat-grid { }
-                @media (max-width: 700px) { .js-feat-grid { grid-template-columns: 1fr !important; } }
+                @media (max-width: 900px) { .js-feat-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+                @media (max-width: 600px) { .js-feat-grid { grid-template-columns: 1fr !important; } }
               `}</style>
               {FEATURES.map((f, i) => (
-                <motion.div key={f.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}>
-                  <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '32px', boxShadow: '0 1px 8px rgba(4,22,53,0.04)' }}>
-                    <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: f.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '18px' }}>
+                <motion.div key={f.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }}>
+                  <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '28px', boxShadow: '0 1px 8px rgba(4,22,53,0.04)', height: '100%' }}>
+                    <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: f.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
                       <f.icon size={22} color={f.color} strokeWidth={1.8} />
                     </div>
-                    <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: '#041635', lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: '10px' }}>{f.title}</h3>
+                    <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: '20px', fontWeight: 900, color: '#041635', lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: '10px' }}>{f.title}</h3>
                     <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>{f.body}</p>
                   </div>
                 </motion.div>
@@ -73,15 +83,27 @@ export default function JobSeekersPage() {
         </section>
 
         {/* Stats */}
-        <section style={{ background: '#fff', padding: 'clamp(56px, 7vw, 80px) 24px', borderTop: '1px solid #ECEEF1' }}>
-          <div style={{ maxWidth: '800px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', textAlign: 'center' }} className="js-stats">
-            <style>{`@media (max-width: 580px) { .js-stats { grid-template-columns: 1fr !important; } }`}</style>
-            {[['300+', 'interviews landed globally'], ['10k+', 'active job seekers'], ['48h', 'fastest interview booked after signup']].map(([val, label]) => (
-              <div key={label}>
-                <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 4vw, 52px)', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em' }}>{val}</p>
-                <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '8px' }}>{label}</p>
+        <section style={{ background: '#fff', padding: 'clamp(56px, 7vw, 80px) 24px', borderTop: '1px solid #ECEEF1', borderBottom: '1px solid #ECEEF1' }}>
+          <div style={{ maxWidth: '860px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', textAlign: 'center' }} className="js-stats">
+            <style>{`@media (max-width: 600px) { .js-stats { grid-template-columns: 1fr !important; } }`}</style>
+            {STATS.map(({ val, label }) => (
+              <div key={val}>
+                <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(40px, 5vw, 56px)', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em' }}>{val}</p>
+                <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '10px', lineHeight: 1.5, maxWidth: '180px', margin: '10px auto 0' }}>{label}</p>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Logo strip */}
+        <section style={{ background: '#F7F8FA', padding: 'clamp(40px, 5vw, 60px) 24px' }}>
+          <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
+            <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#9A9FA8', marginBottom: '24px', fontFamily: 'var(--font-body)' }}>Over 300+ candidates have landed jobs at</p>
+            <div style={{ display: 'flex', gap: '12px 36px', justifyContent: 'center', flexWrap: 'wrap', alignItems: 'center' }}>
+              {LOGOS.map(co => (
+                <span key={co} style={{ fontSize: '16px', fontWeight: 800, color: '#C8CCD4', fontFamily: 'var(--font-phudu)', letterSpacing: '-0.02em' }}>{co}</span>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -92,9 +114,14 @@ export default function JobSeekersPage() {
               Ready to stand out?
             </h2>
             <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', marginBottom: '36px' }}>It takes less than 10 minutes to build your first Reslink.</p>
-            <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 28px', background: '#D8F950', color: '#041635', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-              Get started free <ArrowRight size={16} />
-            </Link>
+            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 28px', background: '#D8F950', color: '#041635', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                Get started free <ArrowRight size={16} />
+              </Link>
+              <Link href="/templates" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 28px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                See free templates
+              </Link>
+            </div>
           </motion.div>
         </section>
 

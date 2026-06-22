@@ -81,18 +81,13 @@ const VALUES = [
 function TeamCard({ member }: { member: typeof TEAM[0] }) {
   const [expanded, setExpanded] = useState(false);
   return (
-    <div style={{ borderRadius: '20px', overflow: 'hidden', position: 'relative', background: '#0a1628', boxShadow: '0 4px 24px rgba(4,22,53,0.14)', aspectRatio: '3/4' }}>
+    <div style={{ borderRadius: '20px', overflow: 'hidden', position: 'relative', background: '#0a1628', boxShadow: '0 4px 24px rgba(4,22,53,0.14)', aspectRatio: '3/4', border: '1px solid rgba(255,255,255,0.08)', outline: '1px solid rgba(4,22,53,0.12)' }}>
       {/* Full-bleed photo */}
       <img
         src={member.photo}
         alt={member.name}
-        onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
       />
-      {/* Fallback initials */}
-      <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '52px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)', opacity: 0.3 }}>
-        {member.initials}
-      </div>
 
       {/* Gradient overlay — always visible at bottom */}
       <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(to top, rgba(4,22,53,0.95) 0%, rgba(4,22,53,0.6) 50%, transparent 100%)', padding: '0 20px 20px' }}>
@@ -200,7 +195,7 @@ export default function AboutPage() {
               <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.55 }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>Why we exist</p>
                 <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(34px, 5vw, 60px)', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em', marginBottom: '32px' }}>
-                  The best candidates<br />were getting<br /><span style={{ color: '#0C63E3', background: 'rgba(216,249,80,0.35)', borderRadius: '4px', padding: '0 6px 2px' }}>overlooked.</span>
+                  The best candidates<br />were getting<br /><span style={{ color: '#0C63E3', textDecoration: 'underline', textDecorationColor: '#D8F950', textDecorationThickness: '7px', textUnderlineOffset: '6px', textDecorationSkipInk: 'none' }}>overlooked.</span>
                 </h2>
                 <p style={{ fontSize: '15px', color: '#5C6070', lineHeight: 1.8, fontFamily: 'var(--font-body)' }}>
                   In 2023, Dominic was applying to jobs and watching qualified people — himself included — get passed over because their resume didn't capture who they actually were. Not their energy. Not their clarity. Not their drive. Just keywords on a page.

@@ -22,7 +22,7 @@ const tabs = [
   {
     id: 'analytics',
     label: 'Analytics',
-    headline: 'Know exactly who’s watching.',
+    headline: "Know exactly who's watching.",
     sub: 'Real-time data on every recruiter who viewed your profile, how long they watched, and which companies clicked through. Stop guessing. Start following up at exactly the right moment.',
     stats: [
       { val: '342', label: 'Profile views' },
@@ -85,9 +85,9 @@ const tabs = [
           </div>
         </div>
         {[
-          { from: ‘ai’, msg: ‘Here is your opening: I\’ve spent 3 years helping companies cut logistics costs by 23%. Here\’s what I\’d bring to your team. Want me to adjust the tone?’ },
-          { from: ‘user’, msg: ‘Make it more confident’ },
-          { from: ‘ai’, msg: ‘I cut logistics costs 23% across two companies. That\’s exactly what I\’ll do for you.’ },
+          { from: 'ai', msg: 'Here is your opening: I\'ve spent 3 years helping companies cut logistics costs by 23%. Here\'s what I\'d bring to your team. Want me to adjust the tone?' },
+          { from: 'user', msg: 'Make it more confident' },
+          { from: 'ai', msg: 'I cut logistics costs 23% across two companies. That\'s exactly what I\'ll do for you.' },
         ].map((m, i) => (
           <div key={i} style={{ display: 'flex', justifyContent: m.from === 'user' ? 'flex-end' : 'flex-start' }}>
             <div style={{ maxWidth: '88%', borderRadius: m.from === 'user' ? '12px 12px 3px 12px' : '12px 12px 12px 3px', padding: '10px 13px', background: m.from === 'user' ? '#041635' : '#F7F8FA', border: m.from === 'ai' ? '1px solid #EEEEF0' : 'none' }}>

@@ -10,7 +10,7 @@ export default function ValueProp() {
           .vp-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
           .vp-cards { max-width: 480px; margin: 0 auto; }
         }
-        .vp-before, .vp-after { transition: transform 0.3s ease; }
+        .vp-after { transition: transform 0.3s ease; }
         .vp-after:hover { transform: translateY(-4px); }
       `}</style>
       <div className="container">
@@ -63,7 +63,7 @@ export default function ValueProp() {
             style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}
           >
             {/* Before — dead PDF */}
-            <div className="vp-before" style={{ borderRadius: '16px', border: '1px solid #E8EAF0', padding: '22px', background: '#FAFBFC' }}>
+            <div style={{ borderRadius: '16px', border: '1px solid #E8EAF0', padding: '22px', background: '#FAFBFC' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: '#E8EAF0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -88,58 +88,67 @@ export default function ValueProp() {
               </div>
             </div>
 
-            {/* After — real Reslink profile */}
-            <div className="vp-after" style={{ borderRadius: '16px', border: '2px solid #D8F950', background: '#fff', overflow: 'hidden', boxShadow: '0 16px 56px rgba(4,22,53,0.12)' }}>
-              {/* Profile header */}
-              <div style={{ padding: '18px 22px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '11px' }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'linear-gradient(135deg, #0C63E3, #4F6EF7)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <span style={{ fontSize: '15px', fontWeight: 800, color: '#fff', fontFamily: 'var(--font-phudu)' }}>OS</span>
+            {/* After — real Reslink profile mockup */}
+            <div className="vp-after" style={{ borderRadius: '16px', border: '2px solid #D8F950', overflow: 'hidden', boxShadow: '0 16px 56px rgba(4,22,53,0.12)' }}>
+              {/* Dark navy profile header */}
+              <div style={{ background: '#041635', padding: '20px 22px 18px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '14px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '13px' }}>
+                    {/* Circular headshot placeholder */}
+                    <div style={{ width: '52px', height: '52px', borderRadius: '50%', background: 'linear-gradient(135deg, #0C63E3 0%, #4F6EF7 100%)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid rgba(255,255,255,0.15)' }}>
+                      <span style={{ fontSize: '18px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>OS</span>
+                    </div>
+                    <div>
+                      <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '20px', fontWeight: 900, color: '#fff', lineHeight: 1.1, letterSpacing: '-0.01em' }}>OLIVER STONE</p>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '5px', flexWrap: 'wrap' }}>
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '11px', color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)' }}>
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+                          Business Dev Rep
+                        </span>
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '11px', color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)' }}>
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                          London, UK
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <p style={{ fontSize: '14px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Oliver Stone</p>
-                    <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Product Designer · NYC</p>
+                  <span style={{ fontSize: '10px', fontWeight: 700, color: '#041635', background: '#D8F950', padding: '4px 10px', borderRadius: '100px', letterSpacing: '0.05em', fontFamily: 'var(--font-body)', textTransform: 'uppercase', flexShrink: 0 }}>With Reslink</span>
+                </div>
+                {/* CTAs */}
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: '#D8F950', borderRadius: '7px', padding: '8px 14px', cursor: 'pointer' }}>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="#041635"><path d="M8 5v14l11-7z"/></svg>
+                    <span style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>Play Intro</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '7px', padding: '8px 14px', cursor: 'pointer' }}>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span style={{ fontSize: '12px', fontWeight: 600, color: 'rgba(255,255,255,0.7)', fontFamily: 'var(--font-body)' }}>Download Resume</span>
                   </div>
                 </div>
-                <span style={{ fontSize: '11px', fontWeight: 700, color: '#041635', background: '#D8F950', padding: '4px 11px', borderRadius: '100px', letterSpacing: '0.04em', fontFamily: 'var(--font-body)', textTransform: 'uppercase', flexShrink: 0 }}>With Reslink</span>
               </div>
 
-              {/* Video thumbnail */}
-              <div style={{ margin: '14px 22px', borderRadius: '10px', overflow: 'hidden', position: 'relative', aspectRatio: '16/9', background: '#060D24' }}>
-                <img
-                  src="/videos/hero-poster.jpg"
-                  alt="Reslink video resume"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                />
-                {/* Play overlay */}
-                <div style={{ position: 'absolute', inset: 0, background: 'rgba(4,22,53,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <div style={{ width: '42px', height: '42px', borderRadius: '50%', background: 'rgba(255,255,255,0.92)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 16px rgba(0,0,0,0.3)' }}>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#041635"><path d="M8 5v14l11-7z"/></svg>
-                  </div>
+              {/* Resume document peek */}
+              <div style={{ background: '#fff', padding: '16px 20px', borderBottom: '1px solid #ECEEF1' }}>
+                <div style={{ textAlign: 'center', marginBottom: '10px' }}>
+                  <p style={{ fontSize: '14px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>Oliver Stone</p>
+                  <p style={{ fontSize: '11px', color: '#5C6070', fontFamily: 'var(--font-body)' }}>Business Development Representative</p>
+                  <p style={{ fontSize: '10px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px' }}>London, UK · LinkedIn</p>
                 </div>
-                <span style={{ position: 'absolute', bottom: '8px', right: '10px', fontSize: '11px', color: 'rgba(255,255,255,0.8)', fontFamily: 'var(--font-body)', fontWeight: 600, background: 'rgba(0,0,0,0.4)', padding: '2px 7px', borderRadius: '4px' }}>0:47</span>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                  <div style={{ height: '7px', borderRadius: '4px', background: '#F3F4F6', width: '100%' }} />
+                  <div style={{ height: '7px', borderRadius: '4px', background: '#F3F4F6', width: '88%' }} />
+                  <div style={{ height: '7px', borderRadius: '4px', background: '#F3F4F6', width: '94%' }} />
+                </div>
               </div>
 
-              {/* Activity feed */}
-              <div style={{ padding: '0 22px 18px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '9px', padding: '10px 12px', background: '#F7F8FA', borderRadius: '10px' }}>
-                  <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: '#0C63E3', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <span style={{ fontSize: '11px', fontWeight: 800, color: '#fff', fontFamily: 'var(--font-phudu)' }}>G</span>
-                  </div>
-                  <div style={{ flex: 1 }}>
-                    <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Google Recruiter viewed you</p>
-                    <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Watched 0:44 of 0:47 · 1h ago</p>
-                  </div>
-                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#0C63E3', flexShrink: 0 }} />
+              {/* Interview notification */}
+              <div style={{ padding: '12px 20px', background: '#FAFFF0', display: 'flex', alignItems: 'center', gap: '9px' }}>
+                <div style={{ width: '26px', height: '26px', borderRadius: '50%', background: '#D8F950', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#041635" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '9px', padding: '10px 12px', background: '#FAFFF0', border: '1px solid #D8F950', borderRadius: '10px' }}>
-                  <div style={{ width: '30px', height: '30px', borderRadius: '50%', background: '#D8F950', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#041635" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  </div>
-                  <div>
-                    <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Interview request received</p>
-                    <p style={{ fontSize: '11px', color: '#6B7280', fontFamily: 'var(--font-body)' }}>Google · 2 days after sharing</p>
-                  </div>
+                <div>
+                  <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Interview request received</p>
+                  <p style={{ fontSize: '11px', color: '#6B7280', fontFamily: 'var(--font-body)' }}>HubSpot · 2 days after sharing</p>
                 </div>
               </div>
             </div>

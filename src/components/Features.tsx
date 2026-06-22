@@ -7,7 +7,7 @@ const icons: Record<string, React.ReactNode> = {
   analytics: (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
   ),
-  coach: (
+  pitchai: (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
   ),
   teleprompter: (
@@ -67,10 +67,10 @@ const tabs = [
     ),
   },
   {
-    id: 'coach',
-    label: 'Coach AI',
-    headline: 'Your pitch coach, on demand.',
-    sub: 'AI watches your video and gives you real, specific feedback — pacing, tone, content. Then helps you rewrite your intro, rehearse, and perfect your pitch before it goes live. Like having a career coach at 2am.',
+    id: 'pitchai',
+    label: 'Pitch AI',
+    headline: 'Your video pitch, written in seconds.',
+    sub: 'Reslink Pitch AI generates a standout video script tailored to your experience and the role you\'re applying for. Customize it, then record — no blank page, no guessing what to say.',
     color: '#0C63E3',
     bg: '#fff',
     visual: (
@@ -80,14 +80,14 @@ const tabs = [
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#041635" strokeWidth="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
           </div>
           <div>
-            <p style={{ fontSize: '12px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)' }}>Coach AI</p>
-            <p style={{ fontSize: '10px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)' }}>Analyzing your pitch...</p>
+            <p style={{ fontSize: '12px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)' }}>Reslink Pitch AI</p>
+            <p style={{ fontSize: '10px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)' }}>Generating your script...</p>
           </div>
         </div>
         {[
-          { from: 'ai', msg: 'Strong hook — your first 5 seconds are excellent. Around 0:38 your pacing dips, so speak about 10% faster there. One more thing: add a specific number to your intro.' },
-          { from: 'user', msg: 'Can you rewrite my intro?' },
-          { from: 'ai', msg: '“In 3 years I cut logistics costs 23% at two companies. Here’s how I’d do the same for you.”' },
+          { from: ‘ai’, msg: ‘Here\’s your opening: “I\’ve spent 3 years helping companies cut logistics costs by 23%. Here\’s what I\’d bring to your team.” Want me to adjust the tone?’ },
+          { from: ‘user’, msg: ‘Make it more confident’ },
+          { from: ‘ai’, msg: ‘”I cut logistics costs 23% across two companies. That\’s exactly what I\’ll do for you.”’ },
         ].map((m, i) => (
           <div key={i} style={{ display: 'flex', justifyContent: m.from === 'user' ? 'flex-end' : 'flex-start' }}>
             <div style={{ maxWidth: '88%', borderRadius: m.from === 'user' ? '12px 12px 3px 12px' : '12px 12px 12px 3px', padding: '10px 13px', background: m.from === 'user' ? '#041635' : '#F7F8FA', border: m.from === 'ai' ? '1px solid #EEEEF0' : 'none' }}>
@@ -96,7 +96,7 @@ const tabs = [
           </div>
         ))}
         <div style={{ display: 'flex', gap: '6px', marginTop: 'auto' }}>
-          <div style={{ flex: 1, background: '#F7F8FA', border: '1px solid #EEEEF0', borderRadius: '8px', padding: '9px 12px', fontSize: '12px', color: '#C8CBD2', fontFamily: 'var(--font-body)' }}>Ask Coach AI anything...</div>
+          <div style={{ flex: 1, background: '#F7F8FA', border: '1px solid #EEEEF0', borderRadius: '8px', padding: '9px 12px', fontSize: '12px', color: '#C8CBD2', fontFamily: 'var(--font-body)' }}>Ask Pitch AI anything...</div>
           <div style={{ width: '34px', height: '34px', borderRadius: '8px', background: '#0C63E3', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
           </div>

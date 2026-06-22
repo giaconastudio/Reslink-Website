@@ -41,8 +41,8 @@ h1, h2, h3, h4 {
   align-items: center;
   gap: 8px;
   padding: 13px 24px;
-  background: #D8F950;
-  color: #041635;
+  background: #0C63E3;
+  color: #fff;
   font-weight: 700;
   font-size: 15px;
   border-radius: 8px;
@@ -55,7 +55,7 @@ h1, h2, h3, h4 {
   letter-spacing: -0.01em;
 }
 .btn-primary:hover {
-  background: #C5DE3A;
+  background: #0A54C4;
   transform: translateY(-1px);
 }
 

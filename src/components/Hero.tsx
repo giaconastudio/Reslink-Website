@@ -144,7 +144,7 @@ export default function Hero() {
         </motion.div>
 
         <motion.p className="hero-proof" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.25 }}>
-          No credit card · Cancel anytime
+          Free to start · Takes less than 5 minutes
         </motion.p>
       </div>
 

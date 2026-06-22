@@ -119,7 +119,7 @@ const tabs = [
     visual: (
       <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', background: '#fff' }}>
         {/* Modal header — premium AI branding */}
-        <div style={{ background: 'linear-gradient(135deg, #0B1120 0%, #0D1829 100%)', padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '10px', borderBottom: '1px solid rgba(216,249,80,0.15)' }}>
+        <div style={{ background: 'linear-gradient(135deg, #0B1120 0%, #0D1829 100%)', padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '10px', borderBottom: 'none' }}>
           <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: 'linear-gradient(135deg, rgba(216,249,80,0.2), rgba(216,249,80,0.08))', border: '1px solid rgba(216,249,80,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="#D8F950"><path d="M12 1.5 L13.2 9.8 L21.5 12 L13.2 14.2 L12 22.5 L10.8 14.2 L2.5 12 L10.8 9.8 Z"/></svg>
           </div>
@@ -365,7 +365,7 @@ export default function Features() {
               <p style={{ fontSize: '16px', color: tab.bg === '#041635' ? 'rgba(255,255,255,0.45)' : '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '32px' }}>
                 {tab.sub}
               </p>
-              <a href="/signup" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '14px', fontWeight: 700, color: tab.bg === '#041635' ? '#041635' : '#041635', background: tab.color, padding: '11px 20px', borderRadius: '8px', textDecoration: 'none', width: 'fit-content', fontFamily: 'var(--font-body)', transition: 'opacity 0.15s' }}
+              <a href="/signup" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '14px', fontWeight: 700, color: '#fff', background: '#0C63E3', padding: '11px 20px', borderRadius: '8px', textDecoration: 'none', width: 'fit-content', fontFamily: 'var(--font-body)', transition: 'opacity 0.15s' }}
                 onMouseEnter={e => (e.currentTarget.style.opacity = '0.85')}
                 onMouseLeave={e => (e.currentTarget.style.opacity = '1')}>
                 Try it free

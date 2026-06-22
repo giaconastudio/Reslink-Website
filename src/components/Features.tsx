@@ -138,7 +138,8 @@ const tabs = [
       <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
         {/* Live camera feed — real person */}
         <video
-          src="/videos/hero.mp4"
+          src="/videos/pip-person-compressed.mp4"
+          poster="/videos/pip-person-poster.jpg"
           autoPlay muted loop playsInline
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
         />

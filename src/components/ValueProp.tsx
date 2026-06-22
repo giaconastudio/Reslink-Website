@@ -143,7 +143,7 @@ export default function ValueProp() {
 
               {/* PiP video — person talking */}
               <div style={{ position: 'absolute', bottom: '90px', right: '16px', width: '88px', height: '88px', borderRadius: '12px', overflow: 'hidden', border: '2px solid #D8F950', boxShadow: '0 8px 24px rgba(0,0,0,0.35)', zIndex: 4 }}>
-                <video src="/videos/hero.mp4" autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <video src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
 
               {/* Interview notification */}

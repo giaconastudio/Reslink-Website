@@ -107,9 +107,9 @@ export default function HowItWorks() {
         .hiw-step-visual {
           border-radius: 16px;
           overflow: hidden;
-          border: 1px solid #EEEEF0;
+          border: 1px solid #E4E7EC;
           box-shadow: 0 12px 40px rgba(4,22,53,0.07);
-          aspect-ratio: 4/3;
+          aspect-ratio: 20/13;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -140,7 +140,7 @@ export default function HowItWorks() {
           }
           .hiw-step.reverse .hiw-step-visual { order: 0; }
           .hiw-step-num { font-size: 80px; margin-bottom: -10px; }
-          .hiw-step-visual { aspect-ratio: 16/9; }
+          .hiw-step-visual { aspect-ratio: 20/13; }
         }
       `}</style>
 
@@ -170,17 +170,15 @@ export default function HowItWorks() {
                 <p className="hiw-step-desc">{step.desc}</p>
               </div>
 
-              {/* Animation placeholder */}
-              {/* ↓ STEP {i+1} ANIMATION — replace this div's contents with your animation */}
-              <div className="hiw-step-visual" style={{ background: '#fff' }}>
-                <div className="hiw-placeholder-icon" style={{ background: `${accentColors[i]}22`, border: `1.5px solid ${accentColors[i]}55` }}>
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={accentColors[i]} strokeWidth="1.8">
-                    <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
-                  </svg>
-                </div>
-                <p className="hiw-placeholder-text">Step {i + 1} animation</p>
-                {/* Subtle step number watermark */}
-                <div style={{ position: 'absolute', bottom: '12px', right: '16px', fontSize: '11px', color: '#EEEEF0', fontFamily: 'var(--font-phudu)', fontWeight: 900 }}>{step.num}</div>
+              {/* Step animation */}
+              <div className="hiw-step-visual" style={{ background: '#0B0F1A' }}>
+                <video
+                  src={`/videos/step-0${i + 1}.mp4`}
+                  poster={`/videos/step-0${i + 1}-poster.jpg`}
+                  autoPlay muted loop playsInline preload="metadata"
+                  style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+                <span style={{ position: 'absolute', bottom: '12px', left: '16px', fontSize: '11px', fontWeight: 700, color: accentColors[i], letterSpacing: '0.08em', textTransform: 'uppercase', fontFamily: 'var(--font-body)', zIndex: 2, textShadow: '0 1px 4px rgba(0,0,0,0.4)' }}>Step {i + 1}</span>
               </div>
             </motion.div>
           ))}

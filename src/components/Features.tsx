@@ -3,11 +3,25 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const icons: Record<string, React.ReactNode> = {
+  analytics: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+  ),
+  coach: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+  ),
+  teleprompter: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+  ),
+  integrations: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+  ),
+};
+
 const tabs = [
   {
     id: 'analytics',
     label: 'Analytics',
-    emoji: '📊',
     headline: 'Know exactly who’s watching.',
     sub: 'Real-time data on every recruiter who viewed your profile, how long they watched, and which companies clicked through. Stop guessing. Start following up at exactly the right moment.',
     stats: [
@@ -55,7 +69,6 @@ const tabs = [
   {
     id: 'coach',
     label: 'Coach AI',
-    emoji: '🤖',
     headline: 'Your pitch coach, on demand.',
     sub: 'AI watches your video and gives you real, specific feedback — pacing, tone, content. Then helps you rewrite your intro, rehearse, and perfect your pitch before it goes live. Like having a career coach at 2am.',
     color: '#0C63E3',
@@ -72,7 +85,7 @@ const tabs = [
           </div>
         </div>
         {[
-          { from: 'ai', msg: '✅ Strong hook — your first 5 seconds are excellent.\n⚡ Tip: around 0:38 your pacing drops. Speak 10% faster there.\n🎯 Add one specific number to your intro.' },
+          { from: 'ai', msg: 'Strong hook — your first 5 seconds are excellent. Around 0:38 your pacing dips, so speak about 10% faster there. One more thing: add a specific number to your intro.' },
           { from: 'user', msg: 'Can you rewrite my intro?' },
           { from: 'ai', msg: '“In 3 years I cut logistics costs 23% at two companies. Here’s how I’d do the same for you.”' },
         ].map((m, i) => (
@@ -94,7 +107,6 @@ const tabs = [
   {
     id: 'teleprompter',
     label: 'Teleprompter',
-    emoji: '🎬',
     headline: 'Look confident. Sound confident.',
     sub: 'Write your script once. Our teleprompter scrolls it right on screen as you record — so you stay on camera, maintain eye contact, and deliver your pitch without ever glancing away.',
     color: '#FFD6A5',
@@ -128,7 +140,6 @@ const tabs = [
   {
     id: 'integrations',
     label: 'Apply Anywhere',
-    emoji: '🔗',
     headline: 'One link. Every opportunity.',
     sub: 'Paste your Reslink into any job board, ATS, or email. It works everywhere — LinkedIn, Indeed, Greenhouse, Workday, Lever. One link, infinite reach, zero friction.',
     color: '#C4B5FD',
@@ -248,7 +259,7 @@ export default function Features() {
         <div className="feat-tabs">
           {tabs.map((t, i) => (
             <button key={t.id} className={`feat-tab${i === active ? ' active' : ''}`} onClick={() => setActive(i)}>
-              <span>{t.emoji}</span> {t.label}
+              <span style={{ display: 'inline-flex' }}>{icons[t.id]}</span> {t.label}
             </button>
           ))}
         </div>

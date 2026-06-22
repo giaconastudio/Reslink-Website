@@ -1,188 +1,185 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const steps = [
   {
     num: '01',
     label: 'Create your account',
     title: 'Up and running in 30 seconds.',
-    desc: 'Sign up free — just your name and email. No credit card, no setup fee. Your profile is ready to build the moment you land.',
+    desc: 'Sign up free — just your name and email. No credit card, no setup fee. Your profile is ready the moment you land.',
+    color: '#D8F950',
   },
   {
     num: '02',
     label: 'Upload your resume',
     title: 'Your existing resume, supercharged.',
     desc: 'Drop in your PDF and we parse it instantly — work history, skills, education, all pulled in automatically. No manual entry.',
+    color: '#BFD7FF',
   },
   {
     num: '03',
     label: 'Record your pitch',
     title: 'Say hello to your next employer.',
-    desc: '60 seconds. Our built-in teleprompter scrolls your script right on screen so you stay on camera looking natural, not down at notes.',
+    desc: 'Sixty seconds. Our built-in teleprompter scrolls your script on screen so you stay on camera looking natural, not down at notes.',
+    color: '#FFD6A5',
   },
   {
     num: '04',
     label: 'Share & track everything',
     title: 'One link. Infinite reach.',
-    desc: 'Paste your Reslink into any job application, email, or LinkedIn. See every recruiter who opens it, every second of video watched.',
+    desc: 'Paste your Reslink into any application, email, or LinkedIn. See every recruiter who opens it and every second of video watched.',
+    color: '#C4B5FD',
   },
 ];
 
-const accentColors = ['#D8F950', '#BFD7FF', '#FFD6A5', '#C4B5FD'];
-
 export default function HowItWorks() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const [active, setActive] = useState(0);
+
+  // Scroll → active step + continuous progress
+  useEffect(() => {
+    const onScroll = () => {
+      const el = sectionRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const total = rect.height - window.innerHeight;
+      const p = Math.max(0, Math.min(0.9999, -rect.top / total));
+      setActive(Math.min(steps.length - 1, Math.floor(p * steps.length)));
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Play only the active video, restart it each time it becomes active
+  useEffect(() => {
+    videoRefs.current.forEach((v, i) => {
+      if (!v) return;
+      if (i === active) {
+        v.currentTime = 0;
+        v.play().catch(() => {});
+      } else {
+        v.pause();
+      }
+    });
+  }, [active]);
+
+  const scrollToStep = (i: number) => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const total = el.offsetHeight - window.innerHeight;
+    window.scrollTo({ top: el.offsetTop + total * (i / steps.length) + 8, behavior: 'smooth' });
+  };
+
   return (
-    <section id="how-it-works" style={{ background: '#F7F8FA', padding: '100px 0' }}>
+    <section ref={sectionRef} id="how-it-works" style={{ position: 'relative', height: '440vh', background: '#041635' }}>
       <style>{`
-        .hiw-header {
-          text-align: center;
-          margin-bottom: 72px;
-        }
-        .hiw-label {
-          font-size: 12px;
-          font-weight: 700;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          color: #0C63E3;
-          margin-bottom: 14px;
-          font-family: var(--font-body);
-        }
-        .hiw-title {
-          font-family: var(--font-phudu);
-          font-size: clamp(36px, 5vw, 60px);
-          font-weight: 900;
-          color: #041635;
-          line-height: 0.95;
-          letter-spacing: -0.03em;
-        }
-        .hiw-steps {
-          display: flex;
-          flex-direction: column;
-          gap: 0;
-        }
-        .hiw-step {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 64px;
-          align-items: center;
-          padding: 64px 0;
-          border-top: 1px solid #E4E7EC;
-        }
-        .hiw-step:last-child { border-bottom: 1px solid #E4E7EC; }
-        .hiw-step.reverse .hiw-step-visual { order: -1; }
-        .hiw-step-num {
-          font-family: var(--font-phudu);
-          font-size: 120px;
-          font-weight: 900;
-          line-height: 1;
-          color: #E4E8EE;
-          letter-spacing: -0.04em;
-          margin-bottom: -16px;
-        }
-        .hiw-step-label {
-          font-size: 12px;
-          font-weight: 700;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-          margin-bottom: 12px;
-          font-family: var(--font-body);
-        }
-        .hiw-step-heading {
-          font-family: var(--font-phudu);
-          font-size: clamp(24px, 3vw, 36px);
-          font-weight: 900;
-          color: #041635;
-          line-height: 1.0;
-          letter-spacing: -0.02em;
-          margin-bottom: 14px;
-        }
-        .hiw-step-desc {
-          font-size: 16px;
-          color: #5C6070;
-          line-height: 1.7;
-          font-family: var(--font-body);
-          max-width: 400px;
-        }
-        .hiw-step-visual {
-          border-radius: 16px;
-          overflow: hidden;
-          border: 1px solid #E4E7EC;
-          box-shadow: 0 12px 40px rgba(4,22,53,0.07);
-          aspect-ratio: 20/13;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: 12px;
-          position: relative;
-        }
-        .hiw-placeholder-icon {
-          width: 52px;
-          height: 52px;
-          border-radius: 14px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .hiw-placeholder-text {
-          font-size: 12px;
-          color: #C8CBD2;
-          font-family: var(--font-body);
-          letter-spacing: 0.06em;
-          text-transform: uppercase;
-        }
-        @media (max-width: 768px) {
-          .hiw-step {
-            grid-template-columns: 1fr;
-            gap: 28px;
-            padding: 48px 0;
-          }
-          .hiw-step.reverse .hiw-step-visual { order: 0; }
-          .hiw-step-num { font-size: 80px; margin-bottom: -10px; }
-          .hiw-step-visual { aspect-ratio: 20/13; }
+        .hiw-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; overflow: hidden; }
+        .hiw-glow { position: absolute; top: 50%; right: 8%; transform: translateY(-50%); width: 620px; height: 620px; border-radius: 50%; background: radial-gradient(circle, rgba(12,99,227,0.18), transparent 65%); pointer-events: none; }
+        .hiw-grid { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 64px; width: 100%; align-items: center; position: relative; z-index: 1; }
+        .hiw-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #D8F950; margin-bottom: 14px; font-family: var(--font-body); }
+        .hiw-title { font-family: var(--font-phudu); font-size: clamp(30px, 3.6vw, 50px); font-weight: 900; color: #fff; line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 40px; }
+        .hiw-list { display: flex; flex-direction: column; }
+        .hiw-row { display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: start; padding: 16px 0; cursor: pointer; border: none; background: none; text-align: left; width: 100%; transition: opacity 0.3s; }
+        .hiw-rownum { font-family: var(--font-phudu); font-size: 22px; font-weight: 900; line-height: 1.1; transition: color 0.3s; }
+        .hiw-rowlabel { font-family: var(--font-phudu); font-size: 20px; font-weight: 800; letter-spacing: -0.01em; color: #fff; line-height: 1.15; transition: color 0.3s; }
+        .hiw-rowdesc { overflow: hidden; }
+        .hiw-rowdesc p { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.6; font-family: var(--font-body); padding-top: 8px; max-width: 380px; }
+
+        .hiw-stage { position: relative; border-radius: 18px; overflow: hidden; aspect-ratio: 20/13; background: #0B0F1A; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 40px 100px rgba(0,0,0,0.55); }
+        .hiw-stage video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease; }
+        .hiw-stage-badge { position: absolute; top: 16px; left: 16px; z-index: 3; display: inline-flex; align-items: center; gap: 7px; background: rgba(11,15,26,0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.12); border-radius: 100px; padding: 6px 13px 6px 10px; }
+        .hiw-stage-badge span { font-size: 12px; font-weight: 700; color: #fff; font-family: var(--font-body); letter-spacing: 0.02em; }
+        .hiw-dots { position: absolute; bottom: 16px; left: 16px; z-index: 3; display: flex; gap: 6px; }
+        .hiw-dot { width: 22px; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.18); transition: background 0.3s, width 0.3s; }
+
+        .hiw-mobnum { display: none; }
+
+        @media (max-width: 860px) {
+          .hiw-grid { grid-template-columns: 1fr; gap: 28px; }
+          .hiw-stage { order: -1; }
+          .hiw-title { margin-bottom: 24px; font-size: 30px; }
+          /* On mobile, hide the full list and show only the active step's caption */
+          .hiw-list { display: none; }
+          .hiw-mobnum { display: block; }
         }
       `}</style>
 
-      <div className="container">
-        <motion.div className="hiw-header" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
-          <p className="hiw-label">How it works</p>
-          <h2 className="hiw-title">Four steps to your<br />next interview.</h2>
-        </motion.div>
+      <div className="hiw-sticky">
+        <div className="hiw-glow" />
+        <div className="container">
+          <div className="hiw-grid">
+            {/* Left — step list */}
+            <div>
+              <p className="hiw-eyebrow">How it works</p>
+              <h2 className="hiw-title">Four steps to your<br />next interview.</h2>
 
-        <div className="hiw-steps">
-          {steps.map((step, i) => (
-            <motion.div
-              key={step.num}
-              className={`hiw-step${i % 2 === 1 ? ' reverse' : ''}`}
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.5, delay: 0.05 }}
-            >
-              {/* Text side */}
-              <div>
-                <div className="hiw-step-num">{step.num}</div>
-                <p className="hiw-step-label" style={{ color: accentColors[i] }}>
-                  {step.label}
-                </p>
-                <h3 className="hiw-step-heading">{step.title}</h3>
-                <p className="hiw-step-desc">{step.desc}</p>
+              <div className="hiw-list">
+                {steps.map((s, i) => {
+                  const isActive = i === active;
+                  return (
+                    <button key={s.num} className="hiw-row" onClick={() => scrollToStep(i)} style={{ opacity: isActive ? 1 : 0.5 }}>
+                      <span className="hiw-rownum" style={{ color: isActive ? s.color : 'rgba(255,255,255,0.3)' }}>{s.num}</span>
+                      <span>
+                        <span className="hiw-rowlabel" style={{ color: isActive ? '#fff' : 'rgba(255,255,255,0.55)' }}>{s.label}</span>
+                        <AnimatePresence initial={false}>
+                          {isActive && (
+                            <motion.div className="hiw-rowdesc" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.35 }}>
+                              <p>{s.desc}</p>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
 
-              {/* Step animation */}
-              <div className="hiw-step-visual" style={{ background: '#0B0F1A' }}>
+              {/* Mobile-only active caption */}
+              <div className="hiw-mobnum">
+                <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '20px', fontWeight: 800, color: '#fff', marginBottom: '6px' }}>
+                  <span style={{ color: steps[active].color }}>{steps[active].num}</span> &nbsp;{steps[active].label}
+                </p>
+                <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, fontFamily: 'var(--font-body)' }}>{steps[active].desc}</p>
+              </div>
+            </div>
+
+            {/* Right — pinned video stage */}
+            <div className="hiw-stage">
+              {steps.map((s, i) => (
                 <video
+                  key={s.num}
+                  ref={(el) => { videoRefs.current[i] = el; }}
                   src={`/videos/step-0${i + 1}.mp4`}
                   poster={`/videos/step-0${i + 1}-poster.jpg`}
-                  autoPlay muted loop playsInline preload="metadata"
-                  style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+                  muted loop playsInline preload="metadata"
+                  style={{ opacity: i === active ? 1 : 0 }}
                 />
-                <span style={{ position: 'absolute', bottom: '12px', left: '16px', fontSize: '11px', fontWeight: 700, color: accentColors[i], letterSpacing: '0.08em', textTransform: 'uppercase', fontFamily: 'var(--font-body)', zIndex: 2, textShadow: '0 1px 4px rgba(0,0,0,0.4)' }}>Step {i + 1}</span>
+              ))}
+              <div className="hiw-stage-badge">
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: steps[active].color, display: 'inline-block' }} />
+                <span>Step {steps[active].num}</span>
               </div>
-            </motion.div>
-          ))}
+              <div className="hiw-dots">
+                {steps.map((s, i) => (
+                  <div key={s.num} className="hiw-dot" style={{ background: i <= active ? s.color : 'rgba(255,255,255,0.18)', width: i === active ? '32px' : '22px' }} />
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
+
+        {/* Scroll hint */}
+        {active < steps.length - 1 && (
+          <div style={{ position: 'absolute', bottom: '22px', left: '50%', transform: 'translateX(-50%)', zIndex: 2 }}>
+            <motion.div animate={{ y: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 1.8 }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </motion.div>
+          </div>
+        )}
       </div>
     </section>
   );

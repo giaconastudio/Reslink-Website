@@ -87,7 +87,7 @@ export default function HowItWorks() {
         .hiw-rownum { font-family: var(--font-phudu); font-size: 22px; font-weight: 900; line-height: 1.1; transition: color 0.3s; }
         .hiw-rowlabel { font-family: var(--font-phudu); font-size: 20px; font-weight: 800; letter-spacing: -0.01em; color: #fff; line-height: 1.15; transition: color 0.3s; }
         .hiw-rowdesc { overflow: hidden; }
-        .hiw-rowdesc p { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.6; font-family: var(--font-body); padding-top: 8px; max-width: 380px; }
+        .hiw-rowdesc p { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.6; font-family: var(--font-body); padding-top: 8px; }
 
         .hiw-stage { position: relative; border-radius: 18px; overflow: hidden; aspect-ratio: 20/13; background: #0B0F1A; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 40px 100px rgba(0,0,0,0.55); }
         .hiw-stage video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease; }
@@ -97,12 +97,13 @@ export default function HowItWorks() {
         .hiw-mobnum { display: none; }
 
         @media (max-width: 860px) {
-          .hiw-grid { grid-template-columns: 1fr; gap: 28px; }
+          .hiw-grid { grid-template-columns: 1fr; gap: 20px; }
           .hiw-stage { order: -1; }
-          .hiw-title { margin-bottom: 24px; font-size: 30px; }
-          /* On mobile, hide the full list and show only the active step's caption */
+          .hiw-title { margin-bottom: 16px; font-size: clamp(24px, 6vw, 34px); }
+          .hiw-eyebrow { margin-bottom: 10px; }
           .hiw-list { display: none; }
           .hiw-mobnum { display: block; }
+          .hiw-sticky { padding: 0 16px; }
         }
       `}</style>
 

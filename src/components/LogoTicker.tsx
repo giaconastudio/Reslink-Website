@@ -32,14 +32,15 @@ export default function LogoTicker() {
         .ticker-track:hover, .ticker-track-rev:hover { animation-play-state: paused; }
       `}</style>
 
-      <p style={{ textAlign: 'center', fontSize: '13px', fontWeight: 500, color: 'rgba(255,255,255,0.3)', marginBottom: '28px', fontFamily: 'var(--font-body)', letterSpacing: '0.02em' }}>
+      <style>{`@media (max-width: 600px) { .ticker-fade { width: 60px !important; } }`}</style>
+      <p style={{ textAlign: 'center', fontSize: '13px', fontWeight: 500, color: 'rgba(255,255,255,0.3)', marginBottom: '28px', fontFamily: 'var(--font-body)', letterSpacing: '0.02em', padding: '0 16px' }}>
         Candidates using Reslink have landed jobs at
       </p>
 
       {/* Fade masks */}
       <div style={{ position: 'relative' }}>
-        <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '140px', background: 'linear-gradient(to right, #041635, transparent)', zIndex: 1, pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '140px', background: 'linear-gradient(to left, #041635, transparent)', zIndex: 1, pointerEvents: 'none' }} />
+        <div className="ticker-fade" style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '140px', background: 'linear-gradient(to right, #041635, transparent)', zIndex: 1, pointerEvents: 'none' }} />
+        <div className="ticker-fade" style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '140px', background: 'linear-gradient(to left, #041635, transparent)', zIndex: 1, pointerEvents: 'none' }} />
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
           <Row items={companies} />

@@ -23,9 +23,19 @@ const links = {
 export default function Footer() {
   return (
     <footer style={{ background: '#060D24', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      <style>{`
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.07); padding-top: 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+        @media (max-width: 768px) {
+          .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 480px) {
+          .footer-grid { grid-template-columns: 1fr; }
+        }
+      `}</style>
       <div className="container" style={{ padding: '56px 24px 40px' }}>
         {/* Top row */}
-        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '40px', marginBottom: '48px' }}>
+        <div className="footer-grid">
           {/* Brand */}
           <div>
             <Link href="/" style={{ textDecoration: 'none', display: 'inline-block', marginBottom: '16px' }}>
@@ -62,7 +72,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: '28px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
+        <div className="footer-bottom">
           <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.2)' }}>
             © {new Date().getFullYear()} Reslink. All rights reserved.
           </p>

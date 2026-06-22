@@ -55,7 +55,7 @@ export default function Hero() {
           font-family: var(--font-body);
         }
         .hero-ctas { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
-        .hero-proof { font-size: 13px; color: #9A9FA8; font-family: var(--font-body); margin-bottom: 72px; }
+        .hero-proof { font-size: 13px; color: #9A9FA8; font-family: var(--font-body); margin-bottom: 56px; }
         .hero-proof strong { color: #5C6070; font-weight: 600; }
 
         .hero-stage { max-width: 920px; margin: 0 auto; position: relative; z-index: 1; }
@@ -85,8 +85,14 @@ export default function Hero() {
         .float-bl { bottom: 70px; left: -34px; }
 
         @media (max-width: 760px) {
-          .hero-inner { padding: 104px 20px 0; }
+          .hero-inner { padding: 100px 20px 0; }
           .hero-float { display: none; }
+          .hero-proof { margin-bottom: 40px; }
+          .hero-ctas { gap: 10px; }
+          .hero-ctas a { width: 100%; justify-content: center; }
+        }
+        @media (max-width: 400px) {
+          .hero-inner { padding: 90px 16px 0; }
         }
       `}</style>
 

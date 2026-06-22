@@ -18,7 +18,7 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section style={{ padding: '96px 0', background: '#fff' }}>
+    <section style={{ padding: 'clamp(64px, 8vw, 96px) 0', background: '#fff' }}>
       <div className="container">
         <div style={{ maxWidth: '680px', margin: '0 auto' }}>
           <motion.div

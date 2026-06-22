@@ -148,7 +148,7 @@ export default function Testimonials() {
   const row2 = testimonials.slice(3);
 
   return (
-    <section style={{ padding: '100px 0', background: '#F7F8FA', overflow: 'hidden' }}>
+    <section style={{ padding: 'clamp(64px, 8vw, 100px) 0', background: '#F7F8FA', overflow: 'hidden' }}>
       <style>{`
         @keyframes testi-scroll { from { transform: translateX(0) } to { transform: translateX(-50%) } }
         @keyframes testi-scroll-rev { from { transform: translateX(-50%) } to { transform: translateX(0) } }

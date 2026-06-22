@@ -327,9 +327,15 @@ export default function Features() {
             grid-template-columns: 1fr;
             min-height: auto;
           }
-          .feat-copy { padding: 36px 28px; }
-          .feat-visual { min-height: 280px; }
+          .feat-copy { padding: 32px 24px; }
+          .feat-visual { min-height: 320px; }
           .feat-tab { padding: 8px 14px; font-size: 13px; }
+          .feat-header { margin-bottom: 32px; }
+          .feat-tabs { gap: 6px; margin-bottom: 28px; }
+        }
+        @media (max-width: 480px) {
+          .feat-visual { min-height: 260px; }
+          .feat-copy { padding: 28px 20px; }
         }
       `}</style>
 

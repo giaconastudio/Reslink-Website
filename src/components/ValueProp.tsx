@@ -31,9 +31,16 @@ export default function ValueProp() {
         .vp-compare { display: grid; grid-template-columns: 1fr 1.55fr; gap: 16px; align-items: start; }
         .vp-after { transition: transform 0.3s ease, box-shadow 0.3s ease; }
         .vp-after:hover { transform: translateY(-3px); box-shadow: 0 24px 72px rgba(4,22,53,0.16) !important; }
+        .vp-stats { display: flex; justify-content: center; gap: 64px; margin-top: 56px; padding-top: 48px; border-top: 1px solid #ECEEF1; flex-wrap: wrap; }
         @media (max-width: 760px) {
           .vp-compare { grid-template-columns: 1fr; }
           .vp-before-col { order: 2; }
+          .vp-stats { gap: 0; display: grid; grid-template-columns: 1fr 1fr; }
+          .vp-stat-item { padding: 24px 16px; border-bottom: 1px solid #ECEEF1; }
+          .vp-stat-item:nth-child(odd) { border-right: 1px solid #ECEEF1; }
+        }
+        @media (min-width: 761px) {
+          .vp-stat-item { text-align: center; }
         }
       `}</style>
       <div className="container">
@@ -200,7 +207,7 @@ export default function ValueProp() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          style={{ display: 'flex', justifyContent: 'center', gap: '64px', marginTop: '56px', paddingTop: '48px', borderTop: '1px solid #ECEEF1', flexWrap: 'wrap' }}
+          className="vp-stats"
         >
           {[
             { end: 3, suffix: '×', label: 'more recruiter callbacks' },
@@ -208,8 +215,8 @@ export default function ValueProp() {
             { end: 85, suffix: '%', label: 'avg. video watch-through rate' },
             { end: 5, suffix: ' min', label: 'to create your first Reslink' },
           ].map(s => (
-            <div key={s.label} style={{ textAlign: 'center' }}>
-              <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '38px', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em' }}>
+            <div key={s.label} className="vp-stat-item">
+              <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 38px)', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em' }}>
                 <CountUp end={s.end} suffix={s.suffix} />
               </p>
               <p style={{ fontSize: '13px', color: '#9A9FA8', marginTop: '6px', fontFamily: 'var(--font-body)' }}>{s.label}</p>

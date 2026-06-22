@@ -5,7 +5,7 @@ import { ArrowRight } from 'lucide-react';
 
 export default function CTA() {
   return (
-    <section style={{ padding: '120px 24px', background: '#041635', position: 'relative', overflow: 'hidden' }}>
+    <section style={{ padding: 'clamp(72px, 10vw, 120px) 24px', background: '#041635', position: 'relative', overflow: 'hidden' }}>
       {/* Glows */}
       <div style={{ position: 'absolute', top: '-20%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '600px', background: 'radial-gradient(ellipse at center, rgba(12,99,227,0.25), transparent 60%)', pointerEvents: 'none' }} />
       <div style={{ position: 'absolute', bottom: '-30%', left: '50%', transform: 'translateX(-50%)', width: '700px', height: '500px', background: 'radial-gradient(ellipse at center, rgba(216,249,80,0.1), transparent 60%)', pointerEvents: 'none' }} />

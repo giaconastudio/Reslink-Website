@@ -67,7 +67,11 @@ export default function Testimonials() {
           </h2>
         </motion.div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
+        <style>{`
+          @media (max-width: 900px) { .testi-grid { grid-template-columns: 1fr 1fr !important; } }
+          @media (max-width: 600px) { .testi-grid { grid-template-columns: 1fr !important; } }
+        `}</style>
+        <div className="testi-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
           {testimonials.map((t, i) => (
             <motion.div
               key={t.name}

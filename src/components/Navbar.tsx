@@ -23,18 +23,24 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', fn);
   }, []);
 
-  const navLinkStyle = { fontSize: '14px', fontWeight: 500, color: '#5C6070', textDecoration: 'none', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' } as const;
+  // Over the dark hero (top of page) the bar is transparent with light text;
+  // once scrolled it flips to solid white with dark text.
+  const onDark = !scrolled;
+  const linkColor = onDark ? 'rgba(255,255,255,0.7)' : '#5C6070';
+  const linkHover = onDark ? '#fff' : '#041635';
+  const linkHoverBg = onDark ? 'rgba(255,255,255,0.1)' : '#F7F8FA';
+  const navLinkStyle = { fontSize: '14px', fontWeight: 500, color: linkColor, textDecoration: 'none', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' } as const;
 
   return (
     <header style={{
       position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
-      background: '#fff',
+      background: scrolled ? '#fff' : 'transparent',
       borderBottom: scrolled ? '1px solid #EEEEF0' : '1px solid transparent',
-      transition: 'border-color 0.2s',
+      transition: 'background 0.2s, border-color 0.2s',
     }}>
       <div className="container">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '68px' }}>
-          <Link href="/"><Image src="/reslink-logo.png" alt="Reslink" width={140} height={36} priority style={{ height: '30px', width: 'auto' }} /></Link>
+          <Link href="/"><Image src="/reslink-logo.png" alt="Reslink" width={140} height={36} priority style={{ height: '30px', width: 'auto', filter: onDark ? 'brightness(0) invert(1)' : 'none', transition: 'filter 0.2s' }} /></Link>
 
           {/* Desktop nav */}
           <nav style={{ display: 'flex', alignItems: 'center', gap: '4px' }} className="desktop-nav">
@@ -63,16 +69,16 @@ export default function Navbar() {
 
             {[['Resources', '/resources'], ['Company', '/company'], ['Pricing', '/pricing']].map(([label, href]) => (
               <Link key={href} href={href} style={navLinkStyle}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#041635'; (e.currentTarget as HTMLElement).style.background = '#F7F8FA'; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = '#5C6070'; (e.currentTarget as HTMLElement).style.background = 'transparent'; }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = linkHover; (e.currentTarget as HTMLElement).style.background = linkHoverBg; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = linkColor; (e.currentTarget as HTMLElement).style.background = 'transparent'; }}
               >{label}</Link>
             ))}
           </nav>
 
           {/* Right CTAs */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }} className="desktop-nav">
-            <Link href="/login" style={{ fontSize: '14px', fontWeight: 600, color: '#041635', textDecoration: 'none', padding: '8px 14px', borderRadius: '8px', transition: 'background 0.15s' }}
-              onMouseEnter={e => (e.currentTarget.style.background = '#F7F8FA')}
+            <Link href="/login" style={{ fontSize: '14px', fontWeight: 600, color: onDark ? '#fff' : '#041635', textDecoration: 'none', padding: '8px 14px', borderRadius: '8px', transition: 'background 0.15s, color 0.2s' }}
+              onMouseEnter={e => (e.currentTarget.style.background = linkHoverBg)}
               onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
             >Log in</Link>
             <Link href="/signup" className="btn-primary" style={{ padding: '10px 18px', fontSize: '14px' }}>
@@ -81,7 +87,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile toggle */}
-          <button onClick={() => setMobileOpen(!mobileOpen)} style={{ display: 'none', padding: '8px', background: 'none', border: 'none', cursor: 'pointer', color: '#041635' }} className="mobile-toggle">
+          <button onClick={() => setMobileOpen(!mobileOpen)} style={{ display: 'none', padding: '8px', background: 'none', border: 'none', cursor: 'pointer', color: (onDark && !mobileOpen) ? '#fff' : '#041635' }} className="mobile-toggle">
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>

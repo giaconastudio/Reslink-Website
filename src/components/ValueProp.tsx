@@ -5,8 +5,13 @@ import { motion } from 'framer-motion';
 export default function ValueProp() {
   return (
     <section style={{ padding: '96px 0', background: '#fff' }}>
+      <style>{`
+        @media (max-width: 768px) {
+          .vp-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+        }
+      `}</style>
       <div className="container">
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center' }}>
+        <div className="vp-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center' }}>
 
           {/* Left — problem/solution */}
           <motion.div

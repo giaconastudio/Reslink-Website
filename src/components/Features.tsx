@@ -384,10 +384,10 @@ export default function Features() {
               <p style={{ fontSize: '16px', color: tab.bg === '#041635' ? 'rgba(255,255,255,0.45)' : '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '32px' }}>
                 {tab.sub}
               </p>
-              <a href={tab.href || '/get-started'} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '14px', fontWeight: 700, color: '#fff', background: '#0C63E3', padding: '11px 20px', borderRadius: '8px', textDecoration: 'none', width: 'fit-content', fontFamily: 'var(--font-body)', transition: 'opacity 0.15s' }}
+              <a href={(tab as { href?: string }).href || '/get-started'} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '14px', fontWeight: 700, color: '#fff', background: '#0C63E3', padding: '11px 20px', borderRadius: '8px', textDecoration: 'none', width: 'fit-content', fontFamily: 'var(--font-body)', transition: 'opacity 0.15s' }}
                 onMouseEnter={e => (e.currentTarget.style.opacity = '0.85')}
                 onMouseLeave={e => (e.currentTarget.style.opacity = '1')}>
-                {tab.ctaLabel || 'Try it free'}
+                {(tab as { ctaLabel?: string }).ctaLabel || 'Try it free'}
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
               </a>
             </div>

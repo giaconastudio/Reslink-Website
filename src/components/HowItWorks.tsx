@@ -33,7 +33,7 @@ const accentColors = ['#D8F950', '#BFD7FF', '#FFD6A5', '#C4B5FD'];
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" style={{ background: '#fff', padding: '100px 0' }}>
+    <section id="how-it-works" style={{ background: '#F7F8FA', padding: '100px 0' }}>
       <style>{`
         .hiw-header {
           text-align: center;
@@ -67,16 +67,16 @@ export default function HowItWorks() {
           gap: 64px;
           align-items: center;
           padding: 64px 0;
-          border-top: 1px solid #EEEEF0;
+          border-top: 1px solid #E4E7EC;
         }
-        .hiw-step:last-child { border-bottom: 1px solid #EEEEF0; }
+        .hiw-step:last-child { border-bottom: 1px solid #E4E7EC; }
         .hiw-step.reverse .hiw-step-visual { order: -1; }
         .hiw-step-num {
           font-family: var(--font-phudu);
           font-size: 120px;
           font-weight: 900;
           line-height: 1;
-          color: #F0F2F5;
+          color: #E4E8EE;
           letter-spacing: -0.04em;
           margin-bottom: -16px;
         }
@@ -172,7 +172,7 @@ export default function HowItWorks() {
 
               {/* Animation placeholder */}
               {/* ↓ STEP {i+1} ANIMATION — replace this div's contents with your animation */}
-              <div className="hiw-step-visual" style={{ background: '#FAFAFA' }}>
+              <div className="hiw-step-visual" style={{ background: '#fff' }}>
                 <div className="hiw-placeholder-icon" style={{ background: `${accentColors[i]}22`, border: `1.5px solid ${accentColors[i]}55` }}>
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={accentColors[i]} strokeWidth="1.8">
                     <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>

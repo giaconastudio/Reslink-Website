@@ -23,18 +23,17 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', fn);
   }, []);
 
-  // Over the dark hero (top of page) the bar is transparent with light text;
-  // once scrolled it flips to solid white with dark text.
-  const onDark = !scrolled;
-  const linkColor = onDark ? 'rgba(255,255,255,0.7)' : '#5C6070';
-  const linkHover = onDark ? '#fff' : '#041635';
-  const linkHoverBg = onDark ? 'rgba(255,255,255,0.1)' : '#F7F8FA';
+  // Light hero: keep the bar white; just add a hairline border once scrolled.
+  const onDark = false;
+  const linkColor = '#5C6070';
+  const linkHover = '#041635';
+  const linkHoverBg = '#F7F8FA';
   const navLinkStyle = { fontSize: '14px', fontWeight: 500, color: linkColor, textDecoration: 'none', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' } as const;
 
   return (
     <header style={{
       position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
-      background: scrolled ? '#fff' : 'transparent',
+      background: '#fff',
       borderBottom: scrolled ? '1px solid #EEEEF0' : '1px solid transparent',
       transition: 'background 0.2s, border-color 0.2s',
     }}>

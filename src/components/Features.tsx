@@ -175,7 +175,7 @@ export default function Features() {
   const tab = tabs[active];
 
   return (
-    <section style={{ padding: '100px 0', background: '#F7F8FA' }}>
+    <section style={{ padding: '100px 0', background: '#fff' }}>
       <style>{`
         .feat-header { text-align: center; margin-bottom: 48px; }
         .feat-tabs {
@@ -191,12 +191,12 @@ export default function Features() {
           gap: 7px;
           padding: 10px 20px;
           border-radius: 100px;
-          border: 1.5px solid #EEEEF0;
-          background: #fff;
+          border: 1.5px solid #E4E7EC;
+          background: #F7F8FA;
           cursor: pointer;
           font-size: 14px;
           font-weight: 600;
-          color: #9A9FA8;
+          color: #5C6070;
           font-family: var(--font-body);
           transition: all 0.2s;
           white-space: nowrap;

@@ -56,8 +56,8 @@ export default function ValueProp() {
           <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>
             Your resume, but better
           </p>
-          <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(40px, 5.5vw, 68px)', fontWeight: 900, color: '#041635', lineHeight: 0.93, letterSpacing: '-0.03em', marginBottom: '24px' }}>
-            The resume recruiters<br /><span style={{ color: '#0C63E3' }}>actually remember.</span>
+          <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 4.8vw, 60px)', fontWeight: 900, color: '#041635', lineHeight: 0.95, letterSpacing: '-0.03em', marginBottom: '24px' }}>
+            Stand out before<br />you even get<br /><span style={{ color: '#0C63E3' }}>the interview.</span>
           </h2>
           <p style={{ fontSize: '17px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>
             A static PDF cannot attract recruiters instantly, share with a single click, or personalize your pitch. A Reslink does all three — and lands interviews faster.

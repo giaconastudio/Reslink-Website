@@ -327,16 +327,15 @@ export default function Features() {
           display: flex;
           overflow: hidden;
         }
+        .feat-tabs-fade { display: none; }
         @media (max-width: 768px) {
-          .feat-panel {
-            grid-template-columns: 1fr;
-            min-height: auto;
-          }
+          .feat-panel { grid-template-columns: 1fr; min-height: auto; }
           .feat-visual { order: -1; min-height: 300px; }
           .feat-copy { padding: 28px 24px 32px; }
           .feat-tab { padding: 8px 14px; font-size: 13px; white-space: nowrap; }
           .feat-header { margin-bottom: 28px; }
           .feat-tabs { justify-content: flex-start; flex-wrap: nowrap; padding-left: 0; gap: 6px; margin-bottom: 24px; }
+          .feat-tabs-fade { display: block; position: absolute; right: 0; top: 0; bottom: 4px; width: 48px; background: linear-gradient(to right, transparent, #fff); pointer-events: none; border-radius: 0 100px 100px 0; }
         }
         @media (max-width: 480px) {
           .feat-visual { min-height: 260px; }
@@ -354,12 +353,15 @@ export default function Features() {
         </motion.div>
 
         {/* Tabs */}
-        <div className="feat-tabs">
-          {tabs.map((t, i) => (
-            <button key={t.id} className={`feat-tab${i === active ? ' active' : ''}`} onClick={() => setActive(i)}>
-              <span style={{ display: 'inline-flex' }}>{icons[t.id]}</span> {t.label}
-            </button>
-          ))}
+        <div style={{ position: 'relative' }}>
+          <div className="feat-tabs">
+            {tabs.map((t, i) => (
+              <button key={t.id} className={`feat-tab${i === active ? ' active' : ''}`} onClick={() => setActive(i)}>
+                <span style={{ display: 'inline-flex' }}>{icons[t.id]}</span> {t.label}
+              </button>
+            ))}
+          </div>
+          <div className="feat-tabs-fade" />
         </div>
 
         {/* Panel */}

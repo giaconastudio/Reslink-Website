@@ -63,12 +63,7 @@ export default function HowItWorks() {
     return () => window.removeEventListener('scroll', onScroll);
   }, [isMobile]);
 
-  // Mobile: auto-advance every 3.5s
-  useEffect(() => {
-    if (!isMobile) return;
-    const id = setInterval(() => setActive(i => (i + 1) % steps.length), 3500);
-    return () => clearInterval(id);
-  }, [isMobile]);
+  // Mobile: manual only — no auto-advance
 
   // Play only the active video
   useEffect(() => {

@@ -39,12 +39,15 @@ export default function Hero() {
         .hero-inner { max-width: 1120px; margin: 0 auto; padding: 130px 24px 0; text-align: center; position: relative; z-index: 1; }
         .hero-h1 {
           font-family: var(--font-phudu);
-          font-size: clamp(46px, 8vw, 92px);
+          font-size: clamp(42px, 8vw, 92px);
           font-weight: 900;
           line-height: 0.92;
           letter-spacing: -0.03em;
           color: #041635;
           margin-bottom: 24px;
+        }
+        @media (max-width: 520px) {
+          .hero-h1 { font-size: clamp(38px, 10vw, 52px); line-height: 1.0; letter-spacing: -0.02em; }
         }
         .hero-sub {
           font-size: clamp(16px, 2vw, 20px);

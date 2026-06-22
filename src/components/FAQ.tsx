@@ -58,7 +58,7 @@ export default function FAQ() {
                   <span style={{ fontSize: '15px', fontWeight: 600, color: '#041635' }}>{faq.q}</span>
                   <span style={{
                     width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0,
-                    background: open === i ? '#D8F950' : '#F7F8FA',
+                    background: open === i ? '#0C63E3' : '#F7F8FA',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     transition: 'background 0.15s ease',
                   }}>

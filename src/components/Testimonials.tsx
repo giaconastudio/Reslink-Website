@@ -152,8 +152,8 @@ export default function Testimonials() {
       <style>{`
         @keyframes testi-scroll { from { transform: translateX(0) } to { transform: translateX(-50%) } }
         @keyframes testi-scroll-rev { from { transform: translateX(-50%) } to { transform: translateX(0) } }
-        .testi-track { animation: testi-scroll 40s linear infinite; display: flex; }
-        .testi-track-rev { animation: testi-scroll-rev 44s linear infinite; display: flex; }
+        .testi-track { animation: testi-scroll 22s linear infinite; display: flex; }
+        .testi-track-rev { animation: testi-scroll-rev 26s linear infinite; display: flex; }
         .testi-track:hover, .testi-track-rev:hover { animation-play-state: paused; }
         .testi-row-second { }
         @media (max-width: 640px) {

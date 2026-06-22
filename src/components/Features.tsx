@@ -13,8 +13,8 @@ const icons: Record<string, React.ReactNode> = {
   teleprompter: (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
   ),
-  integrations: (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+  badge: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
   ),
 };
 
@@ -32,46 +32,79 @@ const tabs = [
     color: '#D8F950',
     bg: '#041635',
     visual: (
-      <div style={{ width: '100%', height: '100%', padding: '24px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        {/* Top stat cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-          {[{ v: '1,284', l: 'Total Views', delta: '+18% this week' }, { v: '847', l: 'Video Plays', delta: '66% play rate' }].map(s => (
-            <div key={s.l} style={{ background: 'rgba(255,255,255,0.06)', borderRadius: '10px', padding: '14px 12px' }}>
-              <p style={{ fontSize: '22px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)', lineHeight: 1 }}>{s.v}</p>
-              <p style={{ fontSize: '10px', color: 'rgba(255,255,255,0.35)', marginTop: '3px', fontFamily: 'var(--font-body)' }}>{s.l}</p>
-              <p style={{ fontSize: '10px', color: '#D8F950', marginTop: '4px', fontFamily: 'var(--font-body)', fontWeight: 600 }}>{s.delta}</p>
+      <div style={{ width: '100%', height: '100%', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        {/* Section header */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)' }}>Performance Analytics</span>
+          <span style={{ marginLeft: 'auto', fontSize: '10px', color: 'rgba(255,255,255,0.25)', fontFamily: 'var(--font-body)', background: 'rgba(255,255,255,0.06)', borderRadius: '5px', padding: '2px 8px' }}>Last 7 days</span>
+        </div>
+        {/* Top 2 stat cards */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '7px' }}>
+          <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: '10px', padding: '13px 12px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '6px' }}>
+              <div style={{ width: '22px', height: '22px', borderRadius: '6px', background: '#0C63E3', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              </div>
+              <span style={{ fontSize: '9px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)' }}>Unique Visitors</span>
+              <span style={{ marginLeft: 'auto', fontSize: '9px', color: '#D8F950', fontFamily: 'var(--font-body)', fontWeight: 700 }}>+18.2%</span>
             </div>
-          ))}
+            <p style={{ fontSize: '26px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)', lineHeight: 1 }}>98</p>
+          </div>
+          <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: '10px', padding: '13px 12px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '6px' }}>
+              <div style={{ width: '22px', height: '22px', borderRadius: '6px', background: '#F97316', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <span style={{ fontSize: '9px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)' }}>Avg Watch Time</span>
+              <span style={{ marginLeft: 'auto', fontSize: '9px', color: '#D8F950', fontFamily: 'var(--font-body)', fontWeight: 700 }}>+12.4%</span>
+            </div>
+            <p style={{ fontSize: '26px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)', lineHeight: 1 }}>52s</p>
+            <p style={{ fontSize: '9px', color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-body)', marginTop: '3px' }}>85% completion rate</p>
+          </div>
         </div>
-        {/* Watch time bar */}
+        {/* Clicks breakdown */}
         <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '10px', padding: '12px 14px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-            <span style={{ fontSize: '11px', fontWeight: 600, color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)' }}>Avg. watch time</span>
-            <span style={{ fontSize: '11px', fontWeight: 700, color: '#D8F950', fontFamily: 'var(--font-body)' }}>0:44 / 0:47</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '10px' }}>
+            <div style={{ width: '20px', height: '20px', borderRadius: '5px', background: '#7C3AED', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </div>
+            <span style={{ fontSize: '9px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)' }}>Clicks</span>
           </div>
-          <div style={{ height: '6px', borderRadius: '3px', background: 'rgba(255,255,255,0.1)' }}>
-            <div style={{ height: '100%', width: '93%', borderRadius: '3px', background: 'linear-gradient(90deg, #0C63E3, #D8F950)' }} />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '6px' }}>
+            {[
+              { v: '127', l: 'Reslink', d: '+18.2%' },
+              { v: '19', l: 'Badge', d: '+22.1%' },
+              { v: '24', l: 'Portfolio', d: '+14.7%' },
+              { v: '16', l: 'LinkedIn', d: '+9.3%' },
+            ].map(c => (
+              <div key={c.l} style={{ textAlign: 'center' }}>
+                <p style={{ fontSize: '17px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)', lineHeight: 1 }}>{c.v}</p>
+                <p style={{ fontSize: '8px', color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-body)', marginTop: '2px' }}>{c.l}</p>
+                <p style={{ fontSize: '8px', color: '#D8F950', fontFamily: 'var(--font-body)', fontWeight: 600, marginTop: '2px' }}>{c.d}</p>
+              </div>
+            ))}
           </div>
         </div>
-        {/* Location breakdown */}
+        {/* Top locations */}
         <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '10px', padding: '12px 14px', flex: 1 }}>
-          <p style={{ fontSize: '10px', fontWeight: 700, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '10px', fontFamily: 'var(--font-body)' }}>Top locations</p>
-          {[{ city: 'New York, US', pct: 38 }, { city: 'London, UK', pct: 24 }, { city: 'San Francisco, US', pct: 17 }].map(l => (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '10px' }}>
+            <div style={{ width: '20px', height: '20px', borderRadius: '5px', background: '#E11D48', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <span style={{ fontSize: '9px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)' }}>Top Locations</span>
+          </div>
+          {[{ city: 'Seattle, WA', pct: 35 }, { city: 'San Francisco, CA', pct: 28 }].map(l => (
             <div key={l.city} style={{ marginBottom: '8px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}>
-                <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)' }}>{l.city}</span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-body)' }}>{l.city}</span>
                 <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)' }}>{l.pct}%</span>
               </div>
               <div style={{ height: '4px', borderRadius: '2px', background: 'rgba(255,255,255,0.08)' }}>
-                <div style={{ height: '100%', width: `${l.pct}%`, borderRadius: '2px', background: '#0C63E3' }} />
+                <div style={{ height: '100%', width: `${l.pct}%`, borderRadius: '2px', background: '#E11D48' }} />
               </div>
             </div>
           ))}
-        </div>
-        {/* Link clicks row */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(255,255,255,0.04)', borderRadius: '10px', padding: '10px 14px' }}>
-          <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)' }}>LinkedIn link clicks</span>
-          <span style={{ fontSize: '16px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>63</span>
         </div>
       </div>
     ),
@@ -84,45 +117,49 @@ const tabs = [
     color: '#0C63E3',
     bg: '#fff',
     visual: (
-      <div style={{ width: '100%', height: '100%', padding: '24px', display: 'flex', flexDirection: 'column', gap: '10px', background: '#fff' }}>
-        {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-          <div style={{ width: '26px', height: '26px', borderRadius: '7px', background: '#041635', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#D8F950" strokeWidth="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
-          </div>
-          <span style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>Reslink Pitch AI</span>
-          <span style={{ marginLeft: 'auto', fontSize: '10px', fontWeight: 600, color: '#0C63E3', background: '#EBF0FF', padding: '2px 8px', borderRadius: '100px', fontFamily: 'var(--font-body)' }}>Free</span>
-        </div>
-        {/* Input: Job title */}
-        <div>
-          <p style={{ fontSize: '10px', fontWeight: 600, color: '#9A9FA8', marginBottom: '5px', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Job title</p>
-          <div style={{ background: '#F7F8FA', border: '1.5px solid #ECEEF1', borderRadius: '8px', padding: '9px 12px', fontSize: '13px', color: '#041635', fontFamily: 'var(--font-body)', fontWeight: 500 }}>
-            Software Engineer — Google
+      <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', background: '#fff' }}>
+        {/* Modal header — dark navy */}
+        <div style={{ background: '#0B1120', padding: '14px 18px', display: 'flex', alignItems: 'center', gap: '9px' }}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D8F950" strokeWidth="2"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          <span style={{ fontSize: '13px', fontWeight: 800, color: '#fff', fontFamily: 'var(--font-body)', letterSpacing: '0.04em' }}>RESLINK AI</span>
+          <div style={{ marginLeft: 'auto', width: '20px', height: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </div>
         </div>
-        {/* Input: Job description */}
-        <div>
-          <p style={{ fontSize: '10px', fontWeight: 600, color: '#9A9FA8', marginBottom: '5px', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Job description</p>
-          <div style={{ background: '#F7F8FA', border: '1.5px solid #ECEEF1', borderRadius: '8px', padding: '9px 12px', fontSize: '12px', color: '#5C6070', fontFamily: 'var(--font-body)', lineHeight: 1.5, height: '52px', overflow: 'hidden' }}>
-            We are looking for a Software Engineer to join our Search team. You will build scalable systems...
+        {/* Generated script */}
+        <div style={{ padding: '14px 18px', flex: 1, overflowY: 'hidden' }}>
+          <div style={{ border: '1px solid #E8EAF0', borderRadius: '10px', padding: '14px', background: '#FAFBFC', fontSize: '12px', color: '#1A1E2A', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>
+            <p style={{ marginBottom: '10px' }}>Hey there! My name is Alex, and I am excited to introduce myself. I have 5 years of experience as a Sales Development Rep, during which I have had the opportunity to work on a variety of exciting projects.</p>
+            <p style={{ marginBottom: '10px' }}>One of my proudest achievements was leading a team of 15 and increasing sales by 51%. It was an incredible learning experience that really strengthened my leadership and strategic thinking skills.</p>
+            <p>I am particularly drawn to this role because it matches my skills and career goals. I believe my background aligns well with what you are looking for.</p>
           </div>
         </div>
-        {/* Input: Resume uploaded */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#F0FFF0', border: '1.5px solid #D8F950', borderRadius: '8px', padding: '9px 12px' }}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          <span style={{ fontSize: '12px', color: '#16a34a', fontFamily: 'var(--font-body)', fontWeight: 600 }}>resume_oliver_stone.pdf uploaded</span>
-          <svg style={{ marginLeft: 'auto' }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        {/* Action buttons 2x2 */}
+        <div style={{ padding: '0 18px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '7px', marginBottom: '10px' }}>
+          {[
+            { icon: '✂', label: 'Shorten it' },
+            { icon: '💬', label: 'Make it casual' },
+            { icon: '↗', label: 'Lengthen it' },
+            { icon: '📄', label: 'Make it formal' },
+          ].map(b => (
+            <div key={b.label} style={{ border: '1px solid #E4E7EC', borderRadius: '8px', padding: '9px 12px', fontSize: '11px', fontWeight: 600, color: '#3A3F4C', fontFamily: 'var(--font-body)', textAlign: 'center', cursor: 'pointer', background: '#fff' }}>
+              {b.label}
+            </div>
+          ))}
         </div>
-        {/* Generate button */}
-        <div style={{ background: '#041635', borderRadius: '8px', padding: '11px', textAlign: 'center', cursor: 'pointer' }}>
-          <span style={{ fontSize: '13px', fontWeight: 700, color: '#D8F950', fontFamily: 'var(--font-body)' }}>Generate my video script</span>
+        {/* Custom input */}
+        <div style={{ padding: '0 18px', marginBottom: '10px' }}>
+          <div style={{ border: '1px solid #E4E7EC', borderRadius: '8px', padding: '9px 12px', fontSize: '11px', color: '#B0B4BE', fontFamily: 'var(--font-body)', background: '#FAFBFC', display: 'flex', alignItems: 'center', gap: '7px' }}>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#D8F950" strokeWidth="2"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+            Tell us what you want to change in the script
+          </div>
         </div>
-        {/* Output preview */}
-        <div style={{ background: '#F7F8FA', border: '1px solid #ECEEF1', borderRadius: '8px', padding: '10px 12px', flex: 1 }}>
-          <p style={{ fontSize: '10px', fontWeight: 700, color: '#0C63E3', marginBottom: '6px', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Your script</p>
-          <p style={{ fontSize: '12px', color: '#3A3F4C', lineHeight: 1.6, fontFamily: 'var(--font-body)' }}>
-            "Hi, I'm Oliver. I've spent 3 years building backend systems that handle millions of requests per day. At HubSpot I cut API latency by 40%..."
-          </p>
+        {/* Use Script CTA */}
+        <div style={{ padding: '0 18px 14px' }}>
+          <div style={{ background: '#D8F950', borderRadius: '8px', padding: '11px', textAlign: 'center', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '7px' }}>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#041635" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span style={{ fontSize: '13px', fontWeight: 800, color: '#041635', fontFamily: 'var(--font-body)' }}>Use Script</span>
+          </div>
         </div>
       </div>
     ),
@@ -170,48 +207,56 @@ const tabs = [
     ),
   },
   {
-    id: 'integrations',
-    label: 'Integrations',
-    headline: 'One link. Every opportunity.',
-    sub: 'Share your Reslink across top job platforms and LinkedIn with just a few clicks, making it easier than ever to connect with recruiters — paste it like any URL.',
+    id: 'badge',
+    label: 'Badge',
+    headline: 'Embed your Reslink directly in your resume.',
+    sub: 'A Reslink Badge is a clickable button embedded in your PDF. When a recruiter opens your resume, one click takes them straight to your video intro — no manual linking, no copying URLs.',
     color: '#D8F950',
     bg: '#F7F8FA',
     visual: (
-      <div style={{ width: '100%', height: '100%', padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px', background: '#F7F8FA' }}>
-        {/* Your link */}
-        <div style={{ background: '#041635', borderRadius: '10px', padding: '12px 16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D8F950" strokeWidth="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-          <span style={{ fontSize: '12px', fontWeight: 600, color: 'rgba(255,255,255,0.8)', fontFamily: 'var(--font-body)', flex: 1 }}>reslink.io/oliverstone</span>
-          <div style={{ background: '#D8F950', borderRadius: '5px', padding: '4px 10px', fontSize: '11px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', cursor: 'pointer' }}>Copy</div>
-        </div>
-        {/* LinkedIn apply */}
-        <div style={{ background: '#fff', borderRadius: '10px', border: '1px solid #E8EAF0', padding: '12px 14px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-            <div style={{ width: '20px', height: '20px', borderRadius: '4px', background: '#0A66C2', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ fontSize: '10px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>in</span>
+      <div style={{ width: '100%', height: '100%', padding: '20px', display: 'flex', flexDirection: 'column', gap: '10px', background: '#F7F8FA' }}>
+        {/* Resume PDF mockup */}
+        <div style={{ background: '#fff', borderRadius: '10px', border: '1px solid #E4E7EC', padding: '16px 18px', boxShadow: '0 4px 16px rgba(4,22,53,0.06)' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '12px' }}>
+            <div>
+              <p style={{ fontSize: '16px', fontWeight: 800, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>First &amp; Last Name</p>
+              <p style={{ fontSize: '10px', color: '#6B7280', fontFamily: 'var(--font-body)', marginTop: '3px' }}>City, State · 555-000-0000 · email@gmail.com</p>
+              <p style={{ fontSize: '10px', color: '#6B7280', fontFamily: 'var(--font-body)', marginTop: '1px' }}>linkedin.com/in/name</p>
             </div>
-            <span style={{ fontSize: '11px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>LinkedIn — Easy Apply</span>
-          </div>
-          <div style={{ background: '#F7F8FA', border: '1px solid #ECEEF1', borderRadius: '6px', padding: '7px 10px', fontSize: '11px', color: '#0C63E3', fontFamily: 'var(--font-body)' }}>
-            reslink.io/oliverstone
-          </div>
-        </div>
-        {/* Indeed apply */}
-        <div style={{ background: '#fff', borderRadius: '10px', border: '1px solid #E8EAF0', padding: '12px 14px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-            <div style={{ width: '20px', height: '20px', borderRadius: '4px', background: '#003A9B', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ fontSize: '9px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>IN</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '5px', background: '#0C63E3', borderRadius: '20px', padding: '7px 13px', cursor: 'pointer', flexShrink: 0 }}>
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+              <span style={{ fontSize: '11px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)' }}>Play Intro</span>
             </div>
-            <span style={{ fontSize: '11px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>Indeed — Application</span>
           </div>
-          <div style={{ background: '#F7F8FA', border: '1px solid #ECEEF1', borderRadius: '6px', padding: '7px 10px', fontSize: '11px', color: '#0C63E3', fontFamily: 'var(--font-body)' }}>
-            reslink.io/oliverstone
+          <div style={{ borderTop: '1px solid #F0F1F4', paddingTop: '10px' }}>
+            <p style={{ fontSize: '9px', fontWeight: 700, color: '#6B7280', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '6px', fontFamily: 'var(--font-body)' }}>Summary</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginBottom: '10px' }}>
+              <div style={{ height: '6px', borderRadius: '3px', background: '#E9EAEC', width: '100%' }} />
+              <div style={{ height: '6px', borderRadius: '3px', background: '#E9EAEC', width: '85%' }} />
+              <div style={{ height: '6px', borderRadius: '3px', background: '#E9EAEC', width: '92%' }} />
+            </div>
+            <p style={{ fontSize: '9px', fontWeight: 700, color: '#6B7280', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '6px', fontFamily: 'var(--font-body)' }}>Experience</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+              <div style={{ height: '6px', borderRadius: '3px', background: '#E9EAEC', width: '100%' }} />
+              <div style={{ height: '6px', borderRadius: '3px', background: '#E9EAEC', width: '78%' }} />
+              <div style={{ height: '6px', borderRadius: '3px', background: '#E9EAEC', width: '88%' }} />
+              <div style={{ height: '6px', borderRadius: '3px', background: '#E9EAEC', width: '70%' }} />
+            </div>
           </div>
         </div>
-        {/* Works anywhere note */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 14px', background: '#FAFFF0', border: '1px solid #D8F950', borderRadius: '10px', marginTop: 'auto' }}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          <span style={{ fontSize: '12px', color: '#3A3F4C', fontFamily: 'var(--font-body)' }}>Works in any application field — <strong>paste it like a URL</strong></span>
+        {/* 3 benefit tiles */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px' }}>
+          {[
+            { icon: '⚡', title: 'One click', desc: 'Recruiters go straight to your Reslink from any PDF viewer' },
+            { icon: '🔗', title: 'Always linked', desc: 'Every copy of your resume has the badge automatically' },
+            { icon: '📊', title: 'Trackable', desc: 'See how many recruiters clicked through to your Reslink' },
+          ].map(b => (
+            <div key={b.title} style={{ background: '#fff', borderRadius: '10px', border: '1px solid #E4E7EC', padding: '12px 10px' }}>
+              <p style={{ fontSize: '14px', marginBottom: '4px' }}>{b.icon}</p>
+              <p style={{ fontSize: '11px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', marginBottom: '4px' }}>{b.title}</p>
+              <p style={{ fontSize: '10px', color: '#6B7280', fontFamily: 'var(--font-body)', lineHeight: 1.4 }}>{b.desc}</p>
+            </div>
+          ))}
         </div>
       </div>
     ),

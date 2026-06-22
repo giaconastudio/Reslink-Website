@@ -36,7 +36,8 @@ const steps = [
 
 export default function HowItWorks() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const desktopVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const mobileVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const [active, setActive] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -65,14 +66,15 @@ export default function HowItWorks() {
 
   // Mobile: manual only — no auto-advance
 
-  // Play only the active video
+  // Play only the active video in the visible layout
   useEffect(() => {
-    videoRefs.current.forEach((v, i) => {
+    const refs = isMobile ? mobileVideoRefs.current : desktopVideoRefs.current;
+    refs.forEach((v, i) => {
       if (!v) return;
       if (i === active) { v.currentTime = 0; v.play().catch(() => {}); }
       else { v.pause(); }
     });
-  }, [active]);
+  }, [active, isMobile]);
 
   const scrollToStep = (i: number) => {
     if (isMobile) { setActive(i); return; }
@@ -152,7 +154,7 @@ export default function HowItWorks() {
             <div>
               <div className="hiw-stage">
                 {steps.map((s, i) => (
-                  <video key={s.num} ref={(el) => { videoRefs.current[i] = el; }} src={`/videos/step-0${i + 1}.mp4`} poster={`/videos/step-0${i + 1}-poster.jpg`} muted loop playsInline preload="metadata" style={{ opacity: i === active ? 1 : 0 }} />
+                  <video key={s.num} ref={(el) => { desktopVideoRefs.current[i] = el; }} src={`/videos/step-0${i + 1}.mp4`} poster={`/videos/step-0${i + 1}-poster.jpg`} muted loop playsInline preload="metadata" style={{ opacity: i === active ? 1 : 0 }} />
                 ))}
                 <div className="hiw-stage-badge">
                   <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: steps[active].color, display: 'inline-block' }} />
@@ -189,7 +191,7 @@ export default function HowItWorks() {
         {/* Video stage */}
         <div className="hiw-mob-stage">
           {steps.map((s, i) => (
-            <video key={s.num} ref={(el) => { videoRefs.current[i] = el; }} src={`/videos/step-0${i + 1}.mp4`} poster={`/videos/step-0${i + 1}-poster.jpg`} muted loop playsInline preload="metadata" style={{ opacity: i === active ? 1 : 0 }} />
+            <video key={s.num} ref={(el) => { mobileVideoRefs.current[i] = el; }} src={`/videos/step-0${i + 1}.mp4`} poster={`/videos/step-0${i + 1}-poster.jpg`} muted loop playsInline preload="metadata" style={{ opacity: i === active ? 1 : 0 }} />
           ))}
           <div style={{ position: 'absolute', top: '12px', left: '12px', zIndex: 3, display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(11,15,26,0.65)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '100px', padding: '5px 12px 5px 9px' }}>
             <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#D8F950', display: 'inline-block' }} />

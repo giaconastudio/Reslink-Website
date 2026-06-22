@@ -1,0 +1,320 @@
+'use client';
+
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+
+const TEAM = [
+  {
+    name: 'Dominic Giacona',
+    initials: 'DG',
+    color: '#0C63E3',
+    title: 'Co-founder & CEO',
+    bio: 'Dominic built Reslink after experiencing firsthand how qualified candidates get overlooked because a PDF can\'t capture who they really are. He\'s obsessed with giving every job seeker the same shot as the one with the insider referral.',
+    linkedin: 'https://linkedin.com/in/dominicgiacona',
+    photo: '/team/dominic.jpg',
+  },
+  {
+    name: 'Joana Rocha',
+    initials: 'JR',
+    color: '#7C3AED',
+    title: 'Co-founder & CMO',
+    bio: 'Joana brings five years of growth leadership across tech startups. At TechTalk she helped thousands of job seekers get noticed — now she\'s building the brand and community that makes Reslink the default for video-first hiring.',
+    linkedin: 'https://linkedin.com/in/joanarochaa',
+    photo: '/team/joana.jpg',
+  },
+  {
+    name: 'Roxanne Taku',
+    initials: 'RT',
+    color: '#E11D48',
+    title: 'Co-founder & CRO',
+    bio: 'Roxanne is a GTM and revenue leader with over five years in sales and revenue operations. She led commercial strategy at TechTalk before joining forces with Dominic and Joana to build the go-to-market engine at Reslink.',
+    linkedin: 'https://linkedin.com/in/roxannetaku',
+    photo: '/team/roxanne.jpg',
+  },
+  {
+    name: 'Taylor Bagwell',
+    initials: 'TB',
+    color: '#0891B2',
+    title: 'Technical Adviser',
+    bio: 'Taylor brings deep engineering expertise that helps Reslink build fast, reliable, and scalable infrastructure. His guidance shapes the technical decisions that let the team move quickly without cutting corners.',
+    linkedin: null,
+    photo: '/team/taylor.jpg',
+  },
+  {
+    name: 'Dan London',
+    initials: 'DL',
+    color: '#059669',
+    title: 'Executive Adviser',
+    bio: 'Dan is a seasoned executive with a track record of scaling SaaS companies from early-stage to market leadership. He advises Reslink on strategy, fundraising, and building the organizational foundation for sustainable growth.',
+    linkedin: null,
+    photo: '/team/dan.jpg',
+  },
+];
+
+const VALUES = [
+  {
+    num: '01',
+    title: 'Humans over documents',
+    body: 'A resume is a list of credentials. A Reslink is a person. We believe the hiring process should start with the latter.',
+  },
+  {
+    num: '02',
+    title: 'Fairness by design',
+    body: 'The best candidate shouldn\'t lose to someone with a better referral network. We build tools that level the playing field.',
+  },
+  {
+    num: '03',
+    title: 'Build for the anxious',
+    body: 'Job hunting is stressful. Every decision we make — every feature, every word — is filtered through the lens of someone who really needs this to work.',
+  },
+  {
+    num: '04',
+    title: 'Move with purpose',
+    body: 'Speed matters when someone is out of work. We move fast, ship constantly, and treat every feature like someone\'s livelihood depends on it.',
+  },
+];
+
+function TeamCard({ member, i }: { member: typeof TEAM[0]; i: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.45, delay: i * 0.08 }}
+      style={{ background: '#fff', borderRadius: '20px', border: '1px solid #ECEEF1', overflow: 'hidden', boxShadow: '0 2px 16px rgba(4,22,53,0.06)' }}
+    >
+      {/* Photo area */}
+      <div style={{ height: '200px', background: `linear-gradient(135deg, ${member.color}18, ${member.color}08)`, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', borderBottom: '1px solid #F3F4F6' }}>
+        <img
+          src={member.photo}
+          alt={member.name}
+          onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; (e.currentTarget.nextSibling as HTMLElement).style.display = 'flex'; }}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }}
+        />
+        <div style={{ display: 'none', width: '80px', height: '80px', borderRadius: '50%', background: member.color, alignItems: 'center', justifyContent: 'center', fontSize: '28px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)', letterSpacing: '-0.02em', flexShrink: 0 }}>
+          {member.initials}
+        </div>
+      </div>
+
+      {/* Info */}
+      <div style={{ padding: '24px 24px 28px' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '10px', marginBottom: '6px' }}>
+          <div>
+            <p style={{ fontSize: '17px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{member.name}</p>
+            <p style={{ fontSize: '12px', fontWeight: 700, color: member.color, fontFamily: 'var(--font-body)', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{member.title}</p>
+          </div>
+          {member.linkedin && (
+            <a href={member.linkedin} target="_blank" rel="noopener noreferrer"
+              style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, textDecoration: 'none', transition: 'background 0.15s' }}
+              onMouseEnter={e => (e.currentTarget.style.background = '#0C63E3')}
+              onMouseLeave={e => (e.currentTarget.style.background = '#EEF4FF')}>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="#0C63E3">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+              </svg>
+            </a>
+          )}
+        </div>
+        <p style={{ fontSize: '13px', color: '#5C6070', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginTop: '12px' }}>{member.bio}</p>
+      </div>
+    </motion.div>
+  );
+}
+
+export default function AboutPage() {
+  return (
+    <>
+      <Navbar />
+      <main style={{ paddingTop: '68px' }}>
+
+        {/* ── Hero ── */}
+        <section style={{ background: '#041635', padding: 'clamp(80px, 11vw, 140px) 24px clamp(80px, 11vw, 130px)', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: '-10%', left: '50%', transform: 'translateX(-50%)', width: '1000px', height: '700px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.28), transparent 60%)', pointerEvents: 'none' }} />
+          <div style={{ position: 'absolute', bottom: '-10%', right: '-5%', width: '600px', height: '600px', background: 'radial-gradient(ellipse, rgba(216,249,80,0.07), transparent 60%)', pointerEvents: 'none' }} />
+          <div style={{ maxWidth: '1120px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>Our story</p>
+              <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 8vw, 96px)', fontWeight: 900, color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '32px', maxWidth: '820px' }}>
+                We believe you're more impressive<br />
+                <span style={{ color: '#D8F950' }}>in person.</span>
+              </h1>
+              <p style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '560px', marginBottom: '40px' }}>
+                Reslink exists because a PDF has never been able to capture what makes a person worth hiring. We built the platform that finally changes that.
+              </p>
+              <div style={{ display: 'flex', gap: '16px 32px', flexWrap: 'wrap' }}>
+                {[['10,000+', 'active job seekers'], ['300+', 'interviews landed globally'], ['50+', 'countries represented']].map(([val, label]) => (
+                  <div key={label}>
+                    <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 3.5vw, 40px)', fontWeight: 900, color: '#fff', lineHeight: 1, letterSpacing: '-0.03em' }}>{val}</p>
+                    <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)', marginTop: '4px' }}>{label}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ── Origin story ── */}
+        <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
+          <div style={{ maxWidth: '1120px', margin: '0 auto' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(40px, 6vw, 96px)', alignItems: 'center' }} className="about-story-grid">
+              <style>{`
+                .about-story-grid { }
+                @media (max-width: 768px) { .about-story-grid { grid-template-columns: 1fr !important; } }
+              `}</style>
+
+              {/* Left — big pull quote */}
+              <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.55 }}>
+                <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>Why we exist</p>
+                <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(34px, 5vw, 60px)', fontWeight: 900, color: '#041635', lineHeight: 0.93, letterSpacing: '-0.03em', marginBottom: '28px' }}>
+                  The best candidates<br />were getting<br /><span style={{ color: '#0C63E3', textDecoration: 'underline', textDecorationColor: '#D8F950', textDecorationThickness: '5px', textUnderlineOffset: '4px' }}>overlooked.</span>
+                </h2>
+                <div style={{ width: '48px', height: '4px', borderRadius: '2px', background: '#D8F950', marginBottom: '28px' }} />
+                <p style={{ fontSize: '15px', color: '#5C6070', lineHeight: 1.8, fontFamily: 'var(--font-body)' }}>
+                  In 2023, Dominic was applying to jobs and watching qualified people — himself included — get passed over because their resume didn't capture who they actually were. Not their energy. Not their clarity. Not their drive. Just keywords on a page.
+                </p>
+              </motion.div>
+
+              {/* Right — narrative */}
+              <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.55, delay: 0.1 }}>
+                <div style={{ background: '#041635', borderRadius: '20px', padding: 'clamp(28px, 4vw, 44px)', position: 'relative', overflow: 'hidden' }}>
+                  <div style={{ position: 'absolute', top: '-30%', right: '-20%', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(12,99,227,0.25), transparent 65%)', pointerEvents: 'none' }} />
+                  <div style={{ position: 'relative', zIndex: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
+                      <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#D8F950' }} />
+                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#D8F950', letterSpacing: '0.12em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>Founded 2023</span>
+                    </div>
+                    <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.8, fontFamily: 'var(--font-body)', marginBottom: '20px' }}>
+                      He built the first version of Reslink with one goal: let candidates show up as themselves. Within months, the platform attracted thousands of job seekers who were done being reduced to bullet points.
+                    </p>
+                    <div style={{ width: '100%', height: '1px', background: 'rgba(255,255,255,0.08)', margin: '20px 0' }} />
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
+                      <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#0C63E3' }} />
+                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#9BB8FF', letterSpacing: '0.12em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>The team forms — 2024</span>
+                    </div>
+                    <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.8, fontFamily: 'var(--font-body)' }}>
+                      In 2024, Roxanne and Joana — founders of TechTalk, a company focused on getting candidates noticed — joined forces with Dominic. Their combined expertise in recruitment, GTM, and marketing turned Reslink into the platform it is today: the place where job seekers become unforgettable.
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Mission statement ── */}
+        <section style={{ background: '#F7F8FA', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
+          <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
+            <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.55 }}>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '24px', fontFamily: 'var(--font-body)' }}>Our mission</p>
+              <blockquote style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 4.5vw, 52px)', fontWeight: 900, color: '#041635', lineHeight: 1.0, letterSpacing: '-0.03em', marginBottom: '32px' }}>
+                "Empower every job seeker to build an instant, human connection with the recruiter on the other side of the screen."
+              </blockquote>
+              <p style={{ fontSize: '17px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '620px', margin: '0 auto' }}>
+                Hiring shouldn't favor the person with the best referral or the most polished bullet points. It should favor the person who is genuinely the best fit — and we're building the tools that make that possible.
+              </p>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ── Values ── */}
+        <section style={{ background: '#041635', padding: 'clamp(72px, 9vw, 112px) 24px', overflow: 'hidden', position: 'relative' }}>
+          <div style={{ position: 'absolute', top: '0', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '500px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.2), transparent 60%)', pointerEvents: 'none' }} />
+          <div style={{ maxWidth: '1120px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
+              style={{ marginBottom: '56px' }}>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>What we stand for</p>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 58px)', fontWeight: 900, color: '#fff', lineHeight: 0.93, letterSpacing: '-0.03em' }}>
+                Four principles we<br />refuse to compromise on.
+              </h2>
+            </motion.div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2px' }} className="values-grid">
+              <style>{`
+                .values-grid { }
+                @media (max-width: 640px) { .values-grid { grid-template-columns: 1fr !important; } }
+              `}</style>
+              {VALUES.map((v, i) => (
+                <motion.div key={v.num} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.08 }}
+                  style={{ padding: 'clamp(28px, 4vw, 44px)', borderBottom: i < 2 ? '1px solid rgba(255,255,255,0.07)' : 'none', borderRight: i % 2 === 0 ? '1px solid rgba(255,255,255,0.07)' : 'none' }}>
+                  <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '14px', fontWeight: 900, color: '#D8F950', letterSpacing: '0.08em', display: 'block', marginBottom: '16px' }}>{v.num}</span>
+                  <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(22px, 2.5vw, 30px)', fontWeight: 900, color: '#fff', lineHeight: 1.05, letterSpacing: '-0.02em', marginBottom: '14px' }}>{v.title}</h3>
+                  <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.45)', lineHeight: 1.75, fontFamily: 'var(--font-body)' }}>{v.body}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Team ── */}
+        <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
+          <div style={{ maxWidth: '1120px', margin: '0 auto' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
+              style={{ marginBottom: '56px' }}>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>The people behind it</p>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 58px)', fontWeight: 900, color: '#041635', lineHeight: 0.93, letterSpacing: '-0.03em' }}>
+                Built by people who've<br />felt the problem firsthand.
+              </h2>
+            </motion.div>
+
+            {/* Co-founders — 3 col */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '16px' }} className="team-founders-grid">
+              <style>{`
+                .team-founders-grid { }
+                .team-advisers-grid { }
+                @media (max-width: 768px) {
+                  .team-founders-grid { grid-template-columns: 1fr !important; }
+                  .team-advisers-grid { grid-template-columns: 1fr !important; }
+                }
+                @media (min-width: 500px) and (max-width: 768px) {
+                  .team-founders-grid { grid-template-columns: 1fr 1fr !important; }
+                }
+              `}</style>
+              {TEAM.slice(0, 3).map((m, i) => <TeamCard key={m.name} member={m} i={i} />)}
+            </div>
+
+            {/* Advisers label */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', margin: '40px 0 16px' }}>
+              <div style={{ height: '1px', flex: 1, background: '#ECEEF1' }} />
+              <span style={{ fontSize: '11px', fontWeight: 700, color: '#9A9FA8', letterSpacing: '0.1em', textTransform: 'uppercase', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>Advisers</span>
+              <div style={{ height: '1px', flex: 1, background: '#ECEEF1' }} />
+            </div>
+
+            {/* Advisers — 2 col centered */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', maxWidth: '760px', margin: '0 auto' }} className="team-advisers-grid">
+              {TEAM.slice(3).map((m, i) => <TeamCard key={m.name} member={m} i={i + 3} />)}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Join us ── */}
+        <section style={{ background: '#041635', padding: 'clamp(72px, 10vw, 120px) 24px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: '-20%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '600px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.25), transparent 60%)', pointerEvents: 'none' }} />
+          <div style={{ maxWidth: '640px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>Join the mission</p>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(40px, 6.5vw, 76px)', fontWeight: 900, color: '#fff', lineHeight: 0.92, letterSpacing: '-0.03em', marginBottom: '22px' }}>
+                Be part of<br /><span style={{ color: '#D8F950' }}>the story.</span>
+              </h2>
+              <p style={{ fontSize: '17px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '40px' }}>
+                Whether you're a job seeker ready to stand out, a company looking to hire better, or someone who wants to build with us — there's a place for you here.
+              </p>
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
+                <Link href="/signup" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
+                  Create your Reslink — free
+                  <ArrowRight size={15} />
+                </Link>
+                <Link href="/careers" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 24px', fontSize: '15px', fontWeight: 600, color: 'rgba(255,255,255,0.65)', background: 'rgba(255,255,255,0.08)', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                  We&apos;re hiring →
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+      </main>
+      <Footer />
+    </>
+  );
+}

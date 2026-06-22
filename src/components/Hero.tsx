@@ -80,7 +80,7 @@ export default function Hero() {
 
         {/* Subhead */}
         <motion.p className="hero-sub" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.12 }}>
-          Recruiters spend 7 seconds on a resume. A Reslink video resume puts your face, voice, and energy front and center — so you become the candidate they actually remember.
+          Reslink helps you stand out and land more interviews by creating personalized video resumes that build honest connections with recruiters.
         </motion.p>
 
         {/* CTAs */}
@@ -96,7 +96,7 @@ export default function Hero() {
 
         {/* Social proof */}
         <motion.p className="hero-proof" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.25 }}>
-          Joined by <strong>10,000+ job seekers</strong> · Landing roles at top companies
+          Over <strong>10,000 candidates</strong> have landed interviews globally through Reslink
         </motion.p>
       </div>
 

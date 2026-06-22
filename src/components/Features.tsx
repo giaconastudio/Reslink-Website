@@ -21,9 +21,9 @@ const icons: Record<string, React.ReactNode> = {
 const tabs = [
   {
     id: 'analytics',
-    label: 'Analytics',
-    headline: "Know exactly who's watching.",
-    sub: 'Real-time data on every recruiter who viewed your profile, how long they watched, and which companies clicked through. Stop guessing. Start following up at exactly the right moment.',
+    label: 'Insights',
+    headline: 'View insights on Reslink engagement.',
+    sub: 'Track who views your Reslinks and understand engagement levels — watch time, link clicks, location, and more — so you can refine your approach and follow up at exactly the right moment.',
     stats: [
       { val: '342', label: 'Profile views' },
       { val: '89%', label: 'Watch rate' },
@@ -79,7 +79,7 @@ const tabs = [
   {
     id: 'pitchai',
     label: 'Pitch AI',
-    headline: 'Your video pitch, written in seconds.',
+    headline: 'Enhance your video pitch with AI.',
     sub: 'Reslink Pitch AI generates a standout video script tailored to your experience and the role you\'re applying for. Customize it, then record — no blank page, no guessing what to say.',
     color: '#0C63E3',
     bg: '#fff',
@@ -131,7 +131,7 @@ const tabs = [
     id: 'teleprompter',
     label: 'Teleprompter',
     headline: 'Look confident. Sound confident.',
-    sub: 'Write your script once. Our teleprompter scrolls it right on screen as you record — so you stay on camera, maintain eye contact, and deliver your pitch without ever glancing away.',
+    sub: 'Capture your pitch effortlessly using our in-app teleprompter, guiding you to deliver your best performance every time — no notes, no nerves.',
     color: '#D8F950',
     bg: '#0B0F1A',
     visual: (
@@ -171,9 +171,9 @@ const tabs = [
   },
   {
     id: 'integrations',
-    label: 'Apply Anywhere',
+    label: 'Integrations',
     headline: 'One link. Every opportunity.',
-    sub: 'Paste your Reslink into any job board, ATS, or email. It works everywhere — LinkedIn, Indeed, Greenhouse, Workday, Lever. One link, infinite reach, zero friction.',
+    sub: 'Share your Reslink across top job platforms and LinkedIn with just a few clicks, making it easier than ever to connect with recruiters — paste it like any URL.',
     color: '#D8F950',
     bg: '#F7F8FA',
     visual: (
@@ -288,7 +288,7 @@ export default function Features() {
         <motion.div className="feat-header" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
           <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '12px', fontFamily: 'var(--font-body)' }}>Built for job seekers</p>
           <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 900, color: '#041635', lineHeight: 0.95, letterSpacing: '-0.03em' }}>
-            Everything you need<br />to land the role.
+            Built for<br />job seekers.
           </h2>
         </motion.div>
 

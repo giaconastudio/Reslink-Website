@@ -104,19 +104,19 @@ function TeamCard({ member, i }: { member: typeof TEAM[0]; i: number }) {
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '10px', marginBottom: '6px' }}>
           <div>
             <p style={{ fontSize: '17px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{member.name}</p>
-            <p style={{ fontSize: '12px', fontWeight: 700, color: member.color, fontFamily: 'var(--font-body)', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{member.title}</p>
+            <p style={{ fontSize: '12px', fontWeight: 700, color: '#0C63E3', fontFamily: 'var(--font-body)', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{member.title}</p>
           </div>
-          {member.linkedin && (
-            <a href={member.linkedin} target="_blank" rel="noopener noreferrer"
-              style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, textDecoration: 'none', transition: 'background 0.15s' }}
-              onMouseEnter={e => (e.currentTarget.style.background = '#0C63E3')}
-              onMouseLeave={e => (e.currentTarget.style.background = '#EEF4FF')}>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="#0C63E3">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
-              </svg>
-            </a>
-          )}
+          <div
+            style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, cursor: member.linkedin ? 'pointer' : 'default' }}
+            onClick={() => member.linkedin && window.open(member.linkedin, '_blank', 'noopener,noreferrer')}
+            onMouseEnter={e => (e.currentTarget.style.background = '#0C63E3')}
+            onMouseLeave={e => (e.currentTarget.style.background = '#EEF4FF')}
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#0C63E3">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+            </svg>
+          </div>
         </div>
         <p style={{ fontSize: '13px', color: '#5C6070', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginTop: '12px' }}>{member.bio}</p>
       </div>
@@ -246,7 +246,7 @@ export default function AboutPage() {
           <div style={{ position: 'absolute', top: '0', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '500px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.2), transparent 60%)', pointerEvents: 'none' }} />
           <div style={{ maxWidth: '1120px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
-              style={{ marginBottom: '56px' }}>
+              style={{ marginBottom: '56px', textAlign: 'center' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>What we stand for</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 58px)', fontWeight: 900, color: '#fff', lineHeight: 0.93, letterSpacing: '-0.03em' }}>
                 Four principles we<br />refuse to compromise on.
@@ -273,7 +273,7 @@ export default function AboutPage() {
         <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
           <div style={{ maxWidth: '1120px', margin: '0 auto' }}>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
-              style={{ marginBottom: '56px' }}>
+              style={{ marginBottom: '56px', textAlign: 'center' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>The people behind it</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 58px)', fontWeight: 900, color: '#041635', lineHeight: 0.93, letterSpacing: '-0.03em' }}>
                 Built by people who've<br />felt the problem firsthand.

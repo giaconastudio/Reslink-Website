@@ -99,7 +99,19 @@ export default function Hero() {
         </motion.div>
 
         <motion.h1 className="hero-h1" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.05 }}>
-          You&apos;re more <span style={{ color: '#0C63E3' }}>impressive</span><br />in person.
+          You&apos;re more{' '}
+          <span style={{ position: 'relative', display: 'inline-block', color: '#041635' }}>
+            impressive
+            <svg
+              viewBox="0 0 320 14"
+              preserveAspectRatio="none"
+              style={{ position: 'absolute', bottom: '-6px', left: '-2px', width: 'calc(100% + 4px)', height: '14px', pointerEvents: 'none' }}
+              aria-hidden="true"
+            >
+              <path d="M4,9 C40,3 90,12 140,7 C190,2 240,11 316,6" stroke="#D8F950" strokeWidth="5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </span>
+          <br />in person.
         </motion.h1>
 
         <motion.p className="hero-sub" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.12 }}>
@@ -117,7 +129,7 @@ export default function Hero() {
         </motion.div>
 
         <motion.p className="hero-proof" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.25 }}>
-          Over <strong>10,000 candidates</strong> have landed interviews globally through Reslink
+          Join thousands of candidates landing more interviews — globally.
         </motion.p>
       </div>
 

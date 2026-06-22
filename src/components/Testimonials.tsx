@@ -159,6 +159,7 @@ export default function Testimonials() {
         @media (max-width: 640px) {
           .testi-row-second { display: none; }
           .testi-card { width: 280px !important; padding: 18px 20px !important; }
+          .testi-track { animation-duration: 14s !important; }
         }
       `}</style>
 

@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${phudu.variable} antialiased`}>
-      <body><div style={{ overflowX: 'hidden' }}>{children}</div></body>
+      <body>{children}</body>
     </html>
   );
 }

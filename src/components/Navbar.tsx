@@ -205,8 +205,8 @@ export default function Navbar() {
                         </div>
                         <div>
                           <span style={{ fontSize: '14px', fontWeight: 500, color: '#041635', fontFamily: 'var(--font-body)', display: 'block' }}>{item.label}</span>
-                          {'badge' in item && item.badge && (
-                            <span style={{ fontSize: '10px', fontWeight: 700, color: '#0C63E3', background: '#EEF4FF', border: '1px solid #C7DEFF', borderRadius: '100px', padding: '1px 7px', fontFamily: 'var(--font-body)', marginLeft: '6px' }}>{item.badge}</span>
+                          {'badge' in item && (item as { badge?: string | null }).badge && (
+                            <span style={{ fontSize: '10px', fontWeight: 700, color: '#0C63E3', background: '#EEF4FF', border: '1px solid #C7DEFF', borderRadius: '100px', padding: '1px 7px', fontFamily: 'var(--font-body)', marginLeft: '6px' }}>{(item as { badge?: string | null }).badge}</span>
                           )}
                         </div>
                       </Link>

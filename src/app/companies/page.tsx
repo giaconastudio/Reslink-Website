@@ -68,7 +68,7 @@ function DashboardMockup() {
         </div>
       </div>
       {/* App shell */}
-      <div style={{ display: 'flex', height: '340px' }}>
+      <div style={{ display: 'flex', height: '420px' }}>
         {/* Sidebar */}
         <div style={{ width: '52px', background: '#0D1117', borderRight: '1px solid rgba(255,255,255,0.07)', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '16px 0', gap: '16px' }}>
           <div style={{ width: '28px', height: '28px', borderRadius: '7px', background: '#0C63E3', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -172,61 +172,35 @@ export default function CompaniesPage() {
       <main style={{ paddingTop: '68px' }}>
 
         {/* ─── Hero ─── */}
-        <section style={{ background: '#041635', padding: 'clamp(72px, 10vw, 120px) 24px', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', top: '-10%', right: '10%', width: '700px', height: '700px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.2), transparent 65%)', pointerEvents: 'none' }} />
-          <div style={{ maxWidth: '1100px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-            <div className="co-hero-grid">
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
-                <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For companies</p>
-                <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(44px, 6.5vw, 84px)', fontWeight: 900, color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '24px' }}>
-                  Make better<br />hiring decisions,<br /><span style={{ color: '#D8F950' }}>faster.</span>
-                </h1>
-                <p style={{ fontSize: 'clamp(16px, 1.6vw, 18px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '36px', maxWidth: '440px' }}>
-                  Reslink gives your hiring team dynamic video profiles so you can assess candidates, align quickly, and move on the right people — before your competitors do.
-                </p>
-                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '40px' }}>
-                  <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: '#D8F950', color: '#041635', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                    Schedule a demo <ArrowRight size={16} />
-                  </Link>
-                  <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                    Sign up for free
-                  </Link>
-                </div>
-                <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap', paddingTop: '24px', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-                  {[['5×', 'better hire quality'], ['30%', 'faster time-to-hire'], ['91%', 'hiring manager satisfaction']].map(([v, l]) => (
-                    <div key={l}>
-                      <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '26px', fontWeight: 900, color: '#fff', lineHeight: 1 }}>{v}</p>
-                      <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)', marginTop: '4px' }}>{l}</p>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-              <motion.div className="co-dash" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.65, delay: 0.15 }}>
-                <DashboardMockup />
-              </motion.div>
-            </div>
+        <section style={{ background: '#041635', padding: 'clamp(72px, 10vw, 112px) 24px 0', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: '-10%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '700px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.22), transparent 65%)', pointerEvents: 'none' }} />
+          <div style={{ maxWidth: '860px', margin: '0 auto', position: 'relative', zIndex: 1, textAlign: 'center' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For companies</p>
+              <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 7.5vw, 96px)', fontWeight: 900, color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '24px' }}>
+                Make better hiring<br />decisions, <span style={{ color: '#D8F950' }}>faster.</span>
+              </h1>
+              <p style={{ fontSize: 'clamp(16px, 1.6vw, 18px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '36px', maxWidth: '520px', margin: '0 auto 36px' }}>
+                Reslink gives your hiring team dynamic video profiles so you can assess candidates, align quickly, and move on the right people — before your competitors do.
+              </p>
+              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '56px' }}>
+                <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: '#D8F950', color: '#041635', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                  Schedule a demo <ArrowRight size={16} />
+                </Link>
+                <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                  Sign up for free
+                </Link>
+              </div>
+            </motion.div>
+            {/* Dashboard mockup — sits at bottom of hero, bleeds down */}
+            <motion.div initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }} style={{ position: 'relative', zIndex: 1 }}>
+              <DashboardMockup />
+            </motion.div>
           </div>
         </section>
 
         {/* ─── Logo ticker ─── */}
         <LogoTicker />
-
-        {/* ─── Stats strip ─── */}
-        <section style={{ background: '#fff', padding: 'clamp(48px, 6vw, 72px) 24px', borderBottom: '1px solid #ECEEF1' }}>
-          <div style={{ maxWidth: '900px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', textAlign: 'center' }} className="co-stats-grid">
-            <style>{`@media (max-width: 600px) { .co-stats-grid { grid-template-columns: 1fr !important; } }`}</style>
-            {[
-              ['5×', 'better hire quality reported by hiring teams'],
-              ['30%', 'average reduction in time-to-hire'],
-              ['91%', 'of hiring managers say video improves decision confidence'],
-            ].map(([v, l]) => (
-              <div key={l} style={{ padding: '24px' }}>
-                <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(40px, 5vw, 60px)', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em' }}>{v}</p>
-                <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '10px', lineHeight: 1.5, maxWidth: '200px', margin: '10px auto 0' }}>{l}</p>
-              </div>
-            ))}
-          </div>
-        </section>
 
         {/* ─── How it works ─── */}
         <section style={{ background: '#041635', padding: 'clamp(72px, 9vw, 112px) 24px', position: 'relative', overflow: 'hidden' }}>

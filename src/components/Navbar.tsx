@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 
 const solutions = [
-  { label: 'Job Seekers', href: '/job-seekers', desc: 'Stand out with a video resume', icon: Briefcase, color: '#0C63E3', bg: '#EEF4FF' },
+  { label: 'Job Seekers', href: 'https://reslink-website.vercel.app', desc: 'Stand out with a video resume', icon: Briefcase, color: '#0C63E3', bg: '#EEF4FF' },
   { label: 'Companies', href: '/companies', desc: 'Find top talent faster', icon: Building2, color: '#7C3AED', bg: '#F3EEFF' },
   { label: 'Recruitment Agencies', href: '/agencies', desc: 'Scale your placements', icon: Users, color: '#0891B2', bg: '#ECFEFF' },
   { label: 'Universities', href: '/universities', desc: 'Empower your students', icon: GraduationCap, color: '#059669', bg: '#ECFDF5' },

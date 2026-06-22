@@ -32,69 +32,29 @@ const company = [
 
 type DropdownKey = 'solutions' | 'resources' | 'company' | null;
 
-function NavDropdown({
-  label,
-  open,
-  onEnter,
-  onLeave,
-  children,
-}: {
-  label: string;
-  open: boolean;
-  onEnter: () => void;
-  onLeave: () => void;
-  children: React.ReactNode;
-}) {
-  const linkColor = '#5C6070';
-  return (
-    <div style={{ position: 'relative' }} onMouseEnter={onEnter} onMouseLeave={onLeave}>
-      <button style={{
-        fontSize: '14px', fontWeight: 500, color: open ? '#041635' : linkColor,
-        background: open ? '#F7F8FA' : 'none', border: 'none', cursor: 'pointer',
-        padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center',
-        gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)',
-      }}>
-        {label}
-        <ChevronDown size={13} style={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
-      </button>
-      {open && (
-        <div style={{
-          position: 'absolute', top: 'calc(100% + 6px)', left: '-12px',
-          background: '#fff', borderRadius: '16px',
-          border: '1px solid #EEEEF0',
-          boxShadow: '0 20px 60px rgba(4,22,53,0.12), 0 4px 16px rgba(4,22,53,0.06)',
-          padding: '10px', zIndex: 100, minWidth: '260px',
-        }}>
-          {children}
-        </div>
-      )}
-    </div>
-  );
-}
-
-function DropItem({ href, icon: Icon, color, bg, label, desc, badge }: {
+function DropItem({ href, icon: Icon, color, bg, label, desc, badge, onClick }: {
   href: string; icon: React.ElementType; color: string; bg: string;
-  label: string; desc: string; badge?: string | null;
+  label: string; desc: string; badge?: string | null; onClick?: () => void;
 }) {
   return (
-    <Link href={href}
-      style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 12px', borderRadius: '10px', textDecoration: 'none', transition: 'background 0.15s' }}
+    <Link href={href} onClick={onClick}
+      style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '7px 10px', borderRadius: '8px', textDecoration: 'none', transition: 'background 0.15s' }}
       onMouseEnter={e => (e.currentTarget.style.background = '#F7F8FA')}
       onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
     >
-      <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-        <Icon size={16} color={color} strokeWidth={1.8} />
+      <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+        <Icon size={14} color={color} strokeWidth={1.8} />
       </div>
       <div style={{ flex: 1 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <p style={{ fontSize: '13px', fontWeight: 600, color: '#041635', lineHeight: 1.3, fontFamily: 'var(--font-body)' }}>{label}</p>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
+          <p style={{ fontSize: '13px', fontWeight: 600, color: '#041635', lineHeight: 1.2, fontFamily: 'var(--font-body)' }}>{label}</p>
           {badge && (
-            <span style={{ fontSize: '10px', fontWeight: 700, color: '#0C63E3', background: '#EEF4FF', border: '1px solid #C7DEFF', borderRadius: '100px', padding: '2px 8px', letterSpacing: '0.02em', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>
+            <span style={{ fontSize: '10px', fontWeight: 700, color: '#0C63E3', background: '#EEF4FF', border: '1px solid #C7DEFF', borderRadius: '100px', padding: '1px 7px', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>
               {badge}
             </span>
           )}
         </div>
-        <p style={{ fontSize: '11px', color: '#9A9FA8', marginTop: '1px', lineHeight: 1.4, fontFamily: 'var(--font-body)' }}>{desc}</p>
+        <p style={{ fontSize: '11px', color: '#9A9FA8', lineHeight: 1.3, fontFamily: 'var(--font-body)' }}>{desc}</p>
       </div>
     </Link>
   );
@@ -103,6 +63,7 @@ function DropItem({ href, icon: Icon, color, bg, label, desc, badge }: {
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const [open, setOpen] = useState<DropdownKey>(null);
 
   useEffect(() => {
@@ -118,6 +79,9 @@ export default function Navbar() {
     padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center',
     gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)',
   } as const;
+
+  const toggleMobileSection = (key: string) =>
+    setMobileExpanded(prev => prev === key ? null : key);
 
   return (
     <header style={{
@@ -138,36 +102,52 @@ export default function Navbar() {
           <nav style={{ display: 'flex', alignItems: 'center', gap: '2px' }} className="desktop-nav">
 
             {/* Solutions */}
-            <NavDropdown label="Solutions" open={open === 'solutions'} onEnter={() => setOpen('solutions')} onLeave={() => setOpen(null)}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                {solutions.map(s => <DropItem key={s.href} {...s} />)}
-              </div>
-              {/* Pitch AI callout */}
-              <div style={{ marginTop: '8px', background: 'linear-gradient(135deg, #041635 0%, #0C2B6E 100%)', borderRadius: '10px', padding: '12px 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <div style={{ width: '28px', height: '28px', borderRadius: '7px', background: 'rgba(216,249,80,0.15)', border: '1px solid rgba(216,249,80,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <Zap size={13} color="#D8F950" fill="#D8F950" />
-                  </div>
-                  <div>
-                    <p style={{ fontSize: '12px', fontWeight: 600, color: '#fff', fontFamily: 'var(--font-body)' }}>New: Pitch AI</p>
-                    <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)' }}>Generate your video script in seconds</p>
+            <div style={{ position: 'relative' }} onMouseEnter={() => setOpen('solutions')} onMouseLeave={() => setOpen(null)}>
+              <button style={{ fontSize: '14px', fontWeight: 500, color: open === 'solutions' ? '#041635' : linkColor, background: open === 'solutions' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
+                Solutions <ChevronDown size={13} style={{ transform: open === 'solutions' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+              </button>
+              {open === 'solutions' && (
+                <div style={{ position: 'absolute', top: 'calc(100% + 4px)', left: '-8px', background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 8px 30px rgba(4,22,53,0.1), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', zIndex: 100, minWidth: '240px' }}>
+                  {solutions.map(s => <DropItem key={s.href} {...s} />)}
+                  {/* Compact Pitch AI callout */}
+                  <div style={{ marginTop: '6px', background: 'linear-gradient(135deg, #041635, #0C2B6E)', borderRadius: '8px', padding: '9px 12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <div style={{ width: '22px', height: '22px', borderRadius: '6px', background: 'rgba(216,249,80,0.15)', border: '1px solid rgba(216,249,80,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        <Zap size={11} color="#D8F950" fill="#D8F950" />
+                      </div>
+                      <p style={{ fontSize: '12px', fontWeight: 600, color: '#fff', fontFamily: 'var(--font-body)' }}>New: Pitch AI</p>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '3px', fontSize: '11px', fontWeight: 600, color: '#D8F950', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>
+                      Try it <ArrowRight size={10} color="#D8F950" />
+                    </div>
                   </div>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '12px', fontWeight: 600, color: '#D8F950', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>
-                  Try it <ArrowRight size={11} color="#D8F950" />
-                </div>
-              </div>
-            </NavDropdown>
+              )}
+            </div>
 
             {/* Resources */}
-            <NavDropdown label="Resources" open={open === 'resources'} onEnter={() => setOpen('resources')} onLeave={() => setOpen(null)}>
-              {resources.map(r => <DropItem key={r.href} {...r} />)}
-            </NavDropdown>
+            <div style={{ position: 'relative' }} onMouseEnter={() => setOpen('resources')} onMouseLeave={() => setOpen(null)}>
+              <button style={{ fontSize: '14px', fontWeight: 500, color: open === 'resources' ? '#041635' : linkColor, background: open === 'resources' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
+                Resources <ChevronDown size={13} style={{ transform: open === 'resources' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+              </button>
+              {open === 'resources' && (
+                <div style={{ position: 'absolute', top: 'calc(100% + 4px)', left: '-8px', background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 8px 30px rgba(4,22,53,0.1), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', zIndex: 100, minWidth: '220px' }}>
+                  {resources.map(r => <DropItem key={r.href} {...r} />)}
+                </div>
+              )}
+            </div>
 
             {/* Company */}
-            <NavDropdown label="Company" open={open === 'company'} onEnter={() => setOpen('company')} onLeave={() => setOpen(null)}>
-              {company.map(c => <DropItem key={c.href} {...c} />)}
-            </NavDropdown>
+            <div style={{ position: 'relative' }} onMouseEnter={() => setOpen('company')} onMouseLeave={() => setOpen(null)}>
+              <button style={{ fontSize: '14px', fontWeight: 500, color: open === 'company' ? '#041635' : linkColor, background: open === 'company' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
+                Company <ChevronDown size={13} style={{ transform: open === 'company' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+              </button>
+              {open === 'company' && (
+                <div style={{ position: 'absolute', top: 'calc(100% + 4px)', left: '-8px', background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 8px 30px rgba(4,22,53,0.1), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', zIndex: 100, minWidth: '220px' }}>
+                  {company.map(c => <DropItem key={c.href} {...c} />)}
+                </div>
+              )}
+            </div>
 
             <Link href="/pricing" style={navLinkStyle}
               onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#041635'; (e.currentTarget as HTMLElement).style.background = linkHoverBg; }}
@@ -187,48 +167,58 @@ export default function Navbar() {
           </div>
 
           {/* Mobile toggle */}
-          <button onClick={() => setMobileOpen(!mobileOpen)} style={{ display: 'none', padding: '8px', background: 'none', border: 'none', cursor: 'pointer', color: '#041635' }} className="mobile-toggle">
+          <button onClick={() => { setMobileOpen(!mobileOpen); setMobileExpanded(null); }} style={{ display: 'none', padding: '8px', background: 'none', border: 'none', cursor: 'pointer', color: '#041635' }} className="mobile-toggle">
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu — collapsible sections */}
       {mobileOpen && (
-        <div style={{ background: '#fff', borderTop: '1px solid #EEEEF0', padding: '12px 24px 24px', maxHeight: '80vh', overflowY: 'auto' }}>
-          <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#9A9FA8', margin: '12px 0 8px', fontFamily: 'var(--font-body)' }}>Solutions</p>
-          {solutions.map(s => {
-            const Icon = s.icon;
-            return (
-              <Link key={s.href} href={s.href} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '9px 0', borderBottom: '1px solid #F7F8FA', textDecoration: 'none' }} onClick={() => setMobileOpen(false)}>
-                <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: s.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><Icon size={15} color={s.color} /></div>
-                <span style={{ fontSize: '14px', fontWeight: 500, color: '#041635', fontFamily: 'var(--font-body)' }}>{s.label}</span>
-              </Link>
-            );
-          })}
-          <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#9A9FA8', margin: '16px 0 8px', fontFamily: 'var(--font-body)' }}>Resources</p>
-          {resources.map(r => {
-            const Icon = r.icon;
-            return (
-              <Link key={r.href} href={r.href} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '9px 0', borderBottom: '1px solid #F7F8FA', textDecoration: 'none' }} onClick={() => setMobileOpen(false)}>
-                <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: r.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><Icon size={15} color={r.color} /></div>
-                <span style={{ fontSize: '14px', fontWeight: 500, color: '#041635', fontFamily: 'var(--font-body)' }}>{r.label}</span>
-              </Link>
-            );
-          })}
-          <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#9A9FA8', margin: '16px 0 8px', fontFamily: 'var(--font-body)' }}>Company</p>
-          {company.map(c => {
-            const Icon = c.icon;
-            return (
-              <Link key={c.href} href={c.href} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '9px 0', borderBottom: '1px solid #F7F8FA', textDecoration: 'none' }} onClick={() => setMobileOpen(false)}>
-                <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: c.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><Icon size={15} color={c.color} /></div>
-                <span style={{ fontSize: '14px', fontWeight: 500, color: '#041635', fontFamily: 'var(--font-body)' }}>{c.label}</span>
-                {c.badge && <span style={{ fontSize: '10px', fontWeight: 700, color: '#0C63E3', background: '#EEF4FF', border: '1px solid #C7DEFF', borderRadius: '100px', padding: '2px 8px', fontFamily: 'var(--font-body)' }}>{c.badge}</span>}
-              </Link>
-            );
-          })}
-          <Link href="/pricing" style={{ display: 'block', padding: '10px 0', fontSize: '14px', fontWeight: 500, color: '#041635', textDecoration: 'none', borderBottom: '1px solid #F7F8FA', fontFamily: 'var(--font-body)' }} onClick={() => setMobileOpen(false)}>Pricing</Link>
-          <Link href="/signup" className="btn-primary" style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }} onClick={() => setMobileOpen(false)}>Get started free</Link>
+        <div style={{ background: '#fff', borderTop: '1px solid #EEEEF0', padding: '8px 20px 20px', maxHeight: '80vh', overflowY: 'auto' }}>
+
+          {/* Solutions accordion */}
+          {[
+            { key: 'solutions', label: 'Solutions', items: solutions },
+            { key: 'resources', label: 'Resources', items: resources },
+            { key: 'company', label: 'Company', items: company },
+          ].map(({ key, label, items }) => (
+            <div key={key} style={{ borderBottom: '1px solid #F3F4F6' }}>
+              <button
+                onClick={() => toggleMobileSection(key)}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', padding: '13px 0', background: 'none', border: 'none', cursor: 'pointer' }}
+              >
+                <span style={{ fontSize: '15px', fontWeight: 600, color: '#041635', fontFamily: 'var(--font-body)' }}>{label}</span>
+                <ChevronDown size={16} color="#9A9FA8" style={{ transform: mobileExpanded === key ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+              </button>
+              {mobileExpanded === key && (
+                <div style={{ paddingBottom: '8px' }}>
+                  {items.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <Link key={item.href} href={item.href}
+                        style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '8px 4px', textDecoration: 'none' }}
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        <div style={{ width: '28px', height: '28px', borderRadius: '7px', background: item.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                          <Icon size={13} color={item.color} />
+                        </div>
+                        <div>
+                          <span style={{ fontSize: '14px', fontWeight: 500, color: '#041635', fontFamily: 'var(--font-body)', display: 'block' }}>{item.label}</span>
+                          {'badge' in item && item.badge && (
+                            <span style={{ fontSize: '10px', fontWeight: 700, color: '#0C63E3', background: '#EEF4FF', border: '1px solid #C7DEFF', borderRadius: '100px', padding: '1px 7px', fontFamily: 'var(--font-body)', marginLeft: '6px' }}>{item.badge}</span>
+                          )}
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          ))}
+
+          <Link href="/pricing" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: '#041635', textDecoration: 'none', borderBottom: '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => setMobileOpen(false)}>Pricing</Link>
+          <Link href="/signup" className="btn-primary" style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }} onClick={() => setMobileOpen(false)}>Get started free</Link>
         </div>
       )}
 

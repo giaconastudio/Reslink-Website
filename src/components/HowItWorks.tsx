@@ -30,20 +30,29 @@ const steps = [
   },
 ];
 
-/* ─── Desktop: scroll-driven ─── */
+/* ─── Desktop: scroll-driven (position:fixed pin) ─── */
 function DesktopHIW() {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const spacerRef = useRef<HTMLDivElement>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const [active, setActive] = useState(0);
+  const [phase, setPhase] = useState<'before' | 'pinned' | 'after'>('before');
 
   useEffect(() => {
     const onScroll = () => {
-      const el = sectionRef.current;
+      const el = spacerRef.current;
       if (!el) return;
       const rect = el.getBoundingClientRect();
       const total = rect.height - window.innerHeight;
-      const p = Math.max(0, Math.min(0.9999, -rect.top / total));
-      setActive(Math.min(steps.length - 1, Math.floor(p * steps.length)));
+      if (rect.top > 1) {
+        setPhase('before');
+      } else if (rect.bottom < window.innerHeight - 1) {
+        setPhase('after');
+        setActive(steps.length - 1);
+      } else {
+        setPhase('pinned');
+        const p = Math.max(0, Math.min(0.9999, -rect.top / total));
+        setActive(Math.min(steps.length - 1, Math.floor(p * steps.length)));
+      }
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
@@ -59,15 +68,21 @@ function DesktopHIW() {
   }, [active]);
 
   const scrollToStep = (i: number) => {
-    const el = sectionRef.current;
+    const el = spacerRef.current;
     if (!el) return;
     const total = el.offsetHeight - window.innerHeight;
     window.scrollTo({ top: el.offsetTop + total * (i / steps.length) + 8, behavior: 'smooth' });
   };
 
+  const pinStyle: React.CSSProperties = phase === 'pinned'
+    ? { position: 'fixed', top: 0, left: 0, right: 0, height: '100vh', zIndex: 5 }
+    : phase === 'after'
+      ? { position: 'absolute', bottom: 0, left: 0, right: 0, height: '100vh' }
+      : { position: 'absolute', top: 0, left: 0, right: 0, height: '100vh' };
+
   return (
-    <section ref={sectionRef} id="how-it-works" style={{ position: 'relative', height: '440vh', background: '#041635' }} className="hiw-desktop">
-      <div style={{ position: 'sticky', top: 0, height: '100vh', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
+    <div ref={spacerRef} id="how-it-works" style={{ position: 'relative', height: '440vh', background: '#041635' }} className="hiw-desktop">
+      <div style={{ ...pinStyle, background: '#041635', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
         {/* Glow */}
         <div style={{ position: 'absolute', top: '50%', right: '8%', transform: 'translateY(-50%)', width: '620px', height: '620px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(12,99,227,0.18), transparent 65%)', pointerEvents: 'none' }} />
 
@@ -137,7 +152,7 @@ function DesktopHIW() {
           </motion.div>
         )}
       </div>
-    </section>
+    </div>
   );
 }
 

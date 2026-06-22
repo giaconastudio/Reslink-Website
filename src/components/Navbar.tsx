@@ -26,7 +26,7 @@ const resources = [
 
 const company = [
   { label: 'About Us', href: '/about', desc: 'Our mission and story', icon: Info, color: '#5C6070', bg: '#F7F8FA', badge: null },
-  { label: 'Careers', href: 'https://reslink-company.vercel.app/job-board', desc: 'Join the team', icon: Rocket, color: '#7C3AED', bg: '#F3EEFF', badge: "we're hiring" },
+  { label: 'Careers', href: '/careers', desc: 'Join the team', icon: Rocket, color: '#7C3AED', bg: '#F3EEFF', badge: "we're hiring" },
   { label: 'Contact Us', href: '/contact', desc: 'Get in touch with our team', icon: Phone, color: '#0891B2', bg: '#ECFEFF', badge: null },
 ];
 

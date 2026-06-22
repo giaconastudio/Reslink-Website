@@ -15,7 +15,7 @@ const links = {
   ],
   Company: [
     { label: 'About', href: '/about' },
-    { label: 'Careers', href: 'https://reslink-company.vercel.app/job-board' },
+    { label: 'Careers', href: '/careers' },
     { label: 'Contact', href: '/contact' },
   ],
 };

@@ -81,20 +81,16 @@ const VALUES = [
 function TeamCard({ member, i }: { member: typeof TEAM[0]; i: number }) {
   const [expanded, setExpanded] = useState(false);
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.45, delay: i * 0.08 }}
+    <div
       style={{ background: '#fff', borderRadius: '20px', border: '1px solid #ECEEF1', overflow: 'hidden', boxShadow: '0 2px 16px rgba(4,22,53,0.06)' }}
     >
       {/* Photo area */}
-      <div style={{ height: '260px', background: `linear-gradient(135deg, ${member.color}18, ${member.color}08)`, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', borderBottom: '1px solid #F3F4F6' }}>
+      <div style={{ height: '300px', background: `linear-gradient(135deg, ${member.color}18, ${member.color}08)`, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', borderBottom: '1px solid #F3F4F6' }}>
         <img
           src={member.photo}
           alt={member.name}
           onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; (e.currentTarget.nextSibling as HTMLElement).style.display = 'flex'; }}
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center bottom' }}
         />
         <div style={{ display: 'none', width: '80px', height: '80px', borderRadius: '50%', background: member.color, alignItems: 'center', justifyContent: 'center', fontSize: '28px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)', letterSpacing: '-0.02em', flexShrink: 0 }}>
           {member.initials}
@@ -138,7 +134,7 @@ function TeamCard({ member, i }: { member: typeof TEAM[0]; i: number }) {
           <p style={{ fontSize: '13px', color: '#5C6070', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginTop: '14px' }}>{member.bio}</p>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -345,7 +341,7 @@ export default function AboutPage() {
                   Create your Reslink — free
                   <ArrowRight size={15} />
                 </Link>
-                <Link href="https://reslink-company.vercel.app/job-board" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 24px', fontSize: '15px', fontWeight: 600, color: 'rgba(255,255,255,0.65)', background: 'rgba(255,255,255,0.08)', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                <Link href="/careers" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 24px', fontSize: '15px', fontWeight: 600, color: 'rgba(255,255,255,0.65)', background: 'rgba(255,255,255,0.08)', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                   We&apos;re hiring →
                 </Link>
               </div>

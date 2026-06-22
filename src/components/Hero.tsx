@@ -106,7 +106,7 @@ export default function Hero() {
                   style={{ width: '28px', height: '28px', borderRadius: '50%', border: '2px solid #fff', marginLeft: i === 0 ? 0 : '-8px', objectFit: 'cover', display: 'block' }} />
               ))}
             </span>
-            <span style={{ color: '#5C6070' }}><strong style={{ color: '#041635', fontWeight: 700 }}>10,000+</strong> job seekers · No credit card needed</span>
+            <span style={{ color: '#5C6070' }}><strong style={{ color: '#041635', fontWeight: 700 }}>10,000+</strong> job seekers worldwide</span>
           </span>
         </motion.div>
 

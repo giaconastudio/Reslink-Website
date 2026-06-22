@@ -1,9 +1,20 @@
 'use client';
 
+import { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 export default function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const handler = () => { v.currentTime = 7; };
+    v.addEventListener('loadedmetadata', handler);
+    return () => v.removeEventListener('loadedmetadata', handler);
+  }, []);
+
   return (
     <section style={{ background: '#fff', position: 'relative', overflow: 'hidden' }}>
       {/* Soft brand glow behind the product */}
@@ -116,6 +127,7 @@ export default function Hero() {
           {/* Full-bleed hero loop */}
           <div className="hero-video">
             <video
+              ref={videoRef}
               src="/videos/hero.mp4"
               poster="/videos/hero-poster.jpg"
               autoPlay muted loop playsInline preload="auto"

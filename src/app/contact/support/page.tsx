@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle, ChevronDown, ArrowRight } from 'lucide-react';
+import { CheckCircle, ArrowRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -12,30 +12,32 @@ const PERKS = [
   'Partnership and collaboration opportunities',
 ];
 
+const LOGOS = ['Amazon', 'Meta', 'EY', 'Revolut', 'Accenture', 'HubSpot', 'Adobe', 'Tesla', 'Coca-Cola'];
+
 const FAQS = [
-  { q: 'Is Reslink free?', a: 'Yes — Reslink has a free tier that lets you create and share a video resume with no cost. Pro and Premium plans unlock advanced features like full analytics, multiple videos, and custom branding.' },
-  { q: 'How can employers view my Reslink?', a: 'Anyone with your unique Reslink link can view your profile. You can share it anywhere — LinkedIn, email applications, or directly with recruiters.' },
-  { q: 'Can I use Reslink for any type of job?', a: 'Absolutely. Reslink works for any industry or role. Whether you\'re applying for a creative role or a technical position, video resumes help you stand out.' },
-  { q: 'How long should my video pitch be?', a: 'We recommend 60–90 seconds. Concise, confident, and on point. Shorter videos tend to get watched all the way through — which is what you want.' },
-  { q: 'Can I edit my Reslink after sharing it?', a: 'Yes. You can update your video anytime. Your link stays the same, so anyone who previously received it will automatically see your latest version.' },
-  { q: 'Will my video pitch affect ATS (Applicant Tracking System) compatibility?', a: 'Your Reslink is a supplement to your standard application, not a replacement. You still submit your traditional resume through ATS — Reslink is the extra layer that makes you memorable.' },
-  { q: 'Do I need any special equipment to record my video pitch?', a: 'No special equipment needed. Your laptop webcam or smartphone camera works great. Good lighting and a quiet space are the only things that matter.' },
+  { q: 'Is Reslink free?', a: 'Yes — Reslink has a free tier that lets you create and share a video resume at no cost. Pro and Premium plans unlock advanced analytics, multiple videos, and custom branding.' },
+  { q: 'How can employers view my Reslink?', a: 'Anyone with your unique Reslink link can view your profile. Share it on LinkedIn, in email applications, or directly with recruiters.' },
+  { q: 'Can I use Reslink for any type of job?', a: 'Absolutely. Reslink works for any industry or role. Whether you\'re applying for a creative or technical position, video resumes help you stand out.' },
+  { q: 'How long should my video pitch be?', a: 'We recommend 60–90 seconds. Concise and confident. Shorter videos get watched all the way through — which is exactly what you want.' },
+  { q: 'Can I edit my Reslink after sharing it?', a: 'Yes. You can update your video anytime. Your link stays the same, so anyone who already received it will see your latest version automatically.' },
+  { q: 'Will my video pitch affect ATS compatibility?', a: 'Reslink is a supplement to your standard application, not a replacement. You still submit your traditional resume through ATS — Reslink is the extra layer that makes you memorable.' },
+  { q: 'Do I need special equipment to record?', a: 'No. Your laptop webcam or smartphone camera works great. Good lighting and a quiet space make the biggest difference.' },
 ];
 
-function FAQ({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = useState(false);
+function FAQ({ q, a, open, toggle }: { q: string; a: string; open: boolean; toggle: () => void }) {
   return (
     <div style={{ borderBottom: '1px solid #ECEEF1' }}>
-      <button onClick={() => setOpen(p => !p)}
-        style={{ width: '100%', textAlign: 'left', padding: '20px 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', background: 'none', border: 'none', cursor: 'pointer' }}>
-        <p style={{ fontSize: '15px', fontWeight: 600, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.4 }}>{q}</p>
-        <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: open ? '#0C63E3' : '#F0F2F5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'background 0.2s' }}>
-          <ChevronDown size={16} color={open ? '#fff' : '#9A9FA8'} style={{ transition: 'transform 0.25s', transform: open ? 'rotate(180deg)' : 'none' }} />
-        </div>
+      <button onClick={toggle}
+        style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', padding: '20px 0', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left' }}>
+        <span style={{ fontSize: '15px', fontWeight: 600, color: '#041635', fontFamily: 'var(--font-body)' }}>{q}</span>
+        <span style={{ width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0, background: open ? '#0C63E3' : '#ECEEF1', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.15s' }}>
+          {open
+            ? <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            : <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#5C6070" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          }
+        </span>
       </button>
-      <div style={{ overflow: 'hidden', maxHeight: open ? '200px' : '0', opacity: open ? 1 : 0, transition: 'max-height 0.3s ease, opacity 0.25s ease' }}>
-        <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', paddingBottom: '20px' }}>{a}</p>
-      </div>
+      {open && <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.7, paddingBottom: '20px', fontFamily: 'var(--font-body)' }}>{a}</p>}
     </div>
   );
 }
@@ -43,6 +45,7 @@ function FAQ({ q, a }: { q: string; a: string }) {
 export default function SupportPage() {
   const [sent, setSent] = useState(false);
   const [form, setForm] = useState({ firstName: '', lastName: '', email: '', message: '' });
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const inputStyle: React.CSSProperties = {
     width: '100%', padding: '12px 14px', borderRadius: '10px',
@@ -57,25 +60,24 @@ export default function SupportPage() {
       <main style={{ paddingTop: '68px' }}>
         <style>{`
           input:focus, textarea:focus { border-color: #D8F950 !important; }
-          .support-grid { display: grid; grid-template-columns: 1fr 460px; gap: 0; align-items: stretch; }
-          @media (max-width: 860px) { .support-grid { grid-template-columns: 1fr !important; } }
+          .support-grid { display: grid; grid-template-columns: 1fr 460px; gap: 56px; align-items: center; }
+          @media (max-width: 860px) { .support-grid { grid-template-columns: 1fr !important; gap: 36px !important; } }
         `}</style>
 
-        {/* Hero form section */}
-        <section style={{ background: '#041635', position: 'relative', overflow: 'hidden' }}>
+        {/* Hero + form */}
+        <section style={{ background: '#041635', padding: 'clamp(64px, 9vw, 112px) 24px', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', top: '-10%', left: '-5%', width: '700px', height: '700px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.22), transparent 65%)', pointerEvents: 'none' }} />
-          <div style={{ maxWidth: '1060px', margin: '0 auto', padding: 'clamp(64px, 9vw, 112px) 24px' }}>
+          <div style={{ maxWidth: '1060px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
             <div className="support-grid">
               {/* Left */}
-              <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}
-                style={{ paddingRight: '48px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>Support</p>
                 <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 60px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.03em', lineHeight: 0.93, marginBottom: '12px' }}>
                   Get in touch<br />with our team.
                 </h1>
                 <div style={{ width: '70px', height: '5px', background: '#D8F950', borderRadius: '3px', marginBottom: '24px' }} />
                 <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', lineHeight: 1.7, marginBottom: '32px', maxWidth: '380px' }}>
-                  We're here to help. If you have questions about our platform, need assistance, or want to explore partnership opportunities, feel free to reach out.
+                  Questions about the platform, need help with your account, or want to explore a partnership? We're here.
                 </p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                   {PERKS.map(p => (
@@ -89,7 +91,7 @@ export default function SupportPage() {
                 </div>
               </motion.div>
 
-              {/* Right: Form card */}
+              {/* Right: Form */}
               <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
                 <div style={{ background: 'rgba(255,255,255,0.06)', backdropFilter: 'blur(12px)', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.1)', padding: 'clamp(28px, 4vw, 40px)' }}>
                   {sent ? (
@@ -130,7 +132,7 @@ export default function SupportPage() {
                           Send message <ArrowRight size={15} />
                         </button>
                         <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-body)', lineHeight: 1.5 }}>
-                          By clicking submit, you consent Reslink will use the contact information you provide. You can unsubscribe anytime.
+                          By clicking submit, you consent Reslink will use your contact information to respond and share updates. You can unsubscribe anytime.
                         </p>
                       </form>
                     </>
@@ -141,15 +143,29 @@ export default function SupportPage() {
           </div>
         </section>
 
+        {/* Logo bar */}
+        <section style={{ background: '#fff', borderBottom: '1px solid #ECEEF1', padding: '28px 24px' }}>
+          <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
+            <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '18px' }}>Over 300+ candidates have landed interviews globally through Reslink</p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px 32px', alignItems: 'center', justifyContent: 'center' }}>
+              {LOGOS.map(logo => (
+                <span key={logo} style={{ fontSize: '14px', fontWeight: 700, color: '#C4C8D0', fontFamily: 'var(--font-phudu)', letterSpacing: '-0.01em' }}>{logo}</span>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* FAQ */}
         <section style={{ background: '#F7F8FA', padding: 'clamp(64px, 8vw, 100px) 24px' }}>
           <div style={{ maxWidth: '720px', margin: '0 auto' }}>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '48px' }}>
-              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>FAQ</p>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Common questions</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 900, color: '#041635', letterSpacing: '-0.03em', lineHeight: 0.95 }}>Frequently asked questions</h2>
             </motion.div>
             <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '0 28px', boxShadow: '0 1px 8px rgba(4,22,53,0.04)' }}>
-              {FAQS.map(f => <FAQ key={f.q} q={f.q} a={f.a} />)}
+              {FAQS.map((f, i) => (
+                <FAQ key={f.q} q={f.q} a={f.a} open={openFaq === i} toggle={() => setOpenFaq(openFaq === i ? null : i)} />
+              ))}
             </div>
           </div>
         </section>

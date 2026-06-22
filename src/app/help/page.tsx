@@ -3,9 +3,42 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Search, ChevronDown, UserCheck, Play, DollarSign, Settings, Users, BarChart2, GraduationCap, Briefcase } from 'lucide-react';
+import { Search, UserCheck, Play, DollarSign, Settings, Users, BarChart2, GraduationCap, Briefcase } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+
+const RECRUITER_CATS = [
+  {
+    icon: UserCheck, color: '#0C63E3', bg: '#EEF4FF',
+    title: 'Getting Started',
+    articles: ['Creating a recruiter account', 'Setting up your agency profile', 'Inviting team members', 'Navigating the recruiter dashboard'],
+  },
+  {
+    icon: Users, color: '#7C3AED', bg: '#F3EEFF',
+    title: 'Managing Candidates',
+    articles: ['How to add and manage candidates', 'Sharing candidate Reslinks with clients', 'Shortlisting and rating candidates', 'Bulk candidate uploads'],
+  },
+  {
+    icon: Play, color: '#059669', bg: '#ECFDF5',
+    title: 'Presenting to Clients',
+    articles: ['Creating client-facing candidate packs', 'Sending Reslink profiles via email', 'How clients view shared profiles', 'Getting client feedback'],
+  },
+  {
+    icon: DollarSign, color: '#0891B2', bg: '#ECFEFF',
+    title: 'Plans & Billing',
+    articles: ['Agency pricing overview', 'Per-seat vs per-placement billing', 'Upgrading your agency plan', 'Requesting an invoice'],
+  },
+  {
+    icon: BarChart2, color: '#D97706', bg: '#FFFBEB',
+    title: 'Analytics & Reporting',
+    articles: ['Candidate engagement reports', 'Placement performance metrics', 'Client activity dashboards', 'Exporting recruiter data'],
+  },
+  {
+    icon: Settings, color: '#E11D48', bg: '#FFF1F2',
+    title: 'Integrations & Tools',
+    articles: ['Connecting your CRM', 'ATS integration guide', 'LinkedIn sourcing workflow', 'API access for agencies'],
+  },
+];
 
 const SEEKER_CATS = [
   {
@@ -83,28 +116,29 @@ const FAQS = [
   { q: 'Do I need special equipment to record?', a: 'No. Your laptop webcam or smartphone camera works great. Good lighting and a quiet space make the biggest difference.' },
 ];
 
-function FAQ({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = useState(false);
+function FAQ({ q, a, open, toggle }: { q: string; a: string; open: boolean; toggle: () => void }) {
   return (
     <div style={{ borderBottom: '1px solid #ECEEF1' }}>
-      <button onClick={() => setOpen(p => !p)}
-        style={{ width: '100%', textAlign: 'left', padding: '20px 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', background: 'none', border: 'none', cursor: 'pointer' }}>
-        <p style={{ fontSize: '15px', fontWeight: 600, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.4 }}>{q}</p>
-        <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: open ? '#0C63E3' : '#F0F2F5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'background 0.2s' }}>
-          <ChevronDown size={16} color={open ? '#fff' : '#9A9FA8'} style={{ transition: 'transform 0.25s', transform: open ? 'rotate(180deg)' : 'none' }} />
-        </div>
+      <button onClick={toggle}
+        style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', padding: '20px 0', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left' }}>
+        <span style={{ fontSize: '15px', fontWeight: 600, color: '#041635', fontFamily: 'var(--font-body)' }}>{q}</span>
+        <span style={{ width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0, background: open ? '#0C63E3' : '#ECEEF1', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.15s' }}>
+          {open
+            ? <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            : <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#5C6070" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          }
+        </span>
       </button>
-      <div style={{ overflow: 'hidden', maxHeight: open ? '200px' : '0', opacity: open ? 1 : 0, transition: 'max-height 0.3s ease, opacity 0.25s ease' }}>
-        <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', paddingBottom: '20px' }}>{a}</p>
-      </div>
+      {open && <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.7, paddingBottom: '20px', fontFamily: 'var(--font-body)' }}>{a}</p>}
     </div>
   );
 }
 
 export default function HelpPage() {
   const [query, setQuery] = useState('');
-  const [tab, setTab] = useState<'seeker' | 'company'>('seeker');
-  const cats = tab === 'seeker' ? SEEKER_CATS : COMPANY_CATS;
+  const [tab, setTab] = useState<'seeker' | 'company' | 'recruiter' | 'university'>('seeker');
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const cats = tab === 'seeker' ? SEEKER_CATS : tab === 'company' ? COMPANY_CATS : tab === 'recruiter' ? RECRUITER_CATS : COMPANY_CATS;
 
   return (
     <>
@@ -139,7 +173,7 @@ export default function HelpPage() {
             {/* Tabs */}
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '40px' }}>
               <div style={{ background: '#ECEEF1', borderRadius: '12px', padding: '4px', display: 'flex', gap: '2px' }}>
-                {[{ id: 'seeker', label: 'For Job Seekers' }, { id: 'company', label: 'For Companies' }].map(t => (
+                {[{ id: 'seeker', label: 'For Job Seekers' }, { id: 'company', label: 'For Companies' }, { id: 'recruiter', label: 'For Recruiters' }, { id: 'university', label: 'For Universities' }].map(t => (
                   <button key={t.id} onClick={() => setTab(t.id as 'seeker' | 'company')}
                     style={{ padding: '10px 22px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', transition: 'all 0.2s', background: tab === t.id ? '#0C63E3' : 'transparent', color: tab === t.id ? '#fff' : '#9A9FA8' }}>
                     {t.label}
@@ -182,15 +216,15 @@ export default function HelpPage() {
             {/* FAQ */}
             <div style={{ maxWidth: '720px', margin: '0 auto' }}>
               <div style={{ textAlign: 'center', marginBottom: '36px' }}>
-                <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '12px', fontFamily: 'var(--font-body)' }}>FAQ</p>
-                <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3.5vw, 40px)', fontWeight: 900, color: '#041635', letterSpacing: '-0.02em', marginBottom: '10px' }}>Frequently asked questions</h2>
+                <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '12px', fontFamily: 'var(--font-body)' }}>Common questions</p>
+                <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3.5vw, 40px)', fontWeight: 900, color: '#041635', letterSpacing: '-0.02em', marginBottom: '10px' }}>Got questions? We've got answers.</h2>
                 <p style={{ fontSize: '14px', color: '#5C6070', fontFamily: 'var(--font-body)' }}>
                   Can't find what you need?{' '}
                   <Link href="/contact/support" style={{ color: '#0C63E3', textDecoration: 'none', fontWeight: 600 }}>Contact support</Link> — we reply fast.
                 </p>
               </div>
               <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '0 28px', boxShadow: '0 1px 8px rgba(4,22,53,0.04)' }}>
-                {FAQS.map(f => <FAQ key={f.q} q={f.q} a={f.a} />)}
+                {FAQS.map((f, i) => <FAQ key={f.q} q={f.q} a={f.a} open={openFaq === i} toggle={() => setOpenFaq(openFaq === i ? null : i)} />)}
               </div>
             </div>
           </div>

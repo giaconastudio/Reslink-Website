@@ -131,7 +131,7 @@ export default function Navbar() {
       <div className="container">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '68px' }}>
           <Link href="/">
-            <Image src="/reslink-logo.svg" alt="Reslink" width={140} height={36} priority style={{ height: '30px', width: 'auto' }} />
+            <Image src="/reslink-og.svg" alt="Reslink" width={140} height={36} priority style={{ height: '30px', width: 'auto' }} />
           </Link>
 
           {/* Desktop nav */}

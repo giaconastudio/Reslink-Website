@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
@@ -78,6 +79,7 @@ const VALUES = [
 ];
 
 function TeamCard({ member, i }: { member: typeof TEAM[0]; i: number }) {
+  const [expanded, setExpanded] = useState(false);
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -100,25 +102,41 @@ function TeamCard({ member, i }: { member: typeof TEAM[0]; i: number }) {
       </div>
 
       {/* Info */}
-      <div style={{ padding: '24px 24px 28px' }}>
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '10px', marginBottom: '6px' }}>
+      <div style={{ padding: '20px 24px 24px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>
           <div>
             <p style={{ fontSize: '17px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{member.name}</p>
             <p style={{ fontSize: '12px', fontWeight: 700, color: '#0C63E3', fontFamily: 'var(--font-body)', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{member.title}</p>
           </div>
-          <div
-            style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, cursor: member.linkedin ? 'pointer' : 'default' }}
-            onClick={() => member.linkedin && window.open(member.linkedin, '_blank', 'noopener,noreferrer')}
-            onMouseEnter={e => (e.currentTarget.style.background = '#0C63E3')}
-            onMouseLeave={e => (e.currentTarget.style.background = '#EEF4FF')}
-          >
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="#0C63E3">
-              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-              <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
-            </svg>
+          <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexShrink: 0 }}>
+            <div
+              style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: member.linkedin ? 'pointer' : 'default' }}
+              onClick={() => member.linkedin && window.open(member.linkedin, '_blank', 'noopener,noreferrer')}
+              onMouseEnter={e => (e.currentTarget.style.background = '#0C63E3')}
+              onMouseLeave={e => (e.currentTarget.style.background = '#EEF4FF')}
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="#0C63E3">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+              </svg>
+            </div>
+            <button
+              onClick={() => setExpanded(p => !p)}
+              style={{ width: '32px', height: '32px', borderRadius: '8px', background: expanded ? '#041635' : '#F3F4F6', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.15s', flexShrink: 0 }}
+              onMouseEnter={e => (e.currentTarget.style.background = expanded ? '#0C63E3' : '#E5E7EB')}
+              onMouseLeave={e => (e.currentTarget.style.background = expanded ? '#041635' : '#F3F4F6')}
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={expanded ? '#fff' : '#5C6070'} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ transition: 'transform 0.25s', transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </button>
           </div>
         </div>
-        <p style={{ fontSize: '13px', color: '#5C6070', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginTop: '12px' }}>{member.bio}</p>
+
+        {/* Collapsible bio */}
+        <div style={{ overflow: 'hidden', maxHeight: expanded ? '200px' : '0px', opacity: expanded ? 1 : 0, transition: 'max-height 0.3s ease, opacity 0.25s ease' }}>
+          <p style={{ fontSize: '13px', color: '#5C6070', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginTop: '14px' }}>{member.bio}</p>
+        </div>
       </div>
     </motion.div>
   );

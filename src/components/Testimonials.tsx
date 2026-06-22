@@ -1,143 +1,208 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useRef, useEffect, useState } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { Star } from 'lucide-react';
 
 const testimonials = [
   {
-    quote: "After adding my Reslink to every application, I started getting callbacks within 48 hours. It's a complete game changer.",
+    quote: "After adding my Reslink to every application, I started getting callbacks within 48 hours. Complete game changer.",
     name: 'Ben Harper',
-    role: 'Software Engineer at Amazon',
+    role: 'Software Engineer',
+    company: 'Amazon',
     initials: 'BH',
     color: '#4F6EF7',
   },
   {
     quote: "I landed my dream job and I genuinely believe the video resume made all the difference. Reslink let me show who I really am.",
     name: 'Sofia Rodriguez',
-    role: 'Marketing Manager at Meta',
+    role: 'Marketing Manager',
+    company: 'Meta',
     initials: 'SR',
     color: '#A855F7',
   },
   {
-    quote: "The analytics feature is unreal. I saw a senior partner at EY watch my video three times — I reached out that afternoon and got an interview the next morning.",
+    quote: "The analytics feature is unreal. I saw a senior partner watch my video three times — I reached out and got an interview the next morning.",
     name: 'Marcus Williams',
-    role: 'Finance Analyst at EY',
+    role: 'Finance Analyst',
+    company: 'EY',
     initials: 'MW',
     color: '#F59E0B',
   },
   {
-    quote: "My recruiter said she had never seen a video resume done that well. She shared it with the entire hiring team before I even had an interview.",
+    quote: "My recruiter said she had never seen a video resume done that well. She shared it with the entire hiring team before my first interview.",
     name: 'Elena Kowalski',
-    role: 'Product Manager at Revolut',
+    role: 'Product Manager',
+    company: 'Revolut',
     initials: 'EK',
     color: '#10B981',
   },
   {
-    quote: "As a designer I care about how I present myself. Reslink resonated with the creative teams I was targeting. Two offers in two weeks.",
+    quote: "As a designer I care about how I present myself. Reslink resonated perfectly with the creative teams I was targeting. Two offers in two weeks.",
     name: 'Priya Patel',
-    role: 'UX Designer at Google',
+    role: 'UX Designer',
+    company: 'Google',
     initials: 'PP',
     color: '#EF4444',
   },
   {
     quote: "I was hesitant about putting a video online, but the platform made it so easy. Within a week I had three recruiter calls lined up.",
     name: 'James Chen',
-    role: 'Supply Chain Analyst at Tesla',
+    role: 'Supply Chain Analyst',
+    company: 'Tesla',
     initials: 'JC',
     color: '#041635',
   },
+  {
+    quote: "Honestly thought video resumes were gimmicky. Then I got a reply from Stripe within 24 hours of sending my Reslink. I was wrong.",
+    name: 'Aisha Mensah',
+    role: 'Data Scientist',
+    company: 'Stripe',
+    initials: 'AM',
+    color: '#635BFF',
+  },
+  {
+    quote: "The teleprompter made recording so natural — I didn't have to memorise anything. I recorded a great take on my second try.",
+    name: 'Luca Romano',
+    role: 'Sales Development Rep',
+    company: 'HubSpot',
+    initials: 'LR',
+    color: '#FF7A59',
+  },
 ];
 
+function Card({ t }: { t: typeof testimonials[0] }) {
+  return (
+    <div style={{
+      background: '#fff', borderRadius: '16px', padding: '24px 26px',
+      border: '1px solid #ECEEF1', width: '340px', flexShrink: 0,
+      boxShadow: '0 2px 12px rgba(4,22,53,0.05)',
+    }}>
+      <div style={{ display: 'flex', gap: '3px', marginBottom: '14px' }}>
+        {[...Array(5)].map((_, j) => <Star key={j} size={13} fill="#D8F950" color="#D8F950" />)}
+      </div>
+      <p style={{ fontSize: '14px', color: '#3A3F4C', lineHeight: 1.65, marginBottom: '20px', fontFamily: 'var(--font-body)' }}>
+        &ldquo;{t.quote}&rdquo;
+      </p>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div style={{
+          width: '36px', height: '36px', borderRadius: '50%',
+          background: t.color, display: 'flex', alignItems: 'center',
+          justifyContent: 'center', color: '#fff', fontSize: '12px',
+          fontWeight: 700, flexShrink: 0, fontFamily: 'var(--font-phudu)',
+        }}>{t.initials}</div>
+        <div>
+          <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{t.name}</p>
+          <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{t.role} · {t.company}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MarqueeRow({ items, reverse }: { items: typeof testimonials; reverse?: boolean }) {
+  const doubled = [...items, ...items];
+  return (
+    <div style={{ overflow: 'hidden', position: 'relative' }}>
+      <div className={reverse ? 'testi-track-rev' : 'testi-track'} style={{ display: 'flex', gap: '16px', paddingLeft: '16px' }}>
+        {doubled.map((t, i) => <Card key={i} t={t} />)}
+      </div>
+    </div>
+  );
+}
+
+function CountUp({ end, suffix, duration = 1.6 }: { end: number; suffix: string; duration?: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    const start = Date.now();
+    const frame = () => {
+      const elapsed = (Date.now() - start) / 1000;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(eased * end));
+      if (progress < 1) requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+  }, [inView, end, duration]);
+
+  return (
+    <span ref={ref}>
+      {count.toLocaleString()}{suffix}
+    </span>
+  );
+}
+
 const stats = [
-  { value: '10,000+', label: 'Active job seekers' },
-  { value: '3×', label: 'More recruiter callbacks' },
-  { value: '48 hrs', label: 'Avg. to first response' },
-  { value: '92%', label: 'Would recommend' },
+  { end: 10000, suffix: '+', label: 'Active job seekers' },
+  { end: 3, suffix: '×', label: 'More recruiter callbacks' },
+  { end: 48, suffix: ' hrs', label: 'Avg. to first response' },
+  { end: 92, suffix: '%', label: 'Would recommend' },
 ];
 
 export default function Testimonials() {
-  return (
-    <section style={{ padding: '96px 0', background: '#F7F8FA' }}>
-      <style>{`
-        @media (max-width: 900px) { .testi-grid { grid-template-columns: 1fr 1fr !important; } .testi-stats { grid-template-columns: 1fr 1fr !important; gap: 28px 16px !important; } }
-        @media (max-width: 600px) { .testi-grid { grid-template-columns: 1fr !important; } }
-        .testi-card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
-        .testi-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(4,22,53,0.1); }
-      `}</style>
-      <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          style={{ textAlign: 'center', maxWidth: '520px', margin: '0 auto 48px' }}
-        >
-          <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px' }}>
-            Success stories
-          </p>
-          <h2 style={{ fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#041635', lineHeight: 0.98 }}>
-            Real results from<br />real candidates.
-          </h2>
-        </motion.div>
+  const row1 = testimonials.slice(0, 5);
+  const row2 = testimonials.slice(3);
 
-        {/* Stat band */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="testi-stats"
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '48px' }}
-        >
+  return (
+    <section style={{ padding: '100px 0', background: '#F7F8FA', overflow: 'hidden' }}>
+      <style>{`
+        @keyframes testi-scroll { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+        @keyframes testi-scroll-rev { from { transform: translateX(-50%) } to { transform: translateX(0) } }
+        .testi-track { animation: testi-scroll 40s linear infinite; display: flex; }
+        .testi-track-rev { animation: testi-scroll-rev 44s linear infinite; display: flex; }
+        .testi-track:hover, .testi-track-rev:hover { animation-play-state: paused; }
+      `}</style>
+
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        style={{ textAlign: 'center', maxWidth: '520px', margin: '0 auto 56px', padding: '0 24px' }}
+      >
+        <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>
+          Success stories
+        </p>
+        <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#041635', lineHeight: 0.98, marginBottom: '20px' }}>
+          Real results from<br />real candidates.
+        </h2>
+        <p style={{ fontSize: '16px', color: '#5C6070', lineHeight: 1.65, fontFamily: 'var(--font-body)' }}>
+          Over 10,000 job seekers have used Reslink to stand out and land interviews at top companies.
+        </p>
+      </motion.div>
+
+      {/* Marquee rows */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '72px' }}>
+        <MarqueeRow items={row1} />
+        <MarqueeRow items={row2} reverse />
+      </div>
+
+      {/* Count-up stats strip */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        style={{ maxWidth: '900px', margin: '0 auto', padding: '0 24px' }}
+      >
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }} className="testi-stats">
           {stats.map((s, i) => (
-            <div key={s.label} style={{ textAlign: 'center', padding: '0 8px', borderLeft: i === 0 ? 'none' : '1px solid #E4E7EC' }}>
-              <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em' }}>{s.value}</p>
+            <div key={s.label} style={{ textAlign: 'center', padding: '24px 8px', background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', boxShadow: '0 2px 8px rgba(4,22,53,0.04)' }}>
+              <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 3.5vw, 44px)', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em' }}>
+                <CountUp end={s.end} suffix={s.suffix} />
+              </p>
               <p style={{ fontSize: '13px', color: '#5C6070', marginTop: '8px', fontFamily: 'var(--font-body)' }}>{s.label}</p>
             </div>
           ))}
-        </motion.div>
-
-        <div className="testi-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
-          {testimonials.map((t, i) => (
-            <motion.div
-              key={t.name}
-              className="testi-card"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.07 }}
-              style={{
-                background: '#fff',
-                borderRadius: '16px',
-                padding: '26px',
-                display: 'flex',
-                flexDirection: 'column',
-                border: '1px solid #ECEEF1',
-                boxShadow: '0 1px 3px rgba(11,20,55,0.04)',
-              }}
-            >
-              <div style={{ display: 'flex', gap: '3px', marginBottom: '14px' }}>
-                {[...Array(5)].map((_, j) => <Star key={j} size={13} fill="#D8F950" color="#D8F950" />)}
-              </div>
-              <p style={{ fontSize: '15px', color: '#3A3F4C', lineHeight: 1.65, flex: 1, marginBottom: '22px', fontFamily: 'var(--font-body)' }}>
-                &ldquo;{t.quote}&rdquo;
-              </p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '11px' }}>
-                <div style={{
-                  width: '38px', height: '38px', borderRadius: '50%',
-                  background: t.color, display: 'flex', alignItems: 'center',
-                  justifyContent: 'center', color: '#fff', fontSize: '12px',
-                  fontWeight: 700, flexShrink: 0, fontFamily: 'var(--font-phudu)',
-                }}>{t.initials}</div>
-                <div>
-                  <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>{t.name}</p>
-                  <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{t.role}</p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
         </div>
-      </div>
+      </motion.div>
+
+      <style>{`.testi-stats { } @media (max-width: 640px) { .testi-stats { grid-template-columns: 1fr 1fr !important; } }`}</style>
     </section>
   );
 }

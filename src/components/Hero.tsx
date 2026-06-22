@@ -1,11 +1,20 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useRef, useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+
+const COMPANIES = [
+  { name: 'Google', initial: 'G', color: '#4285F4', watched: 'Watched 1:12 · just now' },
+  { name: 'Stripe', initial: 'S', color: '#635BFF', watched: 'Watched 0:58 · 1m ago' },
+  { name: 'Amazon', initial: 'A', color: '#FF9900', watched: 'Watched 1:05 · 2m ago' },
+  { name: 'Meta', initial: 'M', color: '#0C63E3', watched: 'Watched 1:12 · 2m ago' },
+  { name: 'Apple', initial: '🍎', color: '#1C1C1E', watched: 'Watched 1:18 · 3m ago' },
+];
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [coIdx, setCoIdx] = useState(0);
 
   useEffect(() => {
     const v = videoRef.current;
@@ -15,9 +24,15 @@ export default function Hero() {
     return () => v.removeEventListener('loadedmetadata', handler);
   }, []);
 
+  useEffect(() => {
+    const id = setInterval(() => setCoIdx(i => (i + 1) % COMPANIES.length), 2800);
+    return () => clearInterval(id);
+  }, []);
+
+  const co = COMPANIES[coIdx];
+
   return (
     <section style={{ background: '#fff', position: 'relative', overflow: 'hidden' }}>
-      {/* Soft brand glow behind the product */}
       <div style={{ position: 'absolute', top: '-10%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '700px', background: 'radial-gradient(ellipse at center, rgba(12,99,227,0.08), transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
 
       <style>{`
@@ -75,7 +90,6 @@ export default function Hero() {
       `}</style>
 
       <div className="hero-inner">
-        {/* Badge */}
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
           style={{ display: 'flex', justifyContent: 'center', marginBottom: '26px' }}>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#EBF0FF', color: '#0C63E3', fontSize: '12px', fontWeight: 600, padding: '6px 14px', borderRadius: '100px', fontFamily: 'var(--font-body)', letterSpacing: '0.01em' }}>
@@ -84,17 +98,14 @@ export default function Hero() {
           </span>
         </motion.div>
 
-        {/* Headline */}
         <motion.h1 className="hero-h1" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.05 }}>
           You&apos;re more <span style={{ color: '#0C63E3' }}>impressive</span><br />in person.
         </motion.h1>
 
-        {/* Subhead */}
         <motion.p className="hero-sub" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.12 }}>
           Reslink helps you stand out and land more interviews by creating personalized video resumes that build honest connections with recruiters.
         </motion.p>
 
-        {/* CTAs */}
         <motion.div className="hero-ctas" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.18 }}>
           <Link href="/signup" className="btn-primary" style={{ fontSize: '15px', padding: '14px 26px' }}>
             Create your free Reslink
@@ -105,16 +116,20 @@ export default function Hero() {
           </Link>
         </motion.div>
 
-        {/* Social proof */}
         <motion.p className="hero-proof" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.25 }}>
           Over <strong>10,000 candidates</strong> have landed interviews globally through Reslink
         </motion.p>
       </div>
 
-      {/* Living product stage */}
-      <motion.div className="hero-stage" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.28 }}>
+      {/* Living product stage — perspective tilt entrance */}
+      <motion.div
+        className="hero-stage"
+        initial={{ opacity: 0, y: 60, rotateX: 6, scale: 0.96 }}
+        animate={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
+        transition={{ duration: 0.75, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        style={{ perspective: '1200px', transformOrigin: 'center bottom' }}
+      >
         <div className="hero-frame">
-          {/* Browser bar */}
           <div className="hero-bar">
             <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#FF5F57', display: 'inline-block' }} />
             <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#FEBC2E', display: 'inline-block' }} />
@@ -124,7 +139,6 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Full-bleed hero loop */}
           <div className="hero-video">
             <video
               ref={videoRef}
@@ -136,21 +150,37 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Floating live card — recruiter activity */}
-        <motion.div className="hero-float float-tr" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.7, duration: 0.4 }}>
-          <motion.div animate={{ y: [0, -6, 0] }} transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }} style={{ display: 'flex', alignItems: 'center', gap: '9px' }}>
-            <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: '#0C63E3', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-              <span style={{ fontSize: '12px', fontWeight: 800, color: '#fff', fontFamily: 'var(--font-phudu)' }}>M</span>
-            </div>
-            <div>
-              <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Meta just viewed you</p>
-              <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Watched 1:12 · 2m ago</p>
-            </div>
+        {/* Floating live card — cycling recruiter activity */}
+        <motion.div
+          className="hero-float float-tr"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.85, duration: 0.4 }}
+        >
+          <motion.div animate={{ y: [0, -6, 0] }} transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={coIdx}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.35 }}
+                style={{ display: 'flex', alignItems: 'center', gap: '9px', minWidth: '190px' }}
+              >
+                <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: co.color, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <span style={{ fontSize: '12px', fontWeight: 800, color: '#fff', fontFamily: 'var(--font-phudu)' }}>{co.initial}</span>
+                </div>
+                <div>
+                  <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{co.name} just viewed you</p>
+                  <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{co.watched}</p>
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </motion.div>
         </motion.div>
 
         {/* Floating live card — interview booked */}
-        <motion.div className="hero-float float-bl" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.9, duration: 0.4 }}>
+        <motion.div className="hero-float float-bl" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.0, duration: 0.4 }}>
           <motion.div animate={{ y: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }} style={{ display: 'flex', alignItems: 'center', gap: '9px' }}>
             <div style={{ width: '30px', height: '30px', borderRadius: '50%', background: '#D8F950', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#041635" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>

@@ -1,6 +1,32 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useRef, useEffect, useState } from 'react';
+import { motion, useInView } from 'framer-motion';
+
+function CountUp({ end, suffix, duration = 1.4 }: { end: number | null; suffix: string; duration?: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: '-60px' });
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!inView || end === null) return;
+    const frame = () => {
+      const start = Date.now();
+      const tick = () => {
+        const elapsed = (Date.now() - start) / 1000;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setCount(Math.round(eased * end));
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    frame();
+  }, [inView, end, duration]);
+
+  if (end === null) return <span ref={ref}>{suffix}</span>;
+  return <span ref={ref}>{count}{suffix}</span>;
+}
 
 export default function ValueProp() {
   return (
@@ -181,13 +207,15 @@ export default function ValueProp() {
           style={{ display: 'flex', justifyContent: 'center', gap: '64px', marginTop: '56px', paddingTop: '48px', borderTop: '1px solid #ECEEF1', flexWrap: 'wrap' }}
         >
           {[
-            { val: '3×', label: 'more recruiter callbacks' },
-            { val: '48h', label: 'avg. time to first response' },
-            { val: '92%', label: 'would recommend Reslink' },
-            { val: 'Free', label: 'forever for job seekers' },
+            { end: 3, suffix: '×', label: 'more recruiter callbacks' },
+            { end: 48, suffix: 'h', label: 'avg. time to first response' },
+            { end: 92, suffix: '%', label: 'would recommend Reslink' },
+            { end: null, suffix: 'Free', label: 'forever for job seekers' },
           ].map(s => (
             <div key={s.label} style={{ textAlign: 'center' }}>
-              <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '38px', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em' }}>{s.val}</p>
+              <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '38px', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em' }}>
+                <CountUp end={s.end} suffix={s.suffix} />
+              </p>
               <p style={{ fontSize: '13px', color: '#9A9FA8', marginTop: '6px', fontFamily: 'var(--font-body)' }}>{s.label}</p>
             </div>
           ))}

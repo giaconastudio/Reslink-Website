@@ -118,12 +118,17 @@ const tabs = [
     bg: '#fff',
     visual: (
       <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', background: '#fff' }}>
-        {/* Modal header — dark navy */}
-        <div style={{ background: '#0B1120', padding: '14px 18px', display: 'flex', alignItems: 'center', gap: '9px' }}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D8F950" strokeWidth="2"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
-          <span style={{ fontSize: '13px', fontWeight: 800, color: '#fff', fontFamily: 'var(--font-body)', letterSpacing: '0.04em' }}>RESLINK AI</span>
-          <div style={{ marginLeft: 'auto', width: '20px', height: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        {/* Modal header — premium AI branding */}
+        <div style={{ background: 'linear-gradient(135deg, #0B1120 0%, #0D1829 100%)', padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '10px', borderBottom: '1px solid rgba(216,249,80,0.15)' }}>
+          <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: 'linear-gradient(135deg, rgba(216,249,80,0.2), rgba(216,249,80,0.08))', border: '1px solid rgba(216,249,80,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#D8F950"><path d="M12 1.5 L13.2 9.8 L21.5 12 L13.2 14.2 L12 22.5 L10.8 14.2 L2.5 12 L10.8 9.8 Z"/></svg>
+          </div>
+          <div>
+            <span style={{ fontSize: '13px', fontWeight: 800, color: '#fff', fontFamily: 'var(--font-body)', letterSpacing: '0.06em', display: 'block', lineHeight: 1.1 }}>RESLINK AI</span>
+            <span style={{ fontSize: '10px', color: '#D8F950', fontFamily: 'var(--font-body)', fontWeight: 600, letterSpacing: '0.04em' }}>Script Generator</span>
+          </div>
+          <div style={{ marginLeft: 'auto', width: '22px', height: '22px', borderRadius: '6px', background: 'rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </div>
         </div>
         {/* Generated script */}
@@ -150,7 +155,7 @@ const tabs = [
         {/* Custom input */}
         <div style={{ padding: '0 18px', marginBottom: '10px' }}>
           <div style={{ border: '1px solid #E4E7EC', borderRadius: '8px', padding: '9px 12px', fontSize: '11px', color: '#B0B4BE', fontFamily: 'var(--font-body)', background: '#FAFBFC', display: 'flex', alignItems: 'center', gap: '7px' }}>
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#D8F950" strokeWidth="2"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="#D8F950"><path d="M12 1.5 L13.2 9.8 L21.5 12 L13.2 14.2 L12 22.5 L10.8 14.2 L2.5 12 L10.8 9.8 Z"/></svg>
             Tell us what you want to change in the script
           </div>
         </div>

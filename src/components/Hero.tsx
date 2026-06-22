@@ -94,7 +94,7 @@ export default function Hero() {
           style={{ display: 'flex', justifyContent: 'center', marginBottom: '26px' }}>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#EBF0FF', color: '#0C63E3', fontSize: '12px', fontWeight: 600, padding: '6px 14px', borderRadius: '100px', fontFamily: 'var(--font-body)', letterSpacing: '0.01em' }}>
             <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#0C63E3', display: 'inline-block' }} />
-            Free for job seekers · No credit card
+            Trusted by 10,000+ job seekers worldwide
           </span>
         </motion.div>
 

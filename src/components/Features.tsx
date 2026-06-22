@@ -208,13 +208,13 @@ const tabs = [
   },
   {
     id: 'badge',
-    label: 'Badge',
-    headline: 'Embed your Reslink directly in your resume.',
-    sub: 'A Reslink Badge is a clickable button embedded in your PDF. When a recruiter opens your resume, one click takes them straight to your video intro — no manual linking, no copying URLs.',
+    label: 'Apply Anywhere',
+    headline: 'Your Reslink, right inside your resume.',
+    sub: 'A clickable Play Intro button is embedded directly in your resume PDF. When a recruiter opens it, one click takes them straight to your video — no copying URLs, no manual work.',
     color: '#D8F950',
     bg: '#F7F8FA',
     visual: (
-      <div style={{ width: '100%', height: '100%', padding: '20px', display: 'flex', flexDirection: 'column', gap: '10px', background: '#F7F8FA' }}>
+      <div style={{ width: '100%', height: '100%', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px', background: '#F7F8FA', justifyContent: 'center' }}>
         {/* Resume PDF mockup */}
         <div style={{ background: '#fff', borderRadius: '10px', border: '1px solid #E4E7EC', padding: '16px 18px', boxShadow: '0 4px 16px rgba(4,22,53,0.06)' }}>
           <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '12px' }}>

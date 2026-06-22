@@ -42,7 +42,7 @@ export default function CTA() {
             </a>
           </div>
           <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.2)', fontFamily: 'var(--font-body)' }}>
-            No credit card required · Free forever
+            No credit card required · Cancel anytime
           </p>
         </motion.div>
       </div>

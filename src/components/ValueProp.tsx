@@ -3,28 +3,24 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 
-function CountUp({ end, suffix, duration = 1.4 }: { end: number | null; suffix: string; duration?: number }) {
+function CountUp({ end, suffix, duration = 1.4 }: { end: number; suffix: string; duration?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (!inView || end === null) return;
-    const frame = () => {
-      const start = Date.now();
-      const tick = () => {
-        const elapsed = (Date.now() - start) / 1000;
-        const progress = Math.min(elapsed / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        setCount(Math.round(eased * end));
-        if (progress < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
+    if (!inView) return;
+    const start = Date.now();
+    const tick = () => {
+      const elapsed = (Date.now() - start) / 1000;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(eased * end));
+      if (progress < 1) requestAnimationFrame(tick);
     };
-    frame();
+    requestAnimationFrame(tick);
   }, [inView, end, duration]);
 
-  if (end === null) return <span ref={ref}>{suffix}</span>;
   return <span ref={ref}>{count}{suffix}</span>;
 }
 
@@ -210,7 +206,7 @@ export default function ValueProp() {
             { end: 3, suffix: '×', label: 'more recruiter callbacks' },
             { end: 48, suffix: 'h', label: 'avg. time to first response' },
             { end: 92, suffix: '%', label: 'would recommend Reslink' },
-            { end: null, suffix: 'Free', label: 'forever for job seekers' },
+            { end: 10000, suffix: '+', label: 'candidates already using Reslink' },
           ].map(s => (
             <div key={s.label} style={{ textAlign: 'center' }}>
               <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '38px', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em' }}>

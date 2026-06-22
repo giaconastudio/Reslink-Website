@@ -28,7 +28,7 @@ export default function FAQ() {
             transition={{ duration: 0.5 }}
             style={{ textAlign: 'center', marginBottom: '56px' }}
           >
-            <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '16px' }}>
+            <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '16px' }}>
               FAQ
             </p>
             <h2 style={{ fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.025em', color: '#041635', lineHeight: 1.12 }}>

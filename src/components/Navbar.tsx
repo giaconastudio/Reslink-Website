@@ -26,7 +26,7 @@ const resources = [
 
 const company = [
   { label: 'About Us', href: '/about', desc: 'Our mission and story', icon: Info, color: '#5C6070', bg: '#F7F8FA', badge: null },
-  { label: 'Careers', href: '/careers', desc: 'Join the team', icon: Rocket, color: '#7C3AED', bg: '#F3EEFF', badge: "we're hiring" },
+  { label: 'Careers', href: 'https://reslink-company.vercel.app/job-board', desc: 'Join the team', icon: Rocket, color: '#7C3AED', bg: '#F3EEFF', badge: "we're hiring" },
   { label: 'Contact Us', href: '/contact', desc: 'Get in touch with our team', icon: Phone, color: '#0891B2', bg: '#ECFEFF', badge: null },
 ];
 
@@ -36,8 +36,9 @@ function DropItem({ href, icon: Icon, color, bg, label, desc, badge, onClick }: 
   href: string; icon: React.ElementType; color: string; bg: string;
   label: string; desc: string; badge?: string | null; onClick?: () => void;
 }) {
+  const isExternal = href.startsWith('http');
   return (
-    <Link href={href} onClick={onClick}
+    <Link href={href} onClick={onClick} {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '7px 10px', borderRadius: '8px', textDecoration: 'none', transition: 'background 0.15s' }}
       onMouseEnter={e => (e.currentTarget.style.background = '#F7F8FA')}
       onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}

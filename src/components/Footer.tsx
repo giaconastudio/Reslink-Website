@@ -15,7 +15,7 @@ const links = {
   ],
   Company: [
     { label: 'About', href: '/about' },
-    { label: 'Careers', href: '/careers' },
+    { label: 'Careers', href: 'https://reslink-company.vercel.app/job-board' },
     { label: 'Contact', href: '/contact' },
   ],
 };
@@ -61,7 +61,7 @@ export default function Footer() {
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {items.map(item => (
                   <li key={item.href}>
-                    <Link href={item.href} style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', textDecoration: 'none', transition: 'color 0.15s' }}>
+                    <Link href={item.href} {...(item.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})} style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', textDecoration: 'none', transition: 'color 0.15s' }}>
                       {item.label}
                     </Link>
                   </li>

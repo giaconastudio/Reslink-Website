@@ -48,62 +48,90 @@ const testimonials = [
   },
 ];
 
+const stats = [
+  { value: '10,000+', label: 'Active job seekers' },
+  { value: '3×', label: 'More recruiter callbacks' },
+  { value: '48 hrs', label: 'Avg. to first response' },
+  { value: '92%', label: 'Would recommend' },
+];
+
 export default function Testimonials() {
   return (
     <section style={{ padding: '96px 0', background: '#F7F8FA' }}>
+      <style>{`
+        @media (max-width: 900px) { .testi-grid { grid-template-columns: 1fr 1fr !important; } .testi-stats { grid-template-columns: 1fr 1fr !important; gap: 28px 16px !important; } }
+        @media (max-width: 600px) { .testi-grid { grid-template-columns: 1fr !important; } }
+        .testi-card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+        .testi-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(4,22,53,0.1); }
+      `}</style>
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          style={{ textAlign: 'center', maxWidth: '480px', margin: '0 auto 56px' }}
+          style={{ textAlign: 'center', maxWidth: '520px', margin: '0 auto 48px' }}
         >
-          <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '16px' }}>
+          <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px' }}>
             Success stories
           </p>
-          <h2 style={{ fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.025em', color: '#041635', lineHeight: 1.12 }}>
-            Real results from real candidates
+          <h2 style={{ fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#041635', lineHeight: 0.98 }}>
+            Real results from<br />real candidates.
           </h2>
         </motion.div>
 
-        <style>{`
-          @media (max-width: 900px) { .testi-grid { grid-template-columns: 1fr 1fr !important; } }
-          @media (max-width: 600px) { .testi-grid { grid-template-columns: 1fr !important; } }
-        `}</style>
+        {/* Stat band */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="testi-stats"
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '48px' }}
+        >
+          {stats.map((s, i) => (
+            <div key={s.label} style={{ textAlign: 'center', padding: '0 8px', borderLeft: i === 0 ? 'none' : '1px solid #E4E7EC' }}>
+              <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em' }}>{s.value}</p>
+              <p style={{ fontSize: '13px', color: '#5C6070', marginTop: '8px', fontFamily: 'var(--font-body)' }}>{s.label}</p>
+            </div>
+          ))}
+        </motion.div>
+
         <div className="testi-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
           {testimonials.map((t, i) => (
             <motion.div
               key={t.name}
+              className="testi-card"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.07 }}
               style={{
                 background: '#fff',
-                borderRadius: '14px',
-                padding: '24px',
+                borderRadius: '16px',
+                padding: '26px',
                 display: 'flex',
                 flexDirection: 'column',
-                boxShadow: '0 1px 3px rgba(11,20,55,0.05)',
+                border: '1px solid #ECEEF1',
+                boxShadow: '0 1px 3px rgba(11,20,55,0.04)',
               }}
             >
               <div style={{ display: 'flex', gap: '3px', marginBottom: '14px' }}>
                 {[...Array(5)].map((_, j) => <Star key={j} size={13} fill="#D8F950" color="#D8F950" />)}
               </div>
-              <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.7, flex: 1, marginBottom: '20px' }}>
+              <p style={{ fontSize: '15px', color: '#3A3F4C', lineHeight: 1.65, flex: 1, marginBottom: '22px', fontFamily: 'var(--font-body)' }}>
                 &ldquo;{t.quote}&rdquo;
               </p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '11px' }}>
                 <div style={{
-                  width: '36px', height: '36px', borderRadius: '50%',
+                  width: '38px', height: '38px', borderRadius: '50%',
                   background: t.color, display: 'flex', alignItems: 'center',
-                  justifyContent: 'center', color: '#fff', fontSize: '11px',
-                  fontWeight: 700, flexShrink: 0,
+                  justifyContent: 'center', color: '#fff', fontSize: '12px',
+                  fontWeight: 700, flexShrink: 0, fontFamily: 'var(--font-phudu)',
                 }}>{t.initials}</div>
                 <div>
-                  <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635' }}>{t.name}</p>
-                  <p style={{ fontSize: '12px', color: '#9A9FA8' }}>{t.role}</p>
+                  <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>{t.name}</p>
+                  <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{t.role}</p>
                 </div>
               </div>
             </motion.div>

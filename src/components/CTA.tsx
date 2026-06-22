@@ -5,8 +5,11 @@ import { ArrowRight } from 'lucide-react';
 
 export default function CTA() {
   return (
-    <section style={{ padding: '88px 24px', background: '#041635' }}>
-      <div style={{ maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
+    <section style={{ padding: '120px 24px', background: '#041635', position: 'relative', overflow: 'hidden' }}>
+      {/* Glows */}
+      <div style={{ position: 'absolute', top: '-20%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '600px', background: 'radial-gradient(ellipse at center, rgba(12,99,227,0.25), transparent 60%)', pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', bottom: '-30%', left: '50%', transform: 'translateX(-50%)', width: '700px', height: '500px', background: 'radial-gradient(ellipse at center, rgba(216,249,80,0.1), transparent 60%)', pointerEvents: 'none' }} />
+      <div style={{ maxWidth: '700px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -14,14 +17,14 @@ export default function CTA() {
           transition={{ duration: 0.5 }}
         >
           <h2 style={{
-            fontSize: 'clamp(36px, 5vw, 60px)', fontWeight: 900,
-            letterSpacing: '-0.02em', lineHeight: 0.95,
-            color: '#fff', marginBottom: '20px',
+            fontSize: 'clamp(42px, 6.5vw, 80px)', fontWeight: 900,
+            letterSpacing: '-0.035em', lineHeight: 0.92,
+            color: '#fff', marginBottom: '22px',
             fontFamily: 'var(--font-phudu)',
           }}>
-            Ready to stand out?
+            Your next job is<br />one <span style={{ color: '#D8F950' }}>Reslink</span> away.
           </h2>
-          <p style={{ fontSize: '18px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, marginBottom: '40px', fontFamily: 'var(--font-body)' }}>
+          <p style={{ fontSize: '19px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, marginBottom: '40px', fontFamily: 'var(--font-body)', maxWidth: '480px', marginLeft: 'auto', marginRight: 'auto' }}>
             Join thousands of job seekers getting more callbacks, more interviews, and more offers — for free.
           </p>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap', marginBottom: '20px' }}>

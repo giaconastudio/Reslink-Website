@@ -90,37 +90,45 @@ export default function Hero() {
       `}</style>
 
       <div className="hero-inner">
+        {/* Social proof pill */}
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
-          style={{ display: 'flex', justifyContent: 'center', marginBottom: '26px' }}>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#EBF0FF', color: '#0C63E3', fontSize: '12px', fontWeight: 600, padding: '6px 14px', borderRadius: '100px', fontFamily: 'var(--font-body)', letterSpacing: '0.01em' }}>
-            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#0C63E3', display: 'inline-block' }} />
-            Trusted by 10,000+ job seekers worldwide
+          style={{ display: 'flex', justifyContent: 'center', marginBottom: '28px' }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#fff', color: '#5C6070', fontSize: '13px', fontWeight: 500, padding: '8px 18px', borderRadius: '100px', fontFamily: 'var(--font-body)', border: '1.5px solid #E4E7EC', boxShadow: '0 2px 8px rgba(4,22,53,0.06)' }}>
+            <span style={{ display: 'flex', gap: '3px' }}>
+              {['#4F6EF7','#A855F7','#10B981','#F59E0B','#EF4444'].map(c => (
+                <span key={c} style={{ width: '20px', height: '20px', borderRadius: '50%', background: c, border: '2px solid #fff', marginLeft: '-6px', display: 'inline-block' }} />
+              ))}
+            </span>
+            <span><strong style={{ color: '#041635', fontWeight: 700 }}>10,000+</strong> candidates · <strong style={{ color: '#041635', fontWeight: 700 }}>3×</strong> more callbacks</span>
           </span>
         </motion.div>
 
+        {/* Headline */}
         <motion.h1 className="hero-h1" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.05 }}>
           You&apos;re more{' '}
-          <span style={{ position: 'relative', display: 'inline-block', color: '#041635' }}>
+          <span style={{ position: 'relative', display: 'inline-block' }}>
             impressive
             <svg
-              viewBox="0 0 320 14"
+              viewBox="0 0 400 16"
               preserveAspectRatio="none"
-              style={{ position: 'absolute', bottom: '-6px', left: '-2px', width: 'calc(100% + 4px)', height: '14px', pointerEvents: 'none' }}
+              style={{ position: 'absolute', bottom: '-4px', left: 0, width: '100%', height: '16px', pointerEvents: 'none' }}
               aria-hidden="true"
             >
-              <path d="M4,9 C40,3 90,12 140,7 C190,2 240,11 316,6" stroke="#D8F950" strokeWidth="5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M3,11 C60,4 130,13 200,8 C270,3 340,12 397,7" stroke="#D8F950" strokeWidth="6" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </span>
           <br />in person.
         </motion.h1>
 
+        {/* Subtext — one sentence, one idea */}
         <motion.p className="hero-sub" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.12 }}>
-          Reslink helps you stand out and land more interviews by creating personalized video resumes that build honest connections with recruiters.
+          Send a 60-second video pitch with every application. Let recruiters see the real you — and watch the callbacks come in.
         </motion.p>
 
+        {/* CTAs */}
         <motion.div className="hero-ctas" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.18 }}>
-          <Link href="/signup" className="btn-primary" style={{ fontSize: '15px', padding: '14px 26px' }}>
-            Create your free Reslink
+          <Link href="/signup" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
+            Create your Reslink — free
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </Link>
           <Link href="#how-it-works" className="btn-outline" style={{ fontSize: '15px', padding: '14px 26px' }}>
@@ -129,7 +137,7 @@ export default function Hero() {
         </motion.div>
 
         <motion.p className="hero-proof" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.25 }}>
-          Join thousands of candidates landing more interviews — globally.
+          No credit card · Cancel anytime
         </motion.p>
       </div>
 

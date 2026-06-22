@@ -205,8 +205,8 @@ export default function ValueProp() {
           {[
             { end: 3, suffix: '×', label: 'more recruiter callbacks' },
             { end: 48, suffix: 'h', label: 'avg. time to first response' },
-            { end: 92, suffix: '%', label: 'would recommend Reslink' },
-            { end: 10000, suffix: '+', label: 'candidates already using Reslink' },
+            { end: 85, suffix: '%', label: 'avg. video watch-through rate' },
+            { end: 5, suffix: ' min', label: 'to create your first Reslink' },
           ].map(s => (
             <div key={s.label} style={{ textAlign: 'center' }}>
               <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '38px', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em' }}>

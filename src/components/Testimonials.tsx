@@ -138,9 +138,9 @@ function CountUp({ end, suffix, duration = 1.6 }: { end: number; suffix: string;
 
 const stats = [
   { end: 10000, suffix: '+', label: 'Active job seekers' },
-  { end: 3, suffix: '×', label: 'More recruiter callbacks' },
-  { end: 48, suffix: ' hrs', label: 'Avg. to first response' },
-  { end: 92, suffix: '%', label: 'Would recommend' },
+  { end: 92, suffix: '%', label: 'Would recommend Reslink' },
+  { end: 24, suffix: 'h', label: 'Fastest interview booked' },
+  { end: 4, suffix: '.8★', label: 'Average user rating' },
 ];
 
 export default function Testimonials() {

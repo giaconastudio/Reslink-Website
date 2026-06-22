@@ -38,7 +38,7 @@ function DropItem({ href, icon: Icon, color, bg, label, desc, badge, onClick }: 
 }) {
   const isExternal = href.startsWith('http');
   return (
-    <Link href={href} onClick={onClick} {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+    <Link href={href} onClick={onClick} {...(isExternal ? {} : {})}
       style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '7px 10px', borderRadius: '8px', textDecoration: 'none', transition: 'background 0.15s' }}
       onMouseEnter={e => (e.currentTarget.style.background = '#F7F8FA')}
       onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}

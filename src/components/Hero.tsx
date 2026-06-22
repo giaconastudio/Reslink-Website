@@ -74,6 +74,7 @@ export default function Hero() {
           background: #060D24;
           aspect-ratio: 16/9;
           width: 100%;
+          border-radius: 0 0 14px 14px;
         }
         .hero-float {
           position: absolute; background: #fff; border-radius: 14px;
@@ -171,7 +172,7 @@ export default function Hero() {
               src="/videos/hero.mp4"
               poster="/videos/hero-poster.jpg"
               autoPlay muted loop playsInline preload="auto"
-              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', transform: 'scale(1.01)' }}
+              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', transform: 'scale(1.06)' }}
             />
           </div>
         </div>

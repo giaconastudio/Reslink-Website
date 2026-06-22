@@ -27,7 +27,13 @@ export default function CTA() {
           <p style={{ fontSize: '19px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, marginBottom: '40px', fontFamily: 'var(--font-body)', maxWidth: '480px', marginLeft: 'auto', marginRight: 'auto' }}>
             Get started with Reslink today — it&apos;s free. Create your personalized video resume and start landing more interviews.
           </p>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap', marginBottom: '20px' }}>
+          <style>{`
+            .cta-btns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+            @media (max-width: 760px) {
+              .cta-btns a { width: 100%; justify-content: center; }
+            }
+          `}</style>
+          <div className="cta-btns">
             <a href="/signup" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
               Get started free <ArrowRight size={15} />
             </a>

@@ -258,7 +258,7 @@ export default function PricingPage() {
                     <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '36px', flex: 1 }}>
                       {SEEKER_FREE.map(f => <CheckItem key={f} label={f} />)}
                     </ul>
-                    <Link href="/signup" className="btn-outline" style={{ textAlign: 'center', justifyContent: 'center', fontSize: '15px' }}>
+                    <Link href="/get-started" className="btn-outline" style={{ textAlign: 'center', justifyContent: 'center', fontSize: '15px' }}>
                       Get started free
                     </Link>
                   </div>
@@ -476,7 +476,7 @@ export default function PricingPage() {
                 Free to start. No credit card. Takes less than 5 minutes.
               </p>
               <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
-                <Link href="/signup" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
+                <Link href="/get-started" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
                   Create your Reslink — free
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                 </Link>

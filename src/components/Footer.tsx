@@ -10,8 +10,8 @@ const links = {
   ],
   Resources: [
     { label: 'Blog', href: '/blog' },
+    { label: 'Free Templates', href: '/templates' },
     { label: 'Help Center', href: '/help' },
-    { label: 'Video Resume Guide', href: '/guide' },
   ],
   Company: [
     { label: 'About', href: '/about' },

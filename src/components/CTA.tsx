@@ -34,7 +34,7 @@ export default function CTA() {
             }
           `}</style>
           <div className="cta-btns">
-            <a href="/signup" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
+            <a href="/get-started" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
               Get started free <ArrowRight size={15} />
             </a>
             <a href="#how-it-works" style={{

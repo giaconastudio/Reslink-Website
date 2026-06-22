@@ -331,7 +331,7 @@ export default function AboutPage() {
                 Whether you're a job seeker ready to stand out, a company looking to hire better, or someone who wants to build with us — there's a place for you here.
               </p>
               <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
-                <Link href="/signup" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
+                <Link href="/get-started" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
                   Create your Reslink — free
                   <ArrowRight size={15} />
                 </Link>

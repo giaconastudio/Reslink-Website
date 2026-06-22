@@ -177,7 +177,7 @@ export default function Navbar() {
               onMouseEnter={e => { (e.currentTarget.style.background = linkHoverBg); (e.currentTarget.style.color = '#041635'); }}
               onMouseLeave={e => { (e.currentTarget.style.background = 'transparent'); (e.currentTarget.style.color = '#5C6070'); }}
             >Log in</Link>
-            <Link href="/signup" className="btn-primary" style={{ padding: '9px 18px', fontSize: '14px' }}>
+            <Link href="/get-started" className="btn-primary" style={{ padding: '9px 18px', fontSize: '14px' }}>
               Get started free
             </Link>
           </div>
@@ -234,7 +234,7 @@ export default function Navbar() {
           ))}
 
           <Link href="/pricing" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: '#041635', textDecoration: 'none', borderBottom: '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => setMobileOpen(false)}>Pricing</Link>
-          <Link href="/signup" className="btn-primary" style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }} onClick={() => setMobileOpen(false)}>Get started free</Link>
+          <Link href="/get-started" className="btn-primary" style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }} onClick={() => setMobileOpen(false)}>Get started free</Link>
         </div>
       )}
 

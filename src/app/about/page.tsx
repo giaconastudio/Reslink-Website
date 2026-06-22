@@ -14,7 +14,7 @@ const TEAM = [
     title: 'Co-founder & CEO',
     bio: 'Dominic built Reslink after experiencing firsthand how qualified candidates get overlooked because a PDF can\'t capture who they really are. He\'s obsessed with giving every job seeker the same shot as the one with the insider referral.',
     linkedin: 'https://linkedin.com/in/dominicgiacona',
-    photo: '/team/dominic.jpg',
+    photo: '/team/dominic.webp',
   },
   {
     name: 'Joana Rocha',
@@ -23,7 +23,7 @@ const TEAM = [
     title: 'Co-founder & CMO',
     bio: 'Joana brings five years of growth leadership across tech startups. At TechTalk she helped thousands of job seekers get noticed — now she\'s building the brand and community that makes Reslink the default for video-first hiring.',
     linkedin: 'https://linkedin.com/in/joanarochaa',
-    photo: '/team/joana.jpg',
+    photo: '/team/joana.webp',
   },
   {
     name: 'Roxanne Taku',
@@ -32,7 +32,7 @@ const TEAM = [
     title: 'Co-founder & CRO',
     bio: 'Roxanne is a GTM and revenue leader with over five years in sales and revenue operations. She led commercial strategy at TechTalk before joining forces with Dominic and Joana to build the go-to-market engine at Reslink.',
     linkedin: 'https://linkedin.com/in/roxannetaku',
-    photo: '/team/roxanne.jpg',
+    photo: '/team/roxanne.webp',
   },
   {
     name: 'Taylor Bagwell',
@@ -41,7 +41,7 @@ const TEAM = [
     title: 'Technical Adviser',
     bio: 'Taylor brings deep engineering expertise that helps Reslink build fast, reliable, and scalable infrastructure. His guidance shapes the technical decisions that let the team move quickly without cutting corners.',
     linkedin: null,
-    photo: '/team/taylor.jpg',
+    photo: '/team/taylor.png',
   },
   {
     name: 'Dan London',
@@ -50,7 +50,7 @@ const TEAM = [
     title: 'Executive Adviser',
     bio: 'Dan is a seasoned executive with a track record of scaling SaaS companies from early-stage to market leadership. He advises Reslink on strategy, fundraising, and building the organizational foundation for sustainable growth.',
     linkedin: null,
-    photo: '/team/dan.jpg',
+    photo: '/team/dan.webp',
   },
 ];
 
@@ -134,25 +134,47 @@ export default function AboutPage() {
         <section style={{ background: '#041635', padding: 'clamp(80px, 11vw, 140px) 24px clamp(80px, 11vw, 130px)', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', top: '-10%', left: '50%', transform: 'translateX(-50%)', width: '1000px', height: '700px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.28), transparent 60%)', pointerEvents: 'none' }} />
           <div style={{ position: 'absolute', bottom: '-10%', right: '-5%', width: '600px', height: '600px', background: 'radial-gradient(ellipse, rgba(216,249,80,0.07), transparent 60%)', pointerEvents: 'none' }} />
+          <style>{`
+            .about-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+            .about-hero-img { border-radius: 20px; overflow: hidden; }
+            @media (max-width: 760px) {
+              .about-hero-grid { grid-template-columns: 1fr; gap: 40px; }
+              .about-hero-img { order: -1; }
+            }
+          `}</style>
           <div style={{ maxWidth: '1120px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
-              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>Our story</p>
-              <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 8vw, 96px)', fontWeight: 900, color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '32px', maxWidth: '820px' }}>
-                We believe you're more impressive<br />
-                <span style={{ color: '#D8F950' }}>in person.</span>
-              </h1>
-              <p style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '560px', marginBottom: '40px' }}>
-                Reslink exists because a PDF has never been able to capture what makes a person worth hiring. We built the platform that finally changes that.
-              </p>
-              <div style={{ display: 'flex', gap: '16px 32px', flexWrap: 'wrap' }}>
-                {[['10,000+', 'active job seekers'], ['300+', 'interviews landed globally'], ['50+', 'countries represented']].map(([val, label]) => (
-                  <div key={label}>
-                    <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 3.5vw, 40px)', fontWeight: 900, color: '#fff', lineHeight: 1, letterSpacing: '-0.03em' }}>{val}</p>
-                    <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)', marginTop: '4px' }}>{label}</p>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
+            <div className="about-hero-grid">
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
+                <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>Our story</p>
+                <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(40px, 6vw, 80px)', fontWeight: 900, color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '32px' }}>
+                  We believe you're more impressive<br />
+                  <span style={{ color: '#D8F950' }}>in person.</span>
+                </h1>
+                <p style={{ fontSize: 'clamp(15px, 1.8vw, 18px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '40px' }}>
+                  Reslink exists because a PDF has never been able to capture what makes a person worth hiring. We built the platform that finally changes that.
+                </p>
+                <div style={{ display: 'flex', gap: '16px 32px', flexWrap: 'wrap' }}>
+                  {[['10,000+', 'active job seekers'], ['300+', 'interviews landed globally'], ['50+', 'countries represented']].map(([val, label]) => (
+                    <div key={label}>
+                      <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3vw, 38px)', fontWeight: 900, color: '#fff', lineHeight: 1, letterSpacing: '-0.03em' }}>{val}</p>
+                      <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)', marginTop: '4px' }}>{label}</p>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+              <motion.div
+                className="about-hero-img"
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.65, delay: 0.15 }}
+              >
+                <img
+                  src="/team/about-team.webp"
+                  alt="Reslink team"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', borderRadius: '20px' }}
+                />
+              </motion.div>
+            </div>
           </div>
         </section>
 

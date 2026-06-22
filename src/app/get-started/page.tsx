@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, CheckCircle, Eye, EyeOff, Briefcase, Building2, Users, GraduationCap } from 'lucide-react';
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 type AccountType = 'seeker' | 'company' | 'agency' | 'university';
 
@@ -40,7 +41,7 @@ const PANELS: Record<AccountType, {
     stats: [{ val: '5×', label: 'better hire quality' }, { val: '30%', label: 'faster time-to-hire' }, { val: '91%', label: 'hiring manager satisfaction' }],
   },
   agency: {
-    image: 'https://images.pexels.com/photos/5668882/pexels-photo-5668882.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    image: 'https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=1200',
     overlay: 'linear-gradient(160deg, rgba(12,99,227,0.88) 0%, rgba(4,22,53,0.80) 100%)',
     headline: 'Place candidates\nfaster.',
     sub: 'Give clients a reason to say yes before the interview.',
@@ -128,7 +129,7 @@ export default function GetStartedPage() {
   return (
     <>
       <Navbar />
-      <div style={{ minHeight: 'calc(100vh - 68px)', paddingTop: '68px', background: '#EEF1F6', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 24px' }}>
+      <div style={{ minHeight: 'calc(100vh - 68px)', paddingTop: '68px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 24px' }}>
         <style>{`
           .gs-card { display: grid; grid-template-columns: 420px 1fr; width: 100%; max-width: 940px; min-height: 580px; background: #fff; border-radius: 20px; box-shadow: 0 8px 48px rgba(4,22,53,0.13); overflow: hidden; }
           .gs-right-col { display: block; }
@@ -275,6 +276,7 @@ export default function GetStartedPage() {
 
         </AnimatePresence>
       </div>
+      <Footer />
     </>
   );
 }

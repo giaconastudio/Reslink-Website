@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Eye, EyeOff, ArrowRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 export default function LoginPage() {
   const [showPw, setShowPw] = useState(false);
@@ -22,13 +23,13 @@ export default function LoginPage() {
     <>
       <Navbar />
       <style>{`input:focus { border-color: #0C63E3 !important; }`}</style>
-      <div style={{ minHeight: 'calc(100vh - 68px)', paddingTop: '68px', background: '#EEF1F6', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 24px' }}>
+      <div style={{ minHeight: 'calc(100vh - 68px)', paddingTop: '68px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 24px' }}>
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
           style={{ background: '#fff', borderRadius: '20px', boxShadow: '0 8px 48px rgba(4,22,53,0.12)', padding: 'clamp(36px, 5vw, 52px)', width: '100%', maxWidth: '420px' }}>
 
           {/* Logo */}
           <Link href="/" style={{ display: 'block', marginBottom: '28px' }}>
-            <Image src="/reslink-logo.svg" alt="Reslink" width={130} height={32} style={{ height: '26px', width: 'auto' }} />
+            <Image src="/reslink-og.svg" alt="Reslink" width={140} height={36} style={{ height: '28px', width: 'auto' }} />
           </Link>
 
           <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: '28px', fontWeight: 900, color: '#041635', letterSpacing: '-0.03em', marginBottom: '6px' }}>Welcome back.</h1>
@@ -83,6 +84,7 @@ export default function LoginPage() {
           </p>
         </motion.div>
       </div>
+      <Footer />
     </>
   );
 }

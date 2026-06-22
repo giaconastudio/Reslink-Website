@@ -57,7 +57,7 @@ export default function ValueProp() {
             Your resume, but better
           </p>
           <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(40px, 5.5vw, 68px)', fontWeight: 900, color: '#041635', lineHeight: 0.93, letterSpacing: '-0.03em', marginBottom: '24px' }}>
-            Forget boring<br />resumes. Send a<br /><span style={{ color: '#0C63E3' }}>video pitch</span> instead.
+            The resume<br />recruiters<br /><span style={{ color: '#0C63E3' }}>actually remember.</span>
           </h2>
           <p style={{ fontSize: '17px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>
             A static PDF cannot attract recruiters instantly, share with a single click, or personalize your pitch. A Reslink does all three — and lands interviews faster.

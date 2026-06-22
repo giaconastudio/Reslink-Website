@@ -140,7 +140,7 @@ const stats = [
   { end: 10000, suffix: '+', label: 'Active job seekers' },
   { end: 92, suffix: '%', label: 'Would recommend Reslink' },
   { end: 24, suffix: 'h', label: 'Fastest interview booked' },
-  { end: 600, suffix: '+', label: 'Companies that hired through Reslink' },
+  { end: 50, suffix: '+', label: 'Countries represented on Reslink' },
 ];
 
 export default function Testimonials() {

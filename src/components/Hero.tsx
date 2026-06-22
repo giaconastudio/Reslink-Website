@@ -106,7 +106,7 @@ export default function Hero() {
                   style={{ width: '28px', height: '28px', borderRadius: '50%', border: '2px solid #fff', marginLeft: i === 0 ? 0 : '-8px', objectFit: 'cover', display: 'block' }} />
               ))}
             </span>
-            <span style={{ color: '#5C6070' }}>Loved by job seekers worldwide</span>
+            <span style={{ color: '#5C6070' }}><strong style={{ color: '#041635', fontWeight: 700 }}>10,000+</strong> job seekers · No credit card needed</span>
           </span>
         </motion.div>
 
@@ -143,7 +143,7 @@ export default function Hero() {
         </motion.div>
 
         <motion.p className="hero-proof" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.25 }}>
-          No credit card · Takes 5 minutes to set up
+          No credit card · Cancel anytime
         </motion.p>
       </div>
 
@@ -161,7 +161,7 @@ export default function Hero() {
             <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#FEBC2E', display: 'inline-block' }} />
             <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#28C840', display: 'inline-block' }} />
             <div style={{ flex: 1, margin: '0 12px', background: '#EAECEF', borderRadius: '6px', padding: '4px 14px', fontSize: '11px', color: '#9A9FA8', textAlign: 'center', fontFamily: 'var(--font-body)' }}>
-              reslink.io/oliverstone
+              reslink.io/oliviastone
             </div>
           </div>
 
@@ -171,7 +171,7 @@ export default function Hero() {
               src="/videos/hero.mp4"
               poster="/videos/hero-poster.jpg"
               autoPlay muted loop playsInline preload="auto"
-              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', transform: 'scale(1.01)' }}
             />
           </div>
         </div>

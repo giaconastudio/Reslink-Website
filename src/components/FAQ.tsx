@@ -32,7 +32,7 @@ export default function FAQ() {
               FAQ
             </p>
             <h2 style={{ fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.025em', color: '#041635', lineHeight: 1.12 }}>
-              Common questions
+              Everything you need to know
             </h2>
           </motion.div>
 

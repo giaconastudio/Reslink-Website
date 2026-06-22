@@ -93,8 +93,6 @@ export default function HowItWorks() {
         .hiw-stage video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease; }
         .hiw-stage-badge { position: absolute; top: 16px; left: 16px; z-index: 3; display: inline-flex; align-items: center; gap: 7px; background: rgba(11,15,26,0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.12); border-radius: 100px; padding: 6px 13px 6px 10px; }
         .hiw-stage-badge span { font-size: 12px; font-weight: 700; color: #fff; font-family: var(--font-body); letter-spacing: 0.02em; }
-        .hiw-dots { position: absolute; bottom: 16px; left: 16px; z-index: 3; display: flex; gap: 6px; }
-        .hiw-dot { width: 22px; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.18); transition: background 0.3s, width 0.3s; }
 
         .hiw-mobnum { display: none; }
 
@@ -148,24 +146,40 @@ export default function HowItWorks() {
             </div>
 
             {/* Right — pinned video stage */}
-            <div className="hiw-stage">
-              {steps.map((s, i) => (
-                <video
-                  key={s.num}
-                  ref={(el) => { videoRefs.current[i] = el; }}
-                  src={`/videos/step-0${i + 1}.mp4`}
-                  poster={`/videos/step-0${i + 1}-poster.jpg`}
-                  muted loop playsInline preload="metadata"
-                  style={{ opacity: i === active ? 1 : 0 }}
-                />
-              ))}
-              <div className="hiw-stage-badge">
-                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: steps[active].color, display: 'inline-block' }} />
-                <span>Step {steps[active].num}</span>
-              </div>
-              <div className="hiw-dots">
+            <div>
+              <div className="hiw-stage">
                 {steps.map((s, i) => (
-                  <div key={s.num} className="hiw-dot" style={{ background: i <= active ? s.color : 'rgba(255,255,255,0.18)', width: i === active ? '32px' : '22px' }} />
+                  <video
+                    key={s.num}
+                    ref={(el) => { videoRefs.current[i] = el; }}
+                    src={`/videos/step-0${i + 1}.mp4`}
+                    poster={`/videos/step-0${i + 1}-poster.jpg`}
+                    muted loop playsInline preload="metadata"
+                    style={{ opacity: i === active ? 1 : 0 }}
+                  />
+                ))}
+                <div className="hiw-stage-badge">
+                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: steps[active].color, display: 'inline-block' }} />
+                  <span>Step {steps[active].num}</span>
+                </div>
+              </div>
+              {/* Progress dots — below the stage, clearly visible */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '20px', justifyContent: 'center' }}>
+                {steps.map((s, i) => (
+                  <button
+                    key={s.num}
+                    onClick={() => scrollToStep(i)}
+                    style={{
+                      height: '6px',
+                      width: i === active ? '48px' : '24px',
+                      borderRadius: '3px',
+                      background: i <= active ? '#D8F950' : 'rgba(255,255,255,0.2)',
+                      border: 'none',
+                      cursor: 'pointer',
+                      padding: 0,
+                      transition: 'width 0.3s ease, background 0.3s ease',
+                    }}
+                  />
                 ))}
               </div>
             </div>

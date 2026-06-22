@@ -129,7 +129,7 @@ export default function ValueProp() {
                     <span style={{ fontSize: '20px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>OS</span>
                   </div>
                   <div>
-                    <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: '#fff', lineHeight: 1.05, letterSpacing: '-0.01em' }}>OLIVER STONE</p>
+                    <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: '#fff', lineHeight: 1.05, letterSpacing: '-0.01em' }}>OLIVIA STONE</p>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '5px' }}>
                       <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)' }}>Business Dev Rep</span>
                       <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: '12px' }}>·</span>
@@ -152,7 +152,7 @@ export default function ValueProp() {
               {/* Resume document peek */}
               <div style={{ background: '#fff', padding: '18px 24px', borderBottom: '1px solid #F0F1F4', position: 'relative' }}>
                 <div style={{ textAlign: 'center', marginBottom: '12px' }}>
-                  <p style={{ fontSize: '15px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>Oliver Stone</p>
+                  <p style={{ fontSize: '15px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>Olivia Stone</p>
                   <p style={{ fontSize: '12px', color: '#5C6070', fontFamily: 'var(--font-body)', marginTop: '2px' }}>Business Development Representative</p>
                   <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px' }}>London, UK · +44xxxx · LinkedIn</p>
                 </div>

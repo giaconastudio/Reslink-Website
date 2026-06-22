@@ -81,7 +81,7 @@ const VALUES = [
 function TeamCard({ member }: { member: typeof TEAM[0] }) {
   const [expanded, setExpanded] = useState(false);
   return (
-    <div style={{ borderRadius: '20px', overflow: 'hidden', position: 'relative', background: '#0a1628', boxShadow: '0 4px 24px rgba(4,22,53,0.14)', aspectRatio: '3/4', border: '1px solid rgba(255,255,255,0.08)', outline: '1px solid rgba(4,22,53,0.12)' }}>
+    <div style={{ borderRadius: '20px', overflow: 'hidden', position: 'relative', background: '#0a1628', boxShadow: '0 4px 24px rgba(4,22,53,0.18)', aspectRatio: '3/4', border: '2px solid rgba(12,99,227,0.35)' }}>
       {/* Full-bleed photo */}
       <img
         src={member.photo}
@@ -89,12 +89,15 @@ function TeamCard({ member }: { member: typeof TEAM[0] }) {
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
       />
 
+      {/* Full-card dark backdrop when bio is open */}
+      <div style={{ position: 'absolute', inset: 0, background: 'rgba(4,22,53,0.72)', opacity: expanded ? 1 : 0, transition: 'opacity 0.35s ease', pointerEvents: 'none' }} />
+
       {/* Gradient overlay — always visible at bottom */}
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(to top, rgba(4,22,53,0.95) 0%, rgba(4,22,53,0.6) 50%, transparent 100%)', padding: '0 20px 20px' }}>
+      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(to top, rgba(4,22,53,0.98) 0%, rgba(4,22,53,0.75) 55%, transparent 100%)', padding: '0 20px 20px' }}>
 
         {/* Collapsible bio */}
-        <div style={{ overflow: 'hidden', maxHeight: expanded ? '160px' : '0px', opacity: expanded ? 1 : 0, transition: 'max-height 0.35s ease, opacity 0.3s ease', marginBottom: expanded ? '14px' : '0' }}>
-          <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.75)', lineHeight: 1.65, fontFamily: 'var(--font-body)' }}>{member.bio}</p>
+        <div style={{ overflow: 'hidden', maxHeight: expanded ? '180px' : '0px', opacity: expanded ? 1 : 0, transition: 'max-height 0.35s ease, opacity 0.3s ease', marginBottom: expanded ? '14px' : '0' }}>
+          <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.9)', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>{member.bio}</p>
         </div>
 
         {/* Name + title + buttons */}

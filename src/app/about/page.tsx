@@ -87,12 +87,12 @@ function TeamCard({ member, i }: { member: typeof TEAM[0]; i: number }) {
       style={{ background: '#fff', borderRadius: '20px', border: '1px solid #ECEEF1', overflow: 'hidden', boxShadow: '0 2px 16px rgba(4,22,53,0.06)' }}
     >
       {/* Photo area */}
-      <div style={{ height: '200px', background: `linear-gradient(135deg, ${member.color}18, ${member.color}08)`, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', borderBottom: '1px solid #F3F4F6' }}>
+      <div style={{ height: '260px', background: `linear-gradient(135deg, ${member.color}18, ${member.color}08)`, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', borderBottom: '1px solid #F3F4F6' }}>
         <img
           src={member.photo}
           alt={member.name}
           onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; (e.currentTarget.nextSibling as HTMLElement).style.display = 'flex'; }}
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
         />
         <div style={{ display: 'none', width: '80px', height: '80px', borderRadius: '50%', background: member.color, alignItems: 'center', justifyContent: 'center', fontSize: '28px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)', letterSpacing: '-0.02em', flexShrink: 0 }}>
           {member.initials}

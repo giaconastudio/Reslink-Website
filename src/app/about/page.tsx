@@ -85,7 +85,7 @@ function TeamCard({ member, i }: { member: typeof TEAM[0]; i: number }) {
       style={{ background: '#fff', borderRadius: '20px', border: '1px solid #ECEEF1', overflow: 'hidden', boxShadow: '0 2px 16px rgba(4,22,53,0.06)' }}
     >
       {/* Photo area */}
-      <div style={{ height: '300px', background: `linear-gradient(135deg, ${member.color}18, ${member.color}08)`, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', borderBottom: '1px solid #F3F4F6' }}>
+      <div style={{ height: '300px', background: '#F7F8FA', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', borderBottom: '1px solid #F3F4F6' }}>
         <img
           src={member.photo}
           alt={member.name}
@@ -205,7 +205,7 @@ export default function AboutPage() {
               <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.55 }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>Why we exist</p>
                 <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(34px, 5vw, 60px)', fontWeight: 900, color: '#041635', lineHeight: 0.93, letterSpacing: '-0.03em', marginBottom: '28px' }}>
-                  The best candidates<br />were getting<br /><span style={{ color: '#0C63E3', textDecoration: 'underline', textDecorationColor: '#D8F950', textDecorationThickness: '5px', textUnderlineOffset: '4px' }}>overlooked.</span>
+                  The best candidates<br />were getting<br /><span style={{ color: '#0C63E3', borderBottom: '5px solid #D8F950', paddingBottom: '2px' }}>overlooked.</span>
                 </h2>
                 <div style={{ width: '48px', height: '4px', borderRadius: '2px', background: '#D8F950', marginBottom: '28px' }} />
                 <p style={{ fontSize: '15px', color: '#5C6070', lineHeight: 1.8, fontFamily: 'var(--font-body)' }}>

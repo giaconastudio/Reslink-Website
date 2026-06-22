@@ -38,7 +38,7 @@ export default function ValueProp() {
           .vp-stats { gap: 0; display: grid; grid-template-columns: 1fr 1fr; }
           .vp-stat-item { padding: 24px 16px; border-bottom: 1px solid #ECEEF1; }
           .vp-stat-item:nth-child(odd) { border-right: 1px solid #ECEEF1; }
-          .vp-pip { top: 10px !important; bottom: auto !important; right: 16px !important; width: 80px !important; height: 80px !important; }
+          .vp-pip { top: 10px !important; bottom: auto !important; right: 16px !important; width: 80px !important; height: 80px !important; border-radius: 10px !important; }
         }
         @media (min-width: 761px) {
           .vp-stat-item { text-align: center; }
@@ -171,7 +171,7 @@ export default function ValueProp() {
                   <div style={{ height: '7px', borderRadius: '4px', background: '#F3F4F6', width: '82%' }} />
                 </div>
                 {/* PiP video */}
-                <div className="vp-pip" style={{ position: 'absolute', bottom: '16px', right: '20px', width: '96px', height: '96px', borderRadius: '12px', overflow: 'hidden', border: '2.5px solid #D8F950', boxShadow: '0 8px 28px rgba(0,0,0,0.28)', zIndex: 4 }}>
+                <div className="vp-pip" style={{ position: 'absolute', top: '16px', right: '16px', width: '148px', height: '148px', borderRadius: '16px', overflow: 'hidden', border: '3px solid #D8F950', boxShadow: '0 12px 36px rgba(0,0,0,0.32)', zIndex: 4 }}>
                   <video src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
               </div>

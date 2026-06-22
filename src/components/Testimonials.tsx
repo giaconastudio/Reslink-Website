@@ -73,7 +73,7 @@ const testimonials = [
 
 function Card({ t }: { t: typeof testimonials[0] }) {
   return (
-    <div style={{
+    <div className="testi-card" style={{
       background: '#fff', borderRadius: '16px', padding: '24px 26px',
       border: '1px solid #ECEEF1', width: '340px', flexShrink: 0,
       boxShadow: '0 2px 12px rgba(4,22,53,0.05)',
@@ -155,6 +155,11 @@ export default function Testimonials() {
         .testi-track { animation: testi-scroll 40s linear infinite; display: flex; }
         .testi-track-rev { animation: testi-scroll-rev 44s linear infinite; display: flex; }
         .testi-track:hover, .testi-track-rev:hover { animation-play-state: paused; }
+        .testi-row-second { }
+        @media (max-width: 640px) {
+          .testi-row-second { display: none; }
+          .testi-card { width: 280px !important; padding: 18px 20px !important; }
+        }
       `}</style>
 
       {/* Header */}
@@ -179,7 +184,7 @@ export default function Testimonials() {
       {/* Marquee rows */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '72px' }}>
         <MarqueeRow items={row1} />
-        <MarqueeRow items={row2} reverse />
+        <div className="testi-row-second"><MarqueeRow items={row2} reverse /></div>
       </div>
 
       {/* Count-up stats strip */}

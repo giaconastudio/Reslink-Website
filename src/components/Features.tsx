@@ -282,7 +282,12 @@ export default function Features() {
           justify-content: center;
           flex-wrap: wrap;
           margin-bottom: 40px;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          padding-bottom: 2px;
         }
+        .feat-tabs::-webkit-scrollbar { display: none; }
         .feat-tab {
           display: flex;
           align-items: center;
@@ -327,15 +332,15 @@ export default function Features() {
             grid-template-columns: 1fr;
             min-height: auto;
           }
-          .feat-copy { padding: 32px 24px; }
-          .feat-visual { min-height: 320px; }
-          .feat-tab { padding: 8px 14px; font-size: 13px; }
-          .feat-header { margin-bottom: 32px; }
-          .feat-tabs { gap: 6px; margin-bottom: 28px; }
+          .feat-visual { order: -1; min-height: 300px; }
+          .feat-copy { padding: 28px 24px 32px; }
+          .feat-tab { padding: 8px 14px; font-size: 13px; white-space: nowrap; }
+          .feat-header { margin-bottom: 28px; }
+          .feat-tabs { justify-content: flex-start; flex-wrap: nowrap; padding-left: 0; gap: 6px; margin-bottom: 24px; }
         }
         @media (max-width: 480px) {
           .feat-visual { min-height: 260px; }
-          .feat-copy { padding: 28px 20px; }
+          .feat-copy { padding: 24px 20px 28px; }
         }
       `}</style>
 

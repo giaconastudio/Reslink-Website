@@ -328,7 +328,6 @@ export default function Features() {
           overflow: hidden;
         }
         .feat-tabs-fade { display: none; }
-        .feat-scroll-hint { display: none; }
         @media (max-width: 768px) {
           .feat-panel { grid-template-columns: 1fr; min-height: auto; }
           .feat-visual { order: -1; min-height: 300px; }
@@ -337,17 +336,6 @@ export default function Features() {
           .feat-header { margin-bottom: 28px; }
           .feat-tabs { justify-content: flex-start; flex-wrap: nowrap; padding-left: 0; gap: 6px; margin-bottom: 24px; }
           .feat-tabs-fade { display: block; position: absolute; right: 0; top: 0; bottom: 4px; width: 64px; background: linear-gradient(to right, transparent, #fff 70%); pointer-events: none; }
-          .feat-scroll-hint {
-            display: flex; align-items: center; justify-content: center; gap: 4px;
-            margin-top: 10px;
-            color: #9A9FA8; font-size: 11px; font-weight: 600;
-            font-family: var(--font-body); pointer-events: none;
-            animation: hint-pulse 2s ease-in-out infinite;
-          }
-          @keyframes hint-pulse {
-            0%, 100% { opacity: 0.5; transform: translateX(0); }
-            50% { opacity: 1; transform: translateX(3px); }
-          }
         }
         @media (max-width: 480px) {
           .feat-visual { min-height: 260px; }
@@ -374,10 +362,6 @@ export default function Features() {
             ))}
           </div>
           <div className="feat-tabs-fade" />
-        </div>
-        <div className="feat-scroll-hint">
-          swipe for more
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </div>
 
         {/* Panel */}

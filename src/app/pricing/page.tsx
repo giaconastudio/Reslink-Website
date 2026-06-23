@@ -162,13 +162,18 @@ export default function PricingPage() {
         .pricing-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
         .pricing-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
         .audience-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .feat-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 16px; border: 1px solid #E8EAF0; }
+        .feat-table-wrap::-webkit-scrollbar { height: 4px; }
+        .feat-table-wrap::-webkit-scrollbar-thumb { background: #CBD0DA; border-radius: 2px; }
+        .feat-table-inner { min-width: 520px; }
         @media (max-width: 860px) {
           .pricing-grid-3 { grid-template-columns: 1fr !important; }
           .pricing-grid-2 { grid-template-columns: 1fr !important; }
           .audience-grid { grid-template-columns: 1fr !important; }
+          .featured-scale { transform: none !important; }
         }
         @media (max-width: 560px) {
-          .billing-seg { flex-direction: column !important; }
+          .billing-seg { overflow-x: auto; -webkit-overflow-scrolling: touch; justify-content: flex-start !important; }
         }
       `}</style>
       <main style={{ paddingTop: '68px' }}>
@@ -359,7 +364,7 @@ export default function PricingPage() {
                     </div>
 
                     {/* Growth — featured */}
-                    <div style={{ background: '#041635', borderRadius: '20px', border: '2px solid #D8F950', padding: 'clamp(24px, 3.5vw, 36px)', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', boxShadow: '0 24px 80px rgba(4,22,53,0.18)', transform: 'scale(1.025)', transformOrigin: 'center' }}>
+                    <div style={{ background: '#041635', borderRadius: '20px', border: '2px solid #D8F950', padding: 'clamp(24px, 3.5vw, 36px)', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', boxShadow: '0 24px 80px rgba(4,22,53,0.18)', transform: 'scale(1.025)', transformOrigin: 'center' }} className="featured-scale">
                       <div style={{ position: 'absolute', top: '-30%', right: '-15%', width: '350px', height: '350px', background: 'radial-gradient(circle, rgba(12,99,227,0.25), transparent 65%)', pointerEvents: 'none' }} />
                       <div style={{ position: 'absolute', top: '16px', right: '16px', fontSize: '10px', fontWeight: 700, color: '#041635', background: '#D8F950', padding: '4px 10px', borderRadius: '100px', letterSpacing: '0.06em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>Most popular</div>
                       <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -410,7 +415,7 @@ export default function PricingPage() {
                   {/* Feature comparison table */}
                   <div style={{ marginTop: '40px' }}>
                     <p style={{ fontSize: '12px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px', textAlign: 'center' }}>Full feature comparison</p>
-                    <div style={{ borderRadius: '16px', border: '1px solid #E8EAF0', overflow: 'hidden' }}>
+                    <div className="feat-table-wrap"><div className="feat-table-inner" style={{ borderRadius: '16px', overflow: 'hidden' }}>
                       <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', background: '#F7F8FA', padding: '12px 24px', borderBottom: '1px solid #E8EAF0' }}>
                         <p style={{ fontSize: '11px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Feature</p>
                         {['Free Trial', 'Growth', 'Enterprise'].map(h => (
@@ -425,7 +430,7 @@ export default function PricingPage() {
                           <FeatureCell value={row.enterprise} />
                         </div>
                       ))}
-                    </div>
+                    </div></div>
                   </div>
 
                   <div style={{ marginTop: '16px', background: '#F0FDF4', borderRadius: '10px', border: '1px solid #BBF7D0', padding: '12px 18px', display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -470,7 +475,7 @@ export default function PricingPage() {
                     </div>
 
                     {/* Growth — featured */}
-                    <div style={{ background: '#041635', borderRadius: '20px', border: '2px solid #D8F950', padding: 'clamp(24px, 3.5vw, 36px)', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', boxShadow: '0 24px 80px rgba(4,22,53,0.18)', transform: 'scale(1.025)', transformOrigin: 'center' }}>
+                    <div style={{ background: '#041635', borderRadius: '20px', border: '2px solid #D8F950', padding: 'clamp(24px, 3.5vw, 36px)', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', boxShadow: '0 24px 80px rgba(4,22,53,0.18)', transform: 'scale(1.025)', transformOrigin: 'center' }} className="featured-scale">
                       <div style={{ position: 'absolute', top: '-30%', right: '-15%', width: '350px', height: '350px', background: 'radial-gradient(circle, rgba(12,99,227,0.25), transparent 65%)', pointerEvents: 'none' }} />
                       <div style={{ position: 'absolute', top: '16px', right: '16px', fontSize: '10px', fontWeight: 700, color: '#041635', background: '#D8F950', padding: '4px 10px', borderRadius: '100px', letterSpacing: '0.06em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>Most popular</div>
                       <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -521,7 +526,7 @@ export default function PricingPage() {
                   {/* Feature comparison table */}
                   <div style={{ marginTop: '40px' }}>
                     <p style={{ fontSize: '12px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px', textAlign: 'center' }}>Full feature comparison</p>
-                    <div style={{ borderRadius: '16px', border: '1px solid #E8EAF0', overflow: 'hidden' }}>
+                    <div className="feat-table-wrap"><div className="feat-table-inner" style={{ borderRadius: '16px', overflow: 'hidden' }}>
                       <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', background: '#F7F8FA', padding: '12px 24px', borderBottom: '1px solid #E8EAF0' }}>
                         <p style={{ fontSize: '11px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Feature</p>
                         {['Starter', 'Growth', 'Scale'].map(h => (
@@ -536,7 +541,7 @@ export default function PricingPage() {
                           <FeatureCell value={row.scale} />
                         </div>
                       ))}
-                    </div>
+                    </div></div>
                   </div>
 
                   <div style={{ marginTop: '16px', background: '#EEF4FF', borderRadius: '10px', border: '1px solid #C7DEFF', padding: '12px 18px', display: 'flex', alignItems: 'center', gap: '10px' }}>

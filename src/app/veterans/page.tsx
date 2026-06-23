@@ -94,6 +94,7 @@ export default function VeteransPage() {
               />
               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, #041635 0%, transparent 30%, transparent 70%, #041635 100%)' }} />
               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #041635 0%, transparent 30%)' }} />
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, #041635 0%, transparent 28%)' }} />
               {/* Floating card */}
               <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7, duration: 0.4 }}
                 style={{ position: 'absolute', bottom: '48px', left: '32px', background: '#fff', borderRadius: '14px', padding: '14px 16px', boxShadow: '0 16px 48px rgba(4,22,53,0.28)', display: 'flex', alignItems: 'center', gap: '12px', minWidth: '210px' }}>

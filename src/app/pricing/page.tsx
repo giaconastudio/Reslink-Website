@@ -97,9 +97,9 @@ function CheckItem({ label, dark }: { label: string; dark?: boolean }) {
 
 function FeatureCell({ value, tier = 'base' }: { value: Maybe; tier?: 'base' | 'mid' | 'top' }) {
   const cfg = {
-    base: { bg: '#F0F2F5', check: '#9A9FA8', xBg: '#F7F8FA', xColor: '#D1D5DB', text: '#5C6070' },
-    mid:  { bg: '#EEF4FF', check: '#0C63E3', xBg: '#F4F6FB', xColor: '#BDC8E8', text: '#0C63E3' },
-    top:  { bg: '#D8F950', check: '#041635', xBg: '#F5F9DC', xColor: '#C8D87A', text: '#5A6A00' },
+    base: { bg: '#ECEEF1', check: '#6B7280', xBg: '#ECEEF1', xColor: '#9A9FA8', text: '#5C6070' },
+    mid:  { bg: '#EEF4FF', check: '#0C63E3', xBg: '#DDE8FF', xColor: '#7AAAE8', text: '#0C63E3' },
+    top:  { bg: '#D8F950', check: '#041635', xBg: '#E8F08A', xColor: '#7A9010', text: '#041635' },
   }[tier];
   if (value === true) return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -113,6 +113,11 @@ function FeatureCell({ value, tier = 'base' }: { value: Maybe; tier?: 'base' | '
       <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: cfg.xBg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <X size={10} color={cfg.xColor} strokeWidth={2} />
       </div>
+    </div>
+  );
+  if (tier === 'top') return (
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <span style={{ fontSize: '12px', fontWeight: 700, color: '#041635', background: '#D8F950', padding: '3px 10px', borderRadius: '100px', fontFamily: 'var(--font-body)' }}>{value}</span>
     </div>
   );
   return <p style={{ fontSize: '13px', fontWeight: 600, color: cfg.text, fontFamily: 'var(--font-body)', textAlign: 'center' }}>{value}</p>;

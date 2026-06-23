@@ -95,6 +95,7 @@ export default function StudentsPage() {
               />
               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, #041635 0%, transparent 30%, transparent 70%, #041635 100%)' }} />
               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #041635 0%, transparent 30%)' }} />
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, #041635 0%, transparent 28%)' }} />
               {/* Floating card */}
               <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7, duration: 0.4 }}
                 style={{ position: 'absolute', bottom: '48px', left: '32px', background: '#fff', borderRadius: '14px', padding: '14px 16px', boxShadow: '0 16px 48px rgba(4,22,53,0.28)', display: 'flex', alignItems: 'center', gap: '12px', minWidth: '210px' }}>
@@ -129,13 +130,8 @@ export default function StudentsPage() {
           </div>
         </section>
 
-        {/* University logo ticker — between stats and how it works */}
-        <section style={{ background: '#F7F8FA', padding: 'clamp(40px, 5vw, 60px) 0' }}>
-          <p style={{ textAlign: 'center', fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '24px' }}>
-            Students from top universities trust Reslink to land interviews
-          </p>
-          <LogoTicker variant="university" />
-        </section>
+        {/* University logo ticker — sits directly below stats */}
+        <LogoTicker variant="university" />
 
         {/* How it works — white */}
         <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 108px) 24px' }}>

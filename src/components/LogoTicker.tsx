@@ -62,7 +62,7 @@ export default function LogoTicker({ variant = 'company' }: Props) {
               src={logo.src}
               alt={logo.alt}
               className="ticker-logo"
-              style={{ height: '32px', width: 'auto', flexShrink: 0, objectFit: 'contain', maxWidth: '120px' }}
+              style={{ height: '48px', width: 'auto', flexShrink: 0, objectFit: 'contain', maxWidth: '160px' }}
             />
           ))}
         </div>

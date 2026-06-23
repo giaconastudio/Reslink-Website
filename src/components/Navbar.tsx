@@ -62,7 +62,7 @@ function DropItem({ href, icon: Icon, label, desc, badge, onClick }: {
   );
 }
 
-export default function Navbar() {
+export default function Navbar({ dark = false }: { dark?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
@@ -83,8 +83,9 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', fn);
   }, []);
 
-  const linkColor = '#5C6070';
-  const linkHoverBg = '#F7F8FA';
+  const linkColor = dark ? 'rgba(255,255,255,0.75)' : '#5C6070';
+  const linkActiveColor = dark ? '#fff' : '#041635';
+  const linkHoverBg = dark ? 'rgba(255,255,255,0.08)' : '#F7F8FA';
   const navLinkStyle = {
     fontSize: '14px', fontWeight: 500, color: linkColor, textDecoration: 'none',
     padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center',
@@ -97,16 +98,20 @@ export default function Navbar() {
   return (
     <header style={{
       position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
-      background: scrolled ? 'rgba(255,255,255,0.92)' : '#fff',
+      background: dark
+        ? (scrolled ? 'rgba(4,22,53,0.96)' : '#041635')
+        : (scrolled ? 'rgba(255,255,255,0.92)' : '#fff'),
       backdropFilter: scrolled ? 'blur(12px)' : 'none',
       WebkitBackdropFilter: scrolled ? 'blur(12px)' : 'none',
-      borderBottom: scrolled ? '1px solid #EEEEF0' : '1px solid transparent',
+      borderBottom: scrolled
+        ? (dark ? '1px solid rgba(255,255,255,0.1)' : '1px solid #EEEEF0')
+        : '1px solid transparent',
       transition: 'background 0.2s, border-color 0.2s',
     }}>
       <div className="container">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '68px' }}>
           <Link href="/">
-            <Image src="/reslink-og.svg" alt="Reslink" width={140} height={36} priority style={{ height: '30px', width: 'auto' }} />
+            <Image src="/reslink-og.svg" alt="Reslink" width={140} height={36} priority style={{ height: '30px', width: 'auto', filter: dark ? 'brightness(0) invert(1)' : 'none' }} />
           </Link>
 
           {/* Desktop nav */}
@@ -114,7 +119,7 @@ export default function Navbar() {
 
             {/* Solutions */}
             <div style={{ position: 'relative' }} onMouseEnter={() => openDropdown('solutions')} onMouseLeave={scheduleClose}>
-              <button style={{ fontSize: '14px', fontWeight: 500, color: open === 'solutions' ? '#041635' : linkColor, background: open === 'solutions' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
+              <button style={{ fontSize: '14px', fontWeight: 500, color: open === 'solutions' ? linkActiveColor : linkColor, background: open === 'solutions' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
                 Solutions <ChevronDown size={13} style={{ transform: open === 'solutions' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
               </button>
               {open === 'solutions' && (
@@ -128,7 +133,7 @@ export default function Navbar() {
 
             {/* Resources */}
             <div style={{ position: 'relative' }} onMouseEnter={() => openDropdown('resources')} onMouseLeave={scheduleClose}>
-              <button style={{ fontSize: '14px', fontWeight: 500, color: open === 'resources' ? '#041635' : linkColor, background: open === 'resources' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
+              <button style={{ fontSize: '14px', fontWeight: 500, color: open === 'resources' ? linkActiveColor : linkColor, background: open === 'resources' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
                 Resources <ChevronDown size={13} style={{ transform: open === 'resources' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
               </button>
               {open === 'resources' && (
@@ -142,7 +147,7 @@ export default function Navbar() {
 
             {/* Company */}
             <div style={{ position: 'relative' }} onMouseEnter={() => openDropdown('company')} onMouseLeave={scheduleClose}>
-              <button style={{ fontSize: '14px', fontWeight: 500, color: open === 'company' ? '#041635' : linkColor, background: open === 'company' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
+              <button style={{ fontSize: '14px', fontWeight: 500, color: open === 'company' ? linkActiveColor : linkColor, background: open === 'company' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
                 Company <ChevronDown size={13} style={{ transform: open === 'company' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
               </button>
               {open === 'company' && (
@@ -155,16 +160,16 @@ export default function Navbar() {
             </div>
 
             <Link href="/pricing" style={navLinkStyle}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#041635'; (e.currentTarget as HTMLElement).style.background = linkHoverBg; }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = linkActiveColor; (e.currentTarget as HTMLElement).style.background = linkHoverBg; }}
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = linkColor; (e.currentTarget as HTMLElement).style.background = 'transparent'; }}
             >Pricing</Link>
           </nav>
 
           {/* Right CTAs */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }} className="desktop-nav">
-            <Link href="/login" style={{ fontSize: '14px', fontWeight: 500, color: '#5C6070', textDecoration: 'none', padding: '8px 14px', borderRadius: '8px', transition: 'background 0.15s, color 0.15s', fontFamily: 'var(--font-body)' }}
-              onMouseEnter={e => { (e.currentTarget.style.background = linkHoverBg); (e.currentTarget.style.color = '#041635'); }}
-              onMouseLeave={e => { (e.currentTarget.style.background = 'transparent'); (e.currentTarget.style.color = '#5C6070'); }}
+            <Link href="/login" style={{ fontSize: '14px', fontWeight: 500, color: linkColor, textDecoration: 'none', padding: '8px 14px', borderRadius: '8px', transition: 'background 0.15s, color 0.15s', fontFamily: 'var(--font-body)' }}
+              onMouseEnter={e => { (e.currentTarget.style.background = linkHoverBg); (e.currentTarget.style.color = linkActiveColor); }}
+              onMouseLeave={e => { (e.currentTarget.style.background = 'transparent'); (e.currentTarget.style.color = linkColor); }}
             >Log in</Link>
             <Link href="/get-started" className="btn-primary" style={{ padding: '9px 18px', fontSize: '14px' }}>
               Get started free
@@ -172,7 +177,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile toggle */}
-          <button onClick={() => { setMobileOpen(!mobileOpen); setMobileExpanded(null); }} style={{ display: 'none', padding: '8px', background: 'none', border: 'none', cursor: 'pointer', color: '#041635' }} className="mobile-toggle">
+          <button onClick={() => { setMobileOpen(!mobileOpen); setMobileExpanded(null); }} style={{ display: 'none', padding: '8px', background: 'none', border: 'none', cursor: 'pointer', color: dark ? '#fff' : '#041635' }} className="mobile-toggle">
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
@@ -180,7 +185,7 @@ export default function Navbar() {
 
       {/* Mobile menu — collapsible sections */}
       {mobileOpen && (
-        <div style={{ background: '#fff', borderTop: '1px solid #EEEEF0', padding: '8px 20px 20px', maxHeight: '80vh', overflowY: 'auto' }}>
+        <div style={{ background: dark ? '#041635' : '#fff', borderTop: dark ? '1px solid rgba(255,255,255,0.1)' : '1px solid #EEEEF0', padding: '8px 20px 20px', maxHeight: '80vh', overflowY: 'auto' }}>
 
           {/* Solutions accordion */}
           {[
@@ -188,12 +193,12 @@ export default function Navbar() {
             { key: 'resources', label: 'Resources', items: resources },
             { key: 'company', label: 'Company', items: company },
           ].map(({ key, label, items }) => (
-            <div key={key} style={{ borderBottom: '1px solid #F3F4F6' }}>
+            <div key={key} style={{ borderBottom: dark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6' }}>
               <button
                 onClick={() => toggleMobileSection(key)}
                 style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', padding: '13px 0', background: 'none', border: 'none', cursor: 'pointer' }}
               >
-                <span style={{ fontSize: '15px', fontWeight: 600, color: '#041635', fontFamily: 'var(--font-body)' }}>{label}</span>
+                <span style={{ fontSize: '15px', fontWeight: 600, color: dark ? '#fff' : '#041635', fontFamily: 'var(--font-body)' }}>{label}</span>
                 <ChevronDown size={16} color="#9A9FA8" style={{ transform: mobileExpanded === key ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
               </button>
               {mobileExpanded === key && (
@@ -209,7 +214,7 @@ export default function Navbar() {
                           <Icon size={13} color="#6B7280" />
                         </div>
                         <div>
-                          <span style={{ fontSize: '14px', fontWeight: 500, color: '#041635', fontFamily: 'var(--font-body)', display: 'block' }}>{item.label}</span>
+                          <span style={{ fontSize: '14px', fontWeight: 500, color: dark ? 'rgba(255,255,255,0.85)' : '#041635', fontFamily: 'var(--font-body)', display: 'block' }}>{item.label}</span>
                           {'badge' in item && (item as { badge?: string | null }).badge && (
                             <span style={{ fontSize: '10px', fontWeight: 700, color: '#0C63E3', background: '#EEF4FF', border: '1px solid #C7DEFF', borderRadius: '100px', padding: '1px 7px', fontFamily: 'var(--font-body)', marginLeft: '6px' }}>{(item as { badge?: string | null }).badge}</span>
                           )}
@@ -222,7 +227,7 @@ export default function Navbar() {
             </div>
           ))}
 
-          <Link href="/pricing" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: '#041635', textDecoration: 'none', borderBottom: '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => setMobileOpen(false)}>Pricing</Link>
+          <Link href="/pricing" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: dark ? '#fff' : '#041635', textDecoration: 'none', borderBottom: dark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => setMobileOpen(false)}>Pricing</Link>
           <Link href="/get-started" className="btn-primary" style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }} onClick={() => setMobileOpen(false)}>Get started free</Link>
         </div>
       )}

@@ -81,7 +81,7 @@ export default function UniversitiesPage() {
 
   return (
     <>
-      <Navbar />
+      <Navbar dark />
       <style>{`
         @keyframes uni-testi { from { transform: translateX(0) } to { transform: translateX(-50%) } }
         @keyframes uni-testi-rev { from { transform: translateX(-50%) } to { transform: translateX(0) } }

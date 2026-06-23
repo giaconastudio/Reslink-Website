@@ -177,7 +177,7 @@ const [notifA, setNotifA] = useState(0);
 
   return (
     <>
-      <Navbar />
+      <Navbar dark />
       <style>{`
         .co-testi-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: stretch; }
         .co-testi-side { display: flex; flex-direction: column; gap: 16px; }

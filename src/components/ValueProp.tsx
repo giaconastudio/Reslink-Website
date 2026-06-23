@@ -55,10 +55,10 @@ export default function ValueProp() {
           style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto 56px' }}
         >
           <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>
-            The upgrade
+            Before vs. after
           </p>
           <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 4.8vw, 60px)', fontWeight: 900, color: '#041635', lineHeight: 0.95, letterSpacing: '-0.03em', marginBottom: '24px' }}>
-            Recruiters remember faces,<br /><span style={{ color: '#0C63E3' }}>not PDFs.</span>
+            From ignored<br /><span style={{ color: '#0C63E3' }}>to interview.</span>
           </h2>
           <p style={{ fontSize: '17px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>
             A static PDF cannot attract attention, share with one click, or show who you actually are. A Reslink does all three. And lands interviews faster.

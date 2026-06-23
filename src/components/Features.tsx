@@ -14,7 +14,7 @@ const icons: Record<string, React.ReactNode> = {
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
   ),
   badge: (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
   ),
 };
 
@@ -375,8 +375,8 @@ export default function Features() {
           <motion.div key={tab.id} className="feat-panel" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.3 }}>
             {/* Copy */}
             <div className="feat-copy" style={{ background: tab.bg === '#041635' ? '#041635' : '#fff' }}>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: `${tab.color}18`, borderRadius: '100px', padding: '5px 12px', width: 'fit-content', marginBottom: '20px' }}>
-                <span style={{ fontSize: '11px', fontWeight: 700, color: tab.color === '#FFD6A5' ? '#B45309' : tab.bg === '#041635' ? tab.color : '#0C63E3', letterSpacing: '0.08em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>{tab.label}</span>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#EEF4FF', borderRadius: '100px', padding: '5px 12px', width: 'fit-content', marginBottom: '20px' }}>
+                <span style={{ fontSize: '11px', fontWeight: 700, color: '#0C63E3', letterSpacing: '0.08em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>{tab.label}</span>
               </div>
               <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3vw, 40px)', fontWeight: 900, color: tab.bg === '#041635' ? '#fff' : '#041635', lineHeight: 1.0, letterSpacing: '-0.02em', marginBottom: '18px' }}>
                 {tab.headline}

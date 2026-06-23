@@ -18,74 +18,46 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section style={{ padding: 'clamp(64px, 8vw, 96px) 0', background: '#fff' }}>
-      <div className="container">
-        <div style={{ maxWidth: '680px', margin: '0 auto' }}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            style={{ textAlign: 'center', marginBottom: '56px' }}
-          >
-            <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '16px' }}>
-              Frequently asked questions
-            </p>
-            <h2 style={{ fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.025em', color: '#041635', lineHeight: 1.12 }}>
-              Everything you need to know
-            </h2>
-          </motion.div>
+    <section style={{ padding: 'clamp(64px, 8vw, 96px) 24px', background: '#F7F8FA' }}>
+      <div style={{ maxWidth: '680px', margin: '0 auto' }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          style={{ textAlign: 'center', marginBottom: '52px' }}
+        >
+          <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>
+            Frequently asked questions
+          </p>
+          <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 48px)', fontWeight: 900, color: '#041635', lineHeight: 0.96, letterSpacing: '-0.03em' }}>
+            Everything you need to know
+          </h2>
+        </motion.div>
 
-          <div>
-            {faqs.map((faq, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.35, delay: i * 0.05 }}
-                style={{ borderBottom: '1px solid #EEEEF0' }}
+        <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '0 28px', boxShadow: '0 1px 8px rgba(4,22,53,0.04)' }}>
+          {faqs.map((faq, i) => (
+            <div key={i} style={{ borderBottom: i < faqs.length - 1 ? '1px solid #ECEEF1' : 'none' }}>
+              <button
+                onClick={() => setOpen(open === i ? null : i)}
+                style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', padding: '20px 0', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left' }}
               >
-                <button
-                  onClick={() => setOpen(open === i ? null : i)}
-                  style={{
-                    width: '100%', display: 'flex', alignItems: 'center',
-                    justifyContent: 'space-between', gap: '16px',
-                    padding: '20px 0', background: 'none', border: 'none',
-                    cursor: 'pointer', textAlign: 'left',
-                  }}
-                >
-                  <span style={{ fontSize: '15px', fontWeight: 600, color: '#041635' }}>{faq.q}</span>
-                  <span style={{
-                    width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0,
-                    background: open === i ? '#0C63E3' : '#F7F8FA',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    transition: 'background 0.15s ease',
-                  }}>
-                    {open === i
-                      ? <Minus size={12} color="#fff" />
-                      : <Plus size={12} color="#5C6070" />
-                    }
-                  </span>
-                </button>
-                <AnimatePresence>
-                  {open === i && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.22 }}
-                      style={{ overflow: 'hidden' }}
-                    >
-                      <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.7, paddingBottom: '20px' }}>
-                        {faq.a}
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            ))}
-          </div>
+                <span style={{ fontSize: '15px', fontWeight: 600, color: '#041635', fontFamily: 'var(--font-body)' }}>{faq.q}</span>
+                <span style={{ width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0, background: open === i ? '#0C63E3' : '#F7F8FA', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.15s ease' }}>
+                  {open === i ? <Minus size={12} color="#fff" /> : <Plus size={12} color="#5C6070" />}
+                </span>
+              </button>
+              <AnimatePresence>
+                {open === i && (
+                  <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.22 }} style={{ overflow: 'hidden' }}>
+                    <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.7, paddingBottom: '20px', fontFamily: 'var(--font-body)' }}>
+                      {faq.a}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ))}
         </div>
       </div>
     </section>

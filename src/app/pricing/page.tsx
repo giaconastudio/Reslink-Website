@@ -575,23 +575,23 @@ export default function PricingPage() {
         </section>
 
         {/* ─── FAQ ─── */}
-        <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
+        <section style={{ background: '#F7F8FA', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
           <div style={{ maxWidth: '700px', margin: '0 auto' }}>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
               style={{ textAlign: 'center', marginBottom: '52px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Frequently asked questions</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 48px)', fontWeight: 900, color: '#041635', lineHeight: 0.96, letterSpacing: '-0.03em' }}>
-                Everything you<br />need to know.
+                Everything you need to know
               </h2>
             </motion.div>
-            <div style={{ background: '#F7F8FA', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '0 28px' }}>
+            <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '0 28px', boxShadow: '0 1px 8px rgba(4,22,53,0.04)' }}>
               {FAQS.map((faq, i) => (
                 <div key={i} style={{ borderBottom: i < FAQS.length - 1 ? '1px solid #ECEEF1' : 'none' }}>
                   <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
                     style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', padding: '20px 0', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left' }}>
                     <span style={{ fontSize: '15px', fontWeight: 600, color: '#041635', fontFamily: 'var(--font-body)' }}>{faq.q}</span>
-                    <span style={{ width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0, background: openFaq === i ? '#0C63E3' : '#ECEEF1', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.15s' }}>
-                      {openFaq === i ? <Minus size={10} color="#fff" strokeWidth={2.5} /> : <Plus size={10} color="#5C6070" strokeWidth={2.5} />}
+                    <span style={{ width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0, background: openFaq === i ? '#0C63E3' : '#F7F8FA', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.15s' }}>
+                      {openFaq === i ? <Minus size={12} color="#fff" strokeWidth={2.5} /> : <Plus size={12} color="#5C6070" strokeWidth={2.5} />}
                     </span>
                   </button>
                   <AnimatePresence>

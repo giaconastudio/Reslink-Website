@@ -99,7 +99,7 @@ function FeatureCell({ value, tier = 'base' }: { value: Maybe; tier?: 'base' | '
   const cfg = {
     base: { bg: '#F0F2F5', check: '#9A9FA8', xBg: '#F7F8FA', xColor: '#D1D5DB', text: '#5C6070' },
     mid:  { bg: '#EEF4FF', check: '#0C63E3', xBg: '#F4F6FB', xColor: '#BDC8E8', text: '#0C63E3' },
-    top:  { bg: '#F0FDF4', check: '#16A34A', xBg: '#F7FAF8', xColor: '#BBD8C6', text: '#16A34A' },
+    top:  { bg: '#D8F950', check: '#041635', xBg: '#F5F9DC', xColor: '#C8D87A', text: '#5A6A00' },
   }[tier];
   if (value === true) return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -227,7 +227,7 @@ export default function PricingPage() {
                       background: active ? '#fff' : 'rgba(255,255,255,0.05)',
                       border: active ? '2px solid #fff' : '1.5px solid rgba(255,255,255,0.1)',
                       borderBottom: active ? '2px solid #fff' : '1.5px solid rgba(255,255,255,0.1)',
-                      borderRadius: active ? '16px 16px 0 0' : '16px',
+                      borderRadius: '16px 16px 0 0',
                       padding: '20px 20px 24px',
                       cursor: 'pointer',
                       textAlign: 'left',
@@ -470,11 +470,16 @@ export default function PricingPage() {
                     </div></div>
                   </div>
 
-                  <div style={{ marginTop: '16px', background: '#F0FDF4', borderRadius: '10px', border: '1px solid #BBF7D0', padding: '12px 18px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <ShieldCheck size={14} color="#16A34A" strokeWidth={2} />
-                    <p style={{ fontSize: '13px', color: '#15803D', fontFamily: 'var(--font-body)' }}>
-                      <strong>14-day free trial on the Growth plan.</strong> No credit card required. Upgrade, downgrade, or cancel at any time.
-                    </p>
+                  <div style={{ marginTop: '16px', background: '#EEF4FF', borderRadius: '10px', border: '1px solid #C7DEFF', padding: '14px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <Zap size={14} color="#0C63E3" strokeWidth={2} />
+                      <p style={{ fontSize: '13px', color: '#1D4ED8', fontFamily: 'var(--font-body)' }}>
+                        <strong>14-day free trial on the Growth plan.</strong> No credit card required. Not sure which plan fits? We will walk you through it.
+                      </p>
+                    </div>
+                    <Link href="/contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '9px 18px', background: '#0C63E3', color: '#fff', borderRadius: '8px', fontSize: '13px', fontWeight: 700, fontFamily: 'var(--font-body)', textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                      Schedule a demo →
+                    </Link>
                   </div>
                 </motion.div>
               )}

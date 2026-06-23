@@ -81,7 +81,7 @@ const VALUES = [
 function TeamCard({ member }: { member: typeof TEAM[0] }) {
   const [expanded, setExpanded] = useState(false);
   return (
-    <div style={{ borderRadius: '20px', overflow: 'hidden', position: 'relative', background: '#0a1628', boxShadow: '0 4px 24px rgba(4,22,53,0.18)', aspectRatio: '3/4', border: '2px solid rgba(12,99,227,0.35)' }}>
+    <div style={{ borderRadius: '20px', overflow: 'hidden', position: 'relative', background: '#0a1628', boxShadow: '0 4px 24px rgba(4,22,53,0.18), inset 0 0 0 1.5px rgba(255,255,255,0.18)', aspectRatio: '3/4' }}>
       {/* Full-bleed photo */}
       <img
         src={member.photo}
@@ -175,11 +175,14 @@ export default function AboutPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.65, delay: 0.15 }}
               >
-                <img
-                  src="/team/about-team.webp"
-                  alt="Reslink team"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', borderRadius: '20px', border: '2px solid rgba(12,99,227,0.35)', boxSizing: 'border-box' }}
-                />
+                <div style={{ position: 'relative', borderRadius: '20px', overflow: 'hidden' }}>
+                  <img
+                    src="/team/about-team.webp"
+                    alt="Reslink team"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', borderRadius: '20px', boxSizing: 'border-box' }}
+                  />
+                  <div style={{ position: 'absolute', inset: 0, borderRadius: '20px', boxShadow: 'inset 0 0 0 1.5px rgba(255,255,255,0.22)', pointerEvents: 'none' }} />
+                </div>
               </motion.div>
             </div>
           </div>

@@ -38,7 +38,7 @@ export default function ValueProp() {
           .vp-stats { gap: 0; display: grid; grid-template-columns: 1fr 1fr; }
           .vp-stat-item { padding: 24px 16px; border-bottom: 1px solid #ECEEF1; }
           .vp-stat-item:nth-child(odd) { border-right: 1px solid #ECEEF1; }
-          .vp-pip { top: 20px !important; right: 0px !important; width: 100px !important; height: 100px !important; border-radius: 14px !important; }
+          .vp-pip { top: 80px !important; right: 0px !important; width: 100px !important; height: 100px !important; border-radius: 14px !important; }
         }
         @media (min-width: 761px) {
           .vp-stat-item { text-align: center; }
@@ -145,8 +145,9 @@ export default function ValueProp() {
               {/* Dark navy profile header */}
               <div style={{ background: '#041635', padding: '22px 24px 20px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '16px', paddingRight: '90px' }}>
-                  <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: 'linear-gradient(135deg, #0C63E3, #4F6EF7)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid rgba(255,255,255,0.15)' }}>
-                    <span style={{ fontSize: '20px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>OS</span>
+                  <div style={{ width: '56px', height: '56px', borderRadius: '50%', flexShrink: 0, overflow: 'hidden', border: '2px solid rgba(255,255,255,0.2)' }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/videos/pip-person-poster.jpg" alt="Olivia Stone" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} />
                   </div>
                   <div>
                     <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: '#fff', lineHeight: 1.05, letterSpacing: '-0.01em' }}>OLIVIA STONE</p>
@@ -209,7 +210,7 @@ export default function ValueProp() {
             </div>
 
             {/* PiP video — outside overflow:hidden card so it can hang over the right edge */}
-            <div className="vp-pip" style={{ position: 'absolute', top: '22px', right: '-22px', width: '172px', height: '172px', zIndex: 10 }}>
+            <div className="vp-pip" style={{ position: 'absolute', top: '90px', right: '-22px', width: '172px', height: '172px', zIndex: 10 }}>
               <div style={{ width: '100%', height: '100%', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.36)' }}>
                 <video src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>

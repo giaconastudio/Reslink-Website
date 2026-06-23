@@ -38,7 +38,7 @@ export default function ValueProp() {
           .vp-stats { gap: 0; display: grid; grid-template-columns: 1fr 1fr; }
           .vp-stat-item { padding: 24px 16px; border-bottom: 1px solid #ECEEF1; }
           .vp-stat-item:nth-child(odd) { border-right: 1px solid #ECEEF1; }
-          .vp-pip { top: 10px !important; bottom: auto !important; right: 16px !important; width: 80px !important; height: 80px !important; border-radius: 10px !important; }
+          .vp-pip { top: -48px !important; bottom: auto !important; right: 16px !important; width: 80px !important; height: 80px !important; border-radius: 10px !important; }
         }
         @media (min-width: 761px) {
           .vp-stat-item { text-align: center; }
@@ -90,19 +90,30 @@ export default function ValueProp() {
 
               {/* Fake resume content */}
               <div style={{ marginBottom: '20px' }}>
-                <div style={{ height: '13px', borderRadius: '6px', background: '#E2E4E8', width: '55%', marginBottom: '8px' }} />
-                <div style={{ height: '9px', borderRadius: '5px', background: '#ECEEF1', width: '40%', marginBottom: '20px' }} />
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '7px' }}>
-                  <div style={{ height: '8px', borderRadius: '4px', background: '#ECEEF1', width: '100%' }} />
-                  <div style={{ height: '8px', borderRadius: '4px', background: '#ECEEF1', width: '88%' }} />
-                  <div style={{ height: '8px', borderRadius: '4px', background: '#ECEEF1', width: '95%' }} />
-                  <div style={{ height: '8px', borderRadius: '4px', background: '#ECEEF1', width: '72%' }} />
+                {/* Name + title */}
+                <div style={{ height: '14px', borderRadius: '6px', background: '#B8BCC8', width: '52%', marginBottom: '7px' }} />
+                <div style={{ height: '9px', borderRadius: '5px', background: '#D0D4DC', width: '68%', marginBottom: '4px' }} />
+                <div style={{ height: '8px', borderRadius: '5px', background: '#D8DBE3', width: '80%', marginBottom: '16px' }} />
+                {/* Experience section */}
+                <div style={{ height: '7px', borderRadius: '3px', background: '#C4C8D4', width: '30%', marginBottom: '8px' }} />
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '14px' }}>
+                  <div style={{ height: '7px', borderRadius: '4px', background: '#DDE0E8', width: '100%' }} />
+                  <div style={{ height: '7px', borderRadius: '4px', background: '#DDE0E8', width: '91%' }} />
+                  <div style={{ height: '7px', borderRadius: '4px', background: '#DDE0E8', width: '97%' }} />
+                  <div style={{ height: '7px', borderRadius: '4px', background: '#DDE0E8', width: '76%' }} />
                 </div>
-                <div style={{ height: '1px', background: '#ECEEF1', margin: '16px 0' }} />
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '7px' }}>
-                  <div style={{ height: '8px', borderRadius: '4px', background: '#ECEEF1', width: '90%' }} />
-                  <div style={{ height: '8px', borderRadius: '4px', background: '#ECEEF1', width: '78%' }} />
-                  <div style={{ height: '8px', borderRadius: '4px', background: '#ECEEF1', width: '85%' }} />
+                {/* Education section */}
+                <div style={{ height: '7px', borderRadius: '3px', background: '#C4C8D4', width: '26%', marginBottom: '8px' }} />
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '14px' }}>
+                  <div style={{ height: '7px', borderRadius: '4px', background: '#DDE0E8', width: '88%' }} />
+                  <div style={{ height: '7px', borderRadius: '4px', background: '#DDE0E8', width: '62%' }} />
+                </div>
+                {/* Skills section */}
+                <div style={{ height: '7px', borderRadius: '3px', background: '#C4C8D4', width: '20%', marginBottom: '8px' }} />
+                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                  {[48, 56, 40, 52, 44].map((w, i) => (
+                    <div key={i} style={{ height: '20px', borderRadius: '4px', background: '#DDE0E8', width: `${w}px` }} />
+                  ))}
                 </div>
               </div>
 
@@ -171,7 +182,7 @@ export default function ValueProp() {
                   <div style={{ height: '7px', borderRadius: '4px', background: '#F3F4F6', width: '82%' }} />
                 </div>
                 {/* PiP video */}
-                <div className="vp-pip" style={{ position: 'absolute', top: '16px', right: '16px', width: '148px', height: '148px', borderRadius: '16px', overflow: 'hidden', border: '3px solid #D8F950', boxShadow: '0 12px 36px rgba(0,0,0,0.32)', zIndex: 4 }}>
+                <div className="vp-pip" style={{ position: 'absolute', top: '-68px', right: '16px', width: '148px', height: '148px', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 12px 36px rgba(0,0,0,0.32)', zIndex: 4 }}>
                   <video src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
               </div>

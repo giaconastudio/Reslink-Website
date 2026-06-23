@@ -157,7 +157,9 @@ export default function HelpPage() {
                 Explore our FAQs, tutorials, and other helpful resources to find the answers you're looking for.
               </p>
               <div style={{ position: 'relative' }}>
-                <Search size={18} color="rgba(255,255,255,0.45)" style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} />
+                <span style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', display: 'flex', alignItems: 'center', zIndex: 2 }}>
+                  <Search size={18} color="rgba(255,255,255,0.45)" />
+                </span>
                 <input type="text" placeholder="Search for answers..." value={query} onChange={e => setQuery(e.target.value)}
                   style={{ width: '100%', padding: '16px 16px 16px 48px', borderRadius: '14px', border: '1.5px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.08)', color: '#fff', fontSize: '15px', fontFamily: 'var(--font-body)', outline: 'none', boxSizing: 'border-box', backdropFilter: 'blur(8px)' }} />
               </div>

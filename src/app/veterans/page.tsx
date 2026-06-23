@@ -234,8 +234,8 @@ export default function VeteransPage() {
           </div>
         </section>
 
-        {/* Features — light blue */}
-        <section style={{ background: '#EEF4FF', padding: 'clamp(72px, 9vw, 108px) 24px' }}>
+        {/* Features */}
+        <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 108px) 24px' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} style={{ textAlign: 'center', marginBottom: '52px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Built for the transition</p>
@@ -251,7 +251,7 @@ export default function VeteransPage() {
               `}</style>
               {FEATURES.map((f, i) => (
                 <motion.div key={f.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.06 }}>
-                  <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #D4E3FF', padding: '24px', height: '100%', boxSizing: 'border-box' }}>
+                  <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '24px', height: '100%', boxSizing: 'border-box' }}>
                     <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
                       <f.icon size={20} color="#0C63E3" strokeWidth={1.8} />
                     </div>

@@ -3,102 +3,10 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Search, SlidersHorizontal, ChevronDown, Clock, Bookmark, TrendingUp } from 'lucide-react';
+import { Search, SlidersHorizontal, ChevronDown, Clock, Bookmark, TrendingUp, LayoutGrid, List } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-
-const POSTS = [
-  {
-    slug: 'how-to-write-sales-resume',
-    tag: 'Job Search Tips', tagColor: '#0C63E3', tagBg: '#EEF4FF',
-    title: 'How to Write a Sales Resume That Gets Interviews (Examples + Templates)',
-    excerpt: 'Learn how to write a winning sales resume with examples, templates, and tips to showcase your achievements.',
-    author: 'Sarah Johnson', authorInitials: 'SJ',
-    date: 'Mar 20, 2026', read: '8 min',
-    image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=900&h=500&fit=crop',
-    hot: true,
-  },
-  {
-    slug: 'how-long-should-resume-be',
-    tag: 'Job Search Tips', tagColor: '#0C63E3', tagBg: '#EEF4FF',
-    title: 'How Long Should a Resume Be? The Complete Guide for Job Seekers',
-    excerpt: 'Learn how long a resume should be, from entry-level to executive roles, with tips, examples, and best practices.',
-    author: 'Michael Chen', authorInitials: 'MC',
-    date: 'Mar 18, 2026', read: '5 min',
-    image: 'https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg?auto=compress&cs=tinysrgb&w=900&h=500&fit=crop',
-    hot: false,
-  },
-  {
-    slug: 'internship-resume-guide',
-    tag: 'Job Search Tips', tagColor: '#0C63E3', tagBg: '#EEF4FF',
-    title: 'Internship Resume Guide: How to Write One That Lands You Interviews',
-    excerpt: 'Learn how to write an internship resume that stands out. Includes examples, templates, and tips from recruiters.',
-    author: 'Sarah Johnson', authorInitials: 'SJ',
-    date: 'Mar 15, 2026', read: '8 min',
-    image: 'https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=900&h=500&fit=crop',
-    hot: false,
-  },
-  {
-    slug: 'showcase-soft-skills',
-    tag: 'Job Search Tips', tagColor: '#0C63E3', tagBg: '#EEF4FF',
-    title: 'How to Showcase Soft Skills on Your Resume (With Real Examples)',
-    excerpt: 'Learn the top soft skills for resumes, how to showcase them effectively, and why employers care more than ever.',
-    author: 'Michael Chen', authorInitials: 'MC',
-    date: 'Mar 12, 2026', read: '5 min',
-    image: 'https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=900&h=500&fit=crop',
-    hot: true,
-  },
-  {
-    slug: 'best-video-resume-tools',
-    tag: 'Video Resume Tips', tagColor: '#7C3AED', tagBg: '#F3EEFF',
-    title: 'The Best Video Resume Tools for Job Seekers (2026 Edition)',
-    excerpt: 'Discover the best video resume tools in 2026 — including Loom.com, VEED.IO, and Reslink. Learn how to choose.',
-    author: 'Roxanne Taku', authorInitials: 'RT',
-    date: 'Mar 10, 2026', read: '5 min',
-    image: 'https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg?auto=compress&cs=tinysrgb&w=900&h=500&fit=crop',
-    hot: false,
-  },
-  {
-    slug: 'do-video-resumes-work',
-    tag: 'Video Resume Tips', tagColor: '#7C3AED', tagBg: '#F3EEFF',
-    title: 'Do Video Resumes Really Increase Your Chances of Getting an Interview?',
-    excerpt: 'Can a video resume help you land more interviews? See the data, psychology, and best practices behind the trend.',
-    author: 'Sarah Johnson', authorInitials: 'SJ',
-    date: 'Mar 8, 2026', read: '5 min',
-    image: 'https://images.pexels.com/photos/4050291/pexels-photo-4050291.jpeg?auto=compress&cs=tinysrgb&w=900&h=500&fit=crop',
-    hot: true,
-  },
-  {
-    slug: 'resume-mistakes',
-    tag: 'Job Search Tips', tagColor: '#0C63E3', tagBg: '#EEF4FF',
-    title: '10 Resume Mistakes That Are Costing You Interviews',
-    excerpt: 'Avoid these common resume mistakes that hiring managers see every day. Learn what to fix and how to fix it fast.',
-    author: 'Roxanne Taku', authorInitials: 'RT',
-    date: 'Mar 5, 2026', read: '6 min',
-    image: 'https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=900&h=500&fit=crop',
-    hot: false,
-  },
-  {
-    slug: 'create-video-resume',
-    tag: 'Video Resume Tips', tagColor: '#7C3AED', tagBg: '#F3EEFF',
-    title: 'How to Create a Video Resume That Actually Gets You Hired',
-    excerpt: 'Step-by-step guide to creating a video resume that hiring managers love. Includes scripts, tips, and examples.',
-    author: 'Michael Chen', authorInitials: 'MC',
-    date: 'Mar 3, 2026', read: '10 min',
-    image: 'https://images.pexels.com/photos/3823488/pexels-photo-3823488.jpeg?auto=compress&cs=tinysrgb&w=900&h=500&fit=crop',
-    hot: false,
-  },
-  {
-    slug: 'analytics-dashboard',
-    tag: 'Product Updates', tagColor: '#059669', tagBg: '#ECFDF5',
-    title: 'Product Update: Introducing Analytics Dashboard 2.0',
-    excerpt: 'Get deeper insights into your Reslink performance with our new analytics dashboard. See what\'s new.',
-    author: 'Dominic Giacona', authorInitials: 'DG',
-    date: 'Mar 1, 2026', read: '4 min',
-    image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=900&h=500&fit=crop',
-    hot: false,
-  },
-];
+import { POSTS } from './data';
 
 const TAGS = ['All', 'Product Updates', 'Video Resume Tips', 'Job Search Tips'];
 
@@ -107,6 +15,7 @@ export default function BlogPage() {
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState('Newest');
   const [sortOpen, setSortOpen] = useState(false);
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
   const filtered = POSTS.filter(p => {
     const matchTag = active === 'All' || p.tag === active;
@@ -124,7 +33,6 @@ export default function BlogPage() {
         <style>{`
           .blog-search-input::placeholder { color: rgba(255,255,255,0.35); }
           .blog-search-input:focus { outline: none; border-color: rgba(255,255,255,0.4) !important; }
-          .blog-tag-btn:hover { background: rgba(255,255,255,0.12) !important; }
           .blog-card-img { transition: transform 0.4s ease; }
           .blog-card:hover .blog-card-img { transform: scale(1.04); }
           .blog-card { transition: box-shadow 0.2s, transform 0.2s; }
@@ -146,14 +54,16 @@ export default function BlogPage() {
 
               {/* Search bar */}
               <div style={{ position: 'relative', maxWidth: '520px', margin: '0 auto' }}>
-                <Search size={16} color="rgba(255,255,255,0.45)" style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} />
+                <span style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', display: 'flex', alignItems: 'center', zIndex: 2 }}>
+                  <Search size={16} color="rgba(255,255,255,0.45)" />
+                </span>
                 <input
                   className="blog-search-input"
                   type="text"
                   placeholder="Search articles..."
                   value={search}
                   onChange={e => setSearch(e.target.value)}
-                  style={{ width: '100%', padding: '14px 16px 14px 44px', borderRadius: '12px', border: '1.5px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(12px)', color: '#fff', fontSize: '14px', fontFamily: 'var(--font-body)', boxSizing: 'border-box' }}
+                  style={{ width: '100%', padding: '14px 16px 14px 44px', borderRadius: '12px', border: '1.5px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(12px)', color: '#fff', fontSize: '14px', fontFamily: 'var(--font-body)', boxSizing: 'border-box', outline: 'none' }}
                 />
               </div>
             </motion.div>
@@ -164,7 +74,7 @@ export default function BlogPage() {
         <section style={{ background: '#fff', borderBottom: '1px solid #ECEEF1', padding: '0 24px', position: 'sticky', top: '68px', zIndex: 10 }}>
           <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
             <div style={{ display: 'flex', gap: '4px', overflowX: 'auto', padding: '14px 0' }}>
-              {TAGS.map((t, i) => (
+              {TAGS.map(t => (
                 <button key={t} onClick={() => setActive(t)}
                   style={{ padding: '7px 16px', borderRadius: '100px', border: '1.5px solid', borderColor: active === t ? '#0C63E3' : '#ECEEF1', background: active === t ? '#0C63E3' : '#fff', color: active === t ? '#fff' : '#5C6070', fontSize: '13px', fontWeight: 600, fontFamily: 'var(--font-body)', cursor: 'pointer', transition: 'all 0.15s', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: '6px' }}>
                   {t}
@@ -175,24 +85,38 @@ export default function BlogPage() {
               ))}
             </div>
 
-            {/* Sort */}
-            <div style={{ position: 'relative', flexShrink: 0 }}>
-              <button className="sort-btn" onClick={() => setSortOpen(o => !o)}
-                style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '7px 14px', borderRadius: '8px', border: '1.5px solid #ECEEF1', background: '#fff', fontSize: '13px', fontWeight: 600, color: '#041635', fontFamily: 'var(--font-body)', cursor: 'pointer', whiteSpace: 'nowrap' }}>
-                <SlidersHorizontal size={13} color="#9A9FA8" />
-                Sort: {sort}
-                <ChevronDown size={12} color="#9A9FA8" />
-              </button>
-              {sortOpen && (
-                <div style={{ position: 'absolute', right: 0, top: 'calc(100% + 6px)', background: '#fff', border: '1px solid #ECEEF1', borderRadius: '10px', boxShadow: '0 8px 24px rgba(4,22,53,0.10)', zIndex: 20, minWidth: '140px', overflow: 'hidden' }}>
-                  {['Newest', 'Oldest', 'Most Popular'].map(s => (
-                    <button key={s} onClick={() => { setSort(s); setSortOpen(false); }}
-                      style={{ display: 'block', width: '100%', padding: '10px 16px', background: sort === s ? '#EEF4FF' : '#fff', border: 'none', textAlign: 'left', fontSize: '13px', fontWeight: sort === s ? 700 : 500, color: sort === s ? '#0C63E3' : '#041635', fontFamily: 'var(--font-body)', cursor: 'pointer' }}>
-                      {s}
-                    </button>
-                  ))}
-                </div>
-              )}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+              {/* View toggle */}
+              <div style={{ display: 'flex', background: '#F0F2F5', borderRadius: '8px', padding: '3px' }}>
+                <button onClick={() => setViewMode('grid')}
+                  style={{ width: '30px', height: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '6px', border: 'none', background: viewMode === 'grid' ? '#fff' : 'transparent', cursor: 'pointer', boxShadow: viewMode === 'grid' ? '0 1px 4px rgba(4,22,53,0.10)' : 'none', transition: 'all 0.15s' }}>
+                  <LayoutGrid size={14} color={viewMode === 'grid' ? '#041635' : '#9A9FA8'} />
+                </button>
+                <button onClick={() => setViewMode('list')}
+                  style={{ width: '30px', height: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '6px', border: 'none', background: viewMode === 'list' ? '#fff' : 'transparent', cursor: 'pointer', boxShadow: viewMode === 'list' ? '0 1px 4px rgba(4,22,53,0.10)' : 'none', transition: 'all 0.15s' }}>
+                  <List size={14} color={viewMode === 'list' ? '#041635' : '#9A9FA8'} />
+                </button>
+              </div>
+
+              {/* Sort */}
+              <div style={{ position: 'relative' }}>
+                <button className="sort-btn" onClick={() => setSortOpen(o => !o)}
+                  style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '7px 14px', borderRadius: '8px', border: '1.5px solid #ECEEF1', background: '#fff', fontSize: '13px', fontWeight: 600, color: '#041635', fontFamily: 'var(--font-body)', cursor: 'pointer', whiteSpace: 'nowrap' }}>
+                  <SlidersHorizontal size={13} color="#9A9FA8" />
+                  Sort: {sort}
+                  <ChevronDown size={12} color="#9A9FA8" />
+                </button>
+                {sortOpen && (
+                  <div style={{ position: 'absolute', right: 0, top: 'calc(100% + 6px)', background: '#fff', border: '1px solid #ECEEF1', borderRadius: '10px', boxShadow: '0 8px 24px rgba(4,22,53,0.10)', zIndex: 20, minWidth: '140px', overflow: 'hidden' }}>
+                    {['Newest', 'Oldest', 'Most Popular'].map(s => (
+                      <button key={s} onClick={() => { setSort(s); setSortOpen(false); }}
+                        style={{ display: 'block', width: '100%', padding: '10px 16px', background: sort === s ? '#EEF4FF' : '#fff', border: 'none', textAlign: 'left', fontSize: '13px', fontWeight: sort === s ? 700 : 500, color: sort === s ? '#0C63E3' : '#041635', fontFamily: 'var(--font-body)', cursor: 'pointer' }}>
+                        {s}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </section>
@@ -205,7 +129,43 @@ export default function BlogPage() {
               <div style={{ textAlign: 'center', padding: '80px 0', color: '#9A9FA8', fontFamily: 'var(--font-body)', fontSize: '15px' }}>
                 No articles found. Try a different search.
               </div>
+            ) : viewMode === 'list' ? (
+              /* ── List view ── */
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {filtered.map((post, i) => (
+                  <motion.div key={post.slug} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: i * 0.04 }}>
+                    <Link href={`/blog/${post.slug}`} style={{ textDecoration: 'none', display: 'block' }}>
+                      <div className="blog-card" style={{ background: '#fff', borderRadius: '14px', border: '1px solid #ECEEF1', padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '16px', boxShadow: '0 1px 8px rgba(4,22,53,0.04)' }}>
+                        <div style={{ width: '88px', height: '66px', borderRadius: '10px', overflow: 'hidden', flexShrink: 0 }}>
+                          <img className="blog-card-img" src={post.image} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        </div>
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <div style={{ display: 'flex', gap: '5px', marginBottom: '6px', flexWrap: 'wrap' }}>
+                            {post.hot && (
+                              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', background: '#D8F950', color: '#041635', fontSize: '10px', fontWeight: 800, borderRadius: '100px', padding: '2px 8px', fontFamily: 'var(--font-body)' }}>
+                                <TrendingUp size={8} strokeWidth={2.5} /> Hot
+                              </span>
+                            )}
+                            <span style={{ fontSize: '10px', fontWeight: 700, color: post.tagColor, background: post.tagBg, borderRadius: '100px', padding: '2px 8px', fontFamily: 'var(--font-body)' }}>{post.tag}</span>
+                          </div>
+                          <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: '15px', fontWeight: 900, color: '#041635', lineHeight: 1.15, letterSpacing: '-0.02em', marginBottom: '4px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{post.title}</h3>
+                          <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{post.excerpt}</p>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '6px', flexShrink: 0 }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <Clock size={10} color="#9A9FA8" />
+                            <span style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{post.read} read</span>
+                          </div>
+                          <span style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{post.date}</span>
+                          <span style={{ fontSize: '12px', fontWeight: 700, color: '#0C63E3', fontFamily: 'var(--font-body)' }}>Read →</span>
+                        </div>
+                      </div>
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
             ) : (
+              /* ── Grid view ── */
               <>
                 {/* Featured */}
                 {featured.length > 0 && (
@@ -221,7 +181,6 @@ export default function BlogPage() {
                         <motion.div key={post.slug} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay: i * 0.06 }}>
                           <Link href={`/blog/${post.slug}`} style={{ textDecoration: 'none', display: 'block' }}>
                             <div className="blog-card" style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', overflow: 'hidden', boxShadow: '0 1px 8px rgba(4,22,53,0.04)' }}>
-                              {/* Image */}
                               <div style={{ height: '220px', overflow: 'hidden', position: 'relative' }}>
                                 <img className="blog-card-img" src={post.image} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                 <div style={{ position: 'absolute', top: '12px', left: '12px', display: 'flex', gap: '6px' }}>
@@ -238,7 +197,6 @@ export default function BlogPage() {
                                   <Bookmark size={13} color="#041635" />
                                 </button>
                               </div>
-                              {/* Body */}
                               <div style={{ padding: '20px 22px 22px' }}>
                                 <div style={{ display: 'flex', gap: '6px', marginBottom: '12px', flexWrap: 'wrap' }}>
                                   <span style={{ fontSize: '11px', fontWeight: 700, color: post.tagColor, background: post.tagBg, borderRadius: '100px', padding: '3px 10px', fontFamily: 'var(--font-body)' }}>Job Seeker</span>
@@ -255,7 +213,7 @@ export default function BlogPage() {
                                     </div>
                                   </div>
                                   <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '8px 16px', background: '#0C63E3', color: '#fff', borderRadius: '8px', fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-body)' }}>
-                                    Read More <span style={{ fontSize: '13px' }}>↗</span>
+                                    Read More ↗
                                   </span>
                                 </div>
                               </div>
@@ -279,7 +237,6 @@ export default function BlogPage() {
                         <motion.div key={post.slug} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay: i * 0.05 }}>
                           <Link href={`/blog/${post.slug}`} style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
                             <div className="blog-card" style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', overflow: 'hidden', boxShadow: '0 1px 8px rgba(4,22,53,0.04)', height: '100%', display: 'flex', flexDirection: 'column' }}>
-                              {/* Image */}
                               <div style={{ height: '170px', overflow: 'hidden', position: 'relative', flexShrink: 0 }}>
                                 <img className="blog-card-img" src={post.image} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                 <div style={{ position: 'absolute', top: '10px', left: '10px', display: 'flex', gap: '5px' }}>
@@ -296,7 +253,6 @@ export default function BlogPage() {
                                   <Bookmark size={11} color="#041635" />
                                 </button>
                               </div>
-                              {/* Body */}
                               <div style={{ padding: '18px 20px 20px', display: 'flex', flexDirection: 'column', flex: 1 }}>
                                 <div style={{ display: 'flex', gap: '5px', marginBottom: '10px', flexWrap: 'wrap' }}>
                                   <span style={{ fontSize: '10px', fontWeight: 700, color: post.tagColor, background: post.tagBg, borderRadius: '100px', padding: '2px 8px', fontFamily: 'var(--font-body)' }}>Job Seeker</span>
@@ -307,17 +263,9 @@ export default function BlogPage() {
                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto' }}>
                                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                                     <div style={{ width: '24px', height: '24px', borderRadius: '50%', background: '#0C63E3', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '9px', fontWeight: 800, color: '#fff', fontFamily: 'var(--font-phudu)', flexShrink: 0 }}>{post.authorInitials}</div>
-                                    <div>
-                                      <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>
-                                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                                          <span style={{ fontSize: '9px', color: '#DCDFE6' }}>&#9632;</span> {post.date}
-                                        </span>
-                                      </p>
-                                    </div>
+                                    <span style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{post.date}</span>
                                   </div>
-                                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '12px', fontWeight: 700, color: '#0C63E3', fontFamily: 'var(--font-body)' }}>
-                                    Read <span>›</span>
-                                  </span>
+                                  <span style={{ fontSize: '12px', fontWeight: 700, color: '#0C63E3', fontFamily: 'var(--font-body)' }}>Read →</span>
                                 </div>
                               </div>
                             </div>

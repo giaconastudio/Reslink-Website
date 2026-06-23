@@ -198,7 +198,7 @@ export default function AboutPage() {
               <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.55 }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>Why we exist</p>
                 <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(34px, 5vw, 60px)', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em', marginBottom: '32px' }}>
-                  The best candidates<br />were getting<br /><span style={{ color: '#0C63E3', display: 'inline-block', position: 'relative' }}>
+                  The best candidates<br />were getting<br /><span style={{ color: '#041635', display: 'inline-block', position: 'relative' }}>
                     overlooked.
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/vector-underline.svg" alt="" aria-hidden="true" style={{ position: 'absolute', bottom: '-10px', left: 0, width: '100%', height: 'auto', pointerEvents: 'none' }} />

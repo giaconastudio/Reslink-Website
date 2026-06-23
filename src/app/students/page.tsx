@@ -129,6 +129,14 @@ export default function StudentsPage() {
           </div>
         </section>
 
+        {/* University logo ticker — between stats and how it works */}
+        <section style={{ background: '#F7F8FA', padding: 'clamp(40px, 5vw, 60px) 0' }}>
+          <p style={{ textAlign: 'center', fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '24px' }}>
+            Students from top universities trust Reslink to land interviews
+          </p>
+          <LogoTicker variant="university" />
+        </section>
+
         {/* How it works — white */}
         <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 108px) 24px' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
@@ -272,14 +280,6 @@ export default function StudentsPage() {
               ))}
             </div>
           </div>
-        </section>
-
-        {/* University logo ticker */}
-        <section style={{ background: '#F7F8FA', padding: 'clamp(40px, 5vw, 60px) 0' }}>
-          <p style={{ textAlign: 'center', fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '24px' }}>
-            Students from top universities trust Reslink to land interviews
-          </p>
-          <LogoTicker variant="university" />
         </section>
 
         {/* FAQ */}

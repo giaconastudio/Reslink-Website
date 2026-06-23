@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Video, BarChart2, Zap, Globe, FileText, Share2, Plus, Minus, Play, CheckCircle } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import LogoTicker from '@/components/LogoTicker';
 
 const FEATURES = [
   { icon: Zap, title: 'AI writes your pitch', body: 'PitchAI generates a personalized 90-second script from your resume, tailored to the internship or job you\'re targeting.' },
@@ -110,7 +111,7 @@ export default function StudentsPage() {
         </section>
 
         {/* Stats — dark navy */}
-        <section style={{ background: '#0C63E3', padding: 'clamp(48px, 6vw, 72px) 24px' }}>
+        <section style={{ background: '#041635', padding: 'clamp(48px, 6vw, 72px) 24px' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }} className="students-stats-grid">
             <style>{`@media (max-width: 640px) { .students-stats-grid { grid-template-columns: 1fr !important; } }`}</style>
             {[
@@ -191,8 +192,8 @@ export default function StudentsPage() {
                 <div style={{ background: '#0C1B3A', padding: '20px 22px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '14px', paddingRight: '80px' }}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=64&h=64&fit=crop" alt="Student"
-                      style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover', border: '2px solid rgba(255,255,255,0.2)', flexShrink: 0 }} />
+                    <img src="/videos/pip-person-poster.jpg" alt="Student"
+                      style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover', objectPosition: 'top center', border: '2px solid rgba(255,255,255,0.2)', flexShrink: 0 }} />
                     <div>
                       <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '18px', fontWeight: 900, color: '#fff', lineHeight: 1.1 }}>JAMIE CHEN</p>
                       <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', marginTop: '2px' }}>Marketing · Class of 2025</p>
@@ -232,9 +233,8 @@ export default function StudentsPage() {
               </div>
               {/* PIP */}
               <div style={{ position: 'absolute', top: '-20px', right: '-20px', width: '130px', height: '130px', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.4)', border: '3px solid #041635' }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=260&h=260&fit=crop&crop=face"
-                  alt="Student recording" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <video src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" autoPlay muted loop playsInline
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <div style={{ position: 'absolute', bottom: '8px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(4,22,53,0.8)', backdropFilter: 'blur(6px)', borderRadius: '100px', padding: '3px 8px', display: 'flex', alignItems: 'center', gap: '4px', whiteSpace: 'nowrap' }}>
                   <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#D8F950' }} />
                   <span style={{ fontSize: '9px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)', letterSpacing: '0.06em' }}>LIVE</span>
@@ -274,39 +274,12 @@ export default function StudentsPage() {
           </div>
         </section>
 
-        {/* Social proof photos — blue strip */}
-        <section style={{ background: '#EEF4FF', padding: 'clamp(56px, 7vw, 80px) 24px' }}>
-          <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} style={{ textAlign: 'center', marginBottom: '40px' }}>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3.5vw, 44px)', fontWeight: 900, color: '#041635', lineHeight: 0.95, letterSpacing: '-0.02em' }}>
-                Students who stood out.
-              </h2>
-            </motion.div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }} className="students-proof-grid">
-              <style>{`@media (max-width: 640px) { .students-proof-grid { grid-template-columns: 1fr !important; } }`}</style>
-              {[
-                { photo: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop', quote: 'I got a Google internship interview 3 days after sharing my Reslink. I genuinely don\'t think they would\'ve called me with just a resume.', name: 'Priya S.', school: 'UC Berkeley · Marketing' },
-                { photo: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop', quote: 'The teleprompter made all the difference. I\'m not a confident speaker but my video came out looking totally natural.', name: 'Marcus T.', school: 'NYU · Business' },
-                { photo: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop', quote: 'I had zero work experience. Reslink let me show my personality and why I\'d be a great hire. It was the thing that set me apart.', name: 'Sofia R.', school: 'UT Austin · Communications' },
-              ].map((t, i) => (
-                <motion.div key={t.name} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.08 }}>
-                  <div style={{ background: '#fff', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 4px 20px rgba(4,22,53,0.07)', height: '100%', display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ height: '180px', overflow: 'hidden' }}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={t.photo} alt={t.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    </div>
-                    <div style={{ padding: '20px 22px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                      <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.65, fontFamily: 'var(--font-body)', flex: 1, marginBottom: '14px' }}>&ldquo;{t.quote}&rdquo;</p>
-                      <div>
-                        <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>{t.name}</p>
-                        <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{t.school}</p>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
+        {/* University logo ticker */}
+        <section style={{ background: '#F7F8FA', padding: 'clamp(40px, 5vw, 60px) 0' }}>
+          <p style={{ textAlign: 'center', fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '24px' }}>
+            Students from top universities trust Reslink to land interviews
+          </p>
+          <LogoTicker variant="university" />
         </section>
 
         {/* FAQ */}

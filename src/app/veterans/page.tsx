@@ -88,7 +88,7 @@ export default function VeteransPage() {
               style={{ position: 'relative', overflow: 'hidden' }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="https://images.pexels.com/photos/6491956/pexels-photo-6491956.jpeg?auto=compress&cs=tinysrgb&w=900&h=700&fit=crop"
+                src="https://images.pexels.com/photos/3778680/pexels-photo-3778680.jpeg?auto=compress&cs=tinysrgb&w=900&h=700&fit=crop"
                 alt="Veteran"
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
               />
@@ -110,7 +110,7 @@ export default function VeteransPage() {
         </section>
 
         {/* Stats — blue */}
-        <section style={{ background: '#0C63E3', padding: 'clamp(48px, 6vw, 72px) 24px' }}>
+        <section style={{ background: '#041635', padding: 'clamp(48px, 6vw, 72px) 24px' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }} className="vets-stats-grid">
             <style>{`@media (max-width: 640px) { .vets-stats-grid { grid-template-columns: 1fr !important; } }`}</style>
             {[
@@ -136,8 +136,8 @@ export default function VeteransPage() {
               <div style={{ borderRadius: '20px', overflow: 'hidden', boxShadow: '0 24px 64px rgba(4,22,53,0.14)', aspectRatio: '4/3' }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="https://images.pexels.com/photos/1574490/pexels-photo-1574490.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
-                  alt="Veteran transitioning to civilian career"
+                  src="https://images.pexels.com/photos/5673488/pexels-photo-5673488.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
+                  alt="Veteran in professional setting"
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               </div>
@@ -184,8 +184,8 @@ export default function VeteransPage() {
                 <div style={{ background: '#0C1B3A', padding: '20px 22px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '14px', paddingRight: '80px' }}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=64&h=64&fit=crop"
-                      alt="Veteran" style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover', border: '2px solid rgba(255,255,255,0.2)', flexShrink: 0 }} />
+                    <img src="/videos/pip-person-poster.jpg"
+                      alt="Veteran" style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover', objectPosition: 'top center', border: '2px solid rgba(255,255,255,0.2)', flexShrink: 0 }} />
                     <div>
                       <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '18px', fontWeight: 900, color: '#fff', lineHeight: 1.1 }}>MARCUS HAYES</p>
                       <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', marginTop: '2px' }}>Operations · US Army Veteran</p>
@@ -223,9 +223,8 @@ export default function VeteransPage() {
               </div>
               {/* PIP */}
               <div style={{ position: 'absolute', top: '-20px', right: '-20px', width: '130px', height: '130px', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.4)', border: '3px solid #041635' }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="https://images.pexels.com/photos/6491956/pexels-photo-6491956.jpeg?auto=compress&cs=tinysrgb&w=260&h=260&fit=crop&crop=face"
-                  alt="Veteran recording" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <video src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" autoPlay muted loop playsInline
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <div style={{ position: 'absolute', bottom: '8px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(4,22,53,0.8)', backdropFilter: 'blur(6px)', borderRadius: '100px', padding: '3px 8px', display: 'flex', alignItems: 'center', gap: '4px', whiteSpace: 'nowrap' }}>
                   <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#D8F950' }} />
                   <span style={{ fontSize: '9px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)', letterSpacing: '0.06em' }}>LIVE</span>
@@ -258,41 +257,6 @@ export default function VeteransPage() {
                     </div>
                     <p style={{ fontSize: '15px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', marginBottom: '8px' }}>{f.title}</p>
                     <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>{f.body}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Social proof — photos */}
-        <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 108px) 24px' }}>
-          <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} style={{ textAlign: 'center', marginBottom: '40px' }}>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3.5vw, 44px)', fontWeight: 900, color: '#041635', lineHeight: 0.95, letterSpacing: '-0.02em' }}>
-                Veterans who made the move.
-              </h2>
-            </motion.div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }} className="vets-proof-grid">
-              <style>{`@media (max-width: 640px) { .vets-proof-grid { grid-template-columns: 1fr !important; } }`}</style>
-              {[
-                { photo: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop', quote: 'My MOS meant nothing to civilian recruiters. Reslink let me show them what I actually did and what I bring to a team. Got an offer from Amazon within two weeks.', name: 'James R.', service: 'US Army · 8 years' },
-                { photo: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop', quote: 'I struggled to translate my leadership experience into resume language. PitchAI did it for me. My Reslink finally showed employers the person behind the rank.', name: 'Derek M.', service: 'US Marines · 6 years' },
-                { photo: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop', quote: 'I sent my Reslink to three companies. All three called me back. It was the first time in the job search I felt like myself, not just a list of acronyms.', name: 'Taylor W.', service: 'US Air Force · 5 years' },
-              ].map((t, i) => (
-                <motion.div key={t.name} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.08 }}>
-                  <div style={{ background: '#F7F8FA', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 4px 20px rgba(4,22,53,0.05)', height: '100%', display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ height: '180px', overflow: 'hidden' }}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={t.photo} alt={t.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    </div>
-                    <div style={{ padding: '20px 22px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                      <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.65, fontFamily: 'var(--font-body)', flex: 1, marginBottom: '14px' }}>&ldquo;{t.quote}&rdquo;</p>
-                      <div>
-                        <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>{t.name}</p>
-                        <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{t.service}</p>
-                      </div>
-                    </div>
                   </div>
                 </motion.div>
               ))}

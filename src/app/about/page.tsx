@@ -39,7 +39,7 @@ const TEAM = [
     name: 'Taylor Bagwell',
     initials: 'TB',
     color: '#0891B2',
-    title: 'Technical Adviser',
+    title: 'CTO',
     bio: 'Taylor brings deep engineering expertise that helps Reslink build fast, reliable, and scalable infrastructure. His guidance shapes the technical decisions that let the team move quickly without cutting corners.',
     linkedin: null,
     photo: '/team/taylor.png',
@@ -178,7 +178,7 @@ export default function AboutPage() {
                 <img
                   src="/team/about-team.webp"
                   alt="Reslink team"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', borderRadius: '20px' }}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', borderRadius: '20px', border: '2px solid rgba(12,99,227,0.35)', boxSizing: 'border-box' }}
                 />
               </motion.div>
             </div>
@@ -290,31 +290,25 @@ export default function AboutPage() {
               </h2>
             </motion.div>
 
-            {/* Co-founders. 3 col */}
+            {/* Top row: 3 founders */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '16px' }} className="team-founders-grid">
               <style>{`
                 .team-founders-grid { }
-                .team-advisers-grid { }
+                .team-bottom-grid { }
                 @media (max-width: 768px) {
-                  .team-founders-grid { grid-template-columns: 1fr !important; }
-                  .team-advisers-grid { grid-template-columns: 1fr !important; }
-                }
-                @media (min-width: 500px) and (max-width: 768px) {
                   .team-founders-grid { grid-template-columns: 1fr 1fr !important; }
+                  .team-bottom-grid { grid-template-columns: 1fr 1fr !important; }
+                }
+                @media (max-width: 480px) {
+                  .team-founders-grid { grid-template-columns: 1fr !important; }
+                  .team-bottom-grid { grid-template-columns: 1fr !important; }
                 }
               `}</style>
-              {TEAM.slice(0, 3).map((m, i) => <TeamCard key={m.name} member={m} />)}
+              {TEAM.slice(0, 3).map((m) => <TeamCard key={m.name} member={m} />)}
             </div>
 
-            {/* Advisers label */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', margin: '40px 0 16px' }}>
-              <div style={{ height: '1px', flex: 1, background: '#ECEEF1' }} />
-              <span style={{ fontSize: '11px', fontWeight: 700, color: '#9A9FA8', letterSpacing: '0.1em', textTransform: 'uppercase', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>Advisers</span>
-              <div style={{ height: '1px', flex: 1, background: '#ECEEF1' }} />
-            </div>
-
-            {/* Advisers. 2 col centered */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', maxWidth: '760px', margin: '0 auto' }} className="team-advisers-grid">
+            {/* Bottom row: CTO + adviser — centered 2-col */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', maxWidth: '760px', margin: '0 auto' }} className="team-bottom-grid">
               {TEAM.slice(3).map((m) => <TeamCard key={m.name} member={m} />)}
             </div>
           </div>

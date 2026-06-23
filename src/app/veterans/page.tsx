@@ -50,7 +50,7 @@ export default function VeteransPage() {
 
   return (
     <>
-      <Navbar />
+      <Navbar dark />
       <main style={{ paddingTop: '68px' }}>
 
         {/* Hero — split layout */}

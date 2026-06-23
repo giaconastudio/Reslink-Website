@@ -162,7 +162,7 @@ export default function GetStartedPage() {
           .gs-card { display: grid; grid-template-columns: 420px 1fr; width: 100%; max-width: 940px; min-height: 580px; background: #fff; border-radius: 20px; box-shadow: 0 8px 48px rgba(4,22,53,0.13); overflow: hidden; }
           .gs-right-col { display: block; }
           @media (max-width: 800px) { .gs-card { grid-template-columns: 1fr !important; } .gs-right-col { display: none !important; } }
-          .gs-type-btn:hover { background: #F4F6FF !important; border-color: #C5D6FA !important; }
+          .gs-type-btn:hover { background: #F4F6FF !important; border-color: #BDC8D8 !important; }
           input:focus { border-color: #0C63E3 !important; outline: none; }
         `}</style>
 
@@ -178,13 +178,13 @@ export default function GetStartedPage() {
                   <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', lineHeight: 1.5, marginBottom: '20px' }}>What best describes you?</p>
 
                   {/* Audience toggle */}
-                  <div style={{ display: 'flex', gap: '6px', background: '#F0F2F5', borderRadius: '12px', padding: '4px', marginBottom: '20px' }}>
+                  <div style={{ display: 'flex', gap: '6px', background: '#ECEEF1', borderRadius: '14px', padding: '5px', marginBottom: '20px' }}>
                     {(['individual', 'org'] as const).map(a => (
                       <button key={a} onClick={() => {
                         setAudience(a);
                         setSelectedType(a === 'individual' ? 'seeker' : 'company');
                       }}
-                        style={{ flex: 1, padding: '9px', borderRadius: '9px', border: 'none', background: audience === a ? '#fff' : 'transparent', color: audience === a ? '#041635' : '#9A9FA8', fontSize: '13px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: 'pointer', transition: 'all 0.15s', boxShadow: audience === a ? '0 1px 4px rgba(4,22,53,0.10)' : 'none' }}>
+                        style={{ flex: 1, padding: '10px 12px', borderRadius: '10px', border: 'none', background: audience === a ? '#041635' : 'transparent', color: audience === a ? '#fff' : '#9A9FA8', fontSize: '13px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: 'pointer', transition: 'all 0.2s', boxShadow: audience === a ? '0 2px 8px rgba(4,22,53,0.22)' : 'none' }}>
                         {a === 'individual' ? 'For Me' : 'For My Organization'}
                       </button>
                     ))}
@@ -197,17 +197,17 @@ export default function GetStartedPage() {
                       {currentGroup.map(({ id, icon: Icon, label, desc }) => {
                         const active = selectedType === id;
                         return (
-                          <button key={id} onClick={() => setSelectedType(id)} className="gs-type-btn"
-                            style={{ display: 'flex', alignItems: 'center', gap: '14px', padding: '13px 14px', borderRadius: '14px', border: active ? '2px solid #0C63E3' : '2px solid #ECEEF1', background: active ? '#EEF4FF' : '#fff', cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s', width: '100%' }}>
-                            <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: active ? '#0C63E3' : '#F0F2F5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'background 0.15s' }}>
-                              <Icon size={16} color={active ? '#fff' : '#9A9FA8'} strokeWidth={1.8} />
+                          <button key={id} onClick={() => setSelectedType(id)} className={active ? '' : 'gs-type-btn'}
+                            style={{ display: 'flex', alignItems: 'center', gap: '14px', padding: '13px 14px', borderRadius: '14px', border: active ? '2px solid #041635' : '2px solid #ECEEF1', background: active ? '#041635' : '#fff', cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s', width: '100%' }}>
+                            <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: active ? 'rgba(255,255,255,0.15)' : '#F0F2F5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'background 0.15s' }}>
+                              <Icon size={16} color={active ? '#D8F950' : '#9A9FA8'} strokeWidth={1.8} />
                             </div>
                             <div style={{ flex: 1 }}>
-                              <p style={{ fontSize: '14px', fontWeight: 700, color: active ? '#0C63E3' : '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{label}</p>
-                              <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px', lineHeight: 1.3 }}>{desc}</p>
+                              <p style={{ fontSize: '14px', fontWeight: 700, color: active ? '#fff' : '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{label}</p>
+                              <p style={{ fontSize: '12px', color: active ? 'rgba(255,255,255,0.5)' : '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px', lineHeight: 1.3 }}>{desc}</p>
                             </div>
-                            <div style={{ width: '20px', height: '20px', borderRadius: '50%', border: active ? 'none' : '2px solid #DCDFE6', background: active ? '#0C63E3' : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'all 0.15s' }}>
-                              {active && <CheckCircle size={12} color="#fff" strokeWidth={2.5} />}
+                            <div style={{ width: '20px', height: '20px', borderRadius: '50%', border: active ? 'none' : '2px solid #DCDFE6', background: active ? '#D8F950' : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'all 0.15s' }}>
+                              {active && <CheckCircle size={12} color="#041635" strokeWidth={2.5} />}
                             </div>
                           </button>
                         );

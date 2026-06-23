@@ -135,29 +135,33 @@ export default function BlogPage() {
                 {filtered.map((post, i) => (
                   <motion.div key={post.slug} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: i * 0.04 }}>
                     <Link href={`/blog/${post.slug}`} style={{ textDecoration: 'none', display: 'block' }}>
-                      <div className="blog-card" style={{ background: '#fff', borderRadius: '14px', border: '1px solid #ECEEF1', padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '16px', boxShadow: '0 1px 8px rgba(4,22,53,0.04)' }}>
-                        <div style={{ width: '88px', height: '66px', borderRadius: '10px', overflow: 'hidden', flexShrink: 0 }}>
-                          <img className="blog-card-img" src={post.image} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      <div className="blog-card" style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '0', display: 'flex', alignItems: 'stretch', gap: '0', boxShadow: '0 1px 8px rgba(4,22,53,0.04)', overflow: 'hidden' }}>
+                        <div style={{ width: '180px', minHeight: '120px', flexShrink: 0, overflow: 'hidden', position: 'relative' }}>
+                          <img className="blog-card-img" src={post.image} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 }} />
+                          {post.hot && (
+                            <span style={{ position: 'absolute', top: '10px', left: '10px', display: 'inline-flex', alignItems: 'center', gap: '3px', background: '#D8F950', color: '#041635', fontSize: '10px', fontWeight: 800, borderRadius: '100px', padding: '3px 9px', fontFamily: 'var(--font-body)' }}>
+                              <TrendingUp size={8} strokeWidth={2.5} /> Hot
+                            </span>
+                          )}
                         </div>
-                        <div style={{ flex: 1, minWidth: 0 }}>
-                          <div style={{ display: 'flex', gap: '5px', marginBottom: '6px', flexWrap: 'wrap' }}>
-                            {post.hot && (
-                              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', background: '#D8F950', color: '#041635', fontSize: '10px', fontWeight: 800, borderRadius: '100px', padding: '2px 8px', fontFamily: 'var(--font-body)' }}>
-                                <TrendingUp size={8} strokeWidth={2.5} /> Hot
-                              </span>
-                            )}
-                            <span style={{ fontSize: '10px', fontWeight: 700, color: post.tagColor, background: post.tagBg, borderRadius: '100px', padding: '2px 8px', fontFamily: 'var(--font-body)' }}>{post.tag}</span>
+                        <div style={{ flex: 1, padding: '20px 22px', display: 'flex', alignItems: 'center', gap: '20px', minWidth: 0 }}>
+                          <div style={{ flex: 1, minWidth: 0 }}>
+                            <span style={{ fontSize: '11px', fontWeight: 700, color: post.tagColor, background: post.tagBg, borderRadius: '100px', padding: '3px 10px', fontFamily: 'var(--font-body)', display: 'inline-block', marginBottom: '8px' }}>{post.tag}</span>
+                            <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: '17px', fontWeight: 900, color: '#041635', lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: '6px' }}>{post.title}</h3>
+                            <p style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)', lineHeight: 1.55, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>{post.excerpt}</p>
                           </div>
-                          <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: '15px', fontWeight: 900, color: '#041635', lineHeight: 1.15, letterSpacing: '-0.02em', marginBottom: '4px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{post.title}</h3>
-                          <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{post.excerpt}</p>
-                        </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '6px', flexShrink: 0 }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                            <Clock size={10} color="#9A9FA8" />
-                            <span style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{post.read} read</span>
+                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '8px', flexShrink: 0 }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                              <div style={{ width: '24px', height: '24px', borderRadius: '50%', background: '#0C63E3', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '9px', fontWeight: 800, color: '#fff', fontFamily: 'var(--font-phudu)', flexShrink: 0 }}>{post.authorInitials}</div>
+                              <span style={{ fontSize: '12px', fontWeight: 600, color: '#041635', fontFamily: 'var(--font-body)' }}>{post.author}</span>
+                            </div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                              <Clock size={11} color="#9A9FA8" />
+                              <span style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{post.read} read</span>
+                            </div>
+                            <span style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{post.date}</span>
+                            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '7px 14px', background: '#0C63E3', color: '#fff', borderRadius: '8px', fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-body)' }}>Read More →</span>
                           </div>
-                          <span style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{post.date}</span>
-                          <span style={{ fontSize: '12px', fontWeight: 700, color: '#0C63E3', fontFamily: 'var(--font-body)' }}>Read →</span>
                         </div>
                       </div>
                     </Link>

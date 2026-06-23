@@ -19,7 +19,7 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
   if (!post) {
     return (
       <>
-        <Navbar />
+        <Navbar dark />
         <main style={{ paddingTop: '68px', minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <div style={{ textAlign: 'center' }}>
             <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: '48px', fontWeight: 900, color: '#041635' }}>Article not found</h1>
@@ -35,7 +35,7 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
 
   return (
     <>
-      <Navbar />
+      <Navbar dark />
       <main style={{ paddingTop: '68px' }}>
         <style>{`
           .article-body h2 { font-family: var(--font-phudu); font-size: clamp(22px, 2.8vw, 30px); font-weight: 900; color: #041635; letter-spacing: -0.02em; line-height: 1.1; margin: 40px 0 16px; }
@@ -53,8 +53,10 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
           <div style={{ position: 'absolute', top: '-20%', left: '50%', transform: 'translateX(-50%)', width: '800px', height: '600px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.22), transparent 60%)', pointerEvents: 'none' }} />
           <div style={{ maxWidth: '780px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-              <Link href="/blog" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', fontSize: '13px', fontWeight: 600, textDecoration: 'none', marginBottom: '28px' }}>
-                <ArrowLeft size={13} /> Blog
+              <Link href="/blog" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '10px', padding: '9px 16px', color: '#fff', fontFamily: 'var(--font-body)', fontSize: '13px', fontWeight: 700, textDecoration: 'none', marginBottom: '32px', backdropFilter: 'blur(8px)', transition: 'background 0.15s' }}
+                onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.2)')}
+                onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.12)')}>
+                <ArrowLeft size={14} /> Back to Blog
               </Link>
               <div style={{ display: 'flex', gap: '8px', marginBottom: '20px', flexWrap: 'wrap' }}>
                 {post.hot && (

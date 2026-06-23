@@ -154,8 +154,8 @@ export default function AboutPage() {
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>Our story</p>
                 <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 4.8vw, 66px)', fontWeight: 900, color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '32px' }}>
-                  You're more than<br />
-                  <span style={{ color: '#D8F950' }}>a PDF.</span>
+                  You're more<br />
+                  <span style={{ color: '#D8F950' }}>than a PDF.</span>
                 </h1>
                 <p style={{ fontSize: 'clamp(15px, 1.8vw, 18px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '40px' }}>
                   Reslink exists because a PDF has never been able to capture what makes a person worth hiring. We built the platform that finally changes that.

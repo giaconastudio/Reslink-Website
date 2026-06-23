@@ -8,14 +8,16 @@ import {
   Briefcase, Building2, Users, GraduationCap,
   BookOpen, LayoutTemplate, LifeBuoy,
   Info, Rocket, Phone,
-  ArrowRight, Zap,
+  ArrowRight, Zap, Shield,
 } from 'lucide-react';
 
 const solutions = [
-  { label: 'Job Seekers', href: 'https://reslink-website.vercel.app', desc: 'Stand out with a video resume', icon: Briefcase },
-  { label: 'Companies', href: '/companies', desc: 'Find top talent faster', icon: Building2 },
-  { label: 'Recruitment Agencies', href: '/agencies', desc: 'Scale your placements', icon: Users },
-  { label: 'Universities', href: '/universities', desc: 'Empower your students', icon: GraduationCap },
+  { label: 'Job Seekers', href: '/job-seekers', desc: 'Stand out with a video resume', icon: Briefcase, forOrg: false },
+  { label: 'Students', href: '/students', desc: 'Land your first job or internship', icon: GraduationCap, forOrg: false },
+  { label: 'Veterans', href: '/veterans', desc: 'Translate military skills to civilian roles', icon: Shield, forOrg: false },
+  { label: 'Companies', href: '/companies', desc: 'Find top talent faster', icon: Building2, forOrg: true },
+  { label: 'Recruitment Agencies', href: '/agencies', desc: 'Scale your placements', icon: Users, forOrg: true },
+  { label: 'Universities', href: '/universities', desc: 'Empower your students', icon: GraduationCap, forOrg: true },
 ];
 
 const resources = [
@@ -132,11 +134,11 @@ export default function Navbar({ dark = false }: { dark?: boolean }) {
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0' }}>
                       <div style={{ paddingRight: '12px', borderRight: '1px solid #F3F4F6' }}>
                         <p style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#B0B8C8', fontFamily: 'var(--font-body)', marginBottom: '6px', padding: '0 6px' }}>For individuals</p>
-                        {solutions.filter(s => s.label === 'Job Seekers').map(s => <DropItem key={s.href} {...s} onClick={() => setOpen(null)} />)}
+                        {solutions.filter(s => !s.forOrg).map(s => <DropItem key={s.href} {...s} onClick={() => setOpen(null)} />)}
                       </div>
                       <div style={{ paddingLeft: '12px' }}>
                         <p style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#B0B8C8', fontFamily: 'var(--font-body)', marginBottom: '6px', padding: '0 6px' }}>For organizations</p>
-                        {solutions.filter(s => s.label !== 'Job Seekers').map(s => <DropItem key={s.href} {...s} onClick={() => setOpen(null)} />)}
+                        {solutions.filter(s => s.forOrg).map(s => <DropItem key={s.href} {...s} onClick={() => setOpen(null)} />)}
                       </div>
                     </div>
                     <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid #F3F4F6', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>

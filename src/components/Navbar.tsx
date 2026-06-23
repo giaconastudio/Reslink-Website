@@ -12,39 +12,40 @@ import {
 } from 'lucide-react';
 
 const solutions = [
-  { label: 'Job Seekers', href: 'https://reslink-website.vercel.app', desc: 'Stand out with a video resume', icon: Briefcase, color: '#0C63E3', bg: '#EEF4FF' },
-  { label: 'Companies', href: '/companies', desc: 'Find top talent faster', icon: Building2, color: '#7C3AED', bg: '#F3EEFF' },
-  { label: 'Recruitment Agencies', href: '/agencies', desc: 'Scale your placements', icon: Users, color: '#0891B2', bg: '#ECFEFF' },
-  { label: 'Universities', href: '/universities', desc: 'Empower your students', icon: GraduationCap, color: '#059669', bg: '#ECFDF5' },
+  { label: 'Job Seekers', href: 'https://reslink-website.vercel.app', desc: 'Stand out with a video resume', icon: Briefcase },
+  { label: 'Companies', href: '/companies', desc: 'Find top talent faster', icon: Building2 },
+  { label: 'Recruitment Agencies', href: '/agencies', desc: 'Scale your placements', icon: Users },
+  { label: 'Universities', href: '/universities', desc: 'Empower your students', icon: GraduationCap },
 ];
 
 const resources = [
-  { label: 'Blog', href: '/blog', desc: 'Tips, guides, and career advice', icon: BookOpen, color: '#D97706', bg: '#FFFBEB' },
-  { label: 'Free Templates', href: '/templates', desc: 'Ready-to-use video resume scripts', icon: LayoutTemplate, color: '#0C63E3', bg: '#EEF4FF' },
-  { label: 'Help Center', href: '/help', desc: 'Answers to common questions', icon: LifeBuoy, color: '#059669', bg: '#ECFDF5' },
+  { label: 'Blog', href: '/blog', desc: 'Tips, guides, and career advice', icon: BookOpen },
+  { label: 'Free Templates', href: '/templates', desc: 'Ready-to-use video resume scripts', icon: LayoutTemplate },
+  { label: 'Help Center', href: '/help', desc: 'Answers to common questions', icon: LifeBuoy },
 ];
 
 const company = [
-  { label: 'About Us', href: '/about', desc: 'Our mission and story', icon: Info, color: '#5C6070', bg: '#F7F8FA', badge: null },
-  { label: 'Careers', href: '/careers', desc: 'Join the team', icon: Rocket, color: '#7C3AED', bg: '#F3EEFF', badge: "we're hiring" },
-  { label: 'Contact Us', href: '/contact', desc: 'Get in touch with our team', icon: Phone, color: '#0891B2', bg: '#ECFEFF', badge: null },
+  { label: 'About Us', href: '/about', desc: 'Our mission and story', icon: Info, badge: null },
+  { label: 'Careers', href: '/careers', desc: 'Join the team', icon: Rocket, badge: "we're hiring" },
+  { label: 'Contact Us', href: '/contact', desc: 'Get in touch with our team', icon: Phone, badge: null },
 ];
 
 type DropdownKey = 'solutions' | 'resources' | 'company' | null;
 
-function DropItem({ href, icon: Icon, color, bg, label, desc, badge, onClick }: {
-  href: string; icon: React.ElementType; color: string; bg: string;
+function DropItem({ href, icon: Icon, label, desc, badge, onClick }: {
+  href: string; icon: React.ElementType;
   label: string; desc: string; badge?: string | null; onClick?: () => void;
 }) {
+  const [hovered, setHovered] = useState(false);
   const isExternal = href.startsWith('http');
   return (
     <Link href={href} onClick={onClick} {...(isExternal ? {} : {})}
       style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '7px 10px', borderRadius: '8px', textDecoration: 'none', transition: 'background 0.15s' }}
-      onMouseEnter={e => (e.currentTarget.style.background = '#F7F8FA')}
-      onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+      onMouseEnter={e => { e.currentTarget.style.background = '#F7F8FA'; setHovered(true); }}
+      onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; setHovered(false); }}
     >
-      <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-        <Icon size={14} color={color} strokeWidth={1.8} />
+      <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: hovered ? '#EEF4FF' : '#ECEEF1', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'background 0.15s' }}>
+        <Icon size={14} color={hovered ? '#0C63E3' : '#6B7280'} strokeWidth={1.8} />
       </div>
       <div style={{ flex: 1 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
@@ -204,8 +205,8 @@ export default function Navbar() {
                         style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '8px 4px', textDecoration: 'none' }}
                         onClick={() => setMobileOpen(false)}
                       >
-                        <div style={{ width: '28px', height: '28px', borderRadius: '7px', background: item.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                          <Icon size={13} color={item.color} />
+                        <div style={{ width: '28px', height: '28px', borderRadius: '7px', background: '#ECEEF1', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                          <Icon size={13} color="#6B7280" />
                         </div>
                         <div>
                           <span style={{ fontSize: '14px', fontWeight: 500, color: '#041635', fontFamily: 'var(--font-body)', display: 'block' }}>{item.label}</span>

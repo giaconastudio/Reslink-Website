@@ -22,10 +22,14 @@ const links = {
 
 export default function Footer() {
   return (
-    <footer style={{ background: '#060D24', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+    <footer style={{ background: '#060D24', borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '4px solid #041635' }}>
       <style>{`
         .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
         .footer-bottom { border-top: 1px solid rgba(255,255,255,0.07); padding-top: 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+        .footer-link { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 13px; transition: color 0.15s; }
+        .footer-link:hover { color: rgba(255,255,255,0.95); }
+        .footer-bottom-link { color: rgba(255,255,255,0.3); text-decoration: none; font-size: 13px; transition: color 0.15s; }
+        .footer-bottom-link:hover { color: rgba(255,255,255,0.8); }
         @media (max-width: 768px) {
           .footer-grid { grid-template-columns: 1fr 1fr; }
         }
@@ -61,7 +65,7 @@ export default function Footer() {
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {items.map(item => (
                   <li key={item.href}>
-                    <Link href={item.href} {...(item.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})} style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', textDecoration: 'none', transition: 'color 0.15s' }}>
+                    <Link href={item.href} {...(item.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})} className="footer-link">
                       {item.label}
                     </Link>
                   </li>
@@ -78,7 +82,7 @@ export default function Footer() {
           </p>
           <div style={{ display: 'flex', gap: '24px' }}>
             {[['Privacy', '/privacy'], ['Terms', '/terms']].map(([label, href]) => (
-              <Link key={href} href={href} style={{ fontSize: '13px', color: 'rgba(255,255,255,0.3)', textDecoration: 'none' }}>
+              <Link key={href} href={href} className="footer-bottom-link">
                 {label}
               </Link>
             ))}

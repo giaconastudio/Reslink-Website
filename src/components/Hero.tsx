@@ -5,11 +5,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 
 const COMPANIES = [
-  { name: 'Google', initial: 'G', color: '#4285F4', watched: 'Watched 1:12 · just now' },
-  { name: 'Stripe', initial: 'S', color: '#635BFF', watched: 'Watched 0:58 · 1m ago' },
-  { name: 'Amazon', initial: 'A', color: '#FF9900', watched: 'Watched 1:05 · 2m ago' },
-  { name: 'Meta', initial: 'M', color: '#0C63E3', watched: 'Watched 1:12 · 2m ago' },
-  { name: 'Apple', initial: '🍎', color: '#1C1C1E', watched: 'Watched 1:18 · 3m ago' },
+  { name: 'Amazon',    logo: '/logos/company/amazon.svg',    watched: 'Watched 1:12 · just now' },
+  { name: 'Meta',      logo: '/logos/company/meta.svg',      watched: 'Watched 0:58 · 1m ago' },
+  { name: 'HubSpot',   logo: '/logos/company/hubspot.svg',   watched: 'Watched 1:05 · 2m ago' },
+  { name: 'Tesla',     logo: '/logos/company/tesla.svg',     watched: 'Watched 1:12 · 2m ago' },
+  { name: 'Accenture', logo: '/logos/company/accenture.svg', watched: 'Watched 1:18 · 3m ago' },
 ];
 
 export default function Hero() {
@@ -201,8 +201,9 @@ export default function Hero() {
                 transition={{ duration: 0.35 }}
                 style={{ display: 'flex', alignItems: 'center', gap: '9px', minWidth: '190px' }}
               >
-                <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: co.color, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <span style={{ fontSize: '12px', fontWeight: 800, color: '#fff', fontFamily: 'var(--font-phudu)' }}>{co.initial}</span>
+                <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#fff', border: '1px solid #ECEEF1', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, padding: '5px' }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={co.logo} alt={co.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                 </div>
                 <div>
                   <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{co.name} just viewed you</p>

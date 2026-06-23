@@ -3,18 +3,25 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, CheckCircle, Eye, EyeOff, Briefcase, Building2, Users, GraduationCap } from 'lucide-react';
+import { ArrowRight, CheckCircle, Eye, EyeOff, Briefcase, Building2, Users, GraduationCap, Flag } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
-type AccountType = 'seeker' | 'company' | 'agency' | 'university';
+type AccountType = 'seeker' | 'student' | 'veteran' | 'company' | 'agency' | 'university';
 
-const ACCOUNT_TYPES = [
-  { id: 'seeker' as AccountType, icon: Briefcase, label: 'Job Seeker', desc: 'Show your personality and land more interviews' },
-  { id: 'company' as AccountType, icon: Building2, label: 'Company', desc: 'Hire faster with authentic, engaging video applications' },
-  { id: 'agency' as AccountType, icon: Users, label: 'Recruitment Agency', desc: 'Present your candidates in a more human, memorable way' },
-  { id: 'university' as AccountType, icon: GraduationCap, label: 'University', desc: 'Empower your students to launch their careers' },
+const INDIVIDUAL_TYPES = [
+  { id: 'seeker' as AccountType, icon: Briefcase, label: 'Job Seeker', desc: 'Stand out and land more interviews' },
+  { id: 'student' as AccountType, icon: GraduationCap, label: 'Student', desc: 'Land your first job or internship' },
+  { id: 'veteran' as AccountType, icon: Flag, label: 'Veteran', desc: 'Translate your service into opportunity' },
 ];
+
+const ORG_TYPES = [
+  { id: 'company' as AccountType, icon: Building2, label: 'Company', desc: 'Hire faster with video-first hiring' },
+  { id: 'agency' as AccountType, icon: Users, label: 'Recruitment Agency', desc: 'Scale your placements with video' },
+  { id: 'university' as AccountType, icon: GraduationCap, label: 'University', desc: 'Empower your students to launch careers' },
+];
+
+const ALL_TYPES = [...INDIVIDUAL_TYPES, ...ORG_TYPES];
 
 const PANELS: Record<AccountType, {
   image: string; overlay: string; headline: string; sub: string;
@@ -30,6 +37,24 @@ const PANELS: Record<AccountType, {
     quote: '"Reslink got me interviews at companies that ignored my PDF résumé for months."',
     author: 'Ben Harper', role: 'Software Engineer · Amazon',
     logos: ['Amazon', 'Meta', 'Stripe', 'HubSpot', 'Adobe', 'Tesla', 'Revolut', 'EY'],
+  },
+  student: {
+    image: 'https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    overlay: 'linear-gradient(160deg, rgba(4,22,53,0.82) 0%, rgba(12,99,227,0.70) 100%)',
+    headline: 'Be the candidate\nthey remember.',
+    sub: 'Turn your degree and experience into a profile employers actually engage with.',
+    quote: '"I got three internship offers my junior year. Reslink made all the difference."',
+    author: 'Priya Nair', role: 'Finance Intern · Goldman Sachs',
+    logos: ['Columbia', 'Princeton', 'Michigan', 'Cambridge', 'GWU', 'Syracuse'],
+  },
+  veteran: {
+    image: 'https://images.pexels.com/photos/3778680/pexels-photo-3778680.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    overlay: 'linear-gradient(160deg, rgba(4,22,53,0.85) 0%, rgba(4,22,53,0.72) 100%)',
+    headline: 'From service\nto standout.',
+    sub: 'Translate your military experience into civilian opportunities.',
+    quote: '"Reslink helped employers actually understand what my service experience meant."',
+    author: 'Marcus Webb', role: 'Operations Manager · Lockheed Martin',
+    stats: [{ val: '3×', label: 'more callbacks' }, { val: '62%', label: 'faster placement' }, { val: '88%', label: 'veteran satisfaction' }],
   },
   company: {
     image: 'https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1200',
@@ -71,7 +96,7 @@ function RightSide({ type }: { type: AccountType }) {
         <div style={{ position: 'relative', zIndex: 1, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '40px 36px' }}>
           <div>
             <span style={{ display: 'inline-block', background: '#D8F950', color: '#041635', fontSize: '11px', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', borderRadius: '100px', padding: '4px 12px', marginBottom: '18px', fontFamily: 'var(--font-body)' }}>
-              {ACCOUNT_TYPES.find(t => t.id === type)!.label}
+              {ALL_TYPES.find(t => t.id === type)!.label}
             </span>
             <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 3vw, 46px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.03em', lineHeight: 0.95, whiteSpace: 'pre-line', marginBottom: '14px' }}>{p.headline}</h2>
             <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-body)', lineHeight: 1.6, maxWidth: '300px' }}>{p.sub}</p>
@@ -115,9 +140,12 @@ function RightSide({ type }: { type: AccountType }) {
 
 export default function GetStartedPage() {
   const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [audience, setAudience] = useState<'individual' | 'org'>('individual');
   const [selectedType, setSelectedType] = useState<AccountType>('seeker');
   const [showPw, setShowPw] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', username: '', password: '' });
+
+  const currentGroup = audience === 'individual' ? INDIVIDUAL_TYPES : ORG_TYPES;
 
   const inputStyle: React.CSSProperties = {
     width: '100%', padding: '12px 14px', borderRadius: '10px',
@@ -147,29 +175,47 @@ export default function GetStartedPage() {
               <div style={{ padding: '44px 40px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <div>
                   <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: '32px', fontWeight: 900, color: '#041635', letterSpacing: '-0.03em', marginBottom: '8px' }}>Create an account</h1>
-                  <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', lineHeight: 1.5, marginBottom: '28px' }}>What best describes you?</p>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    {ACCOUNT_TYPES.map(({ id, icon: Icon, label, desc }) => {
-                      const active = selectedType === id;
-                      return (
-                        <button key={id} onClick={() => setSelectedType(id)} className="gs-type-btn"
-                          style={{ display: 'flex', alignItems: 'center', gap: '14px', padding: '14px 16px', borderRadius: '14px', border: active ? '2px solid #0C63E3' : '2px solid #ECEEF1', background: active ? '#EEF4FF' : '#fff', cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s', width: '100%' }}>
-                          <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: active ? '#0C63E3' : '#F0F2F5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'background 0.15s' }}>
-                            <Icon size={18} color={active ? '#fff' : '#9A9FA8'} strokeWidth={1.8} />
-                          </div>
-                          <div style={{ flex: 1 }}>
-                            <p style={{ fontSize: '14px', fontWeight: 700, color: active ? '#0C63E3' : '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{label}</p>
-                            <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '3px', lineHeight: 1.3 }}>{desc}</p>
-                          </div>
-                          <div style={{ width: '22px', height: '22px', borderRadius: '50%', border: active ? 'none' : '2px solid #DCDFE6', background: active ? '#0C63E3' : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'all 0.15s' }}>
-                            {active && <CheckCircle size={13} color="#fff" strokeWidth={2.5} />}
-                          </div>
-                        </button>
-                      );
-                    })}
+                  <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', lineHeight: 1.5, marginBottom: '20px' }}>What best describes you?</p>
+
+                  {/* Audience toggle */}
+                  <div style={{ display: 'flex', gap: '6px', background: '#F0F2F5', borderRadius: '12px', padding: '4px', marginBottom: '20px' }}>
+                    {(['individual', 'org'] as const).map(a => (
+                      <button key={a} onClick={() => {
+                        setAudience(a);
+                        setSelectedType(a === 'individual' ? 'seeker' : 'company');
+                      }}
+                        style={{ flex: 1, padding: '9px', borderRadius: '9px', border: 'none', background: audience === a ? '#fff' : 'transparent', color: audience === a ? '#041635' : '#9A9FA8', fontSize: '13px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: 'pointer', transition: 'all 0.15s', boxShadow: audience === a ? '0 1px 4px rgba(4,22,53,0.10)' : 'none' }}>
+                        {a === 'individual' ? 'For Me' : 'For My Organization'}
+                      </button>
+                    ))}
                   </div>
+
+                  {/* Account type cards */}
+                  <AnimatePresence mode="wait">
+                    <motion.div key={audience} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.2 }}
+                      style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                      {currentGroup.map(({ id, icon: Icon, label, desc }) => {
+                        const active = selectedType === id;
+                        return (
+                          <button key={id} onClick={() => setSelectedType(id)} className="gs-type-btn"
+                            style={{ display: 'flex', alignItems: 'center', gap: '14px', padding: '13px 14px', borderRadius: '14px', border: active ? '2px solid #0C63E3' : '2px solid #ECEEF1', background: active ? '#EEF4FF' : '#fff', cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s', width: '100%' }}>
+                            <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: active ? '#0C63E3' : '#F0F2F5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'background 0.15s' }}>
+                              <Icon size={16} color={active ? '#fff' : '#9A9FA8'} strokeWidth={1.8} />
+                            </div>
+                            <div style={{ flex: 1 }}>
+                              <p style={{ fontSize: '14px', fontWeight: 700, color: active ? '#0C63E3' : '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{label}</p>
+                              <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px', lineHeight: 1.3 }}>{desc}</p>
+                            </div>
+                            <div style={{ width: '20px', height: '20px', borderRadius: '50%', border: active ? 'none' : '2px solid #DCDFE6', background: active ? '#0C63E3' : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'all 0.15s' }}>
+                              {active && <CheckCircle size={12} color="#fff" strokeWidth={2.5} />}
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
-                <div style={{ marginTop: '28px' }}>
+                <div style={{ marginTop: '24px' }}>
                   <button onClick={() => setStep(2)}
                     style={{ width: '100%', padding: '14px', background: '#0C63E3', color: '#fff', border: 'none', borderRadius: '12px', fontSize: '15px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', transition: 'background 0.15s, transform 0.1s', marginBottom: '14px' }}
                     onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#0A52C4'; (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)'; }}
@@ -193,7 +239,7 @@ export default function GetStartedPage() {
               {/* Left */}
               <div style={{ padding: '44px 40px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#EEF4FF', borderRadius: '100px', padding: '5px 12px', marginBottom: '16px', width: 'fit-content' }}>
-                  {(() => { const t = ACCOUNT_TYPES.find(t => t.id === selectedType)!; const Icon = t.icon; return <><Icon size={12} color="#0C63E3" /><span style={{ fontSize: '12px', fontWeight: 700, color: '#0C63E3', fontFamily: 'var(--font-body)' }}>{t.label}</span></>; })()}
+                  {(() => { const t = ALL_TYPES.find(t => t.id === selectedType)!; const Icon = t.icon; return <><Icon size={12} color="#0C63E3" /><span style={{ fontSize: '12px', fontWeight: 700, color: '#0C63E3', fontFamily: 'var(--font-body)' }}>{t.label}</span></>; })()}
                 </div>
                 <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: '30px', fontWeight: 900, color: '#041635', letterSpacing: '-0.03em', marginBottom: '6px' }}>Your details</h2>
                 <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '22px' }}>You're almost in.</p>

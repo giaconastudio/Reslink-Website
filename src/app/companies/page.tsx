@@ -8,8 +8,6 @@ import { ArrowRight, Plus, Minus, Star, UserPlus, FilePlus, Zap, Video } from 'l
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import LogoTicker from '@/components/LogoTicker';
-import { useRef } from 'react';
-import { useScroll, useTransform } from 'framer-motion';
 
 /* ─── Hero notifications ─── */
 const NOTIFICATIONS = [
@@ -75,41 +73,6 @@ const STEPS = [
     tagText: '#D8F950',
   },
 ];
-
-/* ─── Stacking step card ─── */
-function StackCard({ step, index, progress }: { step: typeof STEPS[0]; index: number; progress: ReturnType<typeof useTransform> }) {
-  const enterAt = index * 0.24;
-  const settleAt = enterAt + (index === 0 ? 0 : 0.11);
-  const nextEnterAt = (index + 1) * 0.24;
-  const nextSettleAt = nextEnterAt + 0.11;
-  const isLast = index === STEPS.length - 1;
-
-  const y = useTransform(progress as any, [Math.max(0, enterAt - 0.005), settleAt], index === 0 ? [0, 0] : [380, 0]);
-  const scale = useTransform(progress as any, [nextEnterAt, nextSettleAt], isLast ? [1, 1] : [1, 0.955]);
-  const cardY = useTransform(progress as any, [nextEnterAt, nextSettleAt], isLast ? [0, 0] : [0, -14]);
-
-  return (
-    <motion.div style={{ y, scale, translateY: cardY, position: 'absolute', top: 0, left: 0, right: 0, zIndex: index + 1, originY: 'top' }}>
-      <div style={{ background: index === 0 ? '#fff' : 'rgba(255,255,255,0.97)', borderRadius: '20px', padding: 'clamp(20px, 3vw, 32px)', boxShadow: '0 20px 60px rgba(0,0,0,0.3)', display: 'flex', alignItems: 'flex-start', gap: '20px' }}>
-        {/* Icon + number */}
-        <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-          <div style={{ width: '52px', height: '52px', borderRadius: '14px', background: '#041635', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <step.icon size={22} color="#D8F950" strokeWidth={2} />
-          </div>
-          <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '11px', fontWeight: 900, color: 'rgba(4,22,53,0.25)', letterSpacing: '0.1em' }}>{step.num}</span>
-        </div>
-        {/* Content */}
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ marginBottom: '8px' }}>
-            <span style={{ padding: '3px 10px', borderRadius: '100px', background: step.tagColor, fontSize: '11px', fontWeight: 600, color: step.tagText, fontFamily: 'var(--font-body)' }}>{step.tag}</span>
-          </div>
-          <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(18px, 2.5vw, 26px)', fontWeight: 900, color: '#041635', lineHeight: 1.05, letterSpacing: '-0.02em', marginBottom: '8px' }}>{step.title}</h3>
-          <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', margin: 0 }}>{step.desc}</p>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
 
 /* ─── Feature tabs ─── */
 const FEATURE_TABS = [
@@ -196,9 +159,7 @@ const SIDE_QUOTES = [
 export default function CompaniesPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState(0);
-  const howItWorksRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: howItWorksProgress } = useScroll({ target: howItWorksRef, offset: ['start start', 'end end'] });
-  const [notifA, setNotifA] = useState(0);
+const [notifA, setNotifA] = useState(0);
   const [notifB, setNotifB] = useState(2);
   const [notifVisible, setNotifVisible] = useState(true);
 
@@ -307,40 +268,40 @@ export default function CompaniesPage() {
         {/* ─── Logo ticker ─── */}
         <div style={{ background: '#F7F8FA' }}><LogoTicker /></div>
 
-        {/* ─── How it works — scroll-stacking cards ─── */}
-        <div ref={howItWorksRef} style={{ height: '420vh', position: 'relative' }}>
-          <div style={{ position: 'sticky', top: 0, height: '100vh', background: '#041635', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', padding: '24px' }}>
-            {/* Ambient glow */}
-            <div style={{ position: 'absolute', top: '10%', left: '50%', transform: 'translateX(-50%)', width: '700px', height: '500px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.18), transparent 65%)', pointerEvents: 'none' }} />
-            {/* Header */}
-            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} style={{ textAlign: 'center', marginBottom: '36px', position: 'relative', zIndex: 10 }}>
-              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '12px', fontFamily: 'var(--font-body)' }}>How it works</p>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 4vw, 52px)', fontWeight: 900, color: '#fff', lineHeight: 0.93, letterSpacing: '-0.03em' }}>
+        {/* ─── How it works ─── */}
+        <section style={{ background: '#041635', padding: 'clamp(72px, 9vw, 112px) 24px', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: '20%', right: '-5%', width: '600px', height: '600px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.15), transparent 65%)', pointerEvents: 'none' }} />
+          <div style={{ maxWidth: '760px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '64px' }}>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>How it works</p>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#fff', lineHeight: 0.93, letterSpacing: '-0.03em' }}>
                 Up and hiring in four steps.
               </h2>
             </motion.div>
-            {/* Card stack */}
-            <div style={{ position: 'relative', width: '100%', maxWidth: '640px', height: '220px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
               {STEPS.map((s, i) => (
-                <StackCard key={s.num} step={s} index={i} progress={howItWorksProgress as any} />
-              ))}
-            </div>
-            {/* Progress dots */}
-            <div style={{ display: 'flex', gap: '8px', marginTop: '28px', position: 'relative', zIndex: 10 }}>
-              {STEPS.map((_, i) => (
-                <motion.div
-                  key={i}
-                  style={{
-                    width: useTransform(howItWorksProgress, [i * 0.24, i * 0.24 + 0.11, (i + 1) * 0.24], [6, 20, 20]) as any,
-                    height: '6px',
-                    borderRadius: '3px',
-                    background: useTransform(howItWorksProgress, [i * 0.24, i * 0.24 + 0.11], ['rgba(255,255,255,0.2)', '#D8F950']) as any,
-                  }}
-                />
+                <motion.div key={s.num} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} style={{ display: 'flex', gap: '24px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0, width: '52px' }}>
+                    <div style={{ width: '52px', height: '52px', borderRadius: '50%', background: 'rgba(255,255,255,0.08)', border: '2px solid rgba(255,255,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <s.icon size={20} color="#D8F950" strokeWidth={2} />
+                    </div>
+                    {i < STEPS.length - 1 && (
+                      <div style={{ width: '2px', flex: 1, background: 'linear-gradient(to bottom, rgba(216,249,80,0.4), rgba(255,255,255,0.08))', marginTop: '8px', minHeight: '40px' }} />
+                    )}
+                  </div>
+                  <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', padding: '24px 28px', flex: 1, marginBottom: i < STEPS.length - 1 ? '16px' : 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px', flexWrap: 'wrap' }}>
+                      <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '13px', fontWeight: 900, color: 'rgba(255,255,255,0.25)', letterSpacing: '0.06em' }}>STEP {s.num}</span>
+                      <span style={{ padding: '2px 10px', borderRadius: '100px', background: s.tagColor, fontSize: '11px', fontWeight: 600, color: s.tagText, fontFamily: 'var(--font-body)' }}>{s.tag}</span>
+                    </div>
+                    <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(20px, 2.5vw, 26px)', fontWeight: 900, color: '#fff', lineHeight: 1.05, letterSpacing: '-0.02em', marginBottom: '10px' }}>{s.title}</h3>
+                    <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.75, fontFamily: 'var(--font-body)', margin: 0 }}>{s.desc}</p>
+                  </div>
+                </motion.div>
               ))}
             </div>
           </div>
-        </div>
+        </section>
 
         {/* ─── Features tabbed showcase ─── */}
         <section style={{ background: '#F7F8FA', padding: 'clamp(72px, 9vw, 112px) 24px' }}>

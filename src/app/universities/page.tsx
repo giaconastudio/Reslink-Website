@@ -195,7 +195,7 @@ export default function UniversitiesPage() {
           </div>
         </section>
 
-        <LogoTicker />
+        <LogoTicker variant="university" />
 
         {/* ─── What your career center gets ─── */}
         <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 108px) 24px' }}>

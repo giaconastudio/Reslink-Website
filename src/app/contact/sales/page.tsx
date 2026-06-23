@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { CheckCircle, ArrowRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import LogoTicker from '@/components/LogoTicker';
 
 const PERKS = [
   'Fast and friendly support from our team',
@@ -13,7 +14,6 @@ const PERKS = [
   'Dedicated onboarding for your organization',
 ];
 
-const LOGOS = ['Amazon', 'Meta', 'EY', 'Revolut', 'Accenture', 'HubSpot', 'Adobe', 'Tesla', 'Coca-Cola'];
 
 const FAQS = [
   { q: 'Who is Reslink for?', a: 'Reslink is built for companies, recruitment agencies, and universities that want a more human, memorable way to evaluate candidates. If you\'re hiring or placing talent, Reslink is for you.' },
@@ -155,16 +155,7 @@ export default function SalesPage() {
         </section>
 
         {/* Logo bar */}
-        <section style={{ background: '#fff', borderBottom: '1px solid #ECEEF1', padding: '28px 24px' }}>
-          <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
-            <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '18px' }}>Over 300+ candidates have landed interviews globally through Reslink</p>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px 32px', alignItems: 'center', justifyContent: 'center' }}>
-              {LOGOS.map(logo => (
-                <span key={logo} style={{ fontSize: '14px', fontWeight: 700, color: '#C4C8D0', fontFamily: 'var(--font-phudu)', letterSpacing: '-0.01em' }}>{logo}</span>
-              ))}
-            </div>
-          </div>
-        </section>
+        <LogoTicker />
 
         {/* FAQ */}
         <section style={{ background: '#F7F8FA', padding: 'clamp(64px, 8vw, 100px) 24px' }}>

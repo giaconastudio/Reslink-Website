@@ -95,23 +95,27 @@ function CheckItem({ label, dark }: { label: string; dark?: boolean }) {
   );
 }
 
-function FeatureCell({ value, featured }: { value: Maybe; featured?: boolean }) {
-  const textColor = featured ? 'rgba(255,255,255,0.85)' : '#5C6070';
+function FeatureCell({ value, tier = 'base' }: { value: Maybe; tier?: 'base' | 'mid' | 'top' }) {
+  const cfg = {
+    base: { bg: '#F0F2F5', check: '#9A9FA8', xBg: '#F7F8FA', xColor: '#D1D5DB', text: '#5C6070' },
+    mid:  { bg: '#EEF4FF', check: '#0C63E3', xBg: '#F4F6FB', xColor: '#BDC8E8', text: '#0C63E3' },
+    top:  { bg: '#F0FDF4', check: '#16A34A', xBg: '#F7FAF8', xColor: '#BBD8C6', text: '#16A34A' },
+  }[tier];
   if (value === true) return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: featured ? 'rgba(216,249,80,0.15)' : '#ECEEF1', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Check size={10} color={featured ? '#D8F950' : '#5C6070'} strokeWidth={2.5} />
+      <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: cfg.bg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Check size={11} color={cfg.check} strokeWidth={2.5} />
       </div>
     </div>
   );
   if (value === false) return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: featured ? 'rgba(255,255,255,0.06)' : '#F7F8FA', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <X size={10} color={featured ? 'rgba(255,255,255,0.2)' : '#D1D5DB'} strokeWidth={2.5} />
+      <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: cfg.xBg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <X size={10} color={cfg.xColor} strokeWidth={2} />
       </div>
     </div>
   );
-  return <p style={{ fontSize: '13px', fontWeight: 600, color: textColor, fontFamily: 'var(--font-body)', textAlign: 'center' }}>{value}</p>;
+  return <p style={{ fontSize: '13px', fontWeight: 600, color: cfg.text, fontFamily: 'var(--font-body)', textAlign: 'center' }}>{value}</p>;
 }
 
 function TestiCard({ t }: { t: typeof TESTIMONIALS[0] }) {
@@ -333,9 +337,9 @@ export default function PricingPage() {
               {planTab === 'companies' && (
                 <motion.div key="companies" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.28 }}>
 
-                  <div style={{ padding: '32px 0 28px' }}>
-                    <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: '#041635', letterSpacing: '-0.02em' }}>For Companies</p>
-                    <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Start with a 14-day free trial. No credit card required.</p>
+                  <div style={{ padding: '32px 0 28px', textAlign: 'center' }}>
+                    <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 3.5vw, 40px)', fontWeight: 900, color: '#041635', letterSpacing: '-0.02em' }}>For Companies</p>
+                    <p style={{ fontSize: '15px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '6px' }}>Start with a 14-day free trial. No credit card required.</p>
                   </div>
 
                   <div className="pricing-grid-3">
@@ -423,9 +427,9 @@ export default function PricingPage() {
                       {COMPANY_ROWS.map((row, i) => (
                         <div key={row.label} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', padding: '12px 24px', borderBottom: i < COMPANY_ROWS.length - 1 ? '1px solid #F0F2F5' : 'none', background: i % 2 === 0 ? '#fff' : '#FAFBFC', alignItems: 'center' }}>
                           <span style={{ fontSize: '13px', color: '#3A3F4C', fontFamily: 'var(--font-body)', fontWeight: 500 }}>{row.label}</span>
-                          <FeatureCell value={row.trial} />
-                          <FeatureCell value={row.growth} featured />
-                          <FeatureCell value={row.enterprise} />
+                          <FeatureCell value={row.trial} tier="base" />
+                          <FeatureCell value={row.growth} tier="mid" />
+                          <FeatureCell value={row.enterprise} tier="top" />
                         </div>
                       ))}
                     </div></div>
@@ -444,9 +448,9 @@ export default function PricingPage() {
               {planTab === 'agencies' && (
                 <motion.div key="agencies" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.28 }}>
 
-                  <div style={{ padding: '32px 0 28px' }}>
-                    <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: '#041635', letterSpacing: '-0.02em' }}>For Recruitment Agencies</p>
-                    <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Priced by candidate volume and recruiter seats. Scales with your team.</p>
+                  <div style={{ padding: '32px 0 28px', textAlign: 'center' }}>
+                    <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 3.5vw, 40px)', fontWeight: 900, color: '#041635', letterSpacing: '-0.02em' }}>For Recruitment Agencies</p>
+                    <p style={{ fontSize: '15px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '6px' }}>Priced by candidate volume and recruiter seats. Scales with your team.</p>
                   </div>
 
                   <div className="pricing-grid-3">
@@ -534,19 +538,24 @@ export default function PricingPage() {
                       {AGENCY_ROWS.map((row, i) => (
                         <div key={row.label} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', padding: '12px 24px', borderBottom: i < AGENCY_ROWS.length - 1 ? '1px solid #F0F2F5' : 'none', background: i % 2 === 0 ? '#fff' : '#FAFBFC', alignItems: 'center' }}>
                           <span style={{ fontSize: '13px', color: '#3A3F4C', fontFamily: 'var(--font-body)', fontWeight: 500 }}>{row.label}</span>
-                          <FeatureCell value={row.starter} />
-                          <FeatureCell value={row.growth} featured />
-                          <FeatureCell value={row.scale} />
+                          <FeatureCell value={row.starter} tier="base" />
+                          <FeatureCell value={row.growth} tier="mid" />
+                          <FeatureCell value={row.scale} tier="top" />
                         </div>
                       ))}
                     </div></div>
                   </div>
 
-                  <div style={{ marginTop: '16px', background: '#EEF4FF', borderRadius: '10px', border: '1px solid #C7DEFF', padding: '12px 18px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <Zap size={14} color="#0C63E3" strokeWidth={2} />
-                    <p style={{ fontSize: '13px', color: '#1D4ED8', fontFamily: 'var(--font-body)' }}>
-                      <strong>Not sure which plan fits?</strong> Contact us and we will walk you through the right fit for your team size and placement volume.
-                    </p>
+                  <div style={{ marginTop: '16px', background: '#EEF4FF', borderRadius: '10px', border: '1px solid #C7DEFF', padding: '14px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <Zap size={14} color="#0C63E3" strokeWidth={2} />
+                      <p style={{ fontSize: '13px', color: '#1D4ED8', fontFamily: 'var(--font-body)' }}>
+                        <strong>Not sure which plan fits?</strong> We will walk you through the right fit for your team size and placement volume.
+                      </p>
+                    </div>
+                    <Link href="/contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '9px 18px', background: '#0C63E3', color: '#fff', borderRadius: '8px', fontSize: '13px', fontWeight: 700, fontFamily: 'var(--font-body)', textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                      Schedule a demo →
+                    </Link>
                   </div>
                 </motion.div>
               )}

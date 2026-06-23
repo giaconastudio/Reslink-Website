@@ -88,8 +88,8 @@ export default function VeteransPage() {
               style={{ position: 'relative', overflow: 'hidden' }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="https://images.pexels.com/photos/3778680/pexels-photo-3778680.jpeg?auto=compress&cs=tinysrgb&w=900&h=700&fit=crop"
-                alt="Veteran"
+                src="/military1.jpg"
+                alt="Veterans"
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
               />
               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, #041635 0%, transparent 30%, transparent 70%, #041635 100%)' }} />
@@ -137,7 +137,7 @@ export default function VeteransPage() {
               <div style={{ borderRadius: '20px', overflow: 'hidden', boxShadow: '0 24px 64px rgba(4,22,53,0.14)', aspectRatio: '4/3' }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="https://images.pexels.com/photos/5673488/pexels-photo-5673488.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
+                  src="/military2.jpg"
                   alt="Veteran in professional setting"
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />

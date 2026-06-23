@@ -345,7 +345,7 @@ export default function PricingPage() {
                       { Icon: RefreshCw, text: 'Cancel anytime' },
                       { Icon: Lock, text: 'Secure checkout' },
                       { Icon: Globe, text: 'Works with every ATS globally' },
-                      { Icon: ShieldCheck, text: 'Reslinks stay live if you downgrade' },
+                      { Icon: ShieldCheck, text: 'Free plan always available' },
                     ] as { Icon: React.ElementType; text: string }[]).map(({ Icon, text }) => (
                       <div key={text} style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
                         <Icon size={13} color="#9A9FA8" strokeWidth={1.8} />

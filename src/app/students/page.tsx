@@ -57,7 +57,7 @@ export default function StudentsPage() {
         {/* Hero — split layout */}
         <section style={{ background: '#041635', overflow: 'hidden', position: 'relative' }}>
           <div style={{ position: 'absolute', top: '-10%', left: '30%', width: '700px', height: '600px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.25), transparent 60%)', pointerEvents: 'none' }} />
-          <div style={{ maxWidth: '1120px', margin: '0 auto', padding: '0 24px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0', alignItems: 'stretch', minHeight: '600px' }} className="students-hero-grid">
+          <div style={{ maxWidth: '1120px', margin: '0 auto', padding: '0 24px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(32px, 5vw, 72px)', alignItems: 'stretch', minHeight: '600px' }} className="students-hero-grid">
             <style>{`
               .students-hero-grid { }
               @media (max-width: 860px) { .students-hero-grid { grid-template-columns: 1fr !important; } }

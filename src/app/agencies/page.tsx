@@ -17,19 +17,19 @@ const FEATURES = [
     stat: '4x more client engagement vs. resumes alone',
   },
   {
-    icon: TrendingUp, color: '#059669', bg: '#ECFDF5',
+    icon: TrendingUp, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Close placements faster',
     body: 'Reslink shortlists give hiring managers immediate context. Fewer back-and-forths. Faster decisions. Better close rates. Most agencies see a measurable lift within the first placement cycle.',
     stat: '40% faster time-to-offer on shortlisted roles',
   },
   {
-    icon: Award, color: '#7C3AED', bg: '#F3EEFF',
+    icon: Award, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Differentiate your agency from day one',
     body: "Reslink shortlists look like nothing else in your client's inbox. They're not just another spreadsheet of names. They're a curated, branded experience that makes your agency the one they remember.",
     stat: 'Agencies using Reslink win 28% more retained mandates',
   },
   {
-    icon: BarChart2, color: '#D97706', bg: '#FFFBEB',
+    icon: BarChart2, color: '#0C63E3', bg: '#EEF4FF',
     title: "Know what's actually working",
     body: "Your dashboard shows which candidates clients are watching, for how long, and how many times. Real engagement data, not silence. Follow up at exactly the right moment.",
     stat: 'Real-time view tracking per candidate, per client',
@@ -142,20 +142,18 @@ export default function AgenciesPage() {
         .ag-testi-track:hover, .ag-testi-track-rev:hover { animation-play-state: paused; }
         .ag-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
         .ag-feat-alt { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-        .ag-process-row { display: flex; align-items: flex-start; gap: 0; }
         .ag-stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; }
-        .ag-compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .ag-process-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
         @media (max-width: 960px) {
           .ag-hero-grid { grid-template-columns: 1fr !important; }
           .ag-hero-right { display: none !important; }
           .ag-feat-alt { grid-template-columns: 1fr !important; }
-          .ag-compare-grid { grid-template-columns: 1fr !important; }
         }
-        @media (max-width: 720px) {
-          .ag-process-row { flex-direction: column !important; gap: 32px !important; }
-          .ag-process-connector { display: none !important; }
-        }
+        @media (max-width: 860px) { .ag-process-grid { grid-template-columns: repeat(2,1fr) !important; } }
+        @media (max-width: 480px) { .ag-process-grid { grid-template-columns: 1fr !important; } }
         @media (max-width: 560px) { .ag-stats-row { grid-template-columns: 1fr 1fr !important; } }
+        .ag-compare-row { display: grid; grid-template-columns: 1fr 1fr; }
+        @media (max-width: 640px) { .ag-compare-row { grid-template-columns: 1fr !important; } }
       `}</style>
       <main style={{ paddingTop: '68px' }}>
 
@@ -217,43 +215,43 @@ export default function AgenciesPage() {
 
         <LogoTicker />
 
-        {/* ─── Process: horizontal flow ─── */}
+        {/* ─── Process: step cards ─── */}
         <section style={{ background: '#F7F8FA', padding: 'clamp(72px, 9vw, 108px) 24px' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '64px' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '56px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Your new process</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#041635', lineHeight: 0.93, letterSpacing: '-0.03em' }}>
                 From brief to placement.<br />In less time.
               </h2>
             </motion.div>
-            <div className="ag-process-row" style={{ position: 'relative' }}>
+            <div className="ag-process-grid">
               {[
-                { icon: Briefcase, num: '1', title: 'Receive the brief', desc: 'You take on a search. Business as usual. Reslink fits into your existing sourcing workflow with no disruption.' },
-                { icon: Zap, num: '2', title: 'Candidates record their pitch', desc: 'You share a Reslink invite. Candidates record a 60-90 second video using our guided teleprompter. Most finish in under 20 minutes.' },
-                { icon: Target, num: '3', title: 'Build a Reslink shortlist', desc: "You curate your best candidates into a branded shortlist. One link. Your agency on the cover. Sent in minutes." },
-                { icon: CheckCircle, num: '4', title: 'Client watches. Placement closes.', desc: 'Your client watches, you see exactly who they viewed and for how long. Follow up with data. Close faster.' },
+                { icon: Briefcase, title: 'Receive the brief', desc: 'You take on a search. Business as usual. Reslink layers on top of your existing workflow with no disruption.' },
+                { icon: Zap, title: 'Candidates record their pitch', desc: 'You share a Reslink invite. Candidates record a 60–90 second video using our guided teleprompter. Most finish in under 20 minutes.' },
+                { icon: Target, title: 'Build a Reslink shortlist', desc: 'You curate your best candidates into a branded shortlist. One link. Your agency on the cover. Sent in minutes.' },
+                { icon: CheckCircle, title: 'Client watches. Placement closes.', desc: 'Your client watches, and you see exactly who they viewed and for how long. Follow up with data. Close faster.' },
               ].map((step, i) => (
-                <div key={step.num} style={{ flex: 1, display: 'flex', alignItems: 'flex-start' }}>
-                  <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} style={{ flex: 1 }}>
-                    <div style={{ paddingRight: i < 3 ? '20px' : '0' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '16px' }}>
-                        <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: '#041635', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                          <step.icon size={20} color="#D8F950" strokeWidth={1.8} />
+                <motion.div key={i} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
+                  <div style={{ background: '#fff', borderRadius: '20px', border: '1px solid #E8EAF0', padding: '28px 24px', position: 'relative', overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column', boxSizing: 'border-box' }}>
+                    {/* Decorative large number */}
+                    <div style={{ position: 'absolute', bottom: '-16px', right: '10px', fontFamily: 'var(--font-phudu)', fontSize: '100px', fontWeight: 900, color: '#041635', opacity: 0.04, lineHeight: 1, userSelect: 'none', pointerEvents: 'none' }}>
+                      {String(i + 1).padStart(2, '0')}
+                    </div>
+                    <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', flex: 1 }}>
+                      {/* Icon + step number */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+                        <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: '#041635', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                          <step.icon size={22} color="#D8F950" strokeWidth={1.8} />
                         </div>
-                        <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '32px', fontWeight: 900, color: '#E4E6EC', lineHeight: 1 }}>{step.num}</span>
+                        <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '32px', fontWeight: 900, color: '#0C63E3', lineHeight: 1 }}>
+                          {String(i + 1).padStart(2, '0')}
+                        </span>
                       </div>
-                      <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: '20px', fontWeight: 900, color: '#041635', lineHeight: 1.05, letterSpacing: '-0.02em', marginBottom: '10px' }}>{step.title}</h3>
-                      <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>{step.desc}</p>
+                      <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(17px, 1.6vw, 21px)', fontWeight: 900, color: '#041635', lineHeight: 1.08, letterSpacing: '-0.02em', marginBottom: '10px' }}>{step.title}</h3>
+                      <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', flex: 1 }}>{step.desc}</p>
                     </div>
-                  </motion.div>
-                  {i < 3 && (
-                    <div className="ag-process-connector" style={{ display: 'flex', alignItems: 'flex-start', paddingTop: '22px', flexShrink: 0 }}>
-                      <svg width="32" height="20" viewBox="0 0 32 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M2 10 H28 M22 4 L28 10 L22 16" stroke="#CBD0DA" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </div>
-                  )}
-                </div>
+                  </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -308,52 +306,47 @@ export default function AgenciesPage() {
           </div>
         </section>
 
-        {/* ─── Compare: standard vs. Reslink agency ─── */}
+        {/* ─── Compare: unified table ─── */}
         <section style={{ background: '#F7F8FA', padding: 'clamp(64px, 8vw, 96px) 24px' }}>
-          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+          <div style={{ maxWidth: '860px', margin: '0 auto' }}>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '52px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>The difference</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 52px)', fontWeight: 900, color: '#041635', lineHeight: 0.95, letterSpacing: '-0.03em' }}>
                 Agencies that use Reslink<br />operate differently.
               </h2>
             </motion.div>
-            <div className="ag-compare-grid">
-              <motion.div initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.08 }}>
-                <div style={{ borderRadius: '16px', border: '1px solid #E8EAF0', background: '#fff', padding: '28px' }}>
-                  <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '20px' }}>Standard agency</p>
-                  {[
-                    'Send a PDF candidate matrix',
-                    'Wait days for client feedback',
-                    'No idea if they even looked at it',
-                    'Compete on the same terms as everyone else',
-                    'Chase clients to get updates',
-                  ].map(t => (
-                    <div key={t} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: '12px' }}>
-                      <span style={{ fontSize: '14px', color: '#EF4444', fontWeight: 700, flexShrink: 0, marginTop: '1px' }}>&#x2717;</span>
-                      <span style={{ fontSize: '14px', color: '#6B7280', fontFamily: 'var(--font-body)', lineHeight: 1.5 }}>{t}</span>
-                    </div>
-                  ))}
+            <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.08 }}>
+              <div style={{ borderRadius: '20px', border: '1px solid #E4E6EC', overflow: 'hidden', boxShadow: '0 4px 24px rgba(4,22,53,0.07)' }}>
+                {/* Header */}
+                <div className="ag-compare-row">
+                  <div style={{ padding: '18px 28px', background: '#F7F8FA', borderBottom: '1px solid #ECEEF1', borderRight: '1px solid #ECEEF1' }}>
+                    <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Standard agency</p>
+                  </div>
+                  <div style={{ padding: '18px 28px', background: '#041635', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                    <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#D8F950', fontFamily: 'var(--font-body)' }}>Reslink agency</p>
+                  </div>
                 </div>
-              </motion.div>
-              <motion.div initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.14 }}>
-                <div style={{ borderRadius: '16px', border: '2px solid #D8F950', background: '#041635', padding: '28px', position: 'relative', overflow: 'hidden' }}>
-                  <div style={{ position: 'absolute', top: '-40%', right: '-20%', width: '200px', height: '200px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.3), transparent 70%)', pointerEvents: 'none' }} />
-                  <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#D8F950', fontFamily: 'var(--font-body)', marginBottom: '20px' }}>Reslink agency</p>
-                  {[
-                    'Send a branded video shortlist in one link',
-                    'Get view data back in hours, not days',
-                    'Know exactly who watched and for how long',
-                    'Win the brief before the meeting even happens',
-                    'Follow up with data, not guesses',
-                  ].map(t => (
-                    <div key={t} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: '12px', position: 'relative', zIndex: 1 }}>
-                      <span style={{ fontSize: '14px', color: '#D8F950', fontWeight: 700, flexShrink: 0, marginTop: '1px' }}>&#x2713;</span>
-                      <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.75)', fontFamily: 'var(--font-body)', lineHeight: 1.5 }}>{t}</span>
+                {/* Rows */}
+                {[
+                  ['Send a PDF candidate matrix to the inbox', 'Send a branded video shortlist — one link'],
+                  ['Wait days to hear if anyone even opened it', 'Get view data back in hours, not days'],
+                  ['No idea which candidates they actually looked at', 'See exactly who watched, and for how long'],
+                  ['Compete on the same terms as every other agency', 'Win the brief before the meeting even happens'],
+                  ['Chase clients for feedback and updates', 'Follow up with real data, not guesses'],
+                ].map(([before, after], i) => (
+                  <div key={i} className="ag-compare-row" style={{ borderBottom: i < 4 ? '1px solid #ECEEF1' : 'none' }}>
+                    <div style={{ padding: '16px 28px', borderRight: '1px solid #ECEEF1', display: 'flex', alignItems: 'flex-start', gap: '10px', background: i % 2 === 0 ? '#fff' : '#FAFBFC' }}>
+                      <span style={{ fontSize: '13px', color: '#EF4444', fontWeight: 700, flexShrink: 0, marginTop: '2px' }}>✕</span>
+                      <span style={{ fontSize: '14px', color: '#6B7280', fontFamily: 'var(--font-body)', lineHeight: 1.55 }}>{before}</span>
                     </div>
-                  ))}
-                </div>
-              </motion.div>
-            </div>
+                    <div style={{ padding: '16px 28px', display: 'flex', alignItems: 'flex-start', gap: '10px', background: i % 2 === 0 ? '#fff' : '#F8FAFF' }}>
+                      <span style={{ fontSize: '13px', color: '#0C63E3', fontWeight: 700, flexShrink: 0, marginTop: '2px' }}>✓</span>
+                      <span style={{ fontSize: '14px', color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.55, fontWeight: 500 }}>{after}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
           </div>
         </section>
 

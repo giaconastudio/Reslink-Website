@@ -73,6 +73,10 @@ export default function Navbar({ dark = false }: { dark?: boolean }) {
     if (closeTimer.current) clearTimeout(closeTimer.current);
     setOpen(key);
   };
+  const toggleDropdown = (key: DropdownKey) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setOpen(prev => prev === key ? null : key);
+  };
   const scheduleClose = () => {
     closeTimer.current = setTimeout(() => setOpen(null), 180);
   };
@@ -117,29 +121,44 @@ export default function Navbar({ dark = false }: { dark?: boolean }) {
           {/* Desktop nav */}
           <nav style={{ display: 'flex', alignItems: 'center', gap: '2px' }} className="desktop-nav">
 
-            {/* Solutions */}
+            {/* Solutions — mega-menu */}
             <div style={{ position: 'relative' }} onMouseEnter={() => openDropdown('solutions')} onMouseLeave={scheduleClose}>
-              <button style={{ fontSize: '14px', fontWeight: 500, color: open === 'solutions' ? linkActiveColor : linkColor, background: open === 'solutions' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
+              <button onClick={() => toggleDropdown('solutions')} style={{ fontSize: '14px', fontWeight: 500, color: open === 'solutions' ? linkActiveColor : linkColor, background: open === 'solutions' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
                 Solutions <ChevronDown size={13} style={{ transform: open === 'solutions' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
               </button>
               {open === 'solutions' && (
                 <div onMouseEnter={() => openDropdown('solutions')} onMouseLeave={scheduleClose} style={{ position: 'absolute', top: '100%', left: '-8px', paddingTop: '6px', zIndex: 100 }}>
-                <div style={{ background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 8px 30px rgba(4,22,53,0.1), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', minWidth: '240px' }}>
-                  {solutions.map(s => <DropItem key={s.href} {...s} />)}
-                </div>
+                  <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #EEEEF0', boxShadow: '0 12px 40px rgba(4,22,53,0.12), 0 2px 8px rgba(4,22,53,0.06)', padding: '16px', minWidth: '480px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0' }}>
+                      <div style={{ paddingRight: '12px', borderRight: '1px solid #F3F4F6' }}>
+                        <p style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#B0B8C8', fontFamily: 'var(--font-body)', marginBottom: '6px', padding: '0 6px' }}>For individuals</p>
+                        {solutions.filter(s => s.label === 'Job Seekers').map(s => <DropItem key={s.href} {...s} onClick={() => setOpen(null)} />)}
+                      </div>
+                      <div style={{ paddingLeft: '12px' }}>
+                        <p style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#B0B8C8', fontFamily: 'var(--font-body)', marginBottom: '6px', padding: '0 6px' }}>For organizations</p>
+                        {solutions.filter(s => s.label !== 'Job Seekers').map(s => <DropItem key={s.href} {...s} onClick={() => setOpen(null)} />)}
+                      </div>
+                    </div>
+                    <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid #F3F4F6', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Used by 10,000+ professionals worldwide</p>
+                      <Link href="/get-started" onClick={() => setOpen(null)} style={{ fontSize: '12px', fontWeight: 700, color: '#0C63E3', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>
+                        Try free <ArrowRight size={12} />
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
 
             {/* Resources */}
             <div style={{ position: 'relative' }} onMouseEnter={() => openDropdown('resources')} onMouseLeave={scheduleClose}>
-              <button style={{ fontSize: '14px', fontWeight: 500, color: open === 'resources' ? linkActiveColor : linkColor, background: open === 'resources' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
+              <button onClick={() => toggleDropdown('resources')} style={{ fontSize: '14px', fontWeight: 500, color: open === 'resources' ? linkActiveColor : linkColor, background: open === 'resources' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
                 Resources <ChevronDown size={13} style={{ transform: open === 'resources' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
               </button>
               {open === 'resources' && (
                 <div onMouseEnter={() => openDropdown('resources')} onMouseLeave={scheduleClose} style={{ position: 'absolute', top: '100%', left: '-8px', paddingTop: '6px', zIndex: 100 }}>
-                <div style={{ background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 8px 30px rgba(4,22,53,0.1), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', minWidth: '220px' }}>
-                  {resources.map(r => <DropItem key={r.href} {...r} />)}
+                <div style={{ background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 12px 40px rgba(4,22,53,0.12), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', minWidth: '230px' }}>
+                  {resources.map(r => <DropItem key={r.href} {...r} onClick={() => setOpen(null)} />)}
                 </div>
                 </div>
               )}
@@ -147,13 +166,13 @@ export default function Navbar({ dark = false }: { dark?: boolean }) {
 
             {/* Company */}
             <div style={{ position: 'relative' }} onMouseEnter={() => openDropdown('company')} onMouseLeave={scheduleClose}>
-              <button style={{ fontSize: '14px', fontWeight: 500, color: open === 'company' ? linkActiveColor : linkColor, background: open === 'company' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
+              <button onClick={() => toggleDropdown('company')} style={{ fontSize: '14px', fontWeight: 500, color: open === 'company' ? linkActiveColor : linkColor, background: open === 'company' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
                 Company <ChevronDown size={13} style={{ transform: open === 'company' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
               </button>
               {open === 'company' && (
                 <div onMouseEnter={() => openDropdown('company')} onMouseLeave={scheduleClose} style={{ position: 'absolute', top: '100%', left: '-8px', paddingTop: '6px', zIndex: 100 }}>
-                <div style={{ background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 8px 30px rgba(4,22,53,0.1), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', minWidth: '220px' }}>
-                  {company.map(c => <DropItem key={c.href} {...c} />)}
+                <div style={{ background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 12px 40px rgba(4,22,53,0.12), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', minWidth: '230px' }}>
+                  {company.map(c => <DropItem key={c.href} {...c} onClick={() => setOpen(null)} />)}
                 </div>
                 </div>
               )}

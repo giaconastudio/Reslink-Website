@@ -236,23 +236,23 @@ export default function AgenciesPage() {
                 { icon: CheckCircle, title: 'Client watches. Placement closes.', desc: 'Your client watches, and you see exactly who they viewed and for how long. Follow up with data. Close faster.' },
               ].map((step, i) => (
                 <motion.div key={i} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
-                  <div style={{ background: '#fff', borderRadius: '20px', border: '1px solid #E8EAF0', padding: '28px 24px', position: 'relative', overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column', boxSizing: 'border-box' }}>
+                  <div style={{ background: '#041635', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.07)', padding: '28px 24px', position: 'relative', overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column', boxSizing: 'border-box' }}>
                     {/* Decorative large number */}
-                    <div style={{ position: 'absolute', bottom: '-16px', right: '10px', fontFamily: 'var(--font-phudu)', fontSize: '100px', fontWeight: 900, color: '#041635', opacity: 0.04, lineHeight: 1, userSelect: 'none', pointerEvents: 'none' }}>
+                    <div style={{ position: 'absolute', bottom: '-16px', right: '10px', fontFamily: 'var(--font-phudu)', fontSize: '100px', fontWeight: 900, color: '#fff', opacity: 0.05, lineHeight: 1, userSelect: 'none', pointerEvents: 'none' }}>
                       {String(i + 1).padStart(2, '0')}
                     </div>
                     <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', flex: 1 }}>
                       {/* Icon + step number */}
                       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-                        <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: '#041635', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                           <step.icon size={22} color="#D8F950" strokeWidth={1.8} />
                         </div>
-                        <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '32px', fontWeight: 900, color: '#0C63E3', lineHeight: 1 }}>
+                        <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '32px', fontWeight: 900, color: '#D8F950', lineHeight: 1 }}>
                           {String(i + 1).padStart(2, '0')}
                         </span>
                       </div>
-                      <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(17px, 1.6vw, 21px)', fontWeight: 900, color: '#041635', lineHeight: 1.08, letterSpacing: '-0.02em', marginBottom: '10px' }}>{step.title}</h3>
-                      <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', flex: 1 }}>{step.desc}</p>
+                      <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(17px, 1.6vw, 21px)', fontWeight: 900, color: '#fff', lineHeight: 1.08, letterSpacing: '-0.02em', marginBottom: '10px' }}>{step.title}</h3>
+                      <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', flex: 1 }}>{step.desc}</p>
                     </div>
                   </div>
                 </motion.div>

@@ -14,27 +14,27 @@ const RECRUITER_CATS = [
     articles: ['Creating a recruiter account', 'Setting up your agency profile', 'Inviting team members', 'Navigating the recruiter dashboard'],
   },
   {
-    icon: Users, color: '#7C3AED', bg: '#F3EEFF',
+    icon: Users, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Managing Candidates',
     articles: ['How to add and manage candidates', 'Sharing candidate Reslinks with clients', 'Shortlisting and rating candidates', 'Bulk candidate uploads'],
   },
   {
-    icon: Play, color: '#059669', bg: '#ECFDF5',
+    icon: Play, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Presenting to Clients',
     articles: ['Creating client-facing candidate packs', 'Sending Reslink profiles via email', 'How clients view shared profiles', 'Getting client feedback'],
   },
   {
-    icon: DollarSign, color: '#0891B2', bg: '#ECFEFF',
+    icon: DollarSign, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Plans & Billing',
     articles: ['Agency pricing overview', 'Per-seat vs per-placement billing', 'Upgrading your agency plan', 'Requesting an invoice'],
   },
   {
-    icon: BarChart2, color: '#D97706', bg: '#FFFBEB',
+    icon: BarChart2, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Analytics & Reporting',
     articles: ['Candidate engagement reports', 'Placement performance metrics', 'Client activity dashboards', 'Exporting recruiter data'],
   },
   {
-    icon: Settings, color: '#E11D48', bg: '#FFF1F2',
+    icon: Settings, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Integrations & Tools',
     articles: ['Connecting your CRM', 'ATS integration guide', 'LinkedIn sourcing workflow', 'API access for agencies'],
   },
@@ -47,27 +47,27 @@ const SEEKER_CATS = [
     articles: ['How to create a Reslink account', 'Setting up your Reslink profile', 'Recording your first video resume', 'How to share your Reslink link'],
   },
   {
-    icon: Play, color: '#7C3AED', bg: '#F3EEFF',
+    icon: Play, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Using Reslink',
     articles: ['How to create a video using the in-app recorder', 'Tips for using the Teleprompter feature', 'How to submit an application', 'Editing and re-recording your video'],
   },
   {
-    icon: DollarSign, color: '#059669', bg: '#ECFDF5',
+    icon: DollarSign, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Pricing & Subscriptions',
     articles: ['Free vs Premium', 'Managing your subscription or plan', 'How to upgrade or downgrade', 'Cancellation policy'],
   },
   {
-    icon: BarChart2, color: '#0891B2', bg: '#ECFEFF',
+    icon: BarChart2, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Analytics & Views',
     articles: ['Understanding your view analytics', 'How to see who viewed your profile', 'What counts as a view', 'Exporting analytics data'],
   },
   {
-    icon: Settings, color: '#D97706', bg: '#FFFBEB',
+    icon: Settings, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Account & Settings',
     articles: ['Changing your username or email', 'Privacy settings and profile visibility', 'Deleting your account', 'Resetting your password'],
   },
   {
-    icon: Users, color: '#E11D48', bg: '#FFF1F2',
+    icon: Users, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Sharing & Privacy',
     articles: ['Controlling who can see your Reslink', 'How to disable your link', 'Sharing on LinkedIn and job boards', 'ATS compatibility FAQ'],
   },
@@ -80,27 +80,27 @@ const COMPANY_CATS = [
     articles: ['Creating a company account', 'Setting up your hiring workspace', 'Inviting team members', 'How to post a role with Reslink'],
   },
   {
-    icon: Play, color: '#7C3AED', bg: '#F3EEFF',
+    icon: Play, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Reviewing Candidates',
     articles: ['How to view candidate Reslinks', 'Sharing candidate profiles internally', 'Rating and shortlisting candidates', 'How to download a video resume'],
   },
   {
-    icon: DollarSign, color: '#059669', bg: '#ECFDF5',
+    icon: DollarSign, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Plans & Billing',
     articles: ['Company pricing overview', 'How per-seat billing works', 'Upgrading your plan', 'Requesting an invoice'],
   },
   {
-    icon: BarChart2, color: '#0891B2', bg: '#ECFEFF',
+    icon: BarChart2, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Analytics & Reporting',
     articles: ['Candidate engagement analytics', 'Team activity reports', 'Exporting hiring data', 'Understanding funnel metrics'],
   },
   {
-    icon: Settings, color: '#D97706', bg: '#FFFBEB',
+    icon: Settings, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Integrations',
     articles: ['ATS integrations overview', 'LinkedIn integration', 'Connecting your HRIS', 'Webhooks and API access'],
   },
   {
-    icon: GraduationCap, color: '#E11D48', bg: '#FFF1F2',
+    icon: GraduationCap, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Universities & Agencies',
     articles: ['Setting up a university account', 'Bulk student onboarding', 'Agency multi-client management', 'White-label options'],
   },
@@ -150,15 +150,14 @@ export default function HelpPage() {
           <div style={{ position: 'absolute', top: '-20%', left: '50%', transform: 'translateX(-50%)', width: '800px', height: '600px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.22), transparent 60%)', pointerEvents: 'none' }} />
           <div style={{ maxWidth: '620px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-              <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 7vw, 84px)', fontWeight: 900, color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '12px' }}>
-                Help Center
+              <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 7vw, 84px)', fontWeight: 900, color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '28px' }}>
+                Need Help?
               </h1>
-              <div style={{ width: '100px', height: '5px', background: '#D8F950', borderRadius: '3px', margin: '0 auto 28px' }} />
               <p style={{ fontSize: 'clamp(15px, 1.8vw, 17px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginBottom: '32px' }}>
                 Explore our FAQs, tutorials, and other helpful resources to find the answers you're looking for.
               </p>
               <div style={{ position: 'relative' }}>
-                <Search size={18} color="#9A9FA8" style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} />
+                <Search size={18} color="rgba(255,255,255,0.45)" style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} />
                 <input type="text" placeholder="Search for answers..." value={query} onChange={e => setQuery(e.target.value)}
                   style={{ width: '100%', padding: '16px 16px 16px 48px', borderRadius: '14px', border: '1.5px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.08)', color: '#fff', fontSize: '15px', fontFamily: 'var(--font-body)', outline: 'none', boxSizing: 'border-box', backdropFilter: 'blur(8px)' }} />
               </div>
@@ -175,7 +174,7 @@ export default function HelpPage() {
               <div style={{ background: '#ECEEF1', borderRadius: '12px', padding: '4px', display: 'flex', gap: '2px' }}>
                 {[{ id: 'seeker', label: 'For Job Seekers' }, { id: 'company', label: 'For Companies' }, { id: 'recruiter', label: 'For Recruiters' }, { id: 'university', label: 'For Universities' }].map(t => (
                   <button key={t.id} onClick={() => setTab(t.id as 'seeker' | 'company')}
-                    style={{ padding: '10px 22px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', transition: 'all 0.2s', background: tab === t.id ? '#0C63E3' : 'transparent', color: tab === t.id ? '#fff' : '#9A9FA8' }}>
+                    style={{ padding: '10px 22px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', transition: 'all 0.2s', background: tab === t.id ? '#041635' : 'transparent', color: tab === t.id ? '#fff' : '#9A9FA8' }}>
                     {t.label}
                   </button>
                 ))}

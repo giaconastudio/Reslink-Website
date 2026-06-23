@@ -1,68 +1,104 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import Image from 'next/image';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Video, BarChart2, Users, Zap, Award, GraduationCap, ArrowRight, Star, Plus, Minus, CheckCircle } from 'lucide-react';
+import { ArrowRight, Plus, Minus, Star, Building2, Users, Zap, GraduationCap } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import LogoTicker from '@/components/LogoTicker';
 
-const FEATURES = [
-  { icon: GraduationCap, color: '#0C63E3', bg: '#EEF4FF', title: 'Give students a real career edge', body: 'A Reslink video profile sets your graduates apart when they\'re competing for the same roles with the same GPA and the same resume format.' },
-  { icon: Video, color: '#7C3AED', bg: '#F3EEFF', title: 'Modern career services at scale', body: 'Roll out Reslink to your entire student body with one institutional plan. Career services teams love how fast students get up and running.' },
-  { icon: Award, color: '#059669', bg: '#ECFDF5', title: 'Improve graduate outcomes', body: 'Track which students have created profiles and monitor engagement from employer partners. Tie Reslink adoption to placement metrics.' },
-  { icon: BarChart2, color: '#D97706', bg: '#FFFBEB', title: 'Engagement dashboards for advisors', body: 'Career advisors get visibility into which students are active, how their profiles are performing, and where to focus coaching.' },
-  { icon: Users, color: '#E11D48', bg: '#FFF1F2', title: 'Connect employers to your talent', body: 'Share a curated gallery of student Reslinks directly with employer partners at career fairs, recruiting events, or via email.' },
-  { icon: Zap, color: '#0891B2', bg: '#ECFEFF', title: 'Fast onboarding for any cohort', body: 'Launch with your entire graduating class in a single session. Students record their first Reslink in under 10 minutes. no tech experience needed.' },
+/* ─── Hero notifications ─── */
+const NOTIFICATIONS = [
+  { name: 'Ava Johnson', role: 'Marketing, matched to Brandify', grade: 'A', score: 92, color: '#22C55E', initials: 'AJ', avatarBg: '#4F6EF7' },
+  { name: 'Leo Kim', role: 'Engineering, matched to DevCore', grade: 'A+', score: 97, color: '#22C55E', initials: 'LK', avatarBg: '#10B981' },
+  { name: 'Sofia Reyes', role: 'Finance, matched to Vantage Capital', grade: 'B+', score: 88, color: '#3B82F6', initials: 'SR', avatarBg: '#F59E0B' },
+  { name: 'Ethan Moore', role: 'Design, matched to Studio Nine', grade: 'A', score: 91, color: '#22C55E', initials: 'EM', avatarBg: '#EF4444' },
 ];
 
-const STEPS = [
-  { num: '01', title: 'Set up your institution', desc: 'Create your university account and customize it with your branding. Invite your career services team in minutes.' },
-  { num: '02', title: 'Onboard your students', desc: 'Send a single invitation link to your student cohort. Students sign up, upload their resume, and record their pitch in under 10 minutes.' },
-  { num: '03', title: 'Connect with employers', desc: 'Share curated student Reslink galleries with your employer partners. Recruiters watch video profiles before your career fair even starts.' },
-  { num: '04', title: 'Track outcomes and improve', desc: 'See placement rates, profile engagement, and student activity in your advisor dashboard. Measure what\'s working and optimize.' },
-];
-
-const TESTIMONIALS = [
-  { quote: 'Our placement rate improved significantly after rolling out Reslink. Employers started requesting meetings with students before our career fair even opened.', name: 'Dr. Patricia Lee', role: 'Career Center Director', company: 'NYU', color: '#57068C' },
-  { quote: 'Students who used Reslink landed interviews at twice the rate of those who didn\'t. The data speaks for itself.', name: 'James Whitmore', role: 'Associate Director, Career Services', company: 'Georgetown', color: '#003366' },
-  { quote: 'I was nervous about recording a video at first. After my second take I had something I was proud of. I got three callbacks that week.', name: 'Aaliyah Johnson', role: 'Class of \'25', company: 'Michigan', color: '#00274C' },
-  { quote: 'Reslink helped our grads stand out against candidates from larger schools with bigger name recognition. It levels the playing field.', name: 'Prof. Maria Santos', role: 'Career Advisor', company: 'Northeastern', color: '#CC0000' },
-  { quote: 'Our employer partners love the shortlists we send now. Having video profiles changes the whole conversation before the first interview.', name: 'Kevin Park', role: 'Director of Employer Relations', company: 'USC', color: '#990000' },
-  { quote: 'The platform is so intuitive that students figure it out without any training. That was a huge win for our lean career services team.', name: 'Rachel Torres', role: 'Career Coach', company: 'Penn State', color: '#1E407C' },
-  { quote: 'One student told me Reslink was the reason she got her dream job. When students say that, you know you\'ve invested in the right tool.', name: 'Dr. Andre Dupont', role: 'Dean of Students', company: 'UCLA', color: '#003B5C' },
-  { quote: 'The analytics dashboard showed us exactly which students were getting traction and which needed more coaching. Game-changing for our team.', name: 'Sarah Nguyen', role: 'Career Services Manager', company: 'Harvard', color: '#A51C30' },
-];
-
-const FAQS = [
-  { q: 'How does Reslink work for universities?', a: 'Your institution gets a dedicated account. Students sign up, record their video profile, and share their Reslink with employers. Career advisors have a dashboard to track engagement and outcomes across the entire cohort.' },
-  { q: 'Can we onboard an entire graduating class?', a: 'Yes. You send one invitation link and students sign up at their own pace. Most complete their Reslink profile in under 10 minutes. No IT setup required.' },
-  { q: 'How do employers access student profiles?', a: 'You can share curated student galleries with your employer partners via a link. no account required on their end. Employers can also search for graduates on the Reslink platform directly.' },
-  { q: 'Can advisors monitor student progress?', a: 'Yes. The advisor dashboard shows which students have created profiles, how many views they\'ve received, and which employer partners are engaging with your student pool.' },
-  { q: 'Is there a cost to students?', a: 'No. Students always use Reslink for free. Institutional pricing covers the advisor dashboard, bulk onboarding, and employer integration features.' },
-  { q: 'How do we get started?', a: 'Book a demo with our university partnerships team. We\'ll walk you through the platform, discuss your cohort size, and set up a pilot program at no cost.' },
-];
-
-function TestiCard({ t }: { t: typeof TESTIMONIALS[0] }) {
+function NotifCard({ n }: { n: typeof NOTIFICATIONS[0] }) {
   return (
-    <div style={{ background: '#fff', borderRadius: '16px', padding: '24px 26px', border: '1px solid #ECEEF1', width: '320px', flexShrink: 0, boxShadow: '0 2px 12px rgba(4,22,53,0.05)' }}>
-      <div style={{ display: 'flex', gap: '3px', marginBottom: '14px' }}>
-        {[...Array(5)].map((_, j) => <Star key={j} size={13} fill="#D8F950" color="#D8F950" />)}
+    <div style={{ background: '#fff', borderRadius: '12px', padding: '10px 14px', display: 'flex', alignItems: 'center', gap: '10px', boxShadow: '0 8px 32px rgba(4,22,53,0.2)', border: '1px solid rgba(255,255,255,0.9)', minWidth: '220px' }}>
+      <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: n.avatarBg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+        <span style={{ fontSize: '11px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>{n.initials}</span>
       </div>
-      <p style={{ fontSize: '14px', color: '#3A3F4C', lineHeight: 1.65, marginBottom: '20px', fontFamily: 'var(--font-body)' }}>&ldquo;{t.quote}&rdquo;</p>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: t.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '11px', fontWeight: 700, flexShrink: 0, fontFamily: 'var(--font-phudu)' }}>
-          {t.name.split(' ').filter(n => !n.startsWith('Dr') && !n.startsWith('Prof')).slice(0, 2).map(n => n[0]).join('')}
-        </div>
-        <div>
-          <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{t.name}</p>
-          <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{t.role} · {t.company}</p>
-        </div>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{n.name}</p>
+        <p style={{ fontSize: '10px', color: '#9A9FA8', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{n.role}</p>
+      </div>
+      <div style={{ background: n.color, borderRadius: '6px', padding: '2px 7px', flexShrink: 0 }}>
+        <span style={{ fontSize: '11px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>{n.grade} {n.score}</span>
       </div>
     </div>
   );
 }
+
+/* ─── Steps ─── */
+const STEPS = [
+  {
+    icon: Building2, num: '01', title: 'Set up your career center',
+    desc: 'Create your university account in minutes. Configure your branded student portal, add your career services team, and connect your employer network the same day.',
+    tag: 'Free to start', tagColor: '#D8F950', tagText: '#041635',
+  },
+  {
+    icon: Users, num: '02', title: 'Students build their profiles',
+    desc: 'Students sign up, record a one-minute video pitch, and upload their resume. Their Reslink profile is ready to share with any employer in minutes.',
+    tag: 'Students get started free', tagColor: 'rgba(255,255,255,0.1)', tagText: 'rgba(255,255,255,0.6)',
+  },
+  {
+    icon: Zap, num: '03', title: 'Employers discover your talent',
+    desc: 'Post roles to your branded board and let employers browse AI-screened student profiles. Top candidates rise to the surface automatically.',
+    tag: 'AI screens every application', tagColor: 'rgba(255,255,255,0.1)', tagText: 'rgba(255,255,255,0.6)',
+  },
+  {
+    icon: GraduationCap, num: '04', title: 'Track placements and outcomes',
+    desc: 'See which students are getting interviews, who is landing offers, and which employers keep coming back. Real data for your annual placement report.',
+    tag: 'Where career centers prove their value', tagColor: 'rgba(216,249,80,0.12)', tagText: '#D8F950',
+  },
+];
+
+/* ─── Feature tabs ─── */
+const FEATURE_TABS = [
+  {
+    id: 'screening', label: 'AI Screening',
+    tagline: 'Every student gets a fair shot. Every employer gets a ranked list.',
+    desc: 'AI grades every student application from A+ to F with a written breakdown of their video pitch, resume quality, and role fit. Employers spend their time on students who are genuinely ready.',
+    img: '/product-applicants.webp', alt: 'AI-ranked student applicants',
+    bullets: ['Students ranked A through F with full written breakdown', 'Scored on video communication, resume, and role fit', 'Employers see top candidates without sifting through hundreds'],
+  },
+  {
+    id: 'profiles', label: 'Student Profiles',
+    tagline: 'A profile that shows the whole student, not just a GPA.',
+    desc: 'Each student gets a shareable Reslink profile with their video pitch, resume, work samples, and AI score attached. One link to show an employer everything.',
+    img: '/product-candidate.webp', alt: 'Student profile view',
+    bullets: ['Video pitch, resume, and portfolio in one profile', 'AI score and written assessment included', 'Career center team can add coaching notes privately'],
+  },
+  {
+    id: 'pipeline', label: 'Student Pipeline',
+    tagline: 'Know exactly where every student stands.',
+    desc: 'Organize your students into custom lists by graduation year, major, job readiness, or whatever matters to your team. Never lose track of a student mid-search.',
+    img: '/product-lists.webp', alt: 'Student pipeline management',
+    bullets: ['Custom lists by major, year, or readiness tier', 'AI grade visible on every saved student profile', 'One click to a full profile and video from any list'],
+  },
+  {
+    id: 'board', label: 'Job Board',
+    tagline: 'Your university job board, powered by AI.',
+    desc: 'A branded job board at reslink.io/university/yourname brings all your employer relationships and open roles into one place students actually check.',
+    img: '/product-jobboard.webp', alt: 'University branded job board',
+    bullets: ['Branded board with all active employer roles', 'Students apply with resume, video pitch, and profile', 'Sync roles to Indeed, LinkedIn, and ZipRecruiter'],
+  },
+];
+
+/* ─── FAQs ─── */
+const FAQS = [
+  { q: 'How does Reslink work for a university career center?', a: 'Your career center sets up a university account and branded job board. Students create Reslink profiles with a video pitch and resume. Employers post roles and browse AI-screened candidates from your student body. Your team tracks placements in one dashboard.' },
+  { q: 'Do students need to pay to use Reslink?', a: 'No. Student profiles are free to create. Reslink credits are only needed when employers want AI screening on applications. Students never pay to apply.' },
+  { q: 'Can we use Reslink alongside our existing ATS or career platform?', a: 'Yes. Reslink does not replace your existing systems. Students add their Reslink profile link to any application. Employers use Reslink alongside their normal hiring workflow.' },
+  { q: 'How do employers connect with our students through Reslink?', a: 'Employers can post roles directly to your branded board or search your student profiles. Every application comes with a video pitch and AI score, so employers move faster on the candidates they want.' },
+  { q: 'What does setup look like for a university?', a: 'Most career centers are fully set up within a week. We provide a dedicated onboarding session for your team and a student launch kit to drive adoption across campus.' },
+  { q: 'How does Reslink help us prove placement outcomes?', a: 'Your dashboard tracks applications, interviews, and offers across all student activity. At the end of the year you have a clean report showing placement rates, top employers, and which programs drove the most outcomes.' },
+];
 
 function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; toggle: () => void }) {
   return (
@@ -84,206 +120,148 @@ function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; 
   );
 }
 
+const FEATURED = {
+  quote: 'Before Reslink our students were applying to hundreds of jobs with a PDF no one was reading. Now employers watch their pitch before the first call. Our placement rate is up 34% in one year.',
+  name: 'Dr. Angela Torres', role: 'Director of Career Services', company: 'Westfield University', color: '#059669',
+};
+const SIDE_QUOTES = [
+  { quote: 'Employers come back to us now. They tell us our students are different because they actually know how to present themselves. Reslink made that happen.', name: 'Marcus Webb', role: 'Career Development Lead', company: 'Central State University', color: '#0C63E3' },
+  { quote: 'We used to rely on word of mouth to prove our placement numbers. Now I can pull a real report every semester and show exactly what our career center delivered.', name: 'Priya Desai', role: 'VP of Student Success', company: 'Northgate College', color: '#7C3AED' },
+  { quote: 'Students who were struggling to get callbacks started landing interviews once they had a video profile. It levels the playing field in a way a resume never could.', name: 'James Holman', role: 'Career Counselor', company: 'Summit Institute', color: '#D97706' },
+];
+
 export default function UniversitiesPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const doubled = [...TESTIMONIALS, ...TESTIMONIALS];
+  const [activeTab, setActiveTab] = useState(0);
+  const [notifA, setNotifA] = useState(0);
+  const [notifB, setNotifB] = useState(2);
+  const [notifVisible, setNotifVisible] = useState(true);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setNotifVisible(false);
+      setTimeout(() => {
+        setNotifA(i => (i + 1) % NOTIFICATIONS.length);
+        setNotifB(i => (i + 1) % NOTIFICATIONS.length);
+        setNotifVisible(true);
+      }, 400);
+    }, 3200);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <>
       <Navbar />
       <style>{`
-        @keyframes uni-testi { from { transform: translateX(0) } to { transform: translateX(-50%) } }
-        @keyframes uni-testi-rev { from { transform: translateX(-50%) } to { transform: translateX(0) } }
-        .uni-testi-track { animation: uni-testi 28s linear infinite; display: flex; }
-        .uni-testi-track-rev { animation: uni-testi-rev 34s linear infinite; display: flex; }
-        .uni-testi-track:hover, .uni-testi-track-rev:hover { animation-play-state: paused; }
-        .uni-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
-        .uni-feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .uni-steps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
-        .uni-problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-        @media (max-width: 960px) {
-          .uni-hero-grid { grid-template-columns: 1fr !important; }
-          .uni-hero-img { display: none !important; }
-          .uni-steps-grid { grid-template-columns: 1fr !important; }
-          .uni-steps-right { display: none !important; }
-          .uni-problem-grid { grid-template-columns: 1fr !important; }
+        .uni-testi-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: stretch; }
+        .uni-testi-side { display: flex; flex-direction: column; gap: 16px; }
+        .uni-feat-tabs { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 32px; }
+        .uni-feat-tab { padding: 10px 20px; border-radius: 100px; font-size: 14px; font-weight: 600; border: 1.5px solid #E2E4E9; background: #fff; cursor: pointer; transition: all 0.18s; font-family: var(--font-body); color: #5C6070; }
+        .uni-feat-tab.active { background: #041635; color: #fff; border-color: #041635; }
+        .uni-feat-tab:hover:not(.active) { border-color: #041635; color: #041635; }
+        .uni-feat-body { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+        @media (max-width: 900px) {
+          .uni-testi-grid { grid-template-columns: 1fr !important; }
+          .uni-feat-body { grid-template-columns: 1fr !important; }
         }
-        @media (max-width: 860px) { .uni-feat-grid { grid-template-columns: repeat(2, 1fr) !important; } }
-        @media (max-width: 560px) { .uni-feat-grid { grid-template-columns: 1fr !important; } }
+        @media (max-width: 600px) { .uni-stats-row { grid-template-columns: 1fr !important; } }
       `}</style>
       <main style={{ paddingTop: '68px' }}>
 
-        {/* ─── Hero ─── */}
-        <section style={{ background: '#041635', padding: 'clamp(72px, 10vw, 120px) 24px', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', top: '-10%', left: '30%', width: '900px', height: '700px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.22), transparent 60%)', pointerEvents: 'none' }} />
-          <div style={{ maxWidth: '1060px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-            <div className="uni-hero-grid">
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
-                <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For universities</p>
-                <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(44px, 7vw, 88px)', fontWeight: 900, color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '24px' }}>
-                  Help your<br />students get<br /><span style={{ color: '#D8F950' }}>hired faster.</span>
-                </h1>
-                <p style={{ fontSize: 'clamp(16px, 1.8vw, 19px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '36px', maxWidth: '480px' }}>
-                  Reslink gives university career centers a scalable, modern tool to help graduates stand out. from first-year students to your most placement-ready seniors.
-                </p>
-                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '32px' }}>
-                  <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: '#D8F950', color: '#041635', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                    Get started free <ArrowRight size={16} />
-                  </Link>
-                  <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                    Talk to sales
-                  </Link>
-                </div>
-                <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
-                  {[['3×', 'more employer interest'], ['78%', 'land interviews in 30d'], ['95%', 'advisor satisfaction']].map(([v, l]) => (
-                    <div key={l}>
-                      <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '24px', fontWeight: 900, color: '#fff', lineHeight: 1 }}>{v}</p>
-                      <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', marginTop: '3px' }}>{l}</p>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-              <motion.div className="uni-hero-img" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.1 }}>
-                <div style={{ borderRadius: '20px', overflow: 'hidden', aspectRatio: '4/3', boxShadow: '0 40px 100px rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.1)' }}>
-                  <img src="https://images.pexels.com/photos/1205651/pexels-photo-1205651.jpeg?auto=compress&cs=tinysrgb&w=900" alt="University students" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-
-        <LogoTicker />
-
-        {/* ─── Problem section ─── */}
-        <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 108px) 24px' }}>
-          <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', maxWidth: '580px', margin: '0 auto 56px' }}>
-              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>The graduate problem</p>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#041635', lineHeight: 0.93, letterSpacing: '-0.03em', marginBottom: '20px' }}>
-                Great students.<br />Identical résumés.<br /><span style={{ color: '#0C63E3' }}>Lost opportunities.</span>
-              </h2>
-              <p style={{ fontSize: '17px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>Your graduates are talented. But when they apply with the same resume format as everyone else, that talent is invisible. Reslink changes that.</p>
-            </motion.div>
-            <div className="uni-problem-grid">
-              <motion.div initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
-                <div style={{ borderRadius: '18px', border: '1px solid #E8EAF0', padding: '28px', background: '#FAFBFC', height: '100%' }}>
-                  <span style={{ fontSize: '11px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Without Reslink</span>
-                  <div style={{ marginTop: '20px', marginBottom: '20px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
-                      <div style={{ width: '28px', height: '28px', borderRadius: '7px', background: '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <GraduationCap size={14} color="#9A9FA8" strokeWidth={1.8} />
-                      </div>
-                      <span style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)', fontWeight: 600 }}>Class of &lsquo;25 · 400 graduates</span>
-                    </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '7px', marginBottom: '16px' }}>
-                      {[100, 88, 95, 72].map((w, i) => (
-                        <div key={i} style={{ height: '8px', borderRadius: '4px', background: '#ECEEF1', width: `${w}%` }} />
-                      ))}
-                    </div>
-                  </div>
-                  {[
-                    { text: 'Graduates blend into a sea of similar CVs', red: true },
-                    { text: 'Career advisors can\'t track who\'s getting traction', red: true },
-                    { text: 'Employers can\'t tell who\'s a culture fit from paper', red: true },
-                    { text: 'Placement rates stay flat year after year', red: true },
-                  ].map(({ text, red }) => (
-                    <div key={text} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', background: '#FEF2F2', borderRadius: '8px', marginBottom: '8px', border: '1px solid #FECACA' }}>
-                      <span style={{ fontSize: '13px', color: '#EF4444', fontWeight: 700 }}>✗</span>
-                      <span style={{ fontSize: '13px', color: '#DC2626', fontFamily: 'var(--font-body)', fontWeight: 500 }}>{text}</span>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-              <motion.div initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.18 }}>
-                <div style={{ borderRadius: '18px', border: '2px solid #D8F950', overflow: 'hidden', boxShadow: '0 16px 56px rgba(4,22,53,0.12)' }}>
-                  <div style={{ background: '#041635', padding: '20px 24px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                      <span style={{ fontSize: '11px', fontWeight: 700, color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>With Reslink</span>
-                      <span style={{ fontSize: '10px', fontWeight: 700, color: '#041635', background: '#D8F950', padding: '3px 10px', borderRadius: '100px', fontFamily: 'var(--font-body)' }}>Career fair gallery</span>
-                    </div>
-                    {['Aaliyah Johnson · Finance', 'Marcus Reid · Engineering', 'Sofia Torres · Marketing'].map((name, i) => (
-                      <div key={name} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 0', borderBottom: i < 2 ? '1px solid rgba(255,255,255,0.08)' : 'none' }}>
-                        <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: ['#0C63E3', '#059669', '#A855F7'][i], display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                          <span style={{ fontSize: '11px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>{name[0]}</span>
-                        </div>
-                        <div style={{ flex: 1 }}>
-                          <p style={{ fontSize: '13px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{name.split(' · ')[0]}</p>
-                          <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)' }}>{name.split(' · ')[1]}</p>
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#D8F950' }} />
-                          <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)' }}>{[14, 8, 22][i]} views</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div style={{ padding: '14px 24px', background: '#F7F8FA', borderBottom: '1px solid #ECEEF1', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#0C63E3' }} />
-                    <p style={{ fontSize: '12px', color: '#5C6070', fontFamily: 'var(--font-body)' }}>Google employer viewed 12 student profiles today</p>
-                  </div>
-                  <div style={{ padding: '14px 24px', background: '#FAFFF0', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <CheckCircle size={18} color="#16A34A" strokeWidth={2} />
-                    <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>8 students invited to interview</p>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-
-        {/* ─── How it works ─── */}
-        <section style={{ background: '#041635', padding: 'clamp(72px, 9vw, 112px) 24px', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', top: '50%', right: '5%', transform: 'translateY(-50%)', width: '600px', height: '600px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.2), transparent 65%)', pointerEvents: 'none' }} />
-          <div style={{ maxWidth: '1060px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-            <div className="uni-steps-grid">
-              <div>
-                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-                  <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>How it works</p>
-                  <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 52px)', fontWeight: 900, color: '#fff', lineHeight: 0.93, letterSpacing: '-0.03em', marginBottom: '48px' }}>
-                    Better outcomes in<br />four simple steps.
-                  </h2>
-                </motion.div>
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  {STEPS.map((s, i) => (
-                    <motion.div key={s.num} initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}>
-                      <div style={{ display: 'grid', gridTemplateColumns: '52px 1fr', gap: '16px', padding: '20px 0', borderBottom: i < STEPS.length - 1 ? '1px solid rgba(255,255,255,0.08)' : 'none' }}>
-                        <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '28px', fontWeight: 900, color: '#D8F950', lineHeight: 1 }}>{s.num}</span>
-                        <div>
-                          <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '19px', fontWeight: 800, color: '#fff', lineHeight: 1.1, letterSpacing: '-0.01em', marginBottom: '6px' }}>{s.title}</p>
-                          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.65, fontFamily: 'var(--font-body)' }}>{s.desc}</p>
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
+        {/* Hero */}
+        <section style={{ background: '#041635', padding: 'clamp(72px, 10vw, 112px) 24px 0', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: '-10%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '700px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.22), transparent 65%)', pointerEvents: 'none' }} />
+          <div style={{ maxWidth: '860px', margin: '0 auto', position: 'relative', zIndex: 1, textAlign: 'center' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For universities and career centers</p>
+              <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 7.5vw, 96px)', fontWeight: 900, color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '24px' }}>
+                Help your students<br /><span style={{ color: '#D8F950' }}>land great jobs.</span>
+              </h1>
+              <p style={{ fontSize: 'clamp(16px, 1.6vw, 18px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '520px', margin: '0 auto 36px' }}>
+                Reslink gives career centers a branded job board, AI-powered student profiles, and real placement data. Give your students a competitive edge from day one.
+              </p>
+              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '56px' }}>
+                <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: '#D8F950', color: '#041635', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                  Schedule a demo <ArrowRight size={16} />
+                </Link>
+                <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                  Start for free
+                </Link>
               </div>
-              <motion.div className="uni-steps-right" initial={{ opacity: 0, x: 24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
-                <div style={{ borderRadius: '20px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 40px 80px rgba(0,0,0,0.4)', aspectRatio: '4/3' }}>
-                  <img src="https://images.pexels.com/photos/1438072/pexels-photo-1438072.jpeg?auto=compress&cs=tinysrgb&w=900" alt="University career fair" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }} style={{ position: 'relative' }}>
+              <div style={{ position: 'absolute', top: '36px', left: '-16px', zIndex: 10, pointerEvents: 'none' }}>
+                <AnimatePresence mode="wait">
+                  {notifVisible && (
+                    <motion.div key={`a${notifA}`} initial={{ opacity: 0, x: -10, y: 6 }} animate={{ opacity: 1, x: 0, y: 0 }} exit={{ opacity: 0, x: -8 }} transition={{ duration: 0.32 }}>
+                      <motion.div animate={{ y: [0, -5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}>
+                        <NotifCard n={NOTIFICATIONS[notifA]} />
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+              <div style={{ position: 'absolute', bottom: '56px', right: '-16px', zIndex: 10, pointerEvents: 'none' }}>
+                <AnimatePresence mode="wait">
+                  {notifVisible && (
+                    <motion.div key={`b${notifB}`} initial={{ opacity: 0, x: 10, y: 6 }} animate={{ opacity: 1, x: 0, y: 0 }} exit={{ opacity: 0, x: 8 }} transition={{ duration: 0.32, delay: 0.08 }}>
+                      <motion.div animate={{ y: [0, -5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 0.6 }}>
+                        <NotifCard n={NOTIFICATIONS[notifB]} />
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+              <div style={{ position: 'absolute', top: '14px', right: '14px', zIndex: 10, display: 'flex', alignItems: 'center', gap: '6px', background: 'rgba(4,22,53,0.75)', backdropFilter: 'blur(8px)', borderRadius: '100px', padding: '5px 12px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                <motion.div animate={{ opacity: [1, 0.2, 1] }} transition={{ duration: 1.4, repeat: Infinity }} style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#22C55E' }} />
+                <span style={{ fontSize: '11px', fontWeight: 600, color: '#fff', fontFamily: 'var(--font-body)' }}>Live placements</span>
+              </div>
+              <div style={{ borderRadius: '12px 12px 0 0', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)', borderBottom: 'none', boxShadow: '0 40px 100px rgba(0,0,0,0.5)' }}>
+                <div style={{ background: '#1C2333', borderBottom: '1px solid rgba(255,255,255,0.07)', padding: '10px 14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div style={{ display: 'flex', gap: '5px' }}>
+                    {['#FF5F57', '#FFBD2E', '#28CA41'].map(c => <div key={c} style={{ width: '10px', height: '10px', borderRadius: '50%', background: c }} />)}
+                  </div>
+                  <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+                    <div style={{ background: 'rgba(255,255,255,0.07)', borderRadius: '5px', padding: '3px 14px', fontSize: '11px', color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-body)' }}>app.reslink.io</div>
+                  </div>
                 </div>
-              </motion.div>
-            </div>
+                <Image src="/product-dashboard.webp" alt="Reslink career center dashboard" width={1200} height={750} style={{ width: '100%', height: 'auto', display: 'block' }} />
+              </div>
+            </motion.div>
           </div>
         </section>
 
-        {/* ─── Features ─── */}
-        <section style={{ background: '#F7F8FA', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
-          <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '56px' }}>
-              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Why Reslink for universities</p>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 54px)', fontWeight: 900, color: '#041635', lineHeight: 0.95, letterSpacing: '-0.03em' }}>
-                Better outcomes.<br />Better rankings.
+        <div style={{ background: '#F7F8FA' }}><LogoTicker /></div>
+
+        {/* How it works */}
+        <section style={{ background: '#041635', padding: 'clamp(72px, 9vw, 112px) 24px', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: '20%', right: '-5%', width: '600px', height: '600px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.15), transparent 65%)', pointerEvents: 'none' }} />
+          <div style={{ maxWidth: '760px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '64px' }}>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>How it works</p>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#fff', lineHeight: 0.93, letterSpacing: '-0.03em' }}>
+                From setup to placement in four steps.
               </h2>
             </motion.div>
-            <div className="uni-feat-grid">
-              {FEATURES.map((f, i) => (
-                <motion.div key={f.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }}>
-                  <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '28px', boxShadow: '0 1px 8px rgba(4,22,53,0.04)', height: '100%' }}>
-                    <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: f.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
-                      <f.icon size={22} color={f.color} strokeWidth={1.8} />
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              {STEPS.map((s, i) => (
+                <motion.div key={s.num} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} style={{ display: 'flex', gap: '24px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0, width: '52px' }}>
+                    <div style={{ width: '52px', height: '52px', borderRadius: '50%', background: 'rgba(255,255,255,0.08)', border: '2px solid rgba(255,255,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <s.icon size={20} color="#D8F950" strokeWidth={2} />
                     </div>
-                    <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: '20px', fontWeight: 900, color: '#041635', lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: '10px' }}>{f.title}</h3>
-                    <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>{f.body}</p>
+                    {i < STEPS.length - 1 && (
+                      <div style={{ width: '2px', flex: 1, background: 'linear-gradient(to bottom, rgba(216,249,80,0.4), rgba(255,255,255,0.08))', marginTop: '8px', minHeight: '40px' }} />
+                    )}
+                  </div>
+                  <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', padding: '24px 28px', flex: 1, marginBottom: i < STEPS.length - 1 ? '16px' : 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px', flexWrap: 'wrap' }}>
+                      <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '13px', fontWeight: 900, color: 'rgba(255,255,255,0.25)', letterSpacing: '0.06em' }}>STEP {s.num}</span>
+                      <span style={{ padding: '2px 10px', borderRadius: '100px', background: s.tagColor, fontSize: '11px', fontWeight: 600, color: s.tagText, fontFamily: 'var(--font-body)' }}>{s.tag}</span>
+                    </div>
+                    <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(20px, 2.5vw, 26px)', fontWeight: 900, color: '#fff', lineHeight: 1.05, letterSpacing: '-0.02em', marginBottom: '10px' }}>{s.title}</h3>
+                    <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.75, fontFamily: 'var(--font-body)', margin: 0 }}>{s.desc}</p>
                   </div>
                 </motion.div>
               ))}
@@ -291,39 +269,135 @@ export default function UniversitiesPage() {
           </div>
         </section>
 
-        {/* ─── Testimonials ─── */}
-        <section style={{ padding: 'clamp(64px, 8vw, 100px) 0', background: '#fff', overflow: 'hidden' }}>
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', maxWidth: '520px', margin: '0 auto 56px', padding: '0 24px' }}>
-            <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>What universities say</p>
-            <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#041635', lineHeight: 0.98, marginBottom: '16px' }}>
-              Real outcomes from<br />real institutions.
-            </h2>
-            <p style={{ fontSize: '16px', color: '#5C6070', lineHeight: 1.65, fontFamily: 'var(--font-body)' }}>Career centers and students at top universities trust Reslink to improve graduate placement rates.</p>
-          </motion.div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '64px' }}>
-            <div style={{ overflow: 'hidden' }}>
-              <div className="uni-testi-track" style={{ display: 'flex', gap: '16px', paddingLeft: '16px' }}>
-                {doubled.map((t, i) => <TestiCard key={i} t={t} />)}
+        {/* Features */}
+        <section style={{ background: '#F7F8FA', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
+          <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '48px' }}>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Everything your career center needs</p>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#041635', lineHeight: 0.95, letterSpacing: '-0.03em', marginBottom: '32px' }}>
+                Built for career centers<br />that want real results.
+              </h2>
+              <div className="uni-feat-tabs">
+                {FEATURE_TABS.map((t, i) => (
+                  <button key={t.id} onClick={() => setActiveTab(i)} className={`uni-feat-tab${activeTab === i ? ' active' : ''}`}>{t.label}</button>
+                ))}
               </div>
-            </div>
-            <div style={{ overflow: 'hidden' }}>
-              <div className="uni-testi-track-rev" style={{ display: 'flex', gap: '16px', paddingLeft: '16px' }}>
-                {[...doubled].reverse().map((t, i) => <TestiCard key={i} t={t} />)}
-              </div>
-            </div>
-          </div>
-          <div style={{ maxWidth: '860px', margin: '0 auto', padding: '0 24px', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }} className="uni-testi-stats">
-            <style>{`@media (max-width: 640px) { .uni-testi-stats { grid-template-columns: 1fr 1fr !important; } }`}</style>
-            {[['3×', 'more employer interest'], ['78%', 'land interviews in 30d'], ['95%', 'advisor satisfaction'], ['50+', 'partner universities']].map(([v, l]) => (
-              <div key={l} style={{ textAlign: 'center', padding: '24px 8px', background: '#F7F8FA', borderRadius: '16px', border: '1px solid #ECEEF1' }}>
-                <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 3vw, 40px)', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em' }}>{v}</p>
-                <p style={{ fontSize: '13px', color: '#5C6070', marginTop: '8px', fontFamily: 'var(--font-body)' }}>{l}</p>
-              </div>
-            ))}
+            </motion.div>
+            <AnimatePresence mode="wait">
+              {FEATURE_TABS.map((t, i) => activeTab === i && (
+                <motion.div key={t.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.25 }}>
+                  <motion.div initial={{ scale: 0.97, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.3 }} whileHover={{ scale: 1.01 }} style={{ borderRadius: '14px', overflow: 'hidden', border: '1px solid #E2E4E9', boxShadow: '0 12px 40px rgba(4,22,53,0.1)', marginBottom: '36px' }}>
+                    <div style={{ background: '#F1F3F5', borderBottom: '1px solid #E2E4E9', padding: '9px 14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <div style={{ display: 'flex', gap: '5px' }}>
+                        {['#FF5F57', '#FFBD2E', '#28CA41'].map(c => <div key={c} style={{ width: '9px', height: '9px', borderRadius: '50%', background: c }} />)}
+                      </div>
+                      <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+                        <div style={{ background: '#fff', borderRadius: '5px', padding: '2px 14px', fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', border: '1px solid #E2E4E9' }}>app.reslink.io</div>
+                      </div>
+                    </div>
+                    <div style={{ maxHeight: '380px', overflow: 'hidden' }}>
+                      <Image src={t.img} alt={t.alt} width={1200} height={750} style={{ width: '100%', height: 'auto', display: 'block' }} />
+                    </div>
+                  </motion.div>
+                  <div className="uni-feat-body">
+                    <div>
+                      <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(22px, 2.8vw, 34px)', fontWeight: 900, color: '#041635', lineHeight: 1.0, letterSpacing: '-0.03em', marginBottom: '12px' }}>{t.tagline}</h3>
+                      <p style={{ fontSize: '15px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>{t.desc}</p>
+                    </div>
+                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '14px', paddingTop: '4px' }}>
+                      {t.bullets.map((b, bi) => (
+                        <motion.li key={b} initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: bi * 0.08 + 0.15, duration: 0.28 }} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', fontSize: '14px', color: '#3A3F4C', fontFamily: 'var(--font-body)', lineHeight: 1.5 }}>
+                          <span style={{ width: '22px', height: '22px', borderRadius: '50%', background: '#041635', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '1px' }}>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#D8F950" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                          </span>
+                          {b}
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
         </section>
 
-        {/* ─── FAQ ─── */}
+        {/* Stats */}
+        <section style={{ background: '#041635', padding: 'clamp(64px, 8vw, 96px) 24px', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: '-30%', left: '50%', transform: 'translateX(-50%)', width: '800px', height: '600px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.2), transparent 65%)', pointerEvents: 'none' }} />
+          <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+            <div className="uni-stats-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '32px', textAlign: 'center' }}>
+              {[
+                { value: '34%', label: 'average increase in placement rate for career centers' },
+                { value: '4x', label: 'more employer engagement with video profiles' },
+                { value: '85%', label: 'of students say Reslink improved their interview rate' },
+              ].map((s, i) => (
+                <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
+                  <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(52px, 7vw, 80px)', fontWeight: 900, color: '#D8F950', lineHeight: 1, letterSpacing: '-0.03em' }}>{s.value}</p>
+                  <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', marginTop: '10px', lineHeight: 1.5, maxWidth: '180px', margin: '10px auto 0' }}>{s.label}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials */}
+        <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
+          <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '56px' }}>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>What career centers say</p>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#041635', lineHeight: 0.98 }}>
+                Trusted by career centers<br />that take outcomes seriously.
+              </h2>
+            </motion.div>
+            <div className="uni-testi-grid">
+              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+                <div style={{ background: '#041635', borderRadius: '20px', padding: 'clamp(32px, 4vw, 48px)', height: '100%', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                  <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: '400px', height: '400px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.25), transparent 65%)', pointerEvents: 'none' }} />
+                  <div style={{ position: 'relative', zIndex: 1 }}>
+                    <div style={{ display: 'flex', gap: '3px', marginBottom: '24px' }}>
+                      {[...Array(5)].map((_, j) => <Star key={j} size={16} fill="#D8F950" color="#D8F950" />)}
+                    </div>
+                    <p style={{ fontSize: 'clamp(17px, 2vw, 22px)', color: '#fff', lineHeight: 1.6, fontFamily: 'var(--font-body)', fontWeight: 500, marginBottom: '32px' }}>&ldquo;{FEATURED.quote}&rdquo;</p>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px', position: 'relative', zIndex: 1 }}>
+                    <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: FEATURED.color, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <span style={{ fontSize: '14px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>{FEATURED.name.split(' ').filter((_,i) => i > 0).map(n => n[0]).join('')}</span>
+                    </div>
+                    <div>
+                      <p style={{ fontSize: '15px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{FEATURED.name}</p>
+                      <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)' }}>{FEATURED.role} at {FEATURED.company}</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+              <div className="uni-testi-side">
+                {SIDE_QUOTES.map((q, i) => (
+                  <motion.div key={q.name} initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} style={{ flex: 1 }}>
+                    <div style={{ background: '#F7F8FA', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '24px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                      <div>
+                        <div style={{ display: 'flex', gap: '3px', marginBottom: '12px' }}>
+                          {[...Array(5)].map((_, j) => <Star key={j} size={12} fill="#D8F950" color="#D8F950" />)}
+                        </div>
+                        <p style={{ fontSize: '14px', color: '#3A3F4C', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginBottom: '16px' }}>&ldquo;{q.quote}&rdquo;</p>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: q.color, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                          <span style={{ fontSize: '11px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>{q.name.split(' ').map(n => n[0]).join('')}</span>
+                        </div>
+                        <div>
+                          <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{q.name}</p>
+                          <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{q.role} at {q.company}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
         <section style={{ padding: 'clamp(64px, 8vw, 96px) 24px', background: '#F7F8FA' }}>
           <div style={{ maxWidth: '680px', margin: '0 auto' }}>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '52px' }}>
@@ -336,25 +410,25 @@ export default function UniversitiesPage() {
           </div>
         </section>
 
-        {/* ─── CTA ─── */}
+        {/* CTA */}
         <section style={{ padding: 'clamp(72px, 10vw, 120px) 24px', background: '#041635', position: 'relative', overflow: 'hidden', textAlign: 'center' }}>
           <div style={{ position: 'absolute', top: '-20%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '600px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.25), transparent 60%)', pointerEvents: 'none' }} />
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ maxWidth: '640px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
             <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(42px, 6vw, 76px)', fontWeight: 900, letterSpacing: '-0.035em', lineHeight: 0.92, color: '#fff', marginBottom: '20px' }}>
-              Ready to boost<br /><span style={{ color: '#D8F950' }}>graduate outcomes?</span>
+              Give your students<br /><span style={{ color: '#D8F950' }}>a real advantage.</span>
             </h2>
             <p style={{ fontSize: '18px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, marginBottom: '40px', fontFamily: 'var(--font-body)' }}>
-              Partner with Reslink to give your students a hiring advantage from day one.
+              Join the career centers using Reslink to get their students hired at better companies, faster.
             </p>
             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '20px' }}>
-              <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 28px', background: '#D8F950', color: '#041635', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                Get started free <ArrowRight size={16} />
+              <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 28px', background: '#D8F950', color: '#041635', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                Schedule a demo <ArrowRight size={16} />
               </Link>
-              <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 28px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                Schedule a demo
+              <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 28px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                Start for free
               </Link>
             </div>
-            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.2)', fontFamily: 'var(--font-body)' }}>Free to start · No credit card required</p>
+            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.2)', fontFamily: 'var(--font-body)' }}>Free to start. Students always free. No credit card required.</p>
           </motion.div>
         </section>
 

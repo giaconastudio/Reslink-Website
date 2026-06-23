@@ -114,7 +114,7 @@ export default function UniversitiesPage() {
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For universities and career centers</p>
                 <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(44px, 6.5vw, 84px)', fontWeight: 900, color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '24px' }}>
-                  Your students have the talent.<br /><span style={{ color: '#D8F950' }}>Give them the tools.</span>
+                  Equip every student<br />to <span style={{ color: '#D8F950' }}>stand out.</span>
                 </h1>
                 <p style={{ fontSize: 'clamp(16px, 1.6vw, 18px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.75, fontFamily: 'var(--font-body)', marginBottom: '36px', maxWidth: '480px' }}>
                   Reslink gives every student a video pitch, AI-powered coaching, and the analytics to know it's working. Measurable outcomes for your career center, real results for your students.

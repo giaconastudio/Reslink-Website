@@ -124,7 +124,7 @@ export default function Hero() {
           <span style={{ display: 'inline-block', position: 'relative' }}>
             impressive
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/vector-underline.svg" alt="" aria-hidden="true" style={{ position: 'absolute', bottom: '-10px', left: 0, width: '100%', height: 'auto', pointerEvents: 'none' }} />
+            <img src="/vector-underline.svg" alt="" aria-hidden="true" style={{ position: 'absolute', bottom: '-16px', left: 0, width: '100%', height: 'auto', pointerEvents: 'none' }} />
           </span>
           <br />in person.
         </motion.h1>

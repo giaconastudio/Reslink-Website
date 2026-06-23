@@ -153,7 +153,7 @@ export default function AboutPage() {
             <div className="about-hero-grid">
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>Our story</p>
-                <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(40px, 6vw, 80px)', fontWeight: 900, color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '32px' }}>
+                <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 4.8vw, 66px)', fontWeight: 900, color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '32px' }}>
                   You're more than<br />
                   <span style={{ color: '#D8F950' }}>a PDF.</span>
                 </h1>

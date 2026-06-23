@@ -189,8 +189,8 @@ export default function HelpPage() {
                   @media (max-width: 480px) { .help-cat-grid { grid-template-columns: 1fr !important; } }
                 `}</style>
                 {cats.map((cat, i) => (
-                  <motion.div key={cat.title} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25, delay: i * 0.04 }}>
-                    <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '24px', boxShadow: '0 1px 8px rgba(4,22,53,0.04)', transition: 'box-shadow 0.15s, transform 0.15s', cursor: 'pointer' }}
+                  <motion.div key={cat.title} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25, delay: i * 0.04 }} style={{ height: '100%' }}>
+                    <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '24px', boxShadow: '0 1px 8px rgba(4,22,53,0.04)', transition: 'box-shadow 0.15s, transform 0.15s', cursor: 'pointer', height: '100%', boxSizing: 'border-box' }}
                       onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 20px rgba(4,22,53,0.09)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; }}
                       onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 1px 8px rgba(4,22,53,0.04)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; }}>
                       <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: cat.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '14px' }}>

@@ -138,6 +138,8 @@ function TestiCard({ t }: { t: typeof TESTIMONIALS[0] }) {
 
 export default function PricingPage() {
   const [billing, setBilling] = useState<BillingCycle>('annual');
+  const [companyBilling, setCompanyBilling] = useState<BillingCycle>('annual');
+  const [agencyBilling, setAgencyBilling] = useState<BillingCycle>('annual');
   const [planTab, setPlanTab] = useState<PlanTab>('seekers');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const doubled = [...TESTIMONIALS, ...TESTIMONIALS];
@@ -149,6 +151,22 @@ export default function PricingPage() {
   const seekerSaveLabel =
     billing === 'quarterly' ? 'Save 29%' :
     billing === 'annual' ? 'Save 64%' : null;
+
+  const companyPrice = companyBilling === 'monthly' ? 129 : companyBilling === 'quarterly' ? 109 : 99;
+  const companyBilledLine =
+    companyBilling === 'quarterly' ? 'Billed $327 every 3 months' :
+    companyBilling === 'annual' ? 'Billed $1,188 per year' : null;
+  const companySaveLabel =
+    companyBilling === 'quarterly' ? 'Save 16%' :
+    companyBilling === 'annual' ? 'Save 23%' : null;
+
+  const agencyPrice = agencyBilling === 'monthly' ? 249 : agencyBilling === 'quarterly' ? 209 : 199;
+  const agencyBilledLine =
+    agencyBilling === 'quarterly' ? 'Billed $627 every 3 months' :
+    agencyBilling === 'annual' ? 'Billed $2,388 per year' : null;
+  const agencySaveLabel =
+    agencyBilling === 'quarterly' ? 'Save 16%' :
+    agencyBilling === 'annual' ? 'Save 20%' : null;
 
   const AUDIENCE = [
     { key: 'seekers' as PlanTab, Icon: Briefcase, label: 'Job Seekers', desc: 'Build and share your video profile' },
@@ -340,6 +358,21 @@ export default function PricingPage() {
                   <div style={{ padding: '32px 0 28px', textAlign: 'center' }}>
                     <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 3.5vw, 40px)', fontWeight: 900, color: '#041635', letterSpacing: '-0.02em' }}>For Companies</p>
                     <p style={{ fontSize: '15px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '6px' }}>Start with a 14-day free trial. No credit card required.</p>
+                    <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
+                      <div className="billing-seg" style={{ display: 'inline-flex', background: '#F0F2F5', borderRadius: '14px', border: '1px solid #ECEEF1', padding: '4px', gap: '3px' }}>
+                        {([
+                          { key: 'monthly' as BillingCycle, label: 'Monthly' },
+                          { key: 'quarterly' as BillingCycle, label: 'Quarterly', badge: 'Save 16%' },
+                          { key: 'annual' as BillingCycle, label: 'Annual', badge: 'Save 23%' },
+                        ]).map(({ key, label, badge }) => (
+                          <button key={key} onClick={() => setCompanyBilling(key)}
+                            style={{ padding: '10px 22px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '15px', fontWeight: 700, fontFamily: 'var(--font-body)', transition: 'all 0.15s', background: companyBilling === key ? '#041635' : 'transparent', color: companyBilling === key ? '#fff' : '#5C6070', display: 'flex', alignItems: 'center', gap: '8px', whiteSpace: 'nowrap', boxShadow: companyBilling === key ? '0 2px 8px rgba(4,22,53,0.18)' : 'none' }}>
+                            {label}
+                            {badge && <span style={{ fontSize: '11px', fontWeight: 700, padding: '3px 9px', borderRadius: '100px', background: companyBilling === key ? '#D8F950' : '#E0E3EA', color: companyBilling === key ? '#041635' : '#9A9FA8' }}>{badge}</span>}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                   </div>
 
                   <div className="pricing-grid-3">
@@ -372,10 +405,12 @@ export default function PricingPage() {
                       <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
                         <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#D8F950', fontFamily: 'var(--font-body)', marginBottom: '8px' }}>Growth</p>
                         <div style={{ display: 'flex', alignItems: 'flex-end', gap: '4px', marginBottom: '4px' }}>
-                          <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 4vw, 48px)', fontWeight: 900, color: '#fff', lineHeight: 1, letterSpacing: '-0.03em' }}>$99</span>
+                          <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 4vw, 48px)', fontWeight: 900, color: '#fff', lineHeight: 1, letterSpacing: '-0.03em' }}>${companyPrice}</span>
                           <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', marginBottom: '7px' }}>/month</span>
                         </div>
-                        <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)', marginBottom: '16px' }}>Billed annually ($79/mo) · <span style={{ color: '#D8F950', fontWeight: 700 }}>save 20%</span></p>
+                        <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)', marginBottom: '16px' }}>
+                          {companyBilledLine ? <>{companyBilledLine} · <span style={{ color: '#D8F950', fontWeight: 700 }}>{companySaveLabel}</span></> : 'Billed monthly'}
+                        </p>
                         <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '18px', marginBottom: '24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '9px' }}>
                           {['Up to 25 job postings', '10 team seats', 'Browse candidate Reslinks', 'Watch-time analytics', 'Shortlist & tag candidates', 'ATS-friendly exports', 'Custom branded company page', 'Priority email support'].map(f => (
                             <div key={f} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -451,6 +486,21 @@ export default function PricingPage() {
                   <div style={{ padding: '32px 0 28px', textAlign: 'center' }}>
                     <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 3.5vw, 40px)', fontWeight: 900, color: '#041635', letterSpacing: '-0.02em' }}>For Recruitment Agencies</p>
                     <p style={{ fontSize: '15px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '6px' }}>Priced by candidate volume and recruiter seats. Scales with your team.</p>
+                    <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
+                      <div className="billing-seg" style={{ display: 'inline-flex', background: '#F0F2F5', borderRadius: '14px', border: '1px solid #ECEEF1', padding: '4px', gap: '3px' }}>
+                        {([
+                          { key: 'monthly' as BillingCycle, label: 'Monthly' },
+                          { key: 'quarterly' as BillingCycle, label: 'Quarterly', badge: 'Save 16%' },
+                          { key: 'annual' as BillingCycle, label: 'Annual', badge: 'Save 20%' },
+                        ]).map(({ key, label, badge }) => (
+                          <button key={key} onClick={() => setAgencyBilling(key)}
+                            style={{ padding: '10px 22px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '15px', fontWeight: 700, fontFamily: 'var(--font-body)', transition: 'all 0.15s', background: agencyBilling === key ? '#041635' : 'transparent', color: agencyBilling === key ? '#fff' : '#5C6070', display: 'flex', alignItems: 'center', gap: '8px', whiteSpace: 'nowrap', boxShadow: agencyBilling === key ? '0 2px 8px rgba(4,22,53,0.18)' : 'none' }}>
+                            {label}
+                            {badge && <span style={{ fontSize: '11px', fontWeight: 700, padding: '3px 9px', borderRadius: '100px', background: agencyBilling === key ? '#D8F950' : '#E0E3EA', color: agencyBilling === key ? '#041635' : '#9A9FA8' }}>{badge}</span>}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                   </div>
 
                   <div className="pricing-grid-3">
@@ -483,10 +533,12 @@ export default function PricingPage() {
                       <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
                         <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#D8F950', fontFamily: 'var(--font-body)', marginBottom: '8px' }}>Growth</p>
                         <div style={{ display: 'flex', alignItems: 'flex-end', gap: '4px', marginBottom: '4px' }}>
-                          <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 4vw, 48px)', fontWeight: 900, color: '#fff', lineHeight: 1, letterSpacing: '-0.03em' }}>$199</span>
+                          <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 4vw, 48px)', fontWeight: 900, color: '#fff', lineHeight: 1, letterSpacing: '-0.03em' }}>${agencyPrice}</span>
                           <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', marginBottom: '7px' }}>/month</span>
                         </div>
-                        <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)', marginBottom: '16px' }}>Billed annually ($159/mo) · <span style={{ color: '#D8F950', fontWeight: 700 }}>save 20%</span></p>
+                        <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)', marginBottom: '16px' }}>
+                          {agencyBilledLine ? <>{agencyBilledLine} · <span style={{ color: '#D8F950', fontWeight: 700 }}>{agencySaveLabel}</span></> : 'Billed monthly'}
+                        </p>
                         <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '18px', marginBottom: '24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '9px' }}>
                           {['Up to 100 active profiles', '10 recruiter seats', 'Client-facing share links', 'Watch-time analytics', 'Pipeline management', 'Branded landing page', 'Client shortlist branding', 'Priority support'].map(f => (
                             <div key={f} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>

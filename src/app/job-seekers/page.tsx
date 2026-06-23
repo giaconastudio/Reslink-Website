@@ -20,8 +20,8 @@ const FEATURES = [
 
 /* ─── Steps ─── */
 const STEPS = [
-  { num: '01', title: 'Create your free account', desc: 'Sign up in under a minute — no credit card, no setup fees. Your profile is ready the moment you land.' },
-  { num: '02', title: 'Upload your resume', desc: 'Drop in your PDF and we parse it instantly — work history, skills, education pulled in automatically.' },
+  { num: '01', title: 'Create your free account', desc: 'Sign up in under a minute. no credit card, no setup fees. Your profile is ready the moment you land.' },
+  { num: '02', title: 'Upload your resume', desc: 'Drop in your PDF and we parse it instantly. work history, skills, education pulled in automatically.' },
   { num: '03', title: 'Record your 60-second pitch', desc: 'Our built-in teleprompter scrolls your script so you stay on camera looking natural, not down at notes.' },
   { num: '04', title: 'Share and track everything', desc: 'Paste your Reslink anywhere you apply. See every recruiter who opens it and every second of video watched.' },
 ];
@@ -30,20 +30,20 @@ const STEPS = [
 const TESTIMONIALS = [
   { quote: 'After adding my Reslink to every application, I started getting callbacks within 48 hours. Complete game changer.', name: 'Ben Harper', role: 'Software Engineer', company: 'Amazon', color: '#4F6EF7' },
   { quote: 'I landed my dream job and I genuinely believe the video resume made all the difference. Reslink let me show who I really am.', name: 'Sofia Rodriguez', role: 'Marketing Manager', company: 'Meta', color: '#A855F7' },
-  { quote: 'The analytics feature is unreal. I saw a senior partner watch my video three times — I reached out and got an interview the next morning.', name: 'Marcus Williams', role: 'Finance Analyst', company: 'EY', color: '#F59E0B' },
+  { quote: 'The analytics feature is unreal. I saw a senior partner watch my video three times. I reached out and got an interview the next morning.', name: 'Marcus Williams', role: 'Finance Analyst', company: 'EY', color: '#F59E0B' },
   { quote: 'My recruiter said she had never seen a video resume done that well. She shared it with the entire hiring team before my first interview.', name: 'Elena Kowalski', role: 'Product Manager', company: 'Revolut', color: '#10B981' },
   { quote: 'As a designer I care about how I present myself. Reslink resonated perfectly with the creative teams I was targeting. Two offers in two weeks.', name: 'Priya Patel', role: 'UX Designer', company: 'Google', color: '#EF4444' },
   { quote: 'I was hesitant about putting a video online, but it made it so easy. Within a week I had three recruiter calls lined up.', name: 'James Chen', role: 'Supply Chain Analyst', company: 'Tesla', color: '#041635' },
   { quote: 'Honestly thought video resumes were gimmicky. Then I got a reply from Stripe within 24 hours of sending my Reslink. I was wrong.', name: 'Aisha Mensah', role: 'Data Scientist', company: 'Stripe', color: '#635BFF' },
-  { quote: 'The teleprompter made recording so natural — I didn\'t have to memorise anything. I recorded a great take on my second try.', name: 'Luca Romano', role: 'Sales Development Rep', company: 'HubSpot', color: '#FF7A59' },
+  { quote: 'The teleprompter made recording so natural. I didn\'t have to memorise anything. I recorded a great take on my second try.', name: 'Luca Romano', role: 'Sales Development Rep', company: 'HubSpot', color: '#FF7A59' },
 ];
 
 /* ─── FAQs ─── */
 const FAQS = [
   { q: 'Is Reslink free?', a: 'Yes. Creating a job seeker account and building your video resume is completely free. Premium plans add advanced analytics and features for power users.' },
   { q: 'How long should my video pitch be?', a: 'We recommend 60–90 seconds. A tight, confident pitch that respects the recruiter\'s time performs significantly better than a long one.' },
-  { q: 'Can I use Reslink for any type of job?', a: 'Absolutely. Reslink works across all industries — tech, finance, marketing, creative, operations, and more.' },
-  { q: 'Will my video pitch affect ATS compatibility?', a: 'No. Your traditional resume is still uploaded alongside your video. Reslink supplements your PDF — it works with all ATS systems.' },
+  { q: 'Can I use Reslink for any type of job?', a: 'Absolutely. Reslink works across all industries. tech, finance, marketing, creative, operations, and more.' },
+  { q: 'Will my video pitch affect ATS compatibility?', a: 'No. Your traditional resume is still uploaded alongside your video. Reslink supplements your PDF. it works with all ATS systems.' },
   { q: 'Do I need special equipment to record my video?', a: 'No. Your laptop or phone camera is all you need. Good lighting and a quiet room make the biggest difference.' },
   { q: 'Can I edit my Reslink after sharing it?', a: 'Yes. You can update your video anytime. Your link stays the same, so anyone who already received it will see your latest version automatically.' },
   { q: 'Can companies search for candidates on Reslink?', a: 'Yes. Companies and recruiters can discover and search candidate profiles directly on the platform.' },
@@ -131,7 +131,7 @@ export default function JobSeekersPage() {
                   Stop blending in.<br /><span style={{ color: '#D8F950' }}>Start standing out.</span>
                 </h1>
                 <p style={{ fontSize: 'clamp(16px, 1.8vw, 19px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '36px', maxWidth: '480px' }}>
-                  A video resume that shows recruiters who you really are — your energy, your clarity, your drive. Not just another PDF.
+                  A video resume that shows recruiters who you really are. your energy, your clarity, your drive. Not just another PDF.
                 </p>
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '32px' }}>
                   <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: '#D8F950', color: '#041635', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
@@ -170,7 +170,7 @@ export default function JobSeekersPage() {
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#041635', lineHeight: 0.93, letterSpacing: '-0.03em', marginBottom: '20px' }}>
                 Stand out before<br />you even get<br /><span style={{ color: '#0C63E3' }}>the interview.</span>
               </h2>
-              <p style={{ fontSize: '17px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>A static PDF can't show your personality or passion. A Reslink does — and lands interviews faster.</p>
+              <p style={{ fontSize: '17px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>A static PDF can't show your personality or passion. A Reslink does. and lands interviews faster.</p>
             </motion.div>
             <div className="js-problem-grid">
               {/* Before */}

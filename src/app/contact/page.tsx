@@ -58,7 +58,7 @@ export default function ContactPage() {
           </div>
         </section>
 
-        {/* Option cards — overlap hero */}
+        {/* Option cards. overlap hero */}
         <section style={{ background: '#F7F8FA', padding: '0 24px clamp(72px, 9vw, 112px)' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', transform: 'translateY(-60px)' }} className="contact-cards">

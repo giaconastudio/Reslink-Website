@@ -18,7 +18,7 @@ const LOGOS = ['Amazon', 'Meta', 'EY', 'Revolut', 'Accenture', 'HubSpot', 'Adobe
 const FAQS = [
   { q: 'Who is Reslink for?', a: 'Reslink is built for companies, recruitment agencies, and universities that want a more human, memorable way to evaluate candidates. If you\'re hiring or placing talent, Reslink is for you.' },
   { q: 'How long does onboarding take?', a: 'Most teams are up and running within a day. We provide a dedicated onboarding session and setup support to make sure everything works for your workflow.' },
-  { q: 'Can I trial Reslink before committing?', a: 'Yes — we offer a free trial for organizations that want to test Reslink with their team before signing up for a plan. Ask about it during your demo.' },
+  { q: 'Can I trial Reslink before committing?', a: 'Yes. we offer a free trial for organizations that want to test Reslink with their team before signing up for a plan. Ask about it during your demo.' },
   { q: 'Do you offer custom pricing for large organizations?', a: 'Absolutely. For teams with enterprise-scale hiring needs, we offer custom plans. Reach out and we\'ll build something that works for your volume and budget.' },
   { q: 'Is Reslink compatible with our existing ATS?', a: 'Yes. Reslink integrates with most major ATS platforms. Candidates can include their Reslink link as part of their standard application, so it fits right into your existing workflow.' },
   { q: 'What support is included?', a: 'All paid plans include email support and access to our help center. Enterprise plans include priority support, a dedicated account manager, and regular check-in calls.' },

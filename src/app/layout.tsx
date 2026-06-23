@@ -17,10 +17,10 @@ const phudu = Phudu({
 });
 
 export const metadata: Metadata = {
-  title: 'Reslink — Free Video Resume Builder for Job Seekers',
+  title: 'Reslink. Free Video Resume Builder for Job Seekers',
   description: 'Stand out and land more interviews with a personalized video resume. Reslink helps you build human connections with recruiters. Free forever.',
   openGraph: {
-    title: 'Reslink — Your Resume, But Better',
+    title: 'Reslink. Your Resume, But Better',
     description: 'Create a free video resume that gets you noticed by recruiters at top companies.',
     type: 'website',
     url: 'https://reslink.io',

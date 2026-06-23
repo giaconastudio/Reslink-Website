@@ -22,7 +22,7 @@ const TEAM = [
     initials: 'JR',
     color: '#7C3AED',
     title: 'Co-founder & CMO',
-    bio: 'Joana brings five years of growth leadership across tech startups. At TechTalk she helped thousands of job seekers get noticed — now she\'s building the brand and community that makes Reslink the default for video-first hiring.',
+    bio: 'Joana brings five years of growth leadership across tech startups. At TechTalk she helped thousands of job seekers get noticed. now she\'s building the brand and community that makes Reslink the default for video-first hiring.',
     linkedin: 'https://linkedin.com/in/joanarochaa',
     photo: '/team/joana.webp',
   },
@@ -69,7 +69,7 @@ const VALUES = [
   {
     num: '03',
     title: 'Build for the anxious',
-    body: 'Job hunting is stressful. Every decision we make — every feature, every word — is filtered through the lens of someone who really needs this to work.',
+    body: 'Job hunting is stressful. Every decision we make. every feature, every word. is filtered through the lens of someone who really needs this to work.',
   },
   {
     num: '04',
@@ -92,7 +92,7 @@ function TeamCard({ member }: { member: typeof TEAM[0] }) {
       {/* Full-card dark backdrop when bio is open */}
       <div style={{ position: 'absolute', inset: 0, background: 'rgba(4,22,53,0.72)', opacity: expanded ? 1 : 0, transition: 'opacity 0.35s ease', pointerEvents: 'none' }} />
 
-      {/* Gradient overlay — always visible at bottom */}
+      {/* Gradient overlay. always visible at bottom */}
       <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(to top, rgba(4,22,53,0.98) 0%, rgba(4,22,53,0.75) 55%, transparent 100%)', padding: '0 20px 20px' }}>
 
         {/* Collapsible bio */}
@@ -194,18 +194,18 @@ export default function AboutPage() {
                 @media (max-width: 768px) { .about-story-grid { grid-template-columns: 1fr !important; } }
               `}</style>
 
-              {/* Left — big pull quote */}
+              {/* Left. big pull quote */}
               <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.55 }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>Why we exist</p>
                 <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(34px, 5vw, 60px)', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em', marginBottom: '32px' }}>
                   The best candidates<br />were getting<br /><span style={{ color: '#0C63E3', textDecoration: 'underline', textDecorationColor: '#D8F950', textDecorationThickness: '7px', textUnderlineOffset: '6px', textDecorationSkipInk: 'none' }}>overlooked.</span>
                 </h2>
                 <p style={{ fontSize: '15px', color: '#5C6070', lineHeight: 1.8, fontFamily: 'var(--font-body)' }}>
-                  In 2023, Dominic was applying to jobs and watching qualified people — himself included — get passed over because their resume didn't capture who they actually were. Not their energy. Not their clarity. Not their drive. Just keywords on a page.
+                  In 2023, Dominic was applying to jobs and watching qualified people. himself included. get passed over because their resume didn't capture who they actually were. Not their energy. Not their clarity. Not their drive. Just keywords on a page.
                 </p>
               </motion.div>
 
-              {/* Right — narrative */}
+              {/* Right. narrative */}
               <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.55, delay: 0.1 }}>
                 <div style={{ background: '#041635', borderRadius: '20px', padding: 'clamp(28px, 4vw, 44px)', position: 'relative', overflow: 'hidden' }}>
                   <div style={{ position: 'absolute', top: '-30%', right: '-20%', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(12,99,227,0.25), transparent 65%)', pointerEvents: 'none' }} />
@@ -220,10 +220,10 @@ export default function AboutPage() {
                     <div style={{ width: '100%', height: '1px', background: 'rgba(255,255,255,0.08)', margin: '20px 0' }} />
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
                       <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#0C63E3' }} />
-                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#9BB8FF', letterSpacing: '0.12em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>The team forms — 2024</span>
+                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#9BB8FF', letterSpacing: '0.12em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>The team forms. 2024</span>
                     </div>
                     <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.8, fontFamily: 'var(--font-body)' }}>
-                      In 2024, Roxanne and Joana — founders of TechTalk, a company focused on getting candidates noticed — joined forces with Dominic. Their combined expertise in recruitment, GTM, and marketing turned Reslink into the platform it is today: the place where job seekers become unforgettable.
+                      In 2024, Roxanne and Joana. founders of TechTalk, a company focused on getting candidates noticed. joined forces with Dominic. Their combined expertise in recruitment, GTM, and marketing turned Reslink into the platform it is today: the place where job seekers become unforgettable.
                     </p>
                   </div>
                 </div>
@@ -241,7 +241,7 @@ export default function AboutPage() {
                 "Empower every job seeker to build an instant, human connection with the recruiter on the other side of the screen."
               </blockquote>
               <p style={{ fontSize: '17px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '620px', margin: '0 auto' }}>
-                Hiring shouldn't favor the person with the best referral or the most polished bullet points. It should favor the person who is genuinely the best fit — and we're building the tools that make that possible.
+                Hiring shouldn't favor the person with the best referral or the most polished bullet points. It should favor the person who is genuinely the best fit. and we're building the tools that make that possible.
               </p>
             </motion.div>
           </div>
@@ -286,7 +286,7 @@ export default function AboutPage() {
               </h2>
             </motion.div>
 
-            {/* Co-founders — 3 col */}
+            {/* Co-founders. 3 col */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '16px' }} className="team-founders-grid">
               <style>{`
                 .team-founders-grid { }
@@ -309,7 +309,7 @@ export default function AboutPage() {
               <div style={{ height: '1px', flex: 1, background: '#ECEEF1' }} />
             </div>
 
-            {/* Advisers — 2 col centered */}
+            {/* Advisers. 2 col centered */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', maxWidth: '760px', margin: '0 auto' }} className="team-advisers-grid">
               {TEAM.slice(3).map((m) => <TeamCard key={m.name} member={m} />)}
             </div>
@@ -326,11 +326,11 @@ export default function AboutPage() {
                 Be part of<br /><span style={{ color: '#D8F950' }}>the story.</span>
               </h2>
               <p style={{ fontSize: '17px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '40px' }}>
-                Whether you're a job seeker ready to stand out, a company looking to hire better, or someone who wants to build with us — there's a place for you here.
+                Whether you're a job seeker ready to stand out, a company looking to hire better, or someone who wants to build with us. there's a place for you here.
               </p>
               <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
                 <Link href="/get-started" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
-                  Create your Reslink — free
+                  Create your Reslink. free
                   <ArrowRight size={15} />
                 </Link>
                 <Link href="/careers" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 24px', fontSize: '15px', fontWeight: 600, color: 'rgba(255,255,255,0.65)', background: 'rgba(255,255,255,0.08)', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>

@@ -14,7 +14,7 @@ const FEATURES = [
   { icon: Award, color: '#059669', bg: '#ECFDF5', title: 'Improve graduate outcomes', body: 'Track which students have created profiles and monitor engagement from employer partners. Tie Reslink adoption to placement metrics.' },
   { icon: BarChart2, color: '#D97706', bg: '#FFFBEB', title: 'Engagement dashboards for advisors', body: 'Career advisors get visibility into which students are active, how their profiles are performing, and where to focus coaching.' },
   { icon: Users, color: '#E11D48', bg: '#FFF1F2', title: 'Connect employers to your talent', body: 'Share a curated gallery of student Reslinks directly with employer partners at career fairs, recruiting events, or via email.' },
-  { icon: Zap, color: '#0891B2', bg: '#ECFEFF', title: 'Fast onboarding for any cohort', body: 'Launch with your entire graduating class in a single session. Students record their first Reslink in under 10 minutes — no tech experience needed.' },
+  { icon: Zap, color: '#0891B2', bg: '#ECFEFF', title: 'Fast onboarding for any cohort', body: 'Launch with your entire graduating class in a single session. Students record their first Reslink in under 10 minutes. no tech experience needed.' },
 ];
 
 const STEPS = [
@@ -38,7 +38,7 @@ const TESTIMONIALS = [
 const FAQS = [
   { q: 'How does Reslink work for universities?', a: 'Your institution gets a dedicated account. Students sign up, record their video profile, and share their Reslink with employers. Career advisors have a dashboard to track engagement and outcomes across the entire cohort.' },
   { q: 'Can we onboard an entire graduating class?', a: 'Yes. You send one invitation link and students sign up at their own pace. Most complete their Reslink profile in under 10 minutes. No IT setup required.' },
-  { q: 'How do employers access student profiles?', a: 'You can share curated student galleries with your employer partners via a link — no account required on their end. Employers can also search for graduates on the Reslink platform directly.' },
+  { q: 'How do employers access student profiles?', a: 'You can share curated student galleries with your employer partners via a link. no account required on their end. Employers can also search for graduates on the Reslink platform directly.' },
   { q: 'Can advisors monitor student progress?', a: 'Yes. The advisor dashboard shows which students have created profiles, how many views they\'ve received, and which employer partners are engaging with your student pool.' },
   { q: 'Is there a cost to students?', a: 'No. Students always use Reslink for free. Institutional pricing covers the advisor dashboard, bulk onboarding, and employer integration features.' },
   { q: 'How do we get started?', a: 'Book a demo with our university partnerships team. We\'ll walk you through the platform, discuss your cohort size, and set up a pilot program at no cost.' },
@@ -124,7 +124,7 @@ export default function UniversitiesPage() {
                   Help your<br />students get<br /><span style={{ color: '#D8F950' }}>hired faster.</span>
                 </h1>
                 <p style={{ fontSize: 'clamp(16px, 1.8vw, 19px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '36px', maxWidth: '480px' }}>
-                  Reslink gives university career centers a scalable, modern tool to help graduates stand out — from first-year students to your most placement-ready seniors.
+                  Reslink gives university career centers a scalable, modern tool to help graduates stand out. from first-year students to your most placement-ready seniors.
                 </p>
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '32px' }}>
                   <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: '#D8F950', color: '#041635', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>

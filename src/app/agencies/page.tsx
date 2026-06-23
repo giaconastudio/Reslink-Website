@@ -9,7 +9,7 @@ import Footer from '@/components/Footer';
 import LogoTicker from '@/components/LogoTicker';
 
 const FEATURES = [
-  { icon: Video, color: '#0C63E3', bg: '#EEF4FF', title: 'Present candidates with confidence', body: 'Send clients a shortlist where every candidate has a video pitch attached. Clients see real people, not just PDFs — and they remember them.' },
+  { icon: Video, color: '#0C63E3', bg: '#EEF4FF', title: 'Present candidates with confidence', body: 'Send clients a shortlist where every candidate has a video pitch attached. Clients see real people, not just PDFs. and they remember them.' },
   { icon: Search, color: '#7C3AED', bg: '#F3EEFF', title: 'Screen faster, place better', body: 'A 90-second Reslink replaces three rounds of phone screens. Know who\'s articulate and motivated before you ever pick up the phone.' },
   { icon: Briefcase, color: '#059669', bg: '#ECFDF5', title: 'Stand out from competing agencies', body: 'When your shortlists include video profiles and your competitors\' don\'t, clients notice. Reslink is a differentiator that wins business.' },
   { icon: BarChart2, color: '#D97706', bg: '#FFFBEB', title: 'Track candidate engagement', body: 'See when your clients view candidate Reslinks, which profiles they replay, and who they share internally. Full pipeline visibility.' },
@@ -18,7 +18,7 @@ const FEATURES = [
 ];
 
 const STEPS = [
-  { num: '01', title: 'Onboard your candidate roster', desc: 'Invite your candidates to create a Reslink. Most record their profile in under 10 minutes — no tech skills needed.' },
+  { num: '01', title: 'Onboard your candidate roster', desc: 'Invite your candidates to create a Reslink. Most record their profile in under 10 minutes. no tech skills needed.' },
   { num: '02', title: 'Build video-enhanced shortlists', desc: 'When a role opens, pull together a shortlist with video profiles attached. Clients can watch candidates before the first call.' },
   { num: '03', title: 'Share with clients and track views', desc: 'Send your shortlist link to the client. Know the moment they view it, which candidates they replay, and who they share internally.' },
   { num: '04', title: 'Close faster, bill sooner', desc: 'Aligned clients make faster decisions. Fewer back-and-forth calls, quicker offers, faster placements.' },
@@ -29,17 +29,17 @@ const TESTIMONIALS = [
   { quote: 'The video profiles cut our interview-to-placement ratio almost in half. Clients already feel like they know the candidate before meeting them.', name: 'Ryan Torres', role: 'Principal Consultant', company: 'Hays', color: '#CC0000' },
   { quote: 'I used to spend two days phone screening. Now I review Reslinks in an hour. That time went back to business development.', name: 'Natalie Brooks', role: 'Recruiter', company: 'Robert Half', color: '#004B8D' },
   { quote: 'Our client retention improved significantly once we started presenting Reslink shortlists. They literally thank us for the experience.', name: 'Oliver Singh', role: 'Director', company: 'Korn Ferry', color: '#2D2D2D' },
-  { quote: 'Being able to see when the client watched a video changed how I follow up. I call when I know they\'re engaged — placements went up.', name: 'Chloe Watson', role: 'Account Manager', company: 'Adecco', color: '#E30613' },
+  { quote: 'Being able to see when the client watched a video changed how I follow up. I call when I know they\'re engaged. placements went up.', name: 'Chloe Watson', role: 'Account Manager', company: 'Adecco', color: '#E30613' },
   { quote: 'Candidates who have a Reslink convert at a much higher rate. It proves they\'re serious and prepared before the first call.', name: 'David Kim', role: 'Senior Consultant', company: 'Spencer Stuart', color: '#003087' },
   { quote: 'We rolled out Reslink across our whole team and placements increased by 35% in the first quarter. The numbers don\'t lie.', name: 'Fatima Al-Hassan', role: 'Regional Director', company: 'Randstad', color: '#003082' },
   { quote: 'Clients love seeing video profiles. It elevates the whole candidate experience and makes our agency look more premium.', name: 'Tom Hartley', role: 'Managing Consultant', company: 'Kforce', color: '#0046AD' },
 ];
 
 const FAQS = [
-  { q: 'How does Reslink work for agencies?', a: 'Your candidates create a Reslink video profile, then you include their profile links in shortlists you send to clients. Clients watch the videos before deciding who to interview — saving everyone time and increasing placement rates.' },
+  { q: 'How does Reslink work for agencies?', a: 'Your candidates create a Reslink video profile, then you include their profile links in shortlists you send to clients. Clients watch the videos before deciding who to interview. saving everyone time and increasing placement rates.' },
   { q: 'Can we onboard candidates in bulk?', a: 'Yes. You can invite your entire candidate pool by email or share a sign-up link. Candidates create their own profiles and you get notified when they\'re ready.' },
   { q: 'Do clients need a Reslink account to view candidates?', a: 'No. Clients can view any Reslink profile via a shareable link without creating an account. No friction for the client experience.' },
-  { q: 'Does Reslink replace our ATS?', a: 'No — Reslink sits alongside your existing ATS and candidate management tools. It adds video profiles to your current workflow without replacing anything.' },
+  { q: 'Does Reslink replace our ATS?', a: 'No. Reslink sits alongside your existing ATS and candidate management tools. It adds video profiles to your current workflow without replacing anything.' },
   { q: 'How much does Reslink cost for an agency?', a: 'We offer agency plans based on team size and volume. Book a demo and we\'ll build a plan that fits your placement volume and budget.' },
   { q: 'Can I white-label Reslink for my agency?', a: 'Yes. Enterprise agency plans include custom branding options so the experience feels native to your firm. Ask about this on your demo call.' },
 ];
@@ -124,7 +124,7 @@ export default function AgenciesPage() {
                   Place more<br />candidates.<br /><span style={{ color: '#D8F950' }}>Win more clients.</span>
                 </h1>
                 <p style={{ fontSize: 'clamp(16px, 1.8vw, 19px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '36px', maxWidth: '480px' }}>
-                  Reslink helps recruitment agencies deliver stronger shortlists, impress clients, and close placements faster — all with video-first candidate profiles.
+                  Reslink helps recruitment agencies deliver stronger shortlists, impress clients, and close placements faster. all with video-first candidate profiles.
                 </p>
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '32px' }}>
                   <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: '#D8F950', color: '#041635', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
@@ -162,7 +162,7 @@ export default function AgenciesPage() {
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#041635', lineHeight: 0.93, letterSpacing: '-0.03em', marginBottom: '20px' }}>
                 PDF shortlists<br />don't win<br /><span style={{ color: '#0C63E3' }}>clients anymore.</span>
               </h2>
-              <p style={{ fontSize: '17px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>Every agency sends the same CVs. Reslink lets you show your clients the person, not just the paper — and that changes everything.</p>
+              <p style={{ fontSize: '17px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>Every agency sends the same CVs. Reslink lets you show your clients the person, not just the paper. and that changes everything.</p>
             </motion.div>
             <div className="ag-problem-grid">
               <motion.div initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>

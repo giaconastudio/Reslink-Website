@@ -22,7 +22,7 @@ const SEEKER_PREMIUM = [
   'Unlimited Reslinks',
   'Upload your own custom video pitch',
   'Full Pitch AI access',
-  'Application insights — see who viewed you',
+  'Application insights. see who viewed you',
   'Watch-time analytics per recruiter',
   'In-app video recording & teleprompter',
   'Access to the resource center',
@@ -70,20 +70,20 @@ const AGENCY_SCALE = [
 const TESTIMONIALS = [
   { quote: "After adding my Reslink to every application, I started getting callbacks within 48 hours. Complete game changer.", name: 'Ben Harper', role: 'Software Engineer · Amazon', initials: 'BH', color: '#4F6EF7' },
   { quote: "I landed my dream job and I genuinely believe the video resume made all the difference. Reslink let me show who I really am.", name: 'Sofia Rodriguez', role: 'Marketing Manager · Meta', initials: 'SR', color: '#A855F7' },
-  { quote: "The analytics feature is unreal. I saw a senior partner watch my video three times — I reached out and got an interview the next morning.", name: 'Marcus Williams', role: 'Finance Analyst · EY', initials: 'MW', color: '#F59E0B' },
+  { quote: "The analytics feature is unreal. I saw a senior partner watch my video three times. I reached out and got an interview the next morning.", name: 'Marcus Williams', role: 'Finance Analyst · EY', initials: 'MW', color: '#F59E0B' },
   { quote: "My recruiter said she had never seen a video resume done that well. She shared it with the entire hiring team before my first interview.", name: 'Elena Kowalski', role: 'Product Manager · Revolut', initials: 'EK', color: '#10B981' },
   { quote: "As a designer I care about how I present myself. Reslink resonated perfectly with the creative teams I was targeting. Two offers in two weeks.", name: 'Priya Patel', role: 'UX Designer · Google', initials: 'PP', color: '#EF4444' },
   { quote: "Honestly thought video resumes were gimmicky. Then I got a reply from Stripe within 24 hours of sending my Reslink. I was wrong.", name: 'Aisha Mensah', role: 'Data Scientist · Stripe', initials: 'AM', color: '#635BFF' },
 ];
 
 const FAQS = [
-  { q: 'Is Reslink really free?', a: 'Yes. You can create up to 2 Reslinks, record your pitch, and start sharing — completely free, no credit card required.' },
+  { q: 'Is Reslink really free?', a: 'Yes. You can create up to 2 Reslinks, record your pitch, and start sharing. completely free, no credit card required.' },
   { q: 'What does Premium unlock?', a: 'Premium gives you unlimited Reslinks, full analytics (see every recruiter who viewed you and how long they watched), and unrestricted Pitch AI access to help you script and refine your pitch.' },
   { q: 'Can I cancel anytime?', a: 'Absolutely. Cancel any time from your account settings. Your Premium access stays active until the end of the billing period.' },
-  { q: 'Is the annual plan worth it?', a: 'At $58/year vs $14/month billed monthly, the annual plan saves you 67%. Most job searches wrap up in a few months — annual is the best value by far.' },
+  { q: 'Is the annual plan worth it?', a: 'At $58/year vs $14/month billed monthly, the annual plan saves you 67%. Most job searches wrap up in a few months. annual is the best value by far.' },
   { q: 'What happens to my Reslinks if I downgrade?', a: 'Your Reslinks stay live. If you have more than 2, they remain accessible via direct link but you\'ll need Premium to create new ones.' },
   { q: 'Do I need special equipment to record?', a: 'No. Your laptop or phone camera is all you need. Good lighting and a quiet room make the biggest difference.' },
-  { q: 'How do companies or agencies get started?', a: 'Reach out via the contact form or click "Request a demo" — we\'ll walk you through setup and match you to the right plan for your team size.' },
+  { q: 'How do companies or agencies get started?', a: 'Reach out via the contact form or click "Request a demo". we\'ll walk you through setup and match you to the right plan for your team size.' },
 ];
 
 const INCLUDED = [
@@ -91,7 +91,7 @@ const INCLUDED = [
     svg: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>,
     color: '#0C63E3', bg: '#EEF4FF',
     title: 'In-app recording',
-    desc: 'Record straight in the browser — no downloads or plugins needed.',
+    desc: 'Record straight in the browser. no downloads or plugins needed.',
   },
   {
     svg: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>,
@@ -216,7 +216,7 @@ export default function PricingPage() {
               </div>
             </motion.div>
 
-            {/* Billing toggle — only for job seekers */}
+            {/* Billing toggle. only for job seekers */}
             <AnimatePresence>
               {planTab === 'seekers' && (
                 <motion.div key="toggle" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.25 }}
@@ -477,7 +477,7 @@ export default function PricingPage() {
               </p>
               <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
                 <Link href="/get-started" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
-                  Create your Reslink — free
+                  Create your Reslink. free
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                 </Link>
                 <Link href="/signup?plan=premium" style={{ display: 'inline-flex', alignItems: 'center', padding: '14px 24px', fontSize: '15px', fontWeight: 600, color: 'rgba(255,255,255,0.65)', background: 'rgba(255,255,255,0.08)', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, X, Zap, Star, Minus, Plus } from 'lucide-react';
+import { Check, X, Zap, Star, Minus, Plus, Briefcase, Building2, Users, ShieldCheck, Globe, Lock, RefreshCw } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -31,33 +31,33 @@ const SEEKER_PREMIUM = [
 /* ─── Company features by tier ─── */
 type Maybe = true | false | string;
 const COMPANY_ROWS: { label: string; trial: Maybe; growth: Maybe; enterprise: Maybe }[] = [
-  { label: 'Open job postings',       trial: 'Up to 5',    growth: 'Up to 25',   enterprise: 'Unlimited' },
-  { label: 'Team seats',              trial: '2 seats',    growth: '10 seats',   enterprise: 'Unlimited' },
-  { label: 'Browse candidate Reslinks', trial: true,       growth: true,         enterprise: true },
-  { label: 'Watch-time analytics',    trial: true,         growth: true,         enterprise: true },
-  { label: 'Shortlist & tag candidates', trial: true,      growth: true,         enterprise: true },
-  { label: 'ATS-friendly candidate exports', trial: false, growth: true,         enterprise: true },
-  { label: 'Custom branded company page', trial: false,    growth: true,         enterprise: true },
-  { label: 'Priority candidate matching', trial: false,    growth: false,        enterprise: true },
-  { label: 'SSO & advanced permissions',  trial: false,    growth: false,        enterprise: true },
-  { label: 'Dedicated account manager',   trial: false,    growth: false,        enterprise: true },
-  { label: 'SLA-backed support',          trial: false,    growth: false,        enterprise: true },
-  { label: 'API access',                  trial: false,    growth: false,        enterprise: true },
+  { label: 'Open job postings',              trial: 'Up to 5',  growth: 'Up to 25',  enterprise: 'Unlimited' },
+  { label: 'Team seats',                     trial: '2 seats',  growth: '10 seats',  enterprise: 'Unlimited' },
+  { label: 'Browse candidate Reslinks',      trial: true,       growth: true,        enterprise: true },
+  { label: 'Watch-time analytics',           trial: true,       growth: true,        enterprise: true },
+  { label: 'Shortlist & tag candidates',     trial: true,       growth: true,        enterprise: true },
+  { label: 'ATS-friendly candidate exports', trial: false,      growth: true,        enterprise: true },
+  { label: 'Custom branded company page',    trial: false,      growth: true,        enterprise: true },
+  { label: 'Priority candidate matching',    trial: false,      growth: false,       enterprise: true },
+  { label: 'SSO & advanced permissions',     trial: false,      growth: false,       enterprise: true },
+  { label: 'Dedicated account manager',      trial: false,      growth: false,       enterprise: true },
+  { label: 'SLA-backed support',             trial: false,      growth: false,       enterprise: true },
+  { label: 'API access',                     trial: false,      growth: false,       enterprise: true },
 ];
 
 /* ─── Agency features by tier ─── */
 const AGENCY_ROWS: { label: string; starter: Maybe; growth: Maybe; scale: Maybe }[] = [
-  { label: 'Active candidate profiles', starter: 'Up to 25', growth: 'Up to 100', scale: 'Unlimited' },
-  { label: 'Recruiter seats',           starter: '3 seats',  growth: '10 seats',  scale: 'Unlimited' },
-  { label: 'Client-facing share links', starter: true,       growth: true,        scale: true },
-  { label: 'Watch-time analytics',      starter: true,       growth: true,        scale: true },
-  { label: 'Candidate pipeline management', starter: true,   growth: true,        scale: true },
-  { label: 'Branded agency landing page',   starter: true,   growth: true,        scale: true },
-  { label: 'Client shortlist branding',     starter: false,  growth: true,        scale: true },
-  { label: 'White-label profile pages',     starter: false,  growth: false,       scale: true },
-  { label: 'API access for ATS integrations', starter: false, growth: false,      scale: true },
-  { label: 'Dedicated success manager',     starter: false,  growth: false,       scale: true },
-  { label: 'SLA-backed priority support',   starter: false,  growth: false,       scale: true },
+  { label: 'Active candidate profiles',        starter: 'Up to 25', growth: 'Up to 100', scale: 'Unlimited' },
+  { label: 'Recruiter seats',                  starter: '3 seats',  growth: '10 seats',  scale: 'Unlimited' },
+  { label: 'Client-facing share links',        starter: true,       growth: true,        scale: true },
+  { label: 'Watch-time analytics',             starter: true,       growth: true,        scale: true },
+  { label: 'Candidate pipeline management',    starter: true,       growth: true,        scale: true },
+  { label: 'Branded agency landing page',      starter: true,       growth: true,        scale: true },
+  { label: 'Client shortlist branding',        starter: false,      growth: true,        scale: true },
+  { label: 'White-label profile pages',        starter: false,      growth: false,       scale: true },
+  { label: 'API access for ATS integrations',  starter: false,      growth: false,       scale: true },
+  { label: 'Dedicated success manager',        starter: false,      growth: false,       scale: true },
+  { label: 'SLA-backed priority support',      starter: false,      growth: false,       scale: true },
 ];
 
 const TESTIMONIALS = [
@@ -72,13 +72,13 @@ const TESTIMONIALS = [
 const FAQS = [
   { q: 'Is Reslink really free?', a: 'Yes. You can create up to 2 Reslinks, record your pitch, and start sharing — completely free, no credit card required.' },
   { q: 'What does Premium unlock?', a: 'Premium gives you unlimited Reslinks, full analytics (see every recruiter who viewed you and how long they watched), and unrestricted Pitch AI access to help you script and refine your pitch.' },
-  { q: 'What is the quarterly plan?', a: 'The quarterly plan is $29 billed every 3 months — that\'s $10/month, a 29% saving over monthly. Most job searches wrap up within a quarter, making it the most practical option for active candidates.' },
-  { q: 'Is the annual plan worth it?', a: 'At $58/year vs $14/month billed monthly, the annual plan saves you over 64%. If you want unlimited access for the long haul — especially if you plan multiple job searches — it\'s the best value.' },
+  { q: 'What is the quarterly plan?', a: "The quarterly plan is $29 billed every 3 months — that's $10/month, a 29% saving over monthly. Most job searches wrap up within a quarter, making it the most practical option for active candidates." },
+  { q: 'Is the annual plan worth it?', a: 'At $58/year vs $14/month billed monthly, the annual plan saves you over 64%. If you want unlimited access for the long haul it is the best value.' },
   { q: 'Can I cancel anytime?', a: 'Absolutely. Cancel any time from your account settings. Your Premium access stays active until the end of the billing period, no matter which cycle you chose.' },
-  { q: 'What happens to my Reslinks if I downgrade?', a: 'Your Reslinks stay live. If you have more than 2, they remain accessible via direct link but you\'ll need Premium to create new ones.' },
-  { q: 'How do companies get started?', a: 'Start a 14-day free trial directly from this page — no credit card needed. We\'ll walk you through setup. For Enterprise plans, click "Request a demo" and we\'ll get back to you within one business day.' },
+  { q: 'What happens to my Reslinks if I downgrade?', a: "Your Reslinks stay live. If you have more than 2, they remain accessible via direct link but you'll need Premium to create new ones." },
+  { q: 'How do companies get started?', a: "Start a 14-day free trial directly from this page — no credit card needed. For Enterprise plans, click 'Request a demo' and we'll get back to you within one business day." },
   { q: 'How does agency pricing work?', a: 'Agency plans are based on active candidate profiles and recruiter seats. You can start on the Starter plan and upgrade as your team grows. Scale plans are priced based on volume — reach out for a custom quote.' },
-  { q: 'Do you offer a free trial for companies and agencies?', a: 'Companies get a 14-day free trial on the Growth plan with no credit card required. Agency trials are available on request — contact our team to set one up.' },
+  { q: 'Do you offer a free trial for companies and agencies?', a: 'Companies get a 14-day free trial on the Growth plan with no credit card required. Agency trials are available on request.' },
 ];
 
 type PlanTab = 'seekers' | 'companies' | 'agencies';
@@ -97,8 +97,20 @@ function CheckItem({ label, dark }: { label: string; dark?: boolean }) {
 
 function FeatureCell({ value, featured }: { value: Maybe; featured?: boolean }) {
   const textColor = featured ? 'rgba(255,255,255,0.85)' : '#5C6070';
-  if (value === true) return <div style={{ display: 'flex', justifyContent: 'center' }}><div style={{ width: '20px', height: '20px', borderRadius: '50%', background: featured ? 'rgba(216,249,80,0.15)' : '#ECEEF1', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Check size={10} color={featured ? '#D8F950' : '#5C6070'} strokeWidth={2.5} /></div></div>;
-  if (value === false) return <div style={{ display: 'flex', justifyContent: 'center' }}><div style={{ width: '20px', height: '20px', borderRadius: '50%', background: featured ? 'rgba(255,255,255,0.06)' : '#F7F8FA', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><X size={10} color={featured ? 'rgba(255,255,255,0.2)' : '#D1D5DB'} strokeWidth={2.5} /></div></div>;
+  if (value === true) return (
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: featured ? 'rgba(216,249,80,0.15)' : '#ECEEF1', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Check size={10} color={featured ? '#D8F950' : '#5C6070'} strokeWidth={2.5} />
+      </div>
+    </div>
+  );
+  if (value === false) return (
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: featured ? 'rgba(255,255,255,0.06)' : '#F7F8FA', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <X size={10} color={featured ? 'rgba(255,255,255,0.2)' : '#D1D5DB'} strokeWidth={2.5} />
+      </div>
+    </div>
+  );
   return <p style={{ fontSize: '13px', fontWeight: 600, color: textColor, fontFamily: 'var(--font-body)', textAlign: 'center' }}>{value}</p>;
 }
 
@@ -120,32 +132,25 @@ function TestiCard({ t }: { t: typeof TESTIMONIALS[0] }) {
   );
 }
 
-function CTABtn({ href, dark, label }: { href: string; dark?: boolean; label: string }) {
-  const arrow = <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>;
-  if (dark) return (
-    <Link href={href} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#D8F950', color: '#041635', fontWeight: 700, fontSize: '15px', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-      {label}{arrow}
-    </Link>
-  );
-  return (
-    <Link href={href} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#fff', color: '#041635', fontWeight: 700, fontSize: '15px', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)', border: '1.5px solid #E4E6EC' }}>
-      {label}{arrow}
-    </Link>
-  );
-}
-
 export default function PricingPage() {
   const [billing, setBilling] = useState<BillingCycle>('annual');
   const [planTab, setPlanTab] = useState<PlanTab>('seekers');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const doubled = [...TESTIMONIALS, ...TESTIMONIALS];
 
-  /* Job seeker price per month shown on card */
   const seekerPrice = billing === 'monthly' ? 14 : billing === 'quarterly' ? 10 : 5;
-  const seekerBilledNote =
-    billing === 'monthly' ? null :
-    billing === 'quarterly' ? 'Billed $29 every 3 months · save 29% vs monthly' :
-    'Billed $58/year · save 64% vs monthly';
+  const seekerBilledLine =
+    billing === 'quarterly' ? 'Billed $29 every 3 months' :
+    billing === 'annual' ? 'Billed $58 per year' : null;
+  const seekerSaveLabel =
+    billing === 'quarterly' ? 'Save 29%' :
+    billing === 'annual' ? 'Save 64%' : null;
+
+  const AUDIENCE = [
+    { key: 'seekers' as PlanTab, Icon: Briefcase, label: 'Job Seekers', desc: 'Build and share your video profile' },
+    { key: 'companies' as PlanTab, Icon: Building2, label: 'Companies', desc: 'Hire smarter with video-first candidates' },
+    { key: 'agencies' as PlanTab, Icon: Users, label: 'Recruitment Agencies', desc: 'Win more placements, faster' },
+  ];
 
   return (
     <>
@@ -156,25 +161,22 @@ export default function PricingPage() {
         .p-testi-track:hover { animation-play-state: paused; }
         .pricing-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
         .pricing-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        .feat-table { display: grid; }
+        .audience-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
         @media (max-width: 860px) {
           .pricing-grid-3 { grid-template-columns: 1fr !important; }
           .pricing-grid-2 { grid-template-columns: 1fr !important; }
-          .feat-table-header { display: none !important; }
-          .feat-table-row { grid-template-columns: 1fr !important; }
-          .feat-table-label { font-weight: 600 !important; border-bottom: 1px solid #E8EAF0; padding-bottom: 8px; margin-bottom: 8px; }
+          .audience-grid { grid-template-columns: 1fr !important; }
         }
         @media (max-width: 560px) {
-          .billing-toggle { flex-direction: column !important; align-items: stretch !important; }
-          .billing-toggle button { text-align: center; }
+          .billing-seg { flex-direction: column !important; }
         }
       `}</style>
       <main style={{ paddingTop: '68px' }}>
 
         {/* ─── Hero ─── */}
-        <section style={{ background: '#041635', padding: 'clamp(72px, 10vw, 120px) 24px clamp(80px, 11vw, 130px)', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+        <section style={{ background: '#041635', padding: 'clamp(72px, 10vw, 120px) 24px 0', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', top: '-10%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '700px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.28), transparent 60%)', pointerEvents: 'none' }} />
-          <div style={{ position: 'relative', zIndex: 1, maxWidth: '640px', margin: '0 auto' }}>
+          <div style={{ position: 'relative', zIndex: 1, maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(216,249,80,0.12)', border: '1px solid rgba(216,249,80,0.25)', borderRadius: '100px', padding: '5px 14px', marginBottom: '24px' }}>
                 <Zap size={11} color="#D8F950" fill="#D8F950" />
@@ -183,9 +185,43 @@ export default function PricingPage() {
               <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(44px, 7vw, 82px)', fontWeight: 900, color: '#fff', lineHeight: 0.92, letterSpacing: '-0.03em', marginBottom: '22px' }}>
                 Start free.<br /><span style={{ color: '#D8F950' }}>Upgrade when ready.</span>
               </h1>
-              <p style={{ fontSize: 'clamp(16px, 2vw, 19px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.65, fontFamily: 'var(--font-body)' }}>
+              <p style={{ fontSize: 'clamp(16px, 2vw, 18px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginBottom: '48px' }}>
                 Job seekers get a powerful free plan. Companies and agencies get tools built to close faster and hire smarter.
               </p>
+            </motion.div>
+
+            {/* ─── Audience selector cards (in hero, overlapping into white) ─── */}
+            <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.12 }}>
+              <div className="audience-grid" style={{ marginBottom: '-1px', position: 'relative', zIndex: 2 }}>
+                {AUDIENCE.map(({ key, Icon, label, desc }) => {
+                  const active = planTab === key;
+                  return (
+                    <button key={key} onClick={() => setPlanTab(key)} style={{
+                      background: active ? '#fff' : 'rgba(255,255,255,0.05)',
+                      border: active ? '2px solid #fff' : '1.5px solid rgba(255,255,255,0.1)',
+                      borderBottom: active ? '2px solid #fff' : '1.5px solid rgba(255,255,255,0.1)',
+                      borderRadius: active ? '16px 16px 0 0' : '16px',
+                      padding: '20px 20px 24px',
+                      cursor: 'pointer',
+                      textAlign: 'left',
+                      transition: 'all 0.2s',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '10px',
+                      position: 'relative',
+                    }}>
+                      {active && <div style={{ position: 'absolute', bottom: '-2px', left: 0, right: 0, height: '4px', background: '#fff' }} />}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: active ? '#EEF4FF' : 'rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                          <Icon size={17} color={active ? '#0C63E3' : 'rgba(255,255,255,0.5)'} strokeWidth={1.8} />
+                        </div>
+                        <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '17px', fontWeight: 900, color: active ? '#041635' : '#fff', letterSpacing: '-0.02em', lineHeight: 1 }}>{label}</span>
+                      </div>
+                      <p style={{ fontSize: '12px', color: active ? '#5C6070' : 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', lineHeight: 1.4 }}>{desc}</p>
+                    </button>
+                  );
+                })}
+              </div>
             </motion.div>
           </div>
         </section>
@@ -194,57 +230,35 @@ export default function PricingPage() {
         <section style={{ background: '#fff', padding: '0 24px clamp(80px, 10vw, 120px)' }}>
           <div style={{ maxWidth: '1020px', margin: '0 auto' }}>
 
-            {/* Tab selector */}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.08 }}
-              style={{ display: 'flex', justifyContent: 'center', padding: '36px 0 0' }}>
-              <div style={{ display: 'inline-flex', background: '#F7F8FA', borderRadius: '12px', border: '1px solid #ECEEF1', padding: '4px', gap: '2px' }}>
-                {([
-                  { key: 'seekers', label: 'For Job Seekers' },
-                  { key: 'companies', label: 'For Companies' },
-                  { key: 'agencies', label: 'For Agencies' },
-                ] as { key: PlanTab; label: string }[]).map(({ key, label }) => (
-                  <button key={key} onClick={() => setPlanTab(key)}
-                    style={{ padding: '9px 22px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: 600, fontFamily: 'var(--font-body)', transition: 'all 0.18s', background: planTab === key ? '#041635' : 'transparent', color: planTab === key ? '#fff' : '#5C6070', whiteSpace: 'nowrap' }}>
-                    {label}
-                  </button>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* ─── Job seeker billing toggle (3-way) ─── */}
-            <AnimatePresence>
-              {planTab === 'seekers' && (
-                <motion.div key="billing" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.25 }}
-                  style={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', padding: '28px 0 44px' }}>
-                  <div className="billing-toggle" style={{ display: 'inline-flex', background: '#F7F8FA', borderRadius: '12px', border: '1px solid #ECEEF1', padding: '4px', gap: '2px' }}>
-                    {([
-                      { key: 'monthly', label: 'Monthly', badge: null },
-                      { key: 'quarterly', label: 'Quarterly', badge: 'Save 29%' },
-                      { key: 'annual', label: 'Annual', badge: 'Save 64%' },
-                    ] as { key: BillingCycle; label: string; badge: string | null }[]).map(({ key, label, badge }) => (
-                      <button key={key} onClick={() => setBilling(key)}
-                        style={{ padding: '9px 18px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: 600, fontFamily: 'var(--font-body)', transition: 'all 0.18s', background: billing === key ? '#041635' : 'transparent', color: billing === key ? '#fff' : '#5C6070', display: 'flex', alignItems: 'center', gap: '7px', whiteSpace: 'nowrap' }}>
-                        {label}
-                        {badge && billing !== key && (
-                          <span style={{ fontSize: '10px', fontWeight: 700, color: '#0C63E3', background: '#EEF4FF', padding: '2px 8px', borderRadius: '100px', fontFamily: 'var(--font-body)' }}>{badge}</span>
-                        )}
-                        {badge && billing === key && (
-                          <span style={{ fontSize: '10px', fontWeight: 700, color: '#041635', background: '#D8F950', padding: '2px 8px', borderRadius: '100px', fontFamily: 'var(--font-body)' }}>{badge}</span>
-                        )}
-                      </button>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {planTab !== 'seekers' && <div style={{ height: '44px' }} />}
-
             <AnimatePresence mode="wait">
 
-              {/* ─── Job Seeker cards ─── */}
+              {/* ─── Job Seeker plans ─── */}
               {planTab === 'seekers' && (
-                <motion.div key="seekers" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.3 }}>
+                <motion.div key="seekers" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.28 }}>
+
+                  {/* Billing cycle — scoped, subtle, inside this section */}
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '32px 0 28px', flexWrap: 'wrap', gap: '12px' }}>
+                    <div>
+                      <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: '#041635', letterSpacing: '-0.02em' }}>For Job Seekers</p>
+                      <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Free to start. Upgrade when you want full analytics and unlimited reach.</p>
+                    </div>
+                    <div className="billing-seg" style={{ display: 'inline-flex', background: '#F7F8FA', borderRadius: '10px', border: '1px solid #ECEEF1', padding: '3px', gap: '2px' }}>
+                      {([
+                        { key: 'monthly' as BillingCycle, label: 'Monthly' },
+                        { key: 'quarterly' as BillingCycle, label: 'Quarterly', badge: 'Save 29%' },
+                        { key: 'annual' as BillingCycle, label: 'Annual', badge: 'Save 64%' },
+                      ]).map(({ key, label, badge }) => (
+                        <button key={key} onClick={() => setBilling(key)}
+                          style={{ padding: '7px 16px', borderRadius: '7px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: 600, fontFamily: 'var(--font-body)', transition: 'all 0.15s', background: billing === key ? '#041635' : 'transparent', color: billing === key ? '#fff' : '#5C6070', display: 'flex', alignItems: 'center', gap: '6px', whiteSpace: 'nowrap' }}>
+                          {label}
+                          {badge && (
+                            <span style={{ fontSize: '10px', fontWeight: 700, padding: '2px 7px', borderRadius: '100px', background: billing === key ? '#D8F950' : '#E8EAF0', color: billing === key ? '#041635' : '#9A9FA8', fontFamily: 'var(--font-body)', transition: 'all 0.15s' }}>{badge}</span>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
                   <div className="pricing-grid-2">
 
                     {/* Free */}
@@ -271,18 +285,16 @@ export default function PricingPage() {
                         <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#D8F950', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>Premium</p>
                         <div style={{ display: 'flex', alignItems: 'flex-end', gap: '4px', marginBottom: '4px' }}>
                           <AnimatePresence mode="wait">
-                            <motion.span key={seekerPrice} initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} transition={{ duration: 0.18 }}
+                            <motion.span key={seekerPrice} initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 6 }} transition={{ duration: 0.15 }}
                               style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(44px, 5.5vw, 56px)', fontWeight: 900, color: '#fff', lineHeight: 1, letterSpacing: '-0.03em', display: 'block' }}>
                               ${seekerPrice}
                             </motion.span>
                           </AnimatePresence>
                           <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', marginBottom: '8px' }}>/month</span>
                         </div>
-                        {seekerBilledNote && (
+                        {seekerBilledLine && (
                           <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)', marginBottom: '6px' }}>
-                            {seekerBilledNote.split(' · ').map((part, i) => (
-                              i === 1 ? <span key={i} style={{ color: '#D8F950', fontWeight: 700 }}> · {part}</span> : part
-                            ))}
+                            {seekerBilledLine}{seekerSaveLabel && <span style={{ color: '#D8F950', fontWeight: 700 }}> · {seekerSaveLabel}</span>}
                           </p>
                         )}
                         <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', lineHeight: 1.5, marginBottom: '28px', marginTop: '6px' }}>Unlimited everything. Know exactly who&apos;s watching.</p>
@@ -297,16 +309,16 @@ export default function PricingPage() {
                     </div>
                   </div>
 
-                  {/* Seeker value strip */}
-                  <div style={{ marginTop: '24px', background: '#F7F8FA', borderRadius: '14px', border: '1px solid #ECEEF1', padding: '18px 28px', display: 'flex', gap: '32px', flexWrap: 'wrap', justifyContent: 'center' }}>
-                    {[
-                      { icon: '🔒', text: 'Cancel anytime' },
-                      { icon: '⚡', text: 'Instant access after payment' },
-                      { icon: '📎', text: 'Reslinks stay live if you downgrade' },
-                      { icon: '🌍', text: 'Works with every ATS globally' },
-                    ].map(({ icon, text }) => (
-                      <div key={text} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <span style={{ fontSize: '14px' }}>{icon}</span>
+                  {/* Trust row — no emojis */}
+                  <div style={{ marginTop: '20px', background: '#F7F8FA', borderRadius: '12px', border: '1px solid #ECEEF1', padding: '16px 24px', display: 'flex', gap: '28px', flexWrap: 'wrap', justifyContent: 'center' }}>
+                    {([
+                      { Icon: RefreshCw, text: 'Cancel anytime' },
+                      { Icon: Lock, text: 'Secure checkout' },
+                      { Icon: Globe, text: 'Works with every ATS globally' },
+                      { Icon: ShieldCheck, text: 'Reslinks stay live if you downgrade' },
+                    ] as { Icon: React.ElementType; text: string }[]).map(({ Icon, text }) => (
+                      <div key={text} style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
+                        <Icon size={13} color="#9A9FA8" strokeWidth={1.8} />
                         <span style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)', fontWeight: 500 }}>{text}</span>
                       </div>
                     ))}
@@ -314,11 +326,15 @@ export default function PricingPage() {
                 </motion.div>
               )}
 
-              {/* ─── Company cards + feature table ─── */}
+              {/* ─── Company plans ─── */}
               {planTab === 'companies' && (
-                <motion.div key="companies" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.3 }}>
+                <motion.div key="companies" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.28 }}>
 
-                  {/* 3 cards */}
+                  <div style={{ padding: '32px 0 28px' }}>
+                    <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: '#041635', letterSpacing: '-0.02em' }}>For Companies</p>
+                    <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Start with a 14-day free trial. No credit card required.</p>
+                  </div>
+
                   <div className="pricing-grid-3">
 
                     {/* Free Trial */}
@@ -328,12 +344,11 @@ export default function PricingPage() {
                         <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 4vw, 48px)', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em' }}>$0</span>
                         <span style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '7px' }}>/14 days</span>
                       </div>
-                      <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '4px' }}>No credit card required</p>
-                      <p style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)', lineHeight: 1.5, marginBottom: '24px', marginTop: '4px' }}>Try Reslink with your team before committing.</p>
-                      <div style={{ borderTop: '1px solid #ECEEF1', paddingTop: '20px', marginBottom: '24px', flex: 1 }}>
+                      <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '16px' }}>No credit card required</p>
+                      <div style={{ borderTop: '1px solid #ECEEF1', paddingTop: '18px', marginBottom: '24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '9px' }}>
                         {['Up to 5 job postings', '2 team seats', 'Browse candidate Reslinks', 'Watch-time analytics', 'Shortlist candidates'].map(f => (
-                          <div key={f} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-                            <Check size={13} color="#5C6070" strokeWidth={2.5} />
+                          <div key={f} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <Check size={12} color="#9A9FA8" strokeWidth={2.5} />
                             <span style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)' }}>{f}</span>
                           </div>
                         ))}
@@ -344,7 +359,7 @@ export default function PricingPage() {
                     </div>
 
                     {/* Growth — featured */}
-                    <div style={{ background: '#041635', borderRadius: '20px', border: '2px solid #D8F950', padding: 'clamp(24px, 3.5vw, 36px)', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', boxShadow: '0 24px 80px rgba(4,22,53,0.18)', transform: 'scale(1.02)', transformOrigin: 'center' }}>
+                    <div style={{ background: '#041635', borderRadius: '20px', border: '2px solid #D8F950', padding: 'clamp(24px, 3.5vw, 36px)', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', boxShadow: '0 24px 80px rgba(4,22,53,0.18)', transform: 'scale(1.025)', transformOrigin: 'center' }}>
                       <div style={{ position: 'absolute', top: '-30%', right: '-15%', width: '350px', height: '350px', background: 'radial-gradient(circle, rgba(12,99,227,0.25), transparent 65%)', pointerEvents: 'none' }} />
                       <div style={{ position: 'absolute', top: '16px', right: '16px', fontSize: '10px', fontWeight: 700, color: '#041635', background: '#D8F950', padding: '4px 10px', borderRadius: '100px', letterSpacing: '0.06em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>Most popular</div>
                       <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -353,13 +368,12 @@ export default function PricingPage() {
                           <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 4vw, 48px)', fontWeight: 900, color: '#fff', lineHeight: 1, letterSpacing: '-0.03em' }}>$99</span>
                           <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', marginBottom: '7px' }}>/month</span>
                         </div>
-                        <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)', marginBottom: '4px' }}>Billed annually ($79/mo) · save 20%</p>
-                        <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', lineHeight: 1.5, marginBottom: '24px', marginTop: '4px' }}>For growing teams hiring smarter with video-first candidates.</p>
-                        <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '20px', marginBottom: '24px', flex: 1 }}>
-                          {['Up to 25 job postings', '10 team seats', 'Browse candidate Reslinks', 'Watch-time analytics', 'Shortlist & tag candidates', 'ATS-friendly candidate exports', 'Custom branded company page', 'Priority email support'].map(f => (
-                            <div key={f} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-                              <div style={{ width: '16px', height: '16px', borderRadius: '50%', background: 'rgba(216,249,80,0.15)', border: '1px solid rgba(216,249,80,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                                <Check size={9} color="#D8F950" strokeWidth={2.5} />
+                        <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)', marginBottom: '16px' }}>Billed annually ($79/mo) · <span style={{ color: '#D8F950', fontWeight: 700 }}>save 20%</span></p>
+                        <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '18px', marginBottom: '24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '9px' }}>
+                          {['Up to 25 job postings', '10 team seats', 'Browse candidate Reslinks', 'Watch-time analytics', 'Shortlist & tag candidates', 'ATS-friendly exports', 'Custom branded company page', 'Priority email support'].map(f => (
+                            <div key={f} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                              <div style={{ width: '15px', height: '15px', borderRadius: '50%', background: 'rgba(216,249,80,0.15)', border: '1px solid rgba(216,249,80,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                <Check size={8} color="#D8F950" strokeWidth={2.5} />
                               </div>
                               <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.65)', fontFamily: 'var(--font-body)' }}>{f}</span>
                             </div>
@@ -378,12 +392,11 @@ export default function PricingPage() {
                       <div style={{ marginBottom: '4px' }}>
                         <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 3.5vw, 42px)', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em' }}>Custom</span>
                       </div>
-                      <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '4px' }}>Tailored to your hiring volume</p>
-                      <p style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)', lineHeight: 1.5, marginBottom: '24px', marginTop: '4px' }}>For high-volume hiring orgs that need full control at scale.</p>
-                      <div style={{ borderTop: '1px solid #ECEEF1', paddingTop: '20px', marginBottom: '24px', flex: 1 }}>
+                      <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '16px' }}>Tailored to your hiring volume</p>
+                      <div style={{ borderTop: '1px solid #ECEEF1', paddingTop: '18px', marginBottom: '24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '9px' }}>
                         {['Everything in Growth', 'Unlimited job postings', 'Unlimited team seats', 'Priority candidate matching', 'SSO & advanced permissions', 'Dedicated account manager', 'SLA-backed support', 'API access'].map(f => (
-                          <div key={f} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-                            <Check size={13} color={f === 'Everything in Growth' ? '#0C63E3' : '#5C6070'} strokeWidth={2.5} />
+                          <div key={f} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <Check size={12} color={f === 'Everything in Growth' ? '#0C63E3' : '#9A9FA8'} strokeWidth={2.5} />
                             <span style={{ fontSize: '13px', color: f === 'Everything in Growth' ? '#0C63E3' : '#5C6070', fontFamily: 'var(--font-body)', fontWeight: f === 'Everything in Growth' ? 700 : 400 }}>{f}</span>
                           </div>
                         ))}
@@ -394,19 +407,18 @@ export default function PricingPage() {
                     </div>
                   </div>
 
-                  {/* Company feature comparison table */}
-                  <div style={{ marginTop: '48px' }}>
-                    <p style={{ fontSize: '13px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '20px', textAlign: 'center' }}>Full feature comparison</p>
+                  {/* Feature comparison table */}
+                  <div style={{ marginTop: '40px' }}>
+                    <p style={{ fontSize: '12px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px', textAlign: 'center' }}>Full feature comparison</p>
                     <div style={{ borderRadius: '16px', border: '1px solid #E8EAF0', overflow: 'hidden' }}>
-                      {/* Table header */}
-                      <div className="feat-table-header" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', background: '#F7F8FA', padding: '14px 24px', borderBottom: '1px solid #E8EAF0' }}>
-                        <p style={{ fontSize: '12px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Feature</p>
+                      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', background: '#F7F8FA', padding: '12px 24px', borderBottom: '1px solid #E8EAF0' }}>
+                        <p style={{ fontSize: '11px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Feature</p>
                         {['Free Trial', 'Growth', 'Enterprise'].map(h => (
-                          <p key={h} style={{ fontSize: '12px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.08em', textAlign: 'center' }}>{h}</p>
+                          <p key={h} style={{ fontSize: '11px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.08em', textAlign: 'center' }}>{h}</p>
                         ))}
                       </div>
                       {COMPANY_ROWS.map((row, i) => (
-                        <div key={row.label} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', padding: '14px 24px', borderBottom: i < COMPANY_ROWS.length - 1 ? '1px solid #F0F2F5' : 'none', background: i % 2 === 0 ? '#fff' : '#FAFBFC', alignItems: 'center' }}>
+                        <div key={row.label} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', padding: '12px 24px', borderBottom: i < COMPANY_ROWS.length - 1 ? '1px solid #F0F2F5' : 'none', background: i % 2 === 0 ? '#fff' : '#FAFBFC', alignItems: 'center' }}>
                           <span style={{ fontSize: '13px', color: '#3A3F4C', fontFamily: 'var(--font-body)', fontWeight: 500 }}>{row.label}</span>
                           <FeatureCell value={row.trial} />
                           <FeatureCell value={row.growth} featured />
@@ -416,18 +428,23 @@ export default function PricingPage() {
                     </div>
                   </div>
 
-                  <div style={{ marginTop: '20px', background: '#F0FDF4', borderRadius: '12px', border: '1px solid #BBF7D0', padding: '14px 20px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <Check size={16} color="#16A34A" strokeWidth={2.5} />
+                  <div style={{ marginTop: '16px', background: '#F0FDF4', borderRadius: '10px', border: '1px solid #BBF7D0', padding: '12px 18px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <ShieldCheck size={14} color="#16A34A" strokeWidth={2} />
                     <p style={{ fontSize: '13px', color: '#15803D', fontFamily: 'var(--font-body)' }}>
-                      <strong>Free trial includes 14 days on the Growth plan.</strong> No credit card required. Upgrade, downgrade, or cancel at any time.
+                      <strong>14-day free trial on the Growth plan.</strong> No credit card required. Upgrade, downgrade, or cancel at any time.
                     </p>
                   </div>
                 </motion.div>
               )}
 
-              {/* ─── Agency cards + feature table ─── */}
+              {/* ─── Agency plans ─── */}
               {planTab === 'agencies' && (
-                <motion.div key="agencies" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.3 }}>
+                <motion.div key="agencies" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.28 }}>
+
+                  <div style={{ padding: '32px 0 28px' }}>
+                    <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: '#041635', letterSpacing: '-0.02em' }}>For Recruitment Agencies</p>
+                    <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Priced by candidate volume and recruiter seats. Scales with your team.</p>
+                  </div>
 
                   <div className="pricing-grid-3">
 
@@ -438,12 +455,11 @@ export default function PricingPage() {
                         <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 4vw, 48px)', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em' }}>$99</span>
                         <span style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '7px' }}>/month</span>
                       </div>
-                      <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '4px' }}>Billed annually ($79/mo)</p>
-                      <p style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)', lineHeight: 1.5, marginBottom: '24px', marginTop: '4px' }}>For boutique agencies building a video-first candidate pipeline.</p>
-                      <div style={{ borderTop: '1px solid #ECEEF1', paddingTop: '20px', marginBottom: '24px', flex: 1 }}>
+                      <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '16px' }}>Billed annually ($79/mo)</p>
+                      <div style={{ borderTop: '1px solid #ECEEF1', paddingTop: '18px', marginBottom: '24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '9px' }}>
                         {['Up to 25 active profiles', '3 recruiter seats', 'Client-facing share links', 'Watch-time analytics', 'Pipeline management', 'Branded landing page'].map(f => (
-                          <div key={f} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-                            <Check size={13} color="#5C6070" strokeWidth={2.5} />
+                          <div key={f} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <Check size={12} color="#9A9FA8" strokeWidth={2.5} />
                             <span style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)' }}>{f}</span>
                           </div>
                         ))}
@@ -454,7 +470,7 @@ export default function PricingPage() {
                     </div>
 
                     {/* Growth — featured */}
-                    <div style={{ background: '#041635', borderRadius: '20px', border: '2px solid #D8F950', padding: 'clamp(24px, 3.5vw, 36px)', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', boxShadow: '0 24px 80px rgba(4,22,53,0.18)', transform: 'scale(1.02)', transformOrigin: 'center' }}>
+                    <div style={{ background: '#041635', borderRadius: '20px', border: '2px solid #D8F950', padding: 'clamp(24px, 3.5vw, 36px)', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', boxShadow: '0 24px 80px rgba(4,22,53,0.18)', transform: 'scale(1.025)', transformOrigin: 'center' }}>
                       <div style={{ position: 'absolute', top: '-30%', right: '-15%', width: '350px', height: '350px', background: 'radial-gradient(circle, rgba(12,99,227,0.25), transparent 65%)', pointerEvents: 'none' }} />
                       <div style={{ position: 'absolute', top: '16px', right: '16px', fontSize: '10px', fontWeight: 700, color: '#041635', background: '#D8F950', padding: '4px 10px', borderRadius: '100px', letterSpacing: '0.06em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>Most popular</div>
                       <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -463,13 +479,12 @@ export default function PricingPage() {
                           <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 4vw, 48px)', fontWeight: 900, color: '#fff', lineHeight: 1, letterSpacing: '-0.03em' }}>$199</span>
                           <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', marginBottom: '7px' }}>/month</span>
                         </div>
-                        <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)', marginBottom: '4px' }}>Billed annually ($159/mo) · save 20%</p>
-                        <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', lineHeight: 1.5, marginBottom: '24px', marginTop: '4px' }}>For mid-size agencies that need more candidates and more client visibility.</p>
-                        <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '20px', marginBottom: '24px', flex: 1 }}>
+                        <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)', marginBottom: '16px' }}>Billed annually ($159/mo) · <span style={{ color: '#D8F950', fontWeight: 700 }}>save 20%</span></p>
+                        <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '18px', marginBottom: '24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '9px' }}>
                           {['Up to 100 active profiles', '10 recruiter seats', 'Client-facing share links', 'Watch-time analytics', 'Pipeline management', 'Branded landing page', 'Client shortlist branding', 'Priority support'].map(f => (
-                            <div key={f} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-                              <div style={{ width: '16px', height: '16px', borderRadius: '50%', background: 'rgba(216,249,80,0.15)', border: '1px solid rgba(216,249,80,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                                <Check size={9} color="#D8F950" strokeWidth={2.5} />
+                            <div key={f} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                              <div style={{ width: '15px', height: '15px', borderRadius: '50%', background: 'rgba(216,249,80,0.15)', border: '1px solid rgba(216,249,80,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                <Check size={8} color="#D8F950" strokeWidth={2.5} />
                               </div>
                               <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.65)', fontFamily: 'var(--font-body)' }}>{f}</span>
                             </div>
@@ -488,12 +503,11 @@ export default function PricingPage() {
                       <div style={{ marginBottom: '4px' }}>
                         <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 3.5vw, 42px)', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em' }}>Custom</span>
                       </div>
-                      <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '4px' }}>Priced by candidate volume</p>
-                      <p style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)', lineHeight: 1.5, marginBottom: '24px', marginTop: '4px' }}>For agencies placing at scale with a full white-label experience.</p>
-                      <div style={{ borderTop: '1px solid #ECEEF1', paddingTop: '20px', marginBottom: '24px', flex: 1 }}>
+                      <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '16px' }}>Priced by candidate volume</p>
+                      <div style={{ borderTop: '1px solid #ECEEF1', paddingTop: '18px', marginBottom: '24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '9px' }}>
                         {['Everything in Growth', 'Unlimited candidate profiles', 'Unlimited recruiter seats', 'White-label profile pages', 'API access for ATS integrations', 'Dedicated success manager', 'SLA-backed priority support'].map(f => (
-                          <div key={f} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-                            <Check size={13} color={f === 'Everything in Growth' ? '#0C63E3' : '#5C6070'} strokeWidth={2.5} />
+                          <div key={f} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <Check size={12} color={f === 'Everything in Growth' ? '#0C63E3' : '#9A9FA8'} strokeWidth={2.5} />
                             <span style={{ fontSize: '13px', color: f === 'Everything in Growth' ? '#0C63E3' : '#5C6070', fontFamily: 'var(--font-body)', fontWeight: f === 'Everything in Growth' ? 700 : 400 }}>{f}</span>
                           </div>
                         ))}
@@ -504,18 +518,18 @@ export default function PricingPage() {
                     </div>
                   </div>
 
-                  {/* Agency feature comparison table */}
-                  <div style={{ marginTop: '48px' }}>
-                    <p style={{ fontSize: '13px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '20px', textAlign: 'center' }}>Full feature comparison</p>
+                  {/* Feature comparison table */}
+                  <div style={{ marginTop: '40px' }}>
+                    <p style={{ fontSize: '12px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px', textAlign: 'center' }}>Full feature comparison</p>
                     <div style={{ borderRadius: '16px', border: '1px solid #E8EAF0', overflow: 'hidden' }}>
-                      <div className="feat-table-header" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', background: '#F7F8FA', padding: '14px 24px', borderBottom: '1px solid #E8EAF0' }}>
-                        <p style={{ fontSize: '12px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Feature</p>
+                      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', background: '#F7F8FA', padding: '12px 24px', borderBottom: '1px solid #E8EAF0' }}>
+                        <p style={{ fontSize: '11px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Feature</p>
                         {['Starter', 'Growth', 'Scale'].map(h => (
-                          <p key={h} style={{ fontSize: '12px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.08em', textAlign: 'center' }}>{h}</p>
+                          <p key={h} style={{ fontSize: '11px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.08em', textAlign: 'center' }}>{h}</p>
                         ))}
                       </div>
                       {AGENCY_ROWS.map((row, i) => (
-                        <div key={row.label} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', padding: '14px 24px', borderBottom: i < AGENCY_ROWS.length - 1 ? '1px solid #F0F2F5' : 'none', background: i % 2 === 0 ? '#fff' : '#FAFBFC', alignItems: 'center' }}>
+                        <div key={row.label} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', padding: '12px 24px', borderBottom: i < AGENCY_ROWS.length - 1 ? '1px solid #F0F2F5' : 'none', background: i % 2 === 0 ? '#fff' : '#FAFBFC', alignItems: 'center' }}>
                           <span style={{ fontSize: '13px', color: '#3A3F4C', fontFamily: 'var(--font-body)', fontWeight: 500 }}>{row.label}</span>
                           <FeatureCell value={row.starter} />
                           <FeatureCell value={row.growth} featured />
@@ -525,8 +539,8 @@ export default function PricingPage() {
                     </div>
                   </div>
 
-                  <div style={{ marginTop: '20px', background: '#EEF4FF', borderRadius: '12px', border: '1px solid #C7DEFF', padding: '14px 20px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <Zap size={15} color="#0C63E3" strokeWidth={2} />
+                  <div style={{ marginTop: '16px', background: '#EEF4FF', borderRadius: '10px', border: '1px solid #C7DEFF', padding: '12px 18px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <Zap size={14} color="#0C63E3" strokeWidth={2} />
                     <p style={{ fontSize: '13px', color: '#1D4ED8', fontFamily: 'var(--font-body)' }}>
                       <strong>Not sure which plan fits?</strong> Contact us and we will walk you through the right fit for your team size and placement volume.
                     </p>

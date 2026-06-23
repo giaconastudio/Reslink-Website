@@ -210,7 +210,7 @@ export default function ValueProp() {
             </div>
 
             {/* PiP video — outside overflow:hidden card so it can hang over the right edge */}
-            <div className="vp-pip" style={{ position: 'absolute', top: '90px', right: '-22px', width: '172px', height: '172px', zIndex: 10 }}>
+            <div className="vp-pip" style={{ position: 'absolute', top: '60px', right: '-22px', width: '172px', height: '172px', zIndex: 10 }}>
               <div style={{ width: '100%', height: '100%', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.36)' }}>
                 <video src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>

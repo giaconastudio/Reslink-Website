@@ -30,7 +30,6 @@ export default function ValueProp() {
       <style>{`
         .vp-compare { display: grid; grid-template-columns: 1fr 1.55fr; gap: 16px; align-items: start; }
         .vp-after { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        @keyframes pip-pulse { 0%, 100% { opacity: 0.55; transform: scale(1); } 50% { opacity: 0; transform: scale(1.55); } }
         .vp-after:hover { transform: translateY(-3px); box-shadow: 0 24px 72px rgba(4,22,53,0.16) !important; }
         .vp-stats { display: flex; justify-content: center; gap: 64px; margin-top: 56px; padding-top: 48px; border-top: 1px solid #ECEEF1; flex-wrap: wrap; }
         @media (max-width: 760px) {
@@ -39,8 +38,7 @@ export default function ValueProp() {
           .vp-stats { gap: 0; display: grid; grid-template-columns: 1fr 1fr; }
           .vp-stat-item { padding: 24px 16px; border-bottom: 1px solid #ECEEF1; }
           .vp-stat-item:nth-child(odd) { border-right: 1px solid #ECEEF1; }
-          .vp-pip { top: -52px !important; bottom: auto !important; right: 8px !important; width: 96px !important; height: 96px !important; border-radius: 12px !important; }
-        .vp-pip-ring { display: none !important; }
+          .vp-pip { top: 20px !important; right: 0px !important; width: 100px !important; height: 100px !important; border-radius: 14px !important; }
         }
         @media (min-width: 761px) {
           .vp-stat-item { text-align: center; }
@@ -135,8 +133,9 @@ export default function ValueProp() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.18 }}
+            style={{ position: 'relative' }}
           >
-            <div className="vp-after" style={{ borderRadius: '18px', border: '2px solid #D8F950', overflow: 'hidden', boxShadow: '0 16px 56px rgba(4,22,53,0.12)', position: 'relative' }}>
+            <div className="vp-after" style={{ borderRadius: '18px', border: '2px solid #D8F950', overflow: 'hidden', boxShadow: '0 16px 56px rgba(4,22,53,0.12)' }}>
 
               {/* With Reslink label */}
               <div style={{ position: 'absolute', top: '16px', right: '16px', zIndex: 5, fontSize: '10px', fontWeight: 700, color: '#041635', background: '#D8F950', padding: '4px 11px', borderRadius: '100px', letterSpacing: '0.05em', fontFamily: 'var(--font-body)', textTransform: 'uppercase' }}>
@@ -171,7 +170,7 @@ export default function ValueProp() {
               </div>
 
               {/* Resume document peek */}
-              <div style={{ background: '#fff', padding: '18px 24px', borderBottom: '1px solid #F0F1F4', position: 'relative' }}>
+              <div style={{ background: '#fff', padding: '18px 24px', borderBottom: '1px solid #F0F1F4' }}>
                 <div style={{ textAlign: 'center', marginBottom: '12px' }}>
                   <p style={{ fontSize: '15px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>Olivia Stone</p>
                   <p style={{ fontSize: '12px', color: '#5C6070', fontFamily: 'var(--font-body)', marginTop: '2px' }}>Business Development Representative</p>
@@ -182,20 +181,6 @@ export default function ValueProp() {
                   <div style={{ height: '7px', borderRadius: '4px', background: '#F3F4F6', width: '90%' }} />
                   <div style={{ height: '7px', borderRadius: '4px', background: '#F3F4F6', width: '96%' }} />
                   <div style={{ height: '7px', borderRadius: '4px', background: '#F3F4F6', width: '82%' }} />
-                </div>
-                {/* PiP video */}
-                <div className="vp-pip" style={{ position: 'absolute', top: '-84px', right: '8px', width: '172px', height: '172px', zIndex: 4 }}>
-                  {/* Pulsing ring */}
-                  <div className="vp-pip-ring" style={{ position: 'absolute', inset: '-10px', borderRadius: '26px', border: '3px solid #D8F950', animation: 'pip-pulse 2.2s ease-in-out infinite', pointerEvents: 'none' }} />
-                  {/* Video */}
-                  <div style={{ width: '100%', height: '100%', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.36)' }}>
-                    <video src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  </div>
-                  {/* LIVE badge */}
-                  <div style={{ position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(4,22,53,0.75)', backdropFilter: 'blur(6px)', borderRadius: '100px', padding: '3px 10px', display: 'flex', alignItems: 'center', gap: '5px', whiteSpace: 'nowrap' }}>
-                    <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#D8F950', flexShrink: 0 }} />
-                    <span style={{ fontSize: '10px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Intro playing</span>
-                  </div>
                 </div>
               </div>
 
@@ -220,6 +205,17 @@ export default function ValueProp() {
                   <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Interview request received</p>
                   <p style={{ fontSize: '11px', color: '#6B7280', fontFamily: 'var(--font-body)' }}>HubSpot · 2 days after sharing</p>
                 </div>
+              </div>
+            </div>
+
+            {/* PiP video — outside overflow:hidden card so it can hang over the right edge */}
+            <div className="vp-pip" style={{ position: 'absolute', top: '22px', right: '-22px', width: '172px', height: '172px', zIndex: 10 }}>
+              <div style={{ width: '100%', height: '100%', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.36)' }}>
+                <video src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+              <div style={{ position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(4,22,53,0.78)', backdropFilter: 'blur(6px)', borderRadius: '100px', padding: '3px 10px', display: 'flex', alignItems: 'center', gap: '5px', whiteSpace: 'nowrap' }}>
+                <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#D8F950', flexShrink: 0 }} />
+                <span style={{ fontSize: '10px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Intro playing</span>
               </div>
             </div>
           </motion.div>

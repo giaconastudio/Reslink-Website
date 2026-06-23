@@ -241,23 +241,21 @@ export default function PricingPage() {
               {planTab === 'seekers' && (
                 <motion.div key="seekers" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.28 }}>
 
-                  {/* Billing cycle — scoped, subtle, inside this section */}
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '32px 0 28px', flexWrap: 'wrap', gap: '12px' }}>
-                    <div>
-                      <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: '#041635', letterSpacing: '-0.02em' }}>For Job Seekers</p>
-                      <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Free to start. Upgrade when you want full analytics and unlimited reach.</p>
-                    </div>
-                    <div className="billing-seg" style={{ display: 'inline-flex', background: '#F7F8FA', borderRadius: '10px', border: '1px solid #ECEEF1', padding: '3px', gap: '2px' }}>
+                  {/* Billing cycle */}
+                  <div style={{ padding: '32px 0 28px' }}>
+                    <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: '#041635', letterSpacing: '-0.02em' }}>For Job Seekers</p>
+                    <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '3px', marginBottom: '20px' }}>Free to start. Upgrade when you want full analytics and unlimited reach.</p>
+                    <div className="billing-seg" style={{ display: 'inline-flex', background: '#F0F2F5', borderRadius: '14px', border: '1px solid #ECEEF1', padding: '4px', gap: '3px' }}>
                       {([
                         { key: 'monthly' as BillingCycle, label: 'Monthly' },
                         { key: 'quarterly' as BillingCycle, label: 'Quarterly', badge: 'Save 29%' },
                         { key: 'annual' as BillingCycle, label: 'Annual', badge: 'Save 64%' },
                       ]).map(({ key, label, badge }) => (
                         <button key={key} onClick={() => setBilling(key)}
-                          style={{ padding: '7px 16px', borderRadius: '7px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: 600, fontFamily: 'var(--font-body)', transition: 'all 0.15s', background: billing === key ? '#041635' : 'transparent', color: billing === key ? '#fff' : '#5C6070', display: 'flex', alignItems: 'center', gap: '6px', whiteSpace: 'nowrap' }}>
+                          style={{ padding: '10px 22px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '15px', fontWeight: 700, fontFamily: 'var(--font-body)', transition: 'all 0.15s', background: billing === key ? '#041635' : 'transparent', color: billing === key ? '#fff' : '#5C6070', display: 'flex', alignItems: 'center', gap: '8px', whiteSpace: 'nowrap', boxShadow: billing === key ? '0 2px 8px rgba(4,22,53,0.18)' : 'none' }}>
                           {label}
                           {badge && (
-                            <span style={{ fontSize: '10px', fontWeight: 700, padding: '2px 7px', borderRadius: '100px', background: billing === key ? '#D8F950' : '#E8EAF0', color: billing === key ? '#041635' : '#9A9FA8', fontFamily: 'var(--font-body)', transition: 'all 0.15s' }}>{badge}</span>
+                            <span style={{ fontSize: '11px', fontWeight: 700, padding: '3px 9px', borderRadius: '100px', background: billing === key ? '#D8F950' : '#E0E3EA', color: billing === key ? '#041635' : '#9A9FA8', fontFamily: 'var(--font-body)', transition: 'all 0.15s' }}>{badge}</span>
                           )}
                         </button>
                       ))}

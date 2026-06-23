@@ -43,27 +43,33 @@ export default function BlogPage() {
         `}</style>
 
         {/* Hero / Search */}
-        <section style={{ background: '#041635', padding: 'clamp(60px, 8vw, 100px) 24px clamp(48px, 6vw, 72px)', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', top: '-20%', left: '50%', transform: 'translateX(-50%)', width: '800px', height: '600px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.22), transparent 60%)', pointerEvents: 'none' }} />
-          <div style={{ maxWidth: '680px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+        <section style={{ background: '#041635', padding: 'clamp(72px, 9vw, 110px) 24px clamp(56px, 7vw, 80px)', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: '-30%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '700px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.18), transparent 60%)', pointerEvents: 'none' }} />
+          <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Blog</p>
-              <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(40px, 6vw, 72px)', fontWeight: 900, color: '#fff', lineHeight: 0.93, letterSpacing: '-0.03em', marginBottom: '32px' }}>
-                Guides, tips &<br />career intel.
+              <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(64px, 11vw, 140px)', fontWeight: 900, color: '#fff', lineHeight: 0.88, letterSpacing: '-0.03em', marginBottom: '0' }}>
+                RESLINK{' '}
+                <span style={{ display: 'inline-block', position: 'relative' }}>
+                  BLOG
+                  <img src="/vector-underline.svg" alt="" aria-hidden style={{ position: 'absolute', bottom: '-14px', left: 0, width: '100%', pointerEvents: 'none' }} />
+                </span>
               </h1>
+              <p style={{ fontSize: 'clamp(15px, 1.8vw, 18px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginTop: '40px', marginBottom: '36px', maxWidth: '560px', margin: '40px auto 36px' }}>
+                Expert tips and actionable insights to improve your job applications and help you land your next role
+              </p>
 
               {/* Search bar */}
-              <div style={{ position: 'relative', maxWidth: '520px', margin: '0 auto' }}>
-                <span style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', display: 'flex', alignItems: 'center', zIndex: 2 }}>
-                  <Search size={16} color="rgba(255,255,255,0.45)" />
+              <div style={{ position: 'relative', maxWidth: '560px', margin: '0 auto' }}>
+                <span style={{ position: 'absolute', left: '18px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', display: 'flex', alignItems: 'center', zIndex: 2 }}>
+                  <Search size={17} color="rgba(255,255,255,0.4)" />
                 </span>
                 <input
                   className="blog-search-input"
                   type="text"
-                  placeholder="Search articles..."
+                  placeholder="Search on Blog..."
                   value={search}
                   onChange={e => setSearch(e.target.value)}
-                  style={{ width: '100%', padding: '14px 16px 14px 44px', borderRadius: '12px', border: '1.5px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(12px)', color: '#fff', fontSize: '14px', fontFamily: 'var(--font-body)', boxSizing: 'border-box', outline: 'none' }}
+                  style={{ width: '100%', padding: '17px 18px 17px 50px', borderRadius: '14px', border: '1.5px solid rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.07)', backdropFilter: 'blur(12px)', color: '#fff', fontSize: '15px', fontFamily: 'var(--font-body)', boxSizing: 'border-box', outline: 'none' }}
                 />
               </div>
             </motion.div>
@@ -287,7 +293,12 @@ export default function BlogPage() {
         {/* Newsletter CTA */}
         <section style={{ background: 'linear-gradient(135deg, #0C63E3 0%, #041635 100%)', padding: 'clamp(56px, 7vw, 88px) 24px', textAlign: 'center' }}>
           <div style={{ maxWidth: '540px', margin: '0 auto' }}>
-            <div style={{ width: '52px', height: '52px', background: '#D8F950', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: '22px' }}>✦</div>
+            <div style={{ width: '52px', height: '52px', background: '#D8F950', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="#041635" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <polyline points="22,6 12,13 2,6" stroke="#041635" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
             <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.03em', lineHeight: 0.95, marginBottom: '14px' }}>Stay Updated</h2>
             <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-body)', lineHeight: 1.65, marginBottom: '28px' }}>
               Get the latest job search tips, video resume strategies, and product updates delivered to your inbox every week.

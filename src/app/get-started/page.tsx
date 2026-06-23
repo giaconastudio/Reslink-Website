@@ -198,16 +198,16 @@ export default function GetStartedPage() {
                         const active = selectedType === id;
                         return (
                           <button key={id} onClick={() => setSelectedType(id)} className={active ? '' : 'gs-type-btn'}
-                            style={{ display: 'flex', alignItems: 'center', gap: '14px', padding: '13px 14px', borderRadius: '14px', border: active ? '2px solid #041635' : '2px solid #ECEEF1', background: active ? '#041635' : '#fff', cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s', width: '100%' }}>
-                            <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: active ? 'rgba(255,255,255,0.15)' : '#F0F2F5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'background 0.15s' }}>
-                              <Icon size={16} color={active ? '#D8F950' : '#9A9FA8'} strokeWidth={1.8} />
+                            style={{ display: 'flex', alignItems: 'center', gap: '14px', padding: '13px 14px', borderRadius: '14px', border: active ? '2px solid #0C63E3' : '2px solid #ECEEF1', background: active ? '#0C63E3' : '#fff', cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s', width: '100%' }}>
+                            <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: active ? 'rgba(255,255,255,0.18)' : '#F0F2F5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'background 0.15s' }}>
+                              <Icon size={16} color={active ? '#fff' : '#9A9FA8'} strokeWidth={1.8} />
                             </div>
                             <div style={{ flex: 1 }}>
                               <p style={{ fontSize: '14px', fontWeight: 700, color: active ? '#fff' : '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{label}</p>
-                              <p style={{ fontSize: '12px', color: active ? 'rgba(255,255,255,0.5)' : '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px', lineHeight: 1.3 }}>{desc}</p>
+                              <p style={{ fontSize: '12px', color: active ? 'rgba(255,255,255,0.65)' : '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px', lineHeight: 1.3 }}>{desc}</p>
                             </div>
-                            <div style={{ width: '20px', height: '20px', borderRadius: '50%', border: active ? 'none' : '2px solid #DCDFE6', background: active ? '#D8F950' : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'all 0.15s' }}>
-                              {active && <CheckCircle size={12} color="#041635" strokeWidth={2.5} />}
+                            <div style={{ width: '20px', height: '20px', borderRadius: '50%', border: active ? 'none' : '2px solid #DCDFE6', background: active ? 'rgba(255,255,255,0.25)' : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'all 0.15s' }}>
+                              {active && <CheckCircle size={12} color="#fff" strokeWidth={2.5} />}
                             </div>
                           </button>
                         );

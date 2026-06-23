@@ -121,8 +121,9 @@ export default function Hero() {
         {/* Headline */}
         <motion.h1 className="hero-h1" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.05 }}>
           Your resume,<br />
+          but{' '}
           <span style={{ display: 'inline-block', position: 'relative' }}>
-            but better
+            better
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/vector-underline.svg" alt="" aria-hidden="true" style={{ position: 'absolute', bottom: '-16px', left: 0, width: '100%', height: 'auto', pointerEvents: 'none' }} />
           </span>

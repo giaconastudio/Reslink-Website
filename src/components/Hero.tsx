@@ -121,15 +121,10 @@ export default function Hero() {
         {/* Headline */}
         <motion.h1 className="hero-h1" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.05 }}>
           You&apos;re more{' '}
-          <span style={{
-            display: 'inline',
-            textDecoration: 'underline',
-            textDecorationColor: '#D8F950',
-            textDecorationThickness: '7px',
-            textUnderlineOffset: '6px',
-            textDecorationSkipInk: 'none',
-          }}>
+          <span style={{ display: 'inline-block', position: 'relative' }}>
             impressive
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/vector-underline.svg" alt="" aria-hidden="true" style={{ position: 'absolute', bottom: '-10px', left: 0, width: '100%', height: 'auto', pointerEvents: 'none' }} />
           </span>
           <br />in person.
         </motion.h1>

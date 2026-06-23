@@ -291,7 +291,7 @@ export default function AboutPage() {
             </motion.div>
 
             {/* Top row: 3 founders */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '16px' }} className="team-founders-grid">
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '32px' }} className="team-founders-grid">
               <style>{`
                 .team-founders-grid { }
                 .team-bottom-grid { }
@@ -308,7 +308,7 @@ export default function AboutPage() {
             </div>
 
             {/* Bottom row: CTO + adviser — centered 2-col */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', maxWidth: '760px', margin: '0 auto' }} className="team-bottom-grid">
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', maxWidth: '760px', margin: '0 auto' }} className="team-bottom-grid">
               {TEAM.slice(3).map((m) => <TeamCard key={m.name} member={m} />)}
             </div>
           </div>

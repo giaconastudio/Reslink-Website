@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Search, SlidersHorizontal, ChevronDown, Clock, Bookmark, TrendingUp, LayoutGrid, List } from 'lucide-react';
+import { Search, SlidersHorizontal, ChevronDown, Clock, TrendingUp, LayoutGrid, List } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { POSTS } from './data';
@@ -47,11 +47,11 @@ export default function BlogPage() {
           <div style={{ position: 'absolute', top: '-30%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '700px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.18), transparent 60%)', pointerEvents: 'none' }} />
           <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-              <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(64px, 11vw, 140px)', fontWeight: 900, color: '#fff', lineHeight: 0.88, letterSpacing: '-0.03em', marginBottom: '0' }}>
+              <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 7vw, 96px)', fontWeight: 900, color: '#fff', lineHeight: 0.88, letterSpacing: '-0.03em', marginBottom: '0' }}>
                 RESLINK{' '}
                 <span style={{ display: 'inline-block', position: 'relative' }}>
                   BLOG
-                  <img src="/vector-underline.svg" alt="" aria-hidden style={{ position: 'absolute', bottom: '-14px', left: 0, width: '100%', pointerEvents: 'none' }} />
+                  <img src="/vector-underline.svg" alt="" aria-hidden style={{ position: 'absolute', bottom: '-10px', left: 0, width: '100%', pointerEvents: 'none' }} />
                 </span>
               </h1>
               <p style={{ fontSize: 'clamp(15px, 1.8vw, 18px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginTop: '40px', marginBottom: '36px', maxWidth: '560px', margin: '40px auto 36px' }}>
@@ -79,16 +79,20 @@ export default function BlogPage() {
         {/* Filter bar */}
         <section style={{ background: '#fff', borderBottom: '1px solid #ECEEF1', padding: '0 24px', position: 'sticky', top: '68px', zIndex: 10 }}>
           <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
-            <div style={{ display: 'flex', gap: '4px', overflowX: 'auto', padding: '14px 0' }}>
-              {TAGS.map(t => (
-                <button key={t} onClick={() => setActive(t)}
-                  style={{ padding: '7px 16px', borderRadius: '100px', border: '1.5px solid', borderColor: active === t ? '#0C63E3' : '#ECEEF1', background: active === t ? '#0C63E3' : '#fff', color: active === t ? '#fff' : '#5C6070', fontSize: '13px', fontWeight: 600, fontFamily: 'var(--font-body)', cursor: 'pointer', transition: 'all 0.15s', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  {t}
-                  <span style={{ fontSize: '11px', fontWeight: 700, background: active === t ? 'rgba(255,255,255,0.2)' : '#F0F2F5', color: active === t ? '#fff' : '#9A9FA8', borderRadius: '100px', padding: '1px 7px' }}>
-                    {t === 'All' ? POSTS.length : POSTS.filter(p => p.tag === t).length}
-                  </span>
-                </button>
-              ))}
+            <div style={{ display: 'flex', gap: '2px', overflowX: 'auto', padding: '12px 0' }}>
+              {TAGS.map(t => {
+                const isActive = active === t;
+                const count = t === 'All' ? POSTS.length : POSTS.filter(p => p.tag === t).length;
+                return (
+                  <button key={t} onClick={() => setActive(t)}
+                    style={{ padding: '8px 18px', borderRadius: '10px', border: 'none', background: isActive ? '#041635' : 'transparent', color: isActive ? '#fff' : '#5C6070', fontSize: '13px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: 'pointer', transition: 'all 0.15s', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: '8px', position: 'relative' }}>
+                    {t}
+                    <span style={{ fontSize: '10px', fontWeight: 800, background: isActive ? '#D8F950' : '#F0F2F5', color: isActive ? '#041635' : '#9A9FA8', borderRadius: '6px', padding: '2px 7px', lineHeight: 1.4, fontFamily: 'var(--font-body)', transition: 'all 0.15s' }}>
+                      {count}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
@@ -203,9 +207,6 @@ export default function BlogPage() {
                                     <Clock size={9} /> {post.read} read
                                   </span>
                                 </div>
-                                <button style={{ position: 'absolute', top: '12px', right: '12px', width: '30px', height: '30px', background: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(8px)', border: 'none', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
-                                  <Bookmark size={13} color="#041635" />
-                                </button>
                               </div>
                               <div style={{ padding: '20px 22px 22px' }}>
                                 <div style={{ display: 'flex', gap: '6px', marginBottom: '12px', flexWrap: 'wrap' }}>
@@ -259,9 +260,6 @@ export default function BlogPage() {
                                     <Clock size={8} /> {post.read} read
                                   </span>
                                 </div>
-                                <button style={{ position: 'absolute', top: '10px', right: '10px', width: '26px', height: '26px', background: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(8px)', border: 'none', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
-                                  <Bookmark size={11} color="#041635" />
-                                </button>
                               </div>
                               <div style={{ padding: '18px 20px 20px', display: 'flex', flexDirection: 'column', flex: 1 }}>
                                 <div style={{ display: 'flex', gap: '5px', marginBottom: '10px', flexWrap: 'wrap' }}>

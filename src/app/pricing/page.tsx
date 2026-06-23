@@ -242,9 +242,9 @@ export default function PricingPage() {
                 <motion.div key="seekers" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.28 }}>
 
                   {/* Billing cycle */}
-                  <div style={{ padding: '32px 0 28px' }}>
-                    <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: '#041635', letterSpacing: '-0.02em' }}>For Job Seekers</p>
-                    <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '3px', marginBottom: '20px' }}>Free to start. Upgrade when you want full analytics and unlimited reach.</p>
+                  <div style={{ padding: '32px 0 28px', textAlign: 'center' }}>
+                    <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 3.5vw, 40px)', fontWeight: 900, color: '#041635', letterSpacing: '-0.02em' }}>For Job Seekers</p>
+                    <p style={{ fontSize: '15px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '6px', marginBottom: '24px' }}>Free to start. Upgrade when you want full analytics and unlimited reach.</p>
                     <div className="billing-seg" style={{ display: 'inline-flex', background: '#F0F2F5', borderRadius: '14px', border: '1px solid #ECEEF1', padding: '4px', gap: '3px' }}>
                       {([
                         { key: 'monthly' as BillingCycle, label: 'Monthly' },

@@ -120,18 +120,6 @@ export default function Navbar() {
                 <div onMouseEnter={() => openDropdown('solutions')} onMouseLeave={scheduleClose} style={{ position: 'absolute', top: '100%', left: '-8px', paddingTop: '6px', zIndex: 100 }}>
                 <div style={{ background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 8px 30px rgba(4,22,53,0.1), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', minWidth: '240px' }}>
                   {solutions.map(s => <DropItem key={s.href} {...s} />)}
-                  {/* Compact Pitch AI callout */}
-                  <div style={{ marginTop: '6px', background: 'linear-gradient(135deg, #041635, #0C2B6E)', borderRadius: '8px', padding: '9px 12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <div style={{ width: '22px', height: '22px', borderRadius: '6px', background: 'rgba(216,249,80,0.15)', border: '1px solid rgba(216,249,80,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                        <Zap size={11} color="#D8F950" fill="#D8F950" />
-                      </div>
-                      <p style={{ fontSize: '12px', fontWeight: 600, color: '#fff', fontFamily: 'var(--font-body)' }}>New: Pitch AI</p>
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '3px', fontSize: '11px', fontWeight: 600, color: '#D8F950', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>
-                      Try it <ArrowRight size={10} color="#D8F950" />
-                    </div>
-                  </div>
                 </div>
                 </div>
               )}

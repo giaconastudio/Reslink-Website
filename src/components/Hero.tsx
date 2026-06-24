@@ -19,8 +19,10 @@ export default function Hero() {
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    const handler = () => { v.currentTime = 7; };
+    v.muted = true;
+    const handler = () => { v.currentTime = 7; v.play().catch(() => {}); };
     v.addEventListener('loadedmetadata', handler);
+    if (v.readyState >= 1) handler();
     return () => v.removeEventListener('loadedmetadata', handler);
   }, []);
 

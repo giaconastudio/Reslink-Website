@@ -25,6 +25,15 @@ function CountUp({ end, suffix, duration = 1.4 }: { end: number; suffix: string;
 }
 
 export default function ValueProp() {
+  const pipRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const v = pipRef.current;
+    if (!v) return;
+    v.muted = true;
+    v.play().catch(() => {});
+  }, []);
+
   return (
     <section style={{ padding: '96px 0 112px', background: '#fff' }}>
       <style>{`
@@ -215,7 +224,7 @@ export default function ValueProp() {
             {/* PiP video — outside overflow:hidden card so it can hang over the right edge */}
             <div className="vp-pip" style={{ position: 'absolute', top: '90px', right: '-22px', width: '172px', height: '172px', zIndex: 10 }}>
               <div style={{ width: '100%', height: '100%', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.36)' }}>
-                <video src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <video ref={pipRef} src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" autoPlay muted loop playsInline preload="auto" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <div className="vp-pip-label" style={{ position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(4,22,53,0.78)', backdropFilter: 'blur(6px)', borderRadius: '100px', padding: '3px 10px', display: 'flex', alignItems: 'center', gap: '5px', whiteSpace: 'nowrap' }}>
                 <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#D8F950', flexShrink: 0 }} />

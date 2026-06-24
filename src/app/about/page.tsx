@@ -72,7 +72,7 @@ const VALUES = [
 function TeamCard({ member }: { member: typeof TEAM[0] }) {
   const [expanded, setExpanded] = useState(false);
   return (
-    <div style={{ borderRadius: '20px', overflow: 'hidden', position: 'relative', background: '#fff', boxShadow: '0 4px 24px rgba(4,22,53,0.18)', aspectRatio: '3/4', transform: 'translateZ(0)' }}>
+    <div style={{ borderRadius: '20px', overflow: 'hidden', position: 'relative', background: '#fff', boxShadow: '0 4px 24px rgba(4,22,53,0.18)', aspectRatio: '3/5', transform: 'translateZ(0)' }}>
       {/* Full-bleed photo */}
       <img
         src={member.photo}

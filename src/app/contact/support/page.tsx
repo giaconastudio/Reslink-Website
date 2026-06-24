@@ -75,10 +75,9 @@ export default function SupportPage() {
               {/* Left */}
               <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>Support</p>
-                <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 60px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.03em', lineHeight: 0.93, marginBottom: '12px' }}>
-                  Get in touch<br />with our team.
+                <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 60px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.03em', lineHeight: 0.93, marginBottom: '32px' }}>
+                  Get in touch<br /><span style={{ position: 'relative', display: 'inline-block' }}>with our team.<img src="/vector-underline.svg" alt="" aria-hidden="true" style={{ position: 'absolute', bottom: '-14px', left: 0, width: '100%', height: 'auto', pointerEvents: 'none' }} /></span>
                 </h1>
-                <div style={{ width: '70px', height: '5px', background: '#D8F950', borderRadius: '3px', marginBottom: '24px' }} />
                 <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', lineHeight: 1.7, marginBottom: '32px', maxWidth: '380px' }}>
                   Questions about the platform, need help with your account, or want to explore a partnership? We're here.
                 </p>

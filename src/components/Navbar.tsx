@@ -64,7 +64,7 @@ function DropItem({ href, icon: Icon, label, desc, badge, onClick }: {
   );
 }
 
-export default function Navbar({ dark = false }: { dark?: boolean }) {
+export default function Navbar({ dark = false, blue = false }: { dark?: boolean; blue?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
@@ -89,9 +89,10 @@ export default function Navbar({ dark = false }: { dark?: boolean }) {
     return () => window.removeEventListener('scroll', fn);
   }, []);
 
-  const linkColor = dark ? 'rgba(255,255,255,0.75)' : '#5C6070';
-  const linkActiveColor = dark ? '#fff' : '#041635';
-  const linkHoverBg = dark ? 'rgba(255,255,255,0.08)' : '#F7F8FA';
+  const isDark = dark || blue;
+  const linkColor = isDark ? 'rgba(255,255,255,0.85)' : '#5C6070';
+  const linkActiveColor = isDark ? '#fff' : '#041635';
+  const linkHoverBg = isDark ? 'rgba(255,255,255,0.12)' : '#F7F8FA';
   const navLinkStyle = {
     fontSize: '14px', fontWeight: 500, color: linkColor, textDecoration: 'none',
     padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center',
@@ -104,20 +105,22 @@ export default function Navbar({ dark = false }: { dark?: boolean }) {
   return (
     <header style={{
       position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
-      background: dark
-        ? (scrolled ? 'rgba(4,22,53,0.96)' : '#041635')
-        : (scrolled ? 'rgba(255,255,255,0.92)' : '#fff'),
+      background: blue
+        ? (scrolled ? 'rgba(10,82,196,0.97)' : '#0C63E3')
+        : dark
+          ? (scrolled ? 'rgba(4,22,53,0.96)' : '#041635')
+          : (scrolled ? 'rgba(255,255,255,0.92)' : '#fff'),
       backdropFilter: scrolled ? 'blur(12px)' : 'none',
       WebkitBackdropFilter: scrolled ? 'blur(12px)' : 'none',
       borderBottom: scrolled
-        ? (dark ? '1px solid rgba(255,255,255,0.1)' : '1px solid #EEEEF0')
+        ? (isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid #EEEEF0')
         : '1px solid transparent',
       transition: 'background 0.2s, border-color 0.2s',
     }}>
       <div className="container">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '68px' }}>
           <Link href="/">
-            <Image src="/reslink-og.svg" alt="Reslink" width={140} height={36} priority style={{ height: '30px', width: 'auto', filter: dark ? 'brightness(0) invert(1)' : 'none' }} />
+            <Image src="/reslink-og.svg" alt="Reslink" width={140} height={36} priority style={{ height: '30px', width: 'auto', filter: isDark ? 'brightness(0) invert(1)' : 'none' }} />
           </Link>
 
           {/* Desktop nav */}
@@ -198,7 +201,7 @@ export default function Navbar({ dark = false }: { dark?: boolean }) {
           </div>
 
           {/* Mobile toggle */}
-          <button onClick={() => { setMobileOpen(!mobileOpen); setMobileExpanded(null); }} style={{ display: 'none', padding: '8px', background: 'none', border: 'none', cursor: 'pointer', color: dark ? '#fff' : '#041635' }} className="mobile-toggle">
+          <button onClick={() => { setMobileOpen(!mobileOpen); setMobileExpanded(null); }} style={{ display: 'none', padding: '8px', background: 'none', border: 'none', cursor: 'pointer', color: isDark ? '#fff' : '#041635' }} className="mobile-toggle">
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
@@ -206,7 +209,7 @@ export default function Navbar({ dark = false }: { dark?: boolean }) {
 
       {/* Mobile menu — collapsible sections */}
       {mobileOpen && (
-        <div style={{ background: dark ? '#041635' : '#fff', borderTop: dark ? '1px solid rgba(255,255,255,0.1)' : '1px solid #EEEEF0', padding: '8px 20px 20px', maxHeight: '80vh', overflowY: 'auto' }}>
+        <div style={{ background: blue ? '#0C63E3' : dark ? '#041635' : '#fff', borderTop: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid #EEEEF0', padding: '8px 20px 20px', maxHeight: '80vh', overflowY: 'auto' }}>
 
           {/* Solutions accordion */}
           {[
@@ -214,12 +217,12 @@ export default function Navbar({ dark = false }: { dark?: boolean }) {
             { key: 'resources', label: 'Resources', items: resources },
             { key: 'company', label: 'Company', items: company },
           ].map(({ key, label, items }) => (
-            <div key={key} style={{ borderBottom: dark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6' }}>
+            <div key={key} style={{ borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6' }}>
               <button
                 onClick={() => toggleMobileSection(key)}
                 style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', padding: '13px 0', background: 'none', border: 'none', cursor: 'pointer' }}
               >
-                <span style={{ fontSize: '15px', fontWeight: 600, color: dark ? '#fff' : '#041635', fontFamily: 'var(--font-body)' }}>{label}</span>
+                <span style={{ fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#041635', fontFamily: 'var(--font-body)' }}>{label}</span>
                 <ChevronDown size={16} color="#9A9FA8" style={{ transform: mobileExpanded === key ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
               </button>
               {mobileExpanded === key && (
@@ -248,7 +251,7 @@ export default function Navbar({ dark = false }: { dark?: boolean }) {
             </div>
           ))}
 
-          <Link href="/pricing" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: dark ? '#fff' : '#041635', textDecoration: 'none', borderBottom: dark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => setMobileOpen(false)}>Pricing</Link>
+          <Link href="/pricing" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#041635', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => setMobileOpen(false)}>Pricing</Link>
           <Link href="/get-started" className="btn-primary" style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }} onClick={() => setMobileOpen(false)}>Get started free</Link>
         </div>
       )}

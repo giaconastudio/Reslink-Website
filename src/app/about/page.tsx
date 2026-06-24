@@ -136,7 +136,7 @@ function TeamCard({ member }: { member: typeof TEAM[0] }) {
 export default function AboutPage() {
   return (
     <>
-      <Navbar />
+      <Navbar blue />
       <main style={{ paddingTop: '68px' }}>
 
         {/* ── Hero ── */}

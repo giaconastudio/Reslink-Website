@@ -110,42 +110,6 @@ export default function TemplatesPage() {
           </div>
         </section>
 
-        {/* Templates grid */}
-        <section style={{ background: '#F7F8FA', padding: 'clamp(56px, 7vw, 88px) 24px clamp(72px, 9vw, 112px)' }}>
-          <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
-            <div style={{ marginBottom: '40px', textAlign: 'center' }}>
-              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>Browse templates</p>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 900, color: '#041635', letterSpacing: '-0.03em', lineHeight: 0.95 }}>Scripts that get you callbacks.</h2>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }} className="tmpl-grid">
-              {TEMPLATES.map((t, i) => (
-                <motion.div key={t.title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.35, delay: i * 0.06 }}>
-                  <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '28px', height: '100%', boxSizing: 'border-box', boxShadow: '0 1px 8px rgba(4,22,53,0.04)', display: 'flex', flexDirection: 'column' }}>
-                    <span style={{ display: 'inline-block', fontSize: '11px', fontWeight: 700, color: t.color, background: t.bg, borderRadius: '100px', padding: '3px 10px', fontFamily: 'var(--font-body)', marginBottom: '16px', letterSpacing: '0.05em' }}>{t.tag}</span>
-                    <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: '#041635', lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: '10px' }}>{t.title}</h3>
-                    <p style={{ fontSize: '13px', color: '#5C6070', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginBottom: '24px', flex: 1 }}>{t.desc}</p>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '3px' }}>
-                        <Star size={12} fill="#D8F950" color="#D8F950" />
-                        <span style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>{t.stars}</span>
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <Download size={12} color="#9A9FA8" />
-                        <span style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{t.downloads} downloads</span>
-                      </div>
-                    </div>
-                    <button style={{ width: '100%', padding: '12px', background: t.bg, color: t.color, border: 'none', borderRadius: '10px', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
-                      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = t.color; (e.currentTarget as HTMLElement).style.color = '#fff'; }}
-                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = t.bg; (e.currentTarget as HTMLElement).style.color = t.color; }}>
-                      <Download size={14} />
-                      Download free
-                    </button>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
 
       </main>
       <Footer />

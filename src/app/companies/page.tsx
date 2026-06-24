@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Plus, Minus, Star, UserPlus, FilePlus, Zap, Video } from 'lucide-react';
+import { ArrowRight, Plus, Minus, Star, UserPlus, FilePlus, Zap, Video, Users, List, Globe } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import LogoTicker from '@/components/LogoTicker';
@@ -78,6 +78,7 @@ const STEPS = [
 const FEATURE_TABS = [
   {
     id: 'ai',
+    icon: Zap,
     label: 'AI Screening',
     tagline: 'Your best candidates, ranked before you look.',
     desc: 'Reslink AI scores every applicant on video pitch quality, resume match, and role fit. Each candidate gets a grade from A+ to F with a full written breakdown. Open the dashboard to a ranked list, not a pile of applications.',
@@ -87,6 +88,7 @@ const FEATURE_TABS = [
   },
   {
     id: 'collab',
+    icon: Users,
     label: 'Team Collaboration',
     tagline: 'Everyone aligned before the first interview.',
     desc: 'Every hiring manager sees the same candidate profile: resume, video, and AI score. Leave notes for your team, rate candidates, and reach consensus without a single meeting.',
@@ -96,6 +98,7 @@ const FEATURE_TABS = [
   },
   {
     id: 'pipeline',
+    icon: List,
     label: 'Pipeline and Lists',
     tagline: 'Organize candidates. Stay in control.',
     desc: 'Build custom shortlists like Final Round, Strong Maybes, or Keep Warm and move people through your process in one click. No spreadsheets, no shared docs, no chaos.',
@@ -105,6 +108,7 @@ const FEATURE_TABS = [
   },
   {
     id: 'board',
+    icon: Globe,
     label: 'Job Board',
     tagline: 'Your brand. Your roles. One link.',
     desc: 'Every company gets a public Reslink job board at reslink.io/company/yourname. Share the link anywhere. Candidates apply with a video pitch built in and Reslink AI reviews every submission automatically.',
@@ -315,7 +319,7 @@ const [notifA, setNotifA] = useState(0);
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <div className="co-feat-tabs">
                   {FEATURE_TABS.map((t, i) => (
-                    <button key={t.id} onClick={() => setActiveTab(i)} className={`co-feat-tab${activeTab === i ? ' active' : ''}`}>{t.label}</button>
+                    <button key={t.id} onClick={() => setActiveTab(i)} className={`co-feat-tab${activeTab === i ? ' active' : ''}`} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><t.icon size={14} strokeWidth={2} />{t.label}</button>
                   ))}
                 </div>
               </div>

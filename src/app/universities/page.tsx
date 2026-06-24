@@ -10,12 +10,12 @@ import LogoTicker from '@/components/LogoTicker';
 
 /* ─── Student features (same tools as job seekers, framed for career centers) ─── */
 const FEATURES = [
-  { icon: Zap, color: '#D97706', bg: '#FFFBEB', title: 'AI writes their pitch', body: 'PitchAI generates a personalized 90-second script from a student\'s resume, tailored to the roles they\'re targeting. No blank-page paralysis.' },
+  { icon: Zap, color: '#0C63E3', bg: '#EEF4FF', title: 'AI writes their pitch', body: 'PitchAI generates a personalized 90-second script from a student\'s resume, tailored to the roles they\'re targeting. No blank-page paralysis.' },
   { icon: Video, color: '#0C63E3', bg: '#EEF4FF', title: 'Teleprompter-guided recording', body: 'Students record on any device. The built-in teleprompter scrolls their script line by line so they stay on camera looking natural, not down at notes.' },
-  { icon: BarChart2, color: '#7C3AED', bg: '#F3EEFF', title: 'Real-time view analytics', body: 'Every student can see when a recruiter opens their profile, how long they watched, and how many times. Anxiety replaced with data.' },
-  { icon: FileText, color: '#E11D48', bg: '#FFF1F2', title: 'Resume paired with video', body: 'A Reslink profile combines their video pitch with resume highlights in one clean page. Employers get the full picture without opening attachments.' },
-  { icon: Globe, color: '#059669', bg: '#ECFDF5', title: 'One link, everywhere', body: 'Students add their Reslink to LinkedIn, email signatures, career fair badges, and every application. One link works on every device.' },
-  { icon: Share2, color: '#0891B2', bg: '#ECFEFF', title: 'Impossible to ignore', body: 'A video profile link in an application email stands out before the recruiter even opens the resume. Most applications look identical. Reslinks don\'t.' },
+  { icon: BarChart2, color: '#0C63E3', bg: '#EEF4FF', title: 'Real-time view analytics', body: 'Every student can see when a recruiter opens their profile, how long they watched, and how many times. Anxiety replaced with data.' },
+  { icon: FileText, color: '#0C63E3', bg: '#EEF4FF', title: 'Resume paired with video', body: 'A Reslink profile combines their video pitch with resume highlights in one clean page. Employers get the full picture without opening attachments.' },
+  { icon: Globe, color: '#0C63E3', bg: '#EEF4FF', title: 'One link, everywhere', body: 'Students add their Reslink to LinkedIn, email signatures, career fair badges, and every application. One link works on every device.' },
+  { icon: Share2, color: '#0C63E3', bg: '#EEF4FF', title: 'Impossible to ignore', body: 'A video profile link in an application email stands out before the recruiter even opens the resume. Most applications look identical. Reslinks don\'t.' },
 ];
 
 /* ─── FAQs ─── */

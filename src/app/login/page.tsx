@@ -40,7 +40,7 @@ export default function LoginPage() {
       `}</style>
 
       <div style={{ paddingTop: '68px', background: '#F7F8FA' }}>
-      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center', padding: '24px 24px 24px', boxSizing: 'border-box' }}>
+      <div style={{ minHeight: 'calc(100vh - 68px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 24px', boxSizing: 'border-box' }}>
         <div className="login-wrap">
 
           {/* ── Left: brand panel ── */}

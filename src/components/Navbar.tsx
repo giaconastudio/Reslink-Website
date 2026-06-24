@@ -107,7 +107,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
 
   return (
     <header style={{
-      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
+      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, transform: 'translateZ(0)', WebkitTransform: 'translateZ(0)',
       background: blue
         ? (scrolled ? 'rgba(10,82,196,0.97)' : '#0C63E3')
         : dark

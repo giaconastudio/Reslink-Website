@@ -84,6 +84,9 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
   };
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.history.scrollRestoration = 'manual';
+    }
     const fn = () => setScrolled(window.scrollY > 10);
     window.addEventListener('scroll', fn);
     return () => window.removeEventListener('scroll', fn);
@@ -119,7 +122,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
     }}>
       <div className="container">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '68px' }}>
-          <Link href="/">
+          <Link href="/" onClick={() => window.scrollTo(0, 0)}>
             <Image src="/reslink-og.svg" alt="Reslink" width={140} height={36} priority style={{ height: '30px', width: 'auto', filter: isDark ? 'brightness(0) invert(1)' : 'none' }} />
           </Link>
 

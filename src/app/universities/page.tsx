@@ -155,13 +155,18 @@ export default function UniversitiesPage() {
                         <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Marketing · Class of 2025 · Westfield University</p>
                       </div>
                     </div>
-                    {/* Video pitch placeholder */}
-                    <div style={{ background: 'rgba(0,0,0,0.4)', borderRadius: '12px', aspectRatio: '16/7', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,255,255,0.08)', marginBottom: '16px', position: 'relative', overflow: 'hidden' }}>
-                      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(12,99,227,0.15), rgba(4,22,53,0.4))' }} />
-                      <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid rgba(255,255,255,0.2)', position: 'relative', zIndex: 1 }}>
-                        <div style={{ width: 0, height: 0, borderTop: '9px solid transparent', borderBottom: '9px solid transparent', borderLeft: '16px solid #fff', marginLeft: '3px' }} />
-                      </div>
-                      <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', marginTop: '10px', position: 'relative', zIndex: 1 }}>0:47 · AI-graded pitch</p>
+                    {/* Video pitch */}
+                    <div style={{ borderRadius: '12px', aspectRatio: '16/7', marginBottom: '16px', position: 'relative', overflow: 'hidden', background: '#000' }}>
+                      {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+                      <video
+                        src="/videos/pip-person-compressed.mp4"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                      />
+                      <div style={{ position: 'absolute', bottom: '8px', left: '10px', fontSize: '10px', color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)', background: 'rgba(0,0,0,0.45)', borderRadius: '4px', padding: '2px 6px' }}>0:47 · AI-graded pitch</div>
                     </div>
                     <div style={{ display: 'flex', gap: '8px' }}>
                       {['Marketing', 'Brand Strategy', 'Content'].map(tag => (

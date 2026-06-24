@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Video, BarChart2, Zap, Globe, FileText, Share2, Plus, Minus, Play, CheckCircle } from 'lucide-react';
+import { Video, BarChart2, Zap, Globe, FileText, Share2, Plus, Minus, Play, CheckCircle, Eye } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import LogoTicker from '@/components/LogoTicker';
@@ -68,7 +68,7 @@ export default function StudentsPage() {
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
               style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 'clamp(64px, 8vw, 100px) 0 clamp(64px, 8vw, 100px)', position: 'relative', zIndex: 1 }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For students</p>
-              <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(44px, 6vw, 80px)', fontWeight: 900, color: '#fff', lineHeight: 0.91, letterSpacing: '-0.03em', marginBottom: '24px' }}>
+              <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4vw, 56px)', fontWeight: 900, color: '#fff', lineHeight: 1.0, letterSpacing: '-0.03em', marginBottom: '24px' }}>
                 Be the candidate<br />
                 <span style={{ color: '#D8F950' }}>they remember.</span>
               </h1>
@@ -87,24 +87,40 @@ export default function StudentsPage() {
             {/* Right: student photo */}
             <motion.div className="students-hero-img-col" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.15 }}
               style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'clamp(40px, 5vw, 56px) 0' }}>
-              <div style={{ position: 'relative', width: '100%', maxWidth: '380px', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 32px 80px rgba(0,0,0,0.5)', aspectRatio: '3/4' }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=900&h=700&fit=crop"
-                  alt="Student"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
-                />
-                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '45%', background: 'linear-gradient(to top, rgba(4,22,53,0.72), transparent)' }} />
-                <div style={{ position: 'absolute', inset: 0, borderRadius: '20px', boxShadow: 'inset 0 0 0 1.5px rgba(255,255,255,0.12)', pointerEvents: 'none' }} />
-                {/* Floating card */}
-                <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8, duration: 0.4 }}
-                  style={{ position: 'absolute', bottom: '24px', left: '20px', background: '#fff', borderRadius: '14px', padding: '12px 14px', boxShadow: '0 16px 48px rgba(4,22,53,0.28)', display: 'flex', alignItems: 'center', gap: '10px', minWidth: '195px' }}>
-                  <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#D8F950', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <CheckCircle size={16} color="#041635" strokeWidth={2.5} />
+              <div style={{ position: 'relative', width: '100%', maxWidth: '380px' }}>
+                {/* Glow blob behind card */}
+                <div style={{ position: 'absolute', top: '10%', left: '-8%', right: '15%', bottom: '10%', background: 'radial-gradient(ellipse, rgba(12,99,227,0.38), transparent 70%)', filter: 'blur(52px)', pointerEvents: 'none', zIndex: 0 }} />
+                {/* Photo card */}
+                <div style={{ position: 'relative', width: '100%', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 32px 80px rgba(0,0,0,0.5)', aspectRatio: '3/4', zIndex: 1 }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=900&h=700&fit=crop"
+                    alt="Student"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
+                  />
+                  <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '45%', background: 'linear-gradient(to top, rgba(4,22,53,0.72), transparent)' }} />
+                  <div style={{ position: 'absolute', inset: 0, borderRadius: '20px', boxShadow: 'inset 0 0 0 1.5px rgba(255,255,255,0.12)', pointerEvents: 'none' }} />
+                  {/* Bottom-left chip */}
+                  <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8, duration: 0.4 }}
+                    style={{ position: 'absolute', bottom: '24px', left: '20px', background: '#fff', borderRadius: '14px', padding: '12px 14px', boxShadow: '0 16px 48px rgba(4,22,53,0.28)', display: 'flex', alignItems: 'center', gap: '10px', minWidth: '195px' }}>
+                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#D8F950', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <CheckCircle size={16} color="#041635" strokeWidth={2.5} />
+                    </div>
+                    <div>
+                      <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Interview booked</p>
+                      <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Google · 2 days after sharing</p>
+                    </div>
+                  </motion.div>
+                </div>
+                {/* Top-right external chip */}
+                <motion.div initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.0, duration: 0.4 }}
+                  style={{ position: 'absolute', top: '-14px', right: '-20px', zIndex: 3, background: '#0A1F45', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '14px', padding: '10px 14px', boxShadow: '0 12px 36px rgba(4,22,53,0.45)', display: 'flex', alignItems: 'center', gap: '10px', minWidth: '168px' }}>
+                  <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: 'rgba(216,249,80,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Eye size={13} color="#D8F950" />
                   </div>
                   <div>
-                    <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Interview booked</p>
-                    <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Google · 2 days after sharing</p>
+                    <p style={{ fontSize: '11px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Profile viewed</p>
+                    <p style={{ fontSize: '10px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)' }}>LinkedIn Recruiter · Just now</p>
                   </div>
                 </motion.div>
               </div>

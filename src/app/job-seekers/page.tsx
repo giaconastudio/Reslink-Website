@@ -126,29 +126,34 @@ export default function JobSeekersPage() {
           <div style={{ maxWidth: '1060px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
             <div className="js-hero-grid">
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
-                <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For job seekers</p>
+                {/* Avatar row + social proof */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '28px' }}>
+                  <div style={{ display: 'flex' }}>
+                    {['#4F6EF7','#A855F7','#F59E0B','#10B981'].map((c, i) => (
+                      <div key={i} style={{ width: '32px', height: '32px', borderRadius: '50%', background: c, border: '2px solid #041635', marginLeft: i === 0 ? 0 : '-8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-phudu)', zIndex: 4 - i }}>
+                        {['BH','SR','MW','EP'][i]}
+                      </div>
+                    ))}
+                  </div>
+                  <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)' }}>
+                    <span style={{ color: '#D8F950', fontWeight: 700 }}>10,000+</span> job seekers worldwide
+                  </p>
+                </div>
                 <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(44px, 7vw, 88px)', fontWeight: 900, color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '24px' }}>
-                  Stop blending in.<br /><span style={{ color: '#D8F950' }}>Start standing out.</span>
+                  Your resume,<br /><span style={{ color: '#D8F950' }}>but better!</span>
                 </h1>
-                <p style={{ fontSize: 'clamp(16px, 1.8vw, 19px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '36px', maxWidth: '480px' }}>
-                  A video resume that shows recruiters who you really are. your energy, your clarity, your drive. Not just another PDF.
+                <p style={{ fontSize: 'clamp(16px, 1.8vw, 18px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '36px', maxWidth: '480px' }}>
+                  Stand out and land more interviews with a personalized video resume that builds instant connections with recruiters.
                 </p>
-                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '32px' }}>
+                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '20px' }}>
                   <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: '#D8F950', color: '#041635', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                    Build my Reslink free <ArrowRight size={16} />
+                    Create your Reslink — free
                   </Link>
-                  <Link href="/templates" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                    See free templates
+                  <Link href="#how-it-works" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                    See how it works
                   </Link>
                 </div>
-                <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
-                  {[['300+', 'interviews landed'], ['10k+', 'active users'], ['48h', 'fastest hire']].map(([v, l]) => (
-                    <div key={l}>
-                      <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '24px', fontWeight: 900, color: '#fff', lineHeight: 1 }}>{v}</p>
-                      <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', marginTop: '3px' }}>{l}</p>
-                    </div>
-                  ))}
-                </div>
+                <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)' }}>Free to start · Takes less than 5 minutes</p>
               </motion.div>
               <motion.div className="js-hero-img" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.1 }}>
                 <div style={{ borderRadius: '20px', overflow: 'hidden', aspectRatio: '4/3', boxShadow: '0 40px 100px rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.1)' }}>

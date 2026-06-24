@@ -204,6 +204,10 @@ const [notifA, setNotifA] = useState(0);
           .co-cta-btns { flex-direction: column !important; }
           .co-cta-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; }
         }
+        .co-feat-swipe-hint { display: none; }
+        @media (max-width: 768px) {
+          .co-feat-swipe-hint { display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 16px; }
+        }
       `}</style>
       <main style={{ paddingTop: '68px' }}>
 
@@ -322,6 +326,11 @@ const [notifA, setNotifA] = useState(0);
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#041635', lineHeight: 0.95, letterSpacing: '-0.03em', marginBottom: '32px' }}>
                 Built for how great<br />teams hire.
               </h2>
+              <div className="co-feat-swipe-hint">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A9FA8" strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
+                <span style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', fontWeight: 500, letterSpacing: '0.04em' }}>Swipe to explore features</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A9FA8" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <div className="co-feat-tabs">
                   {FEATURE_TABS.map((t, i) => (

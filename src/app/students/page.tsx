@@ -60,13 +60,14 @@ export default function StudentsPage() {
           <div style={{ maxWidth: '1120px', margin: '0 auto', padding: '0 24px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(32px, 5vw, 72px)', alignItems: 'stretch', minHeight: '600px' }} className="students-hero-grid">
             <style>{`
               @media (max-width: 860px) { .students-hero-grid { grid-template-columns: 1fr !important; } }
-              @media (max-width: 860px) { .students-hero-img-col { display: none !important; } }
+              @media (max-width: 860px) { .students-hero-chip-ext { display: none !important; } }
+              @media (max-width: 860px) { .students-hero-img-col { padding: 0 0 40px !important; } }
               @media (max-width: 480px) { .students-hero-btns { flex-direction: column !important; } }
               @media (max-width: 480px) { .students-hero-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; } }
-              @media (max-width: 480px) { .students-hero-section-inner { padding-top: 48px !important; padding-bottom: 48px !important; } }
+              @media (max-width: 480px) { .students-hero-section-inner { padding-top: 48px !important; padding-bottom: 24px !important; } }
               @media (max-width: 480px) { .students-cta-btn { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; } }
               @media (max-width: 480px) { .students-faq-box { padding: 0 16px !important; } }
-              @media (max-width: 480px) { .students-pip-pip { display: none !important; } }
+              @media (max-width: 820px) { .students-pip-pip { top: 12px !important; right: 12px !important; width: 100px !important; height: 100px !important; } }
             `}</style>
             {/* Left: copy */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
@@ -124,7 +125,7 @@ export default function StudentsPage() {
                   </motion.div>
                 </div>
                 {/* Top-right external chip */}
-                <motion.div initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.0, duration: 0.4 }}
+                <motion.div className="students-hero-chip-ext" initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.0, duration: 0.4 }}
                   style={{ position: 'absolute', top: '-14px', right: '-20px', zIndex: 3, background: '#0A1F45', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '14px', padding: '10px 14px', boxShadow: '0 12px 36px rgba(4,22,53,0.45)', display: 'flex', alignItems: 'center', gap: '10px', minWidth: '168px' }}>
                   <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: 'rgba(216,249,80,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <Eye size={13} color="#D8F950" />

@@ -66,7 +66,7 @@ export default function VeteransPage() {
               @media (max-width: 480px) { .vets-hero-section-inner { padding-top: 48px !important; padding-bottom: 24px !important; } }
               @media (max-width: 480px) { .vets-cta-btn { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; } }
               @media (max-width: 480px) { .vets-faq-box { padding: 0 16px !important; } }
-              @media (max-width: 820px) { .vets-pip-pip { top: -16px !important; right: 0px !important; width: 100px !important; height: 100px !important; } }
+              @media (max-width: 820px) { .vets-pip-pip { top: -22px !important; right: -10px !important; width: 100px !important; height: 100px !important; } }
             `}</style>
             {/* Left: copy */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}

@@ -247,10 +247,10 @@ export default function AboutPage() {
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.55 }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '24px', fontFamily: 'var(--font-body)' }}>Our mission</p>
               <blockquote style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 4.5vw, 52px)', fontWeight: 900, color: '#041635', lineHeight: 1.0, letterSpacing: '-0.03em', marginBottom: '32px' }}>
-                "Empower every job seeker to build an instant, human connection with the recruiter on the other side of the screen."
+                "Every person has a story worth hearing. We exist to make sure it gets told."
               </blockquote>
               <p style={{ fontSize: '17px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '620px', margin: '0 auto' }}>
-                Hiring shouldn't favor the person with the best referral or the most polished bullet points. It should favor the person who is genuinely the best fit. and we're building the tools that make that possible.
+                Behind every resume is a person with a real story — a reason they care, a problem they've solved, a version of themselves that no bullet point could ever capture. Reslink was built to change that.
               </p>
             </motion.div>
           </div>

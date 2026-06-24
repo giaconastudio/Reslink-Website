@@ -221,18 +221,26 @@ export default function AboutPage() {
                   <div style={{ position: 'relative', zIndex: 1 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
                       <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#D8F950' }} />
-                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#D8F950', letterSpacing: '0.12em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>Founded 2023</span>
+                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#D8F950', letterSpacing: '0.12em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>Founded 2024</span>
                     </div>
                     <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.8, fontFamily: 'var(--font-body)', marginBottom: '20px' }}>
-                      He built the first version of Reslink with one goal: let candidates show up as themselves. Within months, the platform attracted thousands of job seekers who were done being reduced to bullet points.
+                      Dominic was job searching and felt firsthand how much a PDF undersells a person. He built the first version of Reslink with one goal: let candidates show up as themselves. He shared it with Joanna and Roxanne, co-founders of TechTalk, a platform focused on getting candidates noticed. Every reel they posted brought in hundreds of new users.
                     </p>
                     <div style={{ width: '100%', height: '1px', background: 'rgba(255,255,255,0.08)', margin: '20px 0' }} />
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
                       <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#0C63E3' }} />
                       <span style={{ fontSize: '11px', fontWeight: 700, color: '#9BB8FF', letterSpacing: '0.12em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>The team forms. 2024</span>
                     </div>
+                    <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.8, fontFamily: 'var(--font-body)', marginBottom: '20px' }}>
+                      The traction made it clear: this needed to be a real company. Dominic, Joanna, and Roxanne joined forces. Their combined expertise in product, recruitment, and marketing gave Reslink the foundation to grow properly.
+                    </p>
+                    <div style={{ width: '100%', height: '1px', background: 'rgba(255,255,255,0.08)', margin: '20px 0' }} />
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
+                      <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#D8F950' }} />
+                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#D8F950', letterSpacing: '0.12em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>Platform launch. 2025</span>
+                    </div>
                     <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.8, fontFamily: 'var(--font-body)' }}>
-                      In 2024, Roxanne and Joana. founders of TechTalk, a company focused on getting candidates noticed. joined forces with Dominic. Their combined expertise in recruitment, GTM, and marketing turned Reslink into the platform it is today: the place where job seekers become unforgettable.
+                      In 2025, Reslink launched publicly. Thousands of job seekers signed up. The platform became the place where candidates stop being a PDF and start being remembered.
                     </p>
                   </div>
                 </div>

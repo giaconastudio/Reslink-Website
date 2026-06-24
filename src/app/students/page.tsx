@@ -103,7 +103,7 @@ export default function StudentsPage() {
                 <div style={{ position: 'absolute', top: '10%', left: '-8%', right: '15%', bottom: '10%', background: 'radial-gradient(ellipse, rgba(12,99,227,0.38), transparent 70%)', filter: 'blur(52px)', pointerEvents: 'none', zIndex: 0 }} />
                 {/* Photo card */}
                 <div style={{ position: 'relative', width: '100%', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 32px 80px rgba(0,0,0,0.5)', aspectRatio: '3/4', zIndex: 1 }}>
-                  <video src="/videos/student.mp4" autoPlay muted loop playsInline
+                  <video src="/videos/student.mp4" autoPlay muted loop playsInline preload="auto"
                     style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} />
                   <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '45%', background: 'linear-gradient(to top, rgba(4,22,53,0.72), transparent)' }} />
                   <div style={{ position: 'absolute', inset: 0, borderRadius: '20px', boxShadow: 'inset 0 0 0 1.5px rgba(255,255,255,0.12)', pointerEvents: 'none' }} />
@@ -261,7 +261,7 @@ export default function StudentsPage() {
               </div>
               {/* PIP */}
               <div style={{ position: 'absolute', top: '-20px', right: '-20px', width: '130px', height: '130px', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.4)', border: '3px solid #041635' }}>
-                <video src="/videos/student.mp4" autoPlay muted loop playsInline
+                <video src="/videos/student.mp4" autoPlay muted loop playsInline preload="auto"
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <div style={{ position: 'absolute', bottom: '8px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(4,22,53,0.8)', backdropFilter: 'blur(6px)', borderRadius: '100px', padding: '3px 8px', display: 'flex', alignItems: 'center', gap: '4px', whiteSpace: 'nowrap' }}>
                   <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#D8F950' }} />

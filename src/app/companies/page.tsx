@@ -188,7 +188,7 @@ const [notifA, setNotifA] = useState(0);
         .co-feat-tabs { display: inline-flex; background: #ECEEF1; border-radius: 14px; padding: 4px; gap: 2px; margin-bottom: 32px; max-width: 100%; overflow-x: auto; scrollbar-width: none; }
         .co-feat-tabs::-webkit-scrollbar { display: none; }
         .co-feat-tab { padding: 10px 20px; border-radius: 10px; font-size: 14px; font-weight: 500; border: none; background: transparent; cursor: pointer; transition: all 0.18s; font-family: var(--font-body); color: #6B7280; white-space: nowrap; flex-shrink: 0; }
-        .co-feat-tab.active { background: #fff; color: #041635; font-weight: 700; box-shadow: 0 1px 4px rgba(4,22,53,0.12), 0 0 0 1px rgba(4,22,53,0.06); }
+        .co-feat-tab.active { background: #041635; color: #fff; font-weight: 700; box-shadow: 0 1px 4px rgba(4,22,53,0.18), 0 0 0 1px rgba(4,22,53,0.08); }
         .co-feat-tab:hover:not(.active) { background: rgba(255,255,255,0.5); color: #041635; }
         .co-feat-body { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
         @media (max-width: 900px) {

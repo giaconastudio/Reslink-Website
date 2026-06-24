@@ -307,10 +307,10 @@ export default function Features() {
         }
         .feat-tab:hover:not(.active) { background: rgba(255,255,255,0.5); color: #041635; }
         .feat-tab.active {
-          background: #fff;
-          color: #041635;
+          background: #041635;
+          color: #fff;
           font-weight: 700;
-          box-shadow: 0 1px 4px rgba(4,22,53,0.12), 0 0 0 1px rgba(4,22,53,0.06);
+          box-shadow: 0 1px 4px rgba(4,22,53,0.18), 0 0 0 1px rgba(4,22,53,0.08);
         }
         .feat-panel {
           border-radius: 20px;

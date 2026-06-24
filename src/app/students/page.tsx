@@ -67,7 +67,7 @@ export default function StudentsPage() {
               @media (max-width: 480px) { .students-hero-section-inner { padding-top: 48px !important; padding-bottom: 24px !important; } }
               @media (max-width: 480px) { .students-cta-btn { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; } }
               @media (max-width: 480px) { .students-faq-box { padding: 0 16px !important; } }
-              @media (max-width: 820px) { .students-pip-pip { top: 12px !important; right: 12px !important; width: 100px !important; height: 100px !important; } }
+              @media (max-width: 820px) { .students-pip-pip { top: -16px !important; right: 0px !important; width: 100px !important; height: 100px !important; } }
             `}</style>
             {/* Left: copy */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}

@@ -93,8 +93,7 @@ export default function UniversitiesPage() {
         .uni-outcome-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
         .uni-steps-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
         @media (max-width: 960px) {
-          .uni-hero-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
-          .uni-hero-visual { display: none !important; }
+          .uni-hero-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
           .uni-outcome-grid { grid-template-columns: 1fr !important; }
         }
         @media (max-width: 760px) {

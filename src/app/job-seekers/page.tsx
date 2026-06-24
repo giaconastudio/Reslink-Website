@@ -1,4 +1,5 @@
 import Navbar from '@/components/Navbar';
+import ScrollToTop from '@/components/ScrollToTop';
 import Hero from '@/components/Hero';
 import LogoTicker from '@/components/LogoTicker';
 import ValueProp from '@/components/ValueProp';
@@ -12,6 +13,7 @@ import Footer from '@/components/Footer';
 export default function JobSeekers() {
   return (
     <>
+      <ScrollToTop />
       <Navbar />
       <main>
         <Hero />

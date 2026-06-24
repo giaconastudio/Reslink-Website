@@ -59,7 +59,7 @@ export default function SalesPage() {
 
   return (
     <>
-      <Navbar />
+      <Navbar dark />
       <main style={{ paddingTop: '68px' }}>
         <style>{`
           input:focus, textarea:focus, select:focus { border-color: #D8F950 !important; }

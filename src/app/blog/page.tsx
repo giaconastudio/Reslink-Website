@@ -28,7 +28,7 @@ export default function BlogPage() {
 
   return (
     <>
-      <Navbar />
+      <Navbar dark />
       <main style={{ paddingTop: '68px' }}>
         <style>{`
           .blog-search-input::placeholder { color: rgba(255,255,255,0.35); }

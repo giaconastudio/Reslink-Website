@@ -59,7 +59,7 @@ export default function SupportPage() {
 
   return (
     <>
-      <Navbar />
+      <Navbar dark />
       <main style={{ paddingTop: '68px' }}>
         <style>{`
           input:focus, textarea:focus { border-color: #D8F950 !important; }

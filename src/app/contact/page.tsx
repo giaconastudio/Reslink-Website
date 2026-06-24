@@ -39,7 +39,7 @@ const OPTIONS = [
 export default function ContactPage() {
   return (
     <>
-      <Navbar />
+      <Navbar dark />
       <main style={{ paddingTop: '68px' }}>
 
         {/* Hero */}

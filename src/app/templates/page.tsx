@@ -1,10 +1,40 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Download, Star, Check } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Download, Star, Check, Plus, Minus } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+
+const FAQS = [
+  { q: 'Are these templates really free?', a: 'Yes, completely free. No credit card, no trial period, no hidden fees. Enter your email and we send you the templates immediately.' },
+  { q: 'What format will I receive?', a: 'You\'ll get the templates as .docx files, compatible with Microsoft Word, Google Docs, and most other word processors.' },
+  { q: 'Are these ATS-friendly?', a: 'Yes. Every template is designed to pass Applicant Tracking Systems. Clean formatting, standard fonts, and no graphics that confuse parsers.' },
+  { q: 'How quickly will I receive the templates?', a: 'Instantly. The email is sent the moment you submit. Check your spam folder if you don\'t see it within a minute.' },
+  { q: 'Can I customize the templates?', a: 'Absolutely. They\'re fully editable documents. Change the fonts, adjust the layout, swap in your own content. Make it yours.' },
+  { q: 'Do I need a Reslink account to get them?', a: 'No. Just enter your name and email. If you want to take your application to the next level with a video resume, Reslink has a free tier for that too.' },
+];
+
+function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; toggle: () => void }) {
+  return (
+    <div style={{ borderBottom: '1px solid #ECEEF1' }}>
+      <button onClick={toggle}
+        style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', padding: '20px 0', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left' }}>
+        <span style={{ fontSize: '15px', fontWeight: 600, color: '#041635', fontFamily: 'var(--font-body)' }}>{q}</span>
+        <span style={{ width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0, background: open ? '#0C63E3' : '#F7F8FA', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.15s' }}>
+          {open ? <Minus size={12} color="#fff" /> : <Plus size={12} color="#5C6070" />}
+        </span>
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.22 }} style={{ overflow: 'hidden' }}>
+            <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.7, paddingBottom: '20px', fontFamily: 'var(--font-body)' }}>{a}</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
 const TEMPLATES = [
   { title: 'The Confident Closer', tag: 'Sales', desc: 'A punchy 90-second script built for SDRs and AEs who know how to sell themselves.', color: '#0C63E3', bg: '#EEF4FF', downloads: '4.2k', stars: 4.9 },
@@ -24,10 +54,11 @@ const FEATURES = [
 export default function TemplatesPage() {
   const [form, setForm] = useState({ firstName: '', lastName: '', email: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
     <>
-      <Navbar />
+      <Navbar dark />
       <main style={{ paddingTop: '68px' }}>
         <style>{`
           .tmpl-grid { }
@@ -101,15 +132,20 @@ export default function TemplatesPage() {
           </div>
         </section>
 
-        {/* FAQ / info strip */}
-        <section style={{ background: '#fff', borderBottom: '1px solid #ECEEF1', padding: '20px 24px' }}>
-          <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
-            <p style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)', textAlign: 'center' }}>
-              <strong style={{ color: '#041635' }}>Frequently Asked Questions</strong> &nbsp;·&nbsp; No credit card needed &nbsp;·&nbsp; Instant email delivery &nbsp;·&nbsp; 100% free, always
-            </p>
+        {/* FAQ */}
+        <section style={{ background: '#F7F8FA', padding: 'clamp(64px, 8vw, 100px) 24px' }}>
+          <div style={{ maxWidth: '720px', margin: '0 auto' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '48px' }}>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Frequently asked questions</p>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 48px)', fontWeight: 900, color: '#041635', letterSpacing: '-0.03em', lineHeight: 0.96 }}>Everything you need to know</h2>
+            </motion.div>
+            <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '0 28px', boxShadow: '0 1px 8px rgba(4,22,53,0.04)' }}>
+              {FAQS.map((f, i) => (
+                <FAQItem key={f.q} q={f.q} a={f.a} open={openFaq === i} toggle={() => setOpenFaq(openFaq === i ? null : i)} />
+              ))}
+            </div>
           </div>
         </section>
-
 
       </main>
       <Footer />

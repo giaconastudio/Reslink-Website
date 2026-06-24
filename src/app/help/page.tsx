@@ -142,7 +142,7 @@ export default function HelpPage() {
 
   return (
     <>
-      <Navbar />
+      <Navbar dark />
       <main style={{ paddingTop: '68px' }}>
 
         {/* Hero + search */}

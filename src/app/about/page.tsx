@@ -127,6 +127,8 @@ function TeamCard({ member }: { member: typeof TEAM[0] }) {
           </div>
         </div>
       </div>
+      {/* Inset glass border — sits above photo and overlays */}
+      <div style={{ position: 'absolute', inset: 0, borderRadius: '20px', boxShadow: 'inset 0 0 0 1.5px rgba(255,255,255,0.22)', pointerEvents: 'none', zIndex: 10 }} />
     </div>
   );
 }

@@ -159,7 +159,7 @@ export default function UniversitiesPage() {
                     <div style={{ borderRadius: '12px', aspectRatio: '16/7', marginBottom: '16px', position: 'relative', overflow: 'hidden', background: '#000' }}>
                       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
                       <video
-                        src="/videos/pip-person-compressed.mp4"
+                        src="/videos/student.mp4"
                         autoPlay
                         muted
                         loop

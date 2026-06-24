@@ -230,6 +230,26 @@ export default function AgenciesPage() {
 
         <LogoTicker />
 
+        {/* ─── Stats ─── */}
+        <section style={{ background: '#041635', padding: 'clamp(64px, 8vw, 96px) 24px', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: '-40%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '700px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.2), transparent 60%)', pointerEvents: 'none' }} />
+          <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+            <div className="ag-stats-row">
+              {[
+                { value: '500+', label: 'agencies actively using Reslink' },
+                { value: '40%', label: 'faster average time-to-offer' },
+                { value: '3.8x', label: 'more client views per candidate' },
+                { value: '28%', label: 'lift in retained search mandates' },
+              ].map((s, i) => (
+                <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ delay: i * 0.08 }} style={{ textAlign: 'center' }}>
+                  <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 60px)', fontWeight: 900, color: '#D8F950', lineHeight: 1, letterSpacing: '-0.03em' }}>{s.value}</p>
+                  <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)', lineHeight: 1.5, maxWidth: '130px', margin: '10px auto 0' }}>{s.label}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ─── Process: step cards ─── */}
         <section style={{ background: '#F7F8FA', padding: 'clamp(72px, 9vw, 108px) 24px' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
@@ -295,26 +315,6 @@ export default function AgenciesPage() {
                       <span style={{ fontSize: '12px', fontWeight: 700, color: f.color, fontFamily: 'var(--font-body)' }}>{f.stat}</span>
                     </div>
                   </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ─── Stats ─── */}
-        <section style={{ background: '#041635', padding: 'clamp(64px, 8vw, 96px) 24px', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', top: '-40%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '700px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.2), transparent 60%)', pointerEvents: 'none' }} />
-          <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-            <div className="ag-stats-row">
-              {[
-                { value: '500+', label: 'agencies actively using Reslink' },
-                { value: '40%', label: 'faster average time-to-offer' },
-                { value: '3.8x', label: 'more client views per candidate' },
-                { value: '28%', label: 'lift in retained search mandates' },
-              ].map((s, i) => (
-                <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ delay: i * 0.08 }} style={{ textAlign: 'center' }}>
-                  <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 60px)', fontWeight: 900, color: '#D8F950', lineHeight: 1, letterSpacing: '-0.03em' }}>{s.value}</p>
-                  <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)', lineHeight: 1.5, maxWidth: '130px', margin: '10px auto 0' }}>{s.label}</p>
                 </motion.div>
               ))}
             </div>

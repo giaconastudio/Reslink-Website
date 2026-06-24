@@ -186,13 +186,18 @@ export default function AgenciesPage() {
                 <p style={{ fontSize: 'clamp(16px, 1.6vw, 18px)', color: '#5C6070', lineHeight: 1.75, fontFamily: 'var(--font-body)', marginBottom: '36px', maxWidth: '460px' }}>
                   Reslink gives every candidate you represent a video pitch your clients will actually remember. Shortlists that close. A presentation that no competing agency can match.
                 </p>
-                <div className="ag-hero-btns" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '40px' }}>
-                  <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: '#041635', color: '#fff', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                <div className="ag-hero-btns" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '32px' }}>
+                  <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 32px', background: '#041635', color: '#fff', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                     Get started free <ArrowRight size={16} />
                   </Link>
-                  <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: '#F7F8FA', color: '#041635', border: '1.5px solid #E4E6EC', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                  <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 32px', background: '#F7F8FA', color: '#041635', border: '1.5px solid #E4E6EC', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                     Talk to sales
                   </Link>
+                </div>
+                {/* Desktop product screenshot */}
+                <div className="ag-hero-product-img" style={{ borderRadius: '14px', overflow: 'hidden', border: '1.5px solid #E4E6EC', boxShadow: '0 8px 32px rgba(4,22,53,0.10)', marginBottom: '32px' }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/product-lists.webp" alt="Reslink candidate shortlist" style={{ width: '100%', height: 'auto', display: 'block' }} />
                 </div>
                 <div className="ag-hero-inline-stats" style={{ display: 'flex', gap: '32px', flexWrap: 'wrap' }}>
                   {[['500+', 'agencies globally'], ['40%', 'faster time-to-offer'], ['28%', 'more retained mandates']].map(([v, l]) => (

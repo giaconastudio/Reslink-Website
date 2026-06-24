@@ -63,10 +63,9 @@ export default function StudentsPage() {
               @media (max-width: 860px) { .students-hero-chip-ext { display: none !important; } }
               @media (max-width: 860px) { .students-hero-img-col { padding: 0 0 40px !important; } }
               @media (max-width: 860px) { .students-hero-section-inner { text-align: center !important; align-items: center !important; } }
-              @media (max-width: 860px) { .students-hero-btns { justify-content: center !important; } }
-              @media (max-width: 860px) { .students-hero-discount { align-self: center !important; } }
-              @media (max-width: 480px) { .students-hero-btns { flex-direction: column !important; } }
-              @media (max-width: 480px) { .students-hero-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; } }
+              @media (max-width: 860px) { .students-hero-btns { flex-direction: column !important; align-self: stretch !important; } }
+              @media (max-width: 860px) { .students-hero-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; } }
+              @media (max-width: 860px) { .students-hero-discount { display: flex !important; align-self: stretch !important; } }
               @media (max-width: 480px) { .students-hero-section-inner { padding-top: 48px !important; padding-bottom: 24px !important; } }
               @media (max-width: 480px) { .students-cta-btn { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; } }
               @media (max-width: 480px) { .students-faq-box { padding: 0 16px !important; } }

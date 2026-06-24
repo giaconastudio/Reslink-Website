@@ -62,10 +62,9 @@ export default function VeteransPage() {
               @media (max-width: 860px) { .vets-hero-chip-ext { display: none !important; } }
               @media (max-width: 860px) { .vets-hero-img-col { padding: 0 0 40px !important; } }
               @media (max-width: 860px) { .vets-hero-section-inner { text-align: center !important; align-items: center !important; } }
-              @media (max-width: 860px) { .vets-hero-btns { justify-content: center !important; } }
-              @media (max-width: 860px) { .vets-hero-discount { align-self: center !important; } }
-              @media (max-width: 480px) { .vets-hero-btns { flex-direction: column !important; } }
-              @media (max-width: 480px) { .vets-hero-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; } }
+              @media (max-width: 860px) { .vets-hero-btns { flex-direction: column !important; align-self: stretch !important; } }
+              @media (max-width: 860px) { .vets-hero-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; } }
+              @media (max-width: 860px) { .vets-hero-discount { display: flex !important; align-self: stretch !important; } }
               @media (max-width: 480px) { .vets-hero-section-inner { padding-top: 48px !important; padding-bottom: 24px !important; } }
               @media (max-width: 480px) { .vets-cta-btn { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; } }
               @media (max-width: 480px) { .vets-faq-box { padding: 0 16px !important; } }

@@ -123,7 +123,7 @@ function DesktopHIW() {
                 {steps.map((s, i) => (
                   <video key={s.num} ref={(el) => { videoRefs.current[i] = el; }}
                     src={`/videos/step-0${i + 1}.mp4`} poster={`/videos/step-0${i + 1}-poster.jpg`}
-                    autoPlay muted loop playsInline preload="auto"
+                    autoPlay muted loop playsInline preload="metadata"
                     style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: i === active ? 1 : 0, transition: 'opacity 0.5s ease' }} />
                 ))}
                 <div style={{ position: 'absolute', top: '16px', left: '16px', zIndex: 3, display: 'inline-flex', alignItems: 'center', gap: '7px', background: 'rgba(11,15,26,0.6)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '100px', padding: '6px 13px 6px 10px' }}>
@@ -183,7 +183,7 @@ function MobileHIW() {
         {steps.map((s, i) => (
           <video key={s.num} ref={(el) => { videoRefs.current[i] = el; }}
             src={`/videos/step-0${i + 1}.mp4`} poster={`/videos/step-0${i + 1}-poster.jpg`}
-            autoPlay muted loop playsInline preload="auto"
+            autoPlay muted loop playsInline preload="metadata"
             style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: i === active ? 1 : 0, transition: 'opacity 0.5s ease' }} />
         ))}
         <div style={{ position: 'absolute', top: '12px', left: '12px', zIndex: 3, display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(11,15,26,0.65)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '100px', padding: '5px 12px 5px 9px' }}>

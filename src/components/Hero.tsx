@@ -20,9 +20,14 @@ export default function Hero() {
     const v = videoRef.current;
     if (!v) return;
     v.muted = true;
-    const handler = () => { v.currentTime = 7; v.play().catch(() => {}); };
+    v.play().catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const handler = () => { v.currentTime = 7; };
     v.addEventListener('loadedmetadata', handler);
-    if (v.readyState >= 1) handler();
     return () => v.removeEventListener('loadedmetadata', handler);
   }, []);
 

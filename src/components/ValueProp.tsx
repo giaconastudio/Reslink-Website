@@ -47,7 +47,7 @@ export default function ValueProp() {
           .vp-stats { gap: 0; display: grid; grid-template-columns: 1fr 1fr; }
           .vp-stat-item { padding: 24px 16px; border-bottom: 1px solid #ECEEF1; }
           .vp-stat-item:nth-child(odd) { border-right: 1px solid #ECEEF1; }
-          .vp-pip { top: 6px !important; right: 6px !important; width: 88px !important; height: 88px !important; border-radius: 12px !important; }
+          .vp-pip { top: -12px !important; right: -12px !important; width: 88px !important; height: 88px !important; border-radius: 12px !important; }
           .vp-header-row { padding-right: 108px !important; }
           .vp-with-reslink { display: none !important; }
           .vp-pip-label { display: none !important; }

@@ -139,7 +139,7 @@ export default function AboutPage() {
             .about-hero-img { border-radius: 20px; overflow: hidden; }
             @media (max-width: 760px) {
               .about-hero-grid { grid-template-columns: 1fr; gap: 40px; }
-              .about-hero-img { order: -1; }
+              .about-hero-img { order: 1; }
             }
             @media (max-width: 480px) {
               .about-cta-btns { flex-direction: column !important; }

@@ -174,7 +174,7 @@ export default function AgenciesPage() {
             <div className="ag-hero-grid">
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For recruitment agencies</p>
-                <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(42px, 6vw, 80px)', fontWeight: 900, color: '#041635', lineHeight: 0.91, letterSpacing: '-0.03em', marginBottom: '24px' }}>
+                <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 6vw, 80px)', fontWeight: 900, color: '#041635', lineHeight: 0.91, letterSpacing: '-0.03em', marginBottom: '24px' }}>
                   Win more placements.<br /><span style={{ color: '#041635', display: 'inline-block', position: 'relative' }}>
                     Faster.
                     {/* eslint-disable-next-line @next/next/no-img-element */}

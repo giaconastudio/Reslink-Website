@@ -362,7 +362,7 @@ export default function Features() {
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A9FA8" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
         </div>
         {/* Tabs */}
-        <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', marginBottom: '40px' }}>
+        <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
           <div className="feat-tabs-seg">
             {tabs.map((t, i) => (
               <button key={t.id} className={`feat-tab${i === active ? ' active' : ''}`} onClick={() => setActive(i)}>

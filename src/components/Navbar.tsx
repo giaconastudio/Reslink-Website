@@ -232,25 +232,52 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
               </button>
               {mobileExpanded === key && (
                 <div style={{ paddingBottom: '8px' }}>
-                  {items.map((item) => {
-                    const Icon = item.icon;
-                    return (
-                      <Link key={item.href} href={item.href}
-                        style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '8px 4px', textDecoration: 'none' }}
-                        onClick={() => setMobileOpen(false)}
-                      >
-                        <div style={{ width: '28px', height: '28px', borderRadius: '7px', background: '#ECEEF1', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                          <Icon size={13} color="#6B7280" />
+                  {key === 'solutions' ? (
+                    <>
+                      {[
+                        { groupLabel: 'For Individuals', filtered: solutions.filter(s => !s.forOrg) },
+                        { groupLabel: 'For Organizations', filtered: solutions.filter(s => s.forOrg) },
+                      ].map(({ groupLabel, filtered }) => (
+                        <div key={groupLabel}>
+                          <p style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: isDark ? 'rgba(255,255,255,0.35)' : '#B0B8C8', fontFamily: 'var(--font-body)', padding: '8px 4px 4px', margin: 0 }}>{groupLabel}</p>
+                          {filtered.map((item) => {
+                            const Icon = item.icon;
+                            return (
+                              <Link key={item.href} href={item.href}
+                                style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '8px 4px', textDecoration: 'none' }}
+                                onClick={() => setMobileOpen(false)}
+                              >
+                                <div style={{ width: '28px', height: '28px', borderRadius: '7px', background: isDark ? 'rgba(255,255,255,0.1)' : '#ECEEF1', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                  <Icon size={13} color={isDark ? 'rgba(255,255,255,0.7)' : '#6B7280'} />
+                                </div>
+                                <span style={{ fontSize: '14px', fontWeight: 500, color: isDark ? 'rgba(255,255,255,0.85)' : '#041635', fontFamily: 'var(--font-body)' }}>{item.label}</span>
+                              </Link>
+                            );
+                          })}
                         </div>
-                        <div>
-                          <span style={{ fontSize: '14px', fontWeight: 500, color: dark ? 'rgba(255,255,255,0.85)' : '#041635', fontFamily: 'var(--font-body)', display: 'block' }}>{item.label}</span>
-                          {'badge' in item && (item as { badge?: string | null }).badge && (
-                            <span style={{ fontSize: '10px', fontWeight: 700, color: '#0C63E3', background: '#EEF4FF', border: '1px solid #C7DEFF', borderRadius: '100px', padding: '1px 7px', fontFamily: 'var(--font-body)', marginLeft: '6px' }}>{(item as { badge?: string | null }).badge}</span>
-                          )}
-                        </div>
-                      </Link>
-                    );
-                  })}
+                      ))}
+                    </>
+                  ) : (
+                    items.map((item) => {
+                      const Icon = item.icon;
+                      return (
+                        <Link key={item.href} href={item.href}
+                          style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '8px 4px', textDecoration: 'none' }}
+                          onClick={() => setMobileOpen(false)}
+                        >
+                          <div style={{ width: '28px', height: '28px', borderRadius: '7px', background: isDark ? 'rgba(255,255,255,0.1)' : '#ECEEF1', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                            <Icon size={13} color={isDark ? 'rgba(255,255,255,0.7)' : '#6B7280'} />
+                          </div>
+                          <div>
+                            <span style={{ fontSize: '14px', fontWeight: 500, color: isDark ? 'rgba(255,255,255,0.85)' : '#041635', fontFamily: 'var(--font-body)', display: 'block' }}>{item.label}</span>
+                            {'badge' in item && (item as { badge?: string | null }).badge && (
+                              <span style={{ fontSize: '10px', fontWeight: 700, color: '#0C63E3', background: '#EEF4FF', border: '1px solid #C7DEFF', borderRadius: '100px', padding: '1px 7px', fontFamily: 'var(--font-body)', marginLeft: '6px' }}>{(item as { badge?: string | null }).badge}</span>
+                            )}
+                          </div>
+                        </Link>
+                      );
+                    })
+                  )}
                 </div>
               )}
             </div>

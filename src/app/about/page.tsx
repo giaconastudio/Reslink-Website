@@ -39,19 +39,10 @@ const TEAM = [
     name: 'Taylor Bagwell',
     initials: 'TB',
     color: '#0891B2',
-    title: 'CTO',
+    title: 'Technical Adviser',
     bio: 'Taylor brings deep engineering expertise that helps Reslink build fast, reliable, and scalable infrastructure. His guidance shapes the technical decisions that let the team move quickly without cutting corners.',
     linkedin: null,
     photo: '/team/taylor.png',
-  },
-  {
-    name: 'Dan London',
-    initials: 'DL',
-    color: '#059669',
-    title: 'Executive Adviser',
-    bio: 'Dan is a seasoned executive with a track record of scaling SaaS companies from early-stage to market leadership. He advises Reslink on strategy, fundraising, and building the organizational foundation for sustainable growth.',
-    linkedin: null,
-    photo: '/team/dan.webp',
   },
 ];
 
@@ -316,8 +307,8 @@ export default function AboutPage() {
               {TEAM.slice(0, 3).map((m) => <TeamCard key={m.name} member={m} />)}
             </div>
 
-            {/* Bottom row: CTO + adviser — centered 2-col */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', maxWidth: '760px', margin: '0 auto' }} className="team-bottom-grid">
+            {/* Bottom row: Technical Adviser — centered single card */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '20px', maxWidth: '360px', margin: '0 auto' }} className="team-bottom-grid">
               {TEAM.slice(3).map((m) => <TeamCard key={m.name} member={m} />)}
             </div>
           </div>
@@ -337,7 +328,7 @@ export default function AboutPage() {
               </p>
               <div className="about-cta-btns" style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
                 <Link href="/get-started" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
-                  Create your Reslink. free
+                  Create your Reslink
                   <ArrowRight size={15} />
                 </Link>
                 <Link href="/careers" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 24px', fontSize: '15px', fontWeight: 600, color: 'rgba(255,255,255,0.65)', background: 'rgba(255,255,255,0.08)', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>

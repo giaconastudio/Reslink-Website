@@ -35,7 +35,8 @@ export default function LoginPage() {
         .login-right { background: #fff; display: flex; align-items: flex-start; justify-content: center; padding: clamp(36px, 4vw, 48px) clamp(32px, 4vw, 52px); }
         @media (max-width: 900px) {
           .login-wrap { grid-template-columns: 1fr; min-height: auto; }
-          .login-left { justify-content: flex-start; gap: 20px; padding: 28px 24px; }
+          .login-left { justify-content: flex-start; gap: 20px; padding: 28px 24px; order: 1; }
+          .login-right { order: 0; }
         }
       `}</style>
 

@@ -40,6 +40,11 @@ export default function BlogPage() {
           .sort-btn:hover { background: #F7F8FA !important; }
           @media (max-width: 700px) { .featured-grid { grid-template-columns: 1fr !important; } .all-grid { grid-template-columns: 1fr !important; } }
           @media (max-width: 960px) { .all-grid { grid-template-columns: 1fr 1fr !important; } }
+          @media (max-width: 600px) {
+            .blog-filter-bar { flex-wrap: wrap !important; gap: 0 !important; padding: 0 !important; }
+            .blog-filter-tags { width: 100%; border-bottom: 1px solid #ECEEF1; }
+            .blog-filter-controls { width: 100%; padding: 10px 0; justify-content: flex-end; }
+          }
         `}</style>
 
         {/* Hero / Search */}
@@ -78,8 +83,8 @@ export default function BlogPage() {
 
         {/* Filter bar */}
         <section style={{ background: '#fff', borderBottom: '1px solid #ECEEF1', padding: '0 24px', position: 'sticky', top: '68px', zIndex: 10 }}>
-          <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
-            <div style={{ display: 'flex', gap: '2px', overflowX: 'auto', padding: '12px 0' }}>
+          <div className="blog-filter-bar" style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
+            <div className="blog-filter-tags" style={{ display: 'flex', gap: '2px', overflowX: 'auto', padding: '12px 0' }}>
               {TAGS.map(t => {
                 const isActive = active === t;
                 const count = t === 'All' ? POSTS.length : POSTS.filter(p => p.tag === t).length;
@@ -95,7 +100,7 @@ export default function BlogPage() {
               })}
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+            <div className="blog-filter-controls" style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
               {/* View toggle */}
               <div style={{ display: 'flex', background: '#F0F2F5', borderRadius: '8px', padding: '3px' }}>
                 <button onClick={() => setViewMode('grid')}

@@ -103,7 +103,8 @@ export default function UniversitiesPage() {
           .uni-steps-row { grid-template-columns: 1fr !important; }
           .uni-hero-btns { flex-direction: column !important; }
           .uni-hero-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; }
-          .uni-cta-btn { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; }
+          .uni-cta-btn { flex-direction: column !important; align-items: stretch !important; }
+          .uni-cta-btn a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; }
         }
         @media (max-width: 860px) { .uni-feat-grid { grid-template-columns: repeat(2, 1fr) !important; } }
         @media (max-width: 560px) {

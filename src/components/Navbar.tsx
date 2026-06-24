@@ -271,10 +271,10 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
                           <div style={{ width: '28px', height: '28px', borderRadius: '7px', background: isDark ? 'rgba(255,255,255,0.1)' : '#ECEEF1', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                             <Icon size={13} color={isDark ? 'rgba(255,255,255,0.7)' : '#6B7280'} />
                           </div>
-                          <div>
-                            <span style={{ fontSize: '14px', fontWeight: 500, color: isDark ? 'rgba(255,255,255,0.85)' : '#041635', fontFamily: 'var(--font-body)', display: 'block' }}>{item.label}</span>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '7px', flexWrap: 'wrap' }}>
+                            <span style={{ fontSize: '14px', fontWeight: 500, color: isDark ? 'rgba(255,255,255,0.85)' : '#041635', fontFamily: 'var(--font-body)' }}>{item.label}</span>
                             {'badge' in item && (item as { badge?: string | null }).badge && (
-                              <span style={{ fontSize: '10px', fontWeight: 700, color: '#0C63E3', background: '#EEF4FF', border: '1px solid #C7DEFF', borderRadius: '100px', padding: '1px 7px', fontFamily: 'var(--font-body)', marginLeft: '6px' }}>{(item as { badge?: string | null }).badge}</span>
+                              <span style={{ fontSize: '10px', fontWeight: 700, color: '#0C63E3', background: '#EEF4FF', border: '1px solid #C7DEFF', borderRadius: '100px', padding: '1px 7px', fontFamily: 'var(--font-body)' }}>{(item as { badge?: string | null }).badge}</span>
                             )}
                           </div>
                         </Link>

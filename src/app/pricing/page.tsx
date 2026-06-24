@@ -196,11 +196,14 @@ export default function PricingPage() {
         @media (max-width: 860px) {
           .pricing-grid-3 { grid-template-columns: 1fr !important; }
           .pricing-grid-2 { grid-template-columns: 1fr !important; }
-          .audience-grid { grid-template-columns: 1fr !important; }
+          .audience-grid { display: flex !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; gap: 8px !important; padding-bottom: 4px !important; }
+          .audience-card { flex-shrink: 0 !important; flex-direction: row !important; align-items: center !important; padding: 12px 16px !important; border-radius: 14px !important; gap: 10px !important; }
+          .audience-card-desc { display: none !important; }
           .featured-scale { transform: none !important; }
         }
         @media (max-width: 560px) {
-          .billing-seg { overflow-x: auto; -webkit-overflow-scrolling: touch; justify-content: flex-start !important; }
+          .billing-seg { display: flex !important; width: 100% !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; justify-content: flex-start !important; box-sizing: border-box !important; }
+          .billing-seg button { padding: 9px 14px !important; font-size: 13px !important; }
         }
         @media (max-width: 480px) {
           .pricing-cta-btns { flex-direction: column !important; }
@@ -232,7 +235,7 @@ export default function PricingPage() {
                 {AUDIENCE.map(({ key, Icon, label, desc }) => {
                   const active = planTab === key;
                   return (
-                    <button key={key} onClick={() => setPlanTab(key)} style={{
+                    <button key={key} onClick={() => setPlanTab(key)} className="audience-card" style={{
                       background: active ? '#fff' : 'rgba(255,255,255,0.05)',
                       border: active ? '2px solid #fff' : '1.5px solid rgba(255,255,255,0.1)',
                       borderBottom: active ? '2px solid #fff' : '1.5px solid rgba(255,255,255,0.1)',
@@ -253,7 +256,7 @@ export default function PricingPage() {
                         </div>
                         <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '17px', fontWeight: 900, color: active ? '#041635' : '#fff', letterSpacing: '-0.02em', lineHeight: 1 }}>{label}</span>
                       </div>
-                      <p style={{ fontSize: '12px', color: active ? '#5C6070' : 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', lineHeight: 1.4 }}>{desc}</p>
+                      <p className="audience-card-desc" style={{ fontSize: '12px', color: active ? '#5C6070' : 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', lineHeight: 1.4 }}>{desc}</p>
                     </button>
                   );
                 })}
@@ -693,7 +696,7 @@ export default function PricingPage() {
               </p>
               <div className="pricing-cta-btns" style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
                 <Link href="/get-started" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
-                  Create your Reslink. Free.
+                  Create your Reslink
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                 </Link>
                 <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', padding: '14px 24px', fontSize: '15px', fontWeight: 600, color: 'rgba(255,255,255,0.65)', background: 'rgba(255,255,255,0.08)', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>

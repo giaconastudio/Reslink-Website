@@ -8,7 +8,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
 const FEATURES = [
-  { icon: Zap, title: 'Translate military experience', body: 'PitchAI reframes your service — leadership, mission execution, discipline — into language civilian hiring managers immediately recognize and value.' },
+  { icon: Zap, title: 'Translate military experience', body: 'PitchAI translates your service record into language civilian hiring managers immediately recognize and value.' },
   { icon: Video, title: 'Show who you are', body: 'A 90-second video pitch communicates what a resume can\'t: presence, composure, and the confidence that comes from military service.' },
   { icon: FileText, title: 'Resume + video in one link', body: 'Your Reslink pairs your video introduction with resume highlights. Hiring managers get the full picture before the first call.' },
   { icon: BarChart2, title: 'Know when employers view you', body: 'See when a recruiter opens your profile and how long they engaged. Follow up with confidence and real data.' },
@@ -22,7 +22,7 @@ const FAQS = [
   { q: 'Is Reslink free?', a: 'Yes. Veterans can create and share a full Reslink profile for free. Pro plans unlock advanced analytics, multiple videos, and custom branding.' },
   { q: 'How long should my video be?', a: '60 to 90 seconds. That\'s enough time to introduce yourself, highlight two or three key strengths, and express interest in the role. Shorter, confident, and direct.' },
   { q: 'Will this work alongside my existing resume and LinkedIn?', a: 'Yes. Reslink supplements your standard resume. You continue submitting through any ATS. Reslink is the extra layer that makes you stand out and be remembered.' },
-  { q: 'What if I\'m not confident on camera yet?', a: 'The teleprompter scrolls your script while you record. You look straight at the camera and sound prepared — because you are.' },
+  { q: 'What if I\'m not confident on camera yet?', a: 'The teleprompter scrolls your script while you record. You look straight at the camera and sound prepared. Because you are.' },
 ];
 
 function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; toggle: () => void }) {
@@ -149,7 +149,7 @@ export default function VeteransPage() {
                 Your experience is real.<br />The translation gap is too.
               </h2>
               <p style={{ fontSize: '16px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '20px' }}>
-                Civilian recruiters often struggle to decode military titles and acronyms. A 90-second video pitch closes that gap instantly — your leadership and presence speaks for itself.
+                Civilian recruiters often struggle to decode military titles and acronyms. A 90-second video pitch closes that gap instantly. Your leadership and presence speaks for itself.
               </p>
               <p style={{ fontSize: '16px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>
                 Reslink&apos;s PitchAI translates your service record into a compelling civilian narrative that hiring managers immediately connect with.

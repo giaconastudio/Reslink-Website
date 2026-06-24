@@ -23,7 +23,7 @@ const tabs = [
     id: 'analytics',
     label: 'Insights',
     headline: 'View insights on Reslink engagement.',
-    sub: 'Track who views your Reslinks and understand engagement levels — watch time, link clicks, location, and more — so you can refine your approach and follow up at exactly the right moment.',
+    sub: 'Track who views your Reslinks and understand engagement levels: watch time, link clicks, location, and more. Refine your approach and follow up at exactly the right moment.',
     stats: [
       { val: '342', label: 'Profile views' },
       { val: '89%', label: 'Watch rate' },
@@ -113,7 +113,7 @@ const tabs = [
     id: 'pitchai',
     label: 'Pitch AI',
     headline: 'Enhance your video pitch with AI.',
-    sub: 'Reslink Pitch AI generates a standout video script tailored to your experience and the role you\'re applying for. Customize it, then record — no blank page, no guessing what to say.',
+    sub: 'Reslink Pitch AI generates a standout video script tailored to your experience and the role you\'re applying for. Customize it, then record. No blank page, no guessing what to say.',
     color: '#0C63E3',
     bg: '#fff',
     visual: (
@@ -173,7 +173,7 @@ const tabs = [
     id: 'teleprompter',
     label: 'Teleprompter',
     headline: 'Look confident. Sound confident.',
-    sub: 'Capture your pitch effortlessly using our in-app teleprompter, guiding you to deliver your best performance every time — no notes, no nerves.',
+    sub: 'Capture your pitch effortlessly using our in-app teleprompter, guiding you to deliver your best performance every time. No notes, no nerves.',
     color: '#D8F950',
     bg: '#0B0F1A',
     visual: (
@@ -204,7 +204,7 @@ const tabs = [
               transition={{ duration: 3.5, ease: 'linear', repeat: Infinity, repeatDelay: 1.5 }}
               style={{ fontSize: '13px', color: 'rgba(255,255,255,0.9)', lineHeight: 1.65, fontFamily: 'var(--font-body)' }}
             >
-              Hi, I&apos;m Oliver — I&apos;ve spent 3 years building backend systems that handle millions of requests. At HubSpot I cut API latency by 40%...
+              Hi, I&apos;m Oliver. I&apos;ve spent 3 years building backend systems that handle millions of requests. At HubSpot I cut API latency by 40%...
             </motion.p>
           </div>
         </div>
@@ -215,7 +215,7 @@ const tabs = [
     id: 'badge',
     label: 'Apply Anywhere',
     headline: 'Your Reslink, right inside your resume.',
-    sub: 'A clickable Play Intro button is embedded directly in your resume PDF. When a recruiter opens it, one click takes them straight to your video — no copying URLs, no manual work.',
+    sub: 'A clickable Play Intro button is embedded directly in your resume PDF. When a recruiter opens it, one click takes them straight to your video. No copying URLs, no manual work.',
     color: '#D8F950',
     bg: '#F7F8FA',
     visual: (

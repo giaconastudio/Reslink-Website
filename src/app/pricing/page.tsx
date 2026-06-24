@@ -21,7 +21,7 @@ const SEEKER_PREMIUM = [
   'Unlimited Reslinks',
   'Upload your own video pitch',
   'Full Pitch AI access (unlimited)',
-  'Application insights — see who viewed you',
+  'Application insights: see who viewed you',
   'Watch-time analytics per recruiter',
   'In-app recording + teleprompter',
   'Resource center access',
@@ -70,14 +70,14 @@ const TESTIMONIALS = [
 ];
 
 const FAQS = [
-  { q: 'Is Reslink really free?', a: 'Yes. You can create up to 2 Reslinks, record your pitch, and start sharing — completely free, no credit card required.' },
+  { q: 'Is Reslink really free?', a: 'Yes. You can create up to 2 Reslinks, record your pitch, and start sharing. Completely free. No credit card required.' },
   { q: 'What does Premium unlock?', a: 'Premium gives you unlimited Reslinks, full analytics (see every recruiter who viewed you and how long they watched), and unrestricted Pitch AI access to help you script and refine your pitch.' },
-  { q: 'What is the quarterly plan?', a: "The quarterly plan is $29 billed every 3 months — that's $10/month, a 29% saving over monthly. Most job searches wrap up within a quarter, making it the most practical option for active candidates." },
+  { q: 'What is the quarterly plan?', a: "The quarterly plan is $29 billed every 3 months, that's $10/month, a 29% saving over monthly. Most job searches wrap up within a quarter, making it the most practical option for active candidates." },
   { q: 'Is the annual plan worth it?', a: 'At $58/year vs $14/month billed monthly, the annual plan saves you over 64%. If you want unlimited access for the long haul it is the best value.' },
   { q: 'Can I cancel anytime?', a: 'Absolutely. Cancel any time from your account settings. Your Premium access stays active until the end of the billing period, no matter which cycle you chose.' },
   { q: 'What happens to my Reslinks if I downgrade?', a: "Your Reslinks stay live. If you have more than 2, they remain accessible via direct link but you'll need Premium to create new ones." },
-  { q: 'How do companies get started?', a: "Start a 14-day free trial directly from this page — no credit card needed. For Enterprise plans, click 'Request a demo' and we'll get back to you within one business day." },
-  { q: 'How does agency pricing work?', a: 'Agency plans are based on active candidate profiles and recruiter seats. You can start on the Starter plan and upgrade as your team grows. Scale plans are priced based on volume — reach out for a custom quote.' },
+  { q: 'How do companies get started?', a: "Start a 14-day free trial directly from this page. No credit card needed. For Enterprise plans, click 'Request a demo' and we'll get back to you within one business day." },
+  { q: 'How does agency pricing work?', a: 'Agency plans are based on active candidate profiles and recruiter seats. You can start on the Starter plan and upgrade as your team grows. Scale plans are priced based on volume. Reach out for a custom quote.' },
   { q: 'Do you offer a free trial for companies and agencies?', a: 'Companies get a 14-day free trial on the Growth plan with no credit card required. Agency trials are available on request.' },
 ];
 
@@ -689,7 +689,7 @@ export default function PricingPage() {
               </p>
               <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
                 <Link href="/get-started" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
-                  Create your Reslink — free
+                  Create your Reslink. Free.
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                 </Link>
                 <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', padding: '14px 24px', fontSize: '15px', fontWeight: 600, color: 'rgba(255,255,255,0.65)', background: 'rgba(255,255,255,0.08)', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>

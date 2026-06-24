@@ -7,13 +7,13 @@ const steps = [
   {
     num: '01',
     label: 'Create your account',
-    desc: 'Sign up free — just your name and email. No credit card, no setup fee. Your profile is ready the moment you land.',
+    desc: 'Sign up free. Just your name and email. No credit card, no setup fee. Your profile is ready the moment you land.',
     color: '#D8F950',
   },
   {
     num: '02',
     label: 'Upload your resume',
-    desc: 'Drop in your PDF and we parse it instantly — work history, skills, education, all pulled in automatically. No manual entry.',
+    desc: 'Drop in your PDF and we parse it instantly. Work history, skills, education, all pulled in automatically. No manual entry.',
     color: '#D8F950',
   },
   {

@@ -246,11 +246,11 @@ export default function AboutPage() {
           <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.55 }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '24px', fontFamily: 'var(--font-body)' }}>Our mission</p>
-              <blockquote style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 4.5vw, 52px)', fontWeight: 900, color: '#041635', lineHeight: 1.0, letterSpacing: '-0.03em', marginBottom: '32px' }}>
-                "Every person has a story worth hearing. We exist to make sure it gets told."
+              <blockquote style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 4.5vw, 52px)', fontWeight: 900, color: '#041635', lineHeight: 1.1, letterSpacing: '-0.03em', marginBottom: '32px' }}>
+                &ldquo;Every person has a story worth hearing.<br />We exist to make sure it gets told.&rdquo;
               </blockquote>
               <p style={{ fontSize: '17px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '620px', margin: '0 auto' }}>
-                Behind every resume is a person with a real story — a reason they care, a problem they've solved, a version of themselves that no bullet point could ever capture. Reslink was built to change that.
+                Behind every resume is a person with a real story: a reason they care, a problem they've solved, a version of themselves that no bullet point could ever capture. Reslink was built to change that.
               </p>
             </motion.div>
           </div>

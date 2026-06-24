@@ -50,7 +50,7 @@ function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; 
 
 const TESTIMONIALS = [
   { quote: 'Before Reslink our students were submitting PDFs no one was reading. Now employers watch their pitch before the first call. Our placement rate is up 34% in one year.', name: 'Dr. Angela Torres', role: 'Director of Career Services', company: 'Westfield University', color: '#059669' },
-  { quote: 'Employers come back to us now. They tell us our students are different — they actually know how to present themselves. Reslink made that happen.', name: 'Marcus Webb', role: 'Career Development Lead', company: 'Central State University', color: '#0C63E3' },
+  { quote: 'Employers come back to us now. They tell us our students are different. They actually know how to present themselves. Reslink made that happen.', name: 'Marcus Webb', role: 'Career Development Lead', company: 'Central State University', color: '#0C63E3' },
   { quote: 'Students who were struggling to get callbacks started landing interviews once they had a video profile. It levels the playing field in a way a resume never could.', name: 'James Holman', role: 'Career Counselor', company: 'Summit Institute', color: '#7C3AED' },
   { quote: 'We used to rely on word of mouth to prove our placement numbers. Now I pull a real report every semester and show exactly what our career center delivered.', name: 'Priya Desai', role: 'VP of Student Success', company: 'Northgate College', color: '#D97706' },
 ];
@@ -240,7 +240,7 @@ export default function UniversitiesPage() {
                       'Every student has a video pitch employers actually watch',
                       'Dashboard shows recruiter views and engagement in real time',
                       'Placement outcomes tracked automatically, no surveys needed',
-                      'Students share Reslinks at career fairs — employers remember them',
+                      'Students share Reslinks at career fairs. Employers remember them',
                       'Annual report pulls directly from your career center dashboard',
                     ].map(t => (
                       <div key={t} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', padding: '10px 14px', background: '#F0FDF4', borderRadius: '8px', border: '1px solid #BBF7D0' }}>

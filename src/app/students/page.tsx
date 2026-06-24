@@ -73,7 +73,7 @@ export default function StudentsPage() {
                 <span style={{ color: '#D8F950' }}>they remember.</span>
               </h1>
               <p style={{ fontSize: 'clamp(15px, 1.6vw, 17px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '440px', marginBottom: '36px' }}>
-                Land internships and first jobs by showing recruiters who you actually are — not just a list of coursework on a PDF.
+                Land internships and first jobs by showing recruiters who you actually are. Not just a list of coursework on a PDF.
               </p>
               <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                 <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 28px', background: '#D8F950', color: '#041635', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>

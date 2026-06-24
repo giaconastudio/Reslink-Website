@@ -22,7 +22,7 @@ const testimonials = [
     color: '#A855F7',
   },
   {
-    quote: "The analytics feature is unreal. I saw a senior partner watch my video three times — I reached out and got an interview the next morning.",
+    quote: "The analytics feature is unreal. I saw a senior partner watch my video three times. I reached out and got an interview the next morning.",
     name: 'Marcus Williams',
     role: 'Finance Analyst',
     company: 'EY',
@@ -62,7 +62,7 @@ const testimonials = [
     color: '#635BFF',
   },
   {
-    quote: "The teleprompter made recording so natural — I didn't have to memorise anything. I recorded a great take on my second try.",
+    quote: "The teleprompter made recording so natural. I didn't have to memorise anything. I recorded a great take on my second try.",
     name: 'Luca Romano',
     role: 'Sales Development Rep',
     company: 'HubSpot',

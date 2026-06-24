@@ -7,11 +7,11 @@ import { Plus, Minus } from 'lucide-react';
 const faqs = [
   { q: 'Is Reslink free?', a: 'Yes. Creating a job seeker account and building your video resume is completely free. We offer premium plans with advanced analytics and features for power users.' },
   { q: 'How long should my video pitch be?', a: "We recommend 60–90 seconds. A tight, confident pitch that respects the recruiter's time performs significantly better than a long one." },
-  { q: 'Can I use Reslink for any type of job?', a: 'Absolutely. Reslink works across all industries — tech, finance, marketing, creative, operations, and more.' },
-  { q: 'Will my video pitch affect ATS compatibility?', a: 'No. Your traditional resume is still uploaded alongside your video. Reslink supplements your PDF — it works with all ATS systems.' },
+  { q: 'Can I use Reslink for any type of job?', a: 'Absolutely. Reslink works across all industries: tech, finance, marketing, creative, operations, and more.' },
+  { q: 'Will my video pitch affect ATS compatibility?', a: 'No. Your traditional resume is still uploaded alongside your video. Reslink supplements your PDF. It works with all ATS systems.' },
   { q: 'Do I need special equipment to record my video?', a: 'No. Your laptop or phone camera is all you need. Good lighting and a quiet room make a big difference.' },
   { q: 'Can companies search for candidates on Reslink?', a: 'Yes. Companies and recruiters can discover and search candidate profiles directly on the platform.' },
-  { q: 'Do I have access to resources on creating a great video resume?', a: "Yes — we have a full library of guides, templates, and tips. Head to our Resources section to get started." },
+  { q: 'Do I have access to resources on creating a great video resume?', a: "Yes. We have a full library of guides, templates, and tips. Head to our Resources section to get started." },
 ];
 
 export default function FAQ() {

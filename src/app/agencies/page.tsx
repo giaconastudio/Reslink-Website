@@ -332,7 +332,7 @@ export default function AgenciesPage() {
                 </div>
                 {/* Rows */}
                 {[
-                  ['Send a PDF candidate matrix to the inbox', 'Send a branded video shortlist — one link'],
+                  ['Send a PDF candidate matrix to the inbox', 'Send a branded video shortlist. One link.'],
                   ['Wait days to hear if anyone even opened it', 'Get view data back in hours, not days'],
                   ['No idea which candidates they actually looked at', 'See exactly who watched, and for how long'],
                   ['Compete on the same terms as every other agency', 'Win the brief before the meeting even happens'],

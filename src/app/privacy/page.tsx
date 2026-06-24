@@ -65,7 +65,7 @@ const sections = [
 export default function PrivacyPage() {
   return (
     <>
-      <Navbar />
+      <Navbar dark />
       <main style={{ paddingTop: '68px', background: '#fff', minHeight: '100vh' }}>
         {/* Hero */}
         <section style={{ background: '#041635', padding: 'clamp(60px, 8vw, 96px) 24px' }}>

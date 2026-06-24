@@ -85,28 +85,29 @@ export default function StudentsPage() {
               </div>
             </motion.div>
             {/* Right: student photo */}
-            <motion.div className="students-hero-img-col" initial={{ opacity: 0, scale: 1.04 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.1 }}
-              style={{ position: 'relative', overflow: 'hidden' }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=900&h=700&fit=crop"
-                alt="Student"
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
-              />
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, #041635 0%, transparent 30%, transparent 70%, #041635 100%)' }} />
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #041635 0%, transparent 30%)' }} />
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, #041635 0%, transparent 28%)' }} />
-              {/* Floating card */}
-              <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7, duration: 0.4 }}
-                style={{ position: 'absolute', bottom: '48px', left: '32px', background: '#fff', borderRadius: '14px', padding: '14px 16px', boxShadow: '0 16px 48px rgba(4,22,53,0.28)', display: 'flex', alignItems: 'center', gap: '12px', minWidth: '210px' }}>
-                <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: '#D8F950', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <CheckCircle size={18} color="#041635" strokeWidth={2.5} />
-                </div>
-                <div>
-                  <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Interview booked</p>
-                  <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Google · 2 days after sharing</p>
-                </div>
-              </motion.div>
+            <motion.div className="students-hero-img-col" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.15 }}
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'clamp(40px, 5vw, 56px) 0' }}>
+              <div style={{ position: 'relative', width: '100%', maxWidth: '380px', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 32px 80px rgba(0,0,0,0.5)', aspectRatio: '3/4' }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=900&h=700&fit=crop"
+                  alt="Student"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
+                />
+                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '45%', background: 'linear-gradient(to top, rgba(4,22,53,0.72), transparent)' }} />
+                <div style={{ position: 'absolute', inset: 0, borderRadius: '20px', boxShadow: 'inset 0 0 0 1.5px rgba(255,255,255,0.12)', pointerEvents: 'none' }} />
+                {/* Floating card */}
+                <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8, duration: 0.4 }}
+                  style={{ position: 'absolute', bottom: '24px', left: '20px', background: '#fff', borderRadius: '14px', padding: '12px 14px', boxShadow: '0 16px 48px rgba(4,22,53,0.28)', display: 'flex', alignItems: 'center', gap: '10px', minWidth: '195px' }}>
+                  <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#D8F950', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <CheckCircle size={16} color="#041635" strokeWidth={2.5} />
+                  </div>
+                  <div>
+                    <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Interview booked</p>
+                    <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Google · 2 days after sharing</p>
+                  </div>
+                </motion.div>
+              </div>
             </motion.div>
           </div>
         </section>

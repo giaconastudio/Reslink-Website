@@ -159,7 +159,7 @@ export default function GetStartedPage() {
       <Navbar />
       <div style={{ minHeight: 'calc(100vh - 68px)', paddingTop: '68px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 24px' }}>
         <style>{`
-          .gs-card { display: grid; grid-template-columns: 420px 1fr; width: 100%; max-width: 940px; min-height: 580px; background: #fff; border-radius: 20px; box-shadow: 0 8px 48px rgba(4,22,53,0.13); overflow: hidden; }
+          .gs-card { display: grid; grid-template-columns: 460px 1fr; width: 100%; max-width: 1040px; min-height: 600px; background: #fff; border-radius: 20px; box-shadow: 0 8px 48px rgba(4,22,53,0.13); overflow: hidden; }
           .gs-right-col { display: block; }
           @media (max-width: 800px) { .gs-card { grid-template-columns: 1fr !important; } .gs-right-col { display: none !important; } }
           .gs-type-btn:hover { background: #F4F6FF !important; border-color: #BDC8D8 !important; }
@@ -185,7 +185,7 @@ export default function GetStartedPage() {
                         setSelectedType(a === 'individual' ? 'seeker' : 'company');
                       }}
                         style={{ flex: 1, padding: '10px 12px', borderRadius: '10px', border: 'none', background: audience === a ? '#0C63E3' : 'transparent', color: audience === a ? '#fff' : '#9A9FA8', fontSize: '13px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: 'pointer', transition: 'all 0.2s', boxShadow: audience === a ? '0 2px 10px rgba(12,99,227,0.28)' : 'none' }}>
-                        {a === 'individual' ? 'For Me' : 'For My Organization'}
+                        {a === 'individual' ? 'Individuals' : 'Organizations'}
                       </button>
                     ))}
                   </div>

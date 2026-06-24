@@ -29,16 +29,16 @@ export default function LoginPage() {
       <Navbar />
       <style>{`
         input:focus { border-color: #0C63E3 !important; }
-        .login-wrap { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 68px); }
-        .login-left { background: #041635; padding: clamp(48px, 6vw, 80px); display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
-        .login-right { background: #fff; display: flex; align-items: center; justify-content: center; padding: clamp(40px, 5vw, 64px) clamp(32px, 4vw, 56px); }
+        .login-wrap { display: grid; grid-template-columns: 420px 1fr; width: 100%; max-width: 1040px; min-height: 600px; background: #fff; border-radius: 20px; box-shadow: 0 8px 48px rgba(4,22,53,0.13); overflow: hidden; }
+        .login-left { background: #041635; padding: clamp(40px, 5vw, 64px); display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
+        .login-right { background: #fff; display: flex; align-items: center; justify-content: center; padding: clamp(40px, 5vw, 56px) clamp(32px, 4vw, 52px); }
         @media (max-width: 900px) {
           .login-wrap { grid-template-columns: 1fr; }
           .login-left { display: none; }
         }
       `}</style>
 
-      <div style={{ paddingTop: '68px' }}>
+      <div style={{ minHeight: 'calc(100vh - 68px)', paddingTop: '68px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 24px', background: '#F7F8FA', boxSizing: 'border-box' }}>
         <div className="login-wrap">
 
           {/* ── Left: brand panel ── */}

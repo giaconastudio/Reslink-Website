@@ -281,7 +281,7 @@ export default function AboutPage() {
 
         {/* ── Team ── */}
         <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
-          <div style={{ maxWidth: '1120px', margin: '0 auto' }}>
+          <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ duration: 0.5 }}
               style={{ marginBottom: '56px', textAlign: 'center' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>The people behind it</p>

@@ -19,16 +19,16 @@ const NOTIFICATIONS = [
 
 function NotifCard({ n }: { n: typeof NOTIFICATIONS[0] }) {
   return (
-    <div style={{ background: '#fff', borderRadius: '12px', padding: '10px 14px', display: 'flex', alignItems: 'center', gap: '10px', boxShadow: '0 8px 32px rgba(4,22,53,0.2)', border: '1px solid rgba(255,255,255,0.9)', minWidth: '220px' }}>
-      <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: n.avatarBg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+    <div className="co-notif-card" style={{ background: '#fff', borderRadius: '12px', padding: '10px 14px', display: 'flex', alignItems: 'center', gap: '10px', boxShadow: '0 8px 32px rgba(4,22,53,0.2)', border: '1px solid rgba(255,255,255,0.9)', minWidth: '220px' }}>
+      <div className="co-notif-avatar" style={{ width: '34px', height: '34px', borderRadius: '50%', background: n.avatarBg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
         <span style={{ fontSize: '11px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>{n.initials}</span>
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
-        <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{n.name}</p>
-        <p style={{ fontSize: '10px', color: '#9A9FA8', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>New Reslink submitted</p>
+        <p className="co-notif-name" style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{n.name}</p>
+        <p className="co-notif-sub" style={{ fontSize: '10px', color: '#9A9FA8', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>New Reslink submitted</p>
       </div>
       <div style={{ background: n.color, borderRadius: '6px', padding: '2px 7px', flexShrink: 0 }}>
-        <span style={{ fontSize: '11px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>{n.grade} {n.score}</span>
+        <span className="co-notif-grade" style={{ fontSize: '11px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>{n.grade} {n.score}</span>
       </div>
     </div>
   );
@@ -203,6 +203,12 @@ const [notifA, setNotifA] = useState(0);
           .co-hero-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; }
           .co-cta-btns { flex-direction: column !important; }
           .co-cta-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; }
+          .co-notif-card { padding: 7px 10px !important; gap: 7px !important; min-width: 160px !important; border-radius: 9px !important; }
+          .co-notif-avatar { width: 26px !important; height: 26px !important; }
+          .co-notif-avatar span { font-size: 9px !important; }
+          .co-notif-name { font-size: 10px !important; }
+          .co-notif-sub { font-size: 9px !important; }
+          .co-notif-grade { font-size: 9px !important; padding: 1px 5px !important; }
         }
         .co-feat-swipe-hint { display: none; }
         @media (max-width: 768px) {

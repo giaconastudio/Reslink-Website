@@ -338,7 +338,7 @@ export default function Features() {
           .feat-tab { padding: 8px 14px; font-size: 13px; white-space: nowrap; }
           .feat-header { margin-bottom: 20px; }
           .feat-tabs-seg { width: 100%; justify-content: flex-start; margin-bottom: 40px; }
-          .feat-swipe-hint { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: -32px; margin-bottom: 20px; }
+          .feat-swipe-hint { display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 16px; }
         }
         @media (max-width: 480px) {
           .feat-visual { min-height: 260px; }
@@ -355,6 +355,12 @@ export default function Features() {
           </h2>
         </motion.div>
 
+        {/* Swipe hint — mobile only, above tabs */}
+        <div className="feat-swipe-hint">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A9FA8" strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
+          <span style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', fontWeight: 500, letterSpacing: '0.04em' }}>Swipe to explore features</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A9FA8" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
         {/* Tabs */}
         <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', marginBottom: '40px' }}>
           <div className="feat-tabs-seg">
@@ -364,12 +370,6 @@ export default function Features() {
               </button>
             ))}
           </div>
-        </div>
-        {/* Swipe hint — mobile only, above panel */}
-        <div className="feat-swipe-hint">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A9FA8" strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
-          <span style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', fontWeight: 500, letterSpacing: '0.04em' }}>Swipe to explore features</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A9FA8" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
         </div>
 
         {/* Panel */}

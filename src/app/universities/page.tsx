@@ -147,9 +147,9 @@ export default function UniversitiesPage() {
                       <span style={{ fontSize: '10px', fontWeight: 700, color: '#041635', background: '#D8F950', padding: '3px 10px', borderRadius: '100px', fontFamily: 'var(--font-body)' }}>LIVE</span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '20px' }}>
-                      <div style={{ width: '52px', height: '52px', borderRadius: '50%', background: 'linear-gradient(135deg, #0C63E3, #4F6EF7)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid rgba(255,255,255,0.15)', flexShrink: 0 }}>
-                        <span style={{ fontSize: '18px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>MR</span>
-                      </div>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src="/images/company-student-avatar.jpg" alt="Marcus Riley"
+                        style={{ width: '52px', height: '52px', borderRadius: '50%', objectFit: 'cover', objectPosition: 'center top', border: '2px solid rgba(255,255,255,0.15)', flexShrink: 0 }} />
                       <div>
                         <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '20px', fontWeight: 900, color: '#fff', lineHeight: 1 }}>MARCUS RILEY</p>
                         <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Marketing · Class of 2025 · Westfield University</p>

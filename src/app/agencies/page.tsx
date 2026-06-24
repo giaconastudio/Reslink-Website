@@ -150,6 +150,8 @@ export default function AgenciesPage() {
         }
         @media (max-width: 960px) { .ag-hero-btns { flex-direction: column !important; align-self: stretch !important; } }
         @media (max-width: 960px) { .ag-hero-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; } }
+        @media (max-width: 960px) { .ag-hero-right { overflow: hidden; max-width: 100%; } }
+        @media (max-width: 960px) { .ag-hero-right > div { box-shadow: 0 8px 32px rgba(4,22,53,0.10) !important; } }
         @media (max-width: 860px) { .ag-process-grid { grid-template-columns: repeat(2,1fr) !important; } }
         @media (max-width: 480px) { .ag-process-grid { grid-template-columns: 1fr !important; } }
         @media (max-width: 640px) { .ag-stats-row { grid-template-columns: 1fr !important; } }
@@ -172,7 +174,7 @@ export default function AgenciesPage() {
       <main style={{ paddingTop: '68px' }}>
 
         {/* ─── Hero: white split layout ─── */}
-        <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 112px) 24px', borderBottom: '1px solid #F0F2F5' }}>
+        <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 112px) 24px', borderBottom: '1px solid #F0F2F5', overflow: 'hidden' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
             <div className="ag-hero-grid">
               <motion.div className="ag-hero-text" style={{ display: 'flex', flexDirection: 'column' }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>

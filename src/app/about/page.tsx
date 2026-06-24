@@ -58,23 +58,23 @@ const TEAM = [
 const VALUES = [
   {
     num: '01',
-    title: 'Humans over documents',
-    body: 'A resume is a list of credentials. A Reslink is a person. We believe the hiring process should start with the latter.',
+    title: 'Your story is your edge',
+    body: 'Credentials open doors. Personality closes deals. Reslink is where who you are becomes your greatest competitive advantage.',
   },
   {
     num: '02',
-    title: 'Fairness by design',
-    body: 'The best candidate shouldn\'t lose to someone with a better referral network. We build tools that level the playing field.',
+    title: 'Be seen, not skimmed',
+    body: 'A resume gets scanned in seconds. A Reslink gets watched, remembered, and shared. We give your story the stage it deserves.',
   },
   {
     num: '03',
-    title: 'Build for the anxious',
-    body: 'Job hunting is stressful. Every decision we make. every feature, every word. is filtered through the lens of someone who really needs this to work.',
+    title: 'Connection over credentials',
+    body: 'The best hire is rarely the most impressive resume. We believe authentic human connection should drive every hiring decision.',
   },
   {
     num: '04',
-    title: 'Move with purpose',
-    body: 'Speed matters when someone is out of work. We move fast, ship constantly, and treat every feature like someone\'s livelihood depends on it.',
+    title: 'Built for real stakes',
+    body: 'Job searching is one of the most stressful things a person can do. Every feature we ship is built for someone who needs this to work.',
   },
 ];
 

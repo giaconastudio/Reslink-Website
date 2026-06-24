@@ -213,7 +213,7 @@ export default function VeteransPage() {
                       alt="Veteran" style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover', objectPosition: 'top center', border: '2px solid rgba(255,255,255,0.2)', flexShrink: 0 }} />
                     <div>
                       <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '18px', fontWeight: 900, color: '#fff', lineHeight: 1.1 }}>JORDAN HAYES</p>
-                      <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', marginTop: '2px' }}>Operations · US Army Veteran</p>
+                      <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', marginTop: '2px' }}>Operations · US Marines Veteran</p>
                     </div>
                   </div>
                   <div style={{ display: 'flex', gap: '8px' }}>

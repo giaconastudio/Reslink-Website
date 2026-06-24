@@ -7,7 +7,7 @@ import {
   ChevronDown, Menu, X,
   Briefcase, Building2, Users, GraduationCap,
   BookOpen, LayoutTemplate, LifeBuoy,
-  Info, Rocket, Phone,
+  Compass, Rocket, Phone,
   ArrowRight, Zap, Flag,
 } from 'lucide-react';
 
@@ -27,7 +27,7 @@ const resources = [
 ];
 
 const company = [
-  { label: 'About Us', href: '/about', desc: 'Our mission and story', icon: Info, badge: null },
+  { label: 'About Us', href: '/about', desc: 'Our mission and story', icon: Compass, badge: null },
   { label: 'Careers', href: '/careers', desc: 'Join the team', icon: Rocket, badge: "we're hiring" },
   { label: 'Contact Us', href: '/contact', desc: 'Get in touch with our team', icon: Phone, badge: null },
 ];

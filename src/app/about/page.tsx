@@ -290,26 +290,12 @@ export default function AboutPage() {
               </h2>
             </motion.div>
 
-            {/* Top row: 3 founders */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '32px' }} className="team-founders-grid">
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }} className="team-grid">
               <style>{`
-                .team-founders-grid { }
-                .team-bottom-grid { }
-                @media (max-width: 768px) {
-                  .team-founders-grid { grid-template-columns: 1fr 1fr !important; }
-                  .team-bottom-grid { grid-template-columns: 1fr 1fr !important; }
-                }
-                @media (max-width: 480px) {
-                  .team-founders-grid { grid-template-columns: 1fr !important; }
-                  .team-bottom-grid { grid-template-columns: 1fr !important; }
-                }
+                .team-grid { }
+                @media (max-width: 640px) { .team-grid { grid-template-columns: 1fr !important; } }
               `}</style>
-              {TEAM.slice(0, 3).map((m) => <TeamCard key={m.name} member={m} />)}
-            </div>
-
-            {/* Bottom row: Technical Adviser — centered single card */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '20px', maxWidth: '360px', margin: '0 auto' }} className="team-bottom-grid">
-              {TEAM.slice(3).map((m) => <TeamCard key={m.name} member={m} />)}
+              {TEAM.map((m) => <TeamCard key={m.name} member={m} />)}
             </div>
           </div>
         </section>

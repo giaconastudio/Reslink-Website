@@ -82,6 +82,17 @@ export default function VeteransPage() {
                   See how it works
                 </Link>
               </div>
+
+              {/* Veteran discount callout */}
+              <div style={{ marginTop: '20px', display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'rgba(216,249,80,0.08)', border: '1px solid rgba(216,249,80,0.2)', borderRadius: '10px', padding: '10px 16px' }}>
+                <div style={{ width: '28px', height: '28px', borderRadius: '7px', background: 'rgba(216,249,80,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D8F950" strokeWidth="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <div>
+                  <p style={{ fontSize: '13px', fontWeight: 700, color: '#D8F950', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Veteran pricing: $20/year <span style={{ fontWeight: 500, color: 'rgba(216,249,80,0.6)', fontSize: '12px' }}>— 66% off the annual plan</span></p>
+                  <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', marginTop: '2px' }}>Verified instantly through ID.me</p>
+                </div>
+              </div>
             </motion.div>
             {/* Right: veteran photo */}
             <motion.div className="vets-hero-img-col" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.15 }}

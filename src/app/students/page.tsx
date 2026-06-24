@@ -83,6 +83,17 @@ export default function StudentsPage() {
                   See how it works
                 </Link>
               </div>
+
+              {/* Student discount callout */}
+              <div style={{ marginTop: '20px', display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'rgba(216,249,80,0.08)', border: '1px solid rgba(216,249,80,0.2)', borderRadius: '10px', padding: '10px 16px' }}>
+                <div style={{ width: '28px', height: '28px', borderRadius: '7px', background: 'rgba(216,249,80,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D8F950" strokeWidth="2.2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                </div>
+                <div>
+                  <p style={{ fontSize: '13px', fontWeight: 700, color: '#D8F950', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Student pricing: $20/year <span style={{ fontWeight: 500, color: 'rgba(216,249,80,0.6)', fontSize: '12px' }}>— 66% off the annual plan</span></p>
+                  <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', marginTop: '2px' }}>Sign up with your .edu email to claim</p>
+                </div>
+              </div>
             </motion.div>
             {/* Right: student photo */}
             <motion.div className="students-hero-img-col" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.15 }}

@@ -290,10 +290,10 @@ export default function AboutPage() {
               </h2>
             </motion.div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }} className="team-grid">
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px' }} className="team-grid">
               <style>{`
-                .team-grid { }
-                @media (max-width: 640px) { .team-grid { grid-template-columns: 1fr !important; } }
+                @media (max-width: 860px) { .team-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+                @media (max-width: 480px) { .team-grid { grid-template-columns: 1fr !important; } }
               `}</style>
               {TEAM.map((m) => <TeamCard key={m.name} member={m} />)}
             </div>

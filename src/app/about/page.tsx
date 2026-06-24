@@ -14,7 +14,7 @@ const TEAM = [
     color: '#0C63E3',
     title: 'Co-founder & CEO',
     bio: 'Dominic built Reslink after experiencing firsthand how qualified candidates get overlooked because a PDF can\'t capture who they really are. He\'s obsessed with giving every job seeker the same shot as the one with the insider referral.',
-    linkedin: 'https://linkedin.com/in/dominicgiacona',
+    linkedin: 'https://www.linkedin.com/in/dominicgiacona/',
     photo: '/team/dominic.webp',
   },
   {
@@ -23,7 +23,7 @@ const TEAM = [
     color: '#7C3AED',
     title: 'Co-founder & CMO',
     bio: 'Joana brings five years of growth leadership across tech startups. At TechTalk she helped thousands of job seekers get noticed. now she\'s building the brand and community that makes Reslink the default for video-first hiring.',
-    linkedin: 'https://linkedin.com/in/joanarochaa',
+    linkedin: 'https://www.linkedin.com/in/joana-rochaa/',
     photo: '/team/joana.webp',
   },
   {
@@ -32,7 +32,7 @@ const TEAM = [
     color: '#E11D48',
     title: 'Co-founder & CRO',
     bio: 'Roxanne is a GTM and revenue leader with over five years in sales and revenue operations. She led commercial strategy at TechTalk before joining forces with Dominic and Joana to build the go-to-market engine at Reslink.',
-    linkedin: 'https://linkedin.com/in/roxannetaku',
+    linkedin: 'https://www.linkedin.com/in/roxanne-taku/',
     photo: '/team/roxanne.webp',
   },
   {
@@ -41,7 +41,7 @@ const TEAM = [
     color: '#0891B2',
     title: 'Technical Adviser',
     bio: 'Taylor brings deep engineering expertise that helps Reslink build fast, reliable, and scalable infrastructure. His guidance shapes the technical decisions that let the team move quickly without cutting corners.',
-    linkedin: null,
+    linkedin: 'https://www.linkedin.com/in/taylor-bagwell-824bba117/',
     photo: '/team/taylor.png',
   },
 ];

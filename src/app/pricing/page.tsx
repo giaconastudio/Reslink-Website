@@ -200,13 +200,13 @@ export default function PricingPage() {
         }
         @media (max-width: 560px) {
           .audience-grid { gap: 6px !important; }
-          .audience-card { flex-direction: column !important; align-items: center !important; padding: 10px 6px !important; border-radius: 12px !important; gap: 6px !important; text-align: center !important; }
-          .audience-card-icon { width: 28px !important; height: 28px !important; border-radius: 8px !important; }
+          .audience-card { flex-direction: column !important; align-items: center !important; padding: 14px 8px !important; border-radius: 12px 12px 0 0 !important; gap: 6px !important; text-align: center !important; }
+          .audience-card-icon { width: 32px !important; height: 32px !important; border-radius: 8px !important; }
           .audience-card-label { font-size: 11px !important; line-height: 1.25 !important; word-break: normal !important; overflow-wrap: break-word !important; }
           .audience-card-desc { display: none !important; }
           .billing-seg { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; width: 100% !important; }
-          .billing-seg button { padding: 9px 6px !important; font-size: 12px !important; justify-content: center !important; }
-          .billing-badge { display: none !important; }
+          .billing-seg button { padding: 10px 4px !important; font-size: 11px !important; justify-content: center !important; flex-direction: column !important; gap: 3px !important; min-height: 54px !important; }
+          .billing-badge { display: inline-block !important; font-size: 9px !important; padding: 2px 5px !important; }
         }
         @media (max-width: 480px) {
           .pricing-cta-btns { flex-direction: column !important; }

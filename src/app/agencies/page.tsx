@@ -153,7 +153,11 @@ export default function AgenciesPage() {
         @media (max-width: 480px) { .ag-process-grid { grid-template-columns: 1fr !important; } }
         @media (max-width: 560px) { .ag-stats-row { grid-template-columns: 1fr 1fr !important; } }
         .ag-compare-row { display: grid; grid-template-columns: 1fr 1fr; }
-        @media (max-width: 640px) { .ag-compare-row { grid-template-columns: 1fr !important; } }
+        .ag-compare-mobile { display: none; }
+        @media (max-width: 640px) {
+          .ag-compare-desktop { display: none !important; }
+          .ag-compare-mobile { display: flex !important; flex-direction: column; gap: 16px; }
+        }
         @media (max-width: 480px) {
           .ag-hero-btns { flex-direction: column !important; }
           .ag-hero-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; }
@@ -326,8 +330,8 @@ export default function AgenciesPage() {
               </h2>
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ delay: 0.08 }}>
-              <div style={{ borderRadius: '20px', border: '1px solid #E4E6EC', overflow: 'hidden', boxShadow: '0 4px 24px rgba(4,22,53,0.07)' }}>
-                {/* Header */}
+              {/* Desktop table */}
+              <div className="ag-compare-desktop" style={{ borderRadius: '20px', border: '1px solid #E4E6EC', overflow: 'hidden', boxShadow: '0 4px 24px rgba(4,22,53,0.07)' }}>
                 <div className="ag-compare-row">
                   <div style={{ padding: '18px 28px', background: '#F7F8FA', borderBottom: '1px solid #ECEEF1', borderRight: '1px solid #ECEEF1' }}>
                     <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Standard agency</p>
@@ -336,7 +340,6 @@ export default function AgenciesPage() {
                     <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#D8F950', fontFamily: 'var(--font-body)' }}>Reslink agency</p>
                   </div>
                 </div>
-                {/* Rows */}
                 {[
                   ['Send a PDF candidate matrix to the inbox', 'Send a branded video shortlist. One link.'],
                   ['Wait days to hear if anyone even opened it', 'Get view data back in hours, not days'],
@@ -355,6 +358,31 @@ export default function AgenciesPage() {
                     </div>
                   </div>
                 ))}
+              </div>
+              {/* Mobile two-card layout */}
+              <div className="ag-compare-mobile">
+                <div style={{ borderRadius: '16px', border: '1px solid #E4E6EC', overflow: 'hidden', boxShadow: '0 2px 12px rgba(4,22,53,0.06)' }}>
+                  <div style={{ padding: '14px 20px', background: '#F7F8FA', borderBottom: '1px solid #ECEEF1' }}>
+                    <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Standard agency</p>
+                  </div>
+                  {['Send a PDF candidate matrix to the inbox', 'Wait days to hear if anyone even opened it', 'No idea which candidates they actually looked at', 'Compete on the same terms as every other agency', 'Chase clients for feedback and updates'].map((item, i) => (
+                    <div key={i} style={{ padding: '14px 20px', borderBottom: i < 4 ? '1px solid #ECEEF1' : 'none', display: 'flex', alignItems: 'flex-start', gap: '10px', background: i % 2 === 0 ? '#fff' : '#FAFBFC' }}>
+                      <span style={{ fontSize: '13px', color: '#EF4444', fontWeight: 700, flexShrink: 0, marginTop: '2px' }}>✕</span>
+                      <span style={{ fontSize: '14px', color: '#6B7280', fontFamily: 'var(--font-body)', lineHeight: 1.55 }}>{item}</span>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ borderRadius: '16px', overflow: 'hidden', boxShadow: '0 2px 12px rgba(4,22,53,0.12)' }}>
+                  <div style={{ padding: '14px 20px', background: '#041635', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                    <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#D8F950', fontFamily: 'var(--font-body)' }}>Reslink agency</p>
+                  </div>
+                  {['Send a branded video shortlist. One link.', 'Get view data back in hours, not days', 'See exactly who watched, and for how long', 'Win the brief before the meeting even happens', 'Follow up with real data, not guesses'].map((item, i) => (
+                    <div key={i} style={{ padding: '14px 20px', borderBottom: i < 4 ? '1px solid rgba(255,255,255,0.06)' : 'none', display: 'flex', alignItems: 'flex-start', gap: '10px', background: i % 2 === 0 ? '#041635' : '#061C3D' }}>
+                      <span style={{ fontSize: '13px', color: '#0C63E3', fontWeight: 700, flexShrink: 0, marginTop: '2px' }}>✓</span>
+                      <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.85)', fontFamily: 'var(--font-body)', lineHeight: 1.55, fontWeight: 500 }}>{item}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </motion.div>
           </div>

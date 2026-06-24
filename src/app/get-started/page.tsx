@@ -157,11 +157,12 @@ export default function GetStartedPage() {
   return (
     <>
       <Navbar />
-      <div style={{ minHeight: 'calc(100vh - 68px)', paddingTop: '68px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 24px' }}>
+      <div style={{ minHeight: '100vh', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '108px 24px 48px', boxSizing: 'border-box' }}>
         <style>{`
           .gs-card { display: grid; grid-template-columns: 460px 1fr; width: 100%; max-width: 1040px; min-height: 600px; background: #fff; border-radius: 20px; box-shadow: 0 8px 48px rgba(4,22,53,0.13); overflow: hidden; }
           .gs-right-col { display: block; }
-          @media (max-width: 800px) { .gs-card { grid-template-columns: 1fr !important; } .gs-right-col { display: none !important; } }
+          @media (max-width: 800px) { .gs-card { grid-template-columns: 1fr !important; } .gs-right-col { min-height: 280px !important; border-radius: 0 !important; } }
+          @media (max-width: 800px) { .gs-right-col > div { border-radius: 0 0 20px 20px !important; } }
           .gs-type-btn:hover { background: #F4F6FF !important; border-color: #BDC8D8 !important; }
           input:focus { border-color: #0C63E3 !important; outline: none; }
         `}</style>

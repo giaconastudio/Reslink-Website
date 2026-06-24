@@ -34,12 +34,12 @@ export default function LoginPage() {
         .login-left { background: #041635; padding: clamp(32px, 4vw, 48px); display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
         .login-right { background: #fff; display: flex; align-items: flex-start; justify-content: center; padding: clamp(36px, 4vw, 48px) clamp(32px, 4vw, 52px); }
         @media (max-width: 900px) {
-          .login-wrap { grid-template-columns: 1fr; }
-          .login-left { display: none; }
+          .login-wrap { grid-template-columns: 1fr; min-height: auto; }
+          .login-left { justify-content: flex-start; gap: 20px; padding: 28px 24px; }
         }
       `}</style>
 
-      <div style={{ minHeight: 'calc(100vh - 68px)', paddingTop: '68px', background: '#F7F8FA', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 24px', boxSizing: 'border-box' }}>
+      <div style={{ minHeight: '100vh', background: '#F7F8FA', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '108px 24px 48px', boxSizing: 'border-box' }}>
         <div className="login-wrap">
 
           {/* ── Left: brand panel ── */}

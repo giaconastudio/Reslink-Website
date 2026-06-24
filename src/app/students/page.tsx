@@ -85,7 +85,7 @@ export default function StudentsPage() {
               </div>
 
               {/* Student discount callout */}
-              <div style={{ marginTop: '20px', display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'rgba(216,249,80,0.08)', border: '1px solid rgba(216,249,80,0.2)', borderRadius: '10px', padding: '10px 16px' }}>
+              <div style={{ marginTop: '20px', display: 'inline-flex', alignSelf: 'flex-start', alignItems: 'center', gap: '10px', background: 'rgba(216,249,80,0.08)', border: '1px solid rgba(216,249,80,0.2)', borderRadius: '10px', padding: '10px 16px' }}>
                 <div style={{ width: '28px', height: '28px', borderRadius: '7px', background: 'rgba(216,249,80,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D8F950" strokeWidth="2.2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
                 </div>

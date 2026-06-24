@@ -196,14 +196,17 @@ export default function PricingPage() {
         @media (max-width: 860px) {
           .pricing-grid-3 { grid-template-columns: 1fr !important; }
           .pricing-grid-2 { grid-template-columns: 1fr !important; }
-          .audience-grid { display: flex !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; gap: 8px !important; padding-bottom: 4px !important; }
-          .audience-card { flex-shrink: 0 !important; flex-direction: row !important; align-items: center !important; padding: 12px 16px !important; border-radius: 14px !important; gap: 10px !important; }
-          .audience-card-desc { display: none !important; }
           .featured-scale { transform: none !important; }
         }
         @media (max-width: 560px) {
-          .billing-seg { display: flex !important; width: 100% !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; justify-content: flex-start !important; box-sizing: border-box !important; }
-          .billing-seg button { padding: 9px 14px !important; font-size: 13px !important; }
+          .audience-grid { gap: 6px !important; }
+          .audience-card { flex-direction: column !important; align-items: center !important; padding: 10px 6px !important; border-radius: 12px !important; gap: 6px !important; text-align: center !important; }
+          .audience-card-icon { width: 28px !important; height: 28px !important; border-radius: 8px !important; }
+          .audience-card-label { font-size: 11px !important; line-height: 1.25 !important; word-break: normal !important; overflow-wrap: break-word !important; }
+          .audience-card-desc { display: none !important; }
+          .billing-seg { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; width: 100% !important; }
+          .billing-seg button { padding: 9px 6px !important; font-size: 12px !important; justify-content: center !important; }
+          .billing-badge { display: none !important; }
         }
         @media (max-width: 480px) {
           .pricing-cta-btns { flex-direction: column !important; }
@@ -251,10 +254,10 @@ export default function PricingPage() {
                     }}>
                       {active && <div style={{ position: 'absolute', bottom: '-2px', left: 0, right: 0, height: '4px', background: '#fff' }} />}
                       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: active ? '#EEF4FF' : 'rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        <div className="audience-card-icon" style={{ width: '36px', height: '36px', borderRadius: '10px', background: active ? '#EEF4FF' : 'rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                           <Icon size={17} color={active ? '#0C63E3' : 'rgba(255,255,255,0.5)'} strokeWidth={1.8} />
                         </div>
-                        <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '17px', fontWeight: 900, color: active ? '#041635' : '#fff', letterSpacing: '-0.02em', lineHeight: 1 }}>{label}</span>
+                        <span className="audience-card-label" style={{ fontFamily: 'var(--font-phudu)', fontSize: '17px', fontWeight: 900, color: active ? '#041635' : '#fff', letterSpacing: '-0.02em', lineHeight: 1 }}>{label}</span>
                       </div>
                       <p className="audience-card-desc" style={{ fontSize: '12px', color: active ? '#5C6070' : 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', lineHeight: 1.4 }}>{desc}</p>
                     </button>
@@ -289,7 +292,7 @@ export default function PricingPage() {
                           style={{ padding: '10px 22px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '15px', fontWeight: 700, fontFamily: 'var(--font-body)', transition: 'all 0.15s', background: billing === key ? '#041635' : 'transparent', color: billing === key ? '#fff' : '#5C6070', display: 'flex', alignItems: 'center', gap: '8px', whiteSpace: 'nowrap', boxShadow: billing === key ? '0 2px 8px rgba(4,22,53,0.18)' : 'none' }}>
                           {label}
                           {badge && (
-                            <span style={{ fontSize: '11px', fontWeight: 700, padding: '3px 9px', borderRadius: '100px', background: billing === key ? '#D8F950' : '#E0E3EA', color: billing === key ? '#041635' : '#9A9FA8', fontFamily: 'var(--font-body)', transition: 'all 0.15s' }}>{badge}</span>
+                            <span className="billing-badge" style={{ fontSize: '11px', fontWeight: 700, padding: '3px 9px', borderRadius: '100px', background: billing === key ? '#D8F950' : '#E0E3EA', color: billing === key ? '#041635' : '#9A9FA8', fontFamily: 'var(--font-body)', transition: 'all 0.15s' }}>{badge}</span>
                           )}
                         </button>
                       ))}
@@ -380,7 +383,7 @@ export default function PricingPage() {
                           <button key={key} onClick={() => setCompanyBilling(key)}
                             style={{ padding: '10px 22px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '15px', fontWeight: 700, fontFamily: 'var(--font-body)', transition: 'all 0.15s', background: companyBilling === key ? '#041635' : 'transparent', color: companyBilling === key ? '#fff' : '#5C6070', display: 'flex', alignItems: 'center', gap: '8px', whiteSpace: 'nowrap', boxShadow: companyBilling === key ? '0 2px 8px rgba(4,22,53,0.18)' : 'none' }}>
                             {label}
-                            {badge && <span style={{ fontSize: '11px', fontWeight: 700, padding: '3px 9px', borderRadius: '100px', background: companyBilling === key ? '#D8F950' : '#E0E3EA', color: companyBilling === key ? '#041635' : '#9A9FA8' }}>{badge}</span>}
+                            {badge && <span className="billing-badge" style={{ fontSize: '11px', fontWeight: 700, padding: '3px 9px', borderRadius: '100px', background: companyBilling === key ? '#D8F950' : '#E0E3EA', color: companyBilling === key ? '#041635' : '#9A9FA8' }}>{badge}</span>}
                           </button>
                         ))}
                       </div>
@@ -513,7 +516,7 @@ export default function PricingPage() {
                           <button key={key} onClick={() => setAgencyBilling(key)}
                             style={{ padding: '10px 22px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '15px', fontWeight: 700, fontFamily: 'var(--font-body)', transition: 'all 0.15s', background: agencyBilling === key ? '#041635' : 'transparent', color: agencyBilling === key ? '#fff' : '#5C6070', display: 'flex', alignItems: 'center', gap: '8px', whiteSpace: 'nowrap', boxShadow: agencyBilling === key ? '0 2px 8px rgba(4,22,53,0.18)' : 'none' }}>
                             {label}
-                            {badge && <span style={{ fontSize: '11px', fontWeight: 700, padding: '3px 9px', borderRadius: '100px', background: agencyBilling === key ? '#D8F950' : '#E0E3EA', color: agencyBilling === key ? '#041635' : '#9A9FA8' }}>{badge}</span>}
+                            {badge && <span className="billing-badge" style={{ fontSize: '11px', fontWeight: 700, padding: '3px 9px', borderRadius: '100px', background: agencyBilling === key ? '#D8F950' : '#E0E3EA', color: agencyBilling === key ? '#041635' : '#9A9FA8' }}>{badge}</span>}
                           </button>
                         ))}
                       </div>

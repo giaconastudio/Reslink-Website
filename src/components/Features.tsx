@@ -330,18 +330,15 @@ export default function Features() {
           display: flex;
           overflow: hidden;
         }
-        .feat-tabs-fade { display: none; }
         .feat-swipe-hint { display: none; }
         @media (max-width: 768px) {
           .feat-panel { grid-template-columns: 1fr; min-height: auto; }
           .feat-visual { order: -1; min-height: 300px; }
           .feat-copy { padding: 28px 24px 32px; }
           .feat-tab { padding: 8px 14px; font-size: 13px; white-space: nowrap; }
-          .feat-header { margin-bottom: 28px; }
-          .feat-tabs-seg { width: 100%; }
-          .feat-tabs-seg { justify-content: flex-start; margin-bottom: 8px; }
-          .feat-tabs-fade { display: block; position: absolute; right: 0; top: 0; bottom: 4px; width: 48px; background: linear-gradient(to right, transparent, #ECEEF1 80%); pointer-events: none; border-radius: 0 14px 14px 0; }
-          .feat-swipe-hint { display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 20px; }
+          .feat-header { margin-bottom: 20px; }
+          .feat-tabs-seg { width: 100%; justify-content: flex-start; margin-bottom: 40px; }
+          .feat-swipe-hint { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: -32px; margin-bottom: 20px; }
         }
         @media (max-width: 480px) {
           .feat-visual { min-height: 260px; }
@@ -367,9 +364,8 @@ export default function Features() {
               </button>
             ))}
           </div>
-          {active < tabs.length - 1 && <div className="feat-tabs-fade" />}
         </div>
-        {/* Swipe hint — mobile only */}
+        {/* Swipe hint — mobile only, above panel */}
         <div className="feat-swipe-hint">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A9FA8" strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
           <span style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', fontWeight: 500, letterSpacing: '0.04em' }}>Swipe to explore features</span>

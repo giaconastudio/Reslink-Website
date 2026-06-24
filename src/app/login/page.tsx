@@ -54,7 +54,6 @@ export default function LoginPage() {
                 <Image src="/reslink-logo.svg" alt="Reslink" width={140} height={36} style={{ height: '26px', width: 'auto', filter: 'brightness(0) invert(1)' }} />
               </Link>
 
-              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>Welcome back</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 3vw, 46px)', fontWeight: 900, color: '#fff', lineHeight: 0.95, letterSpacing: '-0.03em', marginBottom: '20px' }}>
                 Your story<br />is waiting.
               </h2>

@@ -39,7 +39,8 @@ export default function LoginPage() {
         }
       `}</style>
 
-      <div style={{ paddingTop: 'calc(68px + 40px)', paddingBottom: '40px', paddingLeft: '24px', paddingRight: '24px', minHeight: '100vh', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', background: '#F7F8FA', boxSizing: 'border-box' }}>
+      <div style={{ paddingTop: '68px', background: '#F7F8FA' }}>
+      <div style={{ minHeight: 'calc(100vh - 68px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '32px 24px', boxSizing: 'border-box' }}>
         <div className="login-wrap">
 
           {/* ── Left: brand panel ── */}
@@ -142,6 +143,7 @@ export default function LoginPage() {
           </div>
 
         </div>
+      </div>
       </div>
       <Footer />
     </>

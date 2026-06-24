@@ -44,6 +44,10 @@ export default function LogoTicker({ variant = 'company' }: Props) {
         .ticker-track:hover { animation-play-state: paused; }
         .ticker-logo { filter: grayscale(100%); opacity: 0.45; transition: filter 0.25s, opacity 0.25s; }
         .ticker-logo:hover { filter: grayscale(0%); opacity: 1; }
+        @media (max-width: 600px) {
+          .ticker-logo { height: 60px !important; }
+          .ticker-track { gap: 48px !important; }
+        }
       `}</style>
 
       <p style={{ textAlign: 'center', fontSize: '13px', fontWeight: 500, color: '#9A9FA8', marginBottom: '32px', fontFamily: 'var(--font-body)', letterSpacing: '0.02em', padding: '0 16px' }}>
@@ -63,6 +67,7 @@ export default function LogoTicker({ variant = 'company' }: Props) {
               alt={logo.alt}
               className="ticker-logo"
               style={{ height: '48px', width: 'auto', flexShrink: 0, objectFit: 'contain', maxWidth: '160px' }}
+              onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
             />
           ))}
         </div>

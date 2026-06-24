@@ -38,8 +38,10 @@ export default function ValueProp() {
           .vp-stats { gap: 0; display: grid; grid-template-columns: 1fr 1fr; }
           .vp-stat-item { padding: 24px 16px; border-bottom: 1px solid #ECEEF1; }
           .vp-stat-item:nth-child(odd) { border-right: 1px solid #ECEEF1; }
-          .vp-pip { top: 110px !important; right: 0px !important; width: 96px !important; height: 96px !important; border-radius: 14px !important; }
-          .vp-header-row { padding-right: 104px !important; }
+          .vp-pip { top: 14px !important; right: 14px !important; width: 88px !important; height: 88px !important; border-radius: 12px !important; }
+          .vp-header-row { padding-right: 108px !important; }
+          .vp-with-reslink { display: none !important; }
+          .vp-pip-label { display: none !important; }
         }
         @media (min-width: 761px) {
           .vp-stat-item { text-align: center; }
@@ -139,7 +141,7 @@ export default function ValueProp() {
             <div className="vp-after" style={{ borderRadius: '18px', border: '2px solid #D8F950', overflow: 'hidden', boxShadow: '0 16px 56px rgba(4,22,53,0.12)' }}>
 
               {/* With Reslink label */}
-              <div style={{ position: 'absolute', top: '16px', right: '16px', zIndex: 5, fontSize: '10px', fontWeight: 700, color: '#041635', background: '#D8F950', padding: '4px 11px', borderRadius: '100px', letterSpacing: '0.05em', fontFamily: 'var(--font-body)', textTransform: 'uppercase' }}>
+              <div className="vp-with-reslink" style={{ position: 'absolute', top: '16px', right: '16px', zIndex: 5, fontSize: '10px', fontWeight: 700, color: '#041635', background: '#D8F950', padding: '4px 11px', borderRadius: '100px', letterSpacing: '0.05em', fontFamily: 'var(--font-body)', textTransform: 'uppercase' }}>
                 With Reslink
               </div>
 
@@ -215,7 +217,7 @@ export default function ValueProp() {
               <div style={{ width: '100%', height: '100%', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.36)' }}>
                 <video src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
-              <div style={{ position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(4,22,53,0.78)', backdropFilter: 'blur(6px)', borderRadius: '100px', padding: '3px 10px', display: 'flex', alignItems: 'center', gap: '5px', whiteSpace: 'nowrap' }}>
+              <div className="vp-pip-label" style={{ position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(4,22,53,0.78)', backdropFilter: 'blur(6px)', borderRadius: '100px', padding: '3px 10px', display: 'flex', alignItems: 'center', gap: '5px', whiteSpace: 'nowrap' }}>
                 <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#D8F950', flexShrink: 0 }} />
                 <span style={{ fontSize: '10px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Intro playing</span>
               </div>

@@ -47,7 +47,7 @@ export default function Hero() {
           margin-bottom: 24px;
         }
         @media (max-width: 520px) {
-          .hero-h1 { font-size: clamp(38px, 10vw, 52px); line-height: 1.0; letter-spacing: -0.02em; }
+          .hero-h1 { font-size: clamp(48px, 13vw, 60px); line-height: 0.96; letter-spacing: -0.02em; }
         }
         .hero-sub {
           font-size: clamp(16px, 2vw, 20px);

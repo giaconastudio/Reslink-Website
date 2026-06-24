@@ -92,7 +92,7 @@ export default function TermsPage() {
         </section>
 
         {/* Content */}
-        <section style={{ padding: 'clamp(48px, 7vw, 80px) 24px' }}>
+        <section style={{ padding: 'clamp(32px, 5vw, 80px) clamp(16px, 4vw, 24px)' }}>
           <div style={{ maxWidth: '760px', margin: '0 auto' }}>
             {sections.map((s) => (
               <div key={s.n} style={{ marginBottom: '40px', paddingBottom: '40px', borderBottom: '1px solid #F0F1F3' }}>

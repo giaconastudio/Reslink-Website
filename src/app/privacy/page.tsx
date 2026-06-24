@@ -86,7 +86,7 @@ export default function PrivacyPage() {
         </section>
 
         {/* Content */}
-        <section style={{ padding: '0 24px clamp(48px, 7vw, 80px)' }}>
+        <section style={{ padding: '0 clamp(16px, 4vw, 24px) clamp(32px, 5vw, 80px)' }}>
           <div style={{ maxWidth: '760px', margin: '0 auto' }}>
             {sections.map((s) => (
               <div key={s.n} style={{ marginBottom: '40px', paddingBottom: '40px', borderBottom: '1px solid #F0F1F3' }}>

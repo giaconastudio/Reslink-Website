@@ -93,10 +93,18 @@ export default function UniversitiesPage() {
         .uni-outcome-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
         .uni-steps-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
         @media (max-width: 960px) {
-          .uni-hero-grid { grid-template-columns: 1fr !important; }
+          .uni-hero-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
           .uni-hero-visual { display: none !important; }
-          .uni-steps-row { grid-template-columns: 1fr !important; }
           .uni-outcome-grid { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 760px) {
+          .uni-steps-row { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 480px) {
+          .uni-steps-row { grid-template-columns: 1fr !important; }
+          .uni-hero-btns { flex-direction: column !important; }
+          .uni-hero-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; }
+          .uni-cta-btn { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; }
         }
         @media (max-width: 860px) { .uni-feat-grid { grid-template-columns: repeat(2, 1fr) !important; } }
         @media (max-width: 560px) {
@@ -119,7 +127,7 @@ export default function UniversitiesPage() {
                 <p style={{ fontSize: 'clamp(16px, 1.6vw, 18px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.75, fontFamily: 'var(--font-body)', marginBottom: '36px', maxWidth: '480px' }}>
                   Reslink gives every student a video pitch, AI-powered coaching, and the analytics to know it's working. Measurable outcomes for your career center, real results for your students.
                 </p>
-                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '36px' }}>
+                <div className="uni-hero-btns" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '36px' }}>
                   <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: '#D8F950', color: '#041635', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                     Add your school to the waitlist <ArrowRight size={16} />
                   </Link>
@@ -385,7 +393,7 @@ export default function UniversitiesPage() {
             <p style={{ fontSize: '18px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, marginBottom: '40px', fontFamily: 'var(--font-body)' }}>
               Join hundreds of universities using Reslink to get their students hired at better companies, faster.
             </p>
-            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '20px' }}>
+            <div className="uni-cta-btn" style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '20px' }}>
               <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 28px', background: '#D8F950', color: '#041635', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                 Add your school to the waitlist <ArrowRight size={16} />
               </Link>

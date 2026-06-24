@@ -58,14 +58,18 @@ export default function VeteransPage() {
           <div style={{ position: 'absolute', top: '-10%', left: '30%', width: '700px', height: '600px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.25), transparent 60%)', pointerEvents: 'none' }} />
           <div style={{ maxWidth: '1120px', margin: '0 auto', padding: '0 24px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0', alignItems: 'stretch', minHeight: '600px' }} className="vets-hero-grid">
             <style>{`
-              .vets-hero-grid { }
               @media (max-width: 860px) { .vets-hero-grid { grid-template-columns: 1fr !important; } }
-              .vets-hero-img-col { }
               @media (max-width: 860px) { .vets-hero-img-col { display: none !important; } }
+              @media (max-width: 480px) { .vets-hero-btns { flex-direction: column !important; } }
+              @media (max-width: 480px) { .vets-hero-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; } }
+              @media (max-width: 480px) { .vets-hero-section-inner { padding-top: 48px !important; padding-bottom: 48px !important; } }
+              @media (max-width: 480px) { .vets-cta-btn { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; } }
+              @media (max-width: 480px) { .vets-faq-box { padding: 0 16px !important; } }
+              @media (max-width: 480px) { .vets-pip-pip { display: none !important; } }
             `}</style>
             {/* Left: copy */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
-              style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 'clamp(64px, 8vw, 100px) 0 clamp(64px, 8vw, 100px)', position: 'relative', zIndex: 1 }}>
+              className="vets-hero-section-inner" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 'clamp(64px, 8vw, 100px) 0 clamp(64px, 8vw, 100px)', position: 'relative', zIndex: 1 }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For veterans</p>
               <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4vw, 56px)', fontWeight: 900, color: '#fff', lineHeight: 1.0, letterSpacing: '-0.03em', marginBottom: '24px' }}>
                 From service<br />
@@ -74,7 +78,7 @@ export default function VeteransPage() {
               <p style={{ fontSize: 'clamp(15px, 1.6vw, 17px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '440px', marginBottom: '36px' }}>
                 Military skills are some of the most valuable in any workforce. Reslink helps you communicate them to civilian employers in a way a PDF never could.
               </p>
-              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+              <div className="vets-hero-btns" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                 <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 28px', background: '#D8F950', color: '#041635', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                   Create free Reslink
                 </Link>
@@ -247,7 +251,7 @@ export default function VeteransPage() {
                 </div>
               </div>
               {/* PIP */}
-              <div style={{ position: 'absolute', top: '-20px', right: '-20px', width: '130px', height: '130px', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.4)', border: '3px solid #041635' }}>
+              <div className="vets-pip-pip" style={{ position: 'absolute', top: '-20px', right: '-20px', width: '130px', height: '130px', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.4)', border: '3px solid #041635' }}>
                 <video src="/videos/military.mp4" autoPlay muted loop playsInline preload="auto"
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <div style={{ position: 'absolute', bottom: '8px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(4,22,53,0.8)', backdropFilter: 'blur(6px)', borderRadius: '100px', padding: '3px 8px', display: 'flex', alignItems: 'center', gap: '4px', whiteSpace: 'nowrap' }}>
@@ -295,7 +299,7 @@ export default function VeteransPage() {
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ duration: 0.5 }} style={{ textAlign: 'center', marginBottom: '40px' }}>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3.5vw, 42px)', fontWeight: 900, color: '#041635', letterSpacing: '-0.02em' }}>Common questions</h2>
             </motion.div>
-            <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '0 28px' }}>
+            <div className="vets-faq-box" style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '0 28px' }}>
               {FAQS.map((f, i) => <FAQItem key={f.q} q={f.q} a={f.a} open={openFaq === i} toggle={() => setOpenFaq(openFaq === i ? null : i)} />)}
             </div>
           </div>
@@ -312,7 +316,7 @@ export default function VeteransPage() {
               <p style={{ fontSize: '17px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '32px' }}>
                 Free to start. Takes less than 10 minutes. No credit card required.
               </p>
-              <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 32px', background: '#D8F950', color: '#041635', borderRadius: '10px', fontSize: '16px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+              <Link href="/get-started" className="vets-cta-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 32px', background: '#D8F950', color: '#041635', borderRadius: '10px', fontSize: '16px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                 Create your Reslink free
               </Link>
             </motion.div>

@@ -154,6 +154,12 @@ export default function AgenciesPage() {
         @media (max-width: 560px) { .ag-stats-row { grid-template-columns: 1fr 1fr !important; } }
         .ag-compare-row { display: grid; grid-template-columns: 1fr 1fr; }
         @media (max-width: 640px) { .ag-compare-row { grid-template-columns: 1fr !important; } }
+        @media (max-width: 480px) {
+          .ag-hero-btns { flex-direction: column !important; }
+          .ag-hero-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; }
+          .ag-cta-btns { flex-direction: column !important; }
+          .ag-cta-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; }
+        }
       `}</style>
       <main style={{ paddingTop: '68px' }}>
 
@@ -173,7 +179,7 @@ export default function AgenciesPage() {
                 <p style={{ fontSize: 'clamp(16px, 1.6vw, 18px)', color: '#5C6070', lineHeight: 1.75, fontFamily: 'var(--font-body)', marginBottom: '36px', maxWidth: '460px' }}>
                   Reslink gives every candidate you represent a video pitch your clients will actually remember. Shortlists that close. A presentation that no competing agency can match.
                 </p>
-                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '40px' }}>
+                <div className="ag-hero-btns" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '40px' }}>
                   <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: '#041635', color: '#fff', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                     Get started free <ArrowRight size={16} />
                   </Link>
@@ -400,7 +406,7 @@ export default function AgenciesPage() {
             <p style={{ fontSize: '18px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, marginBottom: '40px', fontFamily: 'var(--font-body)' }}>
               Join 500+ agencies already using Reslink to close more placements and win more business.
             </p>
-            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '20px' }}>
+            <div className="ag-cta-btns" style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '20px' }}>
               <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 28px', background: '#D8F950', color: '#041635', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                 Get started free <ArrowRight size={16} />
               </Link>

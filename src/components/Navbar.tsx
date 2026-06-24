@@ -208,7 +208,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
             <Link href="/get-started" className="btn-primary" style={{ padding: '8px 14px', fontSize: '13px', fontWeight: 700 }}>
               Get started
             </Link>
-            <button onClick={() => { setMobileOpen(!mobileOpen); setMobileExpanded(null); }} style={{ padding: '8px', background: 'none', border: 'none', cursor: 'pointer', color: isDark ? '#fff' : '#041635' }}>
+            <button onClick={() => { setMobileOpen(!mobileOpen); setMobileExpanded(null); }} style={{ width: '44px', height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'none', border: 'none', cursor: 'pointer', color: isDark ? '#fff' : '#041635', flexShrink: 0 }}>
               {mobileOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
@@ -217,7 +217,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
 
       {/* Mobile menu — collapsible sections */}
       {mobileOpen && (
-        <div style={{ background: blue ? '#0C63E3' : dark ? '#041635' : '#fff', borderTop: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid #EEEEF0', padding: '8px 20px 20px', maxHeight: '80vh', overflowY: 'auto' }}>
+        <div style={{ background: blue ? '#0C63E3' : dark ? '#041635' : '#fff', borderTop: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid #EEEEF0', padding: '8px 20px 20px', maxHeight: 'calc(100vh - 68px)', overflowY: 'auto' }}>
 
           {/* Solutions accordion */}
           {[
@@ -228,7 +228,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
             <div key={key} style={{ borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6' }}>
               <button
                 onClick={() => toggleMobileSection(key)}
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', padding: '13px 0', background: 'none', border: 'none', cursor: 'pointer' }}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', padding: '16px 0', background: 'none', border: 'none', cursor: 'pointer' }}
               >
                 <span style={{ fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#041635', fontFamily: 'var(--font-body)' }}>{label}</span>
                 <ChevronDown size={16} color="#9A9FA8" style={{ transform: mobileExpanded === key ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
@@ -247,7 +247,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
                             const Icon = item.icon;
                             return (
                               <Link key={item.href} href={item.href}
-                                style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '8px 4px', textDecoration: 'none' }}
+                                style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 4px', textDecoration: 'none' }}
                                 onClick={() => setMobileOpen(false)}
                               >
                                 <div style={{ width: '28px', height: '28px', borderRadius: '7px', background: isDark ? 'rgba(255,255,255,0.1)' : '#ECEEF1', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
@@ -265,7 +265,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
                       const Icon = item.icon;
                       return (
                         <Link key={item.href} href={item.href}
-                          style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '8px 4px', textDecoration: 'none' }}
+                          style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 4px', textDecoration: 'none' }}
                           onClick={() => setMobileOpen(false)}
                         >
                           <div style={{ width: '28px', height: '28px', borderRadius: '7px', background: isDark ? 'rgba(255,255,255,0.1)' : '#ECEEF1', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>

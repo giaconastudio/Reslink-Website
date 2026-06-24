@@ -202,6 +202,10 @@ export default function PricingPage() {
         @media (max-width: 560px) {
           .billing-seg { overflow-x: auto; -webkit-overflow-scrolling: touch; justify-content: flex-start !important; }
         }
+        @media (max-width: 480px) {
+          .pricing-cta-btns { flex-direction: column !important; }
+          .pricing-cta-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; }
+        }
       `}</style>
       <main style={{ paddingTop: '68px' }}>
 
@@ -687,7 +691,7 @@ export default function PricingPage() {
               <p style={{ fontSize: '17px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginBottom: '36px' }}>
                 Free to start. No credit card. Takes less than 5 minutes.
               </p>
-              <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
+              <div className="pricing-cta-btns" style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
                 <Link href="/get-started" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
                   Create your Reslink. Free.
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>

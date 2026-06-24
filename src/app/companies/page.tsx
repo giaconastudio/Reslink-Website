@@ -198,6 +198,12 @@ const [notifA, setNotifA] = useState(0);
         @media (max-width: 600px) {
           .co-stats-row { grid-template-columns: 1fr !important; }
         }
+        @media (max-width: 480px) {
+          .co-hero-btns { flex-direction: column !important; }
+          .co-hero-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; }
+          .co-cta-btns { flex-direction: column !important; }
+          .co-cta-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; }
+        }
       `}</style>
       <main style={{ paddingTop: '68px' }}>
 
@@ -213,7 +219,7 @@ const [notifA, setNotifA] = useState(0);
               <p style={{ fontSize: 'clamp(16px, 1.6vw, 18px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '520px', margin: '0 auto 36px' }}>
                 Reslink gives your hiring team dynamic video profiles so you can assess candidates, align quickly, and move on the right people before your competitors do.
               </p>
-              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '56px' }}>
+              <div className="co-hero-btns" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '56px' }}>
                 <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: '#D8F950', color: '#041635', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                   Schedule a demo <ArrowRight size={16} />
                 </Link>
@@ -472,7 +478,7 @@ const [notifA, setNotifA] = useState(0);
             <p style={{ fontSize: '18px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, marginBottom: '40px', fontFamily: 'var(--font-body)' }}>
               Join the founders and hiring teams transforming how they find great people.
             </p>
-            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '20px' }}>
+            <div className="co-cta-btns" style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '20px' }}>
               <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 28px', background: '#D8F950', color: '#041635', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                 Schedule a demo <ArrowRight size={16} />
               </Link>

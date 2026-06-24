@@ -150,6 +150,10 @@ export default function AboutPage() {
               .about-hero-grid { grid-template-columns: 1fr; gap: 40px; }
               .about-hero-img { order: -1; }
             }
+            @media (max-width: 480px) {
+              .about-cta-btns { flex-direction: column !important; }
+              .about-cta-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; }
+            }
           `}</style>
           <div style={{ maxWidth: '1120px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
             <div className="about-hero-grid">
@@ -331,7 +335,7 @@ export default function AboutPage() {
               <p style={{ fontSize: '17px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '40px' }}>
                 Whether you're a job seeker ready to stand out, a company looking to hire better, or someone who wants to build with us. there's a place for you here.
               </p>
-              <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
+              <div className="about-cta-btns" style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
                 <Link href="/get-started" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
                   Create your Reslink. free
                   <ArrowRight size={15} />

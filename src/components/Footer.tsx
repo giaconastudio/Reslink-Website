@@ -35,6 +35,7 @@ export default function Footer() {
         }
         @media (max-width: 480px) {
           .footer-grid { grid-template-columns: 1fr; }
+          .footer-bottom { flex-direction: column; align-items: flex-start; gap: 8px; }
         }
       `}</style>
       <div className="container" style={{ padding: '56px 24px 40px' }}>

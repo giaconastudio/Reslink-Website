@@ -181,10 +181,11 @@ const [notifA, setNotifA] = useState(0);
       <style>{`
         .co-testi-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: stretch; }
         .co-testi-side { display: flex; flex-direction: column; gap: 16px; }
-        .co-feat-tabs { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 32px; }
-        .co-feat-tab { padding: 10px 20px; border-radius: 100px; font-size: 14px; font-weight: 600; border: 1.5px solid #E2E4E9; background: #fff; cursor: pointer; transition: all 0.18s; font-family: var(--font-body); color: #5C6070; }
-        .co-feat-tab.active { background: #041635; color: #fff; border-color: #041635; }
-        .co-feat-tab:hover:not(.active) { border-color: #041635; color: #041635; }
+        .co-feat-tabs { display: inline-flex; background: #ECEEF1; border-radius: 14px; padding: 4px; gap: 2px; margin-bottom: 32px; max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+        .co-feat-tabs::-webkit-scrollbar { display: none; }
+        .co-feat-tab { padding: 10px 20px; border-radius: 10px; font-size: 14px; font-weight: 500; border: none; background: transparent; cursor: pointer; transition: all 0.18s; font-family: var(--font-body); color: #6B7280; white-space: nowrap; flex-shrink: 0; }
+        .co-feat-tab.active { background: #fff; color: #041635; font-weight: 700; box-shadow: 0 1px 4px rgba(4,22,53,0.12), 0 0 0 1px rgba(4,22,53,0.06); }
+        .co-feat-tab:hover:not(.active) { background: rgba(255,255,255,0.5); color: #041635; }
         .co-feat-body { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
         @media (max-width: 900px) {
           .co-testi-grid { grid-template-columns: 1fr !important; }
@@ -311,10 +312,12 @@ const [notifA, setNotifA] = useState(0);
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#041635', lineHeight: 0.95, letterSpacing: '-0.03em', marginBottom: '32px' }}>
                 Built for how great<br />teams hire.
               </h2>
-              <div className="co-feat-tabs">
-                {FEATURE_TABS.map((t, i) => (
-                  <button key={t.id} onClick={() => setActiveTab(i)} className={`co-feat-tab${activeTab === i ? ' active' : ''}`}>{t.label}</button>
-                ))}
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <div className="co-feat-tabs">
+                  {FEATURE_TABS.map((t, i) => (
+                    <button key={t.id} onClick={() => setActiveTab(i)} className={`co-feat-tab${activeTab === i ? ' active' : ''}`}>{t.label}</button>
+                  ))}
+                </div>
               </div>
             </motion.div>
 

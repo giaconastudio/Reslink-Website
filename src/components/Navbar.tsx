@@ -131,7 +131,7 @@ export default function Navbar({ dark = false }: { dark?: boolean }) {
               {open === 'solutions' && (
                 <div onMouseEnter={() => openDropdown('solutions')} onMouseLeave={scheduleClose} style={{ position: 'absolute', top: '100%', left: '-8px', paddingTop: '6px', zIndex: 100 }}>
                   <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #EEEEF0', boxShadow: '0 12px 40px rgba(4,22,53,0.12), 0 2px 8px rgba(4,22,53,0.06)', padding: '16px', minWidth: '480px' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0', alignItems: 'start' }}>
                       <div style={{ paddingRight: '12px', borderRight: '1px solid #F3F4F6' }}>
                         <p style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#B0B8C8', fontFamily: 'var(--font-body)', marginBottom: '6px', padding: '0 6px' }}>For individuals</p>
                         {solutions.filter(s => !s.forOrg).map(s => <DropItem key={s.href} {...s} onClick={() => setOpen(null)} />)}

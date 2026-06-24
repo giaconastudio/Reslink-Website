@@ -276,38 +276,41 @@ export default function Features() {
     <section style={{ padding: '100px 0', background: '#fff' }}>
       <style>{`
         .feat-header { text-align: center; margin-bottom: 48px; }
-        .feat-tabs {
-          display: flex;
-          gap: 8px;
-          justify-content: center;
-          flex-wrap: wrap;
-          margin-bottom: 40px;
+        .feat-tabs-seg {
+          display: inline-flex;
+          background: #ECEEF1;
+          border-radius: 14px;
+          padding: 4px;
+          gap: 2px;
           overflow-x: auto;
           -webkit-overflow-scrolling: touch;
           scrollbar-width: none;
-          padding-bottom: 2px;
+          max-width: 100%;
         }
-        .feat-tabs::-webkit-scrollbar { display: none; }
+        .feat-tabs-seg::-webkit-scrollbar { display: none; }
         .feat-tab {
           display: flex;
           align-items: center;
           gap: 7px;
           padding: 10px 20px;
-          border-radius: 100px;
-          border: 1.5px solid #E4E7EC;
-          background: #F7F8FA;
+          border-radius: 10px;
+          border: none;
+          background: transparent;
           cursor: pointer;
           font-size: 14px;
-          font-weight: 600;
-          color: #5C6070;
+          font-weight: 500;
+          color: #6B7280;
           font-family: var(--font-body);
-          transition: all 0.2s;
+          transition: all 0.18s;
           white-space: nowrap;
+          flex-shrink: 0;
         }
+        .feat-tab:hover:not(.active) { background: rgba(255,255,255,0.5); color: #041635; }
         .feat-tab.active {
-          background: #041635;
-          border-color: #041635;
-          color: #fff;
+          background: #fff;
+          color: #041635;
+          font-weight: 700;
+          box-shadow: 0 1px 4px rgba(4,22,53,0.12), 0 0 0 1px rgba(4,22,53,0.06);
         }
         .feat-panel {
           border-radius: 20px;
@@ -334,8 +337,9 @@ export default function Features() {
           .feat-copy { padding: 28px 24px 32px; }
           .feat-tab { padding: 8px 14px; font-size: 13px; white-space: nowrap; }
           .feat-header { margin-bottom: 28px; }
-          .feat-tabs { justify-content: flex-start; flex-wrap: nowrap; padding-left: 0; gap: 6px; margin-bottom: 24px; }
-          .feat-tabs-fade { display: block; position: absolute; right: 0; top: 0; bottom: 4px; width: 64px; background: linear-gradient(to right, transparent, #fff 70%); pointer-events: none; }
+          .feat-tabs-seg { width: 100%; }
+          .feat-tabs-seg { justify-content: flex-start; margin-bottom: 24px; }
+          .feat-tabs-fade { display: block; position: absolute; right: 0; top: 0; bottom: 4px; width: 48px; background: linear-gradient(to right, transparent, #ECEEF1 80%); pointer-events: none; border-radius: 0 14px 14px 0; }
         }
         @media (max-width: 480px) {
           .feat-visual { min-height: 260px; }
@@ -347,23 +351,17 @@ export default function Features() {
         {/* Header */}
         <motion.div className="feat-header" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
           <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '12px', fontFamily: 'var(--font-body)' }}>Everything you need to stand out</p>
-          <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 900, color: '#041635', lineHeight: 0.95, letterSpacing: '-0.03em', marginBottom: '14px' }}>
+          <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 900, color: '#041635', lineHeight: 0.95, letterSpacing: '-0.03em' }}>
             Built for<br />job seekers.
           </h2>
-          <a href="/job-seekers" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontWeight: 700, color: '#0C63E3', textDecoration: 'none', fontFamily: 'var(--font-body)' }}
-            onMouseEnter={e => (e.currentTarget.style.opacity = '0.7')}
-            onMouseLeave={e => (e.currentTarget.style.opacity = '1')}>
-            See everything Reslink can do for job seekers
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
         </motion.div>
 
         {/* Tabs */}
-        <div style={{ position: 'relative' }}>
-          <div className="feat-tabs">
+        <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', marginBottom: '40px' }}>
+          <div className="feat-tabs-seg">
             {tabs.map((t, i) => (
               <button key={t.id} className={`feat-tab${i === active ? ' active' : ''}`} onClick={() => setActive(i)}>
-                <span style={{ display: 'inline-flex' }}>{icons[t.id]}</span> {t.label}
+                <span style={{ display: 'inline-flex', opacity: i === active ? 1 : 0.5 }}>{icons[t.id]}</span> {t.label}
               </button>
             ))}
           </div>

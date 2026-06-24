@@ -112,6 +112,8 @@ export default function UniversitiesPage() {
         }
         @media (max-width: 640px) { .uni-stats-row { grid-template-columns: 1fr !important; } }
         @media (max-width: 960px) { .uni-hero-inline-stats { display: none !important; } }
+        @media (max-width: 960px) { .uni-hero-text { text-align: center !important; align-items: center !important; } }
+        @media (max-width: 960px) { .uni-hero-btns { justify-content: center !important; } }
       `}</style>
       <main style={{ paddingTop: '68px' }}>
 
@@ -120,7 +122,7 @@ export default function UniversitiesPage() {
           <div style={{ position: 'absolute', top: '-10%', left: '30%', width: '900px', height: '700px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.22), transparent 60%)', pointerEvents: 'none' }} />
           <div style={{ maxWidth: '1060px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
             <div className="uni-hero-grid">
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
+              <motion.div className="uni-hero-text" style={{ display: 'flex', flexDirection: 'column' }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For universities and career centers</p>
                 <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 6.5vw, 84px)', fontWeight: 900, color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '24px' }}>
                   Equip every student<br />to <span style={{ color: '#D8F950' }}>stand out.</span>

@@ -153,6 +153,8 @@ export default function AgenciesPage() {
         @media (max-width: 480px) { .ag-process-grid { grid-template-columns: 1fr !important; } }
         @media (max-width: 640px) { .ag-stats-row { grid-template-columns: 1fr !important; } }
         @media (max-width: 860px) { .ag-hero-inline-stats { display: none !important; } }
+        @media (max-width: 960px) { .ag-hero-text { text-align: center !important; align-items: center !important; } }
+        @media (max-width: 960px) { .ag-hero-btns { justify-content: center !important; } }
         .ag-compare-row { display: grid; grid-template-columns: 1fr 1fr; }
         .ag-compare-mobile { display: none; }
         @media (max-width: 640px) {
@@ -172,7 +174,7 @@ export default function AgenciesPage() {
         <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 112px) 24px', borderBottom: '1px solid #F0F2F5' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
             <div className="ag-hero-grid">
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+              <motion.div className="ag-hero-text" style={{ display: 'flex', flexDirection: 'column' }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For recruitment agencies</p>
                 <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 6vw, 80px)', fontWeight: 900, color: '#041635', lineHeight: 0.91, letterSpacing: '-0.03em', marginBottom: '24px' }}>
                   Win more placements.<br /><span style={{ color: '#041635', display: 'inline-block', position: 'relative' }}>

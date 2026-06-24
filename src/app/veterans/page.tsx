@@ -61,6 +61,9 @@ export default function VeteransPage() {
               @media (max-width: 860px) { .vets-hero-grid { grid-template-columns: 1fr !important; } }
               @media (max-width: 860px) { .vets-hero-chip-ext { display: none !important; } }
               @media (max-width: 860px) { .vets-hero-img-col { padding: 0 0 40px !important; } }
+              @media (max-width: 860px) { .vets-hero-section-inner { text-align: center !important; align-items: center !important; } }
+              @media (max-width: 860px) { .vets-hero-btns { justify-content: center !important; } }
+              @media (max-width: 860px) { .vets-hero-discount { align-self: center !important; } }
               @media (max-width: 480px) { .vets-hero-btns { flex-direction: column !important; } }
               @media (max-width: 480px) { .vets-hero-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; } }
               @media (max-width: 480px) { .vets-hero-section-inner { padding-top: 48px !important; padding-bottom: 24px !important; } }
@@ -89,7 +92,7 @@ export default function VeteransPage() {
               </div>
 
               {/* Veteran discount callout */}
-              <div style={{ marginTop: '20px', display: 'inline-flex', alignSelf: 'flex-start', alignItems: 'center', gap: '10px', background: 'rgba(216,249,80,0.08)', border: '1px solid rgba(216,249,80,0.2)', borderRadius: '10px', padding: '10px 16px' }}>
+              <div className="vets-hero-discount" style={{ marginTop: '20px', display: 'inline-flex', alignSelf: 'flex-start', alignItems: 'center', gap: '10px', background: 'rgba(216,249,80,0.08)', border: '1px solid rgba(216,249,80,0.2)', borderRadius: '10px', padding: '10px 16px' }}>
                 <div style={{ width: '28px', height: '28px', borderRadius: '7px', background: 'rgba(216,249,80,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D8F950" strokeWidth="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 </div>

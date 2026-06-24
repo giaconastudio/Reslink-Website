@@ -62,6 +62,9 @@ export default function StudentsPage() {
               @media (max-width: 860px) { .students-hero-grid { grid-template-columns: 1fr !important; } }
               @media (max-width: 860px) { .students-hero-chip-ext { display: none !important; } }
               @media (max-width: 860px) { .students-hero-img-col { padding: 0 0 40px !important; } }
+              @media (max-width: 860px) { .students-hero-section-inner { text-align: center !important; align-items: center !important; } }
+              @media (max-width: 860px) { .students-hero-btns { justify-content: center !important; } }
+              @media (max-width: 860px) { .students-hero-discount { align-self: center !important; } }
               @media (max-width: 480px) { .students-hero-btns { flex-direction: column !important; } }
               @media (max-width: 480px) { .students-hero-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; } }
               @media (max-width: 480px) { .students-hero-section-inner { padding-top: 48px !important; padding-bottom: 24px !important; } }
@@ -90,7 +93,7 @@ export default function StudentsPage() {
               </div>
 
               {/* Student discount callout */}
-              <div style={{ marginTop: '20px', display: 'inline-flex', alignSelf: 'flex-start', alignItems: 'center', gap: '10px', background: 'rgba(216,249,80,0.08)', border: '1px solid rgba(216,249,80,0.2)', borderRadius: '10px', padding: '10px 16px' }}>
+              <div className="students-hero-discount" style={{ marginTop: '20px', display: 'inline-flex', alignSelf: 'flex-start', alignItems: 'center', gap: '10px', background: 'rgba(216,249,80,0.08)', border: '1px solid rgba(216,249,80,0.2)', borderRadius: '10px', padding: '10px 16px' }}>
                 <div style={{ width: '28px', height: '28px', borderRadius: '7px', background: 'rgba(216,249,80,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D8F950" strokeWidth="2.2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
                 </div>

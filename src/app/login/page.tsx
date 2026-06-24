@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Eye, EyeOff, ArrowRight, Check } from 'lucide-react';
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 const PROOF = [
   { stat: '10,000+', label: 'job seekers on Reslink' },
@@ -31,14 +32,14 @@ export default function LoginPage() {
         input:focus { border-color: #0C63E3 !important; }
         .login-wrap { display: grid; grid-template-columns: 420px 1fr; width: 100%; max-width: 1040px; min-height: 600px; background: #fff; border-radius: 20px; box-shadow: 0 8px 48px rgba(4,22,53,0.13); overflow: hidden; }
         .login-left { background: #041635; padding: clamp(40px, 5vw, 64px); display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
-        .login-right { background: #fff; display: flex; align-items: center; justify-content: center; padding: clamp(40px, 5vw, 56px) clamp(32px, 4vw, 52px); }
+        .login-right { background: #fff; display: flex; align-items: flex-start; justify-content: center; padding: clamp(48px, 6vw, 64px) clamp(32px, 4vw, 52px); }
         @media (max-width: 900px) {
           .login-wrap { grid-template-columns: 1fr; }
           .login-left { display: none; }
         }
       `}</style>
 
-      <div style={{ minHeight: 'calc(100vh - 68px)', paddingTop: '68px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 24px', background: '#F7F8FA', boxSizing: 'border-box' }}>
+      <div style={{ paddingTop: 'calc(68px + 40px)', paddingBottom: '40px', paddingLeft: '24px', paddingRight: '24px', minHeight: '100vh', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', background: '#F7F8FA', boxSizing: 'border-box' }}>
         <div className="login-wrap">
 
           {/* ── Left: brand panel ── */}
@@ -79,7 +80,7 @@ export default function LoginPage() {
               <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)', lineHeight: 1.6, fontStyle: 'italic', marginBottom: '12px' }}>
                 "I got a recruiter message within 24 hours of sharing my Reslink. It actually works."
               </p>
-              <p style={{ fontSize: '12px', fontWeight: 700, color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Marcus T. — Software Engineer</p>
+              <p style={{ fontSize: '12px', fontWeight: 700, color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Marcus T. · Software Engineer</p>
             </div>
           </div>
 
@@ -142,6 +143,7 @@ export default function LoginPage() {
 
         </div>
       </div>
+      <Footer />
     </>
   );
 }

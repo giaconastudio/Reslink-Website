@@ -151,7 +151,8 @@ export default function AgenciesPage() {
         }
         @media (max-width: 860px) { .ag-process-grid { grid-template-columns: repeat(2,1fr) !important; } }
         @media (max-width: 480px) { .ag-process-grid { grid-template-columns: 1fr !important; } }
-        @media (max-width: 560px) { .ag-stats-row { grid-template-columns: 1fr 1fr !important; } }
+        @media (max-width: 640px) { .ag-stats-row { grid-template-columns: 1fr !important; } }
+        @media (max-width: 860px) { .ag-hero-inline-stats { display: none !important; } }
         .ag-compare-row { display: grid; grid-template-columns: 1fr 1fr; }
         .ag-compare-mobile { display: none; }
         @media (max-width: 640px) {
@@ -191,7 +192,7 @@ export default function AgenciesPage() {
                     Talk to sales
                   </Link>
                 </div>
-                <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap' }}>
+                <div className="ag-hero-inline-stats" style={{ display: 'flex', gap: '32px', flexWrap: 'wrap' }}>
                   {[['500+', 'agencies globally'], ['40%', 'faster time-to-offer'], ['28%', 'more retained mandates']].map(([v, l]) => (
                     <div key={l}>
                       <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '26px', fontWeight: 900, color: '#041635', lineHeight: 1 }}>{v}</p>

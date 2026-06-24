@@ -109,8 +109,9 @@ export default function UniversitiesPage() {
         @media (max-width: 860px) { .uni-feat-grid { grid-template-columns: repeat(2, 1fr) !important; } }
         @media (max-width: 560px) {
           .uni-feat-grid { grid-template-columns: 1fr !important; }
-          .uni-stats-row { grid-template-columns: 1fr 1fr !important; }
         }
+        @media (max-width: 640px) { .uni-stats-row { grid-template-columns: 1fr !important; } }
+        @media (max-width: 960px) { .uni-hero-inline-stats { display: none !important; } }
       `}</style>
       <main style={{ paddingTop: '68px' }}>
 
@@ -135,7 +136,7 @@ export default function UniversitiesPage() {
                     Schedule a demo
                   </Link>
                 </div>
-                <div style={{ display: 'flex', gap: '28px', flexWrap: 'wrap' }}>
+                <div className="uni-hero-inline-stats" style={{ display: 'flex', gap: '28px', flexWrap: 'wrap' }}>
                   {[['200+', 'universities onboarded'], ['34%', 'avg. placement rate lift'], ['48h', 'fastest student hire']].map(([v, l]) => (
                     <div key={l}>
                       <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '24px', fontWeight: 900, color: '#fff', lineHeight: 1 }}>{v}</p>
@@ -210,6 +211,26 @@ export default function UniversitiesPage() {
         </section>
 
         <LogoTicker variant="university" />
+
+        {/* ─── Stats ─── */}
+        <section style={{ background: '#041635', padding: 'clamp(64px, 8vw, 96px) 24px', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: '-30%', left: '50%', transform: 'translateX(-50%)', width: '800px', height: '600px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.2), transparent 65%)', pointerEvents: 'none' }} />
+          <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+            <div className="uni-stats-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '24px', textAlign: 'center' }}>
+              {[
+                { value: '200+', label: 'universities onboarded' },
+                { value: '34%', label: 'avg. placement rate increase' },
+                { value: '4x', label: 'employer engagement vs. resumes' },
+                { value: '85%', label: 'of students report more callbacks' },
+              ].map((s, i) => (
+                <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ delay: i * 0.08 }}>
+                  <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 60px)', fontWeight: 900, color: '#D8F950', lineHeight: 1, letterSpacing: '-0.03em' }}>{s.value}</p>
+                  <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', lineHeight: 1.5, maxWidth: '140px', margin: '10px auto 0' }}>{s.label}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* ─── What your career center gets ─── */}
         <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 108px) 24px' }}>
@@ -321,26 +342,6 @@ export default function UniversitiesPage() {
                     <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: '20px', fontWeight: 900, color: '#041635', lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: '10px' }}>{f.title}</h3>
                     <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>{f.body}</p>
                   </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ─── Stats ─── */}
-        <section style={{ background: '#041635', padding: 'clamp(64px, 8vw, 96px) 24px', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', top: '-30%', left: '50%', transform: 'translateX(-50%)', width: '800px', height: '600px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.2), transparent 65%)', pointerEvents: 'none' }} />
-          <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-            <div className="uni-stats-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '24px', textAlign: 'center' }}>
-              {[
-                { value: '200+', label: 'universities onboarded' },
-                { value: '34%', label: 'avg. placement rate increase' },
-                { value: '4x', label: 'employer engagement vs. resumes' },
-                { value: '85%', label: 'of students report more callbacks' },
-              ].map((s, i) => (
-                <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ delay: i * 0.08 }}>
-                  <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 60px)', fontWeight: 900, color: '#D8F950', lineHeight: 1, letterSpacing: '-0.03em' }}>{s.value}</p>
-                  <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', lineHeight: 1.5, maxWidth: '140px', margin: '10px auto 0' }}>{s.label}</p>
                 </motion.div>
               ))}
             </div>

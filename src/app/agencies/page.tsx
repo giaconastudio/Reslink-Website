@@ -146,9 +146,10 @@ export default function AgenciesPage() {
         .ag-process-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
         @media (max-width: 960px) {
           .ag-hero-grid { grid-template-columns: 1fr !important; }
-          .ag-hero-right { display: none !important; }
           .ag-feat-alt { grid-template-columns: 1fr !important; }
         }
+        @media (max-width: 960px) { .ag-hero-btns { flex-direction: column !important; align-self: stretch !important; } }
+        @media (max-width: 960px) { .ag-hero-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; } }
         @media (max-width: 860px) { .ag-process-grid { grid-template-columns: repeat(2,1fr) !important; } }
         @media (max-width: 480px) { .ag-process-grid { grid-template-columns: 1fr !important; } }
         @media (max-width: 640px) { .ag-stats-row { grid-template-columns: 1fr !important; } }
@@ -193,11 +194,6 @@ export default function AgenciesPage() {
                   <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 32px', background: '#F7F8FA', color: '#041635', border: '1.5px solid #E4E6EC', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                     Talk to sales
                   </Link>
-                </div>
-                {/* Desktop product screenshot */}
-                <div className="ag-hero-product-img" style={{ borderRadius: '14px', overflow: 'hidden', border: '1.5px solid #E4E6EC', boxShadow: '0 8px 32px rgba(4,22,53,0.10)', marginBottom: '32px' }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/product-lists.webp" alt="Reslink candidate shortlist" style={{ width: '100%', height: 'auto', display: 'block' }} />
                 </div>
                 <div className="ag-hero-inline-stats" style={{ display: 'flex', gap: '32px', flexWrap: 'wrap' }}>
                   {[['500+', 'agencies globally'], ['40%', 'faster time-to-offer'], ['28%', 'more retained mandates']].map(([v, l]) => (

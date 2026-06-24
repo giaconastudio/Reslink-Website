@@ -182,7 +182,7 @@ const tabs = [
         <video
           src="/videos/pip-person-compressed.mp4"
           poster="/videos/pip-person-poster.jpg"
-          autoPlay muted loop playsInline
+          autoPlay muted loop playsInline preload="auto"
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
         />
         {/* Dark overlay for readability */}

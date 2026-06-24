@@ -145,10 +145,10 @@ export default function AgenciesPage() {
         .ag-stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; }
         .ag-process-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
         @media (max-width: 960px) {
-          .ag-hero-grid { grid-template-columns: 1fr !important; }
+          .ag-hero-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
           .ag-feat-alt { grid-template-columns: 1fr !important; }
         }
-        @media (max-width: 960px) { .ag-hero-btns { flex-direction: column !important; align-self: stretch !important; } }
+        @media (max-width: 960px) { .ag-hero-btns { flex-direction: column !important; align-self: stretch !important; margin-bottom: 0 !important; } }
         @media (max-width: 960px) { .ag-hero-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; } }
         @media (max-width: 960px) { .ag-hero-right { overflow: hidden; max-width: 100%; } }
         @media (max-width: 960px) { .ag-hero-right > div { box-shadow: 0 8px 32px rgba(4,22,53,0.10) !important; } }

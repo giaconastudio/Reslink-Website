@@ -91,6 +91,9 @@ export default function Hero() {
           .hero-proof { margin-bottom: 40px; }
           .hero-ctas { gap: 10px; }
           .hero-ctas a { width: 100%; justify-content: center; }
+          .hero-stage { padding: 0 16px; }
+          .hero-pill-avatar { width: 22px !important; height: 22px !important; }
+          .hero-pill { font-size: 11px !important; padding: 5px 12px 5px 6px !important; gap: 7px !important; }
         }
         @media (max-width: 400px) {
           .hero-inner { padding: 90px 16px 0; }
@@ -101,7 +104,7 @@ export default function Hero() {
         {/* Social proof pill — real faces, no stat repetition */}
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
           style={{ display: 'flex', justifyContent: 'center', marginBottom: '28px' }}>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#fff', color: '#5C6070', fontSize: '13px', fontWeight: 500, padding: '7px 16px 7px 8px', borderRadius: '100px', fontFamily: 'var(--font-body)', border: '1.5px solid #E4E7EC', boxShadow: '0 2px 8px rgba(4,22,53,0.06)' }}>
+          <span className="hero-pill" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#fff', color: '#5C6070', fontSize: '13px', fontWeight: 500, padding: '7px 16px 7px 8px', borderRadius: '100px', fontFamily: 'var(--font-body)', border: '1.5px solid #E4E7EC', boxShadow: '0 2px 8px rgba(4,22,53,0.06)' }}>
             <span style={{ display: 'flex' }}>
               {[
                 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg',
@@ -110,7 +113,7 @@ export default function Hero() {
                 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg',
                 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg',
               ].map((src, i) => (
-                <img key={i} src={`${src}?auto=compress&cs=tinysrgb&w=48&h=48&fit=crop`} alt="" width={28} height={28}
+                <img key={i} src={`${src}?auto=compress&cs=tinysrgb&w=48&h=48&fit=crop`} alt="" width={28} height={28} className="hero-pill-avatar"
                   style={{ width: '28px', height: '28px', borderRadius: '50%', border: '2px solid #fff', marginLeft: i === 0 ? 0 : '-8px', objectFit: 'cover', display: 'block' }} />
               ))}
             </span>
@@ -137,7 +140,7 @@ export default function Hero() {
         {/* CTAs */}
         <motion.div className="hero-ctas" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.18 }}>
           <Link href="/get-started" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
-            Create your Reslink. Free.
+            Create your Reslink
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </Link>
           <Link href="#how-it-works" className="btn-outline" style={{ fontSize: '15px', padding: '14px 26px' }}>

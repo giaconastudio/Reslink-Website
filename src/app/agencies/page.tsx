@@ -222,7 +222,7 @@ export default function AgenciesPage() {
         {/* ─── Process: step cards ─── */}
         <section style={{ background: '#F7F8FA', padding: 'clamp(72px, 9vw, 108px) 24px' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '56px' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} style={{ textAlign: 'center', marginBottom: '56px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Your new process</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#041635', lineHeight: 0.93, letterSpacing: '-0.03em' }}>
                 From brief to placement.<br />In less time.
@@ -235,7 +235,7 @@ export default function AgenciesPage() {
                 { icon: Target, title: 'Build a Reslink shortlist', desc: 'You curate your best candidates into a branded shortlist. One link. Your agency on the cover. Sent in minutes.' },
                 { icon: CheckCircle, title: 'Client watches. Placement closes.', desc: 'Your client watches, and you see exactly who they viewed and for how long. Follow up with data. Close faster.' },
               ].map((step, i) => (
-                <motion.div key={i} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
+                <motion.div key={i} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ delay: i * 0.1 }}>
                   <div style={{ background: '#041635', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.07)', padding: '28px 24px', position: 'relative', overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column', boxSizing: 'border-box' }}>
                     {/* Decorative large number */}
                     <div style={{ position: 'absolute', bottom: '-16px', right: '10px', fontFamily: 'var(--font-phudu)', fontSize: '100px', fontWeight: 900, color: '#fff', opacity: 0.05, lineHeight: 1, userSelect: 'none', pointerEvents: 'none' }}>
@@ -264,7 +264,7 @@ export default function AgenciesPage() {
         {/* ─── Features: 2x2 with impact stats ─── */}
         <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 108px) 24px' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', maxWidth: '560px', margin: '0 auto 56px' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} style={{ textAlign: 'center', maxWidth: '560px', margin: '0 auto 56px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Why agencies choose Reslink</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 54px)', fontWeight: 900, color: '#041635', lineHeight: 0.95, letterSpacing: '-0.03em' }}>
                 The edge your agency<br />has been missing.
@@ -272,7 +272,7 @@ export default function AgenciesPage() {
             </motion.div>
             <div className="ag-feat-alt">
               {FEATURES.map((f, i) => (
-                <motion.div key={f.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}>
+                <motion.div key={f.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ delay: i * 0.08 }}>
                   <div style={{ borderRadius: '20px', border: '1.5px solid #E8EAF0', padding: '32px', height: '100%', display: 'flex', flexDirection: 'column', background: '#FAFBFC' }}>
                     <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: f.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
                       <f.icon size={22} color={f.color} strokeWidth={1.8} />
@@ -301,7 +301,7 @@ export default function AgenciesPage() {
                 { value: '3.8x', label: 'more client views per candidate' },
                 { value: '28%', label: 'lift in retained search mandates' },
               ].map((s, i) => (
-                <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} style={{ textAlign: 'center' }}>
+                <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ delay: i * 0.08 }} style={{ textAlign: 'center' }}>
                   <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 60px)', fontWeight: 900, color: '#D8F950', lineHeight: 1, letterSpacing: '-0.03em' }}>{s.value}</p>
                   <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)', lineHeight: 1.5, maxWidth: '130px', margin: '10px auto 0' }}>{s.label}</p>
                 </motion.div>
@@ -313,13 +313,13 @@ export default function AgenciesPage() {
         {/* ─── Compare: unified table ─── */}
         <section style={{ background: '#F7F8FA', padding: 'clamp(64px, 8vw, 96px) 24px' }}>
           <div style={{ maxWidth: '860px', margin: '0 auto' }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '52px' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} style={{ textAlign: 'center', marginBottom: '52px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>The difference</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 52px)', fontWeight: 900, color: '#041635', lineHeight: 0.95, letterSpacing: '-0.03em' }}>
                 Agencies that use Reslink<br />operate differently.
               </h2>
             </motion.div>
-            <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.08 }}>
+            <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ delay: 0.08 }}>
               <div style={{ borderRadius: '20px', border: '1px solid #E4E6EC', overflow: 'hidden', boxShadow: '0 4px 24px rgba(4,22,53,0.07)' }}>
                 {/* Header */}
                 <div className="ag-compare-row">
@@ -356,7 +356,7 @@ export default function AgenciesPage() {
 
         {/* ─── Testimonials ─── */}
         <section style={{ padding: 'clamp(64px, 8vw, 100px) 0', background: '#fff', overflow: 'hidden' }}>
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', maxWidth: '500px', margin: '0 auto 56px', padding: '0 24px' }}>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} style={{ textAlign: 'center', maxWidth: '500px', margin: '0 auto 56px', padding: '0 24px' }}>
             <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>What agencies say</p>
             <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#041635', lineHeight: 0.98 }}>
               Recruiters who switched<br />don&apos;t go back.
@@ -379,7 +379,7 @@ export default function AgenciesPage() {
         {/* ─── FAQ ─── */}
         <section style={{ padding: 'clamp(64px, 8vw, 96px) 24px', background: '#F7F8FA' }}>
           <div style={{ maxWidth: '680px', margin: '0 auto' }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '52px' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} style={{ textAlign: 'center', marginBottom: '52px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>Frequently asked questions</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 48px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#041635', lineHeight: 0.95 }}>Everything you need to know</h2>
             </motion.div>
@@ -393,7 +393,7 @@ export default function AgenciesPage() {
         <section style={{ padding: 'clamp(72px, 10vw, 120px) 24px', background: '#041635', position: 'relative', overflow: 'hidden', textAlign: 'center' }}>
           <div style={{ position: 'absolute', top: '-20%', right: '10%', width: '600px', height: '500px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.22), transparent 65%)', pointerEvents: 'none' }} />
           <div style={{ position: 'absolute', bottom: '-30%', left: '10%', width: '500px', height: '400px', background: 'radial-gradient(ellipse, rgba(216,249,80,0.08), transparent 60%)', pointerEvents: 'none' }} />
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ maxWidth: '600px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} style={{ maxWidth: '600px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
             <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(42px, 6vw, 76px)', fontWeight: 900, letterSpacing: '-0.035em', lineHeight: 0.92, color: '#fff', marginBottom: '20px' }}>
               Send a shortlist<br /><span style={{ color: '#D8F950' }}>they can&apos;t forget.</span>
             </h2>

@@ -331,6 +331,7 @@ export default function Features() {
           overflow: hidden;
         }
         .feat-tabs-fade { display: none; }
+        .feat-swipe-hint { display: none; }
         @media (max-width: 768px) {
           .feat-panel { grid-template-columns: 1fr; min-height: auto; }
           .feat-visual { order: -1; min-height: 300px; }
@@ -338,8 +339,9 @@ export default function Features() {
           .feat-tab { padding: 8px 14px; font-size: 13px; white-space: nowrap; }
           .feat-header { margin-bottom: 28px; }
           .feat-tabs-seg { width: 100%; }
-          .feat-tabs-seg { justify-content: flex-start; margin-bottom: 24px; }
+          .feat-tabs-seg { justify-content: flex-start; margin-bottom: 8px; }
           .feat-tabs-fade { display: block; position: absolute; right: 0; top: 0; bottom: 4px; width: 48px; background: linear-gradient(to right, transparent, #ECEEF1 80%); pointer-events: none; border-radius: 0 14px 14px 0; }
+          .feat-swipe-hint { display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 20px; }
         }
         @media (max-width: 480px) {
           .feat-visual { min-height: 260px; }
@@ -349,7 +351,7 @@ export default function Features() {
 
       <div className="container">
         {/* Header */}
-        <motion.div className="feat-header" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
+        <motion.div className="feat-header" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ duration: 0.5 }}>
           <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '12px', fontFamily: 'var(--font-body)' }}>Everything you need to stand out</p>
           <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 900, color: '#041635', lineHeight: 0.95, letterSpacing: '-0.03em' }}>
             Built for<br />job seekers.
@@ -365,7 +367,13 @@ export default function Features() {
               </button>
             ))}
           </div>
-          <div className="feat-tabs-fade" />
+          {active < tabs.length - 1 && <div className="feat-tabs-fade" />}
+        </div>
+        {/* Swipe hint — mobile only */}
+        <div className="feat-swipe-hint">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A9FA8" strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
+          <span style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', fontWeight: 500, letterSpacing: '0.04em' }}>Swipe to explore features</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A9FA8" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
         </div>
 
         {/* Panel */}

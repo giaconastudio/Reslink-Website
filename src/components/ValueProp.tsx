@@ -38,7 +38,8 @@ export default function ValueProp() {
           .vp-stats { gap: 0; display: grid; grid-template-columns: 1fr 1fr; }
           .vp-stat-item { padding: 24px 16px; border-bottom: 1px solid #ECEEF1; }
           .vp-stat-item:nth-child(odd) { border-right: 1px solid #ECEEF1; }
-          .vp-pip { top: 80px !important; right: 0px !important; width: 100px !important; height: 100px !important; border-radius: 14px !important; }
+          .vp-pip { top: 110px !important; right: 0px !important; width: 96px !important; height: 96px !important; border-radius: 14px !important; }
+          .vp-header-row { padding-right: 104px !important; }
         }
         @media (min-width: 761px) {
           .vp-stat-item { text-align: center; }
@@ -50,7 +51,7 @@ export default function ValueProp() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: '999px' }}
           transition={{ duration: 0.5 }}
           style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto 56px' }}
         >
@@ -73,7 +74,7 @@ export default function ValueProp() {
             className="vp-before-col"
             initial={{ opacity: 0, x: -16 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: '999px' }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <div style={{ borderRadius: '18px', border: '1px solid #E8EAF0', padding: '24px', background: '#FAFBFC', height: '100%' }}>
@@ -131,7 +132,7 @@ export default function ValueProp() {
           <motion.div
             initial={{ opacity: 0, x: 16 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: '999px' }}
             transition={{ duration: 0.5, delay: 0.18 }}
             style={{ position: 'relative' }}
           >
@@ -144,7 +145,7 @@ export default function ValueProp() {
 
               {/* Dark navy profile header */}
               <div style={{ background: '#041635', padding: '22px 24px 20px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '16px', paddingRight: '90px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '16px', paddingRight: '90px' }} className="vp-header-row">
                   <div style={{ width: '56px', height: '56px', borderRadius: '50%', flexShrink: 0, overflow: 'hidden', border: '2px solid rgba(255,255,255,0.2)' }}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/videos/pip-person-poster.jpg" alt="Olivia Stone" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} />
@@ -210,7 +211,7 @@ export default function ValueProp() {
             </div>
 
             {/* PiP video — outside overflow:hidden card so it can hang over the right edge */}
-            <div className="vp-pip" style={{ position: 'absolute', top: '60px', right: '-22px', width: '172px', height: '172px', zIndex: 10 }}>
+            <div className="vp-pip" style={{ position: 'absolute', top: '90px', right: '-22px', width: '172px', height: '172px', zIndex: 10 }}>
               <div style={{ width: '100%', height: '100%', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.36)' }}>
                 <video src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
@@ -226,7 +227,7 @@ export default function ValueProp() {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: '999px' }}
           transition={{ duration: 0.5, delay: 0.2 }}
           className="vp-stats"
         >

@@ -167,7 +167,7 @@ export default function Testimonials() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: true, margin: '999px' }}
         transition={{ duration: 0.5 }}
         style={{ textAlign: 'center', maxWidth: '520px', margin: '0 auto 56px', padding: '0 24px' }}
       >
@@ -192,7 +192,7 @@ export default function Testimonials() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: true, margin: '999px' }}
         transition={{ duration: 0.5 }}
         style={{ maxWidth: '900px', margin: '0 auto', padding: '0 24px' }}
       >

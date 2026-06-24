@@ -196,7 +196,7 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }} className="related-grid">
                 <style>{`@media (max-width: 760px) { .related-grid { grid-template-columns: 1fr !important; } } @media (min-width: 500px) and (max-width: 760px) { .related-grid { grid-template-columns: 1fr 1fr !important; } }`}</style>
                 {related.map((p, i) => (
-                  <motion.div key={p.slug} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.35, delay: i * 0.06 }}>
+                  <motion.div key={p.slug} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ duration: 0.35, delay: i * 0.06 }}>
                     <Link href={`/blog/${p.slug}`} style={{ textDecoration: 'none', display: 'block' }}>
                       <div className="blog-card" style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', overflow: 'hidden', boxShadow: '0 1px 8px rgba(4,22,53,0.04)' }}>
                         <div style={{ height: '160px', overflow: 'hidden' }}>

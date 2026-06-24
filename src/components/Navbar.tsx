@@ -200,10 +200,15 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
             </Link>
           </div>
 
-          {/* Mobile toggle */}
-          <button onClick={() => { setMobileOpen(!mobileOpen); setMobileExpanded(null); }} style={{ display: 'none', padding: '8px', background: 'none', border: 'none', cursor: 'pointer', color: isDark ? '#fff' : '#041635' }} className="mobile-toggle">
-            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+          {/* Mobile: Get started + toggle */}
+          <div style={{ display: 'none', alignItems: 'center', gap: '8px' }} className="mobile-toggle">
+            <Link href="/get-started" className="btn-primary" style={{ padding: '8px 14px', fontSize: '13px', fontWeight: 700 }}>
+              Get started
+            </Link>
+            <button onClick={() => { setMobileOpen(!mobileOpen); setMobileExpanded(null); }} style={{ padding: '8px', background: 'none', border: 'none', cursor: 'pointer', color: isDark ? '#fff' : '#041635' }}>
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
       </div>
 

@@ -31,8 +31,8 @@ export default function LoginPage() {
       <style>{`
         input:focus { border-color: #0C63E3 !important; }
         .login-wrap { display: grid; grid-template-columns: 420px 1fr; width: 100%; max-width: 1040px; min-height: 600px; background: #fff; border-radius: 20px; box-shadow: 0 8px 48px rgba(4,22,53,0.13); overflow: hidden; }
-        .login-left { background: #041635; padding: clamp(40px, 5vw, 64px); display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
-        .login-right { background: #fff; display: flex; align-items: flex-start; justify-content: center; padding: clamp(48px, 6vw, 64px) clamp(32px, 4vw, 52px); }
+        .login-left { background: #041635; padding: clamp(32px, 4vw, 48px); display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
+        .login-right { background: #fff; display: flex; align-items: flex-start; justify-content: center; padding: clamp(36px, 4vw, 48px) clamp(32px, 4vw, 52px); }
         @media (max-width: 900px) {
           .login-wrap { grid-template-columns: 1fr; }
           .login-left { display: none; }
@@ -49,15 +49,15 @@ export default function LoginPage() {
             <div style={{ position: 'absolute', bottom: '-10%', right: '-10%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(216,249,80,0.1), transparent 65%)', pointerEvents: 'none' }} />
 
             <div style={{ position: 'relative', zIndex: 1 }}>
-              <Link href="/" style={{ display: 'inline-block', marginBottom: '56px' }}>
+              <Link href="/" style={{ display: 'inline-block', marginBottom: '32px' }}>
                 <Image src="/reslink-logo.svg" alt="Reslink" width={140} height={36} style={{ height: '26px', width: 'auto', filter: 'brightness(0) invert(1)' }} />
               </Link>
 
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>Welcome back</p>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 3.5vw, 52px)', fontWeight: 900, color: '#fff', lineHeight: 0.95, letterSpacing: '-0.03em', marginBottom: '32px' }}>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 3vw, 46px)', fontWeight: 900, color: '#fff', lineHeight: 0.95, letterSpacing: '-0.03em', marginBottom: '20px' }}>
                 Your story<br />is waiting.
               </h2>
-              <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '360px', marginBottom: '48px' }}>
+              <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '360px', marginBottom: '28px' }}>
                 Thousands of job seekers are landing more interviews. Your Reslink is how they know who you are before the first call.
               </p>
 
@@ -76,7 +76,7 @@ export default function LoginPage() {
             </div>
 
             {/* Bottom quote */}
-            <div style={{ position: 'relative', zIndex: 1, borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '28px', marginTop: '48px' }}>
+            <div style={{ position: 'relative', zIndex: 1, borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '20px', marginTop: '28px' }}>
               <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)', lineHeight: 1.6, fontStyle: 'italic', marginBottom: '12px' }}>
                 "I got a recruiter message within 24 hours of sharing my Reslink. It actually works."
               </p>

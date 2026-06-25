@@ -195,7 +195,7 @@ const [notifA, setNotifA] = useState(0);
           .co-testi-grid { grid-template-columns: 1fr !important; }
           .co-feat-body { grid-template-columns: 1fr !important; }
         }
-        .co-chip { position: absolute; background: #fff; border-radius: 16px; padding: 14px 18px; box-shadow: 0 16px 48px rgba(4,22,53,0.22), 0 2px 8px rgba(4,22,53,0.1); display: flex; align-items: center; gap: 14px; border: 1px solid rgba(4,22,53,0.07); }
+        .co-chip { background: #fff; border-radius: 16px; padding: 14px 18px; box-shadow: 0 16px 48px rgba(4,22,53,0.22), 0 2px 8px rgba(4,22,53,0.1); display: flex; align-items: center; gap: 14px; border: 1px solid rgba(4,22,53,0.07); white-space: nowrap; }
         @media (max-width: 640px) { .co-chip { padding: 6px 9px; gap: 6px; border-radius: 10px; box-shadow: 0 4px 16px rgba(4,22,53,0.15); } }
         .co-chip-icon { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         @media (max-width: 640px) { .co-chip-icon { width: 22px; height: 22px; border-radius: 6px; } }

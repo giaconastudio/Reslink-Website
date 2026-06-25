@@ -365,9 +365,72 @@ const [notifA, setNotifA] = useState(0);
                         <div style={{ background: '#fff', borderRadius: '5px', padding: '2px 14px', fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', border: '1px solid #E2E4E9' }}>app.reslink.io</div>
                       </div>
                     </div>
-                    {/* Screenshot — cropped to top */}
-                    <div style={{ maxHeight: '520px', overflow: 'hidden' }}>
+                    {/* Screenshot */}
+                    <div style={{ maxHeight: '520px', overflow: 'hidden', position: 'relative' }}>
                       <Image src={t.img} alt={t.alt} width={2880} height={1419} quality={100} style={{ width: '100%', height: 'auto', display: 'block' }} />
+
+                      {/* ── AI Screening overlay ── */}
+                      {t.id === 'ai' && (
+                        <motion.div key="ai-overlay" initial={{ opacity: 0, y: 14, scale: 0.94 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.45, duration: 0.35, ease: 'easeOut' }}
+                          style={{ position: 'absolute', bottom: '20px', right: '20px', background: '#fff', borderRadius: '14px', padding: '12px 16px', boxShadow: '0 8px 32px rgba(4,22,53,0.18)', display: 'flex', alignItems: 'center', gap: '12px', border: '1px solid #E2E4E9' }}>
+                          <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: '#041635', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D8F950" strokeWidth="2.2" strokeLinecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                          </div>
+                          <div>
+                            <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>4 candidates ranked by AI</p>
+                            <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px' }}>Top pick: A · 91/100</p>
+                          </div>
+                          <motion.div animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+                            style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#0C63E3', flexShrink: 0 }} />
+                        </motion.div>
+                      )}
+
+                      {/* ── Team Collaboration overlay ── */}
+                      {t.id === 'collab' && (
+                        <motion.div key="collab-overlay" initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.45, duration: 0.35, ease: 'easeOut' }}
+                          style={{ position: 'absolute', bottom: '20px', left: '20px', background: '#fff', borderRadius: '14px', padding: '12px 16px', boxShadow: '0 8px 32px rgba(4,22,53,0.18)', display: 'flex', alignItems: 'center', gap: '12px', border: '1px solid #E2E4E9' }}>
+                          <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: '#7C3AED', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                            <span style={{ fontSize: '12px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>JP</span>
+                          </div>
+                          <div>
+                            <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>James Park left a note</p>
+                            <motion.p initial={{ width: 0 }} animate={{ width: 'auto' }} transition={{ delay: 0.9, duration: 0.6 }}
+                              style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px', overflow: 'hidden', whiteSpace: 'nowrap' }}>
+                              &ldquo;Impressive side projects for intern level&rdquo;
+                            </motion.p>
+                          </div>
+                        </motion.div>
+                      )}
+
+                      {/* ── Pipeline overlay ── */}
+                      {t.id === 'pipeline' && (
+                        <motion.div key="pipeline-overlay" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45, duration: 0.35, ease: 'easeOut' }}
+                          style={{ position: 'absolute', bottom: '20px', right: '20px', background: '#fff', borderRadius: '14px', padding: '12px 16px', boxShadow: '0 8px 32px rgba(4,22,53,0.18)', display: 'flex', alignItems: 'center', gap: '12px', border: '1px solid #E2E4E9' }}>
+                          <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: '#D8F950', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#041635" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                          </div>
+                          <div>
+                            <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Eleanor Chu moved to Final Round</p>
+                            <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px' }}>A+ · 95/100 · Senior Product Designer</p>
+                          </div>
+                        </motion.div>
+                      )}
+
+                      {/* ── Job Board overlay ── */}
+                      {t.id === 'board' && (
+                        <motion.div key="board-overlay" initial={{ opacity: 0, y: 14, scale: 0.94 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.45, duration: 0.35, ease: 'easeOut' }}
+                          style={{ position: 'absolute', bottom: '20px', right: '20px', background: '#fff', borderRadius: '14px', padding: '12px 16px', boxShadow: '0 8px 32px rgba(4,22,53,0.18)', display: 'flex', alignItems: 'center', gap: '12px', border: '1px solid #E2E4E9' }}>
+                          <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="2.2" strokeLinecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                          </div>
+                          <div>
+                            <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>New application received</p>
+                            <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px' }}>Marketing Intern · with video pitch</p>
+                          </div>
+                          <motion.div animate={{ scale: [1, 1.4, 1], opacity: [1, 0.5, 1] }} transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
+                            style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#16A34A', flexShrink: 0 }} />
+                        </motion.div>
+                      )}
                     </div>
                   </motion.div>
 

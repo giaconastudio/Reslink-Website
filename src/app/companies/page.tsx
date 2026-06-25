@@ -280,7 +280,7 @@ const [notifA, setNotifA] = useState(0);
                     <div style={{ background: 'rgba(255,255,255,0.07)', borderRadius: '5px', padding: '3px 14px', fontSize: '11px', color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-body)' }}>app.reslink.io</div>
                   </div>
                 </div>
-                <Image src="/product-dashboard.webp" alt="Reslink hiring dashboard" width={1200} height={750} style={{ width: '100%', height: 'auto', display: 'block' }} />
+                <Image src="/feature-dashboard.png" alt="Reslink hiring dashboard" width={1200} height={750} quality={100} style={{ width: '100%', height: 'auto', display: 'block' }} />
               </div>
             </motion.div>
           </div>
@@ -366,8 +366,8 @@ const [notifA, setNotifA] = useState(0);
                       </div>
                     </div>
                     {/* Screenshot — cropped to top */}
-                    <div style={{ maxHeight: '380px', overflow: 'hidden' }}>
-                      <Image src={t.img} alt={t.alt} width={1200} height={750} style={{ width: '100%', height: 'auto', display: 'block' }} />
+                    <div style={{ maxHeight: '520px', overflow: 'hidden' }}>
+                      <Image src={t.img} alt={t.alt} width={1200} height={750} quality={100} style={{ width: '100%', height: 'auto', display: 'block' }} />
                     </div>
                   </motion.div>
 

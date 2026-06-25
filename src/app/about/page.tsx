@@ -39,7 +39,7 @@ const TEAM = [
     name: 'Taylor Bagwell',
     initials: 'TB',
     color: '#0891B2',
-    title: 'Technical Adviser',
+    title: 'CTO',
     bio: 'Taylor brings deep engineering expertise that helps Reslink build fast, reliable, and scalable infrastructure. His guidance shapes the technical decisions that let the team move quickly without cutting corners.',
     linkedin: 'https://www.linkedin.com/in/taylor-bagwell-824bba117/',
     photo: '/team/taylor.png',

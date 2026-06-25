@@ -195,6 +195,18 @@ const [notifA, setNotifA] = useState(0);
           .co-testi-grid { grid-template-columns: 1fr !important; }
           .co-feat-body { grid-template-columns: 1fr !important; }
         }
+        .co-chip { position: absolute; background: #fff; border-radius: 16px; padding: 14px 18px; box-shadow: 0 16px 48px rgba(4,22,53,0.22), 0 2px 8px rgba(4,22,53,0.1); display: flex; align-items: center; gap: 14px; border: 1px solid rgba(4,22,53,0.07); }
+        @media (max-width: 640px) { .co-chip { padding: 9px 12px; gap: 9px; border-radius: 12px; box-shadow: 0 8px 24px rgba(4,22,53,0.18); } }
+        .co-chip-icon { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        @media (max-width: 640px) { .co-chip-icon { width: 30px; height: 30px; border-radius: 8px; } }
+        .co-chip-icon svg { width: 18px; height: 18px; }
+        @media (max-width: 640px) { .co-chip-icon svg { width: 13px; height: 13px; } }
+        .co-chip-title { font-size: 13px; font-weight: 700; color: #041635; font-family: var(--font-body); line-height: 1.2; }
+        @media (max-width: 640px) { .co-chip-title { font-size: 11px; } }
+        .co-chip-sub { font-size: 12px; color: #6B7280; font-family: var(--font-body); margin-top: 3px; }
+        @media (max-width: 640px) { .co-chip-sub { font-size: 10px; margin-top: 2px; } }
+        .co-chip-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+        @media (max-width: 640px) { .co-chip-dot { width: 7px; height: 7px; } }
         @media (max-width: 600px) {
           .co-stats-row { grid-template-columns: 1fr !important; }
         }
@@ -369,68 +381,99 @@ const [notifA, setNotifA] = useState(0);
                     <div style={{ maxHeight: '520px', overflow: 'hidden', position: 'relative' }}>
                       <Image src={t.img} alt={t.alt} width={2880} height={1419} quality={100} style={{ width: '100%', height: 'auto', display: 'block' }} />
 
-                      {/* ── AI Screening overlay ── */}
-                      {t.id === 'ai' && (
-                        <motion.div key="ai-overlay" initial={{ opacity: 0, y: 14, scale: 0.94 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.45, duration: 0.35, ease: 'easeOut' }}
-                          style={{ position: 'absolute', bottom: '20px', right: '20px', background: '#fff', borderRadius: '14px', padding: '12px 16px', boxShadow: '0 8px 32px rgba(4,22,53,0.18)', display: 'flex', alignItems: 'center', gap: '12px', border: '1px solid #E2E4E9' }}>
-                          <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: '#041635', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D8F950" strokeWidth="2.2" strokeLinecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                      {/* ── AI Screening overlays ── */}
+                      {t.id === 'ai' && (<>
+                        <motion.div key="ai-1" className="co-chip" initial={{ opacity: 0, y: 20, scale: 0.92 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.3, duration: 0.4, ease: [0.22,1,0.36,1] }} style={{ bottom: '20px', right: '16px' }}>
+                          <div className="co-chip-icon" style={{ background: '#041635' }}>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#D8F950" strokeWidth="2.2" strokeLinecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
                           </div>
                           <div>
-                            <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>4 candidates ranked by AI</p>
-                            <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px' }}>Top pick: A · 91/100</p>
+                            <p className="co-chip-title">Zara Mitchell — ranked #1</p>
+                            <p className="co-chip-sub">A · 91/100 · scored by Reslink AI</p>
                           </div>
-                          <motion.div animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
-                            style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#0C63E3', flexShrink: 0 }} />
+                          <motion.div className="co-chip-dot" animate={{ opacity: [1, 0.25, 1] }} transition={{ repeat: Infinity, duration: 1.8 }} style={{ background: '#0C63E3' }} />
                         </motion.div>
-                      )}
+                        <motion.div key="ai-2" className="co-chip" initial={{ opacity: 0, y: 20, scale: 0.92 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.65, duration: 0.4, ease: [0.22,1,0.36,1] }} style={{ bottom: '20px', left: '16px' }}>
+                          <div className="co-chip-icon" style={{ background: '#EEF4FF' }}>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="2.2" strokeLinecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                          </div>
+                          <div>
+                            <p className="co-chip-title">4 candidates scored</p>
+                            <p className="co-chip-sub">2 top picks · 1 A+ · ready to review</p>
+                          </div>
+                        </motion.div>
+                      </>)}
 
-                      {/* ── Team Collaboration overlay ── */}
-                      {t.id === 'collab' && (
-                        <motion.div key="collab-overlay" initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.45, duration: 0.35, ease: 'easeOut' }}
-                          style={{ position: 'absolute', bottom: '20px', left: '20px', background: '#fff', borderRadius: '14px', padding: '12px 16px', boxShadow: '0 8px 32px rgba(4,22,53,0.18)', display: 'flex', alignItems: 'center', gap: '12px', border: '1px solid #E2E4E9' }}>
-                          <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: '#7C3AED', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                            <span style={{ fontSize: '12px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>JP</span>
+                      {/* ── Team Collaboration overlays ── */}
+                      {t.id === 'collab' && (<>
+                        <motion.div key="collab-1" className="co-chip" initial={{ opacity: 0, x: -24, scale: 0.92 }} animate={{ opacity: 1, x: 0, scale: 1 }} transition={{ delay: 0.3, duration: 0.4, ease: [0.22,1,0.36,1] }} style={{ bottom: '24px', left: '16px' }}>
+                          <div className="co-chip-icon" style={{ background: '#7C3AED', borderRadius: '50%' }}>
+                            <span style={{ fontSize: '13px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>JP</span>
                           </div>
                           <div>
-                            <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>James Park left a note</p>
-                            <motion.p initial={{ width: 0 }} animate={{ width: 'auto' }} transition={{ delay: 0.9, duration: 0.6 }}
-                              style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px', overflow: 'hidden', whiteSpace: 'nowrap' }}>
-                              &ldquo;Impressive side projects for intern level&rdquo;
-                            </motion.p>
+                            <p className="co-chip-title">James Park left a note</p>
+                            <p className="co-chip-sub">&ldquo;Impressive — component library is legit&rdquo;</p>
                           </div>
                         </motion.div>
-                      )}
+                        <motion.div key="collab-2" className="co-chip" initial={{ opacity: 0, x: 24, scale: 0.92 }} animate={{ opacity: 1, x: 0, scale: 1 }} transition={{ delay: 0.7, duration: 0.4, ease: [0.22,1,0.36,1] }} style={{ bottom: '24px', right: '16px' }}>
+                          <div className="co-chip-icon" style={{ background: '#FFF7ED', borderRadius: '50%' }}>
+                            <span style={{ fontSize: '13px', fontWeight: 900, color: '#D97706', fontFamily: 'var(--font-phudu)' }}>YO</span>
+                          </div>
+                          <div>
+                            <p className="co-chip-title">You rated 4 stars</p>
+                            <p className="co-chip-sub">2 teammates also reviewed · just now</p>
+                          </div>
+                          <div style={{ display: 'flex', gap: '2px' }}>
+                            {[1,2,3,4].map(s => <svg key={s} width="12" height="12" viewBox="0 0 24 24" fill="#F59E0B" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>)}
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="#E5E7EB" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                          </div>
+                        </motion.div>
+                      </>)}
 
-                      {/* ── Pipeline overlay ── */}
-                      {t.id === 'pipeline' && (
-                        <motion.div key="pipeline-overlay" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45, duration: 0.35, ease: 'easeOut' }}
-                          style={{ position: 'absolute', bottom: '20px', right: '20px', background: '#fff', borderRadius: '14px', padding: '12px 16px', boxShadow: '0 8px 32px rgba(4,22,53,0.18)', display: 'flex', alignItems: 'center', gap: '12px', border: '1px solid #E2E4E9' }}>
-                          <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: '#D8F950', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#041635" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                      {/* ── Pipeline overlays ── */}
+                      {t.id === 'pipeline' && (<>
+                        <motion.div key="pipe-1" className="co-chip" initial={{ opacity: 0, y: 20, scale: 0.92 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.3, duration: 0.4, ease: [0.22,1,0.36,1] }} style={{ bottom: '24px', right: '16px' }}>
+                          <div className="co-chip-icon" style={{ background: '#D8F950', borderRadius: '50%' }}>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#041635" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                           </div>
                           <div>
-                            <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Eleanor Chu moved to Final Round</p>
-                            <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px' }}>A+ · 95/100 · Senior Product Designer</p>
+                            <p className="co-chip-title">Eleanor Chu → Final Round</p>
+                            <p className="co-chip-sub">A+ · 95/100 · Senior Product Designer</p>
                           </div>
                         </motion.div>
-                      )}
+                        <motion.div key="pipe-2" className="co-chip" initial={{ opacity: 0, y: 20, scale: 0.92 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.7, duration: 0.4, ease: [0.22,1,0.36,1] }} style={{ bottom: '24px', left: '16px' }}>
+                          <div className="co-chip-icon" style={{ background: '#F0FDF4' }}>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2.2" strokeLinecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
+                          </div>
+                          <div>
+                            <p className="co-chip-title">Final Round · 5 candidates</p>
+                            <p className="co-chip-sub">3 A grades · avg score 92/100</p>
+                          </div>
+                        </motion.div>
+                      </>)}
 
-                      {/* ── Job Board overlay ── */}
-                      {t.id === 'board' && (
-                        <motion.div key="board-overlay" initial={{ opacity: 0, y: 14, scale: 0.94 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.45, duration: 0.35, ease: 'easeOut' }}
-                          style={{ position: 'absolute', bottom: '20px', right: '20px', background: '#fff', borderRadius: '14px', padding: '12px 16px', boxShadow: '0 8px 32px rgba(4,22,53,0.18)', display: 'flex', alignItems: 'center', gap: '12px', border: '1px solid #E2E4E9' }}>
-                          <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="2.2" strokeLinecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                      {/* ── Job Board overlays ── */}
+                      {t.id === 'board' && (<>
+                        <motion.div key="board-1" className="co-chip" initial={{ opacity: 0, y: 20, scale: 0.92 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.3, duration: 0.4, ease: [0.22,1,0.36,1] }} style={{ bottom: '24px', right: '16px' }}>
+                          <div className="co-chip-icon" style={{ background: '#EEF4FF' }}>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="2.2" strokeLinecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                           </div>
                           <div>
-                            <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>New application received</p>
-                            <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px' }}>Marketing Intern · with video pitch</p>
+                            <p className="co-chip-title">New application · Zara Mitchell</p>
+                            <p className="co-chip-sub">Marketing Intern · with video pitch · just now</p>
                           </div>
-                          <motion.div animate={{ scale: [1, 1.4, 1], opacity: [1, 0.5, 1] }} transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
-                            style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#16A34A', flexShrink: 0 }} />
+                          <motion.div className="co-chip-dot" animate={{ scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }} transition={{ repeat: Infinity, duration: 1.6 }} style={{ background: '#16A34A' }} />
                         </motion.div>
-                      )}
+                        <motion.div key="board-2" className="co-chip" initial={{ opacity: 0, y: 20, scale: 0.92 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.75, duration: 0.4, ease: [0.22,1,0.36,1] }} style={{ bottom: '24px', left: '16px' }}>
+                          <div className="co-chip-icon" style={{ background: '#F0FDF4' }}>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2.2" strokeLinecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                          </div>
+                          <div>
+                            <p className="co-chip-title">6 applicants this week</p>
+                            <p className="co-chip-sub">Synced to LinkedIn · Indeed · ZipRecruiter</p>
+                          </div>
+                        </motion.div>
+                      </>)}
                     </div>
                   </motion.div>
 

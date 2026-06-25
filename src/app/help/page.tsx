@@ -172,15 +172,32 @@ export default function HelpPage() {
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
 
             {/* Tabs */}
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '40px' }}>
-              <div style={{ background: '#ECEEF1', borderRadius: '12px', padding: '4px', display: 'flex', gap: '2px' }}>
+            <style>{`
+              .help-tabs-wrap { display: flex; justify-content: center; margin-bottom: 12px; }
+              .help-tabs-inner { background: #ECEEF1; border-radius: 12px; padding: 4px; display: flex; gap: 2px; }
+              .help-swipe-hint { display: none; }
+              @media (max-width: 600px) {
+                .help-tabs-wrap { justify-content: flex-start; overflow-x: auto; padding: 0 0 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+                .help-tabs-wrap::-webkit-scrollbar { display: none; }
+                .help-tabs-inner { flex-shrink: 0; }
+                .help-swipe-hint { display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 28px; }
+              }
+              @media (min-width: 601px) { .help-tabs-wrap { margin-bottom: 40px; } }
+            `}</style>
+            <div className="help-tabs-wrap">
+              <div className="help-tabs-inner">
                 {[{ id: 'seeker', label: 'For Job Seekers' }, { id: 'company', label: 'For Companies' }, { id: 'recruiter', label: 'For Recruiters' }, { id: 'university', label: 'For Universities' }].map(t => (
                   <button key={t.id} onClick={() => setTab(t.id as 'seeker' | 'company')}
-                    style={{ padding: '10px 22px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', transition: 'all 0.2s', background: tab === t.id ? '#041635' : 'transparent', color: tab === t.id ? '#fff' : '#9A9FA8' }}>
+                    style={{ padding: '10px 22px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', transition: 'all 0.2s', background: tab === t.id ? '#041635' : 'transparent', color: tab === t.id ? '#fff' : '#9A9FA8', whiteSpace: 'nowrap' }}>
                     {t.label}
                   </button>
                 ))}
               </div>
+            </div>
+            <div className="help-swipe-hint">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A9FA8" strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
+              <span style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', fontWeight: 500, letterSpacing: '0.04em' }}>Swipe to explore categories</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A9FA8" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
             </div>
 
             <motion.div key={tab} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}>

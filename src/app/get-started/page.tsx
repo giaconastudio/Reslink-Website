@@ -48,7 +48,7 @@ const PANELS: Record<AccountType, {
     logos: ['Columbia', 'Princeton', 'Michigan', 'Cambridge', 'GWU', 'Syracuse'],
   },
   veteran: {
-    image: 'https://images.pexels.com/photos/3778680/pexels-photo-3778680.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    image: '/military1.jpg',
     overlay: 'linear-gradient(160deg, rgba(4,22,53,0.85) 0%, rgba(4,22,53,0.72) 100%)',
     headline: 'From service\nto standout.',
     sub: 'Translate your military experience into civilian opportunities.',

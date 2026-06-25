@@ -207,6 +207,10 @@ const [notifA, setNotifA] = useState(0);
         @media (max-width: 640px) { .co-chip-sub { display: none; } }
         .co-chip-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
         @media (max-width: 640px) { .co-chip-dot { width: 5px; height: 5px; } }
+        .co-chip-tl { position: absolute; top: -18px; left: -22px; z-index: 10; }
+        .co-chip-br { position: absolute; bottom: -18px; right: -22px; z-index: 10; }
+        @media (max-width: 640px) { .co-chip-tl { top: -8px; left: -4px; } }
+        @media (max-width: 640px) { .co-chip-br { bottom: -8px; right: -4px; } }
         @media (max-width: 600px) {
           .co-stats-row { grid-template-columns: 1fr !important; }
         }
@@ -385,7 +389,7 @@ const [notifA, setNotifA] = useState(0);
 
                     {/* ── AI Screening overlays ── */}
                     {t.id === 'ai' && (<>
-                      <motion.div key="ai-float-1" style={{ position: 'absolute', top: '-18px', left: '-22px', zIndex: 10 }} animate={{ y: [0, -7, 0] }} transition={{ repeat: Infinity, duration: 3.2, ease: 'easeInOut', delay: 0.75 }}>
+                      <motion.div key="ai-float-1" className="co-chip-tl" animate={{ y: [0, -7, 0] }} transition={{ repeat: Infinity, duration: 3.2, ease: 'easeInOut', delay: 0.75 }}>
                         <motion.div className="co-chip" initial={{ opacity: 0, y: -16, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.3, duration: 0.45, ease: [0.22,1,0.36,1] }}>
                           <div className="co-chip-icon" style={{ background: '#041635' }}>
                             <svg viewBox="0 0 24 24" fill="none" stroke="#D8F950" strokeWidth="2.2" strokeLinecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
@@ -397,7 +401,7 @@ const [notifA, setNotifA] = useState(0);
                           <motion.div className="co-chip-dot" animate={{ opacity: [1, 0.25, 1] }} transition={{ repeat: Infinity, duration: 1.8 }} style={{ background: '#0C63E3' }} />
                         </motion.div>
                       </motion.div>
-                      <motion.div key="ai-float-2" style={{ position: 'absolute', bottom: '-18px', right: '-22px', zIndex: 10 }} animate={{ y: [0, -5, 0] }} transition={{ repeat: Infinity, duration: 2.8, ease: 'easeInOut', delay: 1.1 }}>
+                      <motion.div key="ai-float-2" className="co-chip-br" animate={{ y: [0, -5, 0] }} transition={{ repeat: Infinity, duration: 2.8, ease: 'easeInOut', delay: 1.1 }}>
                         <motion.div className="co-chip" initial={{ opacity: 0, y: 16, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.65, duration: 0.45, ease: [0.22,1,0.36,1] }}>
                           <div className="co-chip-icon" style={{ background: '#EEF4FF' }}>
                             <svg viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="2.2" strokeLinecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
@@ -412,7 +416,7 @@ const [notifA, setNotifA] = useState(0);
 
                     {/* ── Team Collaboration overlays ── */}
                     {t.id === 'collab' && (<>
-                      <motion.div key="collab-float-1" style={{ position: 'absolute', top: '-18px', left: '-22px', zIndex: 10 }} animate={{ y: [0, -6, 0] }} transition={{ repeat: Infinity, duration: 3.4, ease: 'easeInOut', delay: 0.75 }}>
+                      <motion.div key="collab-float-1" className="co-chip-tl" animate={{ y: [0, -6, 0] }} transition={{ repeat: Infinity, duration: 3.4, ease: 'easeInOut', delay: 0.75 }}>
                         <motion.div className="co-chip" initial={{ opacity: 0, y: -16, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.3, duration: 0.45, ease: [0.22,1,0.36,1] }}>
                           <div className="co-chip-icon" style={{ background: '#7C3AED', borderRadius: '50%' }}>
                             <span style={{ fontSize: '13px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>JP</span>
@@ -423,7 +427,7 @@ const [notifA, setNotifA] = useState(0);
                           </div>
                         </motion.div>
                       </motion.div>
-                      <motion.div key="collab-float-2" style={{ position: 'absolute', bottom: '-18px', right: '-22px', zIndex: 10 }} animate={{ y: [0, -7, 0] }} transition={{ repeat: Infinity, duration: 3.0, ease: 'easeInOut', delay: 1.15 }}>
+                      <motion.div key="collab-float-2" className="co-chip-br" animate={{ y: [0, -7, 0] }} transition={{ repeat: Infinity, duration: 3.0, ease: 'easeInOut', delay: 1.15 }}>
                         <motion.div className="co-chip" initial={{ opacity: 0, y: 16, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.7, duration: 0.45, ease: [0.22,1,0.36,1] }}>
                           <div className="co-chip-icon" style={{ background: '#FFF7ED', borderRadius: '50%' }}>
                             <span style={{ fontSize: '13px', fontWeight: 900, color: '#D97706', fontFamily: 'var(--font-phudu)' }}>YO</span>
@@ -442,7 +446,7 @@ const [notifA, setNotifA] = useState(0);
 
                     {/* ── Pipeline overlays ── */}
                     {t.id === 'pipeline' && (<>
-                      <motion.div key="pipe-float-1" style={{ position: 'absolute', top: '-18px', left: '-22px', zIndex: 10 }} animate={{ y: [0, -8, 0] }} transition={{ repeat: Infinity, duration: 2.9, ease: 'easeInOut', delay: 0.75 }}>
+                      <motion.div key="pipe-float-1" className="co-chip-tl" animate={{ y: [0, -8, 0] }} transition={{ repeat: Infinity, duration: 2.9, ease: 'easeInOut', delay: 0.75 }}>
                         <motion.div className="co-chip" initial={{ opacity: 0, y: -16, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.3, duration: 0.45, ease: [0.22,1,0.36,1] }}>
                           <div className="co-chip-icon" style={{ background: '#D8F950', borderRadius: '50%' }}>
                             <svg viewBox="0 0 24 24" fill="none" stroke="#041635" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -453,7 +457,7 @@ const [notifA, setNotifA] = useState(0);
                           </div>
                         </motion.div>
                       </motion.div>
-                      <motion.div key="pipe-float-2" style={{ position: 'absolute', bottom: '-18px', right: '-22px', zIndex: 10 }} animate={{ y: [0, -6, 0] }} transition={{ repeat: Infinity, duration: 3.3, ease: 'easeInOut', delay: 1.15 }}>
+                      <motion.div key="pipe-float-2" className="co-chip-br" animate={{ y: [0, -6, 0] }} transition={{ repeat: Infinity, duration: 3.3, ease: 'easeInOut', delay: 1.15 }}>
                         <motion.div className="co-chip" initial={{ opacity: 0, y: 16, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.7, duration: 0.45, ease: [0.22,1,0.36,1] }}>
                           <div className="co-chip-icon" style={{ background: '#F0FDF4' }}>
                             <svg viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2.2" strokeLinecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
@@ -468,7 +472,7 @@ const [notifA, setNotifA] = useState(0);
 
                     {/* ── Job Board overlays ── */}
                     {t.id === 'board' && (<>
-                      <motion.div key="board-float-1" style={{ position: 'absolute', top: '-18px', left: '-22px', zIndex: 10 }} animate={{ y: [0, -7, 0] }} transition={{ repeat: Infinity, duration: 3.1, ease: 'easeInOut', delay: 0.75 }}>
+                      <motion.div key="board-float-1" className="co-chip-tl" animate={{ y: [0, -7, 0] }} transition={{ repeat: Infinity, duration: 3.1, ease: 'easeInOut', delay: 0.75 }}>
                         <motion.div className="co-chip" initial={{ opacity: 0, y: -16, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.3, duration: 0.45, ease: [0.22,1,0.36,1] }}>
                           <div className="co-chip-icon" style={{ background: '#EEF4FF' }}>
                             <svg viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="2.2" strokeLinecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -480,7 +484,7 @@ const [notifA, setNotifA] = useState(0);
                           <motion.div className="co-chip-dot" animate={{ scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }} transition={{ repeat: Infinity, duration: 1.6 }} style={{ background: '#16A34A' }} />
                         </motion.div>
                       </motion.div>
-                      <motion.div key="board-float-2" style={{ position: 'absolute', bottom: '-18px', right: '-22px', zIndex: 10 }} animate={{ y: [0, -5, 0] }} transition={{ repeat: Infinity, duration: 2.7, ease: 'easeInOut', delay: 1.2 }}>
+                      <motion.div key="board-float-2" className="co-chip-br" animate={{ y: [0, -5, 0] }} transition={{ repeat: Infinity, duration: 2.7, ease: 'easeInOut', delay: 1.2 }}>
                         <motion.div className="co-chip" initial={{ opacity: 0, y: 16, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.75, duration: 0.45, ease: [0.22,1,0.36,1] }}>
                           <div className="co-chip-icon" style={{ background: '#F0FDF4' }}>
                             <svg viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2.2" strokeLinecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>

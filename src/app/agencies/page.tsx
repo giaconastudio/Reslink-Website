@@ -66,32 +66,16 @@ function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; 
   );
 }
 
-const TESTIMONIALS = [
-  { quote: "We sent a Reslink shortlist to a new client on a retained search. They called us back in two hours and asked who else we could bring them. Nothing we've sent before has ever done that.", name: 'Rachel Kim', role: 'Managing Director', company: 'Vantage Talent Group', color: '#0C63E3' },
+const AG_FEATURED = {
+  quote: "We sent a Reslink shortlist to a new client on a retained search. They called us back in two hours and asked who else we could bring them. Nothing we've sent before has ever done that.",
+  name: 'Rachel Kim', role: 'Managing Director', company: 'Vantage Talent Group', color: '#0C63E3',
+};
+const AG_SIDE_QUOTES = [
   { quote: "Our close rate on shortlisted roles went up immediately. Clients make faster decisions when they've watched the candidate. Less ghosting, less uncertainty. Reslink fixed something we didn't know how to fix.", name: 'Marcus Bell', role: 'Senior Partner', company: 'Apex Search', color: '#7C3AED' },
   { quote: "We were competing against four other agencies on a Director of Sales search. We were the only firm that sent Reslink profiles. We won the placement and they put us on their preferred vendor list.", name: 'Lena Osei', role: 'Founder', company: 'Meridian Recruitment', color: '#059669' },
   { quote: 'The tracking data alone changed how we follow up. I know which candidates my client watched twice. I know who they skipped. I can coach candidates and have smarter conversations with clients.', name: 'Jason Torres', role: 'Principal Recruiter', company: 'Clearline Staffing', color: '#D97706' },
 ];
 
-function TestiCard({ t }: { t: typeof TESTIMONIALS[0] }) {
-  return (
-    <div style={{ background: '#fff', borderRadius: '16px', padding: '24px 26px', border: '1px solid #ECEEF1', width: '340px', flexShrink: 0, boxShadow: '0 2px 12px rgba(4,22,53,0.05)' }}>
-      <div style={{ display: 'flex', gap: '3px', marginBottom: '14px' }}>
-        {[...Array(5)].map((_, j) => <Star key={j} size={13} fill="#D8F950" color="#D8F950" />)}
-      </div>
-      <p style={{ fontSize: '14px', color: '#3A3F4C', lineHeight: 1.65, marginBottom: '20px', fontFamily: 'var(--font-body)' }}>&ldquo;{t.quote}&rdquo;</p>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: t.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '11px', fontWeight: 700, flexShrink: 0, fontFamily: 'var(--font-phudu)' }}>
-          {t.name.split(' ').filter((_, i) => i > 0).map(n => n[0]).join('')}
-        </div>
-        <div>
-          <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{t.name}</p>
-          <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{t.role} · {t.company}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function CandidateCard({ name, title, color, viewed, time, delay }: { name: string; title: string; color: string; viewed: boolean; time: string; delay: number }) {
   return (
@@ -122,8 +106,6 @@ function CandidateCard({ name, title, color, viewed, time, delay }: { name: stri
 
 export default function AgenciesPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const doubled = [...TESTIMONIALS, ...TESTIMONIALS];
-
   const candidates = [
     { name: 'Sarah Mitchell', title: 'VP of Sales · 12 yrs exp.', color: '#0C63E3', viewed: true, time: 'Watched 2x' },
     { name: 'Daniel Park', title: 'Director of Marketing · 8 yrs exp.', color: '#7C3AED', viewed: true, time: 'Watched 1:42' },
@@ -135,11 +117,9 @@ export default function AgenciesPage() {
     <>
       <Navbar />
       <style>{`
-        @keyframes ag-testi { from { transform: translateX(0) } to { transform: translateX(-50%) } }
-        @keyframes ag-testi-rev { from { transform: translateX(-50%) } to { transform: translateX(0) } }
-        .ag-testi-track { animation: ag-testi 30s linear infinite; display: flex; }
-        .ag-testi-track-rev { animation: ag-testi-rev 36s linear infinite; display: flex; }
-        .ag-testi-track:hover, .ag-testi-track-rev:hover { animation-play-state: paused; }
+        .ag-testi-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: stretch; }
+        .ag-testi-side { display: flex; flex-direction: column; gap: 16px; }
+        @media (max-width: 760px) { .ag-testi-grid { grid-template-columns: 1fr !important; } }
         .ag-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
         .ag-feat-alt { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
         .ag-stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; }
@@ -395,22 +375,57 @@ export default function AgenciesPage() {
         </section>
 
         {/* ─── Testimonials ─── */}
-        <section style={{ padding: 'clamp(64px, 8vw, 100px) 0', background: '#fff', overflow: 'hidden' }}>
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} style={{ textAlign: 'center', maxWidth: '500px', margin: '0 auto 56px', padding: '0 24px' }}>
-            <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>What agencies say</p>
-            <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#041635', lineHeight: 0.98 }}>
-              Recruiters who switched<br />don&apos;t go back.
-            </h2>
-          </motion.div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '48px' }}>
-            <div style={{ overflow: 'hidden' }}>
-              <div className="ag-testi-track" style={{ display: 'flex', gap: '16px', paddingLeft: '16px' }}>
-                {doubled.map((t, i) => <TestiCard key={i} t={t} />)}
-              </div>
-            </div>
-            <div style={{ overflow: 'hidden' }}>
-              <div className="ag-testi-track-rev" style={{ display: 'flex', gap: '16px', paddingLeft: '16px' }}>
-                {[...doubled].reverse().map((t, i) => <TestiCard key={i} t={t} />)}
+        <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
+          <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} style={{ textAlign: 'center', marginBottom: '56px' }}>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>What agencies say</p>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#041635', lineHeight: 0.98 }}>
+                Recruiters who switched<br />don&apos;t go back.
+              </h2>
+            </motion.div>
+            <div className="ag-testi-grid">
+              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }}>
+                <div style={{ background: '#041635', borderRadius: '20px', padding: 'clamp(32px, 4vw, 48px)', height: '100%', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                  <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: '400px', height: '400px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.25), transparent 65%)', pointerEvents: 'none' }} />
+                  <div style={{ position: 'relative', zIndex: 1 }}>
+                    <div style={{ display: 'flex', gap: '3px', marginBottom: '24px' }}>
+                      {[...Array(5)].map((_, j) => <Star key={j} size={16} fill="#D8F950" color="#D8F950" />)}
+                    </div>
+                    <p style={{ fontSize: 'clamp(17px, 2vw, 22px)', color: '#fff', lineHeight: 1.6, fontFamily: 'var(--font-body)', fontWeight: 500, marginBottom: '32px' }}>&ldquo;{AG_FEATURED.quote}&rdquo;</p>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px', position: 'relative', zIndex: 1 }}>
+                    <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: AG_FEATURED.color, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <span style={{ fontSize: '14px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>{AG_FEATURED.name.split(' ').map(n => n[0]).join('')}</span>
+                    </div>
+                    <div>
+                      <p style={{ fontSize: '15px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{AG_FEATURED.name}</p>
+                      <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)' }}>{AG_FEATURED.role} at {AG_FEATURED.company}</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+              <div className="ag-testi-side">
+                {AG_SIDE_QUOTES.map((q, i) => (
+                  <motion.div key={q.name} initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ delay: i * 0.1 }} style={{ flex: 1 }}>
+                    <div style={{ background: '#F7F8FA', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '24px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                      <div>
+                        <div style={{ display: 'flex', gap: '3px', marginBottom: '12px' }}>
+                          {[...Array(5)].map((_, j) => <Star key={j} size={12} fill="#D8F950" color="#D8F950" />)}
+                        </div>
+                        <p style={{ fontSize: '14px', color: '#3A3F4C', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginBottom: '16px' }}>&ldquo;{q.quote}&rdquo;</p>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: q.color, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                          <span style={{ fontSize: '11px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>{q.name.split(' ').map(n => n[0]).join('')}</span>
+                        </div>
+                        <div>
+                          <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{q.name}</p>
+                          <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{q.role} at {q.company}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
             </div>
           </div>

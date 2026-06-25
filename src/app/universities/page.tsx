@@ -48,46 +48,26 @@ function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; 
   );
 }
 
-const TESTIMONIALS = [
-  { quote: 'Before Reslink our students were submitting PDFs no one was reading. Now employers watch their pitch before the first call. Our placement rate is up 34% in one year.', name: 'Dr. Angela Torres', role: 'Director of Career Services', company: 'Westfield University', color: '#059669' },
-  { quote: 'Employers come back to us now. They tell us our students are different. They actually know how to present themselves. Reslink made that happen.', name: 'Marcus Webb', role: 'Career Development Lead', company: 'Central State University', color: '#0C63E3' },
-  { quote: 'Students who were struggling to get callbacks started landing interviews once they had a video profile. It levels the playing field in a way a resume never could.', name: 'James Holman', role: 'Career Counselor', company: 'Summit Institute', color: '#7C3AED' },
+const UNI_FEATURED = {
+  quote: "Before Reslink our students were submitting PDFs no one was reading. Now employers watch their pitch before the first call. Our placement rate is up 34% in one year.",
+  name: 'Dr. Angela Torres', role: 'Director of Career Services', company: 'Westfield University', color: '#059669',
+};
+const UNI_SIDE_QUOTES = [
+  { quote: "Employers come back to us now. They tell us our students are different. They actually know how to present themselves. Reslink made that happen.", name: 'Marcus Webb', role: 'Career Development Lead', company: 'Central State University', color: '#0C63E3' },
+  { quote: "Students who were struggling to get callbacks started landing interviews once they had a video profile. It levels the playing field in a way a resume never could.", name: 'James Holman', role: 'Career Counselor', company: 'Summit Institute', color: '#7C3AED' },
   { quote: 'We used to rely on word of mouth to prove our placement numbers. Now I pull a real report every semester and show exactly what our career center delivered.', name: 'Priya Desai', role: 'VP of Student Success', company: 'Northgate College', color: '#D97706' },
 ];
 
-function TestiCard({ t }: { t: typeof TESTIMONIALS[0] }) {
-  return (
-    <div style={{ background: '#fff', borderRadius: '16px', padding: '24px 26px', border: '1px solid #ECEEF1', width: '340px', flexShrink: 0, boxShadow: '0 2px 12px rgba(4,22,53,0.05)' }}>
-      <div style={{ display: 'flex', gap: '3px', marginBottom: '14px' }}>
-        {[...Array(5)].map((_, j) => <Star key={j} size={13} fill="#D8F950" color="#D8F950" />)}
-      </div>
-      <p style={{ fontSize: '14px', color: '#3A3F4C', lineHeight: 1.65, marginBottom: '20px', fontFamily: 'var(--font-body)' }}>&ldquo;{t.quote}&rdquo;</p>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: t.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '11px', fontWeight: 700, flexShrink: 0, fontFamily: 'var(--font-phudu)' }}>
-          {t.name.split(' ').filter((_, i) => i > 0).map(n => n[0]).join('')}
-        </div>
-        <div>
-          <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{t.name}</p>
-          <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{t.role} · {t.company}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function UniversitiesPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const doubled = [...TESTIMONIALS, ...TESTIMONIALS];
 
   return (
     <>
       <Navbar dark />
       <style>{`
-        @keyframes uni-testi { from { transform: translateX(0) } to { transform: translateX(-50%) } }
-        @keyframes uni-testi-rev { from { transform: translateX(-50%) } to { transform: translateX(0) } }
-        .uni-testi-track { animation: uni-testi 32s linear infinite; display: flex; }
-        .uni-testi-track-rev { animation: uni-testi-rev 38s linear infinite; display: flex; }
-        .uni-testi-track:hover, .uni-testi-track-rev:hover { animation-play-state: paused; }
+        .uni-testi-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: stretch; }
+        .uni-testi-side { display: flex; flex-direction: column; gap: 16px; }
+        @media (max-width: 760px) { .uni-testi-grid { grid-template-columns: 1fr !important; } }
         .uni-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
         .uni-feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .uni-outcome-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
@@ -351,22 +331,57 @@ export default function UniversitiesPage() {
         </section>
 
         {/* ─── Testimonials ─── */}
-        <section style={{ padding: 'clamp(64px, 8vw, 100px) 0', background: '#fff', overflow: 'hidden' }}>
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} style={{ textAlign: 'center', maxWidth: '520px', margin: '0 auto 56px', padding: '0 24px' }}>
-            <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>What career centers say</p>
-            <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#041635', lineHeight: 0.98, marginBottom: '16px' }}>
-              Trusted by career centers<br />that take outcomes seriously.
-            </h2>
-          </motion.div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '48px' }}>
-            <div style={{ overflow: 'hidden' }}>
-              <div className="uni-testi-track" style={{ display: 'flex', gap: '16px', paddingLeft: '16px' }}>
-                {doubled.map((t, i) => <TestiCard key={i} t={t} />)}
-              </div>
-            </div>
-            <div style={{ overflow: 'hidden' }}>
-              <div className="uni-testi-track-rev" style={{ display: 'flex', gap: '16px', paddingLeft: '16px' }}>
-                {[...doubled].reverse().map((t, i) => <TestiCard key={i} t={t} />)}
+        <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
+          <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} style={{ textAlign: 'center', marginBottom: '56px' }}>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>From career centers</p>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#041635', lineHeight: 0.98 }}>
+                Career centers that<br />get results.
+              </h2>
+            </motion.div>
+            <div className="uni-testi-grid">
+              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }}>
+                <div style={{ background: '#041635', borderRadius: '20px', padding: 'clamp(32px, 4vw, 48px)', height: '100%', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                  <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: '400px', height: '400px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.25), transparent 65%)', pointerEvents: 'none' }} />
+                  <div style={{ position: 'relative', zIndex: 1 }}>
+                    <div style={{ display: 'flex', gap: '3px', marginBottom: '24px' }}>
+                      {[...Array(5)].map((_, j) => <Star key={j} size={16} fill="#D8F950" color="#D8F950" />)}
+                    </div>
+                    <p style={{ fontSize: 'clamp(17px, 2vw, 22px)', color: '#fff', lineHeight: 1.6, fontFamily: 'var(--font-body)', fontWeight: 500, marginBottom: '32px' }}>&ldquo;{UNI_FEATURED.quote}&rdquo;</p>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px', position: 'relative', zIndex: 1 }}>
+                    <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: UNI_FEATURED.color, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <span style={{ fontSize: '14px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>{UNI_FEATURED.name.split(' ').map(n => n[0]).join('')}</span>
+                    </div>
+                    <div>
+                      <p style={{ fontSize: '15px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{UNI_FEATURED.name}</p>
+                      <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)' }}>{UNI_FEATURED.role} at {UNI_FEATURED.company}</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+              <div className="uni-testi-side">
+                {UNI_SIDE_QUOTES.map((q, i) => (
+                  <motion.div key={q.name} initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ delay: i * 0.1 }} style={{ flex: 1 }}>
+                    <div style={{ background: '#F7F8FA', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '24px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                      <div>
+                        <div style={{ display: 'flex', gap: '3px', marginBottom: '12px' }}>
+                          {[...Array(5)].map((_, j) => <Star key={j} size={12} fill="#D8F950" color="#D8F950" />)}
+                        </div>
+                        <p style={{ fontSize: '14px', color: '#3A3F4C', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginBottom: '16px' }}>&ldquo;{q.quote}&rdquo;</p>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: q.color, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                          <span style={{ fontSize: '11px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>{q.name.split(' ').map(n => n[0]).join('')}</span>
+                        </div>
+                        <div>
+                          <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{q.name}</p>
+                          <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{q.role} at {q.company}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
             </div>
           </div>

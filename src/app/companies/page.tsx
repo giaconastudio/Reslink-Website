@@ -196,17 +196,17 @@ const [notifA, setNotifA] = useState(0);
           .co-feat-body { grid-template-columns: 1fr !important; }
         }
         .co-chip { position: absolute; background: #fff; border-radius: 16px; padding: 14px 18px; box-shadow: 0 16px 48px rgba(4,22,53,0.22), 0 2px 8px rgba(4,22,53,0.1); display: flex; align-items: center; gap: 14px; border: 1px solid rgba(4,22,53,0.07); }
-        @media (max-width: 640px) { .co-chip { padding: 9px 12px; gap: 9px; border-radius: 12px; box-shadow: 0 8px 24px rgba(4,22,53,0.18); } }
+        @media (max-width: 640px) { .co-chip { padding: 6px 9px; gap: 6px; border-radius: 10px; box-shadow: 0 4px 16px rgba(4,22,53,0.15); } }
         .co-chip-icon { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        @media (max-width: 640px) { .co-chip-icon { width: 30px; height: 30px; border-radius: 8px; } }
+        @media (max-width: 640px) { .co-chip-icon { width: 22px; height: 22px; border-radius: 6px; } }
         .co-chip-icon svg { width: 18px; height: 18px; }
-        @media (max-width: 640px) { .co-chip-icon svg { width: 13px; height: 13px; } }
+        @media (max-width: 640px) { .co-chip-icon svg { width: 10px; height: 10px; } }
         .co-chip-title { font-size: 13px; font-weight: 700; color: #041635; font-family: var(--font-body); line-height: 1.2; }
-        @media (max-width: 640px) { .co-chip-title { font-size: 11px; } }
+        @media (max-width: 640px) { .co-chip-title { font-size: 9px; } }
         .co-chip-sub { font-size: 12px; color: #6B7280; font-family: var(--font-body); margin-top: 3px; }
-        @media (max-width: 640px) { .co-chip-sub { font-size: 10px; margin-top: 2px; } }
+        @media (max-width: 640px) { .co-chip-sub { display: none; } }
         .co-chip-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-        @media (max-width: 640px) { .co-chip-dot { width: 7px; height: 7px; } }
+        @media (max-width: 640px) { .co-chip-dot { width: 5px; height: 5px; } }
         @media (max-width: 600px) {
           .co-stats-row { grid-template-columns: 1fr !important; }
         }

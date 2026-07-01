@@ -36,6 +36,15 @@ const TEAM = [
     photo: '/team/roxanne.webp',
   },
   {
+    name: 'Dan London',
+    initials: 'DL',
+    color: '#059669',
+    title: 'Executive Adviser',
+    bio: 'Dan is a seasoned executive with a track record of scaling SaaS companies from early-stage to market leadership. He advises Reslink on strategy, fundraising, and building the organizational foundation for sustainable growth.',
+    linkedin: null,
+    photo: '/team/dan.jpg',
+  },
+  {
     name: 'Taylor Bagwell',
     initials: 'TB',
     color: '#0891B2',

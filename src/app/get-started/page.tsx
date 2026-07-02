@@ -185,8 +185,9 @@ export default function GetStartedPage() {
                         setAudience(a);
                         setSelectedType(a === 'individual' ? 'seeker' : 'company');
                       }}
-                        style={{ flex: 1, padding: '10px 12px', borderRadius: '10px', border: 'none', background: audience === a ? '#0C63E3' : 'transparent', color: audience === a ? '#fff' : '#9A9FA8', fontSize: '13px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: 'pointer', transition: 'all 0.2s', boxShadow: audience === a ? '0 2px 10px rgba(12,99,227,0.28)' : 'none' }}>
-                        {a === 'individual' ? 'Individuals' : 'Organizations'}
+                        style={{ flex: 1, padding: '10px 12px', borderRadius: '10px', border: 'none', background: 'transparent', color: audience === a ? '#fff' : '#9A9FA8', fontSize: '13px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: 'pointer', transition: 'color 0.2s', position: 'relative' }}>
+                        {audience === a && <motion.span layoutId="gsAudiencePill" transition={{ type: 'spring', stiffness: 450, damping: 38 }} style={{ position: 'absolute', inset: 0, background: '#0C63E3', borderRadius: '10px', boxShadow: '0 2px 10px rgba(12,99,227,0.28)', zIndex: 0 }} />}
+                        <span style={{ position: 'relative', zIndex: 1 }}>{a === 'individual' ? 'Individuals' : 'Organizations'}</span>
                       </button>
                     ))}
                   </div>

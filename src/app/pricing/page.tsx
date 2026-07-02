@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Check, X, Zap, Star, Minus, Plus, Briefcase, Building2, Users, ShieldCheck, Globe, Lock, RefreshCw } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { TiltCard } from '@/components/TiltCard';
 
 /* ─── Job seeker plan features ─── */
 const SEEKER_FREE = [
@@ -302,7 +303,7 @@ export default function PricingPage() {
                   <div className="pricing-grid-2">
 
                     {/* Free */}
-                    <div style={{ background: '#F7F8FA', borderRadius: '20px', border: '1px solid #ECEEF1', padding: 'clamp(28px, 4vw, 40px)', display: 'flex', flexDirection: 'column' }}>
+                    <TiltCard max={3} style={{ background: '#F7F8FA', borderRadius: '20px', border: '1px solid #ECEEF1', padding: 'clamp(28px, 4vw, 40px)', display: 'flex', flexDirection: 'column', boxSizing: 'border-box' }}>
                       <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>Free</p>
                       <div style={{ display: 'flex', alignItems: 'flex-end', gap: '4px', marginBottom: '6px' }}>
                         <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(44px, 5.5vw, 56px)', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em' }}>$0</span>
@@ -315,10 +316,10 @@ export default function PricingPage() {
                       <Link href="/get-started" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#fff', color: '#041635', fontWeight: 700, fontSize: '15px', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)', border: '1.5px solid #E4E6EC' }}>
                         Get started free
                       </Link>
-                    </div>
+                    </TiltCard>
 
                     {/* Premium */}
-                    <div style={{ background: '#041635', borderRadius: '20px', border: '2px solid #D8F950', padding: 'clamp(28px, 4vw, 40px)', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', boxShadow: '0 24px 80px rgba(4,22,53,0.18)' }}>
+                    <TiltCard max={3} style={{ background: '#041635', borderRadius: '20px', border: '2px solid #D8F950', padding: 'clamp(28px, 4vw, 40px)', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', boxShadow: '0 24px 80px rgba(4,22,53,0.18)', boxSizing: 'border-box' }}>
                       <div style={{ position: 'absolute', top: '-40%', right: '-20%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(12,99,227,0.2), transparent 65%)', pointerEvents: 'none' }} />
                       <div style={{ position: 'absolute', top: '20px', right: '20px', fontSize: '10px', fontWeight: 700, color: '#041635', background: '#D8F950', padding: '4px 12px', borderRadius: '100px', letterSpacing: '0.06em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>Most popular</div>
                       <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -346,7 +347,7 @@ export default function PricingPage() {
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                         </Link>
                       </div>
-                    </div>
+                    </TiltCard>
                   </div>
 
                   {/* Trust row — no emojis */}

@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import {
   ChevronDown, Menu, X,
   Briefcase, Building2, Users, GraduationCap,
@@ -136,15 +137,23 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
               </button>
               {open === 'solutions' && (
                 <div onMouseEnter={() => openDropdown('solutions')} onMouseLeave={scheduleClose} style={{ position: 'absolute', top: '100%', left: '-8px', paddingTop: '6px', zIndex: 100 }}>
-                  <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #EEEEF0', boxShadow: '0 12px 40px rgba(4,22,53,0.12), 0 2px 8px rgba(4,22,53,0.06)', padding: '16px', minWidth: '540px' }}>
+                  <motion.div initial={{ opacity: 0, y: 8, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.18, ease: 'easeOut' }} style={{ background: '#fff', borderRadius: '16px', border: '1px solid #EEEEF0', boxShadow: '0 12px 40px rgba(4,22,53,0.12), 0 2px 8px rgba(4,22,53,0.06)', padding: '16px', minWidth: '540px', transformOrigin: 'top left' }}>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0', alignItems: 'start' }}>
                       <div style={{ paddingRight: '12px', borderRight: '1px solid #F3F4F6' }}>
                         <p style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#B0B8C8', fontFamily: 'var(--font-body)', marginBottom: '6px', padding: '0 6px' }}>For individuals</p>
-                        {solutions.filter(s => !s.forOrg).map(s => <DropItem key={s.href} {...s} onClick={() => setOpen(null)} />)}
+                        {solutions.filter(s => !s.forOrg).map((s, i) => (
+                          <motion.div key={s.href} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 + i * 0.045, duration: 0.18 }}>
+                            <DropItem {...s} onClick={() => setOpen(null)} />
+                          </motion.div>
+                        ))}
                       </div>
                       <div style={{ paddingLeft: '12px' }}>
                         <p style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#B0B8C8', fontFamily: 'var(--font-body)', marginBottom: '6px', padding: '0 6px' }}>For organizations</p>
-                        {solutions.filter(s => s.forOrg).map(s => <DropItem key={s.href} {...s} onClick={() => setOpen(null)} />)}
+                        {solutions.filter(s => s.forOrg).map((s, i) => (
+                          <motion.div key={s.href} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 + i * 0.045, duration: 0.18 }}>
+                            <DropItem {...s} onClick={() => setOpen(null)} />
+                          </motion.div>
+                        ))}
                       </div>
                     </div>
                     <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid #F3F4F6', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -153,7 +162,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
                         Try free <ArrowRight size={12} />
                       </Link>
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
               )}
             </div>
@@ -165,9 +174,13 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
               </button>
               {open === 'resources' && (
                 <div onMouseEnter={() => openDropdown('resources')} onMouseLeave={scheduleClose} style={{ position: 'absolute', top: '100%', left: '-8px', paddingTop: '6px', zIndex: 100 }}>
-                <div style={{ background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 12px 40px rgba(4,22,53,0.12), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', minWidth: '230px' }}>
-                  {resources.map(r => <DropItem key={r.href} {...r} onClick={() => setOpen(null)} />)}
-                </div>
+                <motion.div initial={{ opacity: 0, y: 8, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.18, ease: 'easeOut' }} style={{ background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 12px 40px rgba(4,22,53,0.12), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', minWidth: '230px', transformOrigin: 'top left' }}>
+                  {resources.map((r, i) => (
+                    <motion.div key={r.href} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 + i * 0.045, duration: 0.18 }}>
+                      <DropItem {...r} onClick={() => setOpen(null)} />
+                    </motion.div>
+                  ))}
+                </motion.div>
                 </div>
               )}
             </div>
@@ -179,9 +192,13 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
               </button>
               {open === 'company' && (
                 <div onMouseEnter={() => openDropdown('company')} onMouseLeave={scheduleClose} style={{ position: 'absolute', top: '100%', left: '-8px', paddingTop: '6px', zIndex: 100 }}>
-                <div style={{ background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 12px 40px rgba(4,22,53,0.12), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', minWidth: '230px' }}>
-                  {company.map(c => <DropItem key={c.href} {...c} onClick={() => setOpen(null)} />)}
-                </div>
+                <motion.div initial={{ opacity: 0, y: 8, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.18, ease: 'easeOut' }} style={{ background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 12px 40px rgba(4,22,53,0.12), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', minWidth: '230px', transformOrigin: 'top left' }}>
+                  {company.map((c, i) => (
+                    <motion.div key={c.href} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 + i * 0.045, duration: 0.18 }}>
+                      <DropItem {...c} onClick={() => setOpen(null)} />
+                    </motion.div>
+                  ))}
+                </motion.div>
                 </div>
               )}
             </div>

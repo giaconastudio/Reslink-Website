@@ -188,8 +188,9 @@ export default function HelpPage() {
               <div className="help-tabs-inner">
                 {[{ id: 'seeker', label: 'For Job Seekers' }, { id: 'company', label: 'For Companies' }, { id: 'recruiter', label: 'For Recruiters' }, { id: 'university', label: 'For Universities' }].map(t => (
                   <button key={t.id} onClick={() => setTab(t.id as 'seeker' | 'company')}
-                    style={{ padding: '10px 22px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', transition: 'all 0.2s', background: tab === t.id ? '#041635' : 'transparent', color: tab === t.id ? '#fff' : '#9A9FA8', whiteSpace: 'nowrap' }}>
-                    {t.label}
+                    style={{ padding: '10px 22px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', transition: 'color 0.2s', background: 'transparent', color: tab === t.id ? '#fff' : '#9A9FA8', whiteSpace: 'nowrap', position: 'relative' }}>
+                    {tab === t.id && <motion.span layoutId="helpTabPill" transition={{ type: 'spring', stiffness: 450, damping: 38 }} style={{ position: 'absolute', inset: 0, background: '#041635', borderRadius: '10px', zIndex: 0 }} />}
+                    <span style={{ position: 'relative', zIndex: 1 }}>{t.label}</span>
                   </button>
                 ))}
               </div>

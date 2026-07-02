@@ -57,6 +57,9 @@ h1, h2, h3, h4 {
   background: #0A54C4;
   transform: translateY(-1px);
 }
+.btn-primary:active {
+  transform: translateY(0) scale(0.97);
+}
 
 /* Outline button */
 .btn-outline {
@@ -79,6 +82,9 @@ h1, h2, h3, h4 {
 .btn-outline:hover {
   border-color: #041635;
   background: #F7F8FA;
+}
+.btn-outline:active {
+  transform: scale(0.97);
 }
 
 /* Ticker */

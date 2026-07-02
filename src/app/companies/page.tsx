@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Plus, Minus, Star, UserPlus, FilePlus, Zap, Video, Users, List, Globe } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { AnimatedStat } from '@/components/CountUp';
+import { TiltCard } from '@/components/TiltCard';
 import LogoTicker from '@/components/LogoTicker';
 
 /* ─── Hero notifications ─── */
@@ -187,9 +189,10 @@ const [notifA, setNotifA] = useState(0);
         .co-testi-side { display: flex; flex-direction: column; gap: 16px; }
         .co-feat-tabs { display: inline-flex; background: #ECEEF1; border-radius: 14px; padding: 4px; gap: 2px; margin-bottom: 20px; max-width: 100%; overflow-x: auto; scrollbar-width: none; }
         .co-feat-tabs::-webkit-scrollbar { display: none; }
-        .co-feat-tab { padding: 10px 20px; border-radius: 10px; font-size: 14px; font-weight: 500; border: none; background: transparent; cursor: pointer; transition: all 0.18s; font-family: var(--font-body); color: #6B7280; white-space: nowrap; flex-shrink: 0; }
-        .co-feat-tab.active { background: #041635; color: #fff; font-weight: 700; box-shadow: 0 1px 4px rgba(4,22,53,0.18), 0 0 0 1px rgba(4,22,53,0.08); }
-        .co-feat-tab:hover:not(.active) { background: rgba(255,255,255,0.5); color: #041635; }
+        .co-feat-tab { padding: 10px 20px; border-radius: 10px; font-size: 14px; font-weight: 500; border: none; background: transparent; cursor: pointer; transition: color 0.18s; font-family: var(--font-body); color: #6B7280; white-space: nowrap; flex-shrink: 0; position: relative; }
+        .co-feat-tab.active { color: #fff; font-weight: 700; }
+        .co-feat-tab:hover:not(.active) { color: #041635; }
+        .co-feat-tab > * { position: relative; z-index: 1; }
         .co-feat-body { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
         @media (max-width: 900px) {
           .co-testi-grid { grid-template-columns: 1fr !important; }
@@ -356,7 +359,10 @@ const [notifA, setNotifA] = useState(0);
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <div className="co-feat-tabs">
                   {FEATURE_TABS.map((t, i) => (
-                    <button key={t.id} onClick={() => setActiveTab(i)} className={`co-feat-tab${activeTab === i ? ' active' : ''}`} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><t.icon size={14} strokeWidth={2} />{t.label}</button>
+                    <button key={t.id} onClick={() => setActiveTab(i)} className={`co-feat-tab${activeTab === i ? ' active' : ''}`} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      {activeTab === i && <motion.span layoutId="coFeatTabPill" transition={{ type: 'spring', stiffness: 450, damping: 38 }} style={{ position: 'absolute', inset: 0, background: '#041635', borderRadius: '10px', boxShadow: '0 1px 4px rgba(4,22,53,0.18)', zIndex: 0 }} />}
+                      <t.icon size={14} strokeWidth={2} />{t.label}
+                    </button>
                   ))}
                 </div>
               </div>
@@ -532,7 +538,7 @@ const [notifA, setNotifA] = useState(0);
                 { value: '91%', label: 'of hiring managers say video improves decisions' },
               ].map((s, i) => (
                 <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ delay: i * 0.1 }}>
-                  <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(52px, 7vw, 80px)', fontWeight: 900, color: '#D8F950', lineHeight: 1, letterSpacing: '-0.03em' }}>{s.value}</p>
+                  <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(52px, 7vw, 80px)', fontWeight: 900, color: '#D8F950', lineHeight: 1, letterSpacing: '-0.03em' }}><AnimatedStat value={s.value} /></p>
                   <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', marginTop: '10px', lineHeight: 1.5, maxWidth: '180px', margin: '10px auto 0' }}>{s.label}</p>
                 </motion.div>
               ))}
@@ -551,7 +557,7 @@ const [notifA, setNotifA] = useState(0);
             </motion.div>
             <div className="co-testi-grid">
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }}>
-                <div style={{ background: '#041635', borderRadius: '20px', padding: 'clamp(32px, 4vw, 48px)', height: '100%', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                <TiltCard max={3} style={{ background: '#041635', borderRadius: '20px', padding: 'clamp(32px, 4vw, 48px)', height: '100%', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                   <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: '400px', height: '400px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.25), transparent 65%)', pointerEvents: 'none' }} />
                   <div style={{ position: 'relative', zIndex: 1 }}>
                     <div style={{ display: 'flex', gap: '3px', marginBottom: '24px' }}>
@@ -568,12 +574,12 @@ const [notifA, setNotifA] = useState(0);
                       <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)' }}>{FEATURED.role} at {FEATURED.company}</p>
                     </div>
                   </div>
-                </div>
+                </TiltCard>
               </motion.div>
               <div className="co-testi-side">
                 {SIDE_QUOTES.map((q, i) => (
                   <motion.div key={q.name} initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ delay: i * 0.1 }} style={{ flex: 1 }}>
-                    <div style={{ background: '#F7F8FA', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '24px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <TiltCard max={5} style={{ background: '#F7F8FA', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '24px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxSizing: 'border-box' }}>
                       <div>
                         <div style={{ display: 'flex', gap: '3px', marginBottom: '12px' }}>
                           {[...Array(5)].map((_, j) => <Star key={j} size={12} fill="#D8F950" color="#D8F950" />)}
@@ -589,7 +595,7 @@ const [notifA, setNotifA] = useState(0);
                           <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{q.role} at {q.company}</p>
                         </div>
                       </div>
-                    </div>
+                    </TiltCard>
                   </motion.div>
                 ))}
               </div>

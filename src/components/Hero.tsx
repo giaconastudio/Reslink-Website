@@ -1,8 +1,9 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import Link from 'next/link';
+import { Magnetic } from '@/components/TiltCard';
 
 const COMPANIES = [
   { name: 'Amazon',    logo: '/logos/company/amazon.svg',    watched: 'Watched 1:12 · just now' },
@@ -14,7 +15,24 @@ const COMPANIES = [
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const [coIdx, setCoIdx] = useState(0);
+
+  // Scroll parallax — product frame recedes slightly as you scroll past
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
+  const stageScale = useTransform(scrollYProgress, [0, 1], [1, 0.95]);
+  const stageY = useTransform(scrollYProgress, [0, 1], [0, 48]);
+
+  // Cursor-following glow
+  const glowX = useMotionValue(0);
+  const glowY = useMotionValue(0);
+  const sGlowX = useSpring(glowX, { stiffness: 45, damping: 20 });
+  const sGlowY = useSpring(glowY, { stiffness: 45, damping: 20 });
+  const onGlowMove = (e: React.MouseEvent<HTMLElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    glowX.set((e.clientX - r.left - r.width / 2) * 0.22);
+    glowY.set((e.clientY - r.top - 300) * 0.15);
+  };
 
   useEffect(() => {
     const v = videoRef.current;
@@ -39,8 +57,8 @@ export default function Hero() {
   const co = COMPANIES[coIdx];
 
   return (
-    <section style={{ background: '#fff', position: 'relative', overflow: 'hidden', paddingBottom: '72px' }}>
-      <div style={{ position: 'absolute', top: '-10%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '700px', background: 'radial-gradient(ellipse at center, rgba(12,99,227,0.08), transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
+    <section ref={sectionRef} onMouseMove={onGlowMove} style={{ background: '#fff', position: 'relative', overflow: 'hidden', paddingBottom: '72px' }}>
+      <motion.div style={{ position: 'absolute', top: '-10%', left: '50%', marginLeft: '-450px', width: '900px', height: '700px', background: 'radial-gradient(ellipse at center, rgba(12,99,227,0.08), transparent 65%)', pointerEvents: 'none', zIndex: 0, x: sGlowX, y: sGlowY }} />
 
       <style>{`
         .hero-inner { max-width: 1120px; margin: 0 auto; padding: 130px 24px 0; text-align: center; position: relative; z-index: 1; }
@@ -97,7 +115,8 @@ export default function Hero() {
           .hero-float { display: none; }
           .hero-proof { margin-bottom: 40px; }
           .hero-ctas { gap: 10px; }
-          .hero-ctas a { width: 100%; justify-content: center; }
+          .hero-ctas > div { width: 100%; }
+          .hero-ctas a { width: 100%; justify-content: center; box-sizing: border-box; }
           .hero-stage { padding: 0 16px; }
           .hero-pill-avatar { width: 22px !important; height: 22px !important; }
           .hero-pill { font-size: 11px !important; padding: 5px 12px 5px 6px !important; gap: 7px !important; }
@@ -146,13 +165,17 @@ export default function Hero() {
 
         {/* CTAs */}
         <motion.div className="hero-ctas" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.18 }}>
-          <Link href="/get-started" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
-            Create your Reslink
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </Link>
-          <Link href="#how-it-works" className="btn-outline" style={{ fontSize: '15px', padding: '14px 26px' }}>
-            See how it works
-          </Link>
+          <Magnetic>
+            <Link href="/get-started" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
+              Create your Reslink
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </Link>
+          </Magnetic>
+          <Magnetic strength={0.2}>
+            <Link href="#how-it-works" className="btn-outline" style={{ fontSize: '15px', padding: '14px 26px' }}>
+              See how it works
+            </Link>
+          </Magnetic>
         </motion.div>
 
         <motion.p className="hero-proof" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.25 }}>
@@ -160,7 +183,8 @@ export default function Hero() {
         </motion.p>
       </div>
 
-      {/* Living product stage — perspective tilt entrance */}
+      {/* Living product stage — perspective tilt entrance + scroll parallax */}
+      <motion.div style={{ scale: stageScale, y: stageY }}>
       <motion.div
         className="hero-stage"
         initial={{ opacity: 0, y: 60, rotateX: 6, scale: 0.96 }}
@@ -231,6 +255,7 @@ export default function Hero() {
             </div>
           </motion.div>
         </motion.div>
+      </motion.div>
       </motion.div>
     </section>
   );

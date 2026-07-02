@@ -7,6 +7,8 @@ import { Play, TrendingUp, Users, Clock, Award, BarChart2, CheckCircle, ArrowRig
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import LogoTicker from '@/components/LogoTicker';
+import { AnimatedStat } from '@/components/CountUp';
+import { TiltCard } from '@/components/TiltCard';
 
 /* ─── Features ─── */
 const FEATURES = [
@@ -180,7 +182,7 @@ export default function AgenciesPage() {
                 <div className="ag-hero-inline-stats" style={{ display: 'flex', gap: '32px', flexWrap: 'wrap' }}>
                   {[['500+', 'agencies globally'], ['40%', 'faster time-to-offer'], ['28%', 'more retained mandates']].map(([v, l]) => (
                     <div key={l}>
-                      <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '26px', fontWeight: 900, color: '#041635', lineHeight: 1 }}>{v}</p>
+                      <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '26px', fontWeight: 900, color: '#041635', lineHeight: 1 }}><AnimatedStat value={v} /></p>
                       <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '4px' }}>{l}</p>
                     </div>
                   ))}
@@ -227,7 +229,7 @@ export default function AgenciesPage() {
                 { value: '28%', label: 'lift in retained search mandates' },
               ].map((s, i) => (
                 <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ delay: i * 0.08 }} style={{ textAlign: 'center' }}>
-                  <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 60px)', fontWeight: 900, color: '#D8F950', lineHeight: 1, letterSpacing: '-0.03em' }}>{s.value}</p>
+                  <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 60px)', fontWeight: 900, color: '#D8F950', lineHeight: 1, letterSpacing: '-0.03em' }}><AnimatedStat value={s.value} /></p>
                   <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)', lineHeight: 1.5, maxWidth: '130px', margin: '10px auto 0' }}>{s.label}</p>
                 </motion.div>
               ))}
@@ -385,7 +387,7 @@ export default function AgenciesPage() {
             </motion.div>
             <div className="ag-testi-grid">
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }}>
-                <div style={{ background: '#041635', borderRadius: '20px', padding: 'clamp(32px, 4vw, 48px)', height: '100%', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                <TiltCard max={3} style={{ background: '#041635', borderRadius: '20px', padding: 'clamp(32px, 4vw, 48px)', height: '100%', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                   <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: '400px', height: '400px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.25), transparent 65%)', pointerEvents: 'none' }} />
                   <div style={{ position: 'relative', zIndex: 1 }}>
                     <div style={{ display: 'flex', gap: '3px', marginBottom: '24px' }}>
@@ -402,12 +404,12 @@ export default function AgenciesPage() {
                       <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)' }}>{AG_FEATURED.role} at {AG_FEATURED.company}</p>
                     </div>
                   </div>
-                </div>
+                </TiltCard>
               </motion.div>
               <div className="ag-testi-side">
                 {AG_SIDE_QUOTES.map((q, i) => (
                   <motion.div key={q.name} initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ delay: i * 0.1 }} style={{ flex: 1 }}>
-                    <div style={{ background: '#F7F8FA', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '24px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <TiltCard max={5} style={{ background: '#F7F8FA', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '24px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxSizing: 'border-box' }}>
                       <div>
                         <div style={{ display: 'flex', gap: '3px', marginBottom: '12px' }}>
                           {[...Array(5)].map((_, j) => <Star key={j} size={12} fill="#D8F950" color="#D8F950" />)}
@@ -423,7 +425,7 @@ export default function AgenciesPage() {
                           <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{q.role} at {q.company}</p>
                         </div>
                       </div>
-                    </div>
+                    </TiltCard>
                   </motion.div>
                 ))}
               </div>

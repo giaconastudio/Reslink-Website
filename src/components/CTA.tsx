@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { Magnetic } from '@/components/TiltCard';
 
 export default function CTA() {
   return (
@@ -28,15 +29,18 @@ export default function CTA() {
             Get started with Reslink today. Create your personalized video resume and start landing more interviews.
           </p>
           <style>{`
-            .cta-btns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+            .cta-btns { display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
             @media (max-width: 760px) {
-              .cta-btns a { width: 100%; justify-content: center; }
+              .cta-btns > div { width: 100%; }
+              .cta-btns a { width: 100%; justify-content: center; box-sizing: border-box; }
             }
           `}</style>
           <div className="cta-btns">
-            <a href="/get-started" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
-              Get started free <ArrowRight size={15} />
-            </a>
+            <Magnetic>
+              <a href="/get-started" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
+                Get started free <ArrowRight size={15} />
+              </a>
+            </Magnetic>
             <a href="#how-it-works" style={{
               display: 'inline-flex', alignItems: 'center', padding: '14px 28px',
               fontSize: '15px', fontWeight: 600, color: 'rgba(255,255,255,0.65)',

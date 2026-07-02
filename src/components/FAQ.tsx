@@ -43,9 +43,12 @@ export default function FAQ() {
                 style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', padding: '20px 0', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left' }}
               >
                 <span style={{ fontSize: '15px', fontWeight: 600, color: '#041635', fontFamily: 'var(--font-body)' }}>{faq.q}</span>
-                <span style={{ width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0, background: open === i ? '#0C63E3' : '#F7F8FA', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.15s ease' }}>
+                <motion.span
+                  animate={{ rotate: open === i ? 180 : 0, scale: open === i ? 1.08 : 1 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 22 }}
+                  style={{ width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0, background: open === i ? '#0C63E3' : '#F7F8FA', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.15s ease' }}>
                   {open === i ? <Minus size={12} color="#fff" /> : <Plus size={12} color="#5C6070" />}
-                </span>
+                </motion.span>
               </button>
               <AnimatePresence>
                 {open === i && (

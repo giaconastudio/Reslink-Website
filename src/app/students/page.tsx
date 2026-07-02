@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Video, BarChart2, Zap, Globe, FileText, Share2, Plus, Minus, Play, CheckCircle, Eye } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { AnimatedStat } from '@/components/CountUp';
 import LogoTicker from '@/components/LogoTicker';
 
 const FEATURES = [
@@ -153,7 +154,7 @@ export default function StudentsPage() {
             ].map((s, i) => (
               <motion.div key={s.stat} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ duration: 0.4, delay: i * 0.08 }}
                 style={{ textAlign: 'center', padding: '8px' }}>
-                <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(40px, 4.5vw, 52px)', fontWeight: 900, color: '#fff', lineHeight: 1, letterSpacing: '-0.03em', marginBottom: '6px' }}>{s.stat}</p>
+                <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(40px, 4.5vw, 52px)', fontWeight: 900, color: '#fff', lineHeight: 1, letterSpacing: '-0.03em', marginBottom: '6px' }}><AnimatedStat value={s.stat} /></p>
                 <p style={{ fontSize: '14px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', fontFamily: 'var(--font-body)', marginBottom: '2px' }}>{s.label}</p>
                 <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)' }}>{s.sub}</p>
               </motion.div>

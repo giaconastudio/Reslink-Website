@@ -42,7 +42,7 @@ const TEAM = [
     title: 'COO',
     bio: 'Dan is a seasoned executive with a track record of scaling SaaS companies from early-stage to market leadership. He advises Reslink on strategy, fundraising, and building the organizational foundation for sustainable growth.',
     linkedin: null,
-    photo: '/team/dan.webp',
+    photo: '/team/dan-new.png',
   },
   {
     name: 'Taylor Bagwell',

@@ -81,13 +81,15 @@ const VALUES = [
 function TeamCard({ member }: { member: typeof TEAM[0] }) {
   const [expanded, setExpanded] = useState(false);
   return (
-    <div style={{ borderRadius: '20px', overflow: 'hidden', position: 'relative', background: '#fff', boxShadow: '0 4px 24px rgba(4,22,53,0.18)', aspectRatio: '3/5', transform: 'translateZ(0)' }}>
-      {/* Full-bleed photo */}
+    <div style={{ borderRadius: '20px', overflow: 'hidden', position: 'relative', background: '#F0F1F3', boxShadow: '0 4px 24px rgba(4,22,53,0.18)', aspectRatio: '3/5', transform: 'translateZ(0)' }}>
+      {/* Full-bleed photo — subtle unified filter so different shoot backgrounds read as one tone */}
       <img
         src={member.photo}
         alt={member.name}
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', filter: 'grayscale(10%) contrast(1.03) brightness(1.03) saturate(0.94)' }}
       />
+      {/* Uniform warm-grey wash to blend varying photo backgrounds toward one shared tone */}
+      <div style={{ position: 'absolute', inset: 0, background: '#F0F1F3', mixBlendMode: 'overlay', opacity: 0.14, pointerEvents: 'none' }} />
 
       {/* Full-card dark backdrop when bio is open */}
       <div style={{ position: 'absolute', inset: 0, background: 'rgba(4,22,53,0.72)', opacity: expanded ? 1 : 0, transition: 'opacity 0.35s ease', pointerEvents: 'none' }} />
@@ -299,10 +301,10 @@ export default function AboutPage() {
               </h2>
             </motion.div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }} className="team-grid">
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '20px' }} className="team-grid">
               <style>{`
-                @media (max-width: 860px) { .team-grid { grid-template-columns: repeat(2, 1fr) !important; } }
-                @media (max-width: 480px) { .team-grid { grid-template-columns: 1fr !important; } }
+                .team-grid > div { flex: 0 1 240px; }
+                @media (max-width: 480px) { .team-grid > div { flex: 0 1 260px; } }
               `}</style>
               {TEAM.map((m) => <TeamCard key={m.name} member={m} />)}
             </div>

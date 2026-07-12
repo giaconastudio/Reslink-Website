@@ -299,7 +299,7 @@ export default function AboutPage() {
               </h2>
             </motion.div>
 
-            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '24px' }} className="team-grid">
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '24px', maxWidth: '972px', margin: '0 auto' }} className="team-grid">
               <style>{`
                 .team-grid > div { flex: 0 1 300px; }
                 @media (max-width: 480px) { .team-grid > div { flex: 0 1 300px; } }

@@ -39,10 +39,10 @@ const TEAM = [
     name: 'Dan London',
     initials: 'DL',
     color: '#059669',
-    title: 'Executive Adviser',
+    title: 'COO',
     bio: 'Dan is a seasoned executive with a track record of scaling SaaS companies from early-stage to market leadership. He advises Reslink on strategy, fundraising, and building the organizational foundation for sustainable growth.',
     linkedin: null,
-    photo: '/team/dan.jpg',
+    photo: '/team/dan.webp',
   },
   {
     name: 'Taylor Bagwell',
@@ -299,7 +299,7 @@ export default function AboutPage() {
               </h2>
             </motion.div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px' }} className="team-grid">
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }} className="team-grid">
               <style>{`
                 @media (max-width: 860px) { .team-grid { grid-template-columns: repeat(2, 1fr) !important; } }
                 @media (max-width: 480px) { .team-grid { grid-template-columns: 1fr !important; } }

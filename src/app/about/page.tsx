@@ -42,7 +42,7 @@ const TEAM = [
     title: 'COO',
     bio: 'Dan is a seasoned executive with a track record of scaling SaaS companies from early-stage to market leadership. He advises Reslink on strategy, fundraising, and building the organizational foundation for sustainable growth.',
     linkedin: null,
-    photo: '/team/dan-new.png',
+    photo: '/team/dan-new.jpg',
   },
   {
     name: 'Taylor Bagwell',
@@ -51,7 +51,7 @@ const TEAM = [
     title: 'CTO',
     bio: 'Taylor brings deep engineering expertise that helps Reslink build fast, reliable, and scalable infrastructure. His guidance shapes the technical decisions that let the team move quickly without cutting corners.',
     linkedin: 'https://www.linkedin.com/in/taylor-bagwell-824bba117/',
-    photo: '/team/taylor.png',
+    photo: '/team/taylor-new.jpg',
   },
 ];
 
@@ -82,14 +82,12 @@ function TeamCard({ member }: { member: typeof TEAM[0] }) {
   const [expanded, setExpanded] = useState(false);
   return (
     <div style={{ borderRadius: '20px', overflow: 'hidden', position: 'relative', background: '#F0F1F3', boxShadow: '0 4px 24px rgba(4,22,53,0.18)', aspectRatio: '3/5', transform: 'translateZ(0)' }}>
-      {/* Full-bleed photo — subtle unified filter so different shoot backgrounds read as one tone */}
+      {/* Full-bleed photo — backgrounds pre-corrected to a shared warm-grey tone */}
       <img
         src={member.photo}
         alt={member.name}
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', filter: 'grayscale(10%) contrast(1.03) brightness(1.03) saturate(0.94)' }}
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
       />
-      {/* Uniform warm-grey wash to blend varying photo backgrounds toward one shared tone */}
-      <div style={{ position: 'absolute', inset: 0, background: '#F0F1F3', mixBlendMode: 'overlay', opacity: 0.14, pointerEvents: 'none' }} />
 
       {/* Full-card dark backdrop when bio is open */}
       <div style={{ position: 'absolute', inset: 0, background: 'rgba(4,22,53,0.72)', opacity: expanded ? 1 : 0, transition: 'opacity 0.35s ease', pointerEvents: 'none' }} />
@@ -301,10 +299,10 @@ export default function AboutPage() {
               </h2>
             </motion.div>
 
-            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '20px' }} className="team-grid">
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '24px' }} className="team-grid">
               <style>{`
-                .team-grid > div { flex: 0 1 240px; }
-                @media (max-width: 480px) { .team-grid > div { flex: 0 1 260px; } }
+                .team-grid > div { flex: 0 1 300px; }
+                @media (max-width: 480px) { .team-grid > div { flex: 0 1 300px; } }
               `}</style>
               {TEAM.map((m) => <TeamCard key={m.name} member={m} />)}
             </div>

@@ -122,7 +122,7 @@ export default function VeteransPage() {
                     </div>
                     <div>
                       <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Offer accepted</p>
-                      <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Palantir · 8 days after sharing</p>
+                      <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Defense tech · 8 days after sharing</p>
                     </div>
                   </motion.div>
                 </div>
@@ -239,7 +239,7 @@ export default function VeteransPage() {
                     <span style={{ fontSize: '11px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>A</span>
                   </div>
                   <div style={{ flex: 1 }}>
-                    <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Palantir Recruiter viewed you</p>
+                    <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Defense Recruiter viewed you</p>
                     <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Watched 1:12 · 2h ago</p>
                   </div>
                   <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#0C63E3', flexShrink: 0 }} />
@@ -250,7 +250,7 @@ export default function VeteransPage() {
                   </div>
                   <div>
                     <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Offer received</p>
-                    <p style={{ fontSize: '11px', color: '#6B7280', fontFamily: 'var(--font-body)' }}>Palantir · Operations Manager</p>
+                    <p style={{ fontSize: '11px', color: '#6B7280', fontFamily: 'var(--font-body)' }}>Operations Manager · Defense tech</p>
                   </div>
                 </div>
               </div>

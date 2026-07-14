@@ -35,8 +35,8 @@ const PANELS: Record<AccountType, {
     headline: 'Your story deserves\nto be heard.',
     sub: 'Stand out with a video resume that shows who you really are.',
     quote: '"Reslink got me interviews at companies that ignored my PDF résumé for months."',
-    author: 'Ben Harper', role: 'Software Engineer · Amazon',
-    logos: ['Amazon', 'Meta', 'Stripe', 'HubSpot', 'Adobe', 'Tesla', 'Revolut', 'EY'],
+    author: 'Software Engineer', role: 'Early access user · hired at a Fortune 500',
+    stats: [{ val: '3×', label: 'more callbacks' }, { val: '85%', label: 'avg. video watch rate' }, { val: '5 min', label: 'to your first Reslink' }],
   },
   student: {
     image: 'https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=1200',
@@ -44,8 +44,8 @@ const PANELS: Record<AccountType, {
     headline: 'Be the candidate\nthey remember.',
     sub: 'Turn your degree and experience into a profile employers actually engage with.',
     quote: '"I got three internship offers my junior year. Reslink made all the difference."',
-    author: 'Priya Nair', role: 'Finance Intern · Goldman Sachs',
-    logos: ['Columbia', 'Princeton', 'Michigan', 'Cambridge', 'GWU', 'Syracuse'],
+    author: 'Finance Student', role: 'Early access user · 3 internship offers',
+    stats: [{ val: '3×', label: 'more recruiter callbacks' }, { val: '85%', label: 'avg. video watch rate' }, { val: 'Free', label: 'for students' }],
   },
   veteran: {
     image: '/military1.jpg',
@@ -53,7 +53,7 @@ const PANELS: Record<AccountType, {
     headline: 'From service\nto standout.',
     sub: 'Translate your military experience into civilian opportunities.',
     quote: '"Reslink helped employers actually understand what my service experience meant."',
-    author: 'Marcus Webb', role: 'Operations Manager · Lockheed Martin',
+    author: 'US Marines Veteran', role: 'Early access user · hired in defense tech',
     stats: [{ val: '3×', label: 'more callbacks' }, { val: '62%', label: 'faster placement' }, { val: '88%', label: 'veteran satisfaction' }],
   },
   company: {
@@ -62,7 +62,7 @@ const PANELS: Record<AccountType, {
     headline: 'Hire people,\nnot paper.',
     sub: 'See candidates as they really are before the first call.',
     quote: '"Video pitches helped us find the right cultural fit in half the time."',
-    author: 'Sarah Lopez', role: 'Head of Talent · Series B Startup',
+    author: 'Head of Talent', role: 'Early access partner · Series B startup',
     stats: [{ val: '5×', label: 'better hire quality' }, { val: '30%', label: 'faster time-to-hire' }, { val: '91%', label: 'hiring manager satisfaction' }],
   },
   agency: {
@@ -71,7 +71,7 @@ const PANELS: Record<AccountType, {
     headline: 'Place candidates\nfaster.',
     sub: 'Give clients a reason to say yes before the interview.',
     quote: '"We cut screening time by 60% and our placement rate went through the roof."',
-    author: 'Maya Thompson', role: 'Principal Recruiter',
+    author: 'Principal Recruiter', role: 'Early access partner · staffing agency',
     stats: [{ val: '4×', label: 'faster placements' }, { val: '60%', label: 'less screening time' }, { val: '92%', label: 'recruiter satisfaction' }],
   },
   university: {
@@ -80,8 +80,8 @@ const PANELS: Record<AccountType, {
     headline: 'Launch your\nstudents further.',
     sub: 'Give graduates a competitive edge before they walk the stage.',
     quote: '"Students using Reslink saw a 3× higher callback rate from employers."',
-    author: 'Dr. James Okafor', role: 'Director of Career Services',
-    logos: ['Columbia', 'Princeton', 'Michigan', 'Cambridge', 'GWU', 'Syracuse'],
+    author: 'Director of Career Services', role: 'Pilot program · public research university',
+    stats: [{ val: '34%', label: 'placement rate lift' }, { val: '3×', label: 'employer callbacks' }, { val: '48h', label: 'fastest student hire' }],
   },
 };
 

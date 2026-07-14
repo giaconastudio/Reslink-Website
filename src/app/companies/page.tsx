@@ -130,6 +130,82 @@ const FAQS = [
   { q: 'What does enterprise pricing look like?', a: 'Plans are based on team size and hiring volume. Book a demo and we will put together a custom proposal that fits your needs and budget.' },
 ];
 
+/* ─── Live AI Screening demo — real HTML, rows re-sort as scores arrive ─── */
+const AI_CANDIDATES = [
+  { name: 'Zara Mitchell', role: 'Frontend Engineer Intern', initials: 'ZM', color: '#4F6EF7', score: 91, grade: 'A', gradeColor: '#16A34A' },
+  { name: 'Ben Holloway', role: 'Frontend Engineer Intern', initials: 'BH', color: '#10B981', score: 84, grade: 'B+', gradeColor: '#0C63E3' },
+  { name: 'Aaliya Hassan', role: 'Frontend Engineer Intern', initials: 'AH', color: '#F59E0B', score: 79, grade: 'B+', gradeColor: '#0C63E3' },
+  { name: 'Liam Castillo', role: 'Frontend Engineer Intern', initials: 'LC', color: '#7C3AED', score: 94, grade: 'A', gradeColor: '#16A34A' },
+  { name: 'Naomi Whitfield', role: 'Frontend Engineer Intern', initials: 'NW', color: '#E11D48', score: 72, grade: 'B', gradeColor: '#D97706' },
+];
+
+function AIScreeningDemo() {
+  const [scoredCount, setScoredCount] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setScoredCount(s => (s >= AI_CANDIDATES.length ? 0 : s + 1));
+    }, 1700);
+    return () => clearInterval(id);
+  }, []);
+
+  const rows = AI_CANDIDATES.map((c, i) => ({ ...c, isScored: i < scoredCount }));
+  rows.sort((a, b) => (b.isScored ? b.score : -1) - (a.isScored ? a.score : -1));
+
+  return (
+    <div style={{ background: '#F7F8FA', padding: 'clamp(16px, 2.5vw, 28px)' }}>
+      {/* Panel header */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px', flexWrap: 'wrap', gap: '8px' }}>
+        <div>
+          <p style={{ fontSize: '15px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Frontend Engineer Intern</p>
+          <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px' }}>{AI_CANDIDATES.length} applicants · sorted by AI rank</p>
+        </div>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#041635', borderRadius: '100px', padding: '6px 14px' }}>
+          <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 1.4 }} style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#D8F950', display: 'inline-block' }} />
+          <span style={{ fontSize: '11px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)' }}>
+            {scoredCount < AI_CANDIDATES.length ? 'Reslink AI scoring…' : 'All applicants scored'}
+          </span>
+        </div>
+      </div>
+
+      {/* Rows */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        {rows.map((c, rank) => (
+          <motion.div key={c.name} layout transition={{ type: 'spring', stiffness: 350, damping: 32 }}
+            style={{ background: '#fff', borderRadius: '12px', border: c.isScored && rank === 0 ? '1.5px solid #D8F950' : '1px solid #E8EAF0', padding: '12px 16px', display: 'flex', alignItems: 'center', gap: '12px', boxShadow: c.isScored && rank === 0 ? '0 4px 20px rgba(216,249,80,0.25)' : '0 1px 4px rgba(4,22,53,0.04)' }}>
+            <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '14px', fontWeight: 900, color: c.isScored ? '#041635' : '#C3C8D2', width: '18px', flexShrink: 0 }}>{c.isScored ? rank + 1 : '·'}</span>
+            <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: c.color, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <span style={{ fontSize: '12px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>{c.initials}</span>
+            </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{c.name}</p>
+              <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{c.role}</p>
+            </div>
+            <AnimatePresence mode="wait">
+              {c.isScored ? (
+                <motion.div key="scored" initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.25 }} style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
+                  <div className="ai-demo-bar" style={{ width: '86px', height: '5px', borderRadius: '3px', background: '#EEF0F4', overflow: 'hidden' }}>
+                    <motion.div initial={{ width: 0 }} animate={{ width: `${c.score}%` }} transition={{ duration: 0.7, ease: 'easeOut' }} style={{ height: '100%', borderRadius: '3px', background: c.gradeColor }} />
+                  </div>
+                  <span style={{ fontSize: '12px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)', background: c.gradeColor, borderRadius: '6px', padding: '3px 8px', minWidth: '30px', textAlign: 'center' }}>{c.grade}</span>
+                  <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '15px', fontWeight: 900, color: '#041635', width: '26px', textAlign: 'right' }}>{c.score}</span>
+                </motion.div>
+              ) : (
+                <motion.div key="pending" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ display: 'flex', alignItems: 'center', gap: '7px', flexShrink: 0 }}>
+                  <motion.span animate={{ opacity: [0.4, 1, 0.4] }} transition={{ repeat: Infinity, duration: 1.2 }} style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#0C63E3', display: 'inline-block' }} />
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Analyzing…</span>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        ))}
+      </div>
+
+      <style>{`@media (max-width: 560px) { .ai-demo-bar { display: none !important; } }`}</style>
+    </div>
+  );
+}
+
 function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; toggle: () => void }) {
   return (
     <div style={{ borderBottom: '1px solid #EEEEF0' }}>
@@ -153,12 +229,12 @@ function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; 
 /* ─── Testimonials ─── */
 const FEATURED = {
   quote: 'We reviewed 40 Reslinks in an afternoon. Our entire hiring team was aligned on a shortlist before end of day. I have not seen that happen in ten years of recruiting.',
-  name: 'Sarah Mitchell', role: 'Head of Talent Acquisition', company: 'Stripe', color: '#635BFF',
+  name: 'Head of Talent Acquisition', role: 'Early access partner', company: 'Series B fintech', color: '#635BFF',
 };
 const SIDE_QUOTES = [
-  { quote: 'Reslink cut our first-round phone screen volume by 60%. The candidates we do call are genuinely the right ones.', name: 'Tom Bradley', role: 'VP People', company: 'HubSpot', color: '#FF7A59' },
-  { quote: 'Our time to hire dropped by nearly a third in our first quarter using Reslink. The ROI was immediate.', name: 'Jenna Park', role: 'Recruiting Manager', company: 'Google', color: '#4285F4' },
-  { quote: 'The analytics dashboard changed how I manage my team hiring. We can see exactly where we lose candidates and why.', name: 'Amara Osei', role: 'Talent Lead', company: 'Meta', color: '#1877F2' },
+  { quote: 'Reslink cut our first-round phone screen volume by 60%. The candidates we do call are genuinely the right ones.', name: 'VP of People', role: 'Early access partner', company: 'SaaS scale-up', color: '#FF7A59' },
+  { quote: 'Our time to hire dropped by nearly a third in our first quarter using Reslink. The ROI was immediate.', name: 'Recruiting Manager', role: 'Early access partner', company: 'enterprise tech co.', color: '#4285F4' },
+  { quote: 'The analytics dashboard changed how I manage my team hiring. We can see exactly where we lose candidates and why.', name: 'Talent Lead', role: 'Early access partner', company: 'consumer internet co.', color: '#1877F2' },
 ];
 
 /* ─── Page ─── */
@@ -388,37 +464,14 @@ const [notifA, setNotifA] = useState(0);
                           <div style={{ background: '#fff', borderRadius: '5px', padding: '2px 14px', fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', border: '1px solid #E2E4E9' }}>app.reslink.io</div>
                         </div>
                       </div>
-                      <div style={{ maxHeight: '520px', overflow: 'hidden' }}>
-                        <Image src={t.img} alt={t.alt} width={2880} height={1419} quality={100} style={{ width: '100%', height: 'auto', display: 'block' }} />
-                      </div>
+                      {t.id === 'ai' ? (
+                        <AIScreeningDemo />
+                      ) : (
+                        <div style={{ maxHeight: '520px', overflow: 'hidden' }}>
+                          <Image src={t.img} alt={t.alt} width={2880} height={1419} quality={100} style={{ width: '100%', height: 'auto', display: 'block' }} />
+                        </div>
+                      )}
                     </motion.div>
-
-                    {/* ── AI Screening overlays ── */}
-                    {t.id === 'ai' && (<>
-                      <motion.div key="ai-float-1" className="co-chip-tl" animate={{ y: [0, -7, 0] }} transition={{ repeat: Infinity, duration: 3.2, ease: 'easeInOut', delay: 0.75 }}>
-                        <motion.div className="co-chip" initial={{ opacity: 0, y: -16, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.3, duration: 0.45, ease: [0.22,1,0.36,1] }}>
-                          <div className="co-chip-icon" style={{ background: '#041635' }}>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#D8F950" strokeWidth="2.2" strokeLinecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                          </div>
-                          <div>
-                            <p className="co-chip-title">Zara Mitchell — ranked #1</p>
-                            <p className="co-chip-sub">A · 91/100 · scored by Reslink AI</p>
-                          </div>
-                          <motion.div className="co-chip-dot" animate={{ opacity: [1, 0.25, 1] }} transition={{ repeat: Infinity, duration: 1.8 }} style={{ background: '#0C63E3' }} />
-                        </motion.div>
-                      </motion.div>
-                      <motion.div key="ai-float-2" className="co-chip-br" animate={{ y: [0, -5, 0] }} transition={{ repeat: Infinity, duration: 2.8, ease: 'easeInOut', delay: 1.1 }}>
-                        <motion.div className="co-chip" initial={{ opacity: 0, y: 16, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.65, duration: 0.45, ease: [0.22,1,0.36,1] }}>
-                          <div className="co-chip-icon" style={{ background: '#EEF4FF' }}>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="2.2" strokeLinecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-                          </div>
-                          <div>
-                            <p className="co-chip-title">4 candidates scored</p>
-                            <p className="co-chip-sub">2 top picks · 1 A+ · ready to review</p>
-                          </div>
-                        </motion.div>
-                      </motion.div>
-                    </>)}
 
                     {/* ── Team Collaboration overlays ── */}
                     {t.id === 'collab' && (<>
@@ -542,6 +595,22 @@ const [notifA, setNotifA] = useState(0);
                   <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', marginTop: '10px', lineHeight: 1.5, maxWidth: '180px', margin: '10px auto 0' }}>{s.label}</p>
                 </motion.div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ─── Integrations + security strip ─── */}
+        <section style={{ background: '#fff', padding: '36px 24px', borderBottom: '1px solid #EEEEF0' }}>
+          <div style={{ maxWidth: '1060px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '24px 40px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '20px', flexWrap: 'wrap' }}>
+              <span style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Job posts sync to</span>
+              {['LinkedIn', 'Indeed', 'ZipRecruiter', 'Glassdoor'].map(name => (
+                <span key={name} style={{ fontSize: '15px', fontWeight: 800, color: '#5C6070', fontFamily: 'var(--font-body)', letterSpacing: '-0.01em' }}>{name}</span>
+              ))}
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)' }}>Data encrypted in transit and at rest · SOC 2 in progress</span>
             </div>
           </div>
         </section>

@@ -1,22 +1,13 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
+import { useRef, useEffect } from 'react';
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import Link from 'next/link';
 import { Magnetic } from '@/components/TiltCard';
-
-const COMPANIES = [
-  { name: 'Amazon',    logo: '/logos/company/amazon.svg',    watched: 'Watched 1:12 · just now' },
-  { name: 'Meta',      logo: '/logos/company/meta.svg',      watched: 'Watched 0:58 · 1m ago' },
-  { name: 'HubSpot',   logo: '/logos/company/hubspot.svg',   watched: 'Watched 1:05 · 2m ago' },
-  { name: 'Tesla',     logo: '/logos/company/tesla.svg',     watched: 'Watched 1:12 · 2m ago' },
-  { name: 'Accenture', logo: '/logos/company/accenture.svg', watched: 'Watched 1:18 · 3m ago' },
-];
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
-  const [coIdx, setCoIdx] = useState(0);
 
   // Scroll parallax — product frame recedes slightly as you scroll past
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
@@ -48,13 +39,6 @@ export default function Hero() {
     v.addEventListener('loadedmetadata', handler);
     return () => v.removeEventListener('loadedmetadata', handler);
   }, []);
-
-  useEffect(() => {
-    const id = setInterval(() => setCoIdx(i => (i + 1) % COMPANIES.length), 2800);
-    return () => clearInterval(id);
-  }, []);
-
-  const co = COMPANIES[coIdx];
 
   return (
     <section ref={sectionRef} onMouseMove={onGlowMove} style={{ background: '#fff', position: 'relative', overflow: 'hidden', paddingBottom: '72px' }}>
@@ -132,14 +116,8 @@ export default function Hero() {
           style={{ display: 'flex', justifyContent: 'center', marginBottom: '28px' }}>
           <span className="hero-pill" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#fff', color: '#5C6070', fontSize: '13px', fontWeight: 500, padding: '7px 16px 7px 8px', borderRadius: '100px', fontFamily: 'var(--font-body)', border: '1.5px solid #E4E7EC', boxShadow: '0 2px 8px rgba(4,22,53,0.06)' }}>
             <span style={{ display: 'flex' }}>
-              {[
-                'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg',
-                'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg',
-                'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg',
-                'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg',
-                'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg',
-              ].map((src, i) => (
-                <img key={i} src={`${src}?auto=compress&cs=tinysrgb&w=48&h=48&fit=crop`} alt="" width={28} height={28} className="hero-pill-avatar"
+              {['/avatars/a1.jpg', '/avatars/a2.jpg', '/avatars/a3.jpg', '/avatars/a4.jpg', '/avatars/a5.jpg'].map((src, i) => (
+                <img key={i} src={src} alt="" width={28} height={28} className="hero-pill-avatar"
                   style={{ width: '28px', height: '28px', borderRadius: '50%', border: '2px solid #fff', marginLeft: i === 0 ? 0 : '-8px', objectFit: 'cover', display: 'block' }} />
               ))}
             </span>
@@ -192,66 +170,71 @@ export default function Hero() {
         transition={{ duration: 0.75, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
         style={{ perspective: '1200px', transformOrigin: 'center bottom' }}
       >
-        <div className="hero-frame">
-          <div className="hero-bar">
-            <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#FF5F57', display: 'inline-block' }} />
-            <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#FEBC2E', display: 'inline-block' }} />
-            <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#28C840', display: 'inline-block' }} />
-            <div style={{ flex: 1, margin: '0 12px', background: '#EAECEF', borderRadius: '6px', padding: '4px 14px', fontSize: '11px', color: '#9A9FA8', textAlign: 'center', fontFamily: 'var(--font-body)' }}>
-              reslink.io/oliviastone
+        <Link href="/oliviastone" aria-label="Open the example Reslink profile" style={{ display: 'block', textDecoration: 'none', cursor: 'pointer' }} className="hero-frame-link">
+          <style>{`
+            .hero-frame-link .hero-open-hint { opacity: 0; transition: opacity 0.25s ease; }
+            .hero-frame-link:hover .hero-open-hint { opacity: 1; }
+          `}</style>
+          <div className="hero-frame" style={{ position: 'relative' }}>
+            <div className="hero-bar">
+              <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#FF5F57', display: 'inline-block' }} />
+              <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#FEBC2E', display: 'inline-block' }} />
+              <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#28C840', display: 'inline-block' }} />
+              <div style={{ flex: 1, margin: '0 12px', background: '#EAECEF', borderRadius: '6px', padding: '4px 14px', fontSize: '11px', color: '#9A9FA8', textAlign: 'center', fontFamily: 'var(--font-body)' }}>
+                reslink.io/oliviastone
+              </div>
+              <span style={{ fontSize: '11px', fontWeight: 700, color: '#0C63E3', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                Open example
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+
+            <div className="hero-video">
+              <video
+                ref={videoRef}
+                src="/videos/hero.mp4"
+                poster="/videos/hero-poster.jpg"
+                autoPlay muted loop playsInline preload="auto"
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', transform: 'scale(1.06)' }}
+              />
+              <div className="hero-open-hint" style={{ position: 'absolute', inset: 0, background: 'rgba(4,22,53,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 2 }}>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#fff', color: '#041635', borderRadius: '100px', padding: '12px 24px', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', boxShadow: '0 12px 40px rgba(0,0,0,0.3)' }}>
+                  Explore this example profile
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </span>
+              </div>
             </div>
           </div>
+        </Link>
 
-          <div className="hero-video">
-            <video
-              ref={videoRef}
-              src="/videos/hero.mp4"
-              poster="/videos/hero-poster.jpg"
-              autoPlay muted loop playsInline preload="auto"
-              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', transform: 'scale(1.06)' }}
-            />
-          </div>
-        </div>
-
-        {/* Floating live card — cycling recruiter activity */}
+        {/* Floating feature card — view analytics */}
         <motion.div
           className="hero-float float-tr"
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.85, duration: 0.4 }}
         >
-          <motion.div animate={{ y: [0, -6, 0] }} transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}>
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={coIdx}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.35 }}
-                style={{ display: 'flex', alignItems: 'center', gap: '9px', minWidth: '190px' }}
-              >
-                <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#fff', border: '1px solid #ECEEF1', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, padding: '5px' }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={co.logo} alt={co.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-                </div>
-                <div>
-                  <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{co.name} just viewed you</p>
-                  <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{co.watched}</p>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+          <motion.div animate={{ y: [0, -6, 0] }} transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }} style={{ display: 'flex', alignItems: 'center', gap: '9px', minWidth: '190px' }}>
+            <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <div>
+              <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>See who viewed you</p>
+              <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Live in your dashboard</p>
+            </div>
+            <motion.div animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 1.8 }} style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#0C63E3', flexShrink: 0 }} />
           </motion.div>
         </motion.div>
 
-        {/* Floating live card — interview booked */}
+        {/* Floating feature card — watch-time tracking */}
         <motion.div className="hero-float float-bl" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.0, duration: 0.4 }}>
           <motion.div animate={{ y: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }} style={{ display: 'flex', alignItems: 'center', gap: '9px' }}>
             <div style={{ width: '30px', height: '30px', borderRadius: '50%', background: '#D8F950', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#041635" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
             <div>
-              <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Interview booked</p>
-              <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Amazon · 2 days later</p>
+              <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Every second tracked</p>
+              <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Know exactly what they watched</p>
             </div>
           </motion.div>
         </motion.div>

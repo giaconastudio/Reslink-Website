@@ -70,12 +70,12 @@ function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; 
 
 const AG_FEATURED = {
   quote: "We sent a Reslink shortlist to a new client on a retained search. They called us back in two hours and asked who else we could bring them. Nothing we've sent before has ever done that.",
-  name: 'Rachel Kim', role: 'Managing Director', company: 'Vantage Talent Group', color: '#0C63E3',
+  name: 'Managing Director', role: 'Early access partner', company: 'retained search firm', color: '#0C63E3',
 };
 const AG_SIDE_QUOTES = [
-  { quote: "Our close rate on shortlisted roles went up immediately. Clients make faster decisions when they've watched the candidate. Less ghosting, less uncertainty. Reslink fixed something we didn't know how to fix.", name: 'Marcus Bell', role: 'Senior Partner', company: 'Apex Search', color: '#7C3AED' },
-  { quote: "We were competing against four other agencies on a Director of Sales search. We were the only firm that sent Reslink profiles. We won the placement and they put us on their preferred vendor list.", name: 'Lena Osei', role: 'Founder', company: 'Meridian Recruitment', color: '#059669' },
-  { quote: 'The tracking data alone changed how we follow up. I know which candidates my client watched twice. I know who they skipped. I can coach candidates and have smarter conversations with clients.', name: 'Jason Torres', role: 'Principal Recruiter', company: 'Clearline Staffing', color: '#D97706' },
+  { quote: "Our close rate on shortlisted roles went up immediately. Clients make faster decisions when they've watched the candidate. Less ghosting, less uncertainty. Reslink fixed something we didn't know how to fix.", name: 'Senior Partner', role: 'Early access partner', company: 'executive search firm', color: '#7C3AED' },
+  { quote: "We were competing against four other agencies on a Director of Sales search. We were the only firm that sent Reslink profiles. We won the placement and they put us on their preferred vendor list.", name: 'Agency Founder', role: 'Early access partner', company: 'boutique recruitment agency', color: '#059669' },
+  { quote: 'The tracking data alone changed how we follow up. I know which candidates my client watched twice. I know who they skipped. I can coach candidates and have smarter conversations with clients.', name: 'Principal Recruiter', role: 'Early access partner', company: 'staffing agency', color: '#D97706' },
 ];
 
 

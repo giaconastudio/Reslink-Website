@@ -62,12 +62,12 @@ const AGENCY_ROWS: { label: string; starter: Maybe; growth: Maybe; scale: Maybe 
 ];
 
 const TESTIMONIALS = [
-  { quote: "After adding my Reslink to every application, I started getting callbacks within 48 hours. Complete game changer.", name: 'Ben Harper', role: 'Software Engineer · Amazon', initials: 'BH', color: '#4F6EF7' },
-  { quote: "I landed my dream job and I genuinely believe the video resume made all the difference. Reslink let me show who I really am.", name: 'Sofia Rodriguez', role: 'Marketing Manager · Meta', initials: 'SR', color: '#A855F7' },
-  { quote: "The analytics feature is unreal. I saw a senior partner watch my video three times. I reached out and got an interview the next morning.", name: 'Marcus Williams', role: 'Finance Analyst · EY', initials: 'MW', color: '#F59E0B' },
-  { quote: "My recruiter said she had never seen a video resume done that well. She shared it with the entire hiring team before my first interview.", name: 'Elena Kowalski', role: 'Product Manager · Revolut', initials: 'EK', color: '#10B981' },
-  { quote: "As a designer I care about how I present myself. Reslink resonated perfectly with the creative teams I was targeting. Two offers in two weeks.", name: 'Priya Patel', role: 'UX Designer · Google', initials: 'PP', color: '#EF4444' },
-  { quote: "Honestly thought video resumes were gimmicky. Then I got a reply from Stripe within 24 hours of sending my Reslink. I was wrong.", name: 'Aisha Mensah', role: 'Data Scientist · Stripe', initials: 'AM', color: '#635BFF' },
+  { quote: "After adding my Reslink to every application, I started getting callbacks within 48 hours. Complete game changer.", name: 'Software Engineer', role: 'Early access user · hired at a Fortune 500 tech co.', initials: 'SE', color: '#4F6EF7' },
+  { quote: "I landed my dream job and I genuinely believe the video resume made all the difference. Reslink let me show who I really am.", name: 'Marketing Manager', role: 'Early access user · hired at a social platform', initials: 'MM', color: '#A855F7' },
+  { quote: "The analytics feature is unreal. I saw a senior partner watch my video three times. I reached out and got an interview the next morning.", name: 'Finance Analyst', role: 'Early access user · hired at a Big Four firm', initials: 'FA', color: '#F59E0B' },
+  { quote: "My recruiter said she had never seen a video resume done that well. She shared it with the entire hiring team before my first interview.", name: 'Product Manager', role: 'Early access user · hired at a fintech scale-up', initials: 'PM', color: '#10B981' },
+  { quote: "As a designer I care about how I present myself. Reslink resonated perfectly with the creative teams I was targeting. Two offers in two weeks.", name: 'UX Designer', role: 'Early access user · two offers in two weeks', initials: 'UX', color: '#EF4444' },
+  { quote: "Honestly thought video resumes were gimmicky. Then I got a reply from a top payments company within 24 hours of sending my Reslink. I was wrong.", name: 'Data Scientist', role: 'Early access user · hired in fintech', initials: 'DS', color: '#635BFF' },
 ];
 
 const FAQS = [

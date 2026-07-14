@@ -11,7 +11,7 @@ export default function HiringBand() {
       <div className="hiring-band-inner">
         <span style={{ fontSize: '11px', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#D8F950', fontFamily: 'var(--font-body)', background: 'rgba(216,249,80,0.12)', borderRadius: '100px', padding: '3px 10px' }}>Hiring?</span>
         <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.7)', fontFamily: 'var(--font-body)' }}>
-          Screen candidates with AI-scored video profiles.
+          Meet the person behind every application.
         </p>
         <Link href="/companies" className="hiring-band-link" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '14px', fontWeight: 700, color: '#fff', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
           <span>See Reslink for companies</span>

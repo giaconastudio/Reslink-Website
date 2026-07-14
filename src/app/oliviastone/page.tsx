@@ -83,18 +83,21 @@ export default function ExampleProfilePage() {
         </div>
 
         <style>{`
-          .ex-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 24px; align-items: start; }
+          .ex-grid { display: grid; grid-template-columns: 1.35fr 0.65fr; gap: 24px; align-items: stretch; }
           @media (max-width: 860px) { .ex-grid { grid-template-columns: 1fr; } }
           .ex-header-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
           .ex-pip { position: absolute; top: 20px; right: 20px; width: clamp(120px, 22vw, 200px); aspect-ratio: 1; z-index: 5; }
           @media (max-width: 640px) { .ex-pip { top: 12px; right: 12px; width: clamp(104px, 32vw, 150px); } }
-          .ex-resume-scroll { max-height: 620px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #C3C8D2 transparent; }
+          .ex-resume-scroll { height: 100%; max-height: 760px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #C3C8D2 transparent; }
           .ex-resume-scroll::-webkit-scrollbar { width: 6px; }
           .ex-resume-scroll::-webkit-scrollbar-thumb { background: #C3C8D2; border-radius: 3px; }
+          @media (max-width: 860px) { .ex-resume-scroll { max-height: 620px; } }
           @media (max-width: 640px) { .ex-resume-scroll { max-height: 520px; } }
+          .ex-sidebar { display: flex; flex-direction: column; gap: 16px; height: 100%; }
+          .ex-sidebar > :first-child { flex: 1; }
         `}</style>
 
-        <div style={{ maxWidth: '1020px', margin: '0 auto', padding: '32px 24px 80px' }}>
+        <div style={{ maxWidth: '1180px', margin: '0 auto', padding: '32px 24px 80px' }}>
 
           {/* Profile header */}
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }}
@@ -134,12 +137,16 @@ export default function ExampleProfilePage() {
             </div>
           </motion.div>
 
+          {/* Resume + sidebar, side by side so nothing requires scrolling to reach */}
+          <div style={{ background: '#E9ECF1', padding: 'clamp(20px, 4vw, 36px)', borderBottom: '1px solid #DFE3EA' }}>
+          <div className="ex-grid">
+
           {/* Resume document + intro PIP (appears on play, upper-right) */}
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.1 }}
-            style={{ position: 'relative', background: '#E9ECF1', padding: 'clamp(20px, 4vw, 44px)', borderBottom: '1px solid #DFE3EA' }}>
+            style={{ position: 'relative' }}>
 
             {/* The resume "paper" — scrollable */}
-            <div className="ex-resume-scroll" style={{ maxWidth: '640px', margin: '0 auto', background: '#fff', borderRadius: '6px', boxShadow: '0 8px 40px rgba(4,22,53,0.12)', padding: 'clamp(24px, 4vw, 44px)' }}>
+            <div className="ex-resume-scroll" style={{ background: '#fff', borderRadius: '6px', boxShadow: '0 8px 40px rgba(4,22,53,0.12)', padding: 'clamp(24px, 4vw, 44px)' }}>
               <div style={{ textAlign: 'center', borderBottom: '1.5px solid #041635', paddingBottom: '16px', marginBottom: '20px' }}>
                 <p style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(20px, 3vw, 26px)', fontWeight: 700, color: '#041635', letterSpacing: '0.01em' }}>Olivia Stone</p>
                 <p style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)', marginTop: '4px' }}>Business Development Representative</p>
@@ -211,8 +218,8 @@ export default function ExampleProfilePage() {
             </motion.div>
           </motion.div>
 
-          {/* Below-resume grid */}
-          <div className="ex-grid" style={{ marginTop: '24px' }}>
+          {/* Sidebar — analytics + CTA, next to the resume */}
+          <div className="ex-sidebar">
 
             {/* Live analytics */}
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.15 }}
@@ -248,6 +255,9 @@ export default function ExampleProfilePage() {
                 Create your Reslink <ArrowRight size={14} />
               </Link>
             </motion.div>
+          </div>
+
+          </div>
           </div>
         </div>
       </main>

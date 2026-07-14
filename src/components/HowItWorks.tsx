@@ -141,13 +141,15 @@ function DesktopHIW() {
           </div>
         </div>
 
-        {/* Scroll hint */}
+        {/* Scroll hint — bold, directional, hard to miss */}
         {active < steps.length - 1 && (
-          <motion.div style={{ position: 'absolute', bottom: '28px', left: '50%', transform: 'translateX(-50%)', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
-            <span style={{ fontSize: '10px', fontWeight: 600, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.1em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>Scroll to explore</span>
-            <motion.div animate={{ y: [0, 7, 0] }} transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2"><polyline points="6 9 12 15 18 9"/></svg>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="2" style={{ marginTop: '-8px' }}><polyline points="6 9 12 15 18 9"/></svg>
+          <motion.div style={{ position: 'absolute', bottom: '28px', left: '50%', transform: 'translateX(-50%)', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(216,249,80,0.1)', border: '1px solid rgba(216,249,80,0.3)', borderRadius: '100px', padding: '7px 16px' }}>
+              <span style={{ fontSize: '12px', fontWeight: 700, color: '#D8F950', letterSpacing: '0.06em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>Keep scrolling</span>
+            </div>
+            <motion.div animate={{ y: [0, 10, 0] }} transition={{ repeat: Infinity, duration: 1.3, ease: 'easeInOut' }} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0px' }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D8F950" strokeWidth="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D8F950" strokeWidth="2.5" opacity="0.5" style={{ marginTop: '-11px' }}><polyline points="6 9 12 15 18 9"/></svg>
             </motion.div>
           </motion.div>
         )}

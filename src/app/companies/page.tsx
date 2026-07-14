@@ -361,7 +361,7 @@ const [notifA, setNotifA] = useState(0);
                   {FEATURE_TABS.map((t, i) => (
                     <button key={t.id} onClick={() => setActiveTab(i)} className={`co-feat-tab${activeTab === i ? ' active' : ''}`} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                       {activeTab === i && <motion.span layoutId="coFeatTabPill" transition={{ type: 'spring', stiffness: 450, damping: 38 }} style={{ position: 'absolute', inset: 0, background: '#041635', borderRadius: '10px', boxShadow: '0 1px 4px rgba(4,22,53,0.18)', zIndex: 0 }} />}
-                      <t.icon size={14} strokeWidth={2} />{t.label}
+                      <t.icon size={14} strokeWidth={2} /><span>{t.label}</span>
                     </button>
                   ))}
                 </div>

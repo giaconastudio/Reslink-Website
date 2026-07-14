@@ -2,27 +2,34 @@
 
 import { useRef, useState } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { ArrowRight, Play, Pause, Download, Link2, MapPin, Mail, Eye, BarChart2, CheckCircle, Sparkles } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, Play, Pause, Download, Link2, MapPin, Mail, Eye, BarChart2, CheckCircle, Sparkles, Globe, Briefcase } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
 const EXPERIENCE = [
-  { role: 'Product Marketing Manager', org: 'Growth-stage SaaS company', period: '2023 – Present', points: ['Led go-to-market for two product launches that grew ARR 40%', 'Built the customer-story program from zero to 30 published case studies'] },
-  { role: 'Marketing Associate', org: 'B2B analytics startup', period: '2021 – 2023', points: ['Owned lifecycle email — lifted trial-to-paid conversion 18%', 'Ran competitive intel that shaped two roadmap decisions'] },
+  { role: 'Business Development Representative', org: 'Growth-stage SaaS company', period: '2023 – Present', points: ['Booked 140+ qualified meetings in 12 months — 128% of quota', 'Top-performing BDR on a team of nine for three consecutive quarters'] },
+  { role: 'Sales Associate', org: 'B2B software startup', period: '2021 – 2023', points: ['Built outbound sequences that lifted reply rates from 4% to 11%', 'Promoted to senior associate within 14 months'] },
 ];
 
-const SKILLS = ['Go-to-market strategy', 'Positioning & messaging', 'Lifecycle marketing', 'Customer research', 'SQL & analytics', 'Copywriting'];
+const SKILLS = ['Outbound prospecting', 'Discovery calls', 'Salesforce & HubSpot', 'Cold email & sequencing', 'Objection handling', 'Pipeline management'];
 
 export default function ExampleProfilePage() {
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const pipRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
 
-  const togglePlay = () => {
-    const v = videoRef.current;
+  const togglePlay = async () => {
+    const v = pipRef.current;
     if (!v) return;
-    if (v.paused) { v.muted = false; v.play(); setPlaying(true); }
-    else { v.pause(); setPlaying(false); }
+    if (v.paused) {
+      v.currentTime = 0;
+      v.muted = false;
+      try { await v.play(); } catch { v.muted = true; try { await v.play(); } catch { /* blocked */ } }
+      setPlaying(!v.paused);
+    } else {
+      v.pause();
+      setPlaying(false);
+    }
   };
 
   return (
@@ -43,6 +50,7 @@ export default function ExampleProfilePage() {
           .ex-grid { display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 24px; align-items: start; }
           @media (max-width: 860px) { .ex-grid { grid-template-columns: 1fr; } }
           .ex-header-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+          .ex-pip { position: absolute; bottom: 20px; right: 20px; width: clamp(120px, 22vw, 200px); aspect-ratio: 1; z-index: 5; }
         `}</style>
 
         <div style={{ maxWidth: '1020px', margin: '0 auto', padding: '32px 24px 80px' }}>
@@ -52,13 +60,19 @@ export default function ExampleProfilePage() {
             style={{ background: '#041635', borderRadius: '20px 20px 0 0', padding: 'clamp(24px, 4vw, 40px)', position: 'relative', overflow: 'hidden' }}>
             <div style={{ position: 'absolute', top: '-40%', right: '-10%', width: '500px', height: '400px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.3), transparent 65%)', pointerEvents: 'none' }} />
             <div className="ex-header-row" style={{ position: 'relative', zIndex: 1 }}>
-              <div>
-                <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 5vw, 46px)', fontWeight: 900, color: '#fff', lineHeight: 0.95, letterSpacing: '-0.02em', marginBottom: '10px' }}>OLIVIA STONE</h1>
-                <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-body)', marginBottom: '12px' }}>Product Marketing Manager · 5 yrs experience</p>
-                <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '12px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)' }}><MapPin size={12} /> Austin, TX</span>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '12px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)' }}><Mail size={12} /> olivia@example.com</span>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '12px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)' }}><Link2 size={12} /> /in/oliviastone</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
+                <div style={{ width: '64px', height: '64px', borderRadius: '50%', flexShrink: 0, overflow: 'hidden', border: '2px solid rgba(255,255,255,0.25)' }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/videos/pip-person-poster.jpg" alt="Olivia Stone" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} />
+                </div>
+                <div>
+                  <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 4.5vw, 42px)', fontWeight: 900, color: '#fff', lineHeight: 0.95, letterSpacing: '-0.02em', marginBottom: '8px' }}>OLIVIA STONE</h1>
+                  <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>Business Development Representative · 5 yrs experience</p>
+                  <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '12px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)' }}><MapPin size={12} /> London, UK</span>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '12px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)' }}><Mail size={12} /> olivia@example.com</span>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '12px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)' }}><Link2 size={12} /> /in/oliviastone</span>
+                  </div>
                 </div>
               </div>
               <div style={{ display: 'flex', gap: '10px' }}>
@@ -72,78 +86,100 @@ export default function ExampleProfilePage() {
             </div>
           </motion.div>
 
-          {/* Video stage */}
+          {/* Resume document + floating intro PIP */}
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.1 }}
-            style={{ position: 'relative', background: '#060D24', overflow: 'hidden', aspectRatio: '16/9', cursor: 'pointer' }} onClick={togglePlay}>
-            <video ref={videoRef} src="/videos/hero.mp4" poster="/videos/hero-poster.jpg" playsInline preload="metadata"
-              onEnded={() => setPlaying(false)}
-              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-            {!playing && (
-              <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(4,22,53,0.25)' }}>
-                <motion.div whileHover={{ scale: 1.08 }} style={{ width: '76px', height: '76px', borderRadius: '50%', background: '#D8F950', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 16px 48px rgba(0,0,0,0.4)' }}>
-                  <Play size={28} fill="#041635" color="#041635" style={{ marginLeft: '4px' }} />
-                </motion.div>
+            style={{ position: 'relative', background: '#E9ECF1', padding: 'clamp(20px, 4vw, 44px)', borderBottom: '1px solid #DFE3EA' }}>
+
+            {/* The resume "paper" */}
+            <div style={{ maxWidth: '640px', margin: '0 auto', background: '#fff', borderRadius: '6px', boxShadow: '0 8px 40px rgba(4,22,53,0.12)', padding: 'clamp(24px, 4vw, 44px)' }}>
+              <div style={{ textAlign: 'center', borderBottom: '1.5px solid #041635', paddingBottom: '16px', marginBottom: '20px' }}>
+                <p style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(20px, 3vw, 26px)', fontWeight: 700, color: '#041635', letterSpacing: '0.01em' }}>Olivia Stone</p>
+                <p style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)', marginTop: '4px' }}>Business Development Representative</p>
+                <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '3px' }}>London, UK · olivia@example.com · linkedin.com/in/oliviastone</p>
               </div>
-            )}
-            <div style={{ position: 'absolute', top: '14px', left: '14px', display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(4,22,53,0.75)', backdropFilter: 'blur(8px)', borderRadius: '100px', padding: '5px 12px' }}>
-              <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#D8F950', display: 'inline-block' }} />
-              <span style={{ fontSize: '11px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)' }}>60-second video pitch</span>
-            </div>
-          </motion.div>
 
-          {/* Below-video grid */}
-          <div className="ex-grid" style={{ marginTop: '24px' }}>
-
-            {/* Left column — resume content */}
-            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.15 }}
-              style={{ background: '#fff', borderRadius: '16px', border: '1px solid #E8EAF0', padding: 'clamp(24px, 3.5vw, 36px)' }}>
-              <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '18px' }}>Professional experience</p>
-              {EXPERIENCE.map((e) => (
-                <div key={e.role} style={{ marginBottom: '26px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap', marginBottom: '4px' }}>
-                    <p style={{ fontSize: '16px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>{e.role}</p>
-                    <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{e.period}</p>
+              <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#041635', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>Professional experience</p>
+              {EXPERIENCE.map(e => (
+                <div key={e.role} style={{ marginBottom: '16px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px', flexWrap: 'wrap' }}>
+                    <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>{e.role}</p>
+                    <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{e.period}</p>
                   </div>
-                  <p style={{ fontSize: '13px', color: '#0C63E3', fontFamily: 'var(--font-body)', fontWeight: 600, marginBottom: '10px' }}>{e.org}</p>
-                  <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '7px' }}>
+                  <p style={{ fontSize: '12px', color: '#0C63E3', fontFamily: 'var(--font-body)', fontWeight: 600, margin: '2px 0 6px' }}>{e.org}</p>
+                  <ul style={{ listStyle: 'disc', paddingLeft: '18px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                     {e.points.map(pt => (
-                      <li key={pt} style={{ display: 'flex', gap: '9px', fontSize: '14px', color: '#5C6070', lineHeight: 1.6, fontFamily: 'var(--font-body)' }}>
-                        <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#D8F950', flexShrink: 0, marginTop: '8px', border: '1px solid #B5D428' }} />{pt}
-                      </li>
+                      <li key={pt} style={{ fontSize: '12px', color: '#5C6070', lineHeight: 1.55, fontFamily: 'var(--font-body)' }}>{pt}</li>
                     ))}
                   </ul>
                 </div>
               ))}
-              <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#9A9FA8', fontFamily: 'var(--font-body)', margin: '28px 0 14px' }}>Skills</p>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+
+              <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#041635', fontFamily: 'var(--font-body)', margin: '18px 0 10px' }}>Skills</p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                 {SKILLS.map(s => (
-                  <span key={s} style={{ fontSize: '12px', fontWeight: 600, color: '#041635', background: '#F0F3F7', borderRadius: '100px', padding: '6px 14px', fontFamily: 'var(--font-body)' }}>{s}</span>
+                  <span key={s} style={{ fontSize: '11px', fontWeight: 600, color: '#041635', background: '#F0F3F7', borderRadius: '100px', padding: '4px 12px', fontFamily: 'var(--font-body)' }}>{s}</span>
+                ))}
+              </div>
+            </div>
+
+            {/* Floating intro PIP — plays on "Play intro" */}
+            <div className="ex-pip">
+              <div onClick={togglePlay} style={{ width: '100%', height: '100%', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.35)', border: '3px solid #fff', cursor: 'pointer', position: 'relative' }}>
+                <video ref={pipRef} src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" playsInline preload="metadata"
+                  onEnded={() => setPlaying(false)}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                <AnimatePresence>
+                  {!playing && (
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                      style={{ position: 'absolute', inset: 0, background: 'rgba(4,22,53,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: '#D8F950', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 24px rgba(0,0,0,0.3)' }}>
+                        <Play size={18} fill="#041635" color="#041635" style={{ marginLeft: '2px' }} />
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+                <div style={{ position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(4,22,53,0.78)', backdropFilter: 'blur(6px)', borderRadius: '100px', padding: '3px 10px', display: 'flex', alignItems: 'center', gap: '5px', whiteSpace: 'nowrap' }}>
+                  <motion.div animate={playing ? { opacity: [1, 0.3, 1] } : { opacity: 1 }} transition={{ repeat: Infinity, duration: 1.4 }} style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#D8F950', flexShrink: 0 }} />
+                  <span style={{ fontSize: '10px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>{playing ? 'Intro playing' : '60-sec intro'}</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Below-resume grid */}
+          <div className="ex-grid" style={{ marginTop: '24px' }}>
+
+            {/* Left column — about / quick facts */}
+            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.15 }}
+              style={{ background: '#fff', borderRadius: '16px', border: '1px solid #E8EAF0', padding: 'clamp(24px, 3.5vw, 36px)' }}>
+              <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '18px' }}>About Olivia</p>
+              <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.75, fontFamily: 'var(--font-body)', marginBottom: '24px' }}>
+                Quota-beating BDR with five years in B2B SaaS. Olivia&apos;s 60-second pitch covers how she books meetings other reps can&apos;t — and why she&apos;s looking for her next team to help scale.
+              </p>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+                {[
+                  { icon: MapPin, label: 'Location', value: 'London, UK' },
+                  { icon: Globe, label: 'Open to', value: 'Hybrid · Remote' },
+                  { icon: Briefcase, label: 'Experience', value: '5 years' },
+                  { icon: CheckCircle, label: 'Availability', value: '4 weeks notice' },
+                ].map(({ icon: Icon, label, value }) => (
+                  <div key={label} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: '#F0F3F7', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <Icon size={15} color="#0C63E3" strokeWidth={2} />
+                    </div>
+                    <div>
+                      <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{label}</p>
+                      <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>{value}</p>
+                    </div>
+                  </div>
                 ))}
               </div>
             </motion.div>
 
-            {/* Right column — what recruiters/owners see */}
+            {/* Right column */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              {/* AI score */}
-              <motion.div initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.45, delay: 0.2 }}
-                style={{ background: '#fff', borderRadius: '16px', border: '1px solid #E8EAF0', padding: '22px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
-                  <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Reslink AI score</p>
-                  <span style={{ fontSize: '10px', fontWeight: 700, color: '#0C63E3', background: '#EEF4FF', borderRadius: '100px', padding: '3px 9px', fontFamily: 'var(--font-body)' }}>What companies see</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                  <div style={{ width: '52px', height: '52px', borderRadius: '14px', background: '#16A34A', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '24px', fontWeight: 900, color: '#fff' }}>A</span>
-                  </div>
-                  <div>
-                    <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '26px', fontWeight: 900, color: '#041635', lineHeight: 1 }}>92<span style={{ fontSize: '15px', color: '#9A9FA8' }}>/100</span></p>
-                    <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Video pitch · resume match · role fit</p>
-                  </div>
-                </div>
-              </motion.div>
-
               {/* View analytics */}
-              <motion.div initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.45, delay: 0.28 }}
+              <motion.div initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.45, delay: 0.22 }}
                 style={{ background: '#fff', borderRadius: '16px', border: '1px solid #E8EAF0', padding: '22px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
                   <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Live analytics</p>
@@ -169,7 +205,7 @@ export default function ExampleProfilePage() {
               </motion.div>
 
               {/* CTA card */}
-              <motion.div initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.45, delay: 0.36 }}
+              <motion.div initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.45, delay: 0.3 }}
                 style={{ background: '#041635', borderRadius: '16px', padding: '24px', position: 'relative', overflow: 'hidden' }}>
                 <div style={{ position: 'absolute', top: '-50%', right: '-30%', width: '300px', height: '250px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.35), transparent 65%)', pointerEvents: 'none' }} />
                 <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: '#fff', lineHeight: 1, letterSpacing: '-0.02em', marginBottom: '10px', position: 'relative' }}>This could be you.</p>

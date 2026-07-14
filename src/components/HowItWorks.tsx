@@ -42,7 +42,7 @@ function DesktopHIW() {
       const el = spacerRef.current;
       if (!el) return;
       const rect = el.getBoundingClientRect();
-      const total = rect.height - window.innerHeight;
+      const total = Math.max(1, rect.height - window.innerHeight);
       if (rect.top > 1) {
         setPhase('before');
       } else if (rect.bottom < window.innerHeight - 1) {

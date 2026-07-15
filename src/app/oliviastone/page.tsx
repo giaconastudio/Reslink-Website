@@ -42,12 +42,11 @@ const CERTS = ['HubSpot Sales Software Certified', 'Salesforce Trailhead Ranger'
 
 const SKILLS = ['Outbound prospecting', 'Discovery calls', 'Salesforce & HubSpot', 'Cold email & sequencing', 'Objection handling', 'Pipeline management'];
 
-const ANALYTICS = [
-  { icon: Eye, title: '12 profile views this week', sub: 'Up 4 from last week' },
-  { icon: Clock, title: 'Avg. watch time 0:58 of 1:12', sub: '85% of viewers finish the intro' },
-  { icon: Download, title: '3 resume downloads', sub: 'Most recent: 1d ago' },
-  { icon: MapPin, title: 'Top viewer locations', sub: 'London · New York · Berlin' },
-  { icon: MousePointerClick, title: '9 link clicks this week', sub: 'From LinkedIn, email & applications' },
+const ANALYTICS_TILES = [
+  { icon: Eye, value: '12', label: 'Profile views', sub: 'this week · up 4' },
+  { icon: Clock, value: '0:58', label: 'Avg. watch time', sub: '85% finish it' },
+  { icon: Download, value: '3', label: 'Resume downloads', sub: 'latest 1d ago' },
+  { icon: MousePointerClick, value: '9', label: 'Link clicks', sub: 'this week' },
 ];
 
 export default function ExampleProfilePage() {
@@ -83,7 +82,7 @@ export default function ExampleProfilePage() {
         </div>
 
         <style>{`
-          .ex-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 24px; align-items: start; }
+          .ex-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 24px; align-items: stretch; }
           @media (max-width: 760px) { .ex-grid { grid-template-columns: 1fr; } }
           .ex-header-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
           .ex-resume-window { position: relative; background: #E9ECF1; padding: clamp(20px, 4vw, 44px); border-radius: 0 0 20px 20px; border: 1px solid #DFE3EA; border-top: none; }
@@ -142,7 +141,7 @@ export default function ExampleProfilePage() {
             className="ex-resume-window">
 
             {/* The resume "paper" — scrollable */}
-            <div className="ex-resume-scroll" style={{ maxWidth: '680px', margin: '0 auto', background: '#fff', borderRadius: '6px', boxShadow: '0 8px 40px rgba(4,22,53,0.12)', padding: 'clamp(24px, 4vw, 44px)' }}>
+            <div className="ex-resume-scroll" style={{ maxWidth: '860px', margin: '0 auto', background: '#fff', borderRadius: '6px', boxShadow: '0 8px 40px rgba(4,22,53,0.12)', padding: 'clamp(28px, 4.5vw, 56px)' }}>
               <div style={{ textAlign: 'center', borderBottom: '1.5px solid #041635', paddingBottom: '16px', marginBottom: '20px' }}>
                 <p style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(20px, 3vw, 26px)', fontWeight: 700, color: '#041635', letterSpacing: '0.01em' }}>Olivia Stone</p>
                 <p style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)', marginTop: '4px' }}>Business Development Representative</p>
@@ -219,36 +218,56 @@ export default function ExampleProfilePage() {
 
             {/* Live analytics */}
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.15 }}
-              style={{ background: '#fff', borderRadius: '16px', border: '1px solid #E8EAF0', padding: 'clamp(22px, 3vw, 30px)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
-                <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Live analytics</p>
-                <span style={{ fontSize: '10px', fontWeight: 700, color: '#041635', background: '#D8F950', borderRadius: '100px', padding: '3px 9px', fontFamily: 'var(--font-body)' }}>What Olivia sees</span>
+              style={{ display: 'flex', flexDirection: 'column', background: '#fff', borderRadius: '16px', border: '1px solid #E8EAF0', padding: 'clamp(22px, 3vw, 30px)' }}>
+              {/* Header with prominent "what Olivia sees" cue */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', marginBottom: '18px', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#16A34A', display: 'inline-block', boxShadow: '0 0 0 3px rgba(22,163,74,0.15)' }} />
+                  <p style={{ fontSize: '12px', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#041635', fontFamily: 'var(--font-body)' }}>Live analytics</p>
+                </div>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '11px', fontWeight: 800, color: '#041635', background: '#D8F950', borderRadius: '100px', padding: '5px 11px', fontFamily: 'var(--font-body)', border: '1.5px solid #041635' }}>
+                  <Eye size={12} strokeWidth={2.5} /> Only Olivia sees this
+                </span>
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                {ANALYTICS.map(({ icon: Icon, title, sub }) => (
-                  <div key={title} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                      <Icon size={16} color="#0C63E3" strokeWidth={2} />
+
+              {/* 2×2 stat tiles */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '10px' }}>
+                {ANALYTICS_TILES.map(({ icon: Icon, value, label, sub }) => (
+                  <div key={label} style={{ background: '#F7F9FC', border: '1px solid #EDF0F5', borderRadius: '12px', padding: '14px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                      <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        <Icon size={14} color="#0C63E3" strokeWidth={2} />
+                      </div>
+                      <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.02em' }}>{value}</span>
                     </div>
-                    <div>
-                      <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.25 }}>{title}</p>
-                      <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{sub}</p>
-                    </div>
+                    <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{label}</p>
+                    <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '1px' }}>{sub}</p>
                   </div>
                 ))}
               </div>
+
+              {/* Locations bar */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: '#F7F9FC', border: '1px solid #EDF0F5', borderRadius: '12px', padding: '12px 14px', marginTop: 'auto' }}>
+                <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <MapPin size={14} color="#0C63E3" strokeWidth={2} />
+                </div>
+                <div>
+                  <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Top viewer locations</p>
+                  <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>London · New York · Berlin</p>
+                </div>
+              </div>
             </motion.div>
 
-            {/* CTA card */}
+            {/* CTA card — matches analytics height */}
             <motion.div initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.45, delay: 0.25 }}
-              style={{ background: '#041635', borderRadius: '16px', padding: 'clamp(24px, 3vw, 32px)', position: 'relative', overflow: 'hidden' }}>
+              style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', background: '#041635', borderRadius: '16px', padding: 'clamp(24px, 3vw, 36px)', position: 'relative', overflow: 'hidden' }}>
               <div style={{ position: 'absolute', top: '-50%', right: '-30%', width: '300px', height: '250px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.35), transparent 65%)', pointerEvents: 'none' }} />
-              <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '24px', fontWeight: 900, color: '#fff', lineHeight: 1, letterSpacing: '-0.02em', marginBottom: '10px', position: 'relative' }}>This could be you.</p>
-              <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.55)', lineHeight: 1.6, fontFamily: 'var(--font-body)', marginBottom: '18px', position: 'relative' }}>
+              <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(24px, 3vw, 30px)', fontWeight: 900, color: '#fff', lineHeight: 0.98, letterSpacing: '-0.02em', marginBottom: '12px', position: 'relative' }}>This could be you.</p>
+              <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.55)', lineHeight: 1.6, fontFamily: 'var(--font-body)', marginBottom: '22px', position: 'relative' }}>
                 One link with your resume, your video pitch, and live analytics on everyone who views it. Build yours in under 5 minutes — free.
               </p>
-              <Link href="/get-started" className="btn-primary" style={{ fontSize: '14px', padding: '12px 22px', background: '#D8F950', color: '#041635', position: 'relative' }}>
-                Create your Reslink <ArrowRight size={14} />
+              <Link href="/get-started" className="btn-primary" style={{ fontSize: '15px', padding: '14px 26px', background: '#D8F950', color: '#041635', position: 'relative', alignSelf: 'flex-start' }}>
+                Create your Reslink <ArrowRight size={15} />
               </Link>
             </motion.div>
           </div>

@@ -100,33 +100,22 @@ export default function ValueProp() {
                 </div>
               </div>
 
-              {/* Fake resume content */}
-              <div style={{ marginBottom: '20px' }}>
-                {/* Name + title */}
-                <div style={{ height: '14px', borderRadius: '6px', background: '#B8BCC8', width: '52%', marginBottom: '7px' }} />
-                <div style={{ height: '9px', borderRadius: '5px', background: '#D0D4DC', width: '68%', marginBottom: '4px' }} />
-                <div style={{ height: '8px', borderRadius: '5px', background: '#D8DBE3', width: '80%', marginBottom: '16px' }} />
-                {/* Experience section */}
-                <div style={{ height: '7px', borderRadius: '3px', background: '#C4C8D4', width: '30%', marginBottom: '8px' }} />
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '14px' }}>
-                  <div style={{ height: '7px', borderRadius: '4px', background: '#DDE0E8', width: '100%' }} />
-                  <div style={{ height: '7px', borderRadius: '4px', background: '#DDE0E8', width: '91%' }} />
-                  <div style={{ height: '7px', borderRadius: '4px', background: '#DDE0E8', width: '97%' }} />
-                  <div style={{ height: '7px', borderRadius: '4px', background: '#DDE0E8', width: '76%' }} />
+              {/* Realistic plain-resume content */}
+              <div style={{ background: '#fff', border: '1px solid #ECEEF1', borderRadius: '8px', padding: '20px 22px', marginBottom: '20px' }}>
+                <div style={{ textAlign: 'center', borderBottom: '1px solid #E5E7EB', paddingBottom: '10px', marginBottom: '12px' }}>
+                  <p style={{ fontFamily: 'Georgia, serif', fontSize: '17px', fontWeight: 700, color: '#3A3F4C' }}>Olivia Stone</p>
+                  <p style={{ fontSize: '11px', color: '#7A7F8A', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Business Development Representative</p>
+                  <p style={{ fontSize: '10px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px' }}>London, UK · olivia@example.com · +44 7xxx xxx xxx</p>
                 </div>
-                {/* Education section */}
-                <div style={{ height: '7px', borderRadius: '3px', background: '#C4C8D4', width: '26%', marginBottom: '8px' }} />
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '14px' }}>
-                  <div style={{ height: '7px', borderRadius: '4px', background: '#DDE0E8', width: '88%' }} />
-                  <div style={{ height: '7px', borderRadius: '4px', background: '#DDE0E8', width: '62%' }} />
-                </div>
-                {/* Skills section */}
-                <div style={{ height: '7px', borderRadius: '3px', background: '#C4C8D4', width: '20%', marginBottom: '8px' }} />
-                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                  {[48, 56, 40, 52, 44].map((w, i) => (
-                    <div key={i} style={{ height: '20px', borderRadius: '4px', background: '#DDE0E8', width: `${w}px` }} />
-                  ))}
-                </div>
+                <p style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#8A8F9A', fontFamily: 'var(--font-body)', marginBottom: '5px' }}>Experience</p>
+                <p style={{ fontSize: '11px', fontWeight: 700, color: '#4A4F5A', fontFamily: 'var(--font-body)' }}>Business Development Representative</p>
+                <p style={{ fontSize: '10px', color: '#8A8F9A', fontFamily: 'var(--font-body)', marginBottom: '4px' }}>Growth-stage SaaS company · 2023–Present</p>
+                <ul style={{ listStyle: 'disc', paddingLeft: '15px', margin: '0 0 12px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                  <li style={{ fontSize: '10px', color: '#8A8F9A', lineHeight: 1.45, fontFamily: 'var(--font-body)' }}>Booked 140+ qualified meetings — 128% of quota</li>
+                  <li style={{ fontSize: '10px', color: '#8A8F9A', lineHeight: 1.45, fontFamily: 'var(--font-body)' }}>Top-performing BDR for three consecutive quarters</li>
+                </ul>
+                <p style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#8A8F9A', fontFamily: 'var(--font-body)', marginBottom: '5px' }}>Education</p>
+                <p style={{ fontSize: '10px', color: '#8A8F9A', fontFamily: 'var(--font-body)' }}>BA Business Management · University of Manchester</p>
               </div>
 
               {/* Outcome */}
@@ -182,19 +171,21 @@ export default function ValueProp() {
                 </div>
               </div>
 
-              {/* Resume document peek */}
-              <div style={{ background: '#fff', padding: '18px 24px', borderBottom: '1px solid #F0F1F4' }}>
-                <div style={{ textAlign: 'center', marginBottom: '12px' }}>
-                  <p style={{ fontSize: '15px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>Olivia Stone</p>
-                  <p style={{ fontSize: '12px', color: '#5C6070', fontFamily: 'var(--font-body)', marginTop: '2px' }}>Business Development Representative</p>
-                  <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px' }}>London, UK · +44xxxx · LinkedIn</p>
+              {/* Resume document peek — realistic so it's clearly a resume */}
+              <div style={{ background: '#fff', padding: '16px 24px 18px', borderBottom: '1px solid #F0F1F4' }}>
+                <span style={{ display: 'inline-block', fontSize: '9px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#0C63E3', background: '#EEF4FF', borderRadius: '100px', padding: '2px 9px', marginBottom: '10px', fontFamily: 'var(--font-body)' }}>Resume</span>
+                <div style={{ textAlign: 'center', borderBottom: '1px solid #EDEFF2', paddingBottom: '9px', marginBottom: '10px' }}>
+                  <p style={{ fontFamily: 'Georgia, serif', fontSize: '16px', fontWeight: 700, color: '#041635' }}>Olivia Stone</p>
+                  <p style={{ fontSize: '11px', color: '#5C6070', fontFamily: 'var(--font-body)', marginTop: '2px' }}>Business Development Representative</p>
+                  <p style={{ fontSize: '10px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px' }}>London, UK · olivia@example.com · LinkedIn</p>
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '12px' }}>
-                  <div style={{ height: '7px', borderRadius: '4px', background: '#F3F4F6', width: '100%' }} />
-                  <div style={{ height: '7px', borderRadius: '4px', background: '#F3F4F6', width: '90%' }} />
-                  <div style={{ height: '7px', borderRadius: '4px', background: '#F3F4F6', width: '96%' }} />
-                  <div style={{ height: '7px', borderRadius: '4px', background: '#F3F4F6', width: '82%' }} />
-                </div>
+                <p style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#8A8F9A', fontFamily: 'var(--font-body)', marginBottom: '4px' }}>Experience</p>
+                <p style={{ fontSize: '11px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>Business Development Representative</p>
+                <p style={{ fontSize: '10px', color: '#0C63E3', fontWeight: 600, fontFamily: 'var(--font-body)', marginBottom: '3px' }}>Growth-stage SaaS company · 2023–Present</p>
+                <ul style={{ listStyle: 'disc', paddingLeft: '15px', margin: 0, display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                  <li style={{ fontSize: '10px', color: '#5C6070', lineHeight: 1.4, fontFamily: 'var(--font-body)' }}>Booked 140+ qualified meetings — 128% of quota</li>
+                  <li style={{ fontSize: '10px', color: '#5C6070', lineHeight: 1.4, fontFamily: 'var(--font-body)' }}>Top-performing BDR for three consecutive quarters</li>
+                </ul>
               </div>
 
               {/* Recruiter activity */}

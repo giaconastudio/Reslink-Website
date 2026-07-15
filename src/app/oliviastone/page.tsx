@@ -83,11 +83,10 @@ export default function ExampleProfilePage() {
         </div>
 
         <style>{`
-          .ex-grid { display: grid; grid-template-columns: 1.35fr 0.65fr; gap: 24px; align-items: start; }
-          @media (max-width: 860px) { .ex-grid { grid-template-columns: 1fr; } }
+          .ex-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 24px; align-items: start; }
+          @media (max-width: 760px) { .ex-grid { grid-template-columns: 1fr; } }
           .ex-header-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-          .ex-resume-window { position: relative; background: #E9ECF1; padding: clamp(20px, 4vw, 36px); border-radius: 0 0 20px 20px; border: 1px solid #DFE3EA; border-top: none; }
-          @media (max-width: 860px) { .ex-resume-window { border-radius: 0; } }
+          .ex-resume-window { position: relative; background: #E9ECF1; padding: clamp(20px, 4vw, 44px); border-radius: 0 0 20px 20px; border: 1px solid #DFE3EA; border-top: none; }
           .ex-pip { position: absolute; top: 20px; right: 20px; width: clamp(120px, 22vw, 200px); aspect-ratio: 1; z-index: 5; }
           @media (max-width: 640px) { .ex-pip { top: 12px; right: 12px; width: clamp(104px, 32vw, 150px); } }
           .ex-resume-scroll { max-height: 760px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #C3C8D2 transparent; }
@@ -98,10 +97,7 @@ export default function ExampleProfilePage() {
           .ex-sidebar { display: flex; flex-direction: column; gap: 16px; }
         `}</style>
 
-        <div style={{ maxWidth: '1180px', margin: '0 auto', padding: '32px 24px 80px' }}>
-
-          <div className="ex-grid">
-          <div className="ex-left-col">
+        <div style={{ maxWidth: '1020px', margin: '0 auto', padding: '32px 24px 80px' }}>
 
           {/* Profile header */}
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }}
@@ -146,7 +142,7 @@ export default function ExampleProfilePage() {
             className="ex-resume-window">
 
             {/* The resume "paper" — scrollable */}
-            <div className="ex-resume-scroll" style={{ background: '#fff', borderRadius: '6px', boxShadow: '0 8px 40px rgba(4,22,53,0.12)', padding: 'clamp(24px, 4vw, 44px)' }}>
+            <div className="ex-resume-scroll" style={{ maxWidth: '680px', margin: '0 auto', background: '#fff', borderRadius: '6px', boxShadow: '0 8px 40px rgba(4,22,53,0.12)', padding: 'clamp(24px, 4vw, 44px)' }}>
               <div style={{ textAlign: 'center', borderBottom: '1.5px solid #041635', paddingBottom: '16px', marginBottom: '20px' }}>
                 <p style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(20px, 3vw, 26px)', fontWeight: 700, color: '#041635', letterSpacing: '0.01em' }}>Olivia Stone</p>
                 <p style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)', marginTop: '4px' }}>Business Development Representative</p>
@@ -218,10 +214,8 @@ export default function ExampleProfilePage() {
             </motion.div>
           </motion.div>
 
-          </div>{/* /ex-left-col */}
-
-          {/* Sidebar — analytics + CTA, next to the resume */}
-          <div className="ex-sidebar">
+          {/* Analytics + CTA, below the resume */}
+          <div className="ex-grid" style={{ marginTop: '24px' }}>
 
             {/* Live analytics */}
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.15 }}
@@ -259,7 +253,6 @@ export default function ExampleProfilePage() {
             </motion.div>
           </div>
 
-          </div>
         </div>
       </main>
       <Footer />

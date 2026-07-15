@@ -74,10 +74,14 @@ export default function ExampleProfilePage() {
 
         {/* Example banner */}
         <div style={{ background: '#D8F950', padding: '10px 24px', textAlign: 'center' }}>
-          <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>
-            <Sparkles size={13} style={{ display: 'inline', verticalAlign: '-2px', marginRight: '6px' }} />
-            This is an example Reslink profile — exactly what recruiters see when you share your link.{' '}
-            <Link href="/get-started" style={{ color: '#041635', textDecoration: 'underline', fontWeight: 800 }}>Create yours free</Link>
+          <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center', gap: '4px 8px', lineHeight: 1.4 }}>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+              <Sparkles size={13} />
+              This is an example Reslink — exactly what recruiters see when you share your link.
+            </span>
+            <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#041635', textDecoration: 'none', fontWeight: 800, borderBottom: '2px solid #041635' }}>
+              Create yours free <ArrowRight size={13} strokeWidth={2.5} />
+            </Link>
           </p>
         </div>
 
@@ -85,9 +89,19 @@ export default function ExampleProfilePage() {
           .ex-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 24px; align-items: stretch; }
           @media (max-width: 760px) { .ex-grid { grid-template-columns: 1fr; } }
           .ex-header-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+          @media (max-width: 620px) {
+            .ex-header-row { flex-direction: column; align-items: stretch; gap: 20px; }
+            .ex-header-identity { flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+            .ex-header-name h1 { font-size: 30px !important; }
+            .ex-header-contacts { justify-content: center; }
+            .ex-header-actions { width: 100%; }
+            .ex-header-actions > * { flex: 1; }
+          }
           .ex-resume-window { position: relative; background: #E9ECF1; padding: clamp(20px, 4vw, 44px); border-radius: 0 0 20px 20px; border: 1px solid #DFE3EA; border-top: none; }
+          @media (max-width: 620px) { .ex-resume-window { padding: 16px 12px; } }
           .ex-pip { position: absolute; top: 20px; right: 20px; width: clamp(120px, 22vw, 200px); aspect-ratio: 1; z-index: 5; }
-          @media (max-width: 640px) { .ex-pip { top: 12px; right: 12px; width: clamp(104px, 32vw, 150px); } }
+          /* On mobile the intro docks to a fixed floating corner so it never covers the resume */
+          @media (max-width: 640px) { .ex-pip { position: fixed; top: auto; bottom: 16px; right: 16px; width: 128px; z-index: 60; } }
           .ex-resume-scroll { max-height: 760px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #C3C8D2 transparent; }
           .ex-resume-scroll::-webkit-scrollbar { width: 6px; }
           .ex-resume-scroll::-webkit-scrollbar-thumb { background: #C3C8D2; border-radius: 3px; }
@@ -103,22 +117,22 @@ export default function ExampleProfilePage() {
             style={{ background: '#041635', borderRadius: '20px 20px 0 0', padding: 'clamp(24px, 4vw, 40px)', position: 'relative', overflow: 'hidden' }}>
             <div style={{ position: 'absolute', top: '-40%', right: '-10%', width: '500px', height: '400px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.3), transparent 65%)', pointerEvents: 'none' }} />
             <div className="ex-header-row" style={{ position: 'relative', zIndex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
-                <div style={{ width: '64px', height: '64px', borderRadius: '50%', flexShrink: 0, overflow: 'hidden', border: '2px solid rgba(255,255,255,0.25)' }}>
+              <div className="ex-header-identity" style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
+                <div className="ex-header-avatar" style={{ width: '64px', height: '64px', borderRadius: '50%', flexShrink: 0, overflow: 'hidden', border: '2px solid rgba(255,255,255,0.25)' }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src="/videos/pip-person-poster.jpg" alt="Olivia Stone" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} />
                 </div>
-                <div>
-                  <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 4.5vw, 42px)', fontWeight: 900, color: '#fff', lineHeight: 0.95, letterSpacing: '-0.02em', marginBottom: '8px' }}>OLIVIA STONE</h1>
+                <div className="ex-header-name">
+                  <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 4.5vw, 42px)', fontWeight: 900, color: '#fff', lineHeight: 0.95, letterSpacing: '-0.02em', marginBottom: '8px' }}>OLIVIA STONE</h1>
                   <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>Business Development Representative · 5 yrs experience</p>
-                  <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+                  <div className="ex-header-contacts" style={{ display: 'flex', gap: '6px 16px', flexWrap: 'wrap' }}>
                     <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '12px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)' }}><MapPin size={12} /> London, UK</span>
                     <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '12px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)' }}><Mail size={12} /> olivia@example.com</span>
                     <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '12px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)' }}><Link2 size={12} /> /in/oliviastone</span>
                   </div>
                 </div>
               </div>
-              <div style={{ display: 'flex', gap: '10px' }}>
+              <div className="ex-header-actions" style={{ display: 'flex', gap: '10px' }}>
                 <motion.button
                   onClick={togglePlay}
                   animate={playing ? { scale: 1, boxShadow: '0 0 0 0 rgba(216,249,80,0)' } : {
@@ -126,10 +140,10 @@ export default function ExampleProfilePage() {
                     boxShadow: ['0 0 0 0 rgba(216,249,80,0.55)', '0 0 0 12px rgba(216,249,80,0)', '0 0 0 0 rgba(216,249,80,0)'],
                   }}
                   transition={playing ? { duration: 0.2 } : { repeat: Infinity, duration: 1.8, ease: 'easeOut' }}
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 22px', background: '#D8F950', color: '#041635', border: 'none', borderRadius: '10px', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: 'pointer' }}>
+                  style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '12px 22px', background: '#D8F950', color: '#041635', border: 'none', borderRadius: '10px', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: 'pointer' }}>
                   {playing ? <Pause size={14} /> : <Play size={14} fill="#041635" />} {playing ? 'Pause intro' : 'Play intro'}
                 </motion.button>
-                <span title="Disabled in this example" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 22px', background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.5)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '10px', fontSize: '14px', fontWeight: 600, fontFamily: 'var(--font-body)', cursor: 'default' }}>
+                <span title="Disabled in this example" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '12px 22px', background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.5)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '10px', fontSize: '14px', fontWeight: 600, fontFamily: 'var(--font-body)', cursor: 'default' }}>
                   <Download size={14} /> Resume
                 </span>
               </div>

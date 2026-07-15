@@ -170,7 +170,7 @@ export default function Hero() {
         transition={{ duration: 0.75, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
         style={{ perspective: '1200px', transformOrigin: 'center bottom' }}
       >
-        <Link href="/oliviastone" aria-label="Open the example Reslink profile" style={{ display: 'block', textDecoration: 'none', cursor: 'pointer' }} className="hero-frame-link">
+        <Link href="/oliviastone" aria-label="Explore the example Reslink" style={{ display: 'block', textDecoration: 'none', cursor: 'pointer' }} className="hero-frame-link">
           <style>{`
             .hero-frame-link .hero-open-hint { opacity: 0; transition: opacity 0.25s ease; }
             .hero-frame-link:hover .hero-open-hint { opacity: 1; }
@@ -199,7 +199,7 @@ export default function Hero() {
               />
               <div className="hero-open-hint" style={{ position: 'absolute', inset: 0, background: 'rgba(4,22,53,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 2 }}>
                 <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#fff', color: '#041635', borderRadius: '100px', padding: '12px 24px', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', boxShadow: '0 12px 40px rgba(0,0,0,0.3)' }}>
-                  Explore this example profile
+                  Explore this example Reslink
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                 </span>
               </div>

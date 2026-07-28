@@ -121,10 +121,11 @@ const FEATURE_TABS = [
 ];
 
 /* Groups the features by where they sit in the hiring workflow (sidebar nav) */
+// Order must mirror FEATURE_TABS so the sidebar matches the stacked content.
 const FEATURE_GROUPS: { label: string; ids: string[] }[] = [
-  { label: 'Source', ids: ['board'] },
   { label: 'Screen', ids: ['ai'] },
   { label: 'Review', ids: ['collab', 'pipeline'] },
+  { label: 'Source', ids: ['board'] },
 ];
 
 /* ─── FAQs ─── */
@@ -300,7 +301,10 @@ const [notifA, setNotifA] = useState(0);
         .co-testi-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: stretch; }
         .co-testi-side { display: flex; flex-direction: column; gap: 16px; }
         /* Sidebar feature explorer */
-        .co-feat-layout { display: grid; grid-template-columns: 248px 1fr; gap: clamp(28px, 4vw, 52px); align-items: start; text-align: left; }
+        /* No align-items:start — the nav column must stretch to full row height
+           so the sticky nav inside it has room to travel. */
+        .co-feat-layout { display: grid; grid-template-columns: 248px 1fr; gap: clamp(28px, 4vw, 52px); text-align: left; }
+        .co-feat-nav-col { min-width: 0; }
         .co-feat-nav { display: flex; flex-direction: column; gap: 22px; position: sticky; top: 96px; }
         .co-feat-group-label { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #9AA1AE; font-family: var(--font-body); margin-bottom: 8px; padding-left: 14px; }
         .co-feat-navitem {
@@ -321,6 +325,7 @@ const [notifA, setNotifA] = useState(0);
         }
         @media (max-width: 860px) {
           .co-feat-layout { grid-template-columns: 1fr; gap: 22px; }
+          .co-feat-nav-col { position: sticky; top: 68px; z-index: 20; background: #F7F8FA; padding: 10px 0; margin: -10px 0 0; }
           .co-feat-nav { position: static; flex-direction: row; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
           .co-feat-nav::-webkit-scrollbar { display: none; }
           .co-feat-group { display: contents; }
@@ -490,7 +495,8 @@ const [notifA, setNotifA] = useState(0);
                 <span style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', fontWeight: 500, letterSpacing: '0.04em' }}>Swipe to explore features</span>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A9FA8" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
               </div>
-              {/* Grouped sidebar nav */}
+              {/* Grouped sidebar nav — wrapper stretches so the nav can stick */}
+              <div className="co-feat-nav-col">
               <nav className="co-feat-nav" aria-label="Product features">
                 {FEATURE_GROUPS.map(group => (
                   <div key={group.label} className="co-feat-group">
@@ -511,6 +517,7 @@ const [notifA, setNotifA] = useState(0);
                   </div>
                 ))}
               </nav>
+              </div>
 
               {/* Display panel — every feature stacked; sidebar tracks scroll */}
               <div style={{ minWidth: 0, display: 'flex', flexDirection: 'column', gap: 'clamp(56px, 7vw, 96px)' }}>

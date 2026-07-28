@@ -318,6 +318,19 @@ const [notifA, setNotifA] = useState(0);
         .co-feat-navitem.active { color: #041635; font-weight: 700; }
         .co-feat-dot { width: 7px; height: 7px; border-radius: 50%; background: #C9CFD9; flex-shrink: 0; transition: background 0.18s; }
         .co-feat-navitem.active .co-feat-dot { background: #D8F950; box-shadow: 0 0 0 3px rgba(216,249,80,0.35); }
+        /* Each feature = one card so the visual and its copy read as a pair */
+        .co-feat-card {
+          background: #fff; border: 1px solid #E6E9EF; border-radius: 22px;
+          padding: clamp(18px, 2.4vw, 30px);
+          box-shadow: 0 2px 12px rgba(4,22,53,0.05);
+        }
+        .co-feat-eyebrow {
+          display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px;
+          font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+          color: #041635; font-family: var(--font-body);
+          background: #F1F4F8; border-radius: 100px; padding: 6px 14px;
+        }
+        .co-feat-divider { height: 1px; background: #ECEFF4; margin: 28px 0 24px; }
         .co-feat-body { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
         @media (max-width: 900px) {
           .co-testi-grid { grid-template-columns: 1fr !important; }
@@ -522,9 +535,14 @@ const [notifA, setNotifA] = useState(0);
               {/* Display panel — every feature stacked; sidebar tracks scroll */}
               <div style={{ minWidth: 0, display: 'flex', flexDirection: 'column', gap: 'clamp(56px, 7vw, 96px)' }}>
               {FEATURE_TABS.map((t, i) => (
-                <motion.div key={t.id} ref={(el: HTMLDivElement | null) => { featureRefs.current[i] = el; }} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.4 }}>
-                  {/* Screenshot — constrained height */}
-                  <div style={{ position: 'relative', marginBottom: '36px' }}>
+                <motion.div key={t.id} ref={(el: HTMLDivElement | null) => { featureRefs.current[i] = el; }} className="co-feat-card" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.4 }}>
+                  {/* Which feature this card belongs to */}
+                  <span className="co-feat-eyebrow">
+                    <t.icon size={13} strokeWidth={2.4} />
+                    {t.label}
+                  </span>
+                  {/* Screenshot — top margin keeps the -18px floating chips clear of the eyebrow */}
+                  <div style={{ position: 'relative', marginTop: '14px' }}>
                     <motion.div
                       initial={{ scale: 0.97, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
@@ -633,6 +651,8 @@ const [notifA, setNotifA] = useState(0);
                     </>)}
                   </div>
 
+                  <div className="co-feat-divider" />
+
                   {/* Text content */}
                   <div className="co-feat-body">
                     <div>
@@ -672,22 +692,6 @@ const [notifA, setNotifA] = useState(0);
                   <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', marginTop: '10px', lineHeight: 1.5, maxWidth: '180px', margin: '10px auto 0' }}>{s.label}</p>
                 </motion.div>
               ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ─── Integrations + security strip ─── */}
-        <section style={{ background: '#fff', padding: '36px 24px', borderBottom: '1px solid #EEEEF0' }}>
-          <div style={{ maxWidth: '1060px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '24px 40px', flexWrap: 'wrap' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '20px', flexWrap: 'wrap' }}>
-              <span style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Job posts sync to</span>
-              {['LinkedIn', 'Indeed', 'ZipRecruiter', 'Glassdoor'].map(name => (
-                <span key={name} style={{ fontSize: '15px', fontWeight: 800, color: '#5C6070', fontFamily: 'var(--font-body)', letterSpacing: '-0.01em' }}>{name}</span>
-              ))}
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              <span style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)' }}>Data encrypted in transit and at rest · SOC 2 in progress</span>
             </div>
           </div>
         </section>

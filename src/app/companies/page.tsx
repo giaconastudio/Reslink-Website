@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Plus, Minus, Star, UserPlus, FilePlus, Zap, Video, Users, List, Globe } from 'lucide-react';
 import Navbar from '@/components/Navbar';
@@ -248,6 +248,7 @@ const SIDE_QUOTES = [
 export default function CompaniesPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState(0);
+  const featureRefs = useRef<(HTMLDivElement | null)[]>([]);
 const [notifA, setNotifA] = useState(0);
   const [notifB, setNotifB] = useState(2);
   const [notifVisible, setNotifVisible] = useState(true);
@@ -263,6 +264,34 @@ const [notifA, setNotifA] = useState(0);
     }, 3200);
     return () => clearInterval(id);
   }, []);
+
+  // Scrollspy: highlight whichever feature block is currently in view.
+  useEffect(() => {
+    const onScroll = () => {
+      // Target line sits ~38% down the viewport; the last block whose top has
+      // crossed it is the one being read.
+      const line = window.innerHeight * 0.38;
+      let current = 0;
+      featureRefs.current.forEach((el, i) => {
+        if (el && el.getBoundingClientRect().top <= line) current = i;
+      });
+      setActiveTab(current);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+
+  const goToFeature = (i: number) => {
+    const el = featureRefs.current[i];
+    if (!el) return;
+    const y = el.getBoundingClientRect().top + window.scrollY - 110;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  };
 
   return (
     <>
@@ -472,7 +501,7 @@ const [notifA, setNotifA] = useState(0);
                       if (!t) return null;
                       const isActive = activeTab === i;
                       return (
-                        <button key={t.id} onClick={() => setActiveTab(i)} className={`co-feat-navitem${isActive ? ' active' : ''}`} aria-current={isActive}>
+                        <button key={t.id} onClick={() => goToFeature(i)} className={`co-feat-navitem${isActive ? ' active' : ''}`} aria-current={isActive}>
                           {isActive && <motion.span layoutId="coFeatNavPill" transition={{ type: 'spring', stiffness: 450, damping: 38 }} style={{ position: 'absolute', inset: 0, background: '#EDF0F4', borderRadius: '10px', zIndex: 0 }} />}
                           <span className="co-feat-dot" />
                           <span>{t.label}</span>
@@ -483,11 +512,10 @@ const [notifA, setNotifA] = useState(0);
                 ))}
               </nav>
 
-              {/* Display panel */}
-              <div style={{ minWidth: 0 }}>
-            <AnimatePresence mode="wait">
-              {FEATURE_TABS.map((t, i) => activeTab === i && (
-                <motion.div key={t.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.25 }}>
+              {/* Display panel — every feature stacked; sidebar tracks scroll */}
+              <div style={{ minWidth: 0, display: 'flex', flexDirection: 'column', gap: 'clamp(56px, 7vw, 96px)' }}>
+              {FEATURE_TABS.map((t, i) => (
+                <motion.div key={t.id} ref={(el: HTMLDivElement | null) => { featureRefs.current[i] = el; }} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.4 }}>
                   {/* Screenshot — constrained height */}
                   <div style={{ position: 'relative', marginBottom: '36px' }}>
                     <motion.div
@@ -617,7 +645,6 @@ const [notifA, setNotifA] = useState(0);
                   </div>
                 </motion.div>
               ))}
-            </AnimatePresence>
               </div>{/* /display panel */}
             </div>{/* /co-feat-layout */}
           </div>

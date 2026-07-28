@@ -120,6 +120,13 @@ const FEATURE_TABS = [
   },
 ];
 
+/* Groups the features by where they sit in the hiring workflow (sidebar nav) */
+const FEATURE_GROUPS: { label: string; ids: string[] }[] = [
+  { label: 'Source', ids: ['board'] },
+  { label: 'Screen', ids: ['ai'] },
+  { label: 'Review', ids: ['collab', 'pipeline'] },
+];
+
 /* ─── FAQs ─── */
 const FAQS = [
   { q: 'How do companies access candidate Reslinks?', a: 'Candidates include their Reslink URL in their standard application. Your team clicks the link and watches their 60-second video pitch immediately. No account required for the hiring manager to view.' },
@@ -263,16 +270,34 @@ const [notifA, setNotifA] = useState(0);
       <style>{`
         .co-testi-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: stretch; }
         .co-testi-side { display: flex; flex-direction: column; gap: 16px; }
-        .co-feat-tabs { display: inline-flex; background: #ECEEF1; border-radius: 14px; padding: 4px; gap: 2px; margin-bottom: 20px; max-width: 100%; overflow-x: auto; scrollbar-width: none; }
-        .co-feat-tabs::-webkit-scrollbar { display: none; }
-        .co-feat-tab { padding: 10px 20px; border-radius: 10px; font-size: 14px; font-weight: 500; border: none; background: transparent; cursor: pointer; transition: color 0.18s; font-family: var(--font-body); color: #6B7280; white-space: nowrap; flex-shrink: 0; position: relative; }
-        .co-feat-tab.active { color: #fff; font-weight: 700; }
-        .co-feat-tab:hover:not(.active) { color: #041635; }
-        .co-feat-tab > * { position: relative; z-index: 1; }
+        /* Sidebar feature explorer */
+        .co-feat-layout { display: grid; grid-template-columns: 248px 1fr; gap: clamp(28px, 4vw, 52px); align-items: start; text-align: left; }
+        .co-feat-nav { display: flex; flex-direction: column; gap: 22px; position: sticky; top: 96px; }
+        .co-feat-group-label { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #9AA1AE; font-family: var(--font-body); margin-bottom: 8px; padding-left: 14px; }
+        .co-feat-navitem {
+          position: relative; display: flex; align-items: center; gap: 10px; width: 100%;
+          padding: 11px 14px; border: none; background: transparent; border-radius: 10px;
+          font-size: 15px; font-weight: 500; color: #6B7280; font-family: var(--font-body);
+          cursor: pointer; text-align: left; transition: color 0.18s;
+        }
+        .co-feat-navitem > * { position: relative; z-index: 1; }
+        .co-feat-navitem:hover:not(.active) { color: #041635; }
+        .co-feat-navitem.active { color: #041635; font-weight: 700; }
+        .co-feat-dot { width: 7px; height: 7px; border-radius: 50%; background: #C9CFD9; flex-shrink: 0; transition: background 0.18s; }
+        .co-feat-navitem.active .co-feat-dot { background: #D8F950; box-shadow: 0 0 0 3px rgba(216,249,80,0.35); }
         .co-feat-body { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
         @media (max-width: 900px) {
           .co-testi-grid { grid-template-columns: 1fr !important; }
           .co-feat-body { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 860px) {
+          .co-feat-layout { grid-template-columns: 1fr; gap: 22px; }
+          .co-feat-nav { position: static; flex-direction: row; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
+          .co-feat-nav::-webkit-scrollbar { display: none; }
+          .co-feat-group { display: contents; }
+          .co-feat-group-label { display: none; }
+          .co-feat-navitem { width: auto; white-space: nowrap; flex-shrink: 0; background: #fff; border: 1px solid #E2E4E9; padding: 9px 15px; font-size: 14px; }
+          .co-feat-navitem.active { border-color: #041635; }
         }
         .co-chip { background: #fff; border-radius: 16px; padding: 14px 18px; box-shadow: 0 16px 48px rgba(4,22,53,0.22), 0 2px 8px rgba(4,22,53,0.1); display: flex; align-items: center; gap: 14px; border: 1px solid rgba(4,22,53,0.07); white-space: nowrap; }
         @media (max-width: 640px) { .co-chip { padding: 6px 9px; gap: 6px; border-radius: 10px; box-shadow: 0 4px 16px rgba(4,22,53,0.15); } }
@@ -424,26 +449,42 @@ const [notifA, setNotifA] = useState(0);
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} style={{ textAlign: 'center', marginBottom: '48px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Everything your team needs</p>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#041635', lineHeight: 0.95, letterSpacing: '-0.03em', marginBottom: '32px' }}>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#041635', lineHeight: 0.95, letterSpacing: '-0.03em' }}>
                 Built for how great<br />teams hire.
               </h2>
+            </motion.div>
+
+            <div className="co-feat-layout">
+              {/* Mobile-only hint that the feature nav scrolls sideways */}
               <div className="co-feat-swipe-hint">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A9FA8" strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
                 <span style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', fontWeight: 500, letterSpacing: '0.04em' }}>Swipe to explore features</span>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A9FA8" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <div className="co-feat-tabs">
-                  {FEATURE_TABS.map((t, i) => (
-                    <button key={t.id} onClick={() => setActiveTab(i)} className={`co-feat-tab${activeTab === i ? ' active' : ''}`} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      {activeTab === i && <motion.span layoutId="coFeatTabPill" transition={{ type: 'spring', stiffness: 450, damping: 38 }} style={{ position: 'absolute', inset: 0, background: '#041635', borderRadius: '10px', boxShadow: '0 1px 4px rgba(4,22,53,0.18)', zIndex: 0 }} />}
-                      <t.icon size={14} strokeWidth={2} /><span>{t.label}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
+              {/* Grouped sidebar nav */}
+              <nav className="co-feat-nav" aria-label="Product features">
+                {FEATURE_GROUPS.map(group => (
+                  <div key={group.label} className="co-feat-group">
+                    <p className="co-feat-group-label">{group.label}</p>
+                    {group.ids.map(id => {
+                      const i = FEATURE_TABS.findIndex(f => f.id === id);
+                      const t = FEATURE_TABS[i];
+                      if (!t) return null;
+                      const isActive = activeTab === i;
+                      return (
+                        <button key={t.id} onClick={() => setActiveTab(i)} className={`co-feat-navitem${isActive ? ' active' : ''}`} aria-current={isActive}>
+                          {isActive && <motion.span layoutId="coFeatNavPill" transition={{ type: 'spring', stiffness: 450, damping: 38 }} style={{ position: 'absolute', inset: 0, background: '#EDF0F4', borderRadius: '10px', zIndex: 0 }} />}
+                          <span className="co-feat-dot" />
+                          <span>{t.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                ))}
+              </nav>
 
+              {/* Display panel */}
+              <div style={{ minWidth: 0 }}>
             <AnimatePresence mode="wait">
               {FEATURE_TABS.map((t, i) => activeTab === i && (
                 <motion.div key={t.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.25 }}>
@@ -577,6 +618,8 @@ const [notifA, setNotifA] = useState(0);
                 </motion.div>
               ))}
             </AnimatePresence>
+              </div>{/* /display panel */}
+            </div>{/* /co-feat-layout */}
           </div>
         </section>
 

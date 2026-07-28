@@ -51,6 +51,9 @@ function StepCard({ step, index }: { step: typeof steps[0]; index: number }) {
     return () => io.disconnect();
   }, []);
 
+  // Alternate the navy shade so a card sliding over the previous one is clearly a separate card.
+  const cardBg = index % 2 === 0 ? '#041635' : '#0A2352';
+
   return (
     <div
       className="hiw-card-wrap"
@@ -63,16 +66,19 @@ function StepCard({ step, index }: { step: typeof steps[0]; index: number }) {
         viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         className="hiw-card"
+        style={{ background: cardBg }}
       >
-        <span className="hiw-card-num">{step.num}</span>
         <div className="hiw-card-glow" />
         <div className="hiw-card-inner">
           {/* Text */}
           <div className="hiw-card-text">
-            <span className="hiw-chip">
-              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#041635', display: 'inline-block' }} />
-              {step.tag}
-            </span>
+            <div className="hiw-card-labels">
+              <span className="hiw-step">Step {step.num}</span>
+              <span className="hiw-chip">
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#041635', display: 'inline-block' }} />
+                {step.tag}
+              </span>
+            </div>
             <h3 className="hiw-card-title">{step.label}</h3>
             <p className="hiw-card-desc">{step.desc}</p>
           </div>
@@ -85,10 +91,6 @@ function StepCard({ step, index }: { step: typeof steps[0]; index: number }) {
               muted loop playsInline preload="metadata"
               style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
             />
-            <span className="hiw-media-badge">
-              <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#D8F950', display: 'inline-block' }} />
-              Step {step.num}
-            </span>
           </div>
         </div>
       </motion.div>
@@ -103,11 +105,11 @@ export default function HowItWorks() {
         .hiw-inner { max-width: 1080px; margin: 0 auto; }
         .hiw-card {
           position: relative;
-          background: #041635;
           border-radius: 26px;
           padding: clamp(26px, 3.5vw, 52px);
           overflow: hidden;
-          box-shadow: 0 30px 80px rgba(4,22,53,0.22);
+          border: 1px solid rgba(255,255,255,0.12);
+          box-shadow: 0 -6px 24px rgba(0,0,0,0.28), 0 30px 80px rgba(4,22,53,0.28);
           min-height: 380px;
         }
         .hiw-card-glow {
@@ -116,20 +118,21 @@ export default function HowItWorks() {
           background: radial-gradient(ellipse, rgba(12,99,227,0.28), transparent 62%);
           pointer-events: none;
         }
-        .hiw-card-num {
-          position: absolute; top: clamp(18px, 3vw, 34px); right: clamp(26px, 3.5vw, 46px);
-          font-family: var(--font-phudu); font-size: clamp(46px, 7vw, 96px); font-weight: 900;
-          color: rgba(255,255,255,0.07); line-height: 1; z-index: 1; letter-spacing: -0.03em;
-        }
         .hiw-card-inner {
           position: relative; z-index: 1;
           display: grid; grid-template-columns: 1fr 1.08fr; gap: clamp(28px, 4vw, 56px); align-items: center;
+        }
+        .hiw-card-labels { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+        .hiw-step {
+          font-family: var(--font-phudu); font-size: 15px; font-weight: 900;
+          color: rgba(255,255,255,0.85); letter-spacing: 0.02em;
+          border: 1.5px solid rgba(255,255,255,0.25); border-radius: 100px; padding: 5px 14px;
         }
         .hiw-chip {
           display: inline-flex; align-items: center; gap: 7px;
           background: #D8F950; color: #041635; font-size: 12px; font-weight: 800;
           letter-spacing: 0.06em; text-transform: uppercase; border-radius: 100px;
-          padding: 6px 14px; margin-bottom: 18px; font-family: var(--font-body);
+          padding: 6px 14px; font-family: var(--font-body);
         }
         .hiw-card-title {
           font-family: var(--font-phudu); font-size: clamp(28px, 3.4vw, 44px); font-weight: 900;
@@ -143,18 +146,10 @@ export default function HowItWorks() {
           position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 16/11;
           border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 24px 60px rgba(0,0,0,0.4); background: #0B0F1A;
         }
-        .hiw-media-badge {
-          position: absolute; top: 14px; left: 14px;
-          display: inline-flex; align-items: center; gap: 7px;
-          background: rgba(4,22,53,0.7); backdrop-filter: blur(8px);
-          border: 1px solid rgba(255,255,255,0.12); border-radius: 100px;
-          padding: 5px 12px; font-size: 11px; font-weight: 700; color: #fff; font-family: var(--font-body);
-        }
         @media (max-width: 760px) {
           .hiw-card-wrap { position: static !important; margin-bottom: 20px !important; }
           .hiw-card-inner { grid-template-columns: 1fr; gap: 24px; }
           .hiw-card-media { order: -1; }
-          .hiw-card-num { font-size: 40px; }
         }
       `}</style>
 

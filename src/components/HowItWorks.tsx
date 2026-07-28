@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const steps = [
@@ -30,26 +30,20 @@ const steps = [
   },
 ];
 
-function StepCard({ step, index }: { step: typeof steps[0]; index: number }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
+const STICKY_BASE = 90;
+const STICKY_STEP = 16;
 
-  // Only play the video while the card is actually on screen.
+function StepCard({ step, index, active }: { step: typeof steps[0]; index: number; active: boolean }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Only the currently topmost (stacked-over) card plays its video — the rest stay paused.
   useEffect(() => {
     const v = videoRef.current;
-    const el = cardRef.current;
-    if (!v || !el) return;
+    if (!v) return;
     v.muted = true;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) v.play().catch(() => {});
-        else v.pause();
-      },
-      { threshold: 0.25 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+    if (active) v.play().catch(() => {});
+    else v.pause();
+  }, [active]);
 
   // Alternate the navy shade so a card sliding over the previous one is clearly a separate card.
   const cardBg = index % 2 === 0 ? '#041635' : '#0A2352';
@@ -57,10 +51,10 @@ function StepCard({ step, index }: { step: typeof steps[0]; index: number }) {
   return (
     <div
       className="hiw-card-wrap"
-      style={{ position: 'sticky', top: `calc(90px + ${index} * 16px)`, marginBottom: '28px' }}
+      data-hiw-index={index}
+      style={{ position: 'sticky', top: `calc(${STICKY_BASE}px + ${index} * ${STICKY_STEP}px)`, marginBottom: '28px' }}
     >
       <motion.div
-        ref={cardRef}
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
@@ -99,8 +93,39 @@ function StepCard({ step, index }: { step: typeof steps[0]; index: number }) {
 }
 
 export default function HowItWorks() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [active, setActive] = useState(0);
+
+  // Figure out which single card is currently "on top" of the stack and only play that one's video.
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const compute = () => {
+      const wraps = section.querySelectorAll<HTMLDivElement>('.hiw-card-wrap');
+      let current = 0;
+      // A card counts as "on top" once its top has scrolled up near the sticky trigger
+      // zone. Works for the staggered sticky stack on desktop and for normal flow on
+      // mobile (where sticky is disabled) since both cases pass the same threshold as
+      // the card reaches the top of the viewport.
+      wraps.forEach((wrap, i) => {
+        const top = wrap.getBoundingClientRect().top;
+        if (top <= STICKY_BASE + STICKY_STEP * steps.length) current = i;
+      });
+      setActive(current);
+    };
+
+    compute();
+    window.addEventListener('scroll', compute, { passive: true });
+    window.addEventListener('resize', compute);
+    return () => {
+      window.removeEventListener('scroll', compute);
+      window.removeEventListener('resize', compute);
+    };
+  }, []);
+
   return (
-    <section id="how-it-works" style={{ background: '#F4F6F9', padding: 'clamp(64px, 8vw, 110px) 24px clamp(48px, 6vw, 80px)' }}>
+    <section id="how-it-works" ref={sectionRef} style={{ background: '#F4F6F9', padding: 'clamp(64px, 8vw, 110px) 24px clamp(48px, 6vw, 80px)' }}>
       <style>{`
         .hiw-inner { max-width: 1080px; margin: 0 auto; }
         .hiw-card {
@@ -168,7 +193,7 @@ export default function HowItWorks() {
         </motion.div>
 
         {steps.map((s, i) => (
-          <StepCard key={s.num} step={s} index={i} />
+          <StepCard key={s.num} step={s} index={i} active={i === active} />
         ))}
       </div>
     </section>

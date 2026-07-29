@@ -72,11 +72,15 @@ export default function UniversitiesPage() {
         @media (max-width: 760px) { .uni-testi-grid { grid-template-columns: 1fr !important; } }
         .uni-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
         .uni-feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .uni-outcome-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .uni-compare-row { display: grid; grid-template-columns: 1fr 1fr; }
+        .uni-compare-mobile { display: none; }
         .uni-steps-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
         @media (max-width: 960px) {
           .uni-hero-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
-          .uni-outcome-grid { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 760px) {
+          .uni-compare-desktop { display: none !important; }
+          .uni-compare-mobile { display: flex !important; flex-direction: column; gap: 16px; }
         }
         @media (max-width: 760px) {
           .uni-steps-row { grid-template-columns: repeat(2, 1fr) !important; }
@@ -228,49 +232,62 @@ export default function UniversitiesPage() {
                 Reslink is not just a student tool. It gives your career center real placement data, employer engagement metrics, and the proof your program is working.
               </p>
             </motion.div>
-            <div className="uni-outcome-grid">
-              <motion.div initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ delay: 0.1 }}>
-                <div style={{ borderRadius: '18px', border: '1px solid #E8EAF0', padding: '32px', background: '#FAFBFC', height: '100%' }}>
-                  <span style={{ fontSize: '11px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Without Reslink</span>
-                  <div style={{ marginTop: '24px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    {[
-                      'Students submit identical PDF resumes',
-                      "No visibility into who's actually hiring",
-                      'Placement data comes from self-reported surveys',
-                      'Career fairs rely on awkward cold introductions',
-                      'Hard to prove the ROI of your program',
-                    ].map(t => (
-                      <div key={t} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', padding: '10px 14px', background: '#FEF2F2', borderRadius: '8px', border: '1px solid #FECACA' }}>
-                        <span style={{ fontSize: '13px', color: '#EF4444', fontWeight: 700, flexShrink: 0, marginTop: '1px' }}>✗</span>
-                        <span style={{ fontSize: '13px', color: '#DC2626', fontFamily: 'var(--font-body)', lineHeight: 1.4 }}>{t}</span>
-                      </div>
-                    ))}
+            <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ delay: 0.08 }}>
+              {/* Desktop table */}
+              <div className="uni-compare-desktop" style={{ borderRadius: '20px', border: '1px solid #E4E6EC', overflow: 'hidden', boxShadow: '0 4px 24px rgba(4,22,53,0.07)' }}>
+                <div className="uni-compare-row">
+                  <div style={{ padding: '18px 28px', background: '#F7F8FA', borderBottom: '1px solid #ECEEF1', borderRight: '1px solid #ECEEF1' }}>
+                    <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Without Reslink</p>
+                  </div>
+                  <div style={{ padding: '18px 28px', background: '#041635', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                    <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#D8F950', fontFamily: 'var(--font-body)' }}>With Reslink</p>
                   </div>
                 </div>
-              </motion.div>
-              <motion.div initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ delay: 0.18 }}>
-                <div style={{ borderRadius: '18px', border: '2px solid #D8F950', overflow: 'hidden', boxShadow: '0 16px 56px rgba(4,22,53,0.12)', height: '100%', display: 'flex', flexDirection: 'column' }}>
-                  <div style={{ background: '#041635', padding: '20px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '11px', fontWeight: 700, color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>With Reslink</span>
-                    <span style={{ fontSize: '10px', fontWeight: 700, color: '#041635', background: '#D8F950', padding: '3px 10px', borderRadius: '100px', fontFamily: 'var(--font-body)' }}>LIVE</span>
+                {[
+                  ['Students submit identical PDF resumes', 'Every student has a video pitch employers actually watch'],
+                  ["No visibility into who's actually hiring", 'Dashboard shows recruiter views and engagement in real time'],
+                  ['Placement data comes from self-reported surveys', 'Placement outcomes tracked automatically, no surveys needed'],
+                  ['Career fairs rely on awkward cold introductions', 'Students share Reslinks at career fairs. Employers remember them'],
+                  ['Hard to prove the ROI of your program', 'Annual report pulls directly from your career center dashboard'],
+                ].map(([before, after], i) => (
+                  <div key={i} className="uni-compare-row" style={{ borderBottom: i < 4 ? '1px solid #ECEEF1' : 'none' }}>
+                    <div style={{ padding: '16px 28px', borderRight: '1px solid #ECEEF1', display: 'flex', alignItems: 'flex-start', gap: '10px', background: i % 2 === 0 ? '#fff' : '#FAFBFC' }}>
+                      <span style={{ fontSize: '13px', color: '#EF4444', fontWeight: 700, flexShrink: 0, marginTop: '2px' }}>✕</span>
+                      <span style={{ fontSize: '14px', color: '#6B7280', fontFamily: 'var(--font-body)', lineHeight: 1.55 }}>{before}</span>
+                    </div>
+                    <div style={{ padding: '16px 28px', display: 'flex', alignItems: 'flex-start', gap: '10px', background: i % 2 === 0 ? '#fff' : '#F8FAFF' }}>
+                      <span style={{ fontSize: '13px', color: '#0C63E3', fontWeight: 700, flexShrink: 0, marginTop: '2px' }}>✓</span>
+                      <span style={{ fontSize: '14px', color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.55, fontWeight: 500 }}>{after}</span>
+                    </div>
                   </div>
-                  <div style={{ padding: '20px 24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    {[
-                      'Every student has a video pitch employers actually watch',
-                      'Dashboard shows recruiter views and engagement in real time',
-                      'Placement outcomes tracked automatically, no surveys needed',
-                      'Students share Reslinks at career fairs. Employers remember them',
-                      'Annual report pulls directly from your career center dashboard',
-                    ].map(t => (
-                      <div key={t} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', padding: '10px 14px', background: '#F0FDF4', borderRadius: '8px', border: '1px solid #BBF7D0' }}>
-                        <span style={{ fontSize: '13px', color: '#16A34A', fontWeight: 700, flexShrink: 0, marginTop: '1px' }}>✓</span>
-                        <span style={{ fontSize: '13px', color: '#15803D', fontFamily: 'var(--font-body)', lineHeight: 1.4 }}>{t}</span>
-                      </div>
-                    ))}
+                ))}
+              </div>
+              {/* Mobile two-card layout */}
+              <div className="uni-compare-mobile">
+                <div style={{ borderRadius: '16px', border: '1px solid #E4E6EC', overflow: 'hidden', boxShadow: '0 2px 12px rgba(4,22,53,0.06)' }}>
+                  <div style={{ padding: '14px 20px', background: '#F7F8FA', borderBottom: '1px solid #ECEEF1' }}>
+                    <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Without Reslink</p>
                   </div>
+                  {['Students submit identical PDF resumes', "No visibility into who's actually hiring", 'Placement data comes from self-reported surveys', 'Career fairs rely on awkward cold introductions', 'Hard to prove the ROI of your program'].map((item, i) => (
+                    <div key={i} style={{ padding: '14px 20px', borderBottom: i < 4 ? '1px solid #ECEEF1' : 'none', display: 'flex', alignItems: 'flex-start', gap: '10px', background: i % 2 === 0 ? '#fff' : '#FAFBFC' }}>
+                      <span style={{ fontSize: '13px', color: '#EF4444', fontWeight: 700, flexShrink: 0, marginTop: '2px' }}>✕</span>
+                      <span style={{ fontSize: '14px', color: '#6B7280', fontFamily: 'var(--font-body)', lineHeight: 1.55 }}>{item}</span>
+                    </div>
+                  ))}
                 </div>
-              </motion.div>
-            </div>
+                <div style={{ borderRadius: '16px', overflow: 'hidden', boxShadow: '0 2px 12px rgba(4,22,53,0.12)' }}>
+                  <div style={{ padding: '14px 20px', background: '#041635', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                    <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#D8F950', fontFamily: 'var(--font-body)' }}>With Reslink</p>
+                  </div>
+                  {['Every student has a video pitch employers actually watch', 'Dashboard shows recruiter views and engagement in real time', 'Placement outcomes tracked automatically, no surveys needed', 'Students share Reslinks at career fairs. Employers remember them', 'Annual report pulls directly from your career center dashboard'].map((item, i) => (
+                    <div key={i} style={{ padding: '14px 20px', borderBottom: i < 4 ? '1px solid rgba(255,255,255,0.06)' : 'none', display: 'flex', alignItems: 'flex-start', gap: '10px', background: i % 2 === 0 ? '#041635' : '#061C3D' }}>
+                      <span style={{ fontSize: '13px', color: '#0C63E3', fontWeight: 700, flexShrink: 0, marginTop: '2px' }}>✓</span>
+                      <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.85)', fontFamily: 'var(--font-body)', lineHeight: 1.55, fontWeight: 500 }}>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
           </div>
         </section>
 

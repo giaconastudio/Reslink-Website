@@ -81,7 +81,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
     setOpen(prev => prev === key ? null : key);
   };
   const scheduleClose = () => {
-    closeTimer.current = setTimeout(() => setOpen(null), 180);
+    closeTimer.current = setTimeout(() => setOpen(null), 350);
   };
 
   useEffect(() => {

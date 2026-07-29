@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 
 const icons: Record<string, React.ReactNode> = {
   analytics: (
@@ -270,7 +270,32 @@ const tabs = [
 
 export default function Features() {
   const [active, setActive] = useState(0);
-  const tab = tabs[active];
+  const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Highlight whichever panel is currently in view.
+  useEffect(() => {
+    const onScroll = () => {
+      const line = window.innerHeight * 0.42;
+      let current = 0;
+      panelRefs.current.forEach((el, i) => {
+        if (el && el.getBoundingClientRect().top <= line) current = i;
+      });
+      setActive(current);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+
+  const goTo = (i: number) => {
+    const el = panelRefs.current[i];
+    if (!el) return;
+    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 150, behavior: 'smooth' });
+  };
 
   return (
     <section style={{ padding: '100px 0', background: '#fff' }}>
@@ -312,6 +337,18 @@ export default function Features() {
           font-weight: 700;
           box-shadow: 0 1px 4px rgba(4,22,53,0.18), 0 0 0 1px rgba(4,22,53,0.08);
         }
+        /* Sticky jump-bar sits under the fixed navbar while the panels scroll past */
+        .feat-tabs-wrap {
+          position: sticky;
+          top: 78px;
+          z-index: 20;
+          display: flex;
+          justify-content: center;
+          padding: 12px 0 16px;
+          background: linear-gradient(to bottom, #fff 55%, rgba(255,255,255,0));
+        }
+        /* Generous white gaps between panels so four dark cards never read as one slab */
+        .feat-stack { display: flex; flex-direction: column; gap: clamp(48px, 6vw, 88px); }
         .feat-panel {
           border-radius: 20px;
           overflow: hidden;
@@ -337,7 +374,8 @@ export default function Features() {
           .feat-copy { padding: 28px 24px 32px; }
           .feat-tab { padding: 8px 14px; font-size: 13px; white-space: nowrap; }
           .feat-header { margin-bottom: 20px; }
-          .feat-tabs-seg { width: 100%; justify-content: flex-start; margin-bottom: 40px; }
+          .feat-tabs-seg { width: 100%; justify-content: flex-start; }
+          .feat-tabs-wrap { top: 70px; padding: 10px 0 12px; }
           .feat-swipe-hint { display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 16px; }
         }
         @media (max-width: 480px) {
@@ -361,45 +399,55 @@ export default function Features() {
           <span style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', fontWeight: 500, letterSpacing: '0.04em' }}>Swipe to explore features</span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A9FA8" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
         </div>
-        {/* Tabs */}
-        <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+        {/* Sticky jump-bar — highlights as you scroll, click to jump */}
+        <div className="feat-tabs-wrap">
           <div className="feat-tabs-seg">
             {tabs.map((t, i) => (
-              <button key={t.id} className={`feat-tab${i === active ? ' active' : ''}`} onClick={() => setActive(i)}>
+              <button key={t.id} className={`feat-tab${i === active ? ' active' : ''}`} onClick={() => goTo(i)} aria-current={i === active}>
                 <span style={{ display: 'inline-flex', opacity: i === active ? 1 : 0.5 }}>{icons[t.id]}</span> {t.label}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Panel */}
-        <AnimatePresence mode="wait">
-          <motion.div key={tab.id} className="feat-panel" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.3 }}>
-            {/* Copy */}
-            <div className="feat-copy" style={{ background: tab.bg === '#041635' ? '#041635' : '#fff' }}>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#EEF4FF', borderRadius: '100px', padding: '5px 12px', width: 'fit-content', marginBottom: '20px' }}>
-                <span style={{ fontSize: '11px', fontWeight: 700, color: '#0C63E3', letterSpacing: '0.08em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>{tab.label}</span>
+        {/* All panels stacked — nothing hidden behind a click */}
+        <div className="feat-stack">
+          {tabs.map((tab, i) => (
+            <motion.div
+              key={tab.id}
+              ref={(el: HTMLDivElement | null) => { panelRefs.current[i] = el; }}
+              className="feat-panel"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.45 }}
+            >
+              {/* Copy */}
+              <div className="feat-copy" style={{ background: tab.bg === '#041635' ? '#041635' : '#fff' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#EEF4FF', borderRadius: '100px', padding: '5px 12px', width: 'fit-content', marginBottom: '20px' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 700, color: '#0C63E3', letterSpacing: '0.08em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>{tab.label}</span>
+                </div>
+                <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3vw, 40px)', fontWeight: 900, color: tab.bg === '#041635' ? '#fff' : '#041635', lineHeight: 1.0, letterSpacing: '-0.02em', marginBottom: '18px' }}>
+                  {tab.headline}
+                </h3>
+                <p style={{ fontSize: '16px', color: tab.bg === '#041635' ? 'rgba(255,255,255,0.45)' : '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '32px' }}>
+                  {tab.sub}
+                </p>
+                <a href={(tab as { href?: string }).href || '/get-started'} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '14px', fontWeight: 700, color: '#fff', background: '#0C63E3', padding: '11px 20px', borderRadius: '8px', textDecoration: 'none', width: 'fit-content', fontFamily: 'var(--font-body)', transition: 'opacity 0.15s' }}
+                  onMouseEnter={e => (e.currentTarget.style.opacity = '0.85')}
+                  onMouseLeave={e => (e.currentTarget.style.opacity = '1')}>
+                  {(tab as { ctaLabel?: string }).ctaLabel || 'Try it free'}
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
               </div>
-              <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3vw, 40px)', fontWeight: 900, color: tab.bg === '#041635' ? '#fff' : '#041635', lineHeight: 1.0, letterSpacing: '-0.02em', marginBottom: '18px' }}>
-                {tab.headline}
-              </h3>
-              <p style={{ fontSize: '16px', color: tab.bg === '#041635' ? 'rgba(255,255,255,0.45)' : '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '32px' }}>
-                {tab.sub}
-              </p>
-              <a href={(tab as { href?: string }).href || '/get-started'} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '14px', fontWeight: 700, color: '#fff', background: '#0C63E3', padding: '11px 20px', borderRadius: '8px', textDecoration: 'none', width: 'fit-content', fontFamily: 'var(--font-body)', transition: 'opacity 0.15s' }}
-                onMouseEnter={e => (e.currentTarget.style.opacity = '0.85')}
-                onMouseLeave={e => (e.currentTarget.style.opacity = '1')}>
-                {(tab as { ctaLabel?: string }).ctaLabel || 'Try it free'}
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </a>
-            </div>
 
-            {/* Visual */}
-            <div className="feat-visual" style={{ background: tab.bg }}>
-              {tab.visual}
-            </div>
-          </motion.div>
-        </AnimatePresence>
+              {/* Visual */}
+              <div className="feat-visual" style={{ background: tab.bg }}>
+                {tab.visual}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

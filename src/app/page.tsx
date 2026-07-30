@@ -1,12 +1,8 @@
 import Navbar from '@/components/Navbar';
-import Hero from '@/components/Hero';
+import HomeHero from '@/components/HomeHero';
 import LogoTicker from '@/components/LogoTicker';
-import ValueProp from '@/components/ValueProp';
-import HowItWorks from '@/components/HowItWorks';
-import Features from '@/components/Features';
-import Testimonials from '@/components/Testimonials';
-import HiringBand from '@/components/HiringBand';
-import FAQ from '@/components/FAQ';
+import HomeProduct from '@/components/HomeProduct';
+import HomeAudiences from '@/components/HomeAudiences';
 import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
 
@@ -15,15 +11,18 @@ export default function Home() {
     <>
       <Navbar />
       <main>
-        <Hero />
-        <HiringBand />
+        <HomeHero />
         <LogoTicker />
-        <ValueProp />
-        <HowItWorks />
-        <Features />
-        <Testimonials />
-        <FAQ />
-        <CTA />
+        <HomeProduct />
+        <HomeAudiences />
+        <CTA
+          heading={<>Ready to<br /><span style={{ color: '#D8F950' }}>get started?</span></>}
+          body="Individuals can create a Reslink free in minutes. Hiring teams and career centers can book a walkthrough with our team."
+          primaryLabel="Create your Reslink free"
+          secondaryLabel="Book a demo"
+          secondaryHref="/contact"
+          footnote="Free for individuals · No credit card required"
+        />
       </main>
       <Footer />
     </>

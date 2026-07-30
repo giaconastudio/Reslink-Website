@@ -135,7 +135,7 @@ export default function HomeHero() {
         </motion.p>
 
         <motion.h1 className="hh-h1" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.05 }}>
-          Read the resume.<br />
+          Share the resume.<br />
           <span style={{ display: 'inline-block', position: 'relative' }}>
             Meet the person.
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -144,7 +144,7 @@ export default function HomeHero() {
         </motion.h1>
 
         <motion.p className="hh-sub" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.12 }}>
-          Reslink pairs your resume with a short video pitch and real analytics, giving employers the fit signal a PDF alone can&apos;t.
+          Reslink pairs your resume with a short video pitch, so you can introduce yourself and they can see if it&apos;s a fit.
         </motion.p>
       </div>
 

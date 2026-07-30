@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, Briefcase, GraduationCap, Flag, Building2, Users } from 'lucide-react';
+import { ArrowRight, ChevronDown, Briefcase, GraduationCap, Flag, Building2, Users } from 'lucide-react';
 import { Magnetic } from '@/components/TiltCard';
 
 type Audience = 'individuals' | 'organizations';
@@ -52,7 +52,16 @@ export default function HomeHero() {
           margin: 0 auto 36px;
           font-family: var(--font-body);
         }
-        .hh-seg { display: inline-flex; background: #ECEEF1; border-radius: 14px; padding: 4px; gap: 2px; margin-bottom: 24px; }
+        .hh-picker {
+          display: inline-block; text-align: center;
+          background: #F7F8FA; border: 1px solid #ECEEF1; border-radius: 22px;
+          padding: 24px clamp(20px, 4vw, 36px) 26px; margin-bottom: 48px;
+        }
+        .hh-picker-label {
+          font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+          color: #9A9FA8; font-family: var(--font-body); margin-bottom: 14px;
+        }
+        .hh-seg { display: inline-flex; background: #ECEEF1; border-radius: 14px; padding: 4px; gap: 2px; margin-bottom: 18px; }
         .hh-seg-btn {
           padding: 10px 22px; border-radius: 10px; border: none; background: transparent;
           cursor: pointer; font-size: 14px; font-weight: 600; color: #6B7280;
@@ -61,23 +70,35 @@ export default function HomeHero() {
         .hh-seg-btn:hover:not(.active) { color: #041635; }
         .hh-seg-btn.active { background: #041635; color: #fff; font-weight: 700; box-shadow: 0 1px 4px rgba(4,22,53,0.18); }
 
-        .hh-paths { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 48px; }
+        .hh-picker-hint {
+          display: flex; align-items: center; justify-content: center; gap: 6px;
+          font-size: 12px; color: #9A9FA8; font-family: var(--font-body); margin-bottom: 14px;
+        }
+        .hh-picker-hint svg { animation: hh-bounce 1.6s ease-in-out infinite; }
+        @keyframes hh-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
+
+        .hh-paths { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
         .hh-path {
           display: inline-flex; align-items: center; gap: 8px;
-          padding: 11px 18px; border-radius: 100px;
+          padding: 12px 20px; border-radius: 100px;
           border: 1.5px solid #E4E7EC; background: #fff; text-decoration: none;
-          font-size: 14px; font-weight: 600; color: #041635; font-family: var(--font-body);
-          transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s;
+          font-size: 14px; font-weight: 700; color: #041635; font-family: var(--font-body);
+          box-shadow: 0 1px 3px rgba(4,22,53,0.04);
+          transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s, color 0.18s;
         }
-        .hh-path:hover { border-color: #0C63E3; box-shadow: 0 6px 20px rgba(12,99,227,0.12); transform: translateY(-1px); }
+        .hh-path:hover { border-color: #0C63E3; color: #0C63E3; box-shadow: 0 8px 24px rgba(12,99,227,0.16); transform: translateY(-2px); }
+        .hh-path:hover svg:first-child { color: #0C63E3; }
 
         .hh-stage { max-width: 920px; margin: 0 auto; position: relative; z-index: 1; }
-        .hh-frame { border-radius: 18px; overflow: hidden; border: 1px solid #E6E8EC; background: #fff; box-shadow: 0 40px 120px rgba(4,22,53,0.18), 0 8px 28px rgba(4,22,53,0.08); }
+        .hh-frame { border-radius: 18px; overflow: hidden; border: 1px solid #E6E8EC; background: #fff; box-shadow: 0 40px 120px rgba(4,22,53,0.18), 0 8px 28px rgba(4,22,53,0.08); position: relative; }
         .hh-bar { background: #F7F8FA; padding: 11px 16px; border-bottom: 1px solid #EEEEF0; display: flex; align-items: center; gap: 6px; }
         .hh-video { position: relative; overflow: hidden; background: #060D24; aspect-ratio: 16/9; width: 100%; }
+        .hh-open-hint { opacity: 0; transition: opacity 0.25s ease; }
+        .hh-frame-link:hover .hh-open-hint { opacity: 1; }
 
         @media (max-width: 760px) {
           .hh-inner { padding: 100px 20px 0; }
+          .hh-picker { padding: 20px 16px 22px; }
           .hh-paths { gap: 8px; }
           .hh-stage { padding: 0 16px; }
         }
@@ -108,29 +129,38 @@ export default function HomeHero() {
 
         {/* Audience picker */}
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.18 }}>
-          <div className="hh-seg">
-            <button className={`hh-seg-btn${audience === 'individuals' ? ' active' : ''}`} onClick={() => setAudience('individuals')}>
-              For individuals
-            </button>
-            <button className={`hh-seg-btn${audience === 'organizations' ? ' active' : ''}`} onClick={() => setAudience('organizations')}>
-              For organizations
-            </button>
-          </div>
+          <div className="hh-picker">
+            <p className="hh-picker-label">Step 1 — who are you?</p>
+            <div className="hh-seg">
+              <button className={`hh-seg-btn${audience === 'individuals' ? ' active' : ''}`} onClick={() => setAudience('individuals')}>
+                For individuals
+              </button>
+              <button className={`hh-seg-btn${audience === 'organizations' ? ' active' : ''}`} onClick={() => setAudience('organizations')}>
+                For organizations
+              </button>
+            </div>
 
-          <motion.div
-            key={audience}
-            className="hh-paths"
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            {paths[audience].map(p => (
-              <Link key={p.href} href={p.href} className="hh-path">
-                <p.icon size={15} color="#0C63E3" strokeWidth={1.9} />
-                {p.label}
-              </Link>
-            ))}
-          </motion.div>
+            <div className="hh-picker-hint">
+              Step 2 — pick where you fit
+              <ChevronDown size={13} />
+            </div>
+
+            <motion.div
+              key={audience}
+              className="hh-paths"
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              {paths[audience].map(p => (
+                <Link key={p.href} href={p.href} className="hh-path">
+                  <p.icon size={15} color="#0C63E3" strokeWidth={1.9} />
+                  {p.label}
+                  <ArrowRight size={13} />
+                </Link>
+              ))}
+            </motion.div>
+          </div>
         </motion.div>
       </div>
 
@@ -141,7 +171,7 @@ export default function HomeHero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
       >
-        <Link href="/oliviastone" aria-label="Explore the example Reslink" style={{ display: 'block', textDecoration: 'none' }}>
+        <Link href="/oliviastone" aria-label="Explore the example Reslink" style={{ display: 'block', textDecoration: 'none' }} className="hh-frame-link">
           <div className="hh-frame">
             <div className="hh-bar">
               <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#FF5F57', display: 'inline-block' }} />
@@ -161,6 +191,11 @@ export default function HomeHero() {
                 autoPlay muted loop playsInline preload="auto"
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', transform: 'scale(1.06)' }}
               />
+              <div className="hh-open-hint" style={{ position: 'absolute', inset: 0, background: 'rgba(4,22,53,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 2 }}>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#fff', color: '#041635', borderRadius: '100px', padding: '12px 24px', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', boxShadow: '0 12px 40px rgba(0,0,0,0.3)' }}>
+                  Explore this example Reslink <ArrowRight size={14} />
+                </span>
+              </div>
             </div>
           </div>
         </Link>

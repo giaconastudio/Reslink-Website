@@ -139,12 +139,12 @@ export default function HomeHero() {
           <span style={{ display: 'inline-block', position: 'relative' }}>
             Meet the person.
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/vector-underline.svg" alt="" aria-hidden="true" style={{ position: 'absolute', bottom: '-26px', left: 0, width: '100%', height: 'auto', pointerEvents: 'none' }} />
+            <img src="/vector-underline.svg" alt="" aria-hidden="true" style={{ position: 'absolute', bottom: '-19px', left: 0, width: '100%', height: 'auto', pointerEvents: 'none' }} />
           </span>
         </motion.h1>
 
         <motion.p className="hh-sub" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.12 }}>
-          A short video, woven right into your resume, lets people see your story instead of just reading about it.
+          A short video pitch brings your resume to life, changing the way you make a first impression.
         </motion.p>
       </div>
 

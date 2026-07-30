@@ -85,11 +85,11 @@ export default function HomeHero() {
           box-shadow: 0 4px 24px rgba(4,22,53,0.07); background: #fff;
         }
         .hh-table-header {
-          padding: 16px 24px; background: #F7F8FA; border-bottom: 1px solid #ECEEF1;
+          padding: 16px 24px; background: #041635; border-bottom: 1px solid rgba(255,255,255,0.1);
           font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em;
-          color: #6B7280; font-family: var(--font-body);
+          color: rgba(255,255,255,0.85); font-family: var(--font-body);
         }
-        .hh-table-header:nth-child(1) { border-right: 1px solid #ECEEF1; }
+        .hh-table-header:nth-child(1) { border-right: 1px solid rgba(255,255,255,0.1); }
         .hh-cell {
           display: flex; align-items: center; gap: 11px; padding: 15px 24px;
           text-decoration: none; transition: background 0.15s ease;
@@ -117,7 +117,7 @@ export default function HomeHero() {
           .hh-cell:nth-child(3) { order: 1; }
           .hh-cell:nth-child(5) { order: 2; }
           .hh-cell:nth-child(7) { order: 3; }
-          .hh-table-header:nth-child(2) { order: 4; border-top: 1px solid #ECEEF1; }
+          .hh-table-header:nth-child(2) { order: 4; }
           .hh-cell:nth-child(4) { order: 5; }
           .hh-cell:nth-child(6) { order: 6; }
           .hh-cell:nth-child(8) { order: 7; }

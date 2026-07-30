@@ -3,7 +3,15 @@
 import { useRef, useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowRight, Play, Pause, Download, Link2, MapPin, Mail, Eye, Clock, MousePointerClick, Sparkles } from 'lucide-react';
+import { ArrowRight, Play, Pause, Download, Link2, MapPin, Mail, Eye, Clock, MousePointerClick, Sparkles, Globe } from 'lucide-react';
+
+function LinkedinIcon({ size = 14 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.25 2.36 4.25 5.44v6.3zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z" />
+    </svg>
+  );
+}
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -129,6 +137,14 @@ export default function ExampleProfilePage() {
                     <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '12px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)' }}><MapPin size={12} /> London, UK</span>
                     <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '12px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)' }}><Mail size={12} /> olivia@example.com</span>
                     <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '12px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)' }}><Link2 size={12} /> /in/oliviastone</span>
+                  </div>
+                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '14px' }}>
+                    <a href="https://oliviastone.design" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '8px 16px', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.16)', borderRadius: '100px', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.8)', fontFamily: 'var(--font-body)', textDecoration: 'none' }}>
+                      <Globe size={14} /> Portfolio
+                    </a>
+                    <a href="https://linkedin.com/in/oliviastone" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '8px 16px', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.16)', borderRadius: '100px', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.8)', fontFamily: 'var(--font-body)', textDecoration: 'none' }}>
+                      <LinkedinIcon size={14} /> LinkedIn
+                    </a>
                   </div>
                 </div>
               </div>

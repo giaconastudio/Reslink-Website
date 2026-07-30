@@ -139,12 +139,12 @@ export default function HomeHero() {
           <span style={{ display: 'inline-block', position: 'relative' }}>
             Meet the person.
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/vector-underline.svg" alt="" aria-hidden="true" style={{ position: 'absolute', bottom: '-14px', left: 0, width: '100%', height: 'auto', pointerEvents: 'none' }} />
+            <img src="/vector-underline.svg" alt="" aria-hidden="true" style={{ position: 'absolute', bottom: '-26px', left: 0, width: '100%', height: 'auto', pointerEvents: 'none' }} />
           </span>
         </motion.h1>
 
         <motion.p className="hh-sub" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.12 }}>
-          Reslink pairs your resume with a short video pitch, so you can introduce yourself and they can see if it&apos;s a fit.
+          Reslink writes your script with AI, coaches your delivery with a built-in teleprompter, and shows you exactly who&apos;s watching. Employers get more than a page of bullet points to go on.
         </motion.p>
       </div>
 

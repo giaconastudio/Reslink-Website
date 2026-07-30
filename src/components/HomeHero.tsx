@@ -1,31 +1,36 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, ChevronDown, Briefcase, GraduationCap, Flag, Building2, Users } from 'lucide-react';
+import { ArrowRight, Briefcase, GraduationCap, Flag, Building2, Users } from 'lucide-react';
 import { Magnetic } from '@/components/TiltCard';
 
-type Audience = 'individuals' | 'organizations';
+const individualPaths = [
+  { label: 'Job Seekers', href: '/job-seekers', icon: Briefcase },
+  { label: 'Students', href: '/students', icon: GraduationCap },
+  { label: 'Veterans', href: '/veterans', icon: Flag },
+];
 
-const paths: Record<Audience, { label: string; href: string; icon: React.ElementType }[]> = {
-  individuals: [
-    { label: 'Job Seekers', href: '/job-seekers', icon: Briefcase },
-    { label: 'Students', href: '/students', icon: GraduationCap },
-    { label: 'Veterans', href: '/veterans', icon: Flag },
-  ],
-  organizations: [
-    { label: 'Companies', href: '/companies', icon: Building2 },
-    { label: 'Recruitment Agencies', href: '/agencies', icon: Users },
-    { label: 'Universities', href: '/universities', icon: GraduationCap },
-  ],
-};
+const organizationPaths = [
+  { label: 'Companies', href: '/companies', icon: Building2 },
+  { label: 'Recruitment Agencies', href: '/agencies', icon: Users },
+  { label: 'Universities', href: '/universities', icon: GraduationCap },
+];
+
+function PathRow({ href, icon: Icon, label }: { href: string; icon: React.ElementType; label: string }) {
+  return (
+    <Link href={href} className="hh-row">
+      <span className="hh-row-icon"><Icon size={17} color="#0C63E3" strokeWidth={1.9} /></span>
+      <span className="hh-row-label">{label}</span>
+      <ArrowRight size={16} className="hh-row-arrow" />
+    </Link>
+  );
+}
 
 /** Shared homepage hero — same simple, single-column shape as the job-seeker
- *  hero, with an audience picker in place of a single fixed CTA. */
+ *  hero. Both audiences are listed at once as plain labeled rows, so there is
+ *  nothing to toggle or figure out — just read down and pick a link. */
 export default function HomeHero() {
-  const [audience, setAudience] = useState<Audience>('individuals');
-
   return (
     <section style={{ background: '#fff', position: 'relative', overflow: 'hidden', paddingBottom: '72px' }}>
       <div style={{ position: 'absolute', top: '-10%', left: '50%', marginLeft: '-450px', width: '900px', height: '700px', background: 'radial-gradient(ellipse at center, rgba(12,99,227,0.08), transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
@@ -49,45 +54,32 @@ export default function HomeHero() {
           color: #5C6070;
           line-height: 1.6;
           max-width: 520px;
-          margin: 0 auto 36px;
+          margin: 0 auto 40px;
           font-family: var(--font-body);
         }
-        .hh-picker {
-          display: inline-block; text-align: center;
-          background: #F7F8FA; border: 1px solid #ECEEF1; border-radius: 22px;
-          padding: 24px clamp(20px, 4vw, 36px) 26px; margin-bottom: 48px;
-        }
-        .hh-picker-label {
+
+        .hh-picker { max-width: 640px; margin: 0 auto 48px; text-align: left; }
+        .hh-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+        @media (max-width: 640px) { .hh-groups { grid-template-columns: 1fr; } }
+
+        .hh-group { background: #F7F8FA; border: 1px solid #ECEEF1; border-radius: 18px; padding: 18px; }
+        .hh-group-label {
           font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-          color: #9A9FA8; font-family: var(--font-body); margin-bottom: 14px;
+          color: #9A9FA8; font-family: var(--font-body); margin-bottom: 12px; padding: 0 4px;
         }
-        .hh-seg { display: inline-flex; background: #ECEEF1; border-radius: 14px; padding: 4px; gap: 2px; margin-bottom: 18px; }
-        .hh-seg-btn {
-          padding: 10px 22px; border-radius: 10px; border: none; background: transparent;
-          cursor: pointer; font-size: 14px; font-weight: 600; color: #6B7280;
-          font-family: var(--font-body); transition: color 0.18s;
+        .hh-rows { display: flex; flex-direction: column; gap: 8px; }
+        .hh-row {
+          display: flex; align-items: center; gap: 11px;
+          padding: 12px 14px; border-radius: 12px;
+          border: 1.5px solid transparent; background: #fff; text-decoration: none;
+          box-shadow: 0 1px 3px rgba(4,22,53,0.05);
+          transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s;
         }
-        .hh-seg-btn:hover:not(.active) { color: #041635; }
-        .hh-seg-btn.active { background: #041635; color: #fff; font-weight: 700; box-shadow: 0 1px 4px rgba(4,22,53,0.18); }
-
-        .hh-picker-hint {
-          display: flex; align-items: center; justify-content: center; gap: 6px;
-          font-size: 12px; color: #9A9FA8; font-family: var(--font-body); margin-bottom: 14px;
-        }
-        .hh-picker-hint svg { animation: hh-bounce 1.6s ease-in-out infinite; }
-        @keyframes hh-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
-
-        .hh-paths { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-        .hh-path {
-          display: inline-flex; align-items: center; gap: 8px;
-          padding: 12px 20px; border-radius: 100px;
-          border: 1.5px solid #E4E7EC; background: #fff; text-decoration: none;
-          font-size: 14px; font-weight: 700; color: #041635; font-family: var(--font-body);
-          box-shadow: 0 1px 3px rgba(4,22,53,0.04);
-          transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s, color 0.18s;
-        }
-        .hh-path:hover { border-color: #0C63E3; color: #0C63E3; box-shadow: 0 8px 24px rgba(12,99,227,0.16); transform: translateY(-2px); }
-        .hh-path:hover svg:first-child { color: #0C63E3; }
+        .hh-row:hover { border-color: #0C63E3; box-shadow: 0 8px 22px rgba(12,99,227,0.14); transform: translateX(2px); }
+        .hh-row-icon { width: 30px; height: 30px; border-radius: 9px; background: #EEF4FF; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .hh-row-label { flex: 1; font-size: 14px; font-weight: 700; color: #041635; font-family: var(--font-body); text-align: left; }
+        .hh-row-arrow { color: #B0B8C8; flex-shrink: 0; transition: transform 0.18s ease, color 0.18s ease; }
+        .hh-row:hover .hh-row-arrow { color: #0C63E3; transform: translateX(3px); }
 
         .hh-stage { max-width: 920px; margin: 0 auto; position: relative; z-index: 1; }
         .hh-frame { border-radius: 18px; overflow: hidden; border: 1px solid #E6E8EC; background: #fff; box-shadow: 0 40px 120px rgba(4,22,53,0.18), 0 8px 28px rgba(4,22,53,0.08); position: relative; }
@@ -98,8 +90,6 @@ export default function HomeHero() {
 
         @media (max-width: 760px) {
           .hh-inner { padding: 100px 20px 0; }
-          .hh-picker { padding: 20px 16px 22px; }
-          .hh-paths { gap: 8px; }
           .hh-stage { padding: 0 16px; }
         }
       `}</style>
@@ -127,39 +117,21 @@ export default function HomeHero() {
           Reslink replaces the flat PDF with a short video pitch, real analytics, and one shareable link — whichever side of hiring you&apos;re on.
         </motion.p>
 
-        {/* Audience picker */}
-        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.18 }}>
-          <div className="hh-picker">
-            <p className="hh-picker-label">Step 1 — who are you?</p>
-            <div className="hh-seg">
-              <button className={`hh-seg-btn${audience === 'individuals' ? ' active' : ''}`} onClick={() => setAudience('individuals')}>
-                For individuals
-              </button>
-              <button className={`hh-seg-btn${audience === 'organizations' ? ' active' : ''}`} onClick={() => setAudience('organizations')}>
-                For organizations
-              </button>
+        {/* Both audiences, always visible — pick a row */}
+        <motion.div className="hh-picker" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.18 }}>
+          <div className="hh-groups">
+            <div className="hh-group">
+              <p className="hh-group-label">For individuals</p>
+              <div className="hh-rows">
+                {individualPaths.map(p => <PathRow key={p.href} {...p} />)}
+              </div>
             </div>
-
-            <div className="hh-picker-hint">
-              Step 2 — pick where you fit
-              <ChevronDown size={13} />
+            <div className="hh-group">
+              <p className="hh-group-label">For organizations</p>
+              <div className="hh-rows">
+                {organizationPaths.map(p => <PathRow key={p.href} {...p} />)}
+              </div>
             </div>
-
-            <motion.div
-              key={audience}
-              className="hh-paths"
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              {paths[audience].map(p => (
-                <Link key={p.href} href={p.href} className="hh-path">
-                  <p.icon size={15} color="#0C63E3" strokeWidth={1.9} />
-                  {p.label}
-                  <ArrowRight size={13} />
-                </Link>
-              ))}
-            </motion.div>
           </div>
         </motion.div>
       </div>

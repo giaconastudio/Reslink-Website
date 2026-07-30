@@ -144,7 +144,7 @@ export default function HomeHero() {
         </motion.h1>
 
         <motion.p className="hh-sub" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.12 }}>
-          Reslink writes your script with AI, coaches your delivery with a built-in teleprompter, and shows you exactly who&apos;s watching. Employers get more than a page of bullet points to go on.
+          A short video, woven right into your resume, lets people see your story instead of just reading about it.
         </motion.p>
       </div>
 

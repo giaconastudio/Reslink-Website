@@ -144,7 +144,7 @@ export default function HomeHero() {
         </motion.h1>
 
         <motion.p className="hh-sub" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.12 }}>
-          A short video pitch brings your resume to life, changing the way you make a first impression.
+          A short video pitch bringing your resume to life. Changing the way you stand out and make a first impression.
         </motion.p>
       </div>
 

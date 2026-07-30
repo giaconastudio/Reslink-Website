@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowRight, Play, Pause, Download, Link2, MapPin, Mail, Eye, Clock, MousePointerClick, Sparkles, Globe } from 'lucide-react';
+import { ArrowRight, Play, Pause, Download, MapPin, Mail, Eye, Clock, MousePointerClick, Sparkles, Globe } from 'lucide-react';
 
 function LinkedinIcon({ size = 14 }: { size?: number }) {
   return (
@@ -136,7 +136,6 @@ export default function ExampleProfilePage() {
                   <div className="ex-header-contacts" style={{ display: 'flex', gap: '6px 16px', flexWrap: 'wrap' }}>
                     <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '12px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)' }}><MapPin size={12} /> London, UK</span>
                     <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '12px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)' }}><Mail size={12} /> olivia@example.com</span>
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '12px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)' }}><Link2 size={12} /> /in/oliviastone</span>
                   </div>
                   <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '14px' }}>
                     <a href="https://oliviastone.design" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '8px 16px', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.16)', borderRadius: '100px', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.8)', fontFamily: 'var(--font-body)', textDecoration: 'none' }}>

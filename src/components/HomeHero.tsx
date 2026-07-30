@@ -76,7 +76,7 @@ export default function HomeHero() {
         }
 
         /* Path table */
-        .hh-table-wrap { max-width: 720px; margin: clamp(48px, 6vw, 68px) auto 0; }
+        .hh-table-wrap { max-width: 920px; margin: clamp(48px, 6vw, 68px) auto 0; }
         .hh-table-eyebrow { text-align: center; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #0C63E3; font-family: var(--font-body); margin-bottom: 12px; }
         .hh-table-head { text-align: center; font-family: var(--font-phudu); font-size: clamp(24px, 3vw, 32px); font-weight: 900; color: #041635; letter-spacing: -0.02em; margin-bottom: 24px; }
         .hh-table {
@@ -135,18 +135,16 @@ export default function HomeHero() {
         </motion.p>
 
         <motion.h1 className="hh-h1" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.05 }}>
-          A resume you can<br />
-          actually{' '}
+          Don&apos;t read it.<br />
           <span style={{ display: 'inline-block', position: 'relative' }}>
-            watch
+            Watch it.
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/vector-underline.svg" alt="" aria-hidden="true" style={{ position: 'absolute', bottom: '-14px', left: 0, width: '100%', height: 'auto', pointerEvents: 'none' }} />
           </span>
-          .
         </motion.h1>
 
         <motion.p className="hh-sub" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.12 }}>
-          Reslink replaces the flat PDF with a short video pitch, real analytics, and one shareable link — whichever side of hiring you&apos;re on.
+          Reslink replaces the flat resume PDF with a short video pitch, real analytics, and one shareable link, whichever side of hiring you&apos;re on.
         </motion.p>
       </div>
 
@@ -157,7 +155,7 @@ export default function HomeHero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
       >
-        <p className="hh-stage-caption">Imagine if applying — or hiring — looked like this.</p>
+        <p className="hh-stage-caption">See what applying and hiring can look like now.</p>
         <Link href="/oliviastone" aria-label="Explore the example Reslink" style={{ display: 'block', textDecoration: 'none' }} className="hh-frame-link">
           <div className="hh-frame">
             <div className="hh-bar">

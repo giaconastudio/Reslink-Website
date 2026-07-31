@@ -9,16 +9,19 @@ import {
   Briefcase, Building2, Users, GraduationCap,
   BookOpen, LayoutTemplate, LifeBuoy,
   Compass, Rocket, Phone,
-  ArrowRight, Zap, Flag,
+  Flag,
 } from 'lucide-react';
 
-const solutions = [
-  { label: 'Job Seekers', href: '/job-seekers', desc: 'Stand out with a video resume', icon: Briefcase, forOrg: false },
-  { label: 'Students', href: '/students', desc: 'Land your first job or internship', icon: GraduationCap, forOrg: false },
-  { label: 'Veterans', href: '/veterans', desc: 'Translate military skills to civilian roles', icon: Flag, forOrg: false },
-  { label: 'Companies', href: '/companies', desc: 'Find top talent faster', icon: Building2, forOrg: true },
-  { label: 'Recruitment Agencies', href: '/agencies', desc: 'Scale your placements', icon: Users, forOrg: true },
-  { label: 'Universities', href: '/universities', desc: 'Empower your students', icon: GraduationCap, forOrg: true },
+const individualSolutions = [
+  { label: 'Job Seekers', href: '/job-seekers', desc: 'Stand out with a video resume', icon: Briefcase },
+  { label: 'Students', href: '/students', desc: 'Land your first job or internship', icon: GraduationCap },
+  { label: 'Veterans', href: '/veterans', desc: 'Translate military skills to civilian roles', icon: Flag },
+];
+
+const organizationSolutions = [
+  { label: 'Companies', href: '/companies', desc: 'Find top talent faster', icon: Building2 },
+  { label: 'Recruitment Agencies', href: '/agencies', desc: 'Scale your placements', icon: Users },
+  { label: 'Universities', href: '/universities', desc: 'Empower your students', icon: GraduationCap },
 ];
 
 const resources = [
@@ -33,7 +36,7 @@ const company = [
   { label: 'Contact Us', href: '/contact', desc: 'Get in touch with our team', icon: Phone, badge: null },
 ];
 
-type DropdownKey = 'solutions' | 'resources' | 'company' | null;
+type DropdownKey = 'individuals' | 'organizations' | 'resources' | 'company' | null;
 
 function DropItem({ href, icon: Icon, label, desc, badge, onClick }: {
   href: string; icon: React.ElementType;
@@ -130,38 +133,37 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
           {/* Desktop nav */}
           <nav style={{ display: 'flex', alignItems: 'center', gap: '2px' }} className="desktop-nav">
 
-            {/* Solutions — mega-menu */}
-            <div style={{ position: 'relative' }} onMouseEnter={() => openDropdown('solutions')} onMouseLeave={scheduleClose}>
-              <button onClick={() => toggleDropdown('solutions')} style={{ fontSize: '14px', fontWeight: 500, color: open === 'solutions' ? linkActiveColor : linkColor, background: open === 'solutions' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
-                Solutions <ChevronDown size={13} style={{ transform: open === 'solutions' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+            {/* For Individuals */}
+            <div style={{ position: 'relative' }} onMouseEnter={() => openDropdown('individuals')} onMouseLeave={scheduleClose}>
+              <button onClick={() => toggleDropdown('individuals')} style={{ fontSize: '14px', fontWeight: 500, color: open === 'individuals' ? linkActiveColor : linkColor, background: open === 'individuals' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
+                For Individuals <ChevronDown size={13} style={{ transform: open === 'individuals' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
               </button>
-              {open === 'solutions' && (
-                <div onMouseEnter={() => openDropdown('solutions')} onMouseLeave={scheduleClose} style={{ position: 'absolute', top: '100%', left: '-8px', paddingTop: '6px', zIndex: 100 }}>
-                  <motion.div initial={{ opacity: 0, y: 8, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.18, ease: 'easeOut' }} style={{ background: '#fff', borderRadius: '16px', border: '1px solid #EEEEF0', boxShadow: '0 12px 40px rgba(4,22,53,0.12), 0 2px 8px rgba(4,22,53,0.06)', padding: '16px', minWidth: '540px', transformOrigin: 'top left' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0', alignItems: 'start' }}>
-                      <div style={{ paddingRight: '12px', borderRight: '1px solid #F3F4F6' }}>
-                        <p style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#B0B8C8', fontFamily: 'var(--font-body)', marginBottom: '6px', padding: '0 6px' }}>For individuals</p>
-                        {solutions.filter(s => !s.forOrg).map((s, i) => (
-                          <motion.div key={s.href} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 + i * 0.045, duration: 0.18 }}>
-                            <DropItem {...s} onClick={() => setOpen(null)} />
-                          </motion.div>
-                        ))}
-                      </div>
-                      <div style={{ paddingLeft: '12px' }}>
-                        <p style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#B0B8C8', fontFamily: 'var(--font-body)', marginBottom: '6px', padding: '0 6px' }}>For organizations</p>
-                        {solutions.filter(s => s.forOrg).map((s, i) => (
-                          <motion.div key={s.href} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 + i * 0.045, duration: 0.18 }}>
-                            <DropItem {...s} onClick={() => setOpen(null)} />
-                          </motion.div>
-                        ))}
-                      </div>
-                    </div>
-                    <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid #F3F4F6', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Used by 10,000+ professionals worldwide</p>
-                      <Link href="/get-started" onClick={() => setOpen(null)} style={{ fontSize: '12px', fontWeight: 700, color: '#0C63E3', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>
-                        Try free <ArrowRight size={12} />
-                      </Link>
-                    </div>
+              {open === 'individuals' && (
+                <div onMouseEnter={() => openDropdown('individuals')} onMouseLeave={scheduleClose} style={{ position: 'absolute', top: '100%', left: '-8px', paddingTop: '6px', zIndex: 100 }}>
+                  <motion.div initial={{ opacity: 0, y: 8, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.18, ease: 'easeOut' }} style={{ background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 12px 40px rgba(4,22,53,0.12), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', minWidth: '280px', transformOrigin: 'top left' }}>
+                    {individualSolutions.map((s, i) => (
+                      <motion.div key={s.href} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 + i * 0.045, duration: 0.18 }}>
+                        <DropItem {...s} onClick={() => setOpen(null)} />
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                </div>
+              )}
+            </div>
+
+            {/* For Organizations */}
+            <div style={{ position: 'relative' }} onMouseEnter={() => openDropdown('organizations')} onMouseLeave={scheduleClose}>
+              <button onClick={() => toggleDropdown('organizations')} style={{ fontSize: '14px', fontWeight: 500, color: open === 'organizations' ? linkActiveColor : linkColor, background: open === 'organizations' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
+                For Organizations <ChevronDown size={13} style={{ transform: open === 'organizations' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+              </button>
+              {open === 'organizations' && (
+                <div onMouseEnter={() => openDropdown('organizations')} onMouseLeave={scheduleClose} style={{ position: 'absolute', top: '100%', left: '-8px', paddingTop: '6px', zIndex: 100 }}>
+                  <motion.div initial={{ opacity: 0, y: 8, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.18, ease: 'easeOut' }} style={{ background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 12px 40px rgba(4,22,53,0.12), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', minWidth: '280px', transformOrigin: 'top left' }}>
+                    {organizationSolutions.map((s, i) => (
+                      <motion.div key={s.href} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 + i * 0.045, duration: 0.18 }}>
+                        <DropItem {...s} onClick={() => setOpen(null)} />
+                      </motion.div>
+                    ))}
                   </motion.div>
                 </div>
               )}
@@ -236,9 +238,10 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
       {mobileOpen && (
         <div style={{ background: blue ? '#0C63E3' : dark ? '#041635' : '#fff', borderTop: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid #EEEEF0', padding: '8px 20px 20px', maxHeight: 'calc(100vh - 68px)', overflowY: 'auto' }}>
 
-          {/* Solutions accordion */}
+          {/* Nav sections accordion */}
           {[
-            { key: 'solutions', label: 'Solutions', items: solutions },
+            { key: 'individuals', label: 'For Individuals', items: individualSolutions },
+            { key: 'organizations', label: 'For Organizations', items: organizationSolutions },
             { key: 'resources', label: 'Resources', items: resources },
             { key: 'company', label: 'Company', items: company },
           ].map(({ key, label, items }) => (
@@ -252,33 +255,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
               </button>
               {mobileExpanded === key && (
                 <div style={{ paddingBottom: '8px' }}>
-                  {key === 'solutions' ? (
-                    <>
-                      {[
-                        { groupLabel: 'For Individuals', filtered: solutions.filter(s => !s.forOrg) },
-                        { groupLabel: 'For Organizations', filtered: solutions.filter(s => s.forOrg) },
-                      ].map(({ groupLabel, filtered }) => (
-                        <div key={groupLabel}>
-                          <p style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: isDark ? 'rgba(255,255,255,0.35)' : '#B0B8C8', fontFamily: 'var(--font-body)', padding: '8px 4px 4px', margin: 0 }}>{groupLabel}</p>
-                          {filtered.map((item) => {
-                            const Icon = item.icon;
-                            return (
-                              <Link key={item.href} href={item.href}
-                                style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 4px', textDecoration: 'none' }}
-                                onClick={() => setMobileOpen(false)}
-                              >
-                                <div style={{ width: '28px', height: '28px', borderRadius: '7px', background: isDark ? 'rgba(255,255,255,0.1)' : '#ECEEF1', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                                  <Icon size={13} color={isDark ? 'rgba(255,255,255,0.7)' : '#6B7280'} />
-                                </div>
-                                <span style={{ fontSize: '14px', fontWeight: 500, color: isDark ? 'rgba(255,255,255,0.85)' : '#041635', fontFamily: 'var(--font-body)' }}>{item.label}</span>
-                              </Link>
-                            );
-                          })}
-                        </div>
-                      ))}
-                    </>
-                  ) : (
-                    items.map((item) => {
+                  {items.map((item) => {
                       const Icon = item.icon;
                       return (
                         <Link key={item.href} href={item.href}
@@ -296,8 +273,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
                           </div>
                         </Link>
                       );
-                    })
-                  )}
+                    })}
                 </div>
               )}
             </div>

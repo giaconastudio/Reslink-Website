@@ -1,6 +1,7 @@
 import Navbar from '@/components/Navbar';
 import HomeHero from '@/components/HomeHero';
 import LogoTicker from '@/components/LogoTicker';
+import HomeOrgDemo from '@/components/HomeOrgDemo';
 import HomeDirectory from '@/components/HomeDirectory';
 import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
@@ -12,6 +13,7 @@ export default function Home() {
       <main>
         <HomeHero />
         <LogoTicker />
+        <HomeOrgDemo />
         <HomeDirectory />
         <CTA
           heading={<>Ready to<br /><span style={{ color: '#D8F950' }}>get started?</span></>}

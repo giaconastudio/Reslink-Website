@@ -2,38 +2,14 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, Briefcase, GraduationCap, Flag, Building2, Users } from 'lucide-react';
-import { Magnetic } from '@/components/TiltCard';
+import { ArrowRight, Briefcase, Building2 } from 'lucide-react';
 
-const individualPaths = [
-  { label: 'Job Seekers', href: '/job-seekers', icon: Briefcase },
-  { label: 'Students', href: '/students', icon: GraduationCap },
-  { label: 'Veterans', href: '/veterans', icon: Flag },
-];
-
-const organizationPaths = [
-  { label: 'Companies', href: '/companies', icon: Building2 },
-  { label: 'Recruitment Agencies', href: '/agencies', icon: Users },
-  { label: 'Universities', href: '/universities', icon: GraduationCap },
-];
-
-function PathCell({ href, icon: Icon, label }: { href: string; icon: React.ElementType; label: string }) {
-  return (
-    <Link href={href} className="hh-cell">
-      <span className="hh-cell-icon"><Icon size={16} color="#0C63E3" strokeWidth={1.9} /></span>
-      <span className="hh-cell-label">{label}</span>
-      <ArrowRight size={15} className="hh-cell-arrow" />
-    </Link>
-  );
-}
-
-/** Shared homepage hero — same simple, single-column shape as the job-seeker
- *  hero. The example Reslink comes first (framed as valuable to both a
- *  candidate and a hiring team), then a single directory table underneath
- *  lets visitors pick their path. */
+/** Shared homepage hero — headline for both audiences, then a split intro
+ *  (individuals / organizations) that scrolls down to the matching section
+ *  further down the page rather than linking out immediately. */
 export default function HomeHero() {
   return (
-    <section style={{ background: '#fff', position: 'relative', overflow: 'hidden', paddingBottom: 'clamp(64px, 8vw, 96px)' }}>
+    <section style={{ background: '#fff', position: 'relative', overflow: 'hidden', paddingBottom: 'clamp(48px, 6vw, 72px)' }}>
       <div style={{ position: 'absolute', top: '-10%', left: '50%', marginLeft: '-450px', width: '900px', height: '700px', background: 'radial-gradient(ellipse at center, rgba(12,99,227,0.08), transparent 65%)', pointerEvents: 'none', zIndex: 0 }} />
 
       <style>{`
@@ -59,70 +35,23 @@ export default function HomeHero() {
           font-family: var(--font-body);
         }
 
-        .hh-stage { max-width: 920px; margin: 0 auto; position: relative; z-index: 1; }
-        .hh-stage-caption {
-          font-size: 13px; font-weight: 700; letter-spacing: 0.04em; color: #5C6070;
-          font-family: var(--font-body); text-align: center; margin-bottom: 14px;
-        }
-        .hh-frame { border-radius: 18px; overflow: hidden; border: 1px solid #E6E8EC; background: #fff; box-shadow: 0 40px 120px rgba(4,22,53,0.18), 0 8px 28px rgba(4,22,53,0.08); position: relative; }
-        .hh-bar { background: #F7F8FA; padding: 11px 16px; border-bottom: 1px solid #EEEEF0; display: flex; align-items: center; gap: 6px; }
-        .hh-video { position: relative; overflow: hidden; background: #060D24; aspect-ratio: 16/9; width: 100%; }
-        .hh-open-hint { opacity: 0; transition: opacity 0.25s ease; }
-        .hh-frame-link:hover .hh-open-hint { opacity: 1; }
-        .hh-view-link {
-          display: none; align-items: center; justify-content: center; gap: 6px;
-          margin-top: 16px; font-size: 13px; font-weight: 700; color: #0C63E3;
-          font-family: var(--font-body); text-decoration: none;
-        }
-
-        /* Path table */
-        .hh-table-wrap { max-width: 920px; margin: clamp(48px, 6vw, 68px) auto 0; }
-        .hh-table-eyebrow { text-align: center; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #0C63E3; font-family: var(--font-body); margin-bottom: 12px; }
-        .hh-table-head { text-align: center; font-family: var(--font-phudu); font-size: clamp(24px, 3vw, 32px); font-weight: 900; color: #041635; letter-spacing: -0.02em; margin-bottom: 24px; }
-        .hh-table {
-          display: grid; grid-template-columns: 1fr 1fr;
-          border-radius: 20px; border: 1px solid #E4E6EC; overflow: hidden;
-          box-shadow: 0 4px 24px rgba(4,22,53,0.07); background: #fff;
-        }
-        .hh-table-header {
-          padding: 16px 24px; background: #041635; border-bottom: 1px solid rgba(255,255,255,0.1);
-          font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em;
-          color: rgba(255,255,255,0.85); font-family: var(--font-body);
-        }
-        .hh-table-header:nth-child(1) { border-right: 1px solid rgba(255,255,255,0.1); }
-        .hh-cell {
-          display: flex; align-items: center; gap: 11px; padding: 15px 24px;
-          text-decoration: none; transition: background 0.15s ease;
-          border-bottom: 1px solid #ECEEF1;
-        }
-        .hh-cell:nth-child(odd) { border-right: 1px solid #ECEEF1; }
-        .hh-cell:hover { background: #F8FAFF; }
-        .hh-cell:last-child, .hh-cell:nth-last-child(2) { border-bottom: none; }
-        .hh-cell-icon { width: 30px; height: 30px; border-radius: 9px; background: #EEF4FF; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .hh-cell-label { flex: 1; font-size: 14px; font-weight: 700; color: #041635; font-family: var(--font-body); text-align: left; }
-        .hh-cell-arrow { color: #C7CCD6; flex-shrink: 0; transition: transform 0.18s ease, color 0.18s ease; }
-        .hh-cell:hover .hh-cell-arrow { color: #0C63E3; transform: translateX(3px); }
+        /* Split intro */
+        .hh-split-wrap { max-width: 1000px; margin: clamp(40px, 5vw, 56px) auto 0; position: relative; z-index: 1; padding: 0 24px; }
+        .hh-split { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid #ECEEF1; border-radius: 22px; overflow: hidden; box-shadow: 0 4px 24px rgba(4,22,53,0.06); }
+        .hh-split-col { padding: clamp(30px, 4vw, 44px) clamp(26px, 4vw, 40px); text-align: left; }
+        .hh-split-col.light { background: #fff; }
+        .hh-split-col.dark { background: #041635; }
+        .hh-split-icon { width: 44px; height: 44px; border-radius: 13px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+        .hh-split-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; font-family: var(--font-body); margin-bottom: 10px; }
+        .hh-split-head { font-family: var(--font-phudu); font-size: clamp(22px, 2.6vw, 28px); font-weight: 900; letter-spacing: -0.02em; line-height: 1.05; margin-bottom: 12px; }
+        .hh-split-body { font-size: 14px; line-height: 1.65; font-family: var(--font-body); margin-bottom: 22px; }
+        .hh-split-link { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 700; font-family: var(--font-body); text-decoration: none; }
+        .hh-split-link svg { transition: transform 0.18s ease; }
+        .hh-split-link:hover svg { transform: translateX(3px); }
 
         @media (max-width: 700px) {
           .hh-inner { padding: 100px 20px 0; }
-          .hh-stage { padding: 0 16px; }
-          .hh-frame-link:hover .hh-open-hint { opacity: 0; }
-          .hh-view-link { display: inline-flex; }
-
-          /* Reflow the row-major grid into two grouped lists: all of
-             "For individuals" first, then all of "For organizations". */
-          .hh-table { grid-template-columns: 1fr; }
-          .hh-table-header, .hh-cell { border-right: none !important; }
-          .hh-table-header:nth-child(1) { order: 0; }
-          .hh-cell:nth-child(3) { order: 1; }
-          .hh-cell:nth-child(5) { order: 2; }
-          .hh-cell:nth-child(7) { order: 3; }
-          .hh-table-header:nth-child(2) { order: 4; }
-          .hh-cell:nth-child(4) { order: 5; }
-          .hh-cell:nth-child(6) { order: 6; }
-          .hh-cell:nth-child(8) { order: 7; }
-          .hh-cell:nth-last-child(2) { border-bottom: 1px solid #ECEEF1; }
-          .hh-cell:last-child { border-bottom: none; }
+          .hh-split { grid-template-columns: 1fr; }
         }
       `}</style>
 
@@ -148,66 +77,35 @@ export default function HomeHero() {
         </motion.p>
       </div>
 
-      {/* Product frame — appeals to both a candidate applying and a team hiring */}
-      <motion.div
-        className="hh-stage"
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <p className="hh-stage-caption">See what applying and hiring can look like now.</p>
-        <Link href="/oliviastone" aria-label="Explore the example Reslink" style={{ display: 'block', textDecoration: 'none' }} className="hh-frame-link">
-          <div className="hh-frame">
-            <div className="hh-bar">
-              <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#FF5F57', display: 'inline-block' }} />
-              <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#FEBC2E', display: 'inline-block' }} />
-              <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#28C840', display: 'inline-block' }} />
-              <div style={{ flex: 1, margin: '0 12px', background: '#EAECEF', borderRadius: '6px', padding: '4px 14px', fontSize: '11px', color: '#9A9FA8', textAlign: 'center', fontFamily: 'var(--font-body)' }}>
-                reslink.io/oliviastone
-              </div>
-              <span style={{ fontSize: '11px', fontWeight: 700, color: '#0C63E3', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                Open example <ArrowRight size={11} />
-              </span>
+      {/* Split intro — individuals / organizations, each scrolling to its section below */}
+      <motion.div className="hh-split-wrap" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}>
+        <div className="hh-split">
+          <div className="hh-split-col light">
+            <div className="hh-split-icon" style={{ background: '#EEF4FF' }}>
+              <Briefcase size={20} color="#0C63E3" strokeWidth={1.9} />
             </div>
-            <div className="hh-video">
-              <video
-                src="/videos/hero.mp4"
-                poster="/videos/hero-poster.jpg"
-                autoPlay muted loop playsInline preload="auto"
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', transform: 'scale(1.06)' }}
-              />
-              <div className="hh-open-hint" style={{ position: 'absolute', inset: 0, background: 'rgba(4,22,53,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 2 }}>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#fff', color: '#041635', borderRadius: '100px', padding: '12px 24px', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', boxShadow: '0 12px 40px rgba(0,0,0,0.3)' }}>
-                  View this example Reslink <ArrowRight size={14} />
-                </span>
-              </div>
-            </div>
-          </div>
-        </Link>
-        <Link href="/oliviastone" className="hh-view-link">
-          View this example Reslink <ArrowRight size={13} />
-        </Link>
-
-        {/* Path table */}
-        <div className="hh-table-wrap">
-          <p className="hh-table-eyebrow">Get started</p>
-          <h2 className="hh-table-head">Pick where you fit.</h2>
-          <div className="hh-table">
-            <div className="hh-table-header">For individuals</div>
-            <div className="hh-table-header">For organizations</div>
-            {individualPaths.flatMap((ip, i) => [
-              <PathCell key={ip.href} {...ip} />,
-              <PathCell key={organizationPaths[i].href} {...organizationPaths[i]} />,
-            ])}
-          </div>
-        </div>
-
-        <div style={{ marginTop: '32px', textAlign: 'center' }}>
-          <Magnetic>
-            <Link href="/get-started" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px', display: 'inline-flex' }}>
-              Create your Reslink free <ArrowRight size={15} />
+            <p className="hh-split-eyebrow" style={{ color: '#9A9FA8' }}>For individuals</p>
+            <h2 className="hh-split-head" style={{ color: '#041635' }}>Job seekers, students, veterans.</h2>
+            <p className="hh-split-body" style={{ color: '#5C6070' }}>
+              Build a free video resume that gets you noticed. AI writes the script, a teleprompter guides the take, and you see who&apos;s watching.
+            </p>
+            <Link href="#individuals" className="hh-split-link" style={{ color: '#0C63E3' }}>
+              Learn more <ArrowRight size={14} />
             </Link>
-          </Magnetic>
+          </div>
+          <div className="hh-split-col dark">
+            <div className="hh-split-icon" style={{ background: 'rgba(216,249,80,0.13)', border: '1px solid rgba(216,249,80,0.22)' }}>
+              <Building2 size={20} color="#D8F950" strokeWidth={1.9} />
+            </div>
+            <p className="hh-split-eyebrow" style={{ color: 'rgba(255,255,255,0.4)' }}>For organizations</p>
+            <h2 className="hh-split-head" style={{ color: '#fff' }}>Companies, agencies, universities.</h2>
+            <p className="hh-split-body" style={{ color: 'rgba(255,255,255,0.6)' }}>
+              Screen candidates in minutes, send clients branded video shortlists, and give every student a way to stand out.
+            </p>
+            <Link href="#organizations" className="hh-split-link" style={{ color: '#D8F950' }}>
+              Learn more <ArrowRight size={14} />
+            </Link>
+          </div>
         </div>
       </motion.div>
     </section>

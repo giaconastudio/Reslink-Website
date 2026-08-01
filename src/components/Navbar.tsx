@@ -136,7 +136,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
             {/* For Individuals */}
             <div style={{ position: 'relative' }} onMouseEnter={() => openDropdown('individuals')} onMouseLeave={scheduleClose}>
               <button onClick={() => toggleDropdown('individuals')} style={{ fontSize: '14px', fontWeight: 500, color: open === 'individuals' ? linkActiveColor : linkColor, background: open === 'individuals' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
-                For Individuals <ChevronDown size={13} style={{ transform: open === 'individuals' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+                Individuals <ChevronDown size={13} style={{ transform: open === 'individuals' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
               </button>
               {open === 'individuals' && (
                 <div onMouseEnter={() => openDropdown('individuals')} onMouseLeave={scheduleClose} style={{ position: 'absolute', top: '100%', left: '-8px', paddingTop: '6px', zIndex: 100 }}>
@@ -154,7 +154,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
             {/* For Organizations */}
             <div style={{ position: 'relative' }} onMouseEnter={() => openDropdown('organizations')} onMouseLeave={scheduleClose}>
               <button onClick={() => toggleDropdown('organizations')} style={{ fontSize: '14px', fontWeight: 500, color: open === 'organizations' ? linkActiveColor : linkColor, background: open === 'organizations' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
-                For Organizations <ChevronDown size={13} style={{ transform: open === 'organizations' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+                Organizations <ChevronDown size={13} style={{ transform: open === 'organizations' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
               </button>
               {open === 'organizations' && (
                 <div onMouseEnter={() => openDropdown('organizations')} onMouseLeave={scheduleClose} style={{ position: 'absolute', top: '100%', left: '-8px', paddingTop: '6px', zIndex: 100 }}>
@@ -240,8 +240,8 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
 
           {/* Nav sections accordion */}
           {[
-            { key: 'individuals', label: 'For Individuals', items: individualSolutions },
-            { key: 'organizations', label: 'For Organizations', items: organizationSolutions },
+            { key: 'individuals', label: 'Individuals', items: individualSolutions },
+            { key: 'organizations', label: 'Organizations', items: organizationSolutions },
             { key: 'resources', label: 'Resources', items: resources },
             { key: 'company', label: 'Company', items: company },
           ].map(({ key, label, items }) => (

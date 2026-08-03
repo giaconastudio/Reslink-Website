@@ -127,7 +127,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
             <Link href="/companies" style={navLinkStyle}
               onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = linkActiveColor; (e.currentTarget as HTMLElement).style.background = linkHoverBg; }}
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = linkColor; (e.currentTarget as HTMLElement).style.background = 'transparent'; }}
-            >For Business</Link>
+            >For Companies</Link>
 
             {/* Resources */}
             <div style={{ position: 'relative' }} onMouseEnter={() => openDropdown('resources')} onMouseLeave={scheduleClose}>
@@ -199,7 +199,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
         <div style={{ background: blue ? '#0C63E3' : dark ? '#041635' : '#fff', borderTop: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid #EEEEF0', padding: '8px 20px 20px', maxHeight: 'calc(100vh - 68px)', overflowY: 'auto' }}>
 
           <Link href="/job-seekers" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#041635', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => setMobileOpen(false)}>For Job Seekers</Link>
-          <Link href="/companies" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#041635', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => setMobileOpen(false)}>For Business</Link>
+          <Link href="/companies" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#041635', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => setMobileOpen(false)}>For Companies</Link>
 
           {/* Nav sections accordion */}
           {[

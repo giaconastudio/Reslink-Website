@@ -94,7 +94,7 @@ export default function HomeHero() {
           <span style={{ display: 'inline-block', position: 'relative' }}>
             Meet the person.
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/vector-underline.svg" alt="" aria-hidden="true" style={{ position: 'absolute', bottom: '-16px', left: 0, width: '100%', height: 'auto', pointerEvents: 'none' }} />
+            <img src="/vector-underline.svg" alt="" aria-hidden="true" style={{ position: 'absolute', bottom: '-22px', left: 0, width: '100%', height: 'auto', pointerEvents: 'none' }} />
           </span>
         </motion.h1>
 
@@ -110,7 +110,7 @@ export default function HomeHero() {
             </Link>
           </Magnetic>
           <Magnetic strength={0.2}>
-            <Link href="#directory" className="btn-outline" style={{ fontSize: '15px', padding: '14px 26px' }}>
+            <Link href="/companies" className="btn-outline" style={{ fontSize: '15px', padding: '14px 26px' }}>
               Explore for your team
             </Link>
           </Magnetic>

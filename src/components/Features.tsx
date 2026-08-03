@@ -1,35 +1,21 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-
-const icons: Record<string, React.ReactNode> = {
-  analytics: (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-  ),
-  pitchai: (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
-  ),
-  teleprompter: (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-  ),
-  badge: (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-  ),
-};
+import { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
+import { BarChart3, Sparkles, Video, Link2 } from 'lucide-react';
 
 const tabs = [
   {
     id: 'analytics',
     label: 'Insights',
+    icon: BarChart3,
     headline: 'View insights on Reslink engagement.',
-    sub: 'Track who views your Reslinks and understand engagement levels: watch time, link clicks, location, and more. Refine your approach and follow up at exactly the right moment.',
-    stats: [
-      { val: '342', label: 'Profile views' },
-      { val: '89%', label: 'Watch rate' },
-      { val: '23', label: 'Recruiter contacts' },
+    sub: 'Track who views your Reslinks and understand engagement levels: watch time, link clicks, location, and more.',
+    bullets: [
+      'See exactly who viewed your Reslink and for how long',
+      'Track clicks on your resume, portfolio, and LinkedIn',
+      'Know which locations and companies are engaging most',
     ],
-    color: '#D8F950',
     bg: '#041635',
     visual: (
       <div style={{ width: '100%', height: '100%', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -112,9 +98,14 @@ const tabs = [
   {
     id: 'pitchai',
     label: 'Pitch AI',
+    icon: Sparkles,
     headline: 'Enhance your video pitch with AI.',
-    sub: 'Reslink Pitch AI generates a standout video script tailored to your experience and the role you\'re applying for. Customize it, then record. No blank page, no guessing what to say.',
-    color: '#0C63E3',
+    sub: 'Reslink Pitch AI generates a standout video script tailored to your experience and the role you\'re applying for.',
+    bullets: [
+      'Generates a tailored script from your resume in seconds',
+      'Rewrite it shorter, longer, more casual, or more formal in one click',
+      'No blank page — start from a script built for the role you want',
+    ],
     bg: '#fff',
     visual: (
       <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', background: '#fff' }}>
@@ -172,9 +163,14 @@ const tabs = [
   {
     id: 'teleprompter',
     label: 'Teleprompter',
-    headline: 'Look confident. Sound confident.',
-    sub: 'Capture your pitch effortlessly using our in-app teleprompter, guiding you to deliver your best performance every time. No notes, no nerves.',
-    color: '#D8F950',
+    icon: Video,
+    headline: 'Look confident. Sound confident.',
+    sub: 'Capture your pitch effortlessly using our in-app teleprompter, guiding you to deliver your best performance every time.',
+    bullets: [
+      'Scrolls your script on screen while you record',
+      'Stay looking at the camera, not down at notes',
+      'Record a natural, confident take on your first or second try',
+    ],
     bg: '#0B0F1A',
     visual: (
       <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
@@ -214,9 +210,14 @@ const tabs = [
   {
     id: 'badge',
     label: 'Apply Anywhere',
+    icon: Link2,
     headline: 'Your Reslink, right inside your resume.',
-    sub: 'A clickable Play Intro button is embedded directly in your resume PDF. When a recruiter opens it, one click takes them straight to your video. No copying URLs, no manual work.',
-    color: '#D8F950',
+    sub: 'A clickable Play Intro button is embedded directly in your resume PDF. When a recruiter opens it, one click takes them straight to your video.',
+    bullets: [
+      'A Play Intro button embeds directly in your resume PDF',
+      'Every copy of your resume carries the badge automatically',
+      'See exactly how many recruiters clicked through',
+    ],
     bg: '#F7F8FA',
     visual: (
       <div style={{ width: '100%', height: '100%', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px', background: '#F7F8FA', justifyContent: 'center' }}>
@@ -268,85 +269,97 @@ const tabs = [
   },
 ];
 
+// Order must mirror `tabs` so the sidebar tracks the stacked cards below it.
+const FEATURE_GROUPS: { label: string; ids: string[] }[] = [
+  { label: 'Create', ids: ['pitchai', 'teleprompter'] },
+  { label: 'Track', ids: ['analytics'] },
+  { label: 'Share', ids: ['badge'] },
+];
+
 export default function Features() {
-  const [active, setActive] = useState(0);
-  const tab = tabs[active];
+  const [activeTab, setActiveTab] = useState(0);
+  const featureRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Scrollspy: highlight whichever feature card is currently in view.
+  useEffect(() => {
+    const onScroll = () => {
+      const line = window.innerHeight * 0.38;
+      let current = 0;
+      featureRefs.current.forEach((el, i) => {
+        if (el && el.getBoundingClientRect().top <= line) current = i;
+      });
+      setActiveTab(current);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+
+  const goToFeature = (i: number) => {
+    const el = featureRefs.current[i];
+    if (!el) return;
+    const y = el.getBoundingClientRect().top + window.scrollY - 110;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  };
 
   return (
-    <section style={{ padding: '100px 0', background: '#fff' }}>
+    <section style={{ padding: 'clamp(72px, 9vw, 112px) 24px', background: '#F7F8FA' }}>
       <style>{`
+        .feat-inner { max-width: 1060px; margin: 0 auto; }
         .feat-header { text-align: center; margin-bottom: 48px; }
-        .feat-tabs-seg {
-          display: inline-flex;
-          background: #ECEEF1;
-          border-radius: 14px;
-          padding: 4px;
-          gap: 2px;
-          overflow-x: auto;
-          -webkit-overflow-scrolling: touch;
-          scrollbar-width: none;
-          max-width: 100%;
+        .feat-layout { display: grid; grid-template-columns: 248px 1fr; gap: clamp(28px, 4vw, 52px); text-align: left; }
+        .feat-nav-col { min-width: 0; }
+        .feat-nav { display: flex; flex-direction: column; gap: 22px; position: sticky; top: 96px; }
+        .feat-group-label { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #9AA1AE; font-family: var(--font-body); margin-bottom: 8px; padding-left: 14px; }
+        .feat-navitem {
+          position: relative; display: flex; align-items: center; gap: 10px; width: 100%;
+          padding: 11px 14px; border: none; background: transparent; border-radius: 10px;
+          font-size: 15px; font-weight: 500; color: #6B7280; font-family: var(--font-body);
+          cursor: pointer; text-align: left; transition: color 0.18s;
         }
-        .feat-tabs-seg::-webkit-scrollbar { display: none; }
-        .feat-tab {
-          display: flex;
-          align-items: center;
-          gap: 7px;
-          padding: 10px 20px;
-          border-radius: 10px;
-          border: none;
-          background: transparent;
-          cursor: pointer;
-          font-size: 14px;
-          font-weight: 500;
-          color: #6B7280;
-          font-family: var(--font-body);
-          transition: all 0.18s;
-          white-space: nowrap;
-          flex-shrink: 0;
+        .feat-navitem > * { position: relative; z-index: 1; }
+        .feat-navitem:hover:not(.active) { color: #041635; }
+        .feat-navitem.active { color: #041635; font-weight: 700; }
+        .feat-dot { width: 7px; height: 7px; border-radius: 50%; background: #C9CFD9; flex-shrink: 0; transition: background 0.18s; }
+        .feat-navitem.active .feat-dot { background: #D8F950; box-shadow: 0 0 0 3px rgba(216,249,80,0.35); }
+        .feat-card {
+          background: #fff; border: 1px solid #E6E9EF; border-radius: 22px;
+          padding: clamp(18px, 2.4vw, 30px);
+          box-shadow: 0 2px 12px rgba(4,22,53,0.05);
         }
-        .feat-tab:hover:not(.active) { background: rgba(255,255,255,0.5); color: #041635; }
-        .feat-tab.active {
-          background: #041635;
-          color: #fff;
-          font-weight: 700;
-          box-shadow: 0 1px 4px rgba(4,22,53,0.18), 0 0 0 1px rgba(4,22,53,0.08);
+        .feat-eyebrow {
+          display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px;
+          font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+          color: #041635; font-family: var(--font-body);
+          background: #F1F4F8; border-radius: 100px; padding: 6px 14px;
         }
-        .feat-panel {
-          border-radius: 20px;
-          overflow: hidden;
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          min-height: 480px;
-          box-shadow: 0 16px 60px rgba(4,22,53,0.1);
-        }
-        .feat-copy {
-          padding: 56px;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-        }
-        .feat-visual {
-          display: flex;
-          overflow: hidden;
-        }
+        .feat-divider { height: 1px; background: #ECEFF4; margin: 28px 0 24px; }
+        .feat-body { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+        .feat-visual-frame { border-radius: 14px; overflow: hidden; border: 1px solid #E2E4E9; box-shadow: 0 12px 40px rgba(4,22,53,0.1); }
+        .feat-visual-bar { background: #F1F3F5; border-bottom: 1px solid #E2E4E9; padding: 9px 14px; display: flex; align-items: center; gap: 8px; }
+        .feat-visual { height: 340px; overflow: hidden; }
         .feat-swipe-hint { display: none; }
-        @media (max-width: 768px) {
-          .feat-panel { grid-template-columns: 1fr; min-height: auto; }
-          .feat-visual { order: -1; min-height: 300px; }
-          .feat-copy { padding: 28px 24px 32px; }
-          .feat-tab { padding: 8px 14px; font-size: 13px; white-space: nowrap; }
-          .feat-header { margin-bottom: 20px; }
-          .feat-tabs-seg { width: 100%; justify-content: flex-start; margin-bottom: 40px; }
-          .feat-swipe-hint { display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 16px; }
+        @media (max-width: 900px) {
+          .feat-body { grid-template-columns: 1fr !important; }
         }
-        @media (max-width: 480px) {
-          .feat-visual { min-height: 260px; }
-          .feat-copy { padding: 24px 20px 28px; }
+        @media (max-width: 860px) {
+          .feat-layout { grid-template-columns: 1fr; gap: 22px; }
+          .feat-nav-col { position: sticky; top: 68px; z-index: 20; background: #F7F8FA; padding: 10px 0; margin: -10px 0 0; }
+          .feat-nav { position: static; flex-direction: row; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
+          .feat-nav::-webkit-scrollbar { display: none; }
+          .feat-group { display: contents; }
+          .feat-group-label { display: none; }
+          .feat-navitem { width: auto; white-space: nowrap; flex-shrink: 0; background: #fff; border: 1px solid #E2E4E9; padding: 9px 15px; font-size: 14px; }
+          .feat-navitem.active { border-color: #041635; }
+          .feat-swipe-hint { display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 16px; }
         }
       `}</style>
 
-      <div className="container">
+      <div className="feat-inner">
         {/* Header */}
         <motion.div className="feat-header" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ duration: 0.5 }}>
           <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '12px', fontFamily: 'var(--font-body)' }}>Everything you need to stand out</p>
@@ -355,51 +368,83 @@ export default function Features() {
           </h2>
         </motion.div>
 
-        {/* Swipe hint — mobile only, above tabs */}
-        <div className="feat-swipe-hint">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A9FA8" strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
-          <span style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', fontWeight: 500, letterSpacing: '0.04em' }}>Swipe to explore features</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A9FA8" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
-        </div>
-        {/* Tabs */}
-        <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-          <div className="feat-tabs-seg">
+        <div className="feat-layout">
+          {/* Mobile-only hint that the feature nav scrolls sideways */}
+          <div className="feat-swipe-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A9FA8" strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
+            <span style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', fontWeight: 500, letterSpacing: '0.04em' }}>Swipe to explore features</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A9FA8" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+
+          {/* Grouped sidebar nav */}
+          <div className="feat-nav-col">
+            <nav className="feat-nav" aria-label="Product features">
+              {FEATURE_GROUPS.map(group => (
+                <div key={group.label} className="feat-group">
+                  <p className="feat-group-label">{group.label}</p>
+                  {group.ids.map(id => {
+                    const i = tabs.findIndex(t => t.id === id);
+                    const t = tabs[i];
+                    if (!t) return null;
+                    const isActive = activeTab === i;
+                    return (
+                      <button key={t.id} onClick={() => goToFeature(i)} className={`feat-navitem${isActive ? ' active' : ''}`} aria-current={isActive}>
+                        {isActive && <motion.span layoutId="featNavPill" transition={{ type: 'spring', stiffness: 450, damping: 38 }} style={{ position: 'absolute', inset: 0, background: '#EDF0F4', borderRadius: '10px', zIndex: 0 }} />}
+                        <span className="feat-dot" />
+                        <span>{t.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              ))}
+            </nav>
+          </div>
+
+          {/* Stacked feature cards */}
+          <div style={{ minWidth: 0, display: 'flex', flexDirection: 'column', gap: 'clamp(56px, 7vw, 96px)' }}>
             {tabs.map((t, i) => (
-              <button key={t.id} className={`feat-tab${i === active ? ' active' : ''}`} onClick={() => setActive(i)}>
-                <span style={{ display: 'inline-flex', opacity: i === active ? 1 : 0.5 }}>{icons[t.id]}</span> {t.label}
-              </button>
+              <motion.div key={t.id} ref={(el: HTMLDivElement | null) => { featureRefs.current[i] = el; }} className="feat-card" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.4 }}>
+                <span className="feat-eyebrow">
+                  <t.icon size={13} strokeWidth={2.4} />
+                  {t.label}
+                </span>
+
+                <div className="feat-visual-frame" style={{ marginTop: '14px' }}>
+                  <div className="feat-visual-bar">
+                    <div style={{ display: 'flex', gap: '5px' }}>
+                      {['#FF5F57', '#FFBD2E', '#28CA41'].map(c => <div key={c} style={{ width: '9px', height: '9px', borderRadius: '50%', background: c }} />)}
+                    </div>
+                    <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+                      <div style={{ background: '#fff', borderRadius: '5px', padding: '2px 14px', fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', border: '1px solid #E2E4E9' }}>app.reslink.io</div>
+                    </div>
+                  </div>
+                  <div className="feat-visual" style={{ background: t.bg }}>
+                    {t.visual}
+                  </div>
+                </div>
+
+                <div className="feat-divider" />
+
+                <div className="feat-body">
+                  <div>
+                    <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(22px, 2.8vw, 34px)', fontWeight: 900, color: '#041635', lineHeight: 1.0, letterSpacing: '-0.03em', marginBottom: '12px' }}>{t.headline}</h3>
+                    <p style={{ fontSize: '15px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>{t.sub}</p>
+                  </div>
+                  <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '14px', paddingTop: '4px' }}>
+                    {t.bullets.map((b, bi) => (
+                      <motion.li key={b} initial={{ opacity: 0, x: 12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ delay: bi * 0.08 + 0.15, duration: 0.28 }} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', fontSize: '14px', color: '#3A3F4C', fontFamily: 'var(--font-body)', lineHeight: 1.5 }}>
+                        <span style={{ width: '22px', height: '22px', borderRadius: '50%', background: '#041635', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '1px' }}>
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#D8F950" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        </span>
+                        {b}
+                      </motion.li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
-
-        {/* Panel */}
-        <AnimatePresence mode="wait">
-          <motion.div key={tab.id} className="feat-panel" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.3 }}>
-            {/* Copy */}
-            <div className="feat-copy" style={{ background: tab.bg === '#041635' ? '#041635' : '#fff' }}>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#EEF4FF', borderRadius: '100px', padding: '5px 12px', width: 'fit-content', marginBottom: '20px' }}>
-                <span style={{ fontSize: '11px', fontWeight: 700, color: '#0C63E3', letterSpacing: '0.08em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>{tab.label}</span>
-              </div>
-              <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3vw, 40px)', fontWeight: 900, color: tab.bg === '#041635' ? '#fff' : '#041635', lineHeight: 1.0, letterSpacing: '-0.02em', marginBottom: '18px' }}>
-                {tab.headline}
-              </h3>
-              <p style={{ fontSize: '16px', color: tab.bg === '#041635' ? 'rgba(255,255,255,0.45)' : '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '32px' }}>
-                {tab.sub}
-              </p>
-              <a href={(tab as { href?: string }).href || '/get-started'} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '14px', fontWeight: 700, color: '#fff', background: '#0C63E3', padding: '11px 20px', borderRadius: '8px', textDecoration: 'none', width: 'fit-content', fontFamily: 'var(--font-body)', transition: 'opacity 0.15s' }}
-                onMouseEnter={e => (e.currentTarget.style.opacity = '0.85')}
-                onMouseLeave={e => (e.currentTarget.style.opacity = '1')}>
-                {(tab as { ctaLabel?: string }).ctaLabel || 'Try it free'}
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </a>
-            </div>
-
-            {/* Visual */}
-            <div className="feat-visual" style={{ background: tab.bg }}>
-              {tab.visual}
-            </div>
-          </motion.div>
-        </AnimatePresence>
       </div>
     </section>
   );

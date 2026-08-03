@@ -1,7 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
 
 const testimonials = [
@@ -111,38 +110,6 @@ function MarqueeRow({ items, reverse }: { items: typeof testimonials; reverse?: 
   );
 }
 
-function CountUp({ end, suffix, duration = 1.6 }: { end: number; suffix: string; duration?: number }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!inView) return;
-    const start = Date.now();
-    const frame = () => {
-      const elapsed = (Date.now() - start) / 1000;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.round(eased * end));
-      if (progress < 1) requestAnimationFrame(frame);
-    };
-    requestAnimationFrame(frame);
-  }, [inView, end, duration]);
-
-  return (
-    <span ref={ref}>
-      {count.toLocaleString()}{suffix}
-    </span>
-  );
-}
-
-const stats = [
-  { end: 10000, suffix: '+', label: 'Active job seekers' },
-  { end: 92, suffix: '%', label: 'Would recommend Reslink' },
-  { end: 24, suffix: 'h', label: 'Fastest interview booked' },
-  { end: 50, suffix: '+', label: 'Countries represented on Reslink' },
-];
-
 export default function Testimonials() {
   const row1 = testimonials.slice(0, 5);
   const row2 = testimonials.slice(3);
@@ -183,32 +150,10 @@ export default function Testimonials() {
       </motion.div>
 
       {/* Marquee rows */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '72px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         <MarqueeRow items={row1} />
         <div className="testi-row-second"><MarqueeRow items={row2} reverse /></div>
       </div>
-
-      {/* Count-up stats strip */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '999px' }}
-        transition={{ duration: 0.5 }}
-        style={{ maxWidth: '900px', margin: '0 auto', padding: '0 24px' }}
-      >
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }} className="testi-stats">
-          {stats.map((s, i) => (
-            <div key={s.label} style={{ textAlign: 'center', padding: '24px 8px', background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', boxShadow: '0 2px 8px rgba(4,22,53,0.04)' }}>
-              <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 3.5vw, 44px)', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em' }}>
-                <CountUp end={s.end} suffix={s.suffix} />
-              </p>
-              <p style={{ fontSize: '13px', color: '#5C6070', marginTop: '8px', fontFamily: 'var(--font-body)' }}>{s.label}</p>
-            </div>
-          ))}
-        </div>
-      </motion.div>
-
-      <style>{`.testi-stats { } @media (max-width: 640px) { .testi-stats { grid-template-columns: 1fr 1fr !important; } }`}</style>
     </section>
   );
 }

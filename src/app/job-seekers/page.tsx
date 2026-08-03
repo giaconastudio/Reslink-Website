@@ -5,6 +5,7 @@ import LogoTicker from '@/components/LogoTicker';
 import ValueProp from '@/components/ValueProp';
 import HowItWorks from '@/components/HowItWorks';
 import Features from '@/components/Features';
+import AudienceStories from '@/components/AudienceStories';
 import Testimonials from '@/components/Testimonials';
 import FAQ from '@/components/FAQ';
 import CTA from '@/components/CTA';
@@ -21,6 +22,7 @@ export default function JobSeekers() {
         <ValueProp />
         <HowItWorks />
         <Features />
+        <AudienceStories />
         <Testimonials />
         <FAQ />
         <CTA />

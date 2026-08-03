@@ -112,8 +112,14 @@ export default function Hero() {
       `}</style>
 
       <div className="hero-inner">
-        {/* Social proof pill — real faces, no stat repetition */}
+        {/* Audience toggle — persists across both hero pages so visitors can switch back and forth */}
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
+          style={{ display: 'flex', justifyContent: 'center', marginBottom: '24px' }}>
+          <HeroToggle active="jobseekers" />
+        </motion.div>
+
+        {/* Social proof pill — real faces, no stat repetition */}
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.02 }}
           style={{ display: 'flex', justifyContent: 'center', marginBottom: '28px' }}>
           <span className="hero-pill" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#fff', color: '#5C6070', fontSize: '13px', fontWeight: 500, padding: '7px 16px 7px 8px', borderRadius: '100px', fontFamily: 'var(--font-body)', border: '1.5px solid #E4E7EC', boxShadow: '0 2px 8px rgba(4,22,53,0.06)' }}>
             <span style={{ display: 'flex' }}>
@@ -124,12 +130,6 @@ export default function Hero() {
             </span>
             <span style={{ color: '#5C6070' }}><strong style={{ color: '#041635', fontWeight: 700 }}>10,000+</strong> job seekers worldwide</span>
           </span>
-        </motion.div>
-
-        {/* Audience toggle — persists across both hero pages so visitors can switch back and forth */}
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.02 }}
-          style={{ display: 'flex', justifyContent: 'center', marginBottom: '28px' }}>
-          <HeroToggle active="jobseekers" />
         </motion.div>
 
         {/* Headline */}

@@ -269,10 +269,11 @@ const tabs = [
   },
 ];
 
-// Order must mirror `tabs` so the sidebar tracks the stacked cards below it.
+// Order must mirror `tabs` so the sidebar reads top-to-bottom in the same
+// sequence as the stacked cards below it.
 const FEATURE_GROUPS: { label: string; ids: string[] }[] = [
-  { label: 'Create', ids: ['pitchai', 'teleprompter'] },
   { label: 'Track', ids: ['analytics'] },
+  { label: 'Create', ids: ['pitchai', 'teleprompter'] },
   { label: 'Share', ids: ['badge'] },
 ];
 
@@ -310,10 +311,11 @@ export default function Features() {
     <section style={{ padding: 'clamp(72px, 9vw, 112px) 24px', background: '#F7F8FA' }}>
       <style>{`
         .feat-inner { max-width: 1060px; margin: 0 auto; }
-        .feat-header { text-align: center; margin-bottom: 48px; }
         .feat-layout { display: grid; grid-template-columns: 248px 1fr; gap: clamp(28px, 4vw, 52px); text-align: left; }
         .feat-nav-col { min-width: 0; }
-        .feat-nav { display: flex; flex-direction: column; gap: 22px; position: sticky; top: 96px; }
+        .feat-side-sticky { position: sticky; top: 96px; display: flex; flex-direction: column; gap: 32px; }
+        .feat-side-head { }
+        .feat-nav { display: flex; flex-direction: column; gap: 22px; }
         .feat-group-label { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #9AA1AE; font-family: var(--font-body); margin-bottom: 8px; padding-left: 14px; }
         .feat-navitem {
           position: relative; display: flex; align-items: center; gap: 10px; width: 100%;
@@ -349,6 +351,8 @@ export default function Features() {
         @media (max-width: 860px) {
           .feat-layout { grid-template-columns: 1fr; gap: 22px; }
           .feat-nav-col { position: sticky; top: 68px; z-index: 20; background: #F7F8FA; padding: 10px 0; margin: -10px 0 0; }
+          .feat-side-sticky { position: static; gap: 10px; }
+          .feat-side-head h2 { display: none; }
           .feat-nav { position: static; flex-direction: row; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
           .feat-nav::-webkit-scrollbar { display: none; }
           .feat-group { display: contents; }
@@ -360,14 +364,6 @@ export default function Features() {
       `}</style>
 
       <div className="feat-inner">
-        {/* Header */}
-        <motion.div className="feat-header" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ duration: 0.5 }}>
-          <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '12px', fontFamily: 'var(--font-body)' }}>Everything you need to stand out</p>
-          <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 900, color: '#041635', lineHeight: 0.95, letterSpacing: '-0.03em' }}>
-            Built for<br />job seekers.
-          </h2>
-        </motion.div>
-
         <div className="feat-layout">
           {/* Mobile-only hint that the feature nav scrolls sideways */}
           <div className="feat-swipe-hint">
@@ -376,28 +372,37 @@ export default function Features() {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A9FA8" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
 
-          {/* Grouped sidebar nav */}
+          {/* Grouped sidebar nav — header sticks with it so it stays visible while cards scroll past */}
           <div className="feat-nav-col">
-            <nav className="feat-nav" aria-label="Product features">
-              {FEATURE_GROUPS.map(group => (
-                <div key={group.label} className="feat-group">
-                  <p className="feat-group-label">{group.label}</p>
-                  {group.ids.map(id => {
-                    const i = tabs.findIndex(t => t.id === id);
-                    const t = tabs[i];
-                    if (!t) return null;
-                    const isActive = activeTab === i;
-                    return (
-                      <button key={t.id} onClick={() => goToFeature(i)} className={`feat-navitem${isActive ? ' active' : ''}`} aria-current={isActive}>
-                        {isActive && <motion.span layoutId="featNavPill" transition={{ type: 'spring', stiffness: 450, damping: 38 }} style={{ position: 'absolute', inset: 0, background: '#EDF0F4', borderRadius: '10px', zIndex: 0 }} />}
-                        <span className="feat-dot" />
-                        <span>{t.label}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              ))}
-            </nav>
+            <div className="feat-side-sticky">
+              <motion.div className="feat-side-head" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ duration: 0.5 }}>
+                <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '10px', fontFamily: 'var(--font-body)' }}>Everything you need to stand out</p>
+                <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 2.6vw, 32px)', fontWeight: 900, color: '#041635', lineHeight: 1.0, letterSpacing: '-0.03em' }}>
+                  Built for<br />job seekers.
+                </h2>
+              </motion.div>
+
+              <nav className="feat-nav" aria-label="Product features">
+                {FEATURE_GROUPS.map(group => (
+                  <div key={group.label} className="feat-group">
+                    <p className="feat-group-label">{group.label}</p>
+                    {group.ids.map(id => {
+                      const i = tabs.findIndex(t => t.id === id);
+                      const t = tabs[i];
+                      if (!t) return null;
+                      const isActive = activeTab === i;
+                      return (
+                        <button key={t.id} onClick={() => goToFeature(i)} className={`feat-navitem${isActive ? ' active' : ''}`} aria-current={isActive}>
+                          {isActive && <motion.span layoutId="featNavPill" transition={{ type: 'spring', stiffness: 450, damping: 38 }} style={{ position: 'absolute', inset: 0, background: '#EDF0F4', borderRadius: '10px', zIndex: 0 }} />}
+                          <span className="feat-dot" />
+                          <span>{t.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                ))}
+              </nav>
+            </div>
           </div>
 
           {/* Stacked feature cards */}

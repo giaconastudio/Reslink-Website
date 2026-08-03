@@ -18,7 +18,7 @@ const PEOPLE = [
   {
     id: 'veterans',
     video: '/videos/military.mp4',
-    objectPosition: '58% 18%',
+    objectPosition: '58% 28%',
     eyebrow: 'For veterans',
     title: 'Translating your service into civilian language.',
     body: 'Show recruiters the leadership and skills behind your military title, in your own words, before they ever open your resume.',

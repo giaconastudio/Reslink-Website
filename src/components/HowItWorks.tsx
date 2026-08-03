@@ -1,151 +1,180 @@
 'use client';
 
+import { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const steps = [
   {
     num: '01',
-    tag: 'Step 01 — Sign up',
+    tag: 'Sign up',
     label: 'Create your account',
-    desc: 'Sign up free in under a minute. Just your name and email — no credit card, no setup fee. Your profile is ready the moment you land.',
-    bullets: [
-      'Free forever to create and share your first Reslink',
-      'No credit card required to get started',
-      'Your profile is live in under 60 seconds',
-    ],
+    desc: 'Sign up free. Just your name and email. No credit card, no setup fee. Your profile is ready the moment you land.',
   },
   {
     num: '02',
-    tag: 'Step 02 — Import',
+    tag: 'Import',
     label: 'Upload your resume',
-    desc: 'Drop in your PDF and we parse it instantly — work history, skills, and education all pulled in automatically.',
-    bullets: [
-      'Parses your existing resume in seconds',
-      'No manual re-typing of your work history',
-      'Edit anything before you go live',
-    ],
+    desc: 'Drop in your PDF and we parse it instantly. Work history, skills, education, all pulled in automatically. No manual entry.',
   },
   {
     num: '03',
-    tag: 'Step 03 — Record',
+    tag: 'Record',
     label: 'Record your pitch',
-    desc: 'Sixty seconds is all it takes. Our built-in teleprompter scrolls your script on screen so you stay on camera, not looking down at notes.',
-    bullets: [
-      'Built-in teleprompter keeps you on camera',
-      'Re-record as many takes as you need',
-      'Reslink AI can write your script for you',
-    ],
+    desc: 'Sixty seconds. Our built-in teleprompter scrolls your script on screen so you stay on camera looking natural, not down at notes.',
   },
   {
     num: '04',
-    tag: 'Step 04 — Share',
+    tag: 'Share',
     label: 'Share & track everything',
-    desc: 'Paste your Reslink into any application, email, or LinkedIn message. See every recruiter who opens it and every second they watch.',
-    bullets: [
-      'Works anywhere a link or PDF does',
-      'See who viewed it and for how long',
-      'Know the moment a recruiter engages',
-    ],
+    desc: 'Paste your Reslink into any application, email, or LinkedIn. See every recruiter who opens it and every second of video watched.',
   },
 ];
 
-function StepRow({ step, index }: { step: typeof steps[0]; index: number }) {
-  const reversed = index % 2 === 1;
+const STICKY_BASE = 90;
+const STICKY_STEP = 16;
+
+function StepCard({ step, index, active }: { step: typeof steps[0]; index: number; active: boolean }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Only the currently topmost (stacked-over) card plays its video — the rest stay paused.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = true;
+    if (active) v.play().catch(() => {});
+    else v.pause();
+  }, [active]);
+
+  // Alternate the navy shade so a card sliding over the previous one is clearly a separate card.
+  const cardBg = index % 2 === 0 ? '#041635' : '#0A2352';
 
   return (
-    <motion.div
-      className="hiw-row"
-      style={{ flexDirection: reversed ? 'row-reverse' : 'row' }}
-      initial={{ opacity: 0, y: 32 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-100px' }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+    <div
+      className="hiw-card-wrap"
+      data-hiw-index={index}
+      style={{ position: 'sticky', top: `calc(${STICKY_BASE}px + ${index} * ${STICKY_STEP}px)`, marginBottom: '28px' }}
     >
-      <div className="hiw-panel">
-        <span className="hiw-tag">{step.tag}</span>
-        <h3 className="hiw-title">{step.label}</h3>
-        <p className="hiw-desc">{step.desc}</p>
-        <ul className="hiw-checklist">
-          {step.bullets.map(b => (
-            <li key={b}>
-              <span className="hiw-check">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="hiw-card"
+        style={{ background: cardBg }}
+      >
+        <div className="hiw-card-glow" />
+        <div className="hiw-card-inner">
+          {/* Text */}
+          <div className="hiw-card-text">
+            <div className="hiw-card-labels">
+              <span className="hiw-step">Step {step.num}</span>
+              <span className="hiw-chip">
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#041635', display: 'inline-block' }} />
+                {step.tag}
               </span>
-              {b}
-            </li>
-          ))}
-        </ul>
-        <a href="/get-started" className="hiw-cta">Get started</a>
-      </div>
-
-      <div className="hiw-media">
-        <div className="hiw-media-bar">
-          <div style={{ display: 'flex', gap: '5px' }}>
-            {['#FF5F57', '#FFBD2E', '#28CA41'].map(c => <div key={c} style={{ width: '9px', height: '9px', borderRadius: '50%', background: c }} />)}
+            </div>
+            <h3 className="hiw-card-title">{step.label}</h3>
+            <p className="hiw-card-desc">{step.desc}</p>
+          </div>
+          {/* Video */}
+          <div className="hiw-card-media">
+            <video
+              ref={videoRef}
+              src={`/videos/step-${step.num}.mp4`}
+              poster={`/videos/step-${step.num}-poster.jpg`}
+              muted loop playsInline preload="metadata"
+              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+            />
           </div>
         </div>
-        <video
-          src={`/videos/step-${step.num}.mp4`}
-          poster={`/videos/step-${step.num}-poster.jpg`}
-          autoPlay muted loop playsInline preload="metadata"
-          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-        />
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 }
 
 export default function HowItWorks() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [active, setActive] = useState(0);
+
+  // Figure out which single card is currently "on top" of the stack and only play that one's video.
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const compute = () => {
+      const wraps = section.querySelectorAll<HTMLDivElement>('.hiw-card-wrap');
+      let current = 0;
+      // A card counts as "on top" once its top has scrolled up near the sticky trigger
+      // zone. Works for the staggered sticky stack on desktop and for normal flow on
+      // mobile (where sticky is disabled) since both cases pass the same threshold as
+      // the card reaches the top of the viewport.
+      wraps.forEach((wrap, i) => {
+        const top = wrap.getBoundingClientRect().top;
+        if (top <= STICKY_BASE + STICKY_STEP * steps.length) current = i;
+      });
+      setActive(current);
+    };
+
+    compute();
+    window.addEventListener('scroll', compute, { passive: true });
+    window.addEventListener('resize', compute);
+    return () => {
+      window.removeEventListener('scroll', compute);
+      window.removeEventListener('resize', compute);
+    };
+  }, []);
+
   return (
-    <section id="how-it-works" style={{ background: '#F4F6F9', padding: 'clamp(64px, 8vw, 110px) 24px clamp(48px, 6vw, 80px)' }}>
+    <section id="how-it-works" ref={sectionRef} style={{ background: '#F4F6F9', padding: 'clamp(64px, 8vw, 110px) 24px clamp(48px, 6vw, 80px)' }}>
       <style>{`
         .hiw-inner { max-width: 1080px; margin: 0 auto; }
-
-        .hiw-row {
-          display: flex; align-items: center; gap: clamp(28px, 4vw, 60px);
-          margin-bottom: clamp(28px, 4vw, 48px);
+        .hiw-card {
+          position: relative;
+          border-radius: 26px;
+          padding: clamp(26px, 3.5vw, 52px);
+          overflow: hidden;
+          border: 1px solid rgba(255,255,255,0.12);
+          box-shadow: 0 -6px 24px rgba(0,0,0,0.28), 0 30px 80px rgba(4,22,53,0.28);
+          min-height: 380px;
         }
-        .hiw-panel {
-          flex: 1; min-width: 0; background: #fff; border: 1px solid #E6E9EF; border-radius: 24px;
-          padding: clamp(28px, 3.2vw, 44px);
+        .hiw-card-glow {
+          position: absolute; top: -30%; right: -8%;
+          width: 560px; height: 480px;
+          background: radial-gradient(ellipse, rgba(12,99,227,0.28), transparent 62%);
+          pointer-events: none;
         }
-        .hiw-tag {
-          display: inline-block; font-size: 13px; font-weight: 700; color: #0C63E3;
-          font-family: var(--font-body); margin-bottom: 16px;
+        .hiw-card-inner {
+          position: relative; z-index: 1;
+          display: grid; grid-template-columns: 1fr 1.08fr; gap: clamp(28px, 4vw, 56px); align-items: center;
         }
-        .hiw-title {
-          font-family: var(--font-phudu); font-size: clamp(26px, 2.8vw, 36px); font-weight: 900;
-          color: #041635; line-height: 1.02; letter-spacing: -0.03em; margin-bottom: 14px;
+        .hiw-card-labels { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+        .hiw-step {
+          font-family: var(--font-phudu); font-size: 15px; font-weight: 900;
+          color: rgba(255,255,255,0.85); letter-spacing: 0.02em;
+          border: 1.5px solid rgba(255,255,255,0.25); border-radius: 100px; padding: 5px 14px;
         }
-        .hiw-desc {
-          font-size: 15px; color: #5C6070; line-height: 1.65; font-family: var(--font-body);
-          margin-bottom: 22px; max-width: 440px;
+        .hiw-chip {
+          display: inline-flex; align-items: center; gap: 7px;
+          background: #D8F950; color: #041635; font-size: 12px; font-weight: 800;
+          letter-spacing: 0.06em; text-transform: uppercase; border-radius: 100px;
+          padding: 6px 14px; font-family: var(--font-body);
         }
-        .hiw-checklist { list-style: none; padding: 0; margin: 0 0 26px; display: flex; flex-direction: column; gap: 13px; }
-        .hiw-checklist li {
-          display: flex; align-items: flex-start; gap: 11px; font-size: 14.5px; color: #041635;
-          font-family: var(--font-body); line-height: 1.5;
+        .hiw-card-title {
+          font-family: var(--font-phudu); font-size: clamp(28px, 3.4vw, 44px); font-weight: 900;
+          color: #fff; line-height: 0.98; letter-spacing: -0.03em; margin-bottom: 16px;
         }
-        .hiw-check {
-          width: 19px; height: 19px; border-radius: 50%; background: #16A34A;
-          display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+        .hiw-card-desc {
+          font-size: clamp(15px, 1.6vw, 17px); color: rgba(255,255,255,0.55); line-height: 1.65;
+          font-family: var(--font-body); max-width: 440px;
         }
-        .hiw-cta {
-          display: inline-flex; align-items: center; justify-content: center;
-          background: #041635; color: #fff; font-size: 14.5px; font-weight: 700;
-          font-family: var(--font-body); text-decoration: none; border-radius: 100px; padding: 12px 26px;
+        .hiw-card-media {
+          position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 16/11;
+          border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 24px 60px rgba(0,0,0,0.4); background: #0B0F1A;
         }
-
-        .hiw-media {
-          flex: 1; min-width: 0; border-radius: 16px; overflow: hidden; aspect-ratio: 16/11;
-          border: 1px solid #E2E4E9; box-shadow: 0 20px 50px rgba(4,22,53,0.12); background: #0B0F1A;
-        }
-        .hiw-media-bar { background: #F1F3F5; border-bottom: 1px solid #E2E4E9; padding: 9px 14px; }
-
         @media (max-width: 760px) {
-          .hiw-row { flex-direction: column !important; gap: 20px; }
-          .hiw-panel { padding: 26px; }
-          .hiw-media { width: 100%; }
+          .hiw-card-wrap { position: static !important; margin-bottom: 20px !important; }
+          .hiw-card-inner { grid-template-columns: 1fr; gap: 24px; }
+          .hiw-card-media { order: -1; }
         }
       `}</style>
 
@@ -164,7 +193,7 @@ export default function HowItWorks() {
         </motion.div>
 
         {steps.map((s, i) => (
-          <StepRow key={s.num} step={s} index={i} />
+          <StepCard key={s.num} step={s} index={i} active={i === active} />
         ))}
       </div>
     </section>

@@ -9,6 +9,7 @@ const PEOPLE = [
   {
     id: 'students',
     video: '/videos/student.mp4',
+    objectPosition: '46% 32%',
     eyebrow: 'For students',
     title: 'Landing your first role, without years of experience.',
     body: 'No work history yet? A video pitch lets you sell your potential, coursework, and drive in a way a blank resume never could.',
@@ -17,6 +18,7 @@ const PEOPLE = [
   {
     id: 'veterans',
     video: '/videos/military.mp4',
+    objectPosition: '58% 18%',
     eyebrow: 'For veterans',
     title: 'Translating your service into civilian language.',
     body: 'Show recruiters the leadership and skills behind your military title, in your own words, before they ever open your resume.',
@@ -60,7 +62,7 @@ function AccordionCard({ person, expanded, onEnter, onLeave }: {
         src={person.video}
         muted loop playsInline preload="auto"
         onLoadedData={onLoadedData}
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: person.objectPosition }}
       />
       <div className="as-acc-scrim" />
 

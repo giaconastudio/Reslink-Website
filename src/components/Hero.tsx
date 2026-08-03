@@ -66,6 +66,15 @@ export default function Hero() {
           margin: 0 auto 36px;
           font-family: var(--font-body);
         }
+        .hero-toggle { display: inline-flex; background: #ECEEF1; border-radius: 100px; padding: 4px; gap: 2px; margin-bottom: 28px; }
+        .hero-toggle-btn {
+          padding: 9px 20px; border-radius: 100px; border: none; background: transparent;
+          cursor: pointer; font-size: 14px; font-weight: 600; color: #6B7280;
+          font-family: var(--font-body); text-decoration: none; display: inline-flex; align-items: center;
+          transition: color 0.18s;
+        }
+        .hero-toggle-btn:hover:not(.active) { color: #041635; }
+        .hero-toggle-btn.active { background: #041635; color: #fff; font-weight: 700; box-shadow: 0 1px 4px rgba(4,22,53,0.18); }
         .hero-ctas { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
         .hero-proof { font-size: 13px; color: #9A9FA8; font-family: var(--font-body); margin-bottom: 56px; }
         .hero-proof strong { color: #5C6070; font-weight: 600; }
@@ -123,6 +132,15 @@ export default function Hero() {
             </span>
             <span style={{ color: '#5C6070' }}><strong style={{ color: '#041635', fontWeight: 700 }}>10,000+</strong> job seekers worldwide</span>
           </span>
+        </motion.div>
+
+        {/* Audience toggle — Job Seekers is the current page; Business navigates away */}
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.02 }}
+          style={{ display: 'flex', justifyContent: 'center' }}>
+          <div className="hero-toggle">
+            <span className="hero-toggle-btn active">For Job Seekers</span>
+            <Link href="/companies" className="hero-toggle-btn">For Business</Link>
+          </div>
         </motion.div>
 
         {/* Headline */}

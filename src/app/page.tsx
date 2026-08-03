@@ -1,6 +1,12 @@
 import Navbar from '@/components/Navbar';
-import HomeHero from '@/components/HomeHero';
+import Hero from '@/components/Hero';
 import LogoTicker from '@/components/LogoTicker';
+import ValueProp from '@/components/ValueProp';
+import HowItWorks from '@/components/HowItWorks';
+import Features from '@/components/Features';
+import Testimonials from '@/components/Testimonials';
+import FAQ from '@/components/FAQ';
+import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
 
 export default function Home() {
@@ -8,8 +14,14 @@ export default function Home() {
     <>
       <Navbar />
       <main>
-        <HomeHero />
+        <Hero />
         <LogoTicker />
+        <ValueProp />
+        <HowItWorks />
+        <Features />
+        <Testimonials />
+        <FAQ />
+        <CTA />
       </main>
       <Footer />
     </>

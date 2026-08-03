@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const COLS = [
   {
-    heading: 'For You',
+    heading: 'For Individuals',
     items: [
       { label: 'Job Seekers', href: '/job-seekers' },
       { label: 'Students', href: '/students' },

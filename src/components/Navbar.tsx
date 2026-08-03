@@ -6,23 +6,9 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import {
   ChevronDown, Menu, X,
-  Briefcase, Building2, Users, GraduationCap,
   BookOpen, LayoutTemplate, LifeBuoy,
   Compass, Rocket, Phone,
-  Flag,
 } from 'lucide-react';
-
-const individualSolutions = [
-  { label: 'Job Seekers', href: '/job-seekers', desc: 'Stand out with a video resume', icon: Briefcase },
-  { label: 'Students', href: '/students', desc: 'Land your first job or internship', icon: GraduationCap },
-  { label: 'Veterans', href: '/veterans', desc: 'Translate military skills to civilian roles', icon: Flag },
-];
-
-const organizationSolutions = [
-  { label: 'Companies', href: '/companies', desc: 'Find top talent faster', icon: Building2 },
-  { label: 'Recruitment Agencies', href: '/agencies', desc: 'Scale your placements', icon: Users },
-  { label: 'Universities', href: '/universities', desc: 'Empower your students', icon: GraduationCap },
-];
 
 const resources = [
   { label: 'Blog', href: '/blog', desc: 'Tips, guides, and career advice', icon: BookOpen },
@@ -36,7 +22,7 @@ const company = [
   { label: 'Contact Us', href: '/contact', desc: 'Get in touch with our team', icon: Phone, badge: null },
 ];
 
-type DropdownKey = 'individuals' | 'organizations' | 'resources' | 'company' | null;
+type DropdownKey = 'resources' | 'company' | null;
 
 function DropItem({ href, icon: Icon, label, desc, badge, onClick }: {
   href: string; icon: React.ElementType;
@@ -133,41 +119,15 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
           {/* Desktop nav */}
           <nav style={{ display: 'flex', alignItems: 'center', gap: '2px' }} className="desktop-nav">
 
-            {/* For Individuals */}
-            <div style={{ position: 'relative' }} onMouseEnter={() => openDropdown('individuals')} onMouseLeave={scheduleClose}>
-              <button onClick={() => toggleDropdown('individuals')} style={{ fontSize: '14px', fontWeight: 500, color: open === 'individuals' ? linkActiveColor : linkColor, background: open === 'individuals' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
-                Individuals <ChevronDown size={13} style={{ transform: open === 'individuals' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
-              </button>
-              {open === 'individuals' && (
-                <div onMouseEnter={() => openDropdown('individuals')} onMouseLeave={scheduleClose} style={{ position: 'absolute', top: '100%', left: '-8px', paddingTop: '6px', zIndex: 100 }}>
-                  <motion.div initial={{ opacity: 0, y: 8, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.18, ease: 'easeOut' }} style={{ background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 12px 40px rgba(4,22,53,0.12), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', minWidth: '280px', transformOrigin: 'top left' }}>
-                    {individualSolutions.map((s, i) => (
-                      <motion.div key={s.href} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 + i * 0.045, duration: 0.18 }}>
-                        <DropItem {...s} onClick={() => setOpen(null)} />
-                      </motion.div>
-                    ))}
-                  </motion.div>
-                </div>
-              )}
-            </div>
+            <Link href="/job-seekers" style={navLinkStyle}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = linkActiveColor; (e.currentTarget as HTMLElement).style.background = linkHoverBg; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = linkColor; (e.currentTarget as HTMLElement).style.background = 'transparent'; }}
+            >For Job Seekers</Link>
 
-            {/* For Organizations */}
-            <div style={{ position: 'relative' }} onMouseEnter={() => openDropdown('organizations')} onMouseLeave={scheduleClose}>
-              <button onClick={() => toggleDropdown('organizations')} style={{ fontSize: '14px', fontWeight: 500, color: open === 'organizations' ? linkActiveColor : linkColor, background: open === 'organizations' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
-                Organizations <ChevronDown size={13} style={{ transform: open === 'organizations' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
-              </button>
-              {open === 'organizations' && (
-                <div onMouseEnter={() => openDropdown('organizations')} onMouseLeave={scheduleClose} style={{ position: 'absolute', top: '100%', left: '-8px', paddingTop: '6px', zIndex: 100 }}>
-                  <motion.div initial={{ opacity: 0, y: 8, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.18, ease: 'easeOut' }} style={{ background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 12px 40px rgba(4,22,53,0.12), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', minWidth: '280px', transformOrigin: 'top left' }}>
-                    {organizationSolutions.map((s, i) => (
-                      <motion.div key={s.href} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 + i * 0.045, duration: 0.18 }}>
-                        <DropItem {...s} onClick={() => setOpen(null)} />
-                      </motion.div>
-                    ))}
-                  </motion.div>
-                </div>
-              )}
-            </div>
+            <Link href="/companies" style={navLinkStyle}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = linkActiveColor; (e.currentTarget as HTMLElement).style.background = linkHoverBg; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = linkColor; (e.currentTarget as HTMLElement).style.background = 'transparent'; }}
+            >For Business</Link>
 
             {/* Resources */}
             <div style={{ position: 'relative' }} onMouseEnter={() => openDropdown('resources')} onMouseLeave={scheduleClose}>
@@ -238,10 +198,11 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
       {mobileOpen && (
         <div style={{ background: blue ? '#0C63E3' : dark ? '#041635' : '#fff', borderTop: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid #EEEEF0', padding: '8px 20px 20px', maxHeight: 'calc(100vh - 68px)', overflowY: 'auto' }}>
 
+          <Link href="/job-seekers" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#041635', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => setMobileOpen(false)}>For Job Seekers</Link>
+          <Link href="/companies" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#041635', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => setMobileOpen(false)}>For Business</Link>
+
           {/* Nav sections accordion */}
           {[
-            { key: 'individuals', label: 'Individuals', items: individualSolutions },
-            { key: 'organizations', label: 'Organizations', items: organizationSolutions },
             { key: 'resources', label: 'Resources', items: resources },
             { key: 'company', label: 'Company', items: company },
           ].map(({ key, label, items }) => (

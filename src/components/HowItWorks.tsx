@@ -90,7 +90,7 @@ export default function HowItWorks() {
 
         .hiw-list { display: flex; flex-direction: column; }
         .hiw-row { position: relative; display: grid; grid-template-columns: 30px 1fr; gap: 16px; align-items: stretch; cursor: pointer; border: none; background: none; text-align: left; width: 100%; padding: 0; }
-        .hiw-row-scroll { position: absolute; top: 4px; right: 14px; z-index: 3; display: none; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.06); backdrop-filter: blur(8px); border: 1.5px solid rgba(216,249,80,0.45); }
+        .hiw-row-scroll { position: absolute; top: -10px; right: 14px; z-index: 3; display: none; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.06); backdrop-filter: blur(8px); border: 1.5px solid rgba(216,249,80,0.45); }
         .hiw-marker { display: flex; flex-direction: column; align-items: center; padding-top: 2px; }
         .hiw-dot {
           width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;

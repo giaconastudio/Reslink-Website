@@ -102,6 +102,10 @@ export default function ExampleProfilePage() {
             .ex-header-identity { flex-direction: column; align-items: center; text-align: center; gap: 12px; }
             .ex-header-name h1 { font-size: 30px !important; }
             .ex-header-contacts { justify-content: center; }
+            .ex-header-links { justify-content: center; }
+            .ex-header-role { display: flex; flex-direction: column; }
+            .ex-header-sep { display: none; }
+            .ex-header-yrs { display: block; margin-top: 2px; }
             .ex-header-actions { width: 100%; }
             .ex-header-actions > * { flex: 1; }
           }
@@ -135,12 +139,14 @@ export default function ExampleProfilePage() {
                 </div>
                 <div className="ex-header-name">
                   <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 4.5vw, 42px)', fontWeight: 900, color: '#fff', lineHeight: 0.95, letterSpacing: '-0.02em', marginBottom: '8px' }}>OLIVIA STONE</h1>
-                  <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>Business Development Representative · 5 yrs experience</p>
+                  <p className="ex-header-role" style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>
+                    Business Development Representative<span className="ex-header-sep"> · </span><span className="ex-header-yrs">5 yrs experience</span>
+                  </p>
                   <div className="ex-header-contacts" style={{ display: 'flex', gap: '6px 16px', flexWrap: 'wrap' }}>
                     <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '12px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)' }}><MapPin size={12} /> London, UK</span>
                     <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '12px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)' }}><Mail size={12} /> olivia@example.com</span>
                   </div>
-                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '14px' }}>
+                  <div className="ex-header-links" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '14px' }}>
                     <a href="https://oliviastone.design" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '8px 16px', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.16)', borderRadius: '100px', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.8)', fontFamily: 'var(--font-body)', textDecoration: 'none' }}>
                       <Globe size={14} /> Portfolio
                     </a>

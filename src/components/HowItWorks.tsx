@@ -34,9 +34,13 @@ export default function HowItWorks() {
   const [active, setActive] = useState(0);
   const [progress, setProgress] = useState(0);
 
-  // Scroll → active step + continuous progress
+  // Scroll → active step + continuous progress. rAF-throttled so fast touch
+  // swipes (which fire far more scroll events than a mouse wheel) still
+  // update the timeline fill at a smooth, consistent rate instead of jumping.
   useEffect(() => {
-    const onScroll = () => {
+    let ticking = false;
+    const measure = () => {
+      ticking = false;
       const el = sectionRef.current;
       if (!el) return;
       const rect = el.getBoundingClientRect();
@@ -45,8 +49,13 @@ export default function HowItWorks() {
       setProgress(p);
       setActive(Math.min(steps.length - 1, Math.floor(p * steps.length)));
     };
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(measure);
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    measure();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
@@ -85,7 +94,7 @@ export default function HowItWorks() {
         .hiw-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; background: rgba(255,255,255,0.18); border: 2px solid rgba(255,255,255,0.18); transition: background 0.3s, border-color 0.3s, box-shadow 0.3s; }
         .hiw-dot.reached { background: ${ACCENT}; border-color: ${ACCENT}; box-shadow: 0 0 0 4px rgba(216,249,80,0.18); }
         .hiw-connector { width: 2px; flex: 1; min-height: 24px; margin: 4px 0; background: rgba(255,255,255,0.15); position: relative; overflow: hidden; }
-        .hiw-connector-fill { position: absolute; top: 0; left: 0; width: 100%; background: ${ACCENT}; transition: height 0.1s linear; }
+        .hiw-connector-fill { position: absolute; top: 0; left: 0; width: 100%; background: ${ACCENT}; }
         .hiw-rowcontent { padding: 0 0 26px; transition: opacity 0.3s; }
         .hiw-rowlabel { font-family: var(--font-phudu); font-size: 20px; font-weight: 800; letter-spacing: -0.01em; color: #fff; line-height: 1.15; transition: color 0.3s; }
         .hiw-rowdesc { overflow: hidden; }
@@ -101,7 +110,7 @@ export default function HowItWorks() {
         .hiw-scrollhint-ring { width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid rgba(216,249,80,0.4); display: flex; align-items: center; justify-content: center; }
 
         @media (max-width: 860px) {
-          .hiw-grid { grid-template-columns: 1fr; gap: 20px; }
+          .hiw-grid { grid-template-columns: 1fr; gap: 20px; padding-bottom: 64px; }
           .hiw-stage { order: -1; }
           .hiw-title { margin-bottom: 20px; font-size: 26px; }
           .hiw-eyebrow { margin-bottom: 8px; }

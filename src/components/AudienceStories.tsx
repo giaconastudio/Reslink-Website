@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
@@ -34,35 +34,39 @@ function AccordionCard({ person, expanded, onEnter, onLeave }: {
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const handleEnter = () => {
-    onEnter();
-    videoRef.current?.play().catch(() => {});
-  };
-  const handleLeave = () => {
-    onLeave();
+  // Play whichever card is expanded (including the one expanded by default
+  // on mount, e.g. the first card on mobile where there's no hover) and
+  // pause + reset the rest back to a still frame.
+  useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    v.pause();
-    v.currentTime = 1.2;
-  };
+    if (expanded) {
+      v.play().catch(() => {});
+    } else {
+      v.pause();
+      v.currentTime = 1.2;
+    }
+  }, [expanded]);
+
   // Mobile browsers largely ignore preload="auto" until playback is actually
   // attempted, which is why the frame never appeared until a tap. autoPlay
   // (allowed since the video is muted + playsInline) forces that first
-  // decode to happen immediately; once a frame is in, freeze it there so
-  // it reads as a photo until the card is hovered/tapped.
+  // decode to happen immediately. Once a frame is in, seek to a nicer one —
+  // and only freeze it there if this card isn't the one that should already
+  // be playing (the expanded effect above otherwise races with this).
   const onLoadedData = useCallback(() => {
     const v = videoRef.current;
     if (!v) return;
     v.currentTime = 1.2;
-    v.pause();
-  }, []);
+    if (!expanded) v.pause();
+  }, [expanded]);
 
   return (
     <div
       className={`as-acc-card${expanded ? ' expanded' : ''}`}
-      onMouseEnter={handleEnter}
-      onMouseLeave={handleLeave}
-      onClick={handleEnter}
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
+      onClick={onEnter}
     >
       <video
         ref={videoRef}

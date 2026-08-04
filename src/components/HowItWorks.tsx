@@ -99,8 +99,14 @@ export default function HowItWorks() {
           transition: background 0.3s, border-color 0.3s, box-shadow 0.3s, color 0.3s;
         }
         .hiw-dot.reached { background: ${ACCENT}; border-color: ${ACCENT}; color: #041635; box-shadow: 0 0 0 4px rgba(216,249,80,0.18); }
-        .hiw-connector { width: 2px; flex: 1; min-height: 24px; margin: 6px 0; background: rgba(255,255,255,0.15); position: relative; overflow: hidden; }
+        .hiw-connector { width: 2px; flex: 1; min-height: 24px; margin: 6px 0; background: rgba(255,255,255,0.15); position: relative; overflow: visible; }
         .hiw-connector-fill { position: absolute; top: 0; left: 0; width: 100%; background: ${ACCENT}; }
+        .hiw-connector-arrow {
+          position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+          z-index: 2; display: none; align-items: center; justify-content: center;
+          width: 20px; height: 20px; border-radius: 50%; background: #041635;
+          border: 1.5px solid rgba(216,249,80,0.5);
+        }
         .hiw-rowcontent { padding: 0 0 26px; transition: opacity 0.3s; }
         .hiw-rowlabel { font-family: var(--font-phudu); font-size: 20px; font-weight: 800; letter-spacing: -0.01em; color: #fff; line-height: 1.15; transition: color 0.3s; }
         .hiw-rowdesc { overflow: hidden; }
@@ -130,13 +136,17 @@ export default function HowItWorks() {
           .hiw-rowcontent { padding-bottom: 16px; }
           .hiw-rowlabel { font-size: 16px; }
           .hiw-rowdesc p { font-size: 13.5px; }
-          /* With the video + full timeline already filling the screen, the
-             "Keep scrolling" label + ring didn't have room and got clipped
-             at the bottom edge. Drop the label and shrink to just the
-             pulsing arrow so it reliably fits. */
-          .hiw-scrollhint { bottom: 8px; gap: 0; }
-          .hiw-scrollhint span { display: none; }
-          .hiw-scrollhint-ring { width: 26px; height: 26px; }
+          /* The floating "keep scrolling" hint sits absolutely within a tall,
+             centered, overflow:hidden stack — on mobile that combination made
+             it unreliably visible (fine at the last step, invisible earlier).
+             Replace it with a cue baked directly into the timeline itself: a
+             pulsing arrow on the active step's connector, which is always
+             part of the normal content flow and can't get clipped or covered. */
+          .hiw-scrollhint { display: none; }
+          .hiw-scrollhint-last { display: flex; bottom: 8px; gap: 0; }
+          .hiw-scrollhint-last span { display: none; }
+          .hiw-scrollhint-last .hiw-scrollhint-ring { width: 26px; height: 26px; }
+          .hiw-connector-arrow { display: flex; }
         }
       `}</style>
 
@@ -161,6 +171,11 @@ export default function HowItWorks() {
                         {i < steps.length - 1 && (
                           <span className="hiw-connector">
                             <span className="hiw-connector-fill" style={{ height: `${connectorFill}%` }} />
+                            {isActive && (
+                              <motion.span className="hiw-connector-arrow" animate={{ y: [0, 4, 0] }} transition={{ repeat: Infinity, duration: 1.3 }}>
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="3"><polyline points="6 9 12 15 18 9"/></svg>
+                              </motion.span>
+                            )}
                           </span>
                         )}
                       </span>
@@ -201,8 +216,10 @@ export default function HowItWorks() {
           </div>
         </div>
 
-        {/* Scroll hint — stays visible the entire time this section is pinned, including on the last step */}
-        <div className="hiw-scrollhint">
+        {/* Scroll hint — on mobile the timeline's own per-step arrow (above) takes
+            over as the "keep going" cue, except on the last step where there's no
+            further connector to attach one to, so this stays as the fallback there. */}
+        <div className={`hiw-scrollhint${active === steps.length - 1 ? ' hiw-scrollhint-last' : ''}`}>
           <span>Keep scrolling</span>
           <motion.div className="hiw-scrollhint-ring" animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 1.3 }}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="2.6"><polyline points="6 9 12 15 18 9"/></svg>

@@ -181,21 +181,18 @@ export default function Hero() {
           <style>{`
             .hero-frame-link .hero-open-hint { opacity: 0; transition: opacity 0.25s ease; }
             .hero-frame-link:hover .hero-open-hint { opacity: 1; }
-            /* No hover on touch devices — the full-frame scrim+pill only ever
-               showed on hover, so touch visitors had no idea it was tappable.
-               Rather than leaving that scrim on permanently (which blocks the
-               video it's supposed to be advertising), shrink it down to a
-               small pulsing badge tucked in a corner instead. */
+            /* No hover on touch devices, so the full-frame scrim+pill never had a
+               way to show up. Rather than force it always-on (it blocks the video
+               it's supposed to be advertising), leave it hidden on touch and
+               instead pulse the existing "Open example" link in the browser-chrome
+               bar — same affordance, without covering anything. */
             @media (hover: none) {
-              .hero-frame-link .hero-open-hint {
-                opacity: 1; inset: auto !important; bottom: 14px; right: 14px;
-                background: transparent; display: block;
-                animation: hero-hint-pulse 2.2s ease-in-out infinite;
-              }
+              .hero-frame-link .hero-open-hint { display: none; }
+              .hero-open-example { animation: hero-hint-pulse 1.8s ease-in-out infinite; }
             }
             @keyframes hero-hint-pulse {
-              0%, 100% { transform: scale(1); }
-              50% { transform: scale(1.05); }
+              0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(12,99,227,0.35); }
+              50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(12,99,227,0); }
             }
           `}</style>
           <div className="hero-frame" style={{ position: 'relative' }}>
@@ -206,7 +203,7 @@ export default function Hero() {
               <div style={{ flex: 1, margin: '0 12px', background: '#EAECEF', borderRadius: '6px', padding: '4px 14px', fontSize: '11px', color: '#9A9FA8', textAlign: 'center', fontFamily: 'var(--font-body)' }}>
                 reslink.io/oliviastone
               </div>
-              <span style={{ fontSize: '11px', fontWeight: 700, color: '#0C63E3', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+              <span className="hero-open-example" style={{ fontSize: '11px', fontWeight: 700, color: '#0C63E3', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', display: 'inline-flex', alignItems: 'center', gap: '4px', borderRadius: '100px', padding: '4px 8px' }}>
                 Open example
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
               </span>

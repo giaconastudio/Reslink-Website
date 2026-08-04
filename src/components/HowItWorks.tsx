@@ -100,15 +100,14 @@ export default function HowItWorks() {
         .hiw-scrollhint span { font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${ACCENT}; font-family: var(--font-body); }
         .hiw-scrollhint-ring { width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid rgba(216,249,80,0.4); display: flex; align-items: center; justify-content: center; }
 
-        .hiw-mobnum { display: none; }
-
         @media (max-width: 860px) {
-          .hiw-grid { grid-template-columns: 1fr; gap: 28px; }
+          .hiw-grid { grid-template-columns: 1fr; gap: 20px; }
           .hiw-stage { order: -1; }
-          .hiw-title { margin-bottom: 24px; font-size: 30px; }
-          /* On mobile, hide the full list and show only the active step's caption */
-          .hiw-list { display: none; }
-          .hiw-mobnum { display: block; }
+          .hiw-title { margin-bottom: 20px; font-size: 26px; }
+          .hiw-eyebrow { margin-bottom: 8px; }
+          .hiw-rowcontent { padding-bottom: 16px; }
+          .hiw-rowlabel { font-size: 16px; }
+          .hiw-rowdesc p { font-size: 13.5px; }
         }
       `}</style>
 
@@ -151,13 +150,6 @@ export default function HowItWorks() {
                 })}
               </div>
 
-              {/* Mobile-only active caption */}
-              <div className="hiw-mobnum">
-                <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '20px', fontWeight: 800, color: '#fff', marginBottom: '6px' }}>
-                  <span style={{ color: ACCENT }}>{steps[active].num}</span> &nbsp;{steps[active].label}
-                </p>
-                <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, fontFamily: 'var(--font-body)' }}>{steps[active].desc}</p>
-              </div>
             </div>
 
             {/* Right — pinned video stage */}
@@ -180,15 +172,13 @@ export default function HowItWorks() {
           </div>
         </div>
 
-        {/* Scroll hint — stays visible almost the whole way through so it's obvious this section keeps advancing */}
-        {progress < 0.94 && (
-          <div className="hiw-scrollhint">
-            <span>Keep scrolling</span>
-            <motion.div className="hiw-scrollhint-ring" animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 1.3 }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="2.6"><polyline points="6 9 12 15 18 9"/></svg>
-            </motion.div>
-          </div>
-        )}
+        {/* Scroll hint — stays visible the entire time this section is pinned, including on the last step */}
+        <div className="hiw-scrollhint">
+          <span>Keep scrolling</span>
+          <motion.div className="hiw-scrollhint-ring" animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 1.3 }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="2.6"><polyline points="6 9 12 15 18 9"/></svg>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

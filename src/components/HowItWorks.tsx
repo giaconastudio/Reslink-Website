@@ -3,30 +3,28 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const ACCENT = '#D8F950';
+
 const steps = [
   {
     num: '01',
     label: 'Create your account',
     desc: 'Sign up free — just your name and email. No credit card, no setup fee. Your profile is ready the moment you land.',
-    color: '#D8F950',
   },
   {
     num: '02',
     label: 'Upload your resume',
     desc: 'Drop in your PDF and we parse it instantly — work history, skills, education, all pulled in automatically. No manual entry.',
-    color: '#BFD7FF',
   },
   {
     num: '03',
     label: 'Record your pitch',
     desc: 'Sixty seconds. Our built-in teleprompter scrolls your script on screen so you stay on camera looking natural, not down at notes.',
-    color: '#FFD6A5',
   },
   {
     num: '04',
     label: 'Share & track everything',
     desc: 'Paste your Reslink into any application, email, or LinkedIn. See every recruiter who opens it and every second of video watched.',
-    color: '#C4B5FD',
   },
 ];
 
@@ -34,6 +32,7 @@ export default function HowItWorks() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const [active, setActive] = useState(0);
+  const [progress, setProgress] = useState(0);
 
   // Scroll → active step + continuous progress
   useEffect(() => {
@@ -43,6 +42,7 @@ export default function HowItWorks() {
       const rect = el.getBoundingClientRect();
       const total = rect.height - window.innerHeight;
       const p = Math.max(0, Math.min(0.9999, -rect.top / total));
+      setProgress(p);
       setActive(Math.min(steps.length - 1, Math.floor(p * steps.length)));
     };
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -73,14 +73,20 @@ export default function HowItWorks() {
   return (
     <section ref={sectionRef} id="how-it-works" style={{ position: 'relative', height: '440vh', background: '#041635' }}>
       <style>{`
-        .hiw-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; overflow: hidden; }
+        .hiw-sticky { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
         .hiw-glow { position: absolute; top: 50%; right: 8%; transform: translateY(-50%); width: 620px; height: 620px; border-radius: 50%; background: radial-gradient(circle, rgba(12,99,227,0.18), transparent 65%); pointer-events: none; }
         .hiw-grid { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 64px; width: 100%; align-items: center; position: relative; z-index: 1; }
-        .hiw-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #D8F950; margin-bottom: 14px; font-family: var(--font-body); }
+        .hiw-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: ${ACCENT}; margin-bottom: 14px; font-family: var(--font-body); }
         .hiw-title { font-family: var(--font-phudu); font-size: clamp(30px, 3.6vw, 50px); font-weight: 900; color: #fff; line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 40px; }
+
         .hiw-list { display: flex; flex-direction: column; }
-        .hiw-row { display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: start; padding: 16px 0; cursor: pointer; border: none; background: none; text-align: left; width: 100%; transition: opacity 0.3s; }
-        .hiw-rownum { font-family: var(--font-phudu); font-size: 22px; font-weight: 900; line-height: 1.1; transition: color 0.3s; }
+        .hiw-row { display: grid; grid-template-columns: 24px 1fr; gap: 16px; align-items: stretch; cursor: pointer; border: none; background: none; text-align: left; width: 100%; padding: 0; }
+        .hiw-marker { display: flex; flex-direction: column; align-items: center; padding-top: 6px; }
+        .hiw-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; background: rgba(255,255,255,0.18); border: 2px solid rgba(255,255,255,0.18); transition: background 0.3s, border-color 0.3s, box-shadow 0.3s; }
+        .hiw-dot.reached { background: ${ACCENT}; border-color: ${ACCENT}; box-shadow: 0 0 0 4px rgba(216,249,80,0.18); }
+        .hiw-connector { width: 2px; flex: 1; min-height: 24px; margin: 4px 0; background: rgba(255,255,255,0.15); position: relative; overflow: hidden; }
+        .hiw-connector-fill { position: absolute; top: 0; left: 0; width: 100%; background: ${ACCENT}; transition: height 0.1s linear; }
+        .hiw-rowcontent { padding: 0 0 26px; transition: opacity 0.3s; }
         .hiw-rowlabel { font-family: var(--font-phudu); font-size: 20px; font-weight: 800; letter-spacing: -0.01em; color: #fff; line-height: 1.15; transition: color 0.3s; }
         .hiw-rowdesc { overflow: hidden; }
         .hiw-rowdesc p { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.6; font-family: var(--font-body); padding-top: 8px; max-width: 380px; }
@@ -89,8 +95,12 @@ export default function HowItWorks() {
         .hiw-stage video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease; }
         .hiw-stage-badge { position: absolute; top: 16px; left: 16px; z-index: 3; display: inline-flex; align-items: center; gap: 7px; background: rgba(11,15,26,0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.12); border-radius: 100px; padding: 6px 13px 6px 10px; }
         .hiw-stage-badge span { font-size: 12px; font-weight: 700; color: #fff; font-family: var(--font-body); letter-spacing: 0.02em; }
-        .hiw-dots { position: absolute; bottom: 16px; left: 16px; z-index: 3; display: flex; gap: 6px; }
-        .hiw-dot { width: 22px; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.18); transition: background 0.3s, width 0.3s; }
+
+        .hiw-progressbar { width: 100%; max-width: 1080px; margin: 28px auto 0; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.12); position: relative; overflow: hidden; z-index: 1; }
+        .hiw-progressbar-fill { position: absolute; top: 0; left: 0; height: 100%; background: ${ACCENT}; border-radius: 2px; }
+
+        .hiw-scrollhint { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .hiw-scrollhint span { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.55); font-family: var(--font-body); }
 
         .hiw-mobnum { display: none; }
 
@@ -101,6 +111,7 @@ export default function HowItWorks() {
           /* On mobile, hide the full list and show only the active step's caption */
           .hiw-list { display: none; }
           .hiw-mobnum { display: block; }
+          .hiw-progressbar { margin-top: 20px; }
         }
       `}</style>
 
@@ -108,7 +119,7 @@ export default function HowItWorks() {
         <div className="hiw-glow" />
         <div className="container">
           <div className="hiw-grid">
-            {/* Left — step list */}
+            {/* Left — step timeline */}
             <div>
               <p className="hiw-eyebrow">How it works</p>
               <h2 className="hiw-title">Four steps to your<br />next interview.</h2>
@@ -116,10 +127,19 @@ export default function HowItWorks() {
               <div className="hiw-list">
                 {steps.map((s, i) => {
                   const isActive = i === active;
+                  const reached = i <= active;
+                  const connectorFill = Math.max(0, Math.min(1, progress * steps.length - i)) * 100;
                   return (
-                    <button key={s.num} className="hiw-row" onClick={() => scrollToStep(i)} style={{ opacity: isActive ? 1 : 0.5 }}>
-                      <span className="hiw-rownum" style={{ color: isActive ? s.color : 'rgba(255,255,255,0.3)' }}>{s.num}</span>
-                      <span>
+                    <button key={s.num} className="hiw-row" onClick={() => scrollToStep(i)}>
+                      <span className="hiw-marker">
+                        <span className={`hiw-dot${reached ? ' reached' : ''}`} />
+                        {i < steps.length - 1 && (
+                          <span className="hiw-connector">
+                            <span className="hiw-connector-fill" style={{ height: `${connectorFill}%` }} />
+                          </span>
+                        )}
+                      </span>
+                      <span className="hiw-rowcontent" style={{ opacity: isActive ? 1 : 0.5 }}>
                         <span className="hiw-rowlabel" style={{ color: isActive ? '#fff' : 'rgba(255,255,255,0.55)' }}>{s.label}</span>
                         <AnimatePresence initial={false}>
                           {isActive && (
@@ -137,7 +157,7 @@ export default function HowItWorks() {
               {/* Mobile-only active caption */}
               <div className="hiw-mobnum">
                 <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '20px', fontWeight: 800, color: '#fff', marginBottom: '6px' }}>
-                  <span style={{ color: steps[active].color }}>{steps[active].num}</span> &nbsp;{steps[active].label}
+                  <span style={{ color: ACCENT }}>{steps[active].num}</span> &nbsp;{steps[active].label}
                 </p>
                 <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, fontFamily: 'var(--font-body)' }}>{steps[active].desc}</p>
               </div>
@@ -156,23 +176,24 @@ export default function HowItWorks() {
                 />
               ))}
               <div className="hiw-stage-badge">
-                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: steps[active].color, display: 'inline-block' }} />
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: ACCENT, display: 'inline-block' }} />
                 <span>Step {steps[active].num}</span>
-              </div>
-              <div className="hiw-dots">
-                {steps.map((s, i) => (
-                  <div key={s.num} className="hiw-dot" style={{ background: i <= active ? s.color : 'rgba(255,255,255,0.18)', width: i === active ? '32px' : '22px' }} />
-                ))}
               </div>
             </div>
           </div>
+
+          {/* Overall progress — sits underneath the whole animation */}
+          <div className="hiw-progressbar">
+            <div className="hiw-progressbar-fill" style={{ width: `${progress * 100}%` }} />
+          </div>
         </div>
 
-        {/* Scroll hint */}
-        {active < steps.length - 1 && (
-          <div style={{ position: 'absolute', bottom: '22px', left: '50%', transform: 'translateX(-50%)', zIndex: 2 }}>
-            <motion.div animate={{ y: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 1.8 }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="2"><polyline points="6 9 12 15 18 9"/></svg>
+        {/* Scroll hint — stays visible almost the whole way through so it's obvious this section keeps advancing */}
+        {progress < 0.94 && (
+          <div className="hiw-scrollhint">
+            <span>Keep scrolling</span>
+            <motion.div animate={{ y: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 1.4 }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.55)" strokeWidth="2.4"><polyline points="6 9 12 15 18 9"/></svg>
             </motion.div>
           </div>
         )}

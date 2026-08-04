@@ -89,7 +89,8 @@ export default function HowItWorks() {
         .hiw-title { font-family: var(--font-phudu); font-size: clamp(30px, 3.6vw, 50px); font-weight: 900; color: #fff; line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 40px; }
 
         .hiw-list { display: flex; flex-direction: column; }
-        .hiw-row { display: grid; grid-template-columns: 30px 1fr; gap: 16px; align-items: stretch; cursor: pointer; border: none; background: none; text-align: left; width: 100%; padding: 0; }
+        .hiw-row { position: relative; display: grid; grid-template-columns: 30px 1fr; gap: 16px; align-items: stretch; cursor: pointer; border: none; background: none; text-align: left; width: 100%; padding: 0; }
+        .hiw-row-scroll { position: absolute; top: 4px; right: 14px; z-index: 3; display: none; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.06); backdrop-filter: blur(8px); border: 1.5px solid rgba(216,249,80,0.45); }
         .hiw-marker { display: flex; flex-direction: column; align-items: center; padding-top: 2px; }
         .hiw-dot {
           width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
@@ -110,7 +111,6 @@ export default function HowItWorks() {
         .hiw-stage video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease; }
         .hiw-stage-badge { position: absolute; top: 16px; left: 16px; z-index: 3; display: inline-flex; align-items: center; gap: 7px; background: rgba(11,15,26,0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.12); border-radius: 100px; padding: 6px 13px 6px 10px; }
         .hiw-stage-badge span { font-size: 12px; font-weight: 700; color: #fff; font-family: var(--font-body); letter-spacing: 0.02em; }
-        .hiw-stage-scroll { position: absolute; bottom: 14px; right: 14px; z-index: 3; display: none; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: rgba(11,15,26,0.6); backdrop-filter: blur(8px); border: 1.5px solid rgba(216,249,80,0.45); }
 
         .hiw-scrollhint { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px; }
         .hiw-scrollhint span { font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${ACCENT}; font-family: var(--font-body); }
@@ -133,12 +133,12 @@ export default function HowItWorks() {
           .hiw-rowdesc p { font-size: 13.5px; }
           /* The floating "keep scrolling" hint sits absolutely within a tall,
              centered, overflow:hidden stack — on mobile that combination made
-             it unreliably visible, and a per-connector version crowded the
-             step text next to it. Anchor a single small cue to the video
-             card instead — a fixed spot at the top of the layout that never
-             competes with text or hugs the screen edge. */
+             it unreliably visible, and attaching it to the video card put it
+             somewhere that didn't read as pointing at anything useful.
+             Anchor it to the last step's row instead, at the same edge
+             distance as before, just lower — in line with that title. */
           .hiw-scrollhint { display: none; }
-          .hiw-stage-scroll { display: flex; }
+          .hiw-row-scroll { display: flex; }
         }
       `}</style>
 
@@ -176,6 +176,11 @@ export default function HowItWorks() {
                           )}
                         </AnimatePresence>
                       </span>
+                      {i === steps.length - 1 && (
+                        <motion.span className="hiw-row-scroll" animate={{ y: [0, 4, 0] }} transition={{ repeat: Infinity, duration: 1.3 }}>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="2.8"><polyline points="6 9 12 15 18 9"/></svg>
+                        </motion.span>
+                      )}
                     </button>
                   );
                 })}
@@ -199,12 +204,6 @@ export default function HowItWorks() {
                 <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: ACCENT, display: 'inline-block' }} />
                 <span>Step {steps[active].num}</span>
               </div>
-              {/* Mobile-only scroll cue, anchored to the video card so it always
-                  sits in the same spot — never crowding step text, never hugging
-                  the screen edge the way a floating or per-connector hint did. */}
-              <motion.div className="hiw-stage-scroll" animate={{ y: [0, 4, 0] }} transition={{ repeat: Infinity, duration: 1.3 }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="2.8"><polyline points="6 9 12 15 18 9"/></svg>
-              </motion.div>
             </div>
           </div>
         </div>

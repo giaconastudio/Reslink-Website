@@ -56,6 +56,7 @@ function AccordionCard({ person, expanded, onEnter, onLeave }: {
       className={`as-acc-card${expanded ? ' expanded' : ''}`}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
+      onClick={handleEnter}
     >
       <video
         ref={videoRef}

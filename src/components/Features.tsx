@@ -280,6 +280,7 @@ const FEATURE_GROUPS: { label: string; ids: string[] }[] = [
 export default function Features() {
   const [activeTab, setActiveTab] = useState(0);
   const featureRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const navRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   // Scrollspy: highlight whichever feature card is currently in view.
   useEffect(() => {
@@ -299,6 +300,11 @@ export default function Features() {
       window.removeEventListener('resize', onScroll);
     };
   }, []);
+
+  // Keep the active pill scrolled into view in the horizontally-scrolling mobile nav.
+  useEffect(() => {
+    navRefs.current[activeTab]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  }, [activeTab]);
 
   const goToFeature = (i: number) => {
     const el = featureRefs.current[i];
@@ -392,7 +398,7 @@ export default function Features() {
                       if (!t) return null;
                       const isActive = activeTab === i;
                       return (
-                        <button key={t.id} onClick={() => goToFeature(i)} className={`feat-navitem${isActive ? ' active' : ''}`} aria-current={isActive}>
+                        <button key={t.id} ref={(el: HTMLButtonElement | null) => { navRefs.current[i] = el; }} onClick={() => goToFeature(i)} className={`feat-navitem${isActive ? ' active' : ''}`} aria-current={isActive}>
                           {isActive && <motion.span layoutId="featNavPill" transition={{ type: 'spring', stiffness: 450, damping: 38 }} style={{ position: 'absolute', inset: 0, background: '#EDF0F4', borderRadius: '10px', zIndex: 0 }} />}
                           <span className="feat-dot" />
                           <span>{t.label}</span>

@@ -176,6 +176,7 @@ export default function CompaniesPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState(0);
   const featureRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const navRefs = useRef<(HTMLButtonElement | null)[]>([]);
 const [notifA, setNotifA] = useState(0);
   const [notifB, setNotifB] = useState(2);
   const [notifVisible, setNotifVisible] = useState(true);
@@ -212,6 +213,11 @@ const [notifA, setNotifA] = useState(0);
       window.removeEventListener('resize', onScroll);
     };
   }, []);
+
+  // Keep the active pill scrolled into view in the horizontally-scrolling mobile nav.
+  useEffect(() => {
+    navRefs.current[activeTab]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  }, [activeTab]);
 
   const goToFeature = (i: number) => {
     const el = featureRefs.current[i];
@@ -449,7 +455,7 @@ const [notifA, setNotifA] = useState(0);
                       if (!t) return null;
                       const isActive = activeTab === i;
                       return (
-                        <button key={t.id} onClick={() => goToFeature(i)} className={`co-feat-navitem${isActive ? ' active' : ''}`} aria-current={isActive}>
+                        <button key={t.id} ref={(el: HTMLButtonElement | null) => { navRefs.current[i] = el; }} onClick={() => goToFeature(i)} className={`co-feat-navitem${isActive ? ' active' : ''}`} aria-current={isActive}>
                           {isActive && <motion.span layoutId="coFeatNavPill" transition={{ type: 'spring', stiffness: 450, damping: 38 }} style={{ position: 'absolute', inset: 0, background: '#EDF0F4', borderRadius: '10px', zIndex: 0 }} />}
                           <span className="co-feat-dot" />
                           <span>{t.label}</span>

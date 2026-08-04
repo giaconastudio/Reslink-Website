@@ -1,200 +1,181 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const steps = [
   {
     num: '01',
-    tag: 'Sign up',
     label: 'Create your account',
-    desc: 'Sign up free. Just your name and email. No credit card, no setup fee. Your profile is ready the moment you land.',
+    desc: 'Sign up free — just your name and email. No credit card, no setup fee. Your profile is ready the moment you land.',
+    color: '#D8F950',
   },
   {
     num: '02',
-    tag: 'Import',
     label: 'Upload your resume',
-    desc: 'Drop in your PDF and we parse it instantly. Work history, skills, education, all pulled in automatically. No manual entry.',
+    desc: 'Drop in your PDF and we parse it instantly — work history, skills, education, all pulled in automatically. No manual entry.',
+    color: '#BFD7FF',
   },
   {
     num: '03',
-    tag: 'Record',
     label: 'Record your pitch',
     desc: 'Sixty seconds. Our built-in teleprompter scrolls your script on screen so you stay on camera looking natural, not down at notes.',
+    color: '#FFD6A5',
   },
   {
     num: '04',
-    tag: 'Share',
     label: 'Share & track everything',
     desc: 'Paste your Reslink into any application, email, or LinkedIn. See every recruiter who opens it and every second of video watched.',
+    color: '#C4B5FD',
   },
 ];
 
-const STICKY_BASE = 90;
-const STICKY_STEP = 16;
-
-function StepCard({ step, index, active }: { step: typeof steps[0]; index: number; active: boolean }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  // Only the currently topmost (stacked-over) card plays its video — the rest stay paused.
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.muted = true;
-    if (active) v.play().catch(() => {});
-    else v.pause();
-  }, [active]);
-
-  // Alternate the navy shade so a card sliding over the previous one is clearly a separate card.
-  const cardBg = index % 2 === 0 ? '#041635' : '#0A2352';
-
-  return (
-    <div
-      className="hiw-card-wrap"
-      data-hiw-index={index}
-      style={{ position: 'sticky', top: `calc(${STICKY_BASE}px + ${index} * ${STICKY_STEP}px)`, marginBottom: '28px' }}
-    >
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="hiw-card"
-        style={{ background: cardBg }}
-      >
-        <div className="hiw-card-glow" />
-        <div className="hiw-card-inner">
-          {/* Text */}
-          <div className="hiw-card-text">
-            <div className="hiw-card-labels">
-              <span className="hiw-step">Step {step.num}</span>
-              <span className="hiw-chip">
-                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#041635', display: 'inline-block' }} />
-                {step.tag}
-              </span>
-            </div>
-            <h3 className="hiw-card-title">{step.label}</h3>
-            <p className="hiw-card-desc">{step.desc}</p>
-          </div>
-          {/* Video */}
-          <div className="hiw-card-media">
-            <video
-              ref={videoRef}
-              src={`/videos/step-${step.num}.mp4`}
-              poster={`/videos/step-${step.num}-poster.jpg`}
-              muted loop playsInline preload="metadata"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-            />
-          </div>
-        </div>
-      </motion.div>
-    </div>
-  );
-}
-
 export default function HowItWorks() {
-  const sectionRef = useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const [active, setActive] = useState(0);
 
-  // Figure out which single card is currently "on top" of the stack and only play that one's video.
+  // Scroll → active step + continuous progress
   useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const compute = () => {
-      const wraps = section.querySelectorAll<HTMLDivElement>('.hiw-card-wrap');
-      let current = 0;
-      // A card counts as "on top" once its top has scrolled up near the sticky trigger
-      // zone. Works for the staggered sticky stack on desktop and for normal flow on
-      // mobile (where sticky is disabled) since both cases pass the same threshold as
-      // the card reaches the top of the viewport.
-      wraps.forEach((wrap, i) => {
-        const top = wrap.getBoundingClientRect().top;
-        if (top <= STICKY_BASE + STICKY_STEP * steps.length) current = i;
-      });
-      setActive(current);
+    const onScroll = () => {
+      const el = sectionRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const total = rect.height - window.innerHeight;
+      const p = Math.max(0, Math.min(0.9999, -rect.top / total));
+      setActive(Math.min(steps.length - 1, Math.floor(p * steps.length)));
     };
-
-    compute();
-    window.addEventListener('scroll', compute, { passive: true });
-    window.addEventListener('resize', compute);
-    return () => {
-      window.removeEventListener('scroll', compute);
-      window.removeEventListener('resize', compute);
-    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Play only the active video, restart it each time it becomes active
+  useEffect(() => {
+    videoRefs.current.forEach((v, i) => {
+      if (!v) return;
+      if (i === active) {
+        v.currentTime = 0;
+        v.play().catch(() => {});
+      } else {
+        v.pause();
+      }
+    });
+  }, [active]);
+
+  const scrollToStep = (i: number) => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const total = el.offsetHeight - window.innerHeight;
+    window.scrollTo({ top: el.offsetTop + total * (i / steps.length) + 8, behavior: 'smooth' });
+  };
+
   return (
-    <section id="how-it-works" ref={sectionRef} style={{ background: '#F4F6F9', padding: 'clamp(64px, 8vw, 110px) 24px clamp(48px, 6vw, 80px)' }}>
+    <section ref={sectionRef} id="how-it-works" style={{ position: 'relative', height: '440vh', background: '#041635' }}>
       <style>{`
-        .hiw-inner { max-width: 1080px; margin: 0 auto; }
-        .hiw-card {
-          position: relative;
-          border-radius: 26px;
-          padding: clamp(26px, 3.5vw, 52px);
-          overflow: hidden;
-          border: 1px solid rgba(255,255,255,0.12);
-          box-shadow: 0 -6px 24px rgba(0,0,0,0.28), 0 30px 80px rgba(4,22,53,0.28);
-          min-height: 380px;
-        }
-        .hiw-card-glow {
-          position: absolute; top: -30%; right: -8%;
-          width: 560px; height: 480px;
-          background: radial-gradient(ellipse, rgba(12,99,227,0.28), transparent 62%);
-          pointer-events: none;
-        }
-        .hiw-card-inner {
-          position: relative; z-index: 1;
-          display: grid; grid-template-columns: 1fr 1.08fr; gap: clamp(28px, 4vw, 56px); align-items: center;
-        }
-        .hiw-card-labels { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
-        .hiw-step {
-          font-family: var(--font-phudu); font-size: 15px; font-weight: 900;
-          color: rgba(255,255,255,0.85); letter-spacing: 0.02em;
-          border: 1.5px solid rgba(255,255,255,0.25); border-radius: 100px; padding: 5px 14px;
-        }
-        .hiw-chip {
-          display: inline-flex; align-items: center; gap: 7px;
-          background: #D8F950; color: #041635; font-size: 12px; font-weight: 800;
-          letter-spacing: 0.06em; text-transform: uppercase; border-radius: 100px;
-          padding: 6px 14px; font-family: var(--font-body);
-        }
-        .hiw-card-title {
-          font-family: var(--font-phudu); font-size: clamp(28px, 3.4vw, 44px); font-weight: 900;
-          color: #fff; line-height: 0.98; letter-spacing: -0.03em; margin-bottom: 16px;
-        }
-        .hiw-card-desc {
-          font-size: clamp(15px, 1.6vw, 17px); color: rgba(255,255,255,0.55); line-height: 1.65;
-          font-family: var(--font-body); max-width: 440px;
-        }
-        .hiw-card-media {
-          position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 16/11;
-          border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 24px 60px rgba(0,0,0,0.4); background: #0B0F1A;
-        }
-        @media (max-width: 760px) {
-          .hiw-card-wrap { position: static !important; margin-bottom: 20px !important; }
-          .hiw-card-inner { grid-template-columns: 1fr; gap: 24px; }
-          .hiw-card-media { order: -1; }
+        .hiw-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; overflow: hidden; }
+        .hiw-glow { position: absolute; top: 50%; right: 8%; transform: translateY(-50%); width: 620px; height: 620px; border-radius: 50%; background: radial-gradient(circle, rgba(12,99,227,0.18), transparent 65%); pointer-events: none; }
+        .hiw-grid { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 64px; width: 100%; align-items: center; position: relative; z-index: 1; }
+        .hiw-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #D8F950; margin-bottom: 14px; font-family: var(--font-body); }
+        .hiw-title { font-family: var(--font-phudu); font-size: clamp(30px, 3.6vw, 50px); font-weight: 900; color: #fff; line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 40px; }
+        .hiw-list { display: flex; flex-direction: column; }
+        .hiw-row { display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: start; padding: 16px 0; cursor: pointer; border: none; background: none; text-align: left; width: 100%; transition: opacity 0.3s; }
+        .hiw-rownum { font-family: var(--font-phudu); font-size: 22px; font-weight: 900; line-height: 1.1; transition: color 0.3s; }
+        .hiw-rowlabel { font-family: var(--font-phudu); font-size: 20px; font-weight: 800; letter-spacing: -0.01em; color: #fff; line-height: 1.15; transition: color 0.3s; }
+        .hiw-rowdesc { overflow: hidden; }
+        .hiw-rowdesc p { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.6; font-family: var(--font-body); padding-top: 8px; max-width: 380px; }
+
+        .hiw-stage { position: relative; border-radius: 18px; overflow: hidden; aspect-ratio: 20/13; background: #0B0F1A; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 40px 100px rgba(0,0,0,0.55); }
+        .hiw-stage video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease; }
+        .hiw-stage-badge { position: absolute; top: 16px; left: 16px; z-index: 3; display: inline-flex; align-items: center; gap: 7px; background: rgba(11,15,26,0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.12); border-radius: 100px; padding: 6px 13px 6px 10px; }
+        .hiw-stage-badge span { font-size: 12px; font-weight: 700; color: #fff; font-family: var(--font-body); letter-spacing: 0.02em; }
+        .hiw-dots { position: absolute; bottom: 16px; left: 16px; z-index: 3; display: flex; gap: 6px; }
+        .hiw-dot { width: 22px; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.18); transition: background 0.3s, width 0.3s; }
+
+        .hiw-mobnum { display: none; }
+
+        @media (max-width: 860px) {
+          .hiw-grid { grid-template-columns: 1fr; gap: 28px; }
+          .hiw-stage { order: -1; }
+          .hiw-title { margin-bottom: 24px; font-size: 30px; }
+          /* On mobile, hide the full list and show only the active step's caption */
+          .hiw-list { display: none; }
+          .hiw-mobnum { display: block; }
         }
       `}</style>
 
-      <div className="hiw-inner">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.5 }}
-          style={{ textAlign: 'center', marginBottom: 'clamp(40px, 5vw, 64px)' }}
-        >
-          <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>How it works</p>
-          <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(34px, 5vw, 58px)', fontWeight: 900, color: '#041635', lineHeight: 0.95, letterSpacing: '-0.03em' }}>
-            Four steps to your<br />next interview.
-          </h2>
-        </motion.div>
+      <div className="hiw-sticky">
+        <div className="hiw-glow" />
+        <div className="container">
+          <div className="hiw-grid">
+            {/* Left — step list */}
+            <div>
+              <p className="hiw-eyebrow">How it works</p>
+              <h2 className="hiw-title">Four steps to your<br />next interview.</h2>
 
-        {steps.map((s, i) => (
-          <StepCard key={s.num} step={s} index={i} active={i === active} />
-        ))}
+              <div className="hiw-list">
+                {steps.map((s, i) => {
+                  const isActive = i === active;
+                  return (
+                    <button key={s.num} className="hiw-row" onClick={() => scrollToStep(i)} style={{ opacity: isActive ? 1 : 0.5 }}>
+                      <span className="hiw-rownum" style={{ color: isActive ? s.color : 'rgba(255,255,255,0.3)' }}>{s.num}</span>
+                      <span>
+                        <span className="hiw-rowlabel" style={{ color: isActive ? '#fff' : 'rgba(255,255,255,0.55)' }}>{s.label}</span>
+                        <AnimatePresence initial={false}>
+                          {isActive && (
+                            <motion.div className="hiw-rowdesc" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.35 }}>
+                              <p>{s.desc}</p>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Mobile-only active caption */}
+              <div className="hiw-mobnum">
+                <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '20px', fontWeight: 800, color: '#fff', marginBottom: '6px' }}>
+                  <span style={{ color: steps[active].color }}>{steps[active].num}</span> &nbsp;{steps[active].label}
+                </p>
+                <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, fontFamily: 'var(--font-body)' }}>{steps[active].desc}</p>
+              </div>
+            </div>
+
+            {/* Right — pinned video stage */}
+            <div className="hiw-stage">
+              {steps.map((s, i) => (
+                <video
+                  key={s.num}
+                  ref={(el) => { videoRefs.current[i] = el; }}
+                  src={`/videos/step-0${i + 1}.mp4`}
+                  poster={`/videos/step-0${i + 1}-poster.jpg`}
+                  muted loop playsInline preload="metadata"
+                  style={{ opacity: i === active ? 1 : 0 }}
+                />
+              ))}
+              <div className="hiw-stage-badge">
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: steps[active].color, display: 'inline-block' }} />
+                <span>Step {steps[active].num}</span>
+              </div>
+              <div className="hiw-dots">
+                {steps.map((s, i) => (
+                  <div key={s.num} className="hiw-dot" style={{ background: i <= active ? s.color : 'rgba(255,255,255,0.18)', width: i === active ? '32px' : '22px' }} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll hint */}
+        {active < steps.length - 1 && (
+          <div style={{ position: 'absolute', bottom: '22px', left: '50%', transform: 'translateX(-50%)', zIndex: 2 }}>
+            <motion.div animate={{ y: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 1.8 }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </motion.div>
+          </div>
+        )}
       </div>
     </section>
   );

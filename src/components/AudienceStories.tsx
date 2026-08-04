@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
@@ -69,23 +69,15 @@ function AccordionCard({ person, expanded, onEnter, onLeave }: {
 
       <div className="as-acc-content">
         <p className="as-acc-eyebrow">{person.eyebrow}</p>
-        <AnimatePresence>
-          {expanded && (
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 14 }}
-              transition={{ duration: 0.28 }}
-              className="as-acc-expand"
-            >
-              <h3 className="as-acc-title">{person.title}</h3>
-              <p className="as-acc-desc">{person.body}</p>
-              <Link href={person.href} className="as-acc-pill">
-                Learn more <ArrowRight size={13} />
-              </Link>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {expanded && (
+          <div className="as-acc-expand">
+            <h3 className="as-acc-title">{person.title}</h3>
+            <p className="as-acc-desc">{person.body}</p>
+            <Link href={person.href} className="as-acc-pill">
+              Learn more <ArrowRight size={13} />
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -136,8 +128,8 @@ export default function AudienceStories() {
 
         @media (max-width: 760px) {
           .as-strip { flex-direction: column; height: auto; gap: 14px; }
-          .as-acc-card { min-width: 0; height: 140px; flex-grow: 1 !important; }
-          .as-acc-card.expanded { height: 320px; }
+          .as-acc-card { min-width: 0; flex: 0 0 140px !important; transition: flex-basis 0.4s ease; }
+          .as-acc-card.expanded { flex-basis: 320px !important; }
         }
       `}</style>
 
@@ -151,7 +143,7 @@ export default function AudienceStories() {
           </motion.div>
         </div>
 
-        <motion.div className="as-strip" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+        <div className="as-strip">
           {PEOPLE.map((p, i) => (
             <AccordionCard
               key={p.id}
@@ -161,7 +153,7 @@ export default function AudienceStories() {
               onLeave={() => setHovered(null)}
             />
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

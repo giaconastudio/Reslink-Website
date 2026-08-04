@@ -109,8 +109,10 @@ export default function ExampleProfilePage() {
           @media (max-width: 620px) { .ex-resume-window { padding: 16px 12px; } }
           .ex-pip { position: absolute; top: 20px; right: 20px; width: clamp(120px, 22vw, 200px); aspect-ratio: 1; z-index: 5; }
           /* On mobile the intro docks to the bottom of the resume section and scrolls
-             away with it, instead of following the whole page like a fixed overlay. */
-          @media (max-width: 640px) { .ex-pip { position: sticky; top: auto; bottom: 16px; margin-left: auto; margin-right: 4px; width: 128px; z-index: 60; } }
+             away with it, instead of following the whole page like a fixed overlay.
+             The negative top margin cancels its own height in the flow so it overlays
+             the resume instead of reserving its own blank space beneath it. */
+          @media (max-width: 640px) { .ex-pip { position: sticky; top: auto; bottom: 16px; width: 128px; height: 128px; margin: -128px 4px 0 auto; z-index: 60; } }
           .ex-resume-scroll { max-height: 760px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #C3C8D2 transparent; }
           .ex-resume-scroll::-webkit-scrollbar { width: 6px; }
           .ex-resume-scroll::-webkit-scrollbar-thumb { background: #C3C8D2; border-radius: 3px; }

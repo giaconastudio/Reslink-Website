@@ -181,6 +181,10 @@ export default function Hero() {
           <style>{`
             .hero-frame-link .hero-open-hint { opacity: 0; transition: opacity 0.25s ease; }
             .hero-frame-link:hover .hero-open-hint { opacity: 1; }
+            /* No hover on touch devices — show the tap affordance by default instead
+               of leaving visitors to discover it (or get stuck needing a second tap
+               once iOS applies :hover on the first touch). */
+            @media (hover: none) { .hero-frame-link .hero-open-hint { opacity: 1; } }
           `}</style>
           <div className="hero-frame" style={{ position: 'relative' }}>
             <div className="hero-bar">

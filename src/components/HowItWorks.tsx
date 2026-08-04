@@ -96,11 +96,9 @@ export default function HowItWorks() {
         .hiw-stage-badge { position: absolute; top: 16px; left: 16px; z-index: 3; display: inline-flex; align-items: center; gap: 7px; background: rgba(11,15,26,0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.12); border-radius: 100px; padding: 6px 13px 6px 10px; }
         .hiw-stage-badge span { font-size: 12px; font-weight: 700; color: #fff; font-family: var(--font-body); letter-spacing: 0.02em; }
 
-        .hiw-progressbar { width: 100%; max-width: 1080px; margin: 28px auto 0; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.12); position: relative; overflow: hidden; z-index: 1; }
-        .hiw-progressbar-fill { position: absolute; top: 0; left: 0; height: 100%; background: ${ACCENT}; border-radius: 2px; }
-
-        .hiw-scrollhint { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-        .hiw-scrollhint span { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.55); font-family: var(--font-body); }
+        .hiw-scrollhint { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .hiw-scrollhint span { font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${ACCENT}; font-family: var(--font-body); }
+        .hiw-scrollhint-ring { width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid rgba(216,249,80,0.4); display: flex; align-items: center; justify-content: center; }
 
         .hiw-mobnum { display: none; }
 
@@ -111,7 +109,6 @@ export default function HowItWorks() {
           /* On mobile, hide the full list and show only the active step's caption */
           .hiw-list { display: none; }
           .hiw-mobnum { display: block; }
-          .hiw-progressbar { margin-top: 20px; }
         }
       `}</style>
 
@@ -181,19 +178,14 @@ export default function HowItWorks() {
               </div>
             </div>
           </div>
-
-          {/* Overall progress — sits underneath the whole animation */}
-          <div className="hiw-progressbar">
-            <div className="hiw-progressbar-fill" style={{ width: `${progress * 100}%` }} />
-          </div>
         </div>
 
         {/* Scroll hint — stays visible almost the whole way through so it's obvious this section keeps advancing */}
         {progress < 0.94 && (
           <div className="hiw-scrollhint">
             <span>Keep scrolling</span>
-            <motion.div animate={{ y: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 1.4 }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.55)" strokeWidth="2.4"><polyline points="6 9 12 15 18 9"/></svg>
+            <motion.div className="hiw-scrollhint-ring" animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 1.3 }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="2.6"><polyline points="6 9 12 15 18 9"/></svg>
             </motion.div>
           </div>
         )}

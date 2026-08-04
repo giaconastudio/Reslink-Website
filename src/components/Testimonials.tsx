@@ -133,8 +133,7 @@ export default function Testimonials() {
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '999px' }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         style={{ textAlign: 'center', maxWidth: '520px', margin: '0 auto 56px', padding: '0 24px' }}
       >

@@ -381,7 +381,7 @@ export default function Features() {
           {/* Grouped sidebar nav — header sticks with it so it stays visible while cards scroll past */}
           <div className="feat-nav-col">
             <div className="feat-side-sticky">
-              <motion.div className="feat-side-head" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ duration: 0.5 }}>
+              <motion.div className="feat-side-head" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '10px', fontFamily: 'var(--font-body)' }}>Everything you need to stand out</p>
                 <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 2.6vw, 32px)', fontWeight: 900, color: '#041635', lineHeight: 1.0, letterSpacing: '-0.03em' }}>
                   Built for<br />job seekers.

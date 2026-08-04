@@ -145,7 +145,7 @@ export default function AudienceStories() {
 
       <div className="as-inner">
         <div className="as-head">
-          <motion.div className="as-head-text" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }}>
+          <motion.div className="as-head-text" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>Every path is different</p>
             <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 48px)', fontWeight: 900, color: '#041635', lineHeight: 0.96, letterSpacing: '-0.03em' }}>
               Built for every kind of story.

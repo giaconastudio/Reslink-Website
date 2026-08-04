@@ -27,8 +27,27 @@ export default function ScrollToTop() {
       window.history.replaceState(null, '', window.location.pathname + window.location.search);
     }
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    const raf = requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: 'instant' }));
-    return () => cancelAnimationFrame(raf);
+
+    // Framer Motion's whileInView reveals (used almost everywhere on this
+    // site) run on an IntersectionObserver, and on a fresh client-side page
+    // mount that observer's first callback can sit pending until something
+    // nudges the browser to re-check — a mouse move, a real scroll, a
+    // resize. Without that nudge, content whose initial state is
+    // opacity:0 stays invisible until the visitor happens to move their
+    // mouse. Dispatch synthetic scroll/resize events a couple of frames
+    // after mount so pending observers resolve on their own.
+    let raf2 = 0;
+    const raf1 = requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      raf2 = requestAnimationFrame(() => {
+        window.dispatchEvent(new Event('scroll'));
+        window.dispatchEvent(new Event('resize'));
+      });
+    });
+    return () => {
+      cancelAnimationFrame(raf1);
+      cancelAnimationFrame(raf2);
+    };
   }, [pathname]);
   return null;
 }

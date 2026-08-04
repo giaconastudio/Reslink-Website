@@ -89,7 +89,7 @@ export default function ContactPage() {
             </div>
 
             {/* Join the team */}
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '999px' }} transition={{ duration: 0.5 }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
               <div style={{ background: '#041635', borderRadius: '20px', padding: 'clamp(36px, 5vw, 56px)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', alignItems: 'center' }} className="join-grid">
                 <style>{`@media (max-width: 640px) { .join-grid { grid-template-columns: 1fr !important; } }`}</style>
                 <div>

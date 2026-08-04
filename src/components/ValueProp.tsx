@@ -61,8 +61,7 @@ export default function ValueProp() {
         {/* Centered headline */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '999px' }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto 56px' }}
         >
@@ -84,8 +83,7 @@ export default function ValueProp() {
           <motion.div
             className="vp-before-col"
             initial={{ opacity: 0, x: -16 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '999px' }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <div style={{ borderRadius: '18px', border: '1px solid #E8EAF0', padding: '24px', background: '#FAFBFC', height: '100%' }}>
@@ -131,8 +129,7 @@ export default function ValueProp() {
           {/* After — Reslink profile */}
           <motion.div
             initial={{ opacity: 0, x: 16 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '999px' }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.18 }}
             style={{ position: 'relative' }}
           >
@@ -228,8 +225,7 @@ export default function ValueProp() {
         {/* Stats strip */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '999px' }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
           className="vp-stats"
         >

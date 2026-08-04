@@ -181,10 +181,22 @@ export default function Hero() {
           <style>{`
             .hero-frame-link .hero-open-hint { opacity: 0; transition: opacity 0.25s ease; }
             .hero-frame-link:hover .hero-open-hint { opacity: 1; }
-            /* No hover on touch devices — show the tap affordance by default instead
-               of leaving visitors to discover it (or get stuck needing a second tap
-               once iOS applies :hover on the first touch). */
-            @media (hover: none) { .hero-frame-link .hero-open-hint { opacity: 1; } }
+            /* No hover on touch devices — the full-frame scrim+pill only ever
+               showed on hover, so touch visitors had no idea it was tappable.
+               Rather than leaving that scrim on permanently (which blocks the
+               video it's supposed to be advertising), shrink it down to a
+               small pulsing badge tucked in a corner instead. */
+            @media (hover: none) {
+              .hero-frame-link .hero-open-hint {
+                opacity: 1; inset: auto !important; bottom: 14px; right: 14px;
+                background: transparent; display: block;
+                animation: hero-hint-pulse 2.2s ease-in-out infinite;
+              }
+            }
+            @keyframes hero-hint-pulse {
+              0%, 100% { transform: scale(1); }
+              50% { transform: scale(1.05); }
+            }
           `}</style>
           <div className="hero-frame" style={{ position: 'relative' }}>
             <div className="hero-bar">
@@ -209,7 +221,12 @@ export default function Hero() {
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', transform: 'scale(1.06)' }}
               />
               <div className="hero-open-hint" style={{ position: 'absolute', inset: 0, background: 'rgba(4,22,53,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 2 }}>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#fff', color: '#041635', borderRadius: '100px', padding: '12px 24px', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', boxShadow: '0 12px 40px rgba(0,0,0,0.3)' }}>
+                <style>{`
+                  @media (hover: none) {
+                    .hero-open-hint-pill { padding: 10px 16px !important; font-size: 12.5px !important; }
+                  }
+                `}</style>
+                <span className="hero-open-hint-pill" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#fff', color: '#041635', borderRadius: '100px', padding: '12px 24px', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', boxShadow: '0 12px 40px rgba(0,0,0,0.3)' }}>
                   Explore this example Reslink
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                 </span>

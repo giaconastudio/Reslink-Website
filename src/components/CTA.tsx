@@ -20,7 +20,7 @@ export default function CTA({
   body = 'Get started with Reslink today. Create your personalized video resume and start landing more interviews.',
   primaryLabel = 'Get started free',
   primaryHref = '/get-started',
-  secondaryLabel = 'See how it works',
+  secondaryLabel,
   secondaryHref = '#how-it-works',
   footnote = 'Free to start · Takes less than 5 minutes',
 }: CTAProps = {}) {
@@ -59,15 +59,17 @@ export default function CTA({
                 {primaryLabel} <ArrowRight size={15} />
               </a>
             </Magnetic>
-            <a href={secondaryHref} style={{
-              display: 'inline-flex', alignItems: 'center', padding: '14px 28px',
-              fontSize: '15px', fontWeight: 600, color: 'rgba(255,255,255,0.65)',
-              background: 'rgba(255,255,255,0.08)', borderRadius: '8px',
-              border: '1.5px solid rgba(255,255,255,0.15)', textDecoration: 'none',
-              fontFamily: 'var(--font-body)',
-            }}>
-              {secondaryLabel}
-            </a>
+            {secondaryLabel && (
+              <a href={secondaryHref} style={{
+                display: 'inline-flex', alignItems: 'center', padding: '14px 28px',
+                fontSize: '15px', fontWeight: 600, color: 'rgba(255,255,255,0.65)',
+                background: 'rgba(255,255,255,0.08)', borderRadius: '8px',
+                border: '1.5px solid rgba(255,255,255,0.15)', textDecoration: 'none',
+                fontFamily: 'var(--font-body)',
+              }}>
+                {secondaryLabel}
+              </a>
+            )}
           </div>
           <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.2)', fontFamily: 'var(--font-body)' }}>
             {footnote}

@@ -151,7 +151,7 @@ export default function AudienceStories() {
           </motion.div>
         </div>
 
-        <motion.div className="as-strip" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.4 }}>
+        <motion.div className="as-strip" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
           {PEOPLE.map((p, i) => (
             <AccordionCard
               key={p.id}

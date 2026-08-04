@@ -31,6 +31,15 @@ export default function HeroToggle({ active, dark = false }: { active: 'jobseeke
     whiteSpace: 'nowrap',
   });
 
+  // If the current URL still has a #hash (e.g. from clicking "See how it works"),
+  // clear it before navigating so the new page lands at the top instead of the
+  // browser scrolling straight to the same-id section on the page we're leaving.
+  const clearHash = () => {
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  };
+
   return (
     <div
       style={{
@@ -43,8 +52,8 @@ export default function HeroToggle({ active, dark = false }: { active: 'jobseeke
         padding: '4px',
       }}
     >
-      <Link href="/job-seekers" style={segmentStyle(active === 'jobseekers')}>For Job Seekers</Link>
-      <Link href="/companies" style={segmentStyle(active === 'companies')}>For Companies</Link>
+      <Link href="/job-seekers" onClick={clearHash} style={segmentStyle(active === 'jobseekers')}>For Job Seekers</Link>
+      <Link href="/companies" onClick={clearHash} style={segmentStyle(active === 'companies')}>For Companies</Link>
     </div>
   );
 }

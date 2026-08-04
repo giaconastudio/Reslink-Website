@@ -364,6 +364,22 @@ export default function PricingPage() {
                       </div>
                     ))}
                   </div>
+
+                  {/* Students & veterans discount */}
+                  <div style={{ marginTop: '16px', background: '#F4F9EC', borderRadius: '12px', border: '1px solid #D9EFC0', padding: '18px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                      <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: '#D8F950', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        <Zap size={16} color="#041635" strokeWidth={2} />
+                      </div>
+                      <p style={{ fontSize: '13.5px', color: '#3A3F4C', fontFamily: 'var(--font-body)', lineHeight: 1.5 }}>
+                        <strong style={{ color: '#041635' }}>Students and veterans get 50% off Premium.</strong> Verify with a .edu email or DD-214 after signing up and the discount applies automatically.
+                      </p>
+                    </div>
+                    <div style={{ display: 'flex', gap: '10px', flexShrink: 0 }}>
+                      <Link href="/students" style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', textDecoration: 'none', padding: '8px 14px', borderRadius: '8px', background: '#fff', border: '1px solid #D9EFC0' }}>For students</Link>
+                      <Link href="/veterans" style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', textDecoration: 'none', padding: '8px 14px', borderRadius: '8px', background: '#fff', border: '1px solid #D9EFC0' }}>For veterans</Link>
+                    </div>
+                  </div>
                 </motion.div>
               )}
 

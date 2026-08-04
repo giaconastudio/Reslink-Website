@@ -61,6 +61,15 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
   const [open, setOpen] = useState<DropdownKey>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // If the current URL still has a #hash (e.g. from clicking "See how it works"),
+  // clear it before navigating so the new page lands at the top instead of the
+  // browser scrolling straight to the same-id section on the page we're leaving.
+  const clearHash = () => {
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  };
+
   const openDropdown = (key: DropdownKey) => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
     setOpen(key);
@@ -119,12 +128,12 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
           {/* Desktop nav */}
           <nav style={{ display: 'flex', alignItems: 'center', gap: '2px' }} className="desktop-nav">
 
-            <Link href="/job-seekers" style={navLinkStyle}
+            <Link href="/job-seekers" onClick={clearHash} style={navLinkStyle}
               onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = linkActiveColor; (e.currentTarget as HTMLElement).style.background = linkHoverBg; }}
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = linkColor; (e.currentTarget as HTMLElement).style.background = 'transparent'; }}
             >For Job Seekers</Link>
 
-            <Link href="/companies" style={navLinkStyle}
+            <Link href="/companies" onClick={clearHash} style={navLinkStyle}
               onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = linkActiveColor; (e.currentTarget as HTMLElement).style.background = linkHoverBg; }}
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = linkColor; (e.currentTarget as HTMLElement).style.background = 'transparent'; }}
             >For Companies</Link>
@@ -198,8 +207,8 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
       {mobileOpen && (
         <div style={{ background: blue ? '#0C63E3' : dark ? '#041635' : '#fff', borderTop: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid #EEEEF0', padding: '8px 20px 20px', maxHeight: 'calc(100vh - 68px)', overflowY: 'auto' }}>
 
-          <Link href="/job-seekers" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#041635', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => setMobileOpen(false)}>For Job Seekers</Link>
-          <Link href="/companies" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#041635', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => setMobileOpen(false)}>For Companies</Link>
+          <Link href="/job-seekers" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#041635', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => { clearHash(); setMobileOpen(false); }}>For Job Seekers</Link>
+          <Link href="/companies" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#041635', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => { clearHash(); setMobileOpen(false); }}>For Companies</Link>
 
           {/* Nav sections accordion */}
           {[

@@ -234,6 +234,23 @@ export default function VeteransPage() {
                     </div>
                   </div>
                 </div>
+                {/* Resume document peek — realistic so it's clearly a resume */}
+                <div style={{ background: '#fff', padding: '14px 22px 16px', borderBottom: '1px solid #F0F1F4' }}>
+                  <span style={{ display: 'inline-block', fontSize: '9px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#0C63E3', background: '#EEF4FF', borderRadius: '100px', padding: '2px 9px', marginBottom: '9px', fontFamily: 'var(--font-body)' }}>Resume</span>
+                  <div style={{ textAlign: 'center', borderBottom: '1px solid #EDEFF2', paddingBottom: '8px', marginBottom: '9px' }}>
+                    <p style={{ fontFamily: 'Georgia, serif', fontSize: '15px', fontWeight: 700, color: '#041635' }}>Jordan Hayes</p>
+                    <p style={{ fontSize: '10.5px', color: '#5C6070', fontFamily: 'var(--font-body)', marginTop: '2px' }}>Operations · US Marines Veteran</p>
+                    <p style={{ fontSize: '9.5px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px' }}>San Diego, CA · jordan@example.com · LinkedIn</p>
+                  </div>
+                  <p style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#8A8F9A', fontFamily: 'var(--font-body)', marginBottom: '4px' }}>Experience</p>
+                  <p style={{ fontSize: '10.5px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>Operations Chief</p>
+                  <p style={{ fontSize: '9.5px', color: '#0C63E3', fontWeight: 600, fontFamily: 'var(--font-body)', marginBottom: '3px' }}>United States Marine Corps · 2019–2024</p>
+                  <ul style={{ listStyle: 'disc', paddingLeft: '15px', margin: 0, display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                    <li style={{ fontSize: '9.5px', color: '#5C6070', lineHeight: 1.4, fontFamily: 'var(--font-body)' }}>Led logistics for a 40-person unit across 3 deployments</li>
+                    <li style={{ fontSize: '9.5px', color: '#5C6070', lineHeight: 1.4, fontFamily: 'var(--font-body)' }}>Managed $2M+ in equipment with zero loss incidents</li>
+                  </ul>
+                </div>
+
                 <div style={{ background: '#F7F8FA', padding: '12px 22px', display: 'flex', alignItems: 'center', gap: '10px', borderBottom: '1px solid #ECEEF1' }}>
                   <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: '#0C63E3', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <span style={{ fontSize: '11px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>A</span>

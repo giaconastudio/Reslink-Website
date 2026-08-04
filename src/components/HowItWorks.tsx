@@ -89,11 +89,17 @@ export default function HowItWorks() {
         .hiw-title { font-family: var(--font-phudu); font-size: clamp(30px, 3.6vw, 50px); font-weight: 900; color: #fff; line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 40px; }
 
         .hiw-list { display: flex; flex-direction: column; }
-        .hiw-row { display: grid; grid-template-columns: 24px 1fr; gap: 16px; align-items: stretch; cursor: pointer; border: none; background: none; text-align: left; width: 100%; padding: 0; }
-        .hiw-marker { display: flex; flex-direction: column; align-items: center; padding-top: 6px; }
-        .hiw-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; background: rgba(255,255,255,0.18); border: 2px solid rgba(255,255,255,0.18); transition: background 0.3s, border-color 0.3s, box-shadow 0.3s; }
-        .hiw-dot.reached { background: ${ACCENT}; border-color: ${ACCENT}; box-shadow: 0 0 0 4px rgba(216,249,80,0.18); }
-        .hiw-connector { width: 2px; flex: 1; min-height: 24px; margin: 4px 0; background: rgba(255,255,255,0.15); position: relative; overflow: hidden; }
+        .hiw-row { display: grid; grid-template-columns: 30px 1fr; gap: 16px; align-items: stretch; cursor: pointer; border: none; background: none; text-align: left; width: 100%; padding: 0; }
+        .hiw-marker { display: flex; flex-direction: column; align-items: center; padding-top: 2px; }
+        .hiw-dot {
+          width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+          display: flex; align-items: center; justify-content: center;
+          font-family: var(--font-body); font-size: 11px; font-weight: 800; color: rgba(255,255,255,0.4);
+          background: rgba(255,255,255,0.06); border: 2px solid rgba(255,255,255,0.18);
+          transition: background 0.3s, border-color 0.3s, box-shadow 0.3s, color 0.3s;
+        }
+        .hiw-dot.reached { background: ${ACCENT}; border-color: ${ACCENT}; color: #041635; box-shadow: 0 0 0 4px rgba(216,249,80,0.18); }
+        .hiw-connector { width: 2px; flex: 1; min-height: 24px; margin: 6px 0; background: rgba(255,255,255,0.15); position: relative; overflow: hidden; }
         .hiw-connector-fill { position: absolute; top: 0; left: 0; width: 100%; background: ${ACCENT}; }
         .hiw-rowcontent { padding: 0 0 26px; transition: opacity 0.3s; }
         .hiw-rowlabel { font-family: var(--font-phudu); font-size: 20px; font-weight: 800; letter-spacing: -0.01em; color: #fff; line-height: 1.15; transition: color 0.3s; }
@@ -137,7 +143,7 @@ export default function HowItWorks() {
                   return (
                     <button key={s.num} className="hiw-row" onClick={() => scrollToStep(i)}>
                       <span className="hiw-marker">
-                        <span className={`hiw-dot${reached ? ' reached' : ''}`} />
+                        <span className={`hiw-dot${reached ? ' reached' : ''}`}>{s.num}</span>
                         {i < steps.length - 1 && (
                           <span className="hiw-connector">
                             <span className="hiw-connector-fill" style={{ height: `${connectorFill}%` }} />

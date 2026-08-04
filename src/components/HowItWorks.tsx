@@ -99,14 +99,8 @@ export default function HowItWorks() {
           transition: background 0.3s, border-color 0.3s, box-shadow 0.3s, color 0.3s;
         }
         .hiw-dot.reached { background: ${ACCENT}; border-color: ${ACCENT}; color: #041635; box-shadow: 0 0 0 4px rgba(216,249,80,0.18); }
-        .hiw-connector { width: 2px; flex: 1; min-height: 24px; margin: 6px 0; background: rgba(255,255,255,0.15); position: relative; overflow: visible; }
+        .hiw-connector { width: 2px; flex: 1; min-height: 24px; margin: 6px 0; background: rgba(255,255,255,0.15); position: relative; overflow: hidden; }
         .hiw-connector-fill { position: absolute; top: 0; left: 0; width: 100%; background: ${ACCENT}; }
-        .hiw-connector-arrow {
-          position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-          z-index: 2; display: none; align-items: center; justify-content: center;
-          width: 20px; height: 20px; border-radius: 50%; background: #041635;
-          border: 1.5px solid rgba(216,249,80,0.5);
-        }
         .hiw-rowcontent { padding: 0 0 26px; transition: opacity 0.3s; }
         .hiw-rowlabel { font-family: var(--font-phudu); font-size: 20px; font-weight: 800; letter-spacing: -0.01em; color: #fff; line-height: 1.15; transition: color 0.3s; }
         .hiw-rowdesc { overflow: hidden; }
@@ -116,6 +110,7 @@ export default function HowItWorks() {
         .hiw-stage video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease; }
         .hiw-stage-badge { position: absolute; top: 16px; left: 16px; z-index: 3; display: inline-flex; align-items: center; gap: 7px; background: rgba(11,15,26,0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.12); border-radius: 100px; padding: 6px 13px 6px 10px; }
         .hiw-stage-badge span { font-size: 12px; font-weight: 700; color: #fff; font-family: var(--font-body); letter-spacing: 0.02em; }
+        .hiw-stage-scroll { position: absolute; bottom: 14px; right: 14px; z-index: 3; display: none; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: rgba(11,15,26,0.6); backdrop-filter: blur(8px); border: 1.5px solid rgba(216,249,80,0.45); }
 
         .hiw-scrollhint { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px; }
         .hiw-scrollhint span { font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${ACCENT}; font-family: var(--font-body); }
@@ -138,15 +133,12 @@ export default function HowItWorks() {
           .hiw-rowdesc p { font-size: 13.5px; }
           /* The floating "keep scrolling" hint sits absolutely within a tall,
              centered, overflow:hidden stack — on mobile that combination made
-             it unreliably visible (fine at the last step, invisible earlier).
-             Replace it with a cue baked directly into the timeline itself: a
-             pulsing arrow on the active step's connector, which is always
-             part of the normal content flow and can't get clipped or covered. */
+             it unreliably visible, and a per-connector version crowded the
+             step text next to it. Anchor a single small cue to the video
+             card instead — a fixed spot at the top of the layout that never
+             competes with text or hugs the screen edge. */
           .hiw-scrollhint { display: none; }
-          .hiw-scrollhint-last { display: flex; bottom: 8px; gap: 0; }
-          .hiw-scrollhint-last span { display: none; }
-          .hiw-scrollhint-last .hiw-scrollhint-ring { width: 26px; height: 26px; }
-          .hiw-connector-arrow { display: flex; }
+          .hiw-stage-scroll { display: flex; }
         }
       `}</style>
 
@@ -171,11 +163,6 @@ export default function HowItWorks() {
                         {i < steps.length - 1 && (
                           <span className="hiw-connector">
                             <span className="hiw-connector-fill" style={{ height: `${connectorFill}%` }} />
-                            {isActive && (
-                              <motion.span className="hiw-connector-arrow" animate={{ y: [0, 4, 0] }} transition={{ repeat: Infinity, duration: 1.3 }}>
-                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="3"><polyline points="6 9 12 15 18 9"/></svg>
-                              </motion.span>
-                            )}
                           </span>
                         )}
                       </span>
@@ -212,14 +199,18 @@ export default function HowItWorks() {
                 <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: ACCENT, display: 'inline-block' }} />
                 <span>Step {steps[active].num}</span>
               </div>
+              {/* Mobile-only scroll cue, anchored to the video card so it always
+                  sits in the same spot — never crowding step text, never hugging
+                  the screen edge the way a floating or per-connector hint did. */}
+              <motion.div className="hiw-stage-scroll" animate={{ y: [0, 4, 0] }} transition={{ repeat: Infinity, duration: 1.3 }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="2.8"><polyline points="6 9 12 15 18 9"/></svg>
+              </motion.div>
             </div>
           </div>
         </div>
 
-        {/* Scroll hint — on mobile the timeline's own per-step arrow (above) takes
-            over as the "keep going" cue, except on the last step where there's no
-            further connector to attach one to, so this stays as the fallback there. */}
-        <div className={`hiw-scrollhint${active === steps.length - 1 ? ' hiw-scrollhint-last' : ''}`}>
+        {/* Scroll hint — desktop only; mobile uses the badge anchored to the stage */}
+        <div className="hiw-scrollhint">
           <span>Keep scrolling</span>
           <motion.div className="hiw-scrollhint-ring" animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 1.3 }}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="2.6"><polyline points="6 9 12 15 18 9"/></svg>

@@ -130,6 +130,13 @@ export default function HowItWorks() {
           .hiw-rowcontent { padding-bottom: 16px; }
           .hiw-rowlabel { font-size: 16px; }
           .hiw-rowdesc p { font-size: 13.5px; }
+          /* With the video + full timeline already filling the screen, the
+             "Keep scrolling" label + ring didn't have room and got clipped
+             at the bottom edge. Drop the label and shrink to just the
+             pulsing arrow so it reliably fits. */
+          .hiw-scrollhint { bottom: 8px; gap: 0; }
+          .hiw-scrollhint span { display: none; }
+          .hiw-scrollhint-ring { width: 26px; height: 26px; }
         }
       `}</style>
 

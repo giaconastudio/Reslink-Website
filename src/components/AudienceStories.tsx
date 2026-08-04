@@ -45,10 +45,16 @@ function AccordionCard({ person, expanded, onEnter, onLeave }: {
     v.pause();
     v.currentTime = 1.2;
   };
-  // Seek to a real frame once loaded so the card shows a photo, not a black box, before any hover.
+  // Mobile browsers largely ignore preload="auto" until playback is actually
+  // attempted, which is why the frame never appeared until a tap. autoPlay
+  // (allowed since the video is muted + playsInline) forces that first
+  // decode to happen immediately; once a frame is in, freeze it there so
+  // it reads as a photo until the card is hovered/tapped.
   const onLoadedData = useCallback(() => {
     const v = videoRef.current;
-    if (v) v.currentTime = 1.2;
+    if (!v) return;
+    v.currentTime = 1.2;
+    v.pause();
   }, []);
 
   return (
@@ -61,7 +67,7 @@ function AccordionCard({ person, expanded, onEnter, onLeave }: {
       <video
         ref={videoRef}
         src={person.video}
-        muted loop playsInline preload="auto"
+        autoPlay muted loop playsInline preload="auto"
         onLoadedData={onLoadedData}
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: person.objectPosition }}
       />

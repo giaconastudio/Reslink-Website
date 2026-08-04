@@ -116,6 +116,10 @@ export default function HowItWorks() {
         .hiw-scrollhint-ring { width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid rgba(216,249,80,0.4); display: flex; align-items: center; justify-content: center; }
 
         @media (max-width: 860px) {
+          /* The fixed navbar sits at top:0 above everything, so a sticky child
+             pinned at top:0 too gets its top edge covered by the navbar bar
+             instead of docking beneath it. Offset by the navbar's height. */
+          .hiw-sticky { top: 68px; height: calc(100vh - 68px); }
           .hiw-grid { grid-template-columns: 1fr; gap: 20px; padding-bottom: 64px; }
           .hiw-stage { order: -1; }
           .hiw-title { margin-bottom: 20px; font-size: 26px; }

@@ -353,6 +353,14 @@ export default function Features() {
         .feat-swipe-hint { display: none; }
         @media (max-width: 900px) {
           .feat-body { grid-template-columns: 1fr !important; }
+          /* The "Apply Anywhere" visual's 3-tile row wraps to more lines once the
+             frame goes full-width on a narrow screen, and with the visual centered
+             vertically inside a fixed height, that extra height was pushing the top
+             of the resume mockup (the Play Intro pill) out of the clipped frame. */
+          .feat-visual { height: 460px; }
+        }
+        @media (max-width: 420px) {
+          .feat-visual { height: 520px; }
         }
         @media (max-width: 860px) {
           .feat-layout { grid-template-columns: 1fr; gap: 22px; }

@@ -1,108 +1,264 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { Search, UserCheck, Play, DollarSign, Settings, Users, BarChart2, GraduationCap, Briefcase } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Search, UserCheck, Play, DollarSign, Settings, Users, BarChart2, GraduationCap, Briefcase, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
-const RECRUITER_CATS = [
+type Article = { q: string; a: string };
+type Category = { icon: React.ElementType; color: string; bg: string; title: string; articles: Article[] };
+
+const RECRUITER_CATS: Category[] = [
   {
     icon: UserCheck, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Getting Started',
-    articles: ['Creating a recruiter account', 'Setting up your agency profile', 'Inviting team members', 'Navigating the recruiter dashboard'],
+    articles: [
+      { q: 'Creating a recruiter account', a: 'Sign up at reslink.io/agencies with your work email to create your agency workspace and start managing candidates in minutes.' },
+      { q: 'Setting up your agency profile', a: 'Add your agency name, logo, and specialties so client-facing candidate packs carry your branding.' },
+      { q: 'Inviting team members', a: 'From Workspace Settings > Team, invite recruiters by email. Each seat gets full access to your shared candidate pipeline.' },
+      { q: 'Navigating the recruiter dashboard', a: 'Your dashboard centers on three tabs: Candidates, Clients, and Analytics — everything you need for a placement is one click away.' },
+    ],
   },
   {
     icon: Users, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Managing Candidates',
-    articles: ['How to add and manage candidates', 'Sharing candidate Reslinks with clients', 'Shortlisting and rating candidates', 'Bulk candidate uploads'],
+    articles: [
+      { q: 'How to add and manage candidates', a: 'Click Add Candidate to upload a resume and invite them to record a Reslink, or import candidates who’ve already applied through your job board.' },
+      { q: 'Sharing candidate Reslinks with clients', a: 'Select any candidate and click Share to Client — they’ll get a branded link to view the video pitch and resume without needing a Reslink account.' },
+      { q: 'Shortlisting and rating candidates', a: 'Build custom lists per client or role, and rate candidates as you review them to keep your pipeline organized for every placement.' },
+      { q: 'Bulk candidate uploads', a: 'Upload a CSV of candidate contacts from Candidates > Bulk Upload to send Reslink invitations to your whole roster at once.' },
+    ],
   },
   {
     icon: Play, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Presenting to Clients',
-    articles: ['Creating client-facing candidate packs', 'Sending Reslink profiles via email', 'How clients view shared profiles', 'Getting client feedback'],
+    articles: [
+      { q: 'Creating client-facing candidate packs', a: 'Select multiple shortlisted candidates and click Create Pack to generate a single branded link showcasing all of them for your client.' },
+      { q: 'Sending Reslink profiles via email', a: 'Use the Share button on any candidate or pack to send a branded email directly to your client — no manual link copying needed.' },
+      { q: 'How clients view shared profiles', a: 'Clients open a clean, branded page with each candidate’s video pitch and resume — no login or account required on their end.' },
+      { q: 'Getting client feedback', a: 'Clients can leave notes or a thumbs-up/down directly on shared profiles, which sync back to your dashboard in real time.' },
+    ],
   },
   {
     icon: DollarSign, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Plans & Billing',
-    articles: ['Agency pricing overview', 'Per-seat vs per-placement billing', 'Upgrading your agency plan', 'Requesting an invoice'],
+    articles: [
+      { q: 'Agency pricing overview', a: 'Plans are priced by active candidate profiles and recruiter seats: Starter (25 profiles, 3 seats), Growth (100 profiles, 10 seats), and Scale (unlimited, custom).' },
+      { q: 'Per-seat vs per-placement billing', a: 'Standard plans bill per recruiter seat. Ask your account manager about custom per-placement pricing if that better fits your agency’s model.' },
+      { q: 'Upgrading your agency plan', a: 'Go to Billing > Change Plan to move up a tier as your roster grows — upgrades apply immediately, no interruption to active searches.' },
+      { q: 'Requesting an invoice', a: 'Download invoices anytime from Billing > Invoice History, or email billing@reslink.io for PO-ready documentation.' },
+    ],
   },
   {
     icon: BarChart2, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Analytics & Reporting',
-    articles: ['Candidate engagement reports', 'Placement performance metrics', 'Client activity dashboards', 'Exporting recruiter data'],
+    articles: [
+      { q: 'Candidate engagement reports', a: 'See which candidates clients are actually watching and for how long — useful context before your next follow-up call.' },
+      { q: 'Placement performance metrics', a: 'Track time-to-placement and candidate-to-hire ratios across your whole roster from the Analytics tab.' },
+      { q: 'Client activity dashboards', a: 'See exactly when a client opens a shared pack and how long they spend on each candidate — know the moment to follow up.' },
+      { q: 'Exporting recruiter data', a: 'Export candidate and placement data as CSV from Analytics > Export for reporting to your own leadership or clients.' },
+    ],
   },
   {
     icon: Settings, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Integrations & Tools',
-    articles: ['Connecting your CRM', 'ATS integration guide', 'LinkedIn sourcing workflow', 'API access for agencies'],
+    articles: [
+      { q: 'Connecting your CRM', a: 'Sync candidate and client data with your CRM from Settings > Integrations to keep every system in step automatically.' },
+      { q: 'ATS integration guide', a: 'Connect your existing ATS so candidate Reslinks appear directly alongside their applications — no manual matching.' },
+      { q: 'LinkedIn sourcing workflow', a: 'Use the Reslink Chrome extension to invite LinkedIn candidates to record a video pitch directly from their profile.' },
+      { q: 'API access for agencies', a: 'Scale plans include API access for custom integrations — reach out to your account manager to get API keys provisioned.' },
+    ],
   },
 ];
 
-const SEEKER_CATS = [
+const SEEKER_CATS: Category[] = [
   {
     icon: UserCheck, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Getting Started',
-    articles: ['How to create a Reslink account', 'Setting up your Reslink profile', 'Recording your first video resume', 'How to share your Reslink link'],
+    articles: [
+      { q: 'How to create a Reslink account', a: 'Sign up free at reslink.io using your name and email — no credit card required. Your profile is ready the moment you land, and you can start building your first Reslink right away.' },
+      { q: 'Setting up your Reslink profile', a: 'Add your headline, contact details, portfolio and LinkedIn links, and a profile photo. This information appears alongside your video pitch so recruiters get the full picture in one place.' },
+      { q: 'Recording your first video resume', a: 'Open the in-app recorder, use the built-in teleprompter to stay on script, and record a 60–90 second pitch. You can re-record as many times as you like before publishing.' },
+      { q: 'How to share your Reslink link', a: 'Every Reslink gets a unique, shareable URL. Paste it into job applications, LinkedIn messages, or your email signature — anywhere a recruiter might see it.' },
+    ],
   },
   {
     icon: Play, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Using Reslink',
-    articles: ['How to create a video using the in-app recorder', 'Tips for using the Teleprompter feature', 'How to submit an application', 'Editing and re-recording your video'],
+    articles: [
+      { q: 'How to create a video using the in-app recorder', a: 'From your dashboard, click Record, grant camera access, and hit the red button when you’re ready. The teleprompter scrolls your script on screen so you stay natural and on-camera.' },
+      { q: 'Tips for using the Teleprompter feature', a: 'Write a short, conversational script (60–90 seconds reads naturally), adjust the scroll speed to match your pace, and do a practice run before recording for real.' },
+      { q: 'How to submit an application', a: 'Paste your Reslink URL directly into the application form, or attach your resume PDF — it comes with a clickable Play Intro badge built in, so recruiters can watch with one click.' },
+      { q: 'Editing and re-recording your video', a: 'Head to your dashboard, select your Reslink, and click Re-record. Your link stays exactly the same, so anyone who already has it will automatically see your latest version.' },
+    ],
   },
   {
     icon: DollarSign, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Pricing & Subscriptions',
-    articles: ['Free vs Premium', 'Managing your subscription or plan', 'How to upgrade or downgrade', 'Cancellation policy'],
+    articles: [
+      { q: 'Free vs Premium', a: 'Free gets you up to 2 Reslinks, in-app recording, and limited Pitch AI. Premium unlocks unlimited Reslinks, full analytics on who’s watching, and unlimited Pitch AI script generation.' },
+      { q: 'Managing your subscription or plan', a: 'Go to Account Settings > Billing to see your current plan, change your billing cycle, or update your payment method at any time.' },
+      { q: 'How to upgrade or downgrade', a: 'From Billing settings, click Change Plan and select Free or Premium. Upgrades apply immediately; downgrades take effect at the end of your current billing period.' },
+      { q: 'Cancellation policy', a: 'Cancel anytime from Account Settings — no fees, no phone calls. You’ll keep Premium access until the end of your current billing period, then automatically move to the Free plan.' },
+    ],
   },
   {
     icon: BarChart2, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Analytics & Views',
-    articles: ['Understanding your view analytics', 'How to see who viewed your profile', 'What counts as a view', 'Exporting analytics data'],
+    articles: [
+      { q: 'Understanding your view analytics', a: 'Your dashboard shows every recruiter who opens your Reslink, how much of your video they watched, and when — so you know exactly who’s paying attention.' },
+      { q: 'How to see who viewed your profile', a: 'Open the Analytics tab on your dashboard for a real-time feed of viewers, including company name (when available) and watch time.' },
+      { q: 'What counts as a view', a: 'A view is logged the moment someone opens your Reslink page, whether or not they play the video. Watch-time tracking separately shows how much of the video they actually watched.' },
+      { q: 'Exporting analytics data', a: 'Premium members can export their full view history as a CSV from the Analytics tab — handy for tracking your job search progress over time.' },
+    ],
   },
   {
     icon: Settings, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Account & Settings',
-    articles: ['Changing your username or email', 'Privacy settings and profile visibility', 'Deleting your account', 'Resetting your password'],
+    articles: [
+      { q: 'Changing your username or email', a: 'Go to Account Settings > Profile to update your email or username. We’ll send a confirmation link to your new email before the change takes effect.' },
+      { q: 'Privacy settings and profile visibility', a: 'Under Settings > Privacy, choose whether your Reslink is publicly discoverable or only viewable by people with the direct link.' },
+      { q: 'Deleting your account', a: 'In Account Settings, scroll to Danger Zone and select Delete Account. This permanently removes your profile, videos, and analytics — this can’t be undone, so export anything you need first.' },
+      { q: 'Resetting your password', a: 'Click Forgot Password on the login screen and we’ll email you a secure reset link. It expires after 30 minutes for your security.' },
+    ],
   },
   {
     icon: Users, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Sharing & Privacy',
-    articles: ['Controlling who can see your Reslink', 'How to disable your link', 'Sharing on LinkedIn and job boards', 'ATS compatibility FAQ'],
+    articles: [
+      { q: 'Controlling who can see your Reslink', a: 'Set your link to Public (discoverable) or Unlisted (only people with the link can view) from Settings > Privacy — you can switch anytime.' },
+      { q: 'How to disable your link', a: 'Toggle your Reslink to Inactive from your dashboard to temporarily take it offline without deleting it — flip it back on whenever you’re ready to job search again.' },
+      { q: 'Sharing on LinkedIn and job boards', a: 'Paste your Reslink URL directly into your LinkedIn ‘Featured’ section or job board applications — it renders as a clean preview card wherever it’s shared.' },
+      { q: 'ATS compatibility FAQ', a: 'Reslink supplements your traditional resume rather than replacing it — always submit your standard PDF through an employer’s ATS, then include your Reslink link for the human reviewing it.' },
+    ],
   },
 ];
 
-const COMPANY_CATS = [
+const COMPANY_CATS: Category[] = [
   {
     icon: Briefcase, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Getting Started',
-    articles: ['Creating a company account', 'Setting up your hiring workspace', 'Inviting team members', 'How to post a role with Reslink'],
+    articles: [
+      { q: 'Creating a company account', a: 'Sign up at reslink.io/companies with your work email. You’ll set your company name and logo, then get instant access to your hiring workspace.' },
+      { q: 'Setting up your hiring workspace', a: 'Add your open roles, customize your public job board branding, and set screening preferences so every applicant is scored against what matters to your team.' },
+      { q: 'Inviting team members', a: 'From Workspace Settings > Team, enter a colleague’s email to invite them. Admins can assign roles like Hiring Manager or Viewer to control what each teammate can see and do.' },
+      { q: 'How to post a role with Reslink', a: 'Click New Role from your dashboard, fill in the job details, and publish. Your role instantly appears on your public Reslink job board and can be shared anywhere.' },
+    ],
   },
   {
     icon: Play, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Reviewing Candidates',
-    articles: ['How to view candidate Reslinks', 'Sharing candidate profiles internally', 'Rating and shortlisting candidates', 'How to download a video resume'],
+    articles: [
+      { q: 'How to view candidate Reslinks', a: 'Every applicant’s profile — video pitch, resume, and AI score — is a single click away from your candidate list. No downloads or attachments needed.' },
+      { q: 'Sharing candidate profiles internally', a: 'Click Share on any candidate profile to send it to a teammate. They’ll see the exact same video, resume, and AI breakdown without needing to be added to the role.' },
+      { q: 'Rating and shortlisting candidates', a: 'Use the star rating and custom lists (like ‘Final Round’ or ‘Strong Maybes’) to organize candidates as your team reviews them — no spreadsheets required.' },
+      { q: 'How to download a video resume', a: 'Open a candidate’s profile and click Download to save their video pitch and resume PDF locally, useful for offline review or sharing outside Reslink.' },
+    ],
   },
   {
     icon: DollarSign, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Plans & Billing',
-    articles: ['Company pricing overview', 'How per-seat billing works', 'Upgrading your plan', 'Requesting an invoice'],
+    articles: [
+      { q: 'Company pricing overview', a: 'Plans are priced by job postings and team seats: Free Trial (14 days, up to 5 postings), Growth (up to 25 postings, 10 seats), and Enterprise (unlimited, custom pricing).' },
+      { q: 'How per-seat billing works', a: 'Each team member with dashboard access counts as one seat. You can add or remove seats anytime from Billing, and your invoice adjusts on a pro-rated basis.' },
+      { q: 'Upgrading your plan', a: 'Go to Billing > Change Plan to move from Trial to Growth or Growth to Enterprise. Upgrades take effect immediately so you never lose access mid-hire.' },
+      { q: 'Requesting an invoice', a: 'Download past invoices anytime from Billing > Invoice History, or email billing@reslink.io for a custom PO-ready invoice.' },
+    ],
   },
   {
     icon: BarChart2, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Analytics & Reporting',
-    articles: ['Candidate engagement analytics', 'Team activity reports', 'Exporting hiring data', 'Understanding funnel metrics'],
+    articles: [
+      { q: 'Candidate engagement analytics', a: 'See applicant volume, average AI score, and time-to-review trends for every open role from your Analytics dashboard.' },
+      { q: 'Team activity reports', a: 'Track how quickly each hiring manager reviews candidates and moves them through your pipeline — useful for spotting bottlenecks.' },
+      { q: 'Exporting hiring data', a: 'Export candidate and role data as CSV from Analytics > Export, ready to import into your BI tool or ATS.' },
+      { q: 'Understanding funnel metrics', a: 'Your funnel view shows candidates at each stage — applied, reviewed, shortlisted, interviewed — so you can see exactly where your process speeds up or stalls.' },
+    ],
   },
   {
     icon: Settings, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Integrations',
-    articles: ['ATS integrations overview', 'LinkedIn integration', 'Connecting your HRIS', 'Webhooks and API access'],
+    articles: [
+      { q: 'ATS integrations overview', a: 'Reslink connects with major ATS platforms so candidate Reslinks sync directly into your existing pipeline — no double data entry.' },
+      { q: 'LinkedIn integration', a: 'Link your company’s LinkedIn page to auto-populate your Reslink job board branding and cross-post open roles.' },
+      { q: 'Connecting your HRIS', a: 'From Settings > Integrations, connect your HRIS to automatically sync new hires’ Reslink profiles into onboarding workflows.' },
+      { q: 'Webhooks and API access', a: 'Enterprise plans include full API and webhook access — trigger custom workflows whenever a candidate applies, is scored, or is shortlisted.' },
+    ],
   },
   {
     icon: GraduationCap, color: '#0C63E3', bg: '#EEF4FF',
     title: 'Universities & Agencies',
-    articles: ['Setting up a university account', 'Bulk student onboarding', 'Agency multi-client management', 'White-label options'],
+    articles: [
+      { q: 'Setting up a university account', a: 'Career centers can request a university account at reslink.io/universities to give every student free or discounted access.' },
+      { q: 'Bulk student onboarding', a: 'Upload a CSV of student emails from your university dashboard to send bulk Reslink invitations in one click.' },
+      { q: 'Agency multi-client management', a: 'Agencies can manage multiple client workspaces from a single login, switching between them without re-authenticating.' },
+      { q: 'White-label options', a: 'Enterprise and agency plans can apply custom branding — your logo, colors, and domain — so candidates never see the Reslink name.' },
+    ],
+  },
+];
+
+const UNIVERSITY_CATS: Category[] = [
+  {
+    icon: GraduationCap, color: '#0C63E3', bg: '#EEF4FF',
+    title: 'Getting Started',
+    articles: [
+      { q: 'Setting up a university account', a: 'Career centers can request access at reslink.io/universities. We’ll set up your school’s branded portal and issue admin access to your career services team.' },
+      { q: 'Adding your career center team', a: 'Invite career advisors from Settings > Team so they can help students set up profiles and track engagement across your student body.' },
+      { q: 'Branding your university’s Reslink portal', a: 'Upload your school’s logo and colors so every student Reslink carries your university’s branding when shared with employers.' },
+      { q: 'Understanding student eligibility', a: 'Any current student or recent alum with a valid .edu email (or one you manually verify) can be onboarded to your university’s Reslink program.' },
+    ],
+  },
+  {
+    icon: Users, color: '#0C63E3', bg: '#EEF4FF',
+    title: 'Student Onboarding',
+    articles: [
+      { q: 'Bulk student onboarding', a: 'Upload a CSV of student emails from your dashboard to send bulk Reslink invitations to your entire class or department in one click.' },
+      { q: 'Sending onboarding reminders', a: 'Set automatic reminder emails for students who haven’t completed their profile yet — configurable from Onboarding > Reminders.' },
+      { q: 'Tracking onboarding completion', a: 'See a live completion rate for your cohort, broken down by department or graduating class, right from your dashboard.' },
+      { q: 'Student support resources', a: 'Share our student-specific guides (recording tips, script templates) directly from your portal to help students get a strong Reslink live fast.' },
+    ],
+  },
+  {
+    icon: Briefcase, color: '#0C63E3', bg: '#EEF4FF',
+    title: 'Career Services Tools',
+    articles: [
+      { q: 'Reviewing student profiles', a: 'Career advisors can browse every student’s Reslink from the admin dashboard to give feedback before it goes live to employers.' },
+      { q: 'Connecting students with employers', a: 'Feature top student Reslinks on your university’s public job board, visible to any company recruiting on campus.' },
+      { q: 'Hosting virtual career fairs', a: 'Create a shareable collection of student Reslinks for virtual fair attendees to browse before or during your event.' },
+      { q: 'Employer partnership tools', a: 'Give partner employers direct, branded access to browse your student talent pool without needing individual Reslink accounts.' },
+    ],
+  },
+  {
+    icon: BarChart2, color: '#0C63E3', bg: '#EEF4FF',
+    title: 'Analytics & Reporting',
+    articles: [
+      { q: 'Cohort engagement analytics', a: 'See completion rates, average watch time, and employer views broken down by class year or major from your Analytics dashboard.' },
+      { q: 'Employer view tracking', a: 'Track exactly which employers are viewing student profiles and how often — useful data for your recruiting partnerships.' },
+      { q: 'Exporting program data', a: 'Export full program analytics as CSV for reporting to department heads or accreditation reviews.' },
+      { q: 'Placement outcome tracking', a: 'Log post-graduation placement outcomes against Reslink usage to measure your program’s real-world impact.' },
+    ],
+  },
+  {
+    icon: DollarSign, color: '#0C63E3', bg: '#EEF4FF',
+    title: 'Plans & Billing',
+    articles: [
+      { q: 'University pricing overview', a: 'University programs are priced per student cohort with volume discounts — reach out for a custom quote based on your enrollment size.' },
+      { q: 'Free student access', a: 'Most university partnerships include free Reslink Premium access for enrolled students — check with your career center for eligibility.' },
+      { q: 'Renewing your program', a: 'Programs renew annually; your account manager will reach out ahead of renewal to review usage and adjust cohort size if needed.' },
+      { q: 'Requesting a custom quote', a: 'Email partnerships@reslink.io with your enrollment size and program goals for a tailored university pricing quote.' },
+    ],
+  },
+  {
+    icon: Settings, color: '#0C63E3', bg: '#EEF4FF',
+    title: 'Support & Resources',
+    articles: [
+      { q: 'Training career center staff', a: 'We offer a live onboarding session for your career services team covering the admin dashboard, student support, and reporting.' },
+      { q: 'Student workshop materials', a: 'Download our ready-to-use workshop slides and script templates to run a Reslink info session for your students.' },
+      { q: 'Employer outreach templates', a: 'Use our email templates to introduce your university’s Reslink talent pool to recruiting partners.' },
+      { q: 'Getting dedicated support', a: 'University partners get a dedicated account manager — reach out anytime through your admin dashboard’s Support tab.' },
+    ],
   },
 ];
 
@@ -134,11 +290,92 @@ function FAQ({ q, a, open, toggle }: { q: string; a: string; open: boolean; togg
   );
 }
 
+/** Q&A modal — browses the full flattened article list for the current tab so
+ *  Next/Prev moves seamlessly across category boundaries. */
+function ArticleModal({ flat, index, catTitleFor, onClose, onNav }: {
+  flat: Article[];
+  index: number;
+  catTitleFor: (i: number) => string;
+  onClose: () => void;
+  onNav: (i: number) => void;
+}) {
+  const article = flat[index];
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowRight' && index < flat.length - 1) onNav(index + 1);
+      if (e.key === 'ArrowLeft' && index > 0) onNav(index - 1);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [index, flat.length, onClose, onNav]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      onClick={onClose}
+      style={{ position: 'fixed', inset: 0, background: 'rgba(4,22,53,0.55)', backdropFilter: 'blur(4px)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 16, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 10, scale: 0.98 }}
+        transition={{ duration: 0.2 }}
+        onClick={e => e.stopPropagation()}
+        style={{ background: '#fff', borderRadius: '20px', maxWidth: '560px', width: '100%', maxHeight: '82vh', overflowY: 'auto', boxShadow: '0 32px 100px rgba(4,22,53,0.35)', position: 'relative' }}
+      >
+        <div style={{ padding: 'clamp(28px, 4vw, 40px)' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '16px', marginBottom: '18px' }}>
+            <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#0C63E3', background: '#EEF4FF', borderRadius: '100px', padding: '5px 12px', fontFamily: 'var(--font-body)' }}>
+              {catTitleFor(index)}
+            </span>
+            <button onClick={onClose} aria-label="Close"
+              style={{ width: '32px', height: '32px', borderRadius: '50%', border: 'none', background: '#F1F3F5', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', flexShrink: 0 }}>
+              <X size={16} color="#5C6070" />
+            </button>
+          </div>
+          <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(22px, 3vw, 28px)', fontWeight: 900, color: '#041635', lineHeight: 1.08, letterSpacing: '-0.02em', marginBottom: '16px' }}>
+            {article.q}
+          </h3>
+          <p style={{ fontSize: '15px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>
+            {article.a}
+          </p>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', padding: '18px clamp(28px, 4vw, 40px)', borderTop: '1px solid #ECEEF1' }}>
+          <button onClick={() => onNav(index - 1)} disabled={index === 0}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '9px 16px', borderRadius: '8px', border: '1.5px solid #E4E6EC', background: '#fff', color: index === 0 ? '#C7CAD1' : '#041635', fontSize: '13px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: index === 0 ? 'default' : 'pointer' }}>
+            <ChevronLeft size={14} /> Previous
+          </button>
+          <span style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{index + 1} of {flat.length}</span>
+          <button onClick={() => onNav(index + 1)} disabled={index === flat.length - 1}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '9px 16px', borderRadius: '8px', border: 'none', background: index === flat.length - 1 ? '#F1F3F5' : '#041635', color: index === flat.length - 1 ? '#C7CAD1' : '#fff', fontSize: '13px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: index === flat.length - 1 ? 'default' : 'pointer' }}>
+            Next <ChevronRight size={14} />
+          </button>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 export default function HelpPage() {
   const [query, setQuery] = useState('');
   const [tab, setTab] = useState<'seeker' | 'company' | 'recruiter' | 'university'>('seeker');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const cats = tab === 'seeker' ? SEEKER_CATS : tab === 'company' ? COMPANY_CATS : tab === 'recruiter' ? RECRUITER_CATS : COMPANY_CATS;
+  const [openArticle, setOpenArticle] = useState<number | null>(null);
+  const cats = tab === 'seeker' ? SEEKER_CATS : tab === 'company' ? COMPANY_CATS : tab === 'recruiter' ? RECRUITER_CATS : UNIVERSITY_CATS;
+
+  // Flatten the current tab's categories into one browsable list, and track
+  // which category each flattened index belongs to (for the modal's label).
+  const flat: Article[] = cats.flatMap(c => c.articles);
+  const catBounds = useMemo(() => {
+    const bounds: { title: string; start: number; end: number }[] = [];
+    let cursor = 0;
+    for (const c of cats) {
+      bounds.push({ title: c.title, start: cursor, end: cursor + c.articles.length });
+      cursor += c.articles.length;
+    }
+    return bounds;
+  }, [cats]);
+  const catTitleFor = useCallback((i: number) => catBounds.find(b => i >= b.start && i < b.end)?.title ?? '', [catBounds]);
 
   return (
     <>
@@ -154,7 +391,7 @@ export default function HelpPage() {
                 Need Help?
               </h1>
               <p style={{ fontSize: 'clamp(15px, 1.8vw, 17px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginBottom: '32px' }}>
-                Explore our FAQs, tutorials, and other helpful resources to find the answers you're looking for.
+                Explore our FAQs, tutorials, and other helpful resources to find the answers you&apos;re looking for.
               </p>
               <div style={{ position: 'relative' }}>
                 <span style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', display: 'flex', alignItems: 'center', zIndex: 2 }}>
@@ -187,7 +424,7 @@ export default function HelpPage() {
             <div className="help-tabs-wrap">
               <div className="help-tabs-inner">
                 {[{ id: 'seeker', label: 'For Job Seekers' }, { id: 'company', label: 'For Companies' }, { id: 'recruiter', label: 'For Recruiters' }, { id: 'university', label: 'For Universities' }].map(t => (
-                  <button key={t.id} onClick={() => setTab(t.id as 'seeker' | 'company')}
+                  <button key={t.id} onClick={() => { setTab(t.id as 'seeker' | 'company'); setOpenArticle(null); }}
                     style={{ padding: '10px 22px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', transition: 'color 0.2s', background: 'transparent', color: tab === t.id ? '#fff' : '#9A9FA8', whiteSpace: 'nowrap', position: 'relative' }}>
                     {tab === t.id && <motion.span layoutId="helpTabPill" transition={{ type: 'spring', stiffness: 450, damping: 38 }} style={{ position: 'absolute', inset: 0, background: '#041635', borderRadius: '10px', zIndex: 0 }} />}
                     <span style={{ position: 'relative', zIndex: 1 }}>{t.label}</span>
@@ -208,27 +445,31 @@ export default function HelpPage() {
                   @media (max-width: 760px) { .help-cat-grid { grid-template-columns: 1fr 1fr !important; } }
                   @media (max-width: 480px) { .help-cat-grid { grid-template-columns: 1fr !important; } }
                 `}</style>
-                {cats.map((cat, i) => (
-                  <motion.div key={cat.title} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25, delay: i * 0.04 }} style={{ height: '100%' }}>
-                    <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '24px', boxShadow: '0 1px 8px rgba(4,22,53,0.04)', transition: 'box-shadow 0.15s, transform 0.15s', cursor: 'pointer', height: '100%', boxSizing: 'border-box' }}
-                      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 20px rgba(4,22,53,0.09)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; }}
-                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 1px 8px rgba(4,22,53,0.04)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; }}>
-                      <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: cat.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '14px' }}>
-                        <cat.icon size={20} color={cat.color} strokeWidth={1.8} />
+                {cats.map((cat, ci) => {
+                  const catStart = catBounds[ci].start;
+                  return (
+                    <motion.div key={cat.title} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25, delay: ci * 0.04 }} style={{ height: '100%' }}>
+                      <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '24px', boxShadow: '0 1px 8px rgba(4,22,53,0.04)', transition: 'box-shadow 0.15s, transform 0.15s', height: '100%', boxSizing: 'border-box' }}
+                        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 20px rgba(4,22,53,0.09)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; }}
+                        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 1px 8px rgba(4,22,53,0.04)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; }}>
+                        <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: cat.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '14px' }}>
+                          <cat.icon size={20} color={cat.color} strokeWidth={1.8} />
+                        </div>
+                        <p style={{ fontSize: '15px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', marginBottom: '12px' }}>{cat.title}</p>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                          {cat.articles.map((a, ai) => (
+                            <button key={a.q} onClick={() => setOpenArticle(catStart + ai)}
+                              style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)', textDecoration: 'none', lineHeight: 1.4, transition: 'color 0.15s', background: 'none', border: 'none', padding: 0, textAlign: 'left', cursor: 'pointer' }}
+                              onMouseEnter={e => (e.currentTarget.style.color = '#0C63E3')}
+                              onMouseLeave={e => (e.currentTarget.style.color = '#5C6070')}>
+                              {a.q}
+                            </button>
+                          ))}
+                        </div>
                       </div>
-                      <p style={{ fontSize: '15px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', marginBottom: '12px' }}>{cat.title}</p>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                        {cat.articles.map(a => (
-                          <Link key={a} href="#" style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)', textDecoration: 'none', lineHeight: 1.4, transition: 'color 0.15s' }}
-                            onMouseEnter={e => (e.currentTarget.style.color = '#0C63E3')}
-                            onMouseLeave={e => (e.currentTarget.style.color = '#5C6070')}>
-                            {a}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
+                    </motion.div>
+                  );
+                })}
               </div>
             </motion.div>
 
@@ -236,9 +477,9 @@ export default function HelpPage() {
             <div style={{ maxWidth: '720px', margin: '0 auto' }}>
               <div style={{ textAlign: 'center', marginBottom: '36px' }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '12px', fontFamily: 'var(--font-body)' }}>Common questions</p>
-                <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3.5vw, 40px)', fontWeight: 900, color: '#041635', letterSpacing: '-0.02em', marginBottom: '10px' }}>Got questions? We've got answers.</h2>
+                <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3.5vw, 40px)', fontWeight: 900, color: '#041635', letterSpacing: '-0.02em', marginBottom: '10px' }}>Got questions? We&apos;ve got answers.</h2>
                 <p style={{ fontSize: '14px', color: '#5C6070', fontFamily: 'var(--font-body)' }}>
-                  Can't find what you need?{' '}
+                  Can&apos;t find what you need?{' '}
                   <Link href="/contact/support" style={{ color: '#0C63E3', textDecoration: 'none', fontWeight: 600 }}>Contact support</Link>. we reply fast.
                 </p>
               </div>
@@ -251,6 +492,18 @@ export default function HelpPage() {
 
       </main>
       <Footer />
+
+      <AnimatePresence>
+        {openArticle !== null && (
+          <ArticleModal
+            flat={flat}
+            index={openArticle}
+            catTitleFor={catTitleFor}
+            onClose={() => setOpenArticle(null)}
+            onNav={(i) => setOpenArticle(Math.max(0, Math.min(flat.length - 1, i)))}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 }

@@ -138,40 +138,43 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = linkColor; (e.currentTarget as HTMLElement).style.background = 'transparent'; }}
             >For Companies</Link>
 
-            {/* Resources */}
-            <div style={{ position: 'relative' }} onMouseEnter={() => openDropdown('resources')} onMouseLeave={scheduleClose}>
-              <button onClick={() => toggleDropdown('resources')} style={{ fontSize: '14px', fontWeight: 500, color: open === 'resources' ? linkActiveColor : linkColor, background: open === 'resources' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
-                Resources <ChevronDown size={13} style={{ transform: open === 'resources' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
-              </button>
-              {open === 'resources' && (
-                <div onMouseEnter={() => openDropdown('resources')} onMouseLeave={scheduleClose} style={{ position: 'absolute', top: '100%', left: '-8px', paddingTop: '6px', zIndex: 100 }}>
-                <motion.div initial={{ opacity: 0, y: 8, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.18, ease: 'easeOut' }} style={{ background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 12px 40px rgba(4,22,53,0.12), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', minWidth: '230px', transformOrigin: 'top left' }}>
-                  {resources.map((r, i) => (
-                    <motion.div key={r.href} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 + i * 0.045, duration: 0.18 }}>
-                      <DropItem {...r} onClick={() => setOpen(null)} />
-                    </motion.div>
-                  ))}
-                </motion.div>
-                </div>
-              )}
-            </div>
+            {/* Resources + Company — sharing one hover boundary so moving the mouse
+                directly between the two triggers never dips outside a tracked
+                element and schedules an unwanted close before the other opens. */}
+            <div style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '2px' }} onMouseLeave={scheduleClose}>
+              <div style={{ position: 'relative' }}>
+                <button onClick={() => toggleDropdown('resources')} onMouseEnter={() => openDropdown('resources')} style={{ fontSize: '14px', fontWeight: 500, color: open === 'resources' ? linkActiveColor : linkColor, background: open === 'resources' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
+                  Resources <ChevronDown size={13} style={{ transform: open === 'resources' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+                </button>
+                {open === 'resources' && (
+                  <div style={{ position: 'absolute', top: '100%', left: '-8px', paddingTop: '6px', zIndex: 100 }}>
+                  <motion.div initial={{ opacity: 0, y: 8, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.18, ease: 'easeOut' }} style={{ background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 12px 40px rgba(4,22,53,0.12), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', minWidth: '230px', transformOrigin: 'top left' }}>
+                    {resources.map((r, i) => (
+                      <motion.div key={r.href} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 + i * 0.045, duration: 0.18 }}>
+                        <DropItem {...r} onClick={() => setOpen(null)} />
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                  </div>
+                )}
+              </div>
 
-            {/* Company */}
-            <div style={{ position: 'relative' }} onMouseEnter={() => openDropdown('company')} onMouseLeave={scheduleClose}>
-              <button onClick={() => toggleDropdown('company')} style={{ fontSize: '14px', fontWeight: 500, color: open === 'company' ? linkActiveColor : linkColor, background: open === 'company' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
-                Company <ChevronDown size={13} style={{ transform: open === 'company' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
-              </button>
-              {open === 'company' && (
-                <div onMouseEnter={() => openDropdown('company')} onMouseLeave={scheduleClose} style={{ position: 'absolute', top: '100%', left: '-8px', paddingTop: '6px', zIndex: 100 }}>
-                <motion.div initial={{ opacity: 0, y: 8, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.18, ease: 'easeOut' }} style={{ background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 12px 40px rgba(4,22,53,0.12), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', minWidth: '230px', transformOrigin: 'top left' }}>
-                  {company.map((c, i) => (
-                    <motion.div key={c.href} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 + i * 0.045, duration: 0.18 }}>
-                      <DropItem {...c} onClick={() => setOpen(null)} />
-                    </motion.div>
-                  ))}
-                </motion.div>
-                </div>
-              )}
+              <div style={{ position: 'relative' }}>
+                <button onClick={() => toggleDropdown('company')} onMouseEnter={() => openDropdown('company')} style={{ fontSize: '14px', fontWeight: 500, color: open === 'company' ? linkActiveColor : linkColor, background: open === 'company' ? linkHoverBg : 'none', border: 'none', cursor: 'pointer', padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.15s, background 0.15s', fontFamily: 'var(--font-body)' }}>
+                  Company <ChevronDown size={13} style={{ transform: open === 'company' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+                </button>
+                {open === 'company' && (
+                  <div style={{ position: 'absolute', top: '100%', left: '-8px', paddingTop: '6px', zIndex: 100 }}>
+                  <motion.div initial={{ opacity: 0, y: 8, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.18, ease: 'easeOut' }} style={{ background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 12px 40px rgba(4,22,53,0.12), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', minWidth: '230px', transformOrigin: 'top left' }}>
+                    {company.map((c, i) => (
+                      <motion.div key={c.href} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 + i * 0.045, duration: 0.18 }}>
+                        <DropItem {...c} onClick={() => setOpen(null)} />
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                  </div>
+                )}
+              </div>
             </div>
 
             <Link href="/pricing" style={navLinkStyle}

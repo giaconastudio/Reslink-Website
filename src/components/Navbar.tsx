@@ -121,7 +121,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
     }}>
       <div className="container">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '68px' }}>
-          <Link href="/" onClick={() => window.scrollTo(0, 0)}>
+          <Link href="/" onClick={() => { clearHash(); window.scrollTo(0, 0); }}>
             <Image src="/reslink-og.svg" alt="Reslink" width={140} height={36} priority style={{ height: '30px', width: 'auto', filter: isDark ? 'brightness(0) invert(1)' : 'none' }} />
           </Link>
 

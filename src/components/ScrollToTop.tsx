@@ -44,9 +44,31 @@ export default function ScrollToTop() {
         window.dispatchEvent(new Event('resize'));
       });
     });
+
+    // Heavier pages (multiple videos, the pinned 440vh HowItWorks section)
+    // can keep shifting layout well past the first couple of frames as
+    // media finishes loading, which was enough to drag the scroll position
+    // back down after the resets above — landing mid-page on navigation.
+    // Re-assert a few more times over the next half second to cover that,
+    // but back off the moment the visitor actually scrolls themselves —
+    // this must never fight a real, intentional scroll.
+    let userScrolled = false;
+    const onUserScroll = (e: Event) => { if (e.isTrusted) userScrolled = true; };
+    window.addEventListener('wheel', onUserScroll, { passive: true });
+    window.addEventListener('touchmove', onUserScroll, { passive: true });
+
+    const timeouts = [50, 150, 400, 800].map(delay =>
+      window.setTimeout(() => {
+        if (!userScrolled && window.scrollY !== 0) window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      }, delay)
+    );
+
     return () => {
       cancelAnimationFrame(raf1);
       cancelAnimationFrame(raf2);
+      timeouts.forEach(clearTimeout);
+      window.removeEventListener('wheel', onUserScroll);
+      window.removeEventListener('touchmove', onUserScroll);
     };
   }, [pathname]);
   return null;

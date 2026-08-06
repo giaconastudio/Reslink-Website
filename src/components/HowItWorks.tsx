@@ -100,13 +100,16 @@ export default function HowItWorks() {
         .hiw-inner { width: 100%; position: relative; z-index: 1; padding: 0 56px; }
         /* Centered header, like the reference — frees the left column to fit
            all four steps without also carrying the page title inline. */
-        .hiw-header { text-align: center; margin-bottom: 24px; }
+        /* vh-relative rather than a fixed px value — opens up generously on
+           normal/tall viewports but automatically tightens on short ones,
+           so the card never has to clip content to stay under its cap. */
+        .hiw-header { text-align: center; margin-bottom: clamp(24px, 4.5vh, 40px); }
         .hiw-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: ${ACCENT}; margin-bottom: 8px; font-family: var(--font-body); }
         .hiw-title { font-family: var(--font-phudu); font-size: clamp(22px, 2.4vw, 32px); font-weight: 900; color: #fff; line-height: 1.02; letter-spacing: -0.03em; }
-        .hiw-cta { margin-top: 16px; }
+        .hiw-cta { margin-top: clamp(14px, 2.5vh, 22px); }
         .hiw-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 32px; width: 100%; align-items: center; }
 
-        .hiw-list { display: flex; flex-direction: column; gap: 18px; }
+        .hiw-list { display: flex; flex-direction: column; gap: clamp(16px, 3.5vh, 30px); }
         /* Monzo-style step marker — "Step" label over a big plain numeral,
            no circle/connector-line, sitting left of the title+description. */
         .hiw-row { position: relative; display: grid; grid-template-columns: 52px 1fr; gap: 18px; align-items: start; cursor: pointer; border: none; background: none; text-align: left; width: 100%; padding: 0; }
@@ -140,7 +143,7 @@ export default function HowItWorks() {
         /* In normal flow (not absolutely positioned) so it always sits below
            the actual content instead of overlapping it when the video makes
            the centered block taller than expected. */
-        .hiw-scrollhint { width: 100%; margin-top: 22px; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .hiw-scrollhint { width: 100%; margin-top: clamp(18px, 4.5vh, 40px); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px; }
         .hiw-scrollhint span { font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${ACCENT}; font-family: var(--font-body); }
         .hiw-scrollhint-ring { width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid rgba(216,249,80,0.4); display: flex; align-items: center; justify-content: center; }
 

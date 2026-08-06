@@ -11,6 +11,7 @@ import { AnimatedStat } from '@/components/CountUp';
 import { TiltCard } from '@/components/TiltCard';
 import LogoTicker from '@/components/LogoTicker';
 import AIScreeningDemo from '@/components/AIScreeningDemo';
+import AudienceStories from '@/components/AudienceStories';
 
 /* ─── Hero notifications ─── */
 const NOTIFICATIONS = [
@@ -386,6 +387,9 @@ const [notifA, setNotifA] = useState(0);
 
         {/* ─── Logo ticker ─── */}
         <div style={{ background: '#F7F8FA' }}><LogoTicker /></div>
+
+        {/* ─── Not a company hiring directly? Route to agencies/universities ─── */}
+        <AudienceStories variant="b2b" />
 
         {/* ─── How it works ─── */}
         <section style={{ background: '#041635', padding: 'clamp(72px, 9vw, 112px) 24px', position: 'relative', overflow: 'hidden' }}>

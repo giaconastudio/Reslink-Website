@@ -5,7 +5,17 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
-const PEOPLE = [
+type Person = {
+  id: string;
+  video: string;
+  objectPosition: string;
+  eyebrow: string;
+  title: string;
+  body: string;
+  href: string;
+};
+
+const JOBSEEKER_PEOPLE: Person[] = [
   {
     id: 'students',
     video: '/videos/student.mp4',
@@ -26,8 +36,32 @@ const PEOPLE = [
   },
 ];
 
+// B2B pathway variant — same card mechanic, pointed at the two other
+// organization types that land on the companies page looking for
+// something other than direct hiring.
+const B2B_PEOPLE: Person[] = [
+  {
+    id: 'agencies',
+    video: '/videos/agency-recruiter.mp4',
+    objectPosition: '50% 22%',
+    eyebrow: 'For recruitment agencies',
+    title: 'Placing candidates faster, with proof clients can watch.',
+    body: 'Screen and shortlist with video from day one, then hand clients a Reslink instead of a stack of PDFs they have to take your word for.',
+    href: '/agencies',
+  },
+  {
+    id: 'universities',
+    video: '/videos/university-counselor.mp4',
+    objectPosition: '50% 24%',
+    eyebrow: 'For universities & career centers',
+    title: 'Giving every student a placement edge, at scale.',
+    body: 'Equip your career center with a tool that helps students stand out in a crowded market, and shows administrators the outcomes to prove it.',
+    href: '/universities',
+  },
+];
+
 function AccordionCard({ person, expanded, onEnter, onLeave }: {
-  person: typeof PEOPLE[0];
+  person: Person;
   expanded: boolean;
   onEnter: () => void;
   onLeave: () => void;
@@ -93,13 +127,22 @@ function AccordionCard({ person, expanded, onEnter, onLeave }: {
   );
 }
 
+interface Props {
+  variant?: 'jobseekers' | 'b2b';
+}
+
 /** Fruitful-style horizontal accordion — real people you can bring to life by
  *  hovering, one card expanded at a time revealing a "Learn more" overlay.
  *  Covers the students/veterans gap left by the top nav (which now only
- *  links Job Seekers / Companies directly). */
-export default function AudienceStories() {
+ *  links Job Seekers / Companies directly). The b2b variant reuses the same
+ *  mechanic to route companies-page visitors who are actually a recruitment
+ *  agency or a university toward their own dedicated pages. */
+export default function AudienceStories({ variant = 'jobseekers' }: Props) {
   const [hovered, setHovered] = useState<number | null>(null);
   const expandedIndex = hovered ?? 0;
+  const people = variant === 'b2b' ? B2B_PEOPLE : JOBSEEKER_PEOPLE;
+  const eyebrow = variant === 'b2b' ? 'Not hiring directly?' : 'Every path is different';
+  const heading = variant === 'b2b' ? 'We work with agencies and schools, too.' : 'Built for every kind of story.';
 
   return (
     <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
@@ -146,15 +189,15 @@ export default function AudienceStories() {
       <div className="as-inner">
         <div className="as-head">
           <motion.div className="as-head-text" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>Every path is different</p>
+            <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>{eyebrow}</p>
             <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 48px)', fontWeight: 900, color: '#041635', lineHeight: 0.96, letterSpacing: '-0.03em' }}>
-              Built for every kind of story.
+              {heading}
             </h2>
           </motion.div>
         </div>
 
         <div className="as-strip">
-          {PEOPLE.map((p, i) => (
+          {people.map((p, i) => (
             <AccordionCard
               key={p.id}
               person={p}

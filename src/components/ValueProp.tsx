@@ -1,27 +1,30 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 
+// Runs on mount rather than gating on useInView/IntersectionObserver — that
+// observer callback can sit queued on the main thread indefinitely until a
+// genuine user interaction forces the browser to prioritize it, which showed
+// up in production as every stat here stuck at 0 forever.
 function CountUp({ end, suffix, duration = 1.4 }: { end: number; suffix: string; duration?: number }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-60px' });
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (!inView) return;
     const start = Date.now();
+    let raf: number;
     const tick = () => {
       const elapsed = (Date.now() - start) / 1000;
       const progress = Math.min(elapsed / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
       setCount(Math.round(eased * end));
-      if (progress < 1) requestAnimationFrame(tick);
+      if (progress < 1) raf = requestAnimationFrame(tick);
     };
-    requestAnimationFrame(tick);
-  }, [inView, end, duration]);
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [end, duration]);
 
-  return <span ref={ref}>{count}{suffix}</span>;
+  return <span>{count}{suffix}</span>;
 }
 
 export default function ValueProp() {

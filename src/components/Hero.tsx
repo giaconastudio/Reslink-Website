@@ -114,17 +114,43 @@ export default function Hero() {
         @media (max-width: 400px) {
           .hero-inner { padding: 70px 16px 0; }
         }
+
+        /* Above-the-fold entrance — plain CSS, not JS-driven.
+           Framer Motion's spring/tween reveals tick via requestAnimationFrame,
+           which browsers throttle hard (sometimes to a near-standstill) while
+           a tab is loading in the background or hasn't taken focus yet — the
+           hero could get stuck at ~2% opacity indefinitely. CSS animations are
+           driven by the compositor and always resolve to their end state once
+           the tab is visible again, so the very first thing visitors see can't
+           get silently stuck invisible. */
+        @keyframes heroReveal {
+          from { opacity: 0; transform: translateY(var(--hero-reveal-y, 14px)); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .hero-reveal { opacity: 0; animation: heroReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: var(--hero-reveal-delay, 0s); }
+        @keyframes heroStageReveal {
+          from { opacity: 0; transform: translateY(60px) rotateX(6deg) scale(0.96); }
+          to { opacity: 1; transform: translateY(0) rotateX(0) scale(1); }
+        }
+        .hero-stage-reveal { opacity: 0; animation: heroStageReveal 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards; animation-delay: 0.3s; }
+        @keyframes heroFloatReveal {
+          from { opacity: 0; transform: translateX(var(--hero-float-x, 0)); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+        .hero-float-reveal { opacity: 0; animation: heroFloatReveal 0.4s ease forwards; animation-delay: var(--hero-reveal-delay, 0s); }
+        @media (prefers-reduced-motion: reduce) {
+          .hero-reveal, .hero-stage-reveal, .hero-float-reveal { animation: none; opacity: 1; transform: none; }
+        }
       `}</style>
 
       <div className="hero-inner">
         {/* Audience toggle — persists across both hero pages so visitors can switch back and forth */}
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
-          style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+        <div className="hero-reveal" style={{ ['--hero-reveal-y' as string]: '10px', display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
           <HeroToggle active="jobseekers" />
-        </motion.div>
+        </div>
 
         {/* Headline */}
-        <motion.h1 className="hero-h1" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.05 }}>
+        <h1 className="hero-h1 hero-reveal" style={{ ['--hero-reveal-y' as string]: '18px', ['--hero-reveal-delay' as string]: '0.05s' }}>
           Your resume,<br />
           but{' '}
           <span style={{ display: 'inline-block', position: 'relative' }}>
@@ -132,15 +158,15 @@ export default function Hero() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/vector-underline.svg" alt="" aria-hidden="true" style={{ position: 'absolute', bottom: '-16px', left: 0, width: '100%', height: 'auto', pointerEvents: 'none' }} />
           </span>
-        </motion.h1>
+        </h1>
 
         {/* Subtext */}
-        <motion.p className="hero-sub" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.12 }}>
+        <p className="hero-sub hero-reveal" style={{ ['--hero-reveal-y' as string]: '14px', ['--hero-reveal-delay' as string]: '0.12s' }}>
           Stand out and land more interviews with a personalized video resume that builds instant connections with recruiters.
-        </motion.p>
+        </p>
 
         {/* CTAs */}
-        <motion.div className="hero-ctas" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.18 }}>
+        <div className="hero-ctas hero-reveal" style={{ ['--hero-reveal-y' as string]: '12px', ['--hero-reveal-delay' as string]: '0.18s' }}>
           <Magnetic>
             <Link href="/get-started" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
               Create your Reslink
@@ -152,10 +178,10 @@ export default function Hero() {
               See how it works
             </Link>
           </Magnetic>
-        </motion.div>
+        </div>
 
         {/* Social proof row — real faces + free-to-start line, sits under the CTAs */}
-        <motion.div className="hero-proof-row" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.24 }}>
+        <div className="hero-proof-row hero-reveal" style={{ ['--hero-reveal-y' as string]: '10px', ['--hero-reveal-delay' as string]: '0.24s' }}>
           <span className="hero-pill" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#fff', color: '#5C6070', fontSize: '13px', fontWeight: 500, padding: '7px 16px 7px 8px', borderRadius: '100px', fontFamily: 'var(--font-body)', border: '1.5px solid #E4E7EC', boxShadow: '0 2px 8px rgba(4,22,53,0.06)' }}>
             <span style={{ display: 'flex' }}>
               {['/avatars/a1.jpg', '/avatars/a2.jpg', '/avatars/a3.jpg', '/avatars/a4.jpg', '/avatars/a5.jpg'].map((src, i) => (
@@ -167,16 +193,13 @@ export default function Hero() {
           </span>
           <span className="hero-proof-sep">·</span>
           <span className="hero-proof-text">Free to start · Under 5 minutes</span>
-        </motion.div>
+        </div>
       </div>
 
-      {/* Living product stage — perspective tilt entrance + scroll parallax */}
+      {/* Living product stage — perspective tilt entrance (CSS) + scroll parallax (JS, safe since it's driven by scroll position, not elapsed time) */}
       <motion.div style={{ scale: stageScale, y: stageY }}>
-      <motion.div
-        className="hero-stage"
-        initial={{ opacity: 0, y: 60, rotateX: 6, scale: 0.96 }}
-        animate={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
-        transition={{ duration: 0.75, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+      <div
+        className="hero-stage hero-stage-reveal"
         style={{ perspective: '1200px', transformOrigin: 'center bottom' }}
       >
         <Link href="/oliviastone" aria-label="Explore the example Reslink" style={{ display: 'block', textDecoration: 'none', cursor: 'pointer' }} className="hero-frame-link">
@@ -235,11 +258,9 @@ export default function Hero() {
         </Link>
 
         {/* Floating feature card — view analytics */}
-        <motion.div
-          className="hero-float float-tr"
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.85, duration: 0.4 }}
+        <div
+          className="hero-float float-tr hero-float-reveal"
+          style={{ ['--hero-float-x' as string]: '20px', ['--hero-reveal-delay' as string]: '0.85s' }}
         >
           <motion.div animate={{ y: [0, -6, 0] }} transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }} style={{ display: 'flex', alignItems: 'center', gap: '9px', minWidth: '190px' }}>
             <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
@@ -251,10 +272,13 @@ export default function Hero() {
             </div>
             <motion.div animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 1.8 }} style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#0C63E3', flexShrink: 0 }} />
           </motion.div>
-        </motion.div>
+        </div>
 
         {/* Floating feature card — watch-time tracking */}
-        <motion.div className="hero-float float-bl" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.0, duration: 0.4 }}>
+        <div
+          className="hero-float float-bl hero-float-reveal"
+          style={{ ['--hero-float-x' as string]: '-20px', ['--hero-reveal-delay' as string]: '1.0s' }}
+        >
           <motion.div animate={{ y: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }} style={{ display: 'flex', alignItems: 'center', gap: '9px' }}>
             <div style={{ width: '30px', height: '30px', borderRadius: '50%', background: '#D8F950', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#041635" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
@@ -264,8 +288,8 @@ export default function Hero() {
               <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Know exactly what they watched</p>
             </div>
           </motion.div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
       </motion.div>
     </section>
   );

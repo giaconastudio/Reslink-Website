@@ -46,7 +46,7 @@ export default function Hero() {
       <motion.div style={{ position: 'absolute', top: '-10%', left: '50%', marginLeft: '-450px', width: '900px', height: '700px', background: 'radial-gradient(ellipse at center, rgba(12,99,227,0.08), transparent 65%)', pointerEvents: 'none', zIndex: 0, x: sGlowX, y: sGlowY }} />
 
       <style>{`
-        .hero-inner { max-width: 1120px; margin: 0 auto; padding: 130px 24px 0; text-align: center; position: relative; z-index: 1; }
+        .hero-inner { max-width: 1120px; margin: 0 auto; padding: 96px 24px 0; text-align: center; position: relative; z-index: 1; }
         .hero-h1 {
           font-family: var(--font-phudu);
           font-size: clamp(42px, 8vw, 92px);
@@ -67,11 +67,15 @@ export default function Hero() {
           margin: 0 auto 36px;
           font-family: var(--font-body);
         }
-        .hero-ctas { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
-        .hero-proof { font-size: 13px; color: #9A9FA8; font-family: var(--font-body); margin-bottom: 56px; }
-        .hero-proof strong { color: #5C6070; font-weight: 600; }
+        .hero-ctas { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 28px; }
+        .hero-proof-row {
+          display: flex; align-items: center; justify-content: center; gap: 16px;
+          flex-wrap: wrap; margin-bottom: 40px;
+        }
+        .hero-proof-sep { color: #C7CBD3; }
+        .hero-proof-text { font-size: 13px; color: #9A9FA8; font-family: var(--font-body); }
 
-        .hero-stage { max-width: 920px; margin: 0 auto; position: relative; z-index: 1; }
+        .hero-stage { max-width: 1160px; margin: 0 auto; position: relative; z-index: 1; }
         .hero-frame {
           border-radius: 18px;
           overflow: hidden;
@@ -96,9 +100,10 @@ export default function Hero() {
         .float-bl { bottom: 70px; left: -34px; }
 
         @media (max-width: 760px) {
-          .hero-inner { padding: 100px 20px 0; }
+          .hero-inner { padding: 78px 20px 0; }
           .hero-float { display: none; }
-          .hero-proof { margin-bottom: 40px; }
+          .hero-proof-row { flex-direction: column; gap: 12px; margin-bottom: 32px; }
+          .hero-proof-sep { display: none; }
           .hero-ctas { gap: 10px; }
           .hero-ctas > div { width: 100%; }
           .hero-ctas a { width: 100%; justify-content: center; box-sizing: border-box; }
@@ -107,29 +112,15 @@ export default function Hero() {
           .hero-pill { font-size: 11px !important; padding: 5px 12px 5px 6px !important; gap: 7px !important; }
         }
         @media (max-width: 400px) {
-          .hero-inner { padding: 90px 16px 0; }
+          .hero-inner { padding: 70px 16px 0; }
         }
       `}</style>
 
       <div className="hero-inner">
         {/* Audience toggle — persists across both hero pages so visitors can switch back and forth */}
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
-          style={{ display: 'flex', justifyContent: 'center', marginBottom: '24px' }}>
+          style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
           <HeroToggle active="jobseekers" />
-        </motion.div>
-
-        {/* Social proof pill — real faces, no stat repetition */}
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.02 }}
-          style={{ display: 'flex', justifyContent: 'center', marginBottom: '28px' }}>
-          <span className="hero-pill" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#fff', color: '#5C6070', fontSize: '13px', fontWeight: 500, padding: '7px 16px 7px 8px', borderRadius: '100px', fontFamily: 'var(--font-body)', border: '1.5px solid #E4E7EC', boxShadow: '0 2px 8px rgba(4,22,53,0.06)' }}>
-            <span style={{ display: 'flex' }}>
-              {['/avatars/a1.jpg', '/avatars/a2.jpg', '/avatars/a3.jpg', '/avatars/a4.jpg', '/avatars/a5.jpg'].map((src, i) => (
-                <img key={i} src={src} alt="" width={28} height={28} className="hero-pill-avatar"
-                  style={{ width: '28px', height: '28px', borderRadius: '50%', border: '2px solid #fff', marginLeft: i === 0 ? 0 : '-8px', objectFit: 'cover', display: 'block' }} />
-              ))}
-            </span>
-            <span style={{ color: '#5C6070' }}><strong style={{ color: '#041635', fontWeight: 700 }}>10,000+</strong> job seekers worldwide</span>
-          </span>
         </motion.div>
 
         {/* Headline */}
@@ -163,9 +154,20 @@ export default function Hero() {
           </Magnetic>
         </motion.div>
 
-        <motion.p className="hero-proof" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.25 }}>
-          Free to start · Takes less than 5 minutes
-        </motion.p>
+        {/* Social proof row — real faces + free-to-start line, sits under the CTAs */}
+        <motion.div className="hero-proof-row" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.24 }}>
+          <span className="hero-pill" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#fff', color: '#5C6070', fontSize: '13px', fontWeight: 500, padding: '7px 16px 7px 8px', borderRadius: '100px', fontFamily: 'var(--font-body)', border: '1.5px solid #E4E7EC', boxShadow: '0 2px 8px rgba(4,22,53,0.06)' }}>
+            <span style={{ display: 'flex' }}>
+              {['/avatars/a1.jpg', '/avatars/a2.jpg', '/avatars/a3.jpg', '/avatars/a4.jpg', '/avatars/a5.jpg'].map((src, i) => (
+                <img key={i} src={src} alt="" width={28} height={28} className="hero-pill-avatar"
+                  style={{ width: '28px', height: '28px', borderRadius: '50%', border: '2px solid #fff', marginLeft: i === 0 ? 0 : '-8px', objectFit: 'cover', display: 'block' }} />
+              ))}
+            </span>
+            <span style={{ color: '#5C6070' }}><strong style={{ color: '#041635', fontWeight: 700 }}>10,000+</strong> job seekers worldwide</span>
+          </span>
+          <span className="hero-proof-sep">·</span>
+          <span className="hero-proof-text">Free to start · Under 5 minutes</span>
+        </motion.div>
       </div>
 
       {/* Living product stage — perspective tilt entrance + scroll parallax */}

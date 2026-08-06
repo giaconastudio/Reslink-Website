@@ -85,11 +85,14 @@ export default function HowItWorks() {
            tall) instead of underneath it — without this the navbar painted
            over the card's top edge every time the section pinned. */
         .hiw-sticky { position: sticky; top: 68px; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 16px; }
+        /* Centered rather than top-anchored — anchoring to the top left an
+           uneven, sometimes very large gap at the bottom on taller screens
+           since the content block is shorter than the card's max-height.
+           Centering balances the slack evenly on any screen height. */
         .hiw-card {
-          position: relative; width: 100%; max-width: 1180px; height: calc(100vh - 68px - 32px); max-height: 720px;
+          position: relative; width: 100%; max-width: 1180px; height: calc(100vh - 68px - 32px); max-height: 640px;
           border-radius: 32px; background: #041635; overflow: hidden;
-          display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-          padding-top: 40px;
+          display: flex; flex-direction: column; align-items: center; justify-content: center;
           box-shadow: 0 40px 100px rgba(4,22,53,0.35);
         }
         .hiw-glow { position: absolute; top: 50%; right: 8%; transform: translateY(-50%); width: 620px; height: 620px; border-radius: 50%; background: radial-gradient(circle, rgba(12,99,227,0.18), transparent 65%); pointer-events: none; }
@@ -142,8 +145,8 @@ export default function HowItWorks() {
              stays within the visible area instead of overflowing past the
              bottom of the screen. */
           .hiw-sticky { padding: 12px; }
-          .hiw-card { height: calc(100vh - 68px - 24px); max-height: none; border-radius: 22px; padding-top: 24px; }
-          .hiw-inner { padding: 0 20px 48px; }
+          .hiw-card { height: calc(100vh - 68px - 24px); max-height: none; border-radius: 22px; }
+          .hiw-inner { padding: 0 20px 40px; }
           .hiw-header { margin-bottom: 12px; }
           .hiw-grid { grid-template-columns: 1fr; gap: 12px; }
           .hiw-list { gap: 8px; }

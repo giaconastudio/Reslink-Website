@@ -80,11 +80,19 @@ export default function HowItWorks() {
   };
 
   return (
-    <section ref={sectionRef} id="how-it-works" style={{ position: 'relative', height: '440vh', background: '#041635' }}>
+    <section ref={sectionRef} id="how-it-works" style={{ position: 'relative', height: '440vh', background: '#F5F7FA' }}>
       <style>{`
-        .hiw-sticky { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
+        /* Card-contained, not full-bleed — the navy lives on an inset,
+           rounded card sitting on a light page, matching the reference. */
+        .hiw-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 32px; }
+        .hiw-card {
+          position: relative; width: 100%; max-width: 1280px; height: calc(100vh - 64px); max-height: 780px;
+          border-radius: 32px; background: #041635; overflow: hidden;
+          display: flex; flex-direction: column; align-items: center; justify-content: center;
+          box-shadow: 0 40px 100px rgba(4,22,53,0.35);
+        }
         .hiw-glow { position: absolute; top: 50%; right: 8%; transform: translateY(-50%); width: 620px; height: 620px; border-radius: 50%; background: radial-gradient(circle, rgba(12,99,227,0.18), transparent 65%); pointer-events: none; }
-        .hiw-grid { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 64px; width: 100%; align-items: center; position: relative; z-index: 1; }
+        .hiw-grid { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 64px; width: 100%; align-items: center; position: relative; z-index: 1; padding: 0 64px; }
         .hiw-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: ${ACCENT}; margin-bottom: 14px; font-family: var(--font-body); }
         .hiw-title { font-family: var(--font-phudu); font-size: clamp(30px, 3.6vw, 50px); font-weight: 900; color: #fff; line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 40px; }
 
@@ -102,7 +110,8 @@ export default function HowItWorks() {
         .hiw-dot.reached { background: ${ACCENT}; border-color: ${ACCENT}; color: #041635; box-shadow: 0 0 0 4px rgba(216,249,80,0.18); }
         .hiw-connector { width: 2px; flex: 1; min-height: 24px; margin: 6px 0; background: rgba(255,255,255,0.15); position: relative; overflow: hidden; }
         .hiw-connector-fill { position: absolute; top: 0; left: 0; width: 100%; background: ${ACCENT}; }
-        .hiw-rowcontent { padding: 0 0 26px; transition: opacity 0.3s; }
+        .hiw-rowcontent { padding: 0 0 26px; margin-bottom: 8px; border-radius: 16px; transition: opacity 0.3s, background 0.3s, padding 0.3s; }
+        .hiw-rowcontent.active { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); padding: 16px 18px 20px; margin: -16px -18px 8px; }
         .hiw-rowlabel { font-family: var(--font-phudu); font-size: 20px; font-weight: 800; letter-spacing: -0.01em; color: #fff; line-height: 1.15; transition: color 0.3s; }
         .hiw-rowdesc { overflow: hidden; }
         .hiw-rowdesc p { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.6; font-family: var(--font-body); padding-top: 8px; max-width: 380px; }
@@ -123,12 +132,19 @@ export default function HowItWorks() {
              but keep the full 100vh height (rather than subtracting it) so
              the centered content still gets its navy margin above it instead
              of being squeezed flush against the top with no breathing room. */
-          .hiw-sticky { top: 68px; }
-          .hiw-grid { grid-template-columns: 1fr; gap: 20px; padding-bottom: 64px; }
+          .hiw-sticky { top: 68px; padding: 12px; }
+          .hiw-card { height: calc(100vh - 24px); max-height: none; border-radius: 22px; }
+          .hiw-grid { grid-template-columns: 1fr; gap: 20px; padding: 0 20px 64px; }
           .hiw-stage { order: -1; }
           .hiw-title { margin-bottom: 20px; font-size: 26px; }
           .hiw-eyebrow { margin-bottom: 8px; }
-          .hiw-rowcontent { padding-bottom: 16px; }
+          /* Mobile's vertical budget is razor-thin (title + 4 steps + video
+             stacked in one screen-height card) — the active-step highlight
+             must not add any net height here, only a background tint, or
+             content overflows the fixed-height card and gets clipped by its
+             overflow:hidden. No extra vertical padding, just horizontal bleed. */
+          .hiw-rowcontent { padding-bottom: 16px; margin-bottom: 0; }
+          .hiw-rowcontent.active { background: rgba(255,255,255,0.05); border: none; border-radius: 10px; margin: 0 -10px 0 0; padding: 0 10px 16px; }
           .hiw-rowlabel { font-size: 16px; }
           .hiw-rowdesc p { font-size: 13.5px; }
           /* The floating "keep scrolling" hint sits absolutely within a tall,
@@ -143,77 +159,82 @@ export default function HowItWorks() {
       `}</style>
 
       <div className="hiw-sticky">
-        <div className="hiw-glow" />
-        <div className="container">
-          <div className="hiw-grid">
-            {/* Left — step timeline */}
-            <div>
-              <p className="hiw-eyebrow">How it works</p>
-              <h2 className="hiw-title">Four steps to your<br />next interview.</h2>
+        <div className="hiw-card">
+          <div className="hiw-glow" />
+          <div className="container">
+            <div className="hiw-grid">
+              {/* Left — step timeline */}
+              <div>
+                <p className="hiw-eyebrow">How it works</p>
+                <h2 className="hiw-title">Four steps to your<br />next interview.</h2>
 
-              <div className="hiw-list">
-                {steps.map((s, i) => {
-                  const isActive = i === active;
-                  const reached = i <= active;
-                  const connectorFill = Math.max(0, Math.min(1, progress * steps.length - i)) * 100;
-                  return (
-                    <button key={s.num} className="hiw-row" onClick={() => scrollToStep(i)}>
-                      <span className="hiw-marker">
-                        <span className={`hiw-dot${reached ? ' reached' : ''}`}>{s.num}</span>
-                        {i < steps.length - 1 && (
-                          <span className="hiw-connector">
-                            <span className="hiw-connector-fill" style={{ height: `${connectorFill}%` }} />
-                          </span>
-                        )}
-                      </span>
-                      <span className="hiw-rowcontent" style={{ opacity: isActive ? 1 : 0.5 }}>
-                        <span className="hiw-rowlabel" style={{ color: isActive ? '#fff' : 'rgba(255,255,255,0.55)' }}>{s.label}</span>
-                        <AnimatePresence initial={false}>
-                          {isActive && (
-                            <motion.div className="hiw-rowdesc" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.35 }}>
-                              <p>{s.desc}</p>
-                            </motion.div>
+                <div className="hiw-list">
+                  {steps.map((s, i) => {
+                    const isActive = i === active;
+                    const reached = i <= active;
+                    const connectorFill = Math.max(0, Math.min(1, progress * steps.length - i)) * 100;
+                    return (
+                      <button key={s.num} className="hiw-row" onClick={() => scrollToStep(i)}>
+                        <span className="hiw-marker">
+                          <span className={`hiw-dot${reached ? ' reached' : ''}`}>{s.num}</span>
+                          {i < steps.length - 1 && (
+                            <span className="hiw-connector">
+                              <span className="hiw-connector-fill" style={{ height: `${connectorFill}%` }} />
+                            </span>
                           )}
-                        </AnimatePresence>
-                      </span>
-                      {i === steps.length - 1 && (
-                        <motion.span className="hiw-row-scroll" animate={{ y: [0, 4, 0] }} transition={{ repeat: Infinity, duration: 1.3 }}>
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="2.8"><polyline points="6 9 12 15 18 9"/></svg>
-                        </motion.span>
-                      )}
-                    </button>
-                  );
-                })}
+                        </span>
+                        {/* Active step stands out in its own highlighted card,
+                            like a "step 1" panel — inactive steps stay as
+                            plain, dimmed list rows. */}
+                        <span className={`hiw-rowcontent${isActive ? ' active' : ''}`} style={{ opacity: isActive ? 1 : 0.5 }}>
+                          <span className="hiw-rowlabel" style={{ color: isActive ? '#fff' : 'rgba(255,255,255,0.55)' }}>{s.label}</span>
+                          <AnimatePresence initial={false}>
+                            {isActive && (
+                              <motion.div className="hiw-rowdesc" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.35 }}>
+                                <p>{s.desc}</p>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </span>
+                        {i === steps.length - 1 && (
+                          <motion.span className="hiw-row-scroll" animate={{ y: [0, 4, 0] }} transition={{ repeat: Infinity, duration: 1.3 }}>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="2.8"><polyline points="6 9 12 15 18 9"/></svg>
+                          </motion.span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+
               </div>
 
-            </div>
-
-            {/* Right — pinned video stage */}
-            <div className="hiw-stage">
-              {steps.map((s, i) => (
-                <video
-                  key={s.num}
-                  ref={(el) => { videoRefs.current[i] = el; }}
-                  src={`/videos/step-0${i + 1}.mp4`}
-                  poster={`/videos/step-0${i + 1}-poster.jpg`}
-                  muted loop playsInline preload="metadata"
-                  style={{ opacity: i === active ? 1 : 0 }}
-                />
-              ))}
-              <div className="hiw-stage-badge">
-                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: ACCENT, display: 'inline-block' }} />
-                <span>Step {steps[active].num}</span>
+              {/* Right — pinned video stage */}
+              <div className="hiw-stage">
+                {steps.map((s, i) => (
+                  <video
+                    key={s.num}
+                    ref={(el) => { videoRefs.current[i] = el; }}
+                    src={`/videos/step-0${i + 1}.mp4`}
+                    poster={`/videos/step-0${i + 1}-poster.jpg`}
+                    muted loop playsInline preload="metadata"
+                    style={{ opacity: i === active ? 1 : 0 }}
+                  />
+                ))}
+                <div className="hiw-stage-badge">
+                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: ACCENT, display: 'inline-block' }} />
+                  <span>Step {steps[active].num}</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Scroll hint — desktop only; mobile uses the badge anchored to the stage */}
-        <div className="hiw-scrollhint">
-          <span>Keep scrolling</span>
-          <motion.div className="hiw-scrollhint-ring" animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 1.3 }}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="2.6"><polyline points="6 9 12 15 18 9"/></svg>
-          </motion.div>
+          {/* Scroll hint — desktop only; mobile uses the badge anchored to the stage */}
+          <div className="hiw-scrollhint">
+            <span>Keep scrolling</span>
+            <motion.div className="hiw-scrollhint-ring" animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 1.3 }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="2.6"><polyline points="6 9 12 15 18 9"/></svg>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

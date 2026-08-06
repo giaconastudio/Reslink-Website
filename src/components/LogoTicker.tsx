@@ -34,7 +34,7 @@ export default function LogoTicker({ variant = 'company' }: Props) {
 
   const label = variant === 'university'
     ? 'Students from top universities trust Reslink to land interviews'
-    : '300+ candidates have landed interviews at top companies through Reslink';
+    : '1,000+ candidates have landed interviews at top companies through Reslink';
 
   return (
     <section style={{ background: '#fff', paddingTop: '52px', paddingBottom: '60px', overflow: 'hidden', borderTop: '1px solid #ECEEF1', borderBottom: '1px solid #ECEEF1' }}>

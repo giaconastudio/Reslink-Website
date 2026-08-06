@@ -107,6 +107,20 @@ export default function ValueProp() {
         .vp-stat-navy .vp-stat-number { color: #fff; }
         .vp-stat-navy .vp-stat-label { color: rgba(255,255,255,0.55); }
         .vp-stats-caption { text-align: center; font-size: 13px; color: #9A9FA8; font-family: var(--font-body); margin-top: 24px; }
+
+        /* Before-card timeline — replaces the single "no response" alert with
+           a real applied → followed up → nothing sequence. */
+        .vp-timeline { display: flex; flex-direction: column; }
+        .vp-timeline-row { display: grid; grid-template-columns: 20px 1fr; gap: 12px; }
+        .vp-timeline-marker { display: flex; flex-direction: column; align-items: center; }
+        .vp-timeline-dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid #C7CBD3; background: #fff; flex-shrink: 0; }
+        .vp-timeline-dot.done { border-color: #9A9FA8; background: #E8EAF0; }
+        .vp-timeline-connector { width: 2px; flex: 1; min-height: 28px; background: #E5E7EB; margin: 3px 0; }
+        .vp-timeline-content { display: flex; flex-direction: column; gap: 3px; padding-bottom: 20px; }
+        .vp-timeline-label { font-size: 13px; font-weight: 700; color: #3A3F4C; font-family: var(--font-body); }
+        .vp-timeline-label.faded { font-weight: 500; font-style: italic; color: #B0B4BE; }
+        .vp-timeline-meta { font-size: 11px; color: #B0B4BE; font-family: var(--font-mono, monospace); }
+
         @media (max-width: 760px) {
           .vp-compare { grid-template-columns: 1fr; }
           .vp-before-col { order: 2; }
@@ -179,12 +193,24 @@ export default function ValueProp() {
                 <p style={{ fontSize: '10px', color: '#8A8F9A', fontFamily: 'var(--font-body)' }}>BA Business Management · University of Manchester</p>
               </div>
 
-              {/* Outcome */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '12px 14px', background: '#FEF2F2', borderRadius: '10px', border: '1px solid #FECACA' }}>
-                <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: '#FEE2E2', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                </div>
-                <span style={{ fontSize: '12px', color: '#DC2626', fontFamily: 'var(--font-body)', fontWeight: 500 }}>No response after 3 weeks</span>
+              {/* Outcome — timeline of what actually happens after sending a plain PDF */}
+              <div className="vp-timeline">
+                {[
+                  { label: 'Applied', meta: '14 Feb, 09:12', done: true },
+                  { label: 'Followed up', meta: '28 Feb, 17:40', done: true },
+                  { label: 'and then nothing', meta: null, done: false },
+                ].map((t, i, arr) => (
+                  <div key={t.label} className="vp-timeline-row">
+                    <span className="vp-timeline-marker">
+                      <span className={`vp-timeline-dot${t.done ? ' done' : ''}`} />
+                      {i < arr.length - 1 && <span className="vp-timeline-connector" />}
+                    </span>
+                    <span className="vp-timeline-content">
+                      <span className={`vp-timeline-label${t.done ? '' : ' faded'}`}>{t.label}</span>
+                      {t.meta && <span className="vp-timeline-meta">{t.meta}</span>}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
           </motion.div>

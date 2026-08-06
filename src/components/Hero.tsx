@@ -24,19 +24,14 @@ export default function Hero() {
     glowY.set((e.clientY - r.top - 300) * 0.15);
   };
 
+  // hero.mp4 is pre-trimmed to open on the "she comes to life" moment (the
+  // Reslink reveal + speaking), so it just needs to autoplay from its own
+  // start — no more skipping ahead past intro app-flow footage.
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
     v.muted = true;
     v.play().catch(() => {});
-  }, []);
-
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    const handler = () => { v.currentTime = 7; };
-    v.addEventListener('loadedmetadata', handler);
-    return () => v.removeEventListener('loadedmetadata', handler);
   }, []);
 
   return (

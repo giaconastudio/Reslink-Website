@@ -30,7 +30,14 @@ interface Props {
 
 export default function LogoTicker({ variant = 'company' }: Props) {
   const logos = variant === 'university' ? UNIVERSITY_LOGOS : COMPANY_LOGOS;
-  const doubled = [...logos, ...logos];
+  // Quadrupled, not doubled — on wide desktop screens a doubled 9-logo
+  // track isn't wide enough to fill the viewport, so the animation reached
+  // -50% (the seam between the two copies) with real blank space still
+  // visible to the right before it looped back to 0%. Four copies keeps
+  // the track wider than viewport+shift-distance even on ultrawide
+  // monitors (verified up to 2560px), so there's always logo content
+  // filling the row, no matter where the loop currently is.
+  const quadrupled = [...logos, ...logos, ...logos, ...logos];
 
   const label = variant === 'university'
     ? 'Students from top universities trust Reslink to land interviews'
@@ -39,7 +46,7 @@ export default function LogoTicker({ variant = 'company' }: Props) {
   return (
     <section style={{ background: '#fff', paddingTop: '52px', paddingBottom: '60px', overflow: 'hidden', borderTop: '1px solid #ECEEF1', borderBottom: '1px solid #ECEEF1' }}>
       <style>{`
-        @keyframes ticker { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+        @keyframes ticker { from { transform: translateX(0) } to { transform: translateX(-25%) } }
         .ticker-track { display: flex; animation: ticker 36s linear infinite; }
         .ticker-track:hover { animation-play-state: paused; }
         .ticker-logo { filter: grayscale(100%); opacity: 0.45; transition: filter 0.25s, opacity 0.25s; }
@@ -59,7 +66,7 @@ export default function LogoTicker({ variant = 'company' }: Props) {
         <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '120px', background: 'linear-gradient(to left, #fff, transparent)', zIndex: 1, pointerEvents: 'none' }} />
 
         <div className="ticker-track" style={{ gap: '64px', paddingLeft: '40px', alignItems: 'center' }}>
-          {doubled.map((logo, i) => (
+          {quadrupled.map((logo, i) => (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               key={i}

@@ -51,8 +51,8 @@ const B2B_PEOPLE: Person[] = [
   },
   {
     id: 'universities',
-    video: '/videos/university-counselor.mp4',
-    objectPosition: '50% 24%',
+    video: '/videos/university-campus.mp4',
+    objectPosition: '50% 30%',
     eyebrow: 'For universities & career centers',
     title: 'Giving every student a placement edge, at scale.',
     body: 'Equip your career center with a tool that helps students stand out in a crowded market, and shows administrators the outcomes to prove it.',

@@ -388,9 +388,6 @@ const [notifA, setNotifA] = useState(0);
         {/* ─── Logo ticker ─── */}
         <div style={{ background: '#F7F8FA' }}><LogoTicker /></div>
 
-        {/* ─── Not a company hiring directly? Route to agencies/universities ─── */}
-        <AudienceStories variant="b2b" />
-
         {/* ─── How it works ─── */}
         <section style={{ background: '#041635', padding: 'clamp(72px, 9vw, 112px) 24px', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', top: '20%', right: '-5%', width: '600px', height: '600px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.15), transparent 65%)', pointerEvents: 'none' }} />
@@ -630,6 +627,9 @@ const [notifA, setNotifA] = useState(0);
             </div>
           </div>
         </section>
+
+        {/* ─── Not a company hiring directly? Route to agencies/universities ─── */}
+        <AudienceStories variant="b2b" />
 
         {/* ─── Testimonials ─── */}
         <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 112px) 24px' }}>

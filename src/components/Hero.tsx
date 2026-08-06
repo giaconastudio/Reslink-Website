@@ -3,7 +3,6 @@
 import { useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import Link from 'next/link';
-import { Magnetic } from '@/components/TiltCard';
 import HeroToggle from '@/components/HeroToggle';
 
 export default function Hero() {
@@ -167,17 +166,13 @@ export default function Hero() {
 
         {/* CTAs */}
         <div className="hero-ctas hero-reveal" style={{ ['--hero-reveal-y' as string]: '12px', ['--hero-reveal-delay' as string]: '0.18s' }}>
-          <Magnetic>
-            <Link href="/get-started" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
-              Create your Reslink
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </Link>
-          </Magnetic>
-          <Magnetic strength={0.2}>
-            <Link href="#how-it-works" className="btn-outline" style={{ fontSize: '15px', padding: '14px 26px' }}>
-              See how it works
-            </Link>
-          </Magnetic>
+          <Link href="/get-started" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
+            Create your Reslink
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </Link>
+          <Link href="#how-it-works" className="btn-outline" style={{ fontSize: '15px', padding: '14px 26px' }}>
+            See how it works
+          </Link>
         </div>
 
         {/* Social proof row — real faces + free-to-start line, sits under the CTAs */}

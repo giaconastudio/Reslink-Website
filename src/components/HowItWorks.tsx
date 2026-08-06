@@ -81,44 +81,48 @@ export default function HowItWorks() {
       <style>{`
         /* Card-contained, not full-bleed — the navy lives on an inset,
            rounded card sitting on a light page, matching the reference. */
-        .hiw-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 16px; }
+        /* top:68px docks the sticky pin below the fixed navbar (also 68px
+           tall) instead of underneath it — without this the navbar painted
+           over the card's top edge every time the section pinned. */
+        .hiw-sticky { position: sticky; top: 68px; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 16px; }
         .hiw-card {
-          position: relative; width: 100%; max-width: 1280px; height: calc(100vh - 32px); max-height: 860px;
+          position: relative; width: 100%; max-width: 1180px; height: calc(100vh - 68px - 32px); max-height: 720px;
           border-radius: 32px; background: #041635; overflow: hidden;
           display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-          padding-top: 56px;
+          padding-top: 40px;
           box-shadow: 0 40px 100px rgba(4,22,53,0.35);
         }
         .hiw-glow { position: absolute; top: 50%; right: 8%; transform: translateY(-50%); width: 620px; height: 620px; border-radius: 50%; background: radial-gradient(circle, rgba(12,99,227,0.18), transparent 65%); pointer-events: none; }
-        .hiw-inner { width: 100%; position: relative; z-index: 1; padding: 0 72px; }
+        .hiw-inner { width: 100%; position: relative; z-index: 1; padding: 0 56px; }
         /* Centered header, like the reference — frees the left column to fit
            all four steps without also carrying the page title inline. */
-        .hiw-header { text-align: center; margin-bottom: 40px; }
-        .hiw-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: ${ACCENT}; margin-bottom: 10px; font-family: var(--font-body); }
-        .hiw-title { font-family: var(--font-phudu); font-size: clamp(26px, 3vw, 40px); font-weight: 900; color: #fff; line-height: 1.02; letter-spacing: -0.03em; }
-        .hiw-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 40px; width: 100%; align-items: center; }
+        .hiw-header { text-align: center; margin-bottom: 24px; }
+        .hiw-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: ${ACCENT}; margin-bottom: 8px; font-family: var(--font-body); }
+        .hiw-title { font-family: var(--font-phudu); font-size: clamp(22px, 2.4vw, 32px); font-weight: 900; color: #fff; line-height: 1.02; letter-spacing: -0.03em; }
+        .hiw-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 32px; width: 100%; align-items: center; }
 
-        .hiw-list { display: flex; flex-direction: column; gap: 22px; }
+        .hiw-list { display: flex; flex-direction: column; gap: 14px; }
         /* Monzo-style step marker — "Step" label over a big plain numeral,
            no circle/connector-line, sitting left of the title+description. */
         .hiw-row { position: relative; display: grid; grid-template-columns: 52px 1fr; gap: 18px; align-items: start; cursor: pointer; border: none; background: none; text-align: left; width: 100%; padding: 0; }
         .hiw-row-scroll { position: absolute; top: -10px; right: 14px; z-index: 3; display: none; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.06); backdrop-filter: blur(8px); border: 1.5px solid rgba(216,249,80,0.45); }
         .hiw-stepnum { display: flex; flex-direction: column; }
         .hiw-stepnum-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 2px; font-family: var(--font-body); transition: color 0.3s; }
-        .hiw-stepnum-value { font-family: var(--font-phudu); font-size: 30px; font-weight: 900; line-height: 1; color: rgba(255,255,255,0.35); transition: color 0.3s; }
+        .hiw-stepnum-value { font-family: var(--font-phudu); font-size: 24px; font-weight: 900; line-height: 1; color: rgba(255,255,255,0.35); transition: color 0.3s; }
         .hiw-row.active .hiw-stepnum-label, .hiw-row.active .hiw-stepnum-value { color: ${ACCENT}; }
-        .hiw-rowcontent { padding: 0 0 6px; border-radius: 16px; transition: opacity 0.3s, background 0.3s, padding 0.3s; }
-        .hiw-rowcontent.active { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); padding: 16px 18px 20px; margin: -16px -18px -6px; }
-        .hiw-rowlabel { font-family: var(--font-phudu); font-size: 20px; font-weight: 800; letter-spacing: -0.01em; color: #fff; line-height: 1.15; transition: color 0.3s; }
+        .hiw-rowcontent { padding: 0 0 4px; border-radius: 14px; transition: opacity 0.3s, background 0.3s, padding 0.3s; }
+        .hiw-rowcontent.active { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); padding: 12px 14px 16px; margin: -12px -14px -4px; }
+        .hiw-rowlabel { font-family: var(--font-phudu); font-size: 17px; font-weight: 800; letter-spacing: -0.01em; color: #fff; line-height: 1.15; transition: color 0.3s; }
         .hiw-rowdesc { overflow: hidden; }
-        .hiw-rowdesc p { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.6; font-family: var(--font-body); padding-top: 8px; max-width: 380px; }
+        .hiw-rowdesc p { font-size: 13.5px; color: rgba(255,255,255,0.5); line-height: 1.55; font-family: var(--font-body); padding-top: 6px; max-width: 340px; }
 
         /* Product stage + step rail sit close together as one visual unit */
-        .hiw-stage-row { display: flex; align-items: center; justify-content: center; gap: 18px; }
+        .hiw-stage-row { display: flex; align-items: center; justify-content: center; gap: 14px; }
         /* Wide enough that object-fit:cover doesn't crop the video's own
            content off the sides — landscape-leaning, not the earlier
-           narrow portrait crop that cut text and fields out of frame. */
-        .hiw-stage { position: relative; width: 100%; max-width: 620px; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3.1; background: #0B0F1A; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
+           narrow portrait crop that cut text and fields out of frame.
+           Scaled down from an earlier oversized pass per feedback. */
+        .hiw-stage { position: relative; width: 100%; max-width: 480px; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3.1; background: #0B0F1A; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
         .hiw-stage video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease; }
         .hiw-stage-badge { position: absolute; top: 14px; left: 14px; z-index: 3; display: inline-flex; align-items: center; gap: 7px; background: rgba(11,15,26,0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.12); border-radius: 100px; padding: 6px 13px 6px 10px; }
         .hiw-stage-badge span { font-size: 12px; font-weight: 700; color: #fff; font-family: var(--font-body); letter-spacing: 0.02em; }
@@ -133,21 +137,19 @@ export default function HowItWorks() {
         .hiw-scrollhint-ring { width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid rgba(216,249,80,0.4); display: flex; align-items: center; justify-content: center; }
 
         @media (max-width: 860px) {
-          /* The fixed navbar sits at top:0 above everything, so a sticky child
-             pinned at top:0 too gets its top edge covered by the navbar bar
-             instead of docking beneath it. Offset by the navbar's height —
-             but keep the full 100vh height (rather than subtracting it) so
-             the centered content still gets its navy margin above it instead
-             of being squeezed flush against the top with no breathing room. */
-          .hiw-sticky { top: 68px; padding: 12px; }
-          .hiw-card { height: calc(100vh - 24px); max-height: none; border-radius: 22px; padding-top: 28px; }
-          .hiw-inner { padding: 0 20px 64px; }
-          .hiw-header { margin-bottom: 14px; }
+          /* .hiw-sticky's top:68px (set in the base rule) docks it below the
+             navbar; subtract that same 68px here so the card's own height
+             stays within the visible area instead of overflowing past the
+             bottom of the screen. */
+          .hiw-sticky { padding: 12px; }
+          .hiw-card { height: calc(100vh - 68px - 24px); max-height: none; border-radius: 22px; padding-top: 24px; }
+          .hiw-inner { padding: 0 20px 48px; }
+          .hiw-header { margin-bottom: 12px; }
           .hiw-grid { grid-template-columns: 1fr; gap: 12px; }
-          .hiw-list { gap: 10px; }
+          .hiw-list { gap: 8px; }
           .hiw-stage-row { order: -1; }
-          .hiw-stage { max-width: 220px; }
-          .hiw-title { font-size: 22px; }
+          .hiw-stage { max-width: 200px; }
+          .hiw-title { font-size: 20px; }
           .hiw-eyebrow { margin-bottom: 6px; }
           .hiw-rail { display: none; }
           /* Mobile's vertical budget is razor-thin (title + 4 steps + video

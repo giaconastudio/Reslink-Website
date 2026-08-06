@@ -150,18 +150,16 @@ export default function Hero() {
 
         {/* Headline */}
         <h1 className="hero-h1 hero-reveal" style={{ ['--hero-reveal-y' as string]: '18px', ['--hero-reveal-delay' as string]: '0.05s' }}>
-          Your resume,<br />
-          but{' '}
-          <span style={{ display: 'inline-block', position: 'relative' }}>
-            better
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/vector-underline.svg" alt="" aria-hidden="true" style={{ position: 'absolute', bottom: '-16px', left: 0, width: '100%', height: 'auto', pointerEvents: 'none' }} />
+          <span style={{ color: '#9CA3AF' }}>Resumes get ignored.</span><br />
+          Reslinks get{' '}
+          <span style={{ background: 'var(--accent)', padding: '0 6px', borderRadius: '4px', boxDecorationBreak: 'clone', WebkitBoxDecorationBreak: 'clone' }}>
+            watched.
           </span>
         </h1>
 
         {/* Subtext */}
         <p className="hero-sub hero-reveal" style={{ ['--hero-reveal-y' as string]: '14px', ['--hero-reveal-delay' as string]: '0.12s' }}>
-          Stand out and land more interviews with a personalized video resume that builds instant connections with recruiters.
+          One link. Your video intro, your resume, your work.
         </p>
 
         {/* CTAs */}

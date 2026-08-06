@@ -144,12 +144,12 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
             <Link href="/job-seekers" onClick={clearHash} style={navLinkStyle}
               onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = linkActiveColor; (e.currentTarget as HTMLElement).style.background = linkHoverBg; }}
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = linkColor; (e.currentTarget as HTMLElement).style.background = 'transparent'; }}
-            >For Job Seekers</Link>
+            >For Individuals</Link>
 
             <Link href="/companies" onClick={clearHash} style={navLinkStyle}
               onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = linkActiveColor; (e.currentTarget as HTMLElement).style.background = linkHoverBg; }}
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = linkColor; (e.currentTarget as HTMLElement).style.background = 'transparent'; }}
-            >For Companies</Link>
+            >For Business</Link>
 
             {/* Resources + Company — sharing one hover boundary so moving the mouse
                 directly between the two triggers never dips outside a tracked
@@ -223,8 +223,8 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
       {mobileOpen && (
         <div style={{ background: blue ? '#0C63E3' : dark ? '#041635' : '#fff', borderTop: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid #EEEEF0', padding: '8px 20px 20px', maxHeight: 'calc(100vh - 68px)', overflowY: 'auto' }}>
 
-          <Link href="/job-seekers" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#041635', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => { clearHash(); setMobileOpen(false); }}>For Job Seekers</Link>
-          <Link href="/companies" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#041635', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => { clearHash(); setMobileOpen(false); }}>For Companies</Link>
+          <Link href="/job-seekers" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#041635', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => { clearHash(); setMobileOpen(false); }}>For Individuals</Link>
+          <Link href="/companies" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#041635', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => { clearHash(); setMobileOpen(false); }}>For Business</Link>
 
           {/* Nav sections accordion */}
           {[

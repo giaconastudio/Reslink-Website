@@ -84,7 +84,10 @@ export default function ValueProp() {
   return (
     <section style={{ padding: '96px 0 112px', background: '#fff' }}>
       <style>{`
-        .vp-compare { display: grid; grid-template-columns: 1fr 1.55fr; gap: 16px; align-items: start; }
+        .vp-compare { display: grid; grid-template-columns: 1fr 1.55fr; gap: 16px; align-items: stretch; }
+        .vp-before-col { height: 100%; }
+        .vp-before-card { height: 100%; display: flex; flex-direction: column; }
+        .vp-timeline { margin-top: auto; }
         .vp-after { transition: transform 0.3s ease, box-shadow 0.3s ease; }
         .vp-after:hover { transform: translateY(-3px); box-shadow: 0 24px 72px rgba(4,22,53,0.16) !important; }
         /* Stats — tinted cards, one accent per card */
@@ -163,7 +166,7 @@ export default function ValueProp() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <div style={{ borderRadius: '18px', border: '1px solid #E8EAF0', padding: '24px', background: '#FAFBFC', height: '100%' }}>
+            <div className="vp-before-card" style={{ borderRadius: '18px', border: '1px solid #E8EAF0', padding: '24px', background: '#FAFBFC' }}>
               {/* Label */}
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <span style={{ fontSize: '12px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Before</span>

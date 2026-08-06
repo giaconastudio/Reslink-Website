@@ -92,9 +92,13 @@ export default function HowItWorks() {
           box-shadow: 0 40px 100px rgba(4,22,53,0.35);
         }
         .hiw-glow { position: absolute; top: 50%; right: 8%; transform: translateY(-50%); width: 620px; height: 620px; border-radius: 50%; background: radial-gradient(circle, rgba(12,99,227,0.18), transparent 65%); pointer-events: none; }
-        .hiw-grid { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 64px; width: 100%; align-items: center; position: relative; z-index: 1; padding: 0 64px; }
-        .hiw-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: ${ACCENT}; margin-bottom: 14px; font-family: var(--font-body); }
-        .hiw-title { font-family: var(--font-phudu); font-size: clamp(30px, 3.6vw, 50px); font-weight: 900; color: #fff; line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 40px; }
+        .hiw-inner { width: 100%; position: relative; z-index: 1; padding: 0 72px; }
+        /* Centered header, like the reference — frees the left column to fit
+           all four steps without also carrying the page title inline. */
+        .hiw-header { text-align: center; margin-bottom: 36px; }
+        .hiw-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: ${ACCENT}; margin-bottom: 10px; font-family: var(--font-body); }
+        .hiw-title { font-family: var(--font-phudu); font-size: clamp(26px, 3vw, 40px); font-weight: 900; color: #fff; line-height: 1.02; letter-spacing: -0.03em; }
+        .hiw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; width: 100%; align-items: center; }
 
         .hiw-list { display: flex; flex-direction: column; }
         .hiw-row { position: relative; display: grid; grid-template-columns: 30px 1fr; gap: 16px; align-items: stretch; cursor: pointer; border: none; background: none; text-align: left; width: 100%; padding: 0; }
@@ -116,10 +120,18 @@ export default function HowItWorks() {
         .hiw-rowdesc { overflow: hidden; }
         .hiw-rowdesc p { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.6; font-family: var(--font-body); padding-top: 8px; max-width: 380px; }
 
-        .hiw-stage { position: relative; border-radius: 18px; overflow: hidden; aspect-ratio: 20/13; background: #0B0F1A; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 40px 100px rgba(0,0,0,0.55); }
+        /* Contained product card, not edge-to-edge — comfortable navy margin
+           on all sides, more like a floated screenshot than a full bleed. */
+        .hiw-stage-wrap { display: flex; justify-content: center; }
+        .hiw-stage { position: relative; width: 100%; max-width: 440px; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; background: #0B0F1A; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
         .hiw-stage video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease; }
-        .hiw-stage-badge { position: absolute; top: 16px; left: 16px; z-index: 3; display: inline-flex; align-items: center; gap: 7px; background: rgba(11,15,26,0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.12); border-radius: 100px; padding: 6px 13px 6px 10px; }
+        .hiw-stage-badge { position: absolute; top: 14px; left: 14px; z-index: 3; display: inline-flex; align-items: center; gap: 7px; background: rgba(11,15,26,0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.12); border-radius: 100px; padding: 6px 13px 6px 10px; }
         .hiw-stage-badge span { font-size: 12px; font-weight: 700; color: #fff; font-family: var(--font-body); letter-spacing: 0.02em; }
+
+        /* Right-edge step indicator — a thin rail of dots, current step lit */
+        .hiw-rail { position: absolute; top: 50%; right: 20px; transform: translateY(-50%); z-index: 2; display: flex; flex-direction: column; gap: 10px; }
+        .hiw-rail-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.18); transition: background 0.3s, height 0.3s; }
+        .hiw-rail-dot.active { background: ${ACCENT}; height: 20px; border-radius: 3px; }
 
         .hiw-scrollhint { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px; }
         .hiw-scrollhint span { font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${ACCENT}; font-family: var(--font-body); }
@@ -134,10 +146,14 @@ export default function HowItWorks() {
              of being squeezed flush against the top with no breathing room. */
           .hiw-sticky { top: 68px; padding: 12px; }
           .hiw-card { height: calc(100vh - 24px); max-height: none; border-radius: 22px; }
-          .hiw-grid { grid-template-columns: 1fr; gap: 20px; padding: 0 20px 64px; }
-          .hiw-stage { order: -1; }
-          .hiw-title { margin-bottom: 20px; font-size: 26px; }
-          .hiw-eyebrow { margin-bottom: 8px; }
+          .hiw-inner { padding: 0 20px 64px; }
+          .hiw-header { margin-bottom: 18px; }
+          .hiw-grid { grid-template-columns: 1fr; gap: 16px; }
+          .hiw-stage-wrap { order: -1; }
+          .hiw-stage { max-width: 280px; }
+          .hiw-title { font-size: 22px; }
+          .hiw-eyebrow { margin-bottom: 6px; }
+          .hiw-rail { display: none; }
           /* Mobile's vertical budget is razor-thin (title + 4 steps + video
              stacked in one screen-height card) — the active-step highlight
              must not add any net height here, only a background tint, or
@@ -161,13 +177,16 @@ export default function HowItWorks() {
       <div className="hiw-sticky">
         <div className="hiw-card">
           <div className="hiw-glow" />
-          <div className="container">
+          <div className="hiw-inner">
+            {/* Centered header, spanning the full card width */}
+            <div className="hiw-header">
+              <p className="hiw-eyebrow">How it works</p>
+              <h2 className="hiw-title">Four steps to your next interview.</h2>
+            </div>
+
             <div className="hiw-grid">
               {/* Left — step timeline */}
               <div>
-                <p className="hiw-eyebrow">How it works</p>
-                <h2 className="hiw-title">Four steps to your<br />next interview.</h2>
-
                 <div className="hiw-list">
                   {steps.map((s, i) => {
                     const isActive = i === active;
@@ -208,24 +227,33 @@ export default function HowItWorks() {
 
               </div>
 
-              {/* Right — pinned video stage */}
-              <div className="hiw-stage">
-                {steps.map((s, i) => (
-                  <video
-                    key={s.num}
-                    ref={(el) => { videoRefs.current[i] = el; }}
-                    src={`/videos/step-0${i + 1}.mp4`}
-                    poster={`/videos/step-0${i + 1}-poster.jpg`}
-                    muted loop playsInline preload="metadata"
-                    style={{ opacity: i === active ? 1 : 0 }}
-                  />
-                ))}
-                <div className="hiw-stage-badge">
-                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: ACCENT, display: 'inline-block' }} />
-                  <span>Step {steps[active].num}</span>
+              {/* Right — pinned video stage, contained rather than edge-to-edge */}
+              <div className="hiw-stage-wrap">
+                <div className="hiw-stage">
+                  {steps.map((s, i) => (
+                    <video
+                      key={s.num}
+                      ref={(el) => { videoRefs.current[i] = el; }}
+                      src={`/videos/step-0${i + 1}.mp4`}
+                      poster={`/videos/step-0${i + 1}-poster.jpg`}
+                      muted loop playsInline preload="metadata"
+                      style={{ opacity: i === active ? 1 : 0 }}
+                    />
+                  ))}
+                  <div className="hiw-stage-badge">
+                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: ACCENT, display: 'inline-block' }} />
+                    <span>Step {steps[active].num}</span>
+                  </div>
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Right-edge step indicator */}
+          <div className="hiw-rail">
+            {steps.map((s, i) => (
+              <span key={s.num} className={`hiw-rail-dot${i === active ? ' active' : ''}`} />
+            ))}
           </div>
 
           {/* Scroll hint — desktop only; mobile uses the badge anchored to the stage */}

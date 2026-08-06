@@ -152,8 +152,10 @@ export default function Hero() {
         <h1 className="hero-h1 hero-reveal" style={{ ['--hero-reveal-y' as string]: '18px', ['--hero-reveal-delay' as string]: '0.05s' }}>
           <span style={{ color: '#9CA3AF' }}>Resumes get ignored.</span><br />
           Reslinks get{' '}
-          <span style={{ background: 'var(--accent)', padding: '0 6px', borderRadius: '4px', boxDecorationBreak: 'clone', WebkitBoxDecorationBreak: 'clone' }}>
+          <span style={{ display: 'inline-block', position: 'relative' }}>
             watched.
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/vector-underline.svg" alt="" aria-hidden="true" style={{ position: 'absolute', bottom: '-16px', left: 0, width: '100%', height: 'auto', pointerEvents: 'none' }} />
           </span>
         </h1>
 

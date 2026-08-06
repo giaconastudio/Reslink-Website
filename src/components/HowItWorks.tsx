@@ -91,7 +91,7 @@ export default function HowItWorks() {
            since the content block is shorter than the card's max-height.
            Centering balances the slack evenly on any screen height. */
         .hiw-card {
-          position: relative; width: 100%; max-width: 1180px; height: calc(100vh - 68px - 32px); max-height: 640px;
+          position: relative; width: 100%; max-width: 1180px; height: calc(100vh - 68px - 32px); max-height: 700px;
           border-radius: 32px; background: #041635; overflow: hidden;
           display: flex; flex-direction: column; align-items: center; justify-content: center;
           box-shadow: 0 40px 100px rgba(4,22,53,0.35);
@@ -100,13 +100,13 @@ export default function HowItWorks() {
         .hiw-inner { width: 100%; position: relative; z-index: 1; padding: 0 56px; }
         /* Centered header, like the reference — frees the left column to fit
            all four steps without also carrying the page title inline. */
-        .hiw-header { text-align: center; margin-bottom: 40px; }
+        .hiw-header { text-align: center; margin-bottom: 24px; }
         .hiw-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: ${ACCENT}; margin-bottom: 8px; font-family: var(--font-body); }
         .hiw-title { font-family: var(--font-phudu); font-size: clamp(22px, 2.4vw, 32px); font-weight: 900; color: #fff; line-height: 1.02; letter-spacing: -0.03em; }
-        .hiw-cta { margin-top: 20px; }
+        .hiw-cta { margin-top: 16px; }
         .hiw-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 32px; width: 100%; align-items: center; }
 
-        .hiw-list { display: flex; flex-direction: column; gap: 24px; }
+        .hiw-list { display: flex; flex-direction: column; gap: 18px; }
         /* Monzo-style step marker — "Step" label over a big plain numeral,
            no circle/connector-line, sitting left of the title+description. */
         .hiw-row { position: relative; display: grid; grid-template-columns: 52px 1fr; gap: 18px; align-items: start; cursor: pointer; border: none; background: none; text-align: left; width: 100%; padding: 0; }
@@ -127,7 +127,7 @@ export default function HowItWorks() {
            content off the sides — landscape-leaning, not the earlier
            narrow portrait crop that cut text and fields out of frame.
            Scaled down from an earlier oversized pass per feedback. */
-        .hiw-stage { position: relative; width: 100%; max-width: 480px; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3.1; background: #0B0F1A; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
+        .hiw-stage { position: relative; width: 100%; max-width: 440px; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3.1; background: #0B0F1A; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
         .hiw-stage video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease; }
         .hiw-stage-badge { position: absolute; top: 14px; left: 14px; z-index: 3; display: inline-flex; align-items: center; gap: 7px; background: rgba(11,15,26,0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.12); border-radius: 100px; padding: 6px 13px 6px 10px; }
         .hiw-stage-badge span { font-size: 12px; font-weight: 700; color: #fff; font-family: var(--font-body); letter-spacing: 0.02em; }
@@ -140,7 +140,7 @@ export default function HowItWorks() {
         /* In normal flow (not absolutely positioned) so it always sits below
            the actual content instead of overlapping it when the video makes
            the centered block taller than expected. */
-        .hiw-scrollhint { width: 100%; margin-top: 48px; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .hiw-scrollhint { width: 100%; margin-top: 22px; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px; }
         .hiw-scrollhint span { font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${ACCENT}; font-family: var(--font-body); }
         .hiw-scrollhint-ring { width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid rgba(216,249,80,0.4); display: flex; align-items: center; justify-content: center; }
 

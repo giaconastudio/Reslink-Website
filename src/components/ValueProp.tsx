@@ -27,6 +27,50 @@ function CountUp({ end, suffix, duration = 1.4 }: { end: number; suffix: string;
   return <span>{count}{suffix}</span>;
 }
 
+// One accent per card — blue, lime, and the new magenta, plus a navy card to
+// close the row (matches the trust-strip pattern: blue for action, lime for
+// the payoff, magenta as the warm human layer).
+const STATS = [
+  {
+    tone: 'blue', end: 3, unitSuffix: '×', label: 'more recruiter callbacks',
+    icon: (
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
+        <rect x="3" y="13" width="4" height="8" rx="1" fill="var(--blue-light)" opacity="0.45" />
+        <rect x="10" y="9" width="4" height="12" rx="1" fill="var(--blue-light)" opacity="0.7" />
+        <rect x="17" y="4" width="4" height="17" rx="1" fill="var(--blue-light)" />
+      </svg>
+    ),
+  },
+  {
+    tone: 'lime', end: 48, unitSuffix: 'h', label: 'average time to first response',
+    icon: (
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
+        <path d="M4 16a8 8 0 1 1 16 0" stroke="var(--accent-dark)" strokeWidth="2.5" strokeLinecap="round" />
+        <circle cx="19" cy="16" r="1.6" fill="var(--accent-dark)" />
+      </svg>
+    ),
+  },
+  {
+    tone: 'magenta', end: 85, unitSuffix: '%', label: 'average video watch-through',
+    icon: (
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="8" stroke="var(--magenta)" strokeOpacity="0.25" strokeWidth="2.5" />
+        <path d="M12 4a8 8 0 0 1 7.4 11" stroke="var(--magenta)" strokeWidth="2.5" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    tone: 'navy', end: 5, unitSuffix: ' min', label: 'to create your first Reslink',
+    icon: (
+      <svg width="60" height="12" viewBox="0 0 60 12" fill="none">
+        {[0, 1, 2, 3, 4].map(i => (
+          <circle key={i} cx={6 + i * 13} cy="6" r="5" fill="var(--accent)" opacity={1 - i * 0.14} />
+        ))}
+      </svg>
+    ),
+  },
+] as const;
+
 export default function ValueProp() {
   const pipRef = useRef<HTMLVideoElement>(null);
 
@@ -43,20 +87,36 @@ export default function ValueProp() {
         .vp-compare { display: grid; grid-template-columns: 1fr 1.55fr; gap: 16px; align-items: start; }
         .vp-after { transition: transform 0.3s ease, box-shadow 0.3s ease; }
         .vp-after:hover { transform: translateY(-3px); box-shadow: 0 24px 72px rgba(4,22,53,0.16) !important; }
-        .vp-stats { display: flex; justify-content: center; gap: 64px; margin-top: 56px; padding-top: 48px; border-top: 1px solid #ECEEF1; flex-wrap: wrap; }
+        /* Stats — tinted cards, one accent per card */
+        .vp-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 56px; }
+        .vp-stat-card { border-radius: 20px; padding: 28px 24px 24px; display: flex; flex-direction: column; }
+        .vp-stat-icon { height: 34px; display: flex; align-items: center; margin-bottom: 22px; }
+        .vp-stat-number { font-family: var(--font-phudu); font-size: clamp(30px, 3.2vw, 38px); font-weight: 900; line-height: 1; letter-spacing: -0.03em; display: flex; align-items: baseline; gap: 2px; }
+        .vp-stat-unit { font-size: 0.5em; font-weight: 700; }
+        .vp-stat-label { font-size: 13px; margin-top: 10px; font-family: var(--font-body); line-height: 1.4; }
+        .vp-stat-blue { background: var(--blue-xlight); }
+        .vp-stat-blue .vp-stat-number { color: var(--blue-light); }
+        .vp-stat-blue .vp-stat-label { color: #5C6070; }
+        .vp-stat-lime { background: #FAFEE8; }
+        .vp-stat-lime .vp-stat-number { color: var(--navy); }
+        .vp-stat-lime .vp-stat-label { color: #5C6070; }
+        .vp-stat-magenta { background: var(--magenta-light); }
+        .vp-stat-magenta .vp-stat-number { color: var(--magenta); }
+        .vp-stat-magenta .vp-stat-label { color: #5C6070; }
+        .vp-stat-navy { background: var(--navy); }
+        .vp-stat-navy .vp-stat-number { color: #fff; }
+        .vp-stat-navy .vp-stat-label { color: rgba(255,255,255,0.55); }
+        .vp-stats-caption { text-align: center; font-size: 13px; color: #9A9FA8; font-family: var(--font-body); margin-top: 24px; }
         @media (max-width: 760px) {
           .vp-compare { grid-template-columns: 1fr; }
           .vp-before-col { order: 2; }
-          .vp-stats { gap: 0; display: grid; grid-template-columns: 1fr 1fr; }
-          .vp-stat-item { padding: 24px 16px; border-bottom: 1px solid #ECEEF1; }
-          .vp-stat-item:nth-child(odd) { border-right: 1px solid #ECEEF1; }
+          .vp-stats-grid { grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 40px; }
+          .vp-stat-card { padding: 20px 18px 18px; border-radius: 16px; }
+          .vp-stat-icon { height: 28px; margin-bottom: 16px; }
           .vp-pip { top: -12px !important; right: -12px !important; width: 88px !important; height: 88px !important; border-radius: 12px !important; }
           .vp-header-row { padding-right: 108px !important; }
           .vp-with-reslink { display: none !important; }
           .vp-pip-label { display: none !important; }
-        }
-        @media (min-width: 761px) {
-          .vp-stat-item { text-align: center; }
         }
       `}</style>
       <div className="container">
@@ -225,26 +285,24 @@ export default function ValueProp() {
           </motion.div>
         </div>
 
-        {/* Stats strip */}
+        {/* Stats strip — tinted cards, one accent per card (blue / lime / magenta / navy) */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="vp-stats"
         >
-          {[
-            { end: 3, suffix: '×', label: 'more recruiter callbacks' },
-            { end: 48, suffix: 'h', label: 'avg. time to first response' },
-            { end: 85, suffix: '%', label: 'avg. video watch-through rate' },
-            { end: 5, suffix: ' min', label: 'to create your first Reslink' },
-          ].map(s => (
-            <div key={s.label} className="vp-stat-item">
-              <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 38px)', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em' }}>
-                <CountUp end={s.end} suffix={s.suffix} />
-              </p>
-              <p style={{ fontSize: '13px', color: '#9A9FA8', marginTop: '6px', fontFamily: 'var(--font-body)' }}>{s.label}</p>
-            </div>
-          ))}
+          <div className="vp-stats-grid">
+            {STATS.map(s => (
+              <div key={s.label} className={`vp-stat-card vp-stat-${s.tone}`}>
+                <div className="vp-stat-icon">{s.icon}</div>
+                <p className="vp-stat-number">
+                  <CountUp end={s.end} suffix="" /><span className="vp-stat-unit">{s.unitSuffix}</span>
+                </p>
+                <p className="vp-stat-label">{s.label}</p>
+              </div>
+            ))}
+          </div>
+          <p className="vp-stats-caption">Based on 10,000+ Reslinks created · updated 2026</p>
         </motion.div>
 
       </div>

@@ -96,7 +96,7 @@ export default function HowItWorks() {
         .hiw-header { text-align: center; margin-bottom: 40px; }
         .hiw-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: ${ACCENT}; margin-bottom: 10px; font-family: var(--font-body); }
         .hiw-title { font-family: var(--font-phudu); font-size: clamp(26px, 3vw, 40px); font-weight: 900; color: #fff; line-height: 1.02; letter-spacing: -0.03em; }
-        .hiw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; width: 100%; align-items: center; }
+        .hiw-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 40px; width: 100%; align-items: center; }
 
         .hiw-list { display: flex; flex-direction: column; gap: 22px; }
         /* Monzo-style step marker — "Step" label over a big plain numeral,
@@ -116,9 +116,9 @@ export default function HowItWorks() {
         /* Product stage + step rail sit close together as one visual unit */
         .hiw-stage-row { display: flex; align-items: center; justify-content: center; gap: 18px; }
         /* Wide enough that object-fit:cover doesn't crop the video's own
-           content off the sides — nearly square rather than the earlier
+           content off the sides — landscape-leaning, not the earlier
            narrow portrait crop that cut text and fields out of frame. */
-        .hiw-stage { position: relative; width: 100%; max-width: 460px; border-radius: 16px; overflow: hidden; aspect-ratio: 1/1.05; background: #0B0F1A; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
+        .hiw-stage { position: relative; width: 100%; max-width: 620px; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3.1; background: #0B0F1A; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
         .hiw-stage video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease; }
         .hiw-stage-badge { position: absolute; top: 14px; left: 14px; z-index: 3; display: inline-flex; align-items: center; gap: 7px; background: rgba(11,15,26,0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.12); border-radius: 100px; padding: 6px 13px 6px 10px; }
         .hiw-stage-badge span { font-size: 12px; font-weight: 700; color: #fff; font-family: var(--font-body); letter-spacing: 0.02em; }

@@ -11,7 +11,6 @@ import { AnimatedStat } from '@/components/CountUp';
 import { TiltCard } from '@/components/TiltCard';
 import LogoTicker from '@/components/LogoTicker';
 import AIScreeningDemo from '@/components/AIScreeningDemo';
-import HeroToggle from '@/components/HeroToggle';
 
 /* ─── Hero notifications ─── */
 const NOTIFICATIONS = [
@@ -322,9 +321,6 @@ const [notifA, setNotifA] = useState(0);
           <div style={{ maxWidth: '860px', margin: '0 auto', position: 'relative', zIndex: 1, textAlign: 'center' }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For companies</p>
-              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '28px' }}>
-                <HeroToggle active="companies" dark />
-              </div>
               <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 7.5vw, 96px)', fontWeight: 900, color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '24px' }}>
                 Make better hiring<br />decisions, <span style={{ color: '#D8F950' }}>faster.</span>
               </h1>

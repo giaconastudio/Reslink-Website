@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, CheckCircle, Eye, EyeOff, Briefcase, Building2, Users, GraduationCap, Flag } from 'lucide-react';
 import Navbar from '@/components/Navbar';
@@ -138,10 +139,15 @@ function RightSide({ type }: { type: AccountType }) {
   );
 }
 
-export default function GetStartedPage() {
+function GetStartedForm() {
+  const searchParams = useSearchParams();
+  const typeParam = searchParams.get('type');
+  const initialType: AccountType = ALL_TYPES.some(t => t.id === typeParam) ? (typeParam as AccountType) : 'seeker';
+  const initialAudience: 'individual' | 'org' = ORG_TYPES.some(t => t.id === initialType) ? 'org' : 'individual';
+
   const [step, setStep] = useState<1 | 2 | 3>(1);
-  const [audience, setAudience] = useState<'individual' | 'org'>('individual');
-  const [selectedType, setSelectedType] = useState<AccountType>('seeker');
+  const [audience, setAudience] = useState<'individual' | 'org'>(initialAudience);
+  const [selectedType, setSelectedType] = useState<AccountType>(initialType);
   const [showPw, setShowPw] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', username: '', password: '' });
 
@@ -187,7 +193,7 @@ export default function GetStartedPage() {
                       }}
                         style={{ flex: 1, padding: '10px 12px', borderRadius: '10px', border: 'none', background: 'transparent', color: audience === a ? '#fff' : '#9A9FA8', fontSize: '13px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: 'pointer', transition: 'color 0.2s', position: 'relative' }}>
                         {audience === a && <motion.span layoutId="gsAudiencePill" transition={{ type: 'spring', stiffness: 450, damping: 38 }} style={{ position: 'absolute', inset: 0, background: '#0C63E3', borderRadius: '10px', boxShadow: '0 2px 10px rgba(12,99,227,0.28)', zIndex: 0 }} />}
-                        <span style={{ position: 'relative', zIndex: 1 }}>{a === 'individual' ? 'Individuals' : 'Organizations'}</span>
+                        <span style={{ position: 'relative', zIndex: 1 }}>{a === 'individual' ? 'Individuals' : 'Business'}</span>
                       </button>
                     ))}
                   </div>
@@ -244,7 +250,7 @@ export default function GetStartedPage() {
                   {(() => { const t = ALL_TYPES.find(t => t.id === selectedType)!; const Icon = t.icon; return <><Icon size={12} color="#0C63E3" /><span style={{ fontSize: '12px', fontWeight: 700, color: '#0C63E3', fontFamily: 'var(--font-body)' }}>{t.label}</span></>; })()}
                 </div>
                 <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: '30px', fontWeight: 900, color: '#041635', letterSpacing: '-0.03em', marginBottom: '6px' }}>Your details</h2>
-                <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '22px' }}>You're almost in.</p>
+                <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '22px' }}>You&apos;re almost in.</p>
 
                 <button style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1.5px solid #ECEEF1', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', fontSize: '14px', fontWeight: 600, color: '#041635', fontFamily: 'var(--font-body)', cursor: 'pointer', marginBottom: '16px', transition: 'background 0.15s' }}
                   onMouseEnter={e => (e.currentTarget.style.background = '#F7F8FA')}
@@ -312,7 +318,7 @@ export default function GetStartedPage() {
               <div style={{ width: '72px', height: '72px', borderRadius: '50%', background: '#D8F950', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}>
                 <CheckCircle size={36} color="#041635" strokeWidth={2.5} />
               </div>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4vw, 46px)', fontWeight: 900, color: '#041635', letterSpacing: '-0.03em', marginBottom: '12px' }}>You're in.</h2>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4vw, 46px)', fontWeight: 900, color: '#041635', letterSpacing: '-0.03em', marginBottom: '12px' }}>You&apos;re in.</h2>
               <p style={{ fontSize: '15px', color: '#5C6070', fontFamily: 'var(--font-body)', lineHeight: 1.65, marginBottom: '32px' }}>
                 Welcome, {form.name.split(' ')[0] || 'there'}. Time to build something that gets you noticed.
               </p>
@@ -326,5 +332,13 @@ export default function GetStartedPage() {
       </div>
       <Footer />
     </>
+  );
+}
+
+export default function GetStartedPage() {
+  return (
+    <Suspense fallback={null}>
+      <GetStartedForm />
+    </Suspense>
   );
 }

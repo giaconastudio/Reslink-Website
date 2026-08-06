@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import {
   ChevronDown, Menu, X,
@@ -54,7 +55,19 @@ function DropItem({ href, icon: Icon, label, desc, badge, onClick }: {
   );
 }
 
+// Maps the page a visitor is on to the matching account type on the sign-up
+// page, so "Get started" arrives with that audience already selected.
+const SIGNUP_TYPE_BY_PATH: Record<string, string> = {
+  '/companies': 'company',
+  '/agencies': 'agency',
+  '/universities': 'university',
+  '/veterans': 'veteran',
+  '/students': 'student',
+};
+
 export default function Navbar({ dark = false, blue = false }: { dark?: boolean; blue?: boolean }) {
+  const pathname = usePathname();
+  const signupHref = SIGNUP_TYPE_BY_PATH[pathname] ? `/get-started?type=${SIGNUP_TYPE_BY_PATH[pathname]}` : '/get-started';
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
@@ -189,14 +202,14 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
               onMouseEnter={e => { (e.currentTarget.style.background = linkHoverBg); (e.currentTarget.style.color = linkActiveColor); }}
               onMouseLeave={e => { (e.currentTarget.style.background = 'transparent'); (e.currentTarget.style.color = linkColor); }}
             >Log in</Link>
-            <Link href="/get-started" className="btn-primary" style={{ padding: '9px 18px', fontSize: '14px' }}>
+            <Link href={signupHref} className="btn-primary" style={{ padding: '9px 18px', fontSize: '14px' }}>
               Get started free
             </Link>
           </div>
 
           {/* Mobile: Get started + toggle */}
           <div style={{ display: 'none', alignItems: 'center', gap: '8px' }} className="mobile-toggle">
-            <Link href="/get-started" className="btn-primary" style={{ padding: '8px 14px', fontSize: '13px', fontWeight: 700 }}>
+            <Link href={signupHref} className="btn-primary" style={{ padding: '8px 14px', fontSize: '13px', fontWeight: 700 }}>
               Get started
             </Link>
             <button onClick={() => { setMobileOpen(!mobileOpen); setMobileExpanded(null); }} style={{ width: '44px', height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'none', border: 'none', cursor: 'pointer', color: isDark ? '#fff' : '#041635', flexShrink: 0 }}>
@@ -253,7 +266,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
           ))}
 
           <Link href="/pricing" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#041635', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => setMobileOpen(false)}>Pricing</Link>
-          <Link href="/get-started" className="btn-primary" style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }} onClick={() => setMobileOpen(false)}>Get started free</Link>
+          <Link href={signupHref} className="btn-primary" style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }} onClick={() => setMobileOpen(false)}>Get started free</Link>
         </div>
       )}
 

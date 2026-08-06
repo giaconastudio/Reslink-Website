@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 
 const ACCENT = '#D8F950';
 
@@ -102,6 +103,7 @@ export default function HowItWorks() {
         .hiw-header { text-align: center; margin-bottom: 40px; }
         .hiw-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: ${ACCENT}; margin-bottom: 8px; font-family: var(--font-body); }
         .hiw-title { font-family: var(--font-phudu); font-size: clamp(22px, 2.4vw, 32px); font-weight: 900; color: #fff; line-height: 1.02; letter-spacing: -0.03em; }
+        .hiw-cta { margin-top: 20px; }
         .hiw-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 32px; width: 100%; align-items: center; }
 
         .hiw-list { display: flex; flex-direction: column; gap: 24px; }
@@ -156,6 +158,7 @@ export default function HowItWorks() {
           .hiw-stage-row { order: -1; }
           .hiw-stage { max-width: 200px; }
           .hiw-title { font-size: 20px; }
+          .hiw-cta { margin-top: 14px; padding: 10px 18px !important; font-size: 13px !important; }
           .hiw-eyebrow { margin-bottom: 6px; }
           .hiw-rail { display: none; }
           /* Mobile's vertical budget is razor-thin (title + 4 steps + video
@@ -187,6 +190,10 @@ export default function HowItWorks() {
             <div className="hiw-header">
               <p className="hiw-eyebrow">How it works</p>
               <h2 className="hiw-title">Four steps to your next interview.</h2>
+              <Link href="/get-started" className="btn-primary hiw-cta">
+                Create your free account
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </Link>
             </div>
 
             <div className="hiw-grid">

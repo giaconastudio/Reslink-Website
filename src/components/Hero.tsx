@@ -3,7 +3,6 @@
 import { useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import Link from 'next/link';
-import HeroToggle from '@/components/HeroToggle';
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -143,11 +142,6 @@ export default function Hero() {
       `}</style>
 
       <div className="hero-inner">
-        {/* Audience toggle — persists across both hero pages so visitors can switch back and forth */}
-        <div className="hero-reveal" style={{ ['--hero-reveal-y' as string]: '10px', display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-          <HeroToggle active="jobseekers" />
-        </div>
-
         {/* Headline */}
         <h1 className="hero-h1 hero-reveal" style={{ ['--hero-reveal-y' as string]: '18px', ['--hero-reveal-delay' as string]: '0.05s' }}>
           <span style={{ color: '#9CA3AF' }}>Resumes get ignored.</span><br />

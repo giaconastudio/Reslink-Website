@@ -96,7 +96,7 @@ export default function HowItWorks() {
           box-shadow: 0 40px 100px rgba(4,22,53,0.35);
         }
         .hiw-glow { position: absolute; top: 50%; right: 8%; transform: translateY(-50%); width: 620px; height: 620px; border-radius: 50%; background: radial-gradient(circle, rgba(12,99,227,0.18), transparent 65%); pointer-events: none; }
-        .hiw-inner { width: 100%; position: relative; z-index: 1; padding: 36px 56px 0; }
+        .hiw-inner { width: 100%; position: relative; z-index: 1; padding: 0 56px; }
         /* Centered header, like the reference — frees the left column to fit
            all four steps without also carrying the page title inline. */
         .hiw-header { text-align: center; margin-bottom: 24px; }
@@ -135,7 +135,10 @@ export default function HowItWorks() {
         .hiw-rail-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.18); transition: background 0.3s, height 0.3s; }
         .hiw-rail-dot.active { background: ${ACCENT}; height: 20px; border-radius: 3px; }
 
-        .hiw-scrollhint { position: absolute; bottom: 44px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        /* In normal flow (not absolutely positioned) so it always sits below
+           the actual content instead of overlapping it when the video makes
+           the centered block taller than expected. */
+        .hiw-scrollhint { width: 100%; margin-top: 28px; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px; }
         .hiw-scrollhint span { font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${ACCENT}; font-family: var(--font-body); }
         .hiw-scrollhint-ring { width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid rgba(216,249,80,0.4); display: flex; align-items: center; justify-content: center; }
 
@@ -250,14 +253,16 @@ export default function HowItWorks() {
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Scroll hint — desktop only; mobile uses the badge anchored to the stage */}
-          <div className="hiw-scrollhint">
-            <span>Keep scrolling</span>
-            <motion.div className="hiw-scrollhint-ring" animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 1.3 }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="2.6"><polyline points="6 9 12 15 18 9"/></svg>
-            </motion.div>
+            {/* Scroll hint — desktop only; mobile uses the badge anchored to
+                the stage. In normal flow now, so it can never overlap the
+                video above it regardless of how tall the content gets. */}
+            <div className="hiw-scrollhint">
+              <span>Keep scrolling</span>
+              <motion.div className="hiw-scrollhint-ring" animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 1.3 }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="2.6"><polyline points="6 9 12 15 18 9"/></svg>
+              </motion.div>
+            </div>
           </div>
         </div>
       </div>

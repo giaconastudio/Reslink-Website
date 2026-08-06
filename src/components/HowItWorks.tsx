@@ -81,9 +81,9 @@ export default function HowItWorks() {
       <style>{`
         /* Card-contained, not full-bleed — the navy lives on an inset,
            rounded card sitting on a light page, matching the reference. */
-        .hiw-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 32px; }
+        .hiw-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 16px; }
         .hiw-card {
-          position: relative; width: 100%; max-width: 1280px; height: calc(100vh - 64px); max-height: 780px;
+          position: relative; width: 100%; max-width: 1280px; height: calc(100vh - 32px); max-height: 860px;
           border-radius: 32px; background: #041635; overflow: hidden;
           display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
           padding-top: 56px;
@@ -115,7 +115,10 @@ export default function HowItWorks() {
 
         /* Product stage + step rail sit close together as one visual unit */
         .hiw-stage-row { display: flex; align-items: center; justify-content: center; gap: 18px; }
-        .hiw-stage { position: relative; width: 100%; max-width: 340px; border-radius: 16px; overflow: hidden; aspect-ratio: 3/4; background: #0B0F1A; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
+        /* Wide enough that object-fit:cover doesn't crop the video's own
+           content off the sides — nearly square rather than the earlier
+           narrow portrait crop that cut text and fields out of frame. */
+        .hiw-stage { position: relative; width: 100%; max-width: 460px; border-radius: 16px; overflow: hidden; aspect-ratio: 1/1.05; background: #0B0F1A; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
         .hiw-stage video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease; }
         .hiw-stage-badge { position: absolute; top: 14px; left: 14px; z-index: 3; display: inline-flex; align-items: center; gap: 7px; background: rgba(11,15,26,0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.12); border-radius: 100px; padding: 6px 13px 6px 10px; }
         .hiw-stage-badge span { font-size: 12px; font-weight: 700; color: #fff; font-family: var(--font-body); letter-spacing: 0.02em; }

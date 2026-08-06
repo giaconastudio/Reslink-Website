@@ -88,8 +88,12 @@ export default function ValueProp() {
         .vp-before-col { height: 100%; }
         .vp-before-card { height: 100%; display: flex; flex-direction: column; }
         .vp-timeline { margin-top: auto; }
-        .vp-after { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        /* Stretch to match the before card's full height (its timeline can
+           run longer or shorter depending on content) instead of leaving
+           invisible slack below the card's own border. */
+        .vp-after { height: 100%; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease; }
         .vp-after:hover { transform: translateY(-3px); box-shadow: 0 24px 72px rgba(4,22,53,0.16) !important; }
+        .vp-after-last { flex: 1; }
         /* Stats — tinted cards, one accent per card */
         .vp-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 56px; }
         .vp-stat-card { border-radius: 20px; padding: 28px 24px 24px; display: flex; flex-direction: column; }
@@ -289,8 +293,9 @@ export default function ValueProp() {
                 <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#0C63E3', flexShrink: 0 }} />
               </div>
 
-              {/* Interview booked */}
-              <div style={{ padding: '14px 24px', background: '#FAFFF0', display: 'flex', alignItems: 'center', gap: '10px' }}>
+              {/* Interview booked — grows to absorb any extra height so the
+                  card always fills its full stretched column height */}
+              <div className="vp-after-last" style={{ padding: '14px 24px', background: '#FAFFF0', display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#D8F950', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#041635" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                 </div>

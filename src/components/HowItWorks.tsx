@@ -96,7 +96,7 @@ export default function HowItWorks() {
           box-shadow: 0 40px 100px rgba(4,22,53,0.35);
         }
         .hiw-glow { position: absolute; top: 50%; right: 8%; transform: translateY(-50%); width: 620px; height: 620px; border-radius: 50%; background: radial-gradient(circle, rgba(12,99,227,0.18), transparent 65%); pointer-events: none; }
-        .hiw-inner { width: 100%; position: relative; z-index: 1; padding: 0 56px; }
+        .hiw-inner { width: 100%; position: relative; z-index: 1; padding: 36px 56px 0; }
         /* Centered header, like the reference — frees the left column to fit
            all four steps without also carrying the page title inline. */
         .hiw-header { text-align: center; margin-bottom: 24px; }
@@ -135,7 +135,7 @@ export default function HowItWorks() {
         .hiw-rail-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.18); transition: background 0.3s, height 0.3s; }
         .hiw-rail-dot.active { background: ${ACCENT}; height: 20px; border-radius: 3px; }
 
-        .hiw-scrollhint { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .hiw-scrollhint { position: absolute; bottom: 44px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px; }
         .hiw-scrollhint span { font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${ACCENT}; font-family: var(--font-body); }
         .hiw-scrollhint-ring { width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid rgba(216,249,80,0.4); display: flex; align-items: center; justify-content: center; }
 

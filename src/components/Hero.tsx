@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'fram
 import Link from 'next/link';
 
 export default function Hero() {
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const pipRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
   // Scroll parallax — product frame recedes slightly as you scroll past
@@ -24,11 +24,11 @@ export default function Hero() {
     glowY.set((e.clientY - r.top - 300) * 0.15);
   };
 
-  // hero.mp4 is pre-trimmed to open on the "she comes to life" moment (the
-  // Reslink reveal + speaking), so it just needs to autoplay from its own
-  // start — no more skipping ahead past intro app-flow footage.
+  // The frame behind it is now a static shot (hero-poster.jpg) instead of a
+  // looping full-flow animation — only the PIP bubble plays, matching the
+  // simpler "resume + speaking video" composition of the reference design.
   useEffect(() => {
-    const v = videoRef.current;
+    const v = pipRef.current;
     if (!v) return;
     v.muted = true;
     v.play().catch(() => {});
@@ -76,14 +76,26 @@ export default function Hero() {
           background: #fff;
           box-shadow: 0 40px 120px rgba(4,22,53,0.18), 0 8px 28px rgba(4,22,53,0.08);
         }
-        .hero-bar { background: #F7F8FA; padding: 11px 16px; border-bottom: 1px solid #EEEEF0; display: flex; align-items: center; gap: 6px; }
+        .hero-bar { background: #041635; padding: 11px 16px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 6px; }
         .hero-video {
           position: relative;
           overflow: hidden;
-          background: #060D24;
+          background: #fff;
           aspect-ratio: 16/9;
           width: 100%;
         }
+        .hero-pip {
+          position: absolute; right: clamp(16px, 3vw, 32px); bottom: clamp(16px, 3vw, 32px);
+          width: clamp(96px, 16vw, 148px); aspect-ratio: 1; border-radius: 16px; overflow: hidden;
+          border: 3px solid #fff; box-shadow: 0 16px 44px rgba(0,0,0,0.32); z-index: 3;
+        }
+        .hero-pip video { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .hero-pip-badge {
+          position: absolute; bottom: 7px; left: 50%; transform: translateX(-50%);
+          background: rgba(4,22,53,0.78); backdrop-filter: blur(4px); border-radius: 100px;
+          padding: 3px 9px; display: flex; align-items: center; gap: 5px; white-space: nowrap;
+        }
+        .hero-pip-badge span { font-size: 9px; font-weight: 700; color: #fff; letter-spacing: 0.06em; text-transform: uppercase; font-family: var(--font-body); }
         .hero-float {
           position: absolute; background: #fff; border-radius: 14px;
           box-shadow: 0 16px 40px rgba(4,22,53,0.14); border: 1px solid #EEEEF0;
@@ -209,23 +221,34 @@ export default function Hero() {
               <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#FF5F57', display: 'inline-block' }} />
               <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#FEBC2E', display: 'inline-block' }} />
               <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#28C840', display: 'inline-block' }} />
-              <div style={{ flex: 1, margin: '0 12px', background: '#EAECEF', borderRadius: '6px', padding: '4px 14px', fontSize: '11px', color: '#9A9FA8', textAlign: 'center', fontFamily: 'var(--font-body)' }}>
+              <div style={{ flex: 1, margin: '0 12px', background: 'rgba(255,255,255,0.08)', borderRadius: '6px', padding: '4px 14px', fontSize: '11px', color: 'rgba(255,255,255,0.5)', textAlign: 'center', fontFamily: 'var(--font-body)' }}>
                 reslink.io/oliviastone
               </div>
-              <span className="hero-open-example" style={{ fontSize: '11px', fontWeight: 700, color: '#0C63E3', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', display: 'inline-flex', alignItems: 'center', gap: '4px', borderRadius: '100px', padding: '4px 8px' }}>
+              <span className="hero-open-example" style={{ fontSize: '11px', fontWeight: 700, color: '#D8F950', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', display: 'inline-flex', alignItems: 'center', gap: '4px', borderRadius: '100px', padding: '4px 8px' }}>
                 Open example
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
               </span>
             </div>
 
             <div className="hero-video">
-              <video
-                ref={videoRef}
-                src="/videos/hero.mp4"
-                poster="/videos/hero-poster.jpg"
-                autoPlay muted loop playsInline preload="auto"
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', transform: 'scale(1.06)' }}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/videos/hero-poster.jpg"
+                alt=""
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
               />
+              <div className="hero-pip">
+                <video
+                  ref={pipRef}
+                  src="/videos/pip-person-compressed.mp4"
+                  poster="/videos/pip-person-poster.jpg"
+                  autoPlay muted loop playsInline preload="auto"
+                />
+                <div className="hero-pip-badge">
+                  <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 1.4 }} style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#D8F950', flexShrink: 0, display: 'inline-block' }} />
+                  <span>Playing</span>
+                </div>
+              </div>
               <div className="hero-open-hint" style={{ position: 'absolute', inset: 0, background: 'rgba(4,22,53,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 2 }}>
                 <style>{`
                   @media (hover: none) {

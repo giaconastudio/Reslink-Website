@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'fram
 import Link from 'next/link';
 
 export default function Hero() {
-  const pipRef = useRef<HTMLVideoElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
   // Scroll parallax — product frame recedes slightly as you scroll past
@@ -24,11 +24,11 @@ export default function Hero() {
     glowY.set((e.clientY - r.top - 300) * 0.15);
   };
 
-  // The frame behind it is now a static shot (hero-poster.jpg) instead of a
-  // looping full-flow animation — only the PIP bubble plays, matching the
-  // simpler "resume + speaking video" composition of the reference design.
+  // hero.mp4 is pre-trimmed to open on the "she comes to life" moment (the
+  // Reslink reveal + speaking), so it just needs to autoplay from its own
+  // start — no more skipping ahead past intro app-flow footage.
   useEffect(() => {
-    const v = pipRef.current;
+    const v = videoRef.current;
     if (!v) return;
     v.muted = true;
     v.play().catch(() => {});
@@ -80,22 +80,10 @@ export default function Hero() {
         .hero-video {
           position: relative;
           overflow: hidden;
-          background: #fff;
+          background: #060D24;
           aspect-ratio: 16/9;
           width: 100%;
         }
-        .hero-pip {
-          position: absolute; right: clamp(16px, 3vw, 32px); bottom: clamp(16px, 3vw, 32px);
-          width: clamp(96px, 16vw, 148px); aspect-ratio: 1; border-radius: 16px; overflow: hidden;
-          border: 3px solid #fff; box-shadow: 0 16px 44px rgba(0,0,0,0.32); z-index: 3;
-        }
-        .hero-pip video { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .hero-pip-badge {
-          position: absolute; bottom: 7px; left: 50%; transform: translateX(-50%);
-          background: rgba(4,22,53,0.78); backdrop-filter: blur(4px); border-radius: 100px;
-          padding: 3px 9px; display: flex; align-items: center; gap: 5px; white-space: nowrap;
-        }
-        .hero-pip-badge span { font-size: 9px; font-weight: 700; color: #fff; letter-spacing: 0.06em; text-transform: uppercase; font-family: var(--font-body); }
         .hero-float {
           position: absolute; background: #fff; border-radius: 14px;
           box-shadow: 0 16px 40px rgba(4,22,53,0.14); border: 1px solid #EEEEF0;
@@ -231,24 +219,13 @@ export default function Hero() {
             </div>
 
             <div className="hero-video">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/videos/hero-poster.jpg"
-                alt=""
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
+              <video
+                ref={videoRef}
+                src="/videos/hero.mp4"
+                poster="/videos/hero-poster.jpg"
+                autoPlay muted loop playsInline preload="auto"
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', transform: 'scale(1.06)' }}
               />
-              <div className="hero-pip">
-                <video
-                  ref={pipRef}
-                  src="/videos/pip-person-compressed.mp4"
-                  poster="/videos/pip-person-poster.jpg"
-                  autoPlay muted loop playsInline preload="auto"
-                />
-                <div className="hero-pip-badge">
-                  <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 1.4 }} style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#D8F950', flexShrink: 0, display: 'inline-block' }} />
-                  <span>Playing</span>
-                </div>
-              </div>
               <div className="hero-open-hint" style={{ position: 'absolute', inset: 0, background: 'rgba(4,22,53,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 2 }}>
                 <style>{`
                   @media (hover: none) {

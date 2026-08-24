@@ -259,11 +259,15 @@ const BOARD_ROLE = BOARD_ROLES[0];
 
 export function JobBoardDemo() {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const rootRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(rootRef, { amount: 0.4 });
 
+  // Runs on mount, not gated on useInView — this card can already be
+  // sitting inside the viewport the moment the page loads (no scroll ever
+  // happens to trigger it), and IntersectionObserver-based hooks can then
+  // sit permanently unresolved until something nudges the browser to
+  // recheck (the same class of issue ScrollToTop.tsx works around for
+  // whileInView reveals elsewhere on this site). That silently produced
+  // exactly the "no animation, nothing happening" symptom reported here.
   useEffect(() => {
-    if (!inView) return;
     let cancelled = false;
     const timers: ReturnType<typeof setTimeout>[] = [];
     const intervals: ReturnType<typeof setInterval>[] = [];
@@ -291,11 +295,16 @@ export function JobBoardDemo() {
     };
     runCycle();
     return () => { cancelled = true; timers.forEach(clearTimeout); intervals.forEach(clearInterval); };
-  }, [inView]);
+  }, []);
 
   return (
-    <div ref={rootRef} style={{ maxHeight: '460px', overflow: 'hidden' }}>
-      <div ref={scrollRef} style={{ overflowY: 'hidden' }}>
+    // scrollRef has to be the element that's actually height-constrained —
+    // it was on an inner wrapper with no height of its own (so its
+    // scrollHeight == its content height, meaning nothing to scroll)
+    // while this outer div held the real max-height + overflow:hidden.
+    // Scrolling a div with no overflow of its own does nothing.
+    <div ref={scrollRef} style={{ maxHeight: '460px', overflow: 'hidden' }}>
+      <div>
         {/* Branded hero — a fictitious example company */}
         <div style={{ background: 'linear-gradient(135deg, #4338CA 0%, #6D28D9 100%)', padding: '18px 20px 22px' }}>
           <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>

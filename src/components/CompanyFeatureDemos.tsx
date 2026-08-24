@@ -249,17 +249,40 @@ export function PipelineDemo() {
    this invents one instead (same convention as this site's other example
    personas). Auto-scrolls top to bottom through the whole page and loops. ── */
 const BOARD_ROLES = [
-  { title: 'Field Robotics Intern', dept: 'Engineering', type: 'Internship', typeColor: '#2F5FE0', location: 'Remote', pay: '$24/hr', tags: ['Remote', 'Video'], applicants: 7 },
+  {
+    title: 'Field Robotics Intern', dept: 'Engineering', type: 'Internship', typeColor: '#2F5FE0', location: 'Remote', pay: '$24/hr', tags: ['Remote', 'Video'], applicants: 7,
+    detail: {
+      pills: ['Internship', 'Remote', 'Video Required'],
+      responsibilities: ['Support field testing of new sensor rigs on live warehouse floors', 'Log and triage hardware issues with the firmware team'],
+      skills: ['Python', 'ROS', 'Soldering'],
+      benefits: ['Fully remote with flexible hours', 'Direct mentorship from the founding team'],
+      about: 'Warehouse robotics is a physical problem, not just a software one. We’re looking for someone who wants hands-on time with real hardware, not just a simulator.',
+    },
+  },
   { title: 'Embedded Systems Engineer', dept: 'Engineering', type: 'Full-time', typeColor: '#16A34A', location: 'Austin, TX', pay: '$115,000 – $145,000', tags: ['Video'], applicants: 9 },
-  { title: 'Hardware QA Technician', dept: 'Operations', type: 'Full-time', typeColor: '#16A34A', location: 'Austin, TX', pay: '$62,000 – $78,000', tags: ['Video'], applicants: 5 },
+  {
+    title: 'Hardware QA Technician', dept: 'Operations', type: 'Full-time', typeColor: '#16A34A', location: 'Austin, TX', pay: '$62,000 – $78,000', tags: ['Video'], applicants: 5,
+    detail: {
+      pills: ['Full-time', 'On-site', 'Video Required'],
+      responsibilities: ['Run inspection and burn-in tests on every sensor rig before it ships', 'Document defects and work with engineering to close out root causes'],
+      skills: ['Test Equipment', 'GD&T', 'Excel'],
+      benefits: ['Full health coverage from day one', 'Direct mentorship from the founding team'],
+      about: 'Every unit that leaves our floor has been through this role’s hands first. We need someone meticulous who won’t wave through a rig that isn’t ready.',
+    },
+  },
   { title: 'Account Executive', dept: 'Sales', type: 'Full-time', typeColor: '#16A34A', location: 'Remote', pay: '$80,000 base + commission', tags: ['Remote'], applicants: 6 },
 ];
 const BOARD_CATEGORIES = ['All Roles', 'Engineering', 'Operations', 'Sales'];
-const BOARD_ROLE = BOARD_ROLES[0];
+const SEARCH_TARGET = 'Hardware QA Technician';
 
 export function JobBoardDemo() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [applyPressed, setApplyPressed] = useState(false);
+  const [searchText, setSearchText] = useState('');
+  const [filtered, setFiltered] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const visibleRoles = filtered ? BOARD_ROLES.filter(r => r.title === SEARCH_TARGET) : BOARD_ROLES;
+  const selectedRole = BOARD_ROLES[selectedIndex];
 
   // Runs on mount, not gated on useInView — this card can already be
   // sitting inside the viewport the moment the page loads (no scroll ever
@@ -287,13 +310,38 @@ export function JobBoardDemo() {
       }, 16);
       intervals.push(interval);
     };
+    const typeSearch = (onDone: () => void) => {
+      let i = 0;
+      const interval = setInterval(() => {
+        if (cancelled) { clearInterval(interval); return; }
+        i += 1;
+        setSearchText(SEARCH_TARGET.slice(0, i));
+        if (i >= SEARCH_TARGET.length) { clearInterval(interval); onDone(); }
+      }, 45);
+      intervals.push(interval);
+    };
     const runCycle = () => {
       scrollRef.current?.scrollTo({ top: 0, behavior: 'auto' });
       setApplyPressed(false);
-      // A short beat before it starts moving, then a slow, readable scroll —
-      // fast enough to not feel idle, slow enough to actually take in what's
-      // on screen as it passes (previous 3600ms/250ms felt like a jump-cut).
-      const tScrollStart = 650;
+      setSearchText('');
+      setFiltered(false);
+      setSelectedIndex(0);
+
+      // Hold at the top first — long enough to actually take in the hero
+      // and the role list before anything moves, instead of jumping
+      // straight into motion the instant this scrolls into view.
+      const tHold = 1600;
+      // Then type a search term into the bar and let it filter down to
+      // that one role, so the demo shows searching, not just scrolling.
+      const tTypeDone = tHold + SEARCH_TARGET.length * 45 + 500;
+      timers.push(setTimeout(() => typeSearch(() => {
+        if (cancelled) return;
+        setFiltered(true);
+        setSelectedIndex(BOARD_ROLES.findIndex(r => r.title === SEARCH_TARGET));
+      }), tHold));
+
+      // A slow, readable scroll through the rest of the board.
+      const tScrollStart = tTypeDone + 500;
       const scrollDuration = 7000;
       timers.push(setTimeout(() => {
         if (scrollRef.current) slowScrollTo(scrollRef.current.scrollHeight, scrollDuration);
@@ -353,23 +401,10 @@ export function JobBoardDemo() {
 
           <div>
             <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.14)', position: 'relative', aspectRatio: '16/11', background: '#DCE3EE' }}>
-              {/* Photo-style placeholder — an illustrated "office" scene
-                  (desk, window light, seated figures) rather than a bare
-                  missing-image glyph, since a flat icon on its own didn't
-                  read as "photo goes here" at this size. */}
-              <svg viewBox="0 0 320 220" preserveAspectRatio="xMidYMax slice" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
-                <rect width="320" height="220" fill="#DCE3EE" />
-                <rect x="0" y="0" width="320" height="130" fill="#EEF2F9" />
-                <rect x="40" y="18" width="70" height="112" fill="#CBD6E8" />
-                <rect x="210" y="18" width="70" height="112" fill="#CBD6E8" />
-                <circle cx="160" cy="60" r="26" fill="#F6C89A" opacity="0.9" />
-                <rect x="120" y="150" width="80" height="70" rx="6" fill="#B9C6DE" />
-                <circle cx="95" cy="185" r="16" fill="#C9AE93" />
-                <rect x="70" y="200" width="50" height="20" rx="8" fill="#9FB0CC" />
-                <circle cx="225" cy="185" r="16" fill="#D8B48A" />
-                <rect x="200" y="200" width="50" height="20" rx="8" fill="#9FB0CC" />
-                <rect x="100" y="130" width="120" height="10" fill="#AEBBD4" />
-              </svg>
+              {/* Placeholder photo standing in for the intro video —
+                  a stock shot rather than an empty icon, since a bare
+                  glyph didn't read as "photo goes here" at this size. */}
+              <div style={{ position: 'absolute', inset: 0, backgroundImage: 'url(/companies/job-board-video-placeholder.jpg)', backgroundSize: 'cover', backgroundPosition: 'center 30%' }} />
               <div style={{ position: 'absolute', inset: 0, background: 'rgba(11,23,57,0.45)' }} />
               <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: 'rgba(255,255,255,0.95)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -395,7 +430,12 @@ export function JobBoardDemo() {
         {/* Search + filter row */}
         <div style={{ background: '#F7F8FA', padding: '14px 18px 0' }}>
           <div style={{ display: 'flex', gap: '8px', marginBottom: '10px' }}>
-            <div style={{ flex: 1, fontSize: '10px', color: '#9AA1AE', fontFamily: 'var(--font-body)', background: '#fff', border: '1px solid #E4E7EC', borderRadius: '8px', padding: '8px 11px' }}>Search roles, teams, locations…</div>
+            <div style={{ flex: 1, fontSize: '10px', color: searchText ? '#041635' : '#9AA1AE', fontFamily: 'var(--font-body)', background: '#fff', border: searchText ? '1.5px solid #2F5FE0' : '1px solid #E4E7EC', borderRadius: '8px', padding: '8px 11px' }}>
+              {searchText || 'Search roles, teams, locations…'}
+              {searchText && searchText.length < SEARCH_TARGET.length && (
+                <motion.span animate={{ opacity: [1, 0] }} transition={{ duration: 0.5, repeat: Infinity, repeatType: 'reverse' }} style={{ display: 'inline-block', width: '1px', height: '10px', background: '#2F5FE0', marginLeft: '1px', verticalAlign: 'middle' }} />
+              )}
+            </div>
             <div style={{ fontSize: '10px', color: '#3A3F4C', fontFamily: 'var(--font-body)', background: '#fff', border: '1px solid #E4E7EC', borderRadius: '8px', padding: '8px 11px', whiteSpace: 'nowrap' }}>All job types ▾</div>
           </div>
           <div style={{ display: 'flex', gap: '6px', overflow: 'hidden' }}>
@@ -408,8 +448,10 @@ export function JobBoardDemo() {
         {/* Two-column: role list + detail */}
         <div style={{ background: '#F7F8FA', padding: '14px 18px 18px', display: 'grid', gridTemplateColumns: '0.85fr 1.15fr', gap: '10px', alignItems: 'start' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '7px' }}>
-            {BOARD_ROLES.map((r, i) => (
-              <div key={r.title} style={{ background: '#fff', borderRadius: '10px', border: i === 0 ? '1.5px solid #2F5FE0' : '1px solid #E8EAF0', padding: '10px 12px' }}>
+            {visibleRoles.map(r => {
+              const i = BOARD_ROLES.indexOf(r);
+              return (
+              <div key={r.title} style={{ background: '#fff', borderRadius: '10px', border: i === selectedIndex ? '1.5px solid #2F5FE0' : '1px solid #E8EAF0', padding: '10px 12px' }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '6px', marginBottom: '4px' }}>
                   <span style={{ fontSize: '11px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.3 }}>{r.title}</span>
                   <span style={{ fontSize: '8.5px', fontWeight: 700, color: r.typeColor, background: `${r.typeColor}18`, borderRadius: '100px', padding: '2px 7px', flexShrink: 0, whiteSpace: 'nowrap' }}>{r.type}</span>
@@ -422,13 +464,15 @@ export function JobBoardDemo() {
                   <span style={{ marginLeft: 'auto', fontSize: '9px', color: '#9AA1AE', fontFamily: 'var(--font-body)' }}>{r.applicants} applicants</span>
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
 
-          {/* Detail panel for the first (selected) role */}
-          <div style={{ background: '#fff', borderRadius: '10px', border: '1px solid #E8EAF0', padding: '14px' }}>
+          {/* Detail panel for whichever role is selected */}
+          <AnimatePresence mode="wait">
+          <motion.div key={selectedRole.title} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.25 }} style={{ background: '#fff', borderRadius: '10px', border: '1px solid #E8EAF0', padding: '14px' }}>
             <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px', marginBottom: '4px' }}>
-              <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>{BOARD_ROLE.title}</p>
+              <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>{selectedRole.title}</p>
               {/* Pressing this is what visibly triggers the loop restart —
                   matches the "click to loop" pattern used elsewhere in this
                   file (Pitch AI's Use Script) instead of a silent reset. */}
@@ -443,29 +487,30 @@ export function JobBoardDemo() {
                 )}
               </motion.span>
             </div>
-            <p style={{ fontSize: '10px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginBottom: '8px' }}>Nova Robotics · {BOARD_ROLE.dept}</p>
+            <p style={{ fontSize: '10px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginBottom: '8px' }}>Nova Robotics · {selectedRole.dept}</p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '12px' }}>
-              {['Internship', 'Remote', 'Video Required'].map(tag => (
+              {selectedRole.detail!.pills.map(tag => (
                 <span key={tag} style={{ fontSize: '8.5px', fontWeight: 600, color: '#2F5FE0', background: '#E8F0FE', borderRadius: '100px', padding: '2px 8px' }}>{tag}</span>
               ))}
             </div>
 
             <p style={{ fontSize: '9.5px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', marginBottom: '5px' }}>Responsibilities</p>
             <ul style={{ listStyle: 'disc', paddingLeft: '15px', display: 'flex', flexDirection: 'column', gap: '3px', marginBottom: '10px' }}>
-              <li style={{ fontSize: '9.5px', color: '#3A3F4C', fontFamily: 'var(--font-body)', lineHeight: 1.5 }}>Support field testing of new sensor rigs on live warehouse floors</li>
-              <li style={{ fontSize: '9.5px', color: '#3A3F4C', fontFamily: 'var(--font-body)', lineHeight: 1.5 }}>Log and triage hardware issues with the firmware team</li>
+              {selectedRole.detail!.responsibilities.map(r => (
+                <li key={r} style={{ fontSize: '9.5px', color: '#3A3F4C', fontFamily: 'var(--font-body)', lineHeight: 1.5 }}>{r}</li>
+              ))}
             </ul>
 
             <p style={{ fontSize: '9.5px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', marginBottom: '5px' }}>Skills &amp; Qualifications</p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '10px' }}>
-              {['Python', 'ROS', 'Soldering'].map(s => (
+              {selectedRole.detail!.skills.map(s => (
                 <span key={s} style={{ fontSize: '8.5px', fontWeight: 600, color: '#3A3F4C', background: '#F3F4F6', borderRadius: '100px', padding: '2px 8px' }}>{s}</span>
               ))}
             </div>
 
             <p style={{ fontSize: '9.5px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', marginBottom: '5px' }}>Benefits &amp; Perks</p>
             <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '4px', marginBottom: '10px' }}>
-              {['Fully remote with flexible hours', 'Direct mentorship from the founding team'].map(b => (
+              {selectedRole.detail!.benefits.map(b => (
                 <li key={b} style={{ display: 'flex', alignItems: 'flex-start', gap: '6px', fontSize: '9.5px', color: '#3A3F4C', fontFamily: 'var(--font-body)', lineHeight: 1.5 }}>
                   <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="3" strokeLinecap="round" style={{ marginTop: '2px', flexShrink: 0 }}><polyline points="20 6 9 17 4 12"/></svg>
                   {b}
@@ -475,9 +520,10 @@ export function JobBoardDemo() {
 
             <p style={{ fontSize: '9.5px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', marginBottom: '5px' }}>About the role</p>
             <p style={{ fontSize: '9.5px', color: '#3A3F4C', fontFamily: 'var(--font-body)', lineHeight: 1.55 }}>
-              Warehouse robotics is a physical problem, not just a software one. We&apos;re looking for someone who wants hands-on time with real hardware, not just a simulator.
+              {selectedRole.detail!.about}
             </p>
-          </div>
+          </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </div>

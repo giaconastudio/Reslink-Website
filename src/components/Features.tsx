@@ -100,7 +100,7 @@ function AnalyticsVisual() {
   }, [inView]);
 
   return (
-    <div ref={rootRef} style={{ width: '100%', height: '100%', padding: '16px 18px', display: 'flex', flexDirection: 'column', gap: '2px', background: '#fff', overflow: 'hidden' }}>
+    <div ref={rootRef} style={{ width: '100%', height: 'auto', padding: '16px 18px', display: 'flex', flexDirection: 'column', gap: '2px', background: '#fff' }}>
       <div style={{ marginBottom: '6px' }}>
         <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '14px', fontWeight: 900, color: '#041635', letterSpacing: '-0.01em' }}>MY RESLINKS</p>
         <p style={{ fontSize: '10px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '2px' }}>10 active · 12 total</p>
@@ -129,8 +129,11 @@ function AnalyticsVisual() {
         </div>
       ))}
 
-      {/* Expanded Insights panel, directly beneath the active row */}
-      <div style={{ background: '#F7F9FC', border: '1px solid #EDF0F4', borderTop: 'none', borderRadius: '0 0 10px 10px', padding: '12px', marginTop: '-2px' }}>
+      {/* Expanded Insights panel, directly beneath the active row. `layout`
+          so the card smoothly grows/shrinks as locations unfold instead of
+          the surrounding frame reserving a big fixed height that leaves
+          empty gray space whenever it's collapsed. */}
+      <motion.div layout transition={{ layout: { duration: 0.35, ease: 'easeInOut' } }} style={{ background: '#F7F9FC', border: '1px solid #EDF0F4', borderTop: 'none', borderRadius: '0 0 10px 10px', padding: '12px', marginTop: '-2px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '9px' }}>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9AA1AE" strokeWidth="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
           <span style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#041635', fontFamily: 'var(--font-body)' }}>Performance Analytics</span>
@@ -175,7 +178,7 @@ function AnalyticsVisual() {
             <p style={{ fontSize: '8px', color: '#0C63E3', fontWeight: 600, fontFamily: 'var(--font-body)', marginTop: '5px' }}>{locExpanded ? 'Show less' : 'Show more (+3)'}</p>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
@@ -197,6 +200,7 @@ function PitchAIVisual() {
   const [typedRole, setTypedRole] = useState('');
   const [pasted, setPasted] = useState(false);
   const [atBottom, setAtBottom] = useState(false);
+  const [clickingScript, setClickingScript] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<HTMLDivElement>(null);
   // Gate the cycle on visibility rather than mount: a fixed mount-time loop
@@ -245,6 +249,7 @@ function PitchAIVisual() {
       setTypedRole('');
       setPasted(false);
       setAtBottom(false);
+      setClickingScript(false);
 
       let i = 0;
       const typeRole = () => {
@@ -272,11 +277,13 @@ function PitchAIVisual() {
       after(tScrollStart, () => {
         if (scrollRef.current) slowScrollTo(scrollRef.current.scrollHeight, scrollDuration);
       });
-      after(tScrollStart + scrollDuration, () => setAtBottom(true));
-      // Short hold at the bottom, not a long dead pause — restart the loop
-      // shortly after the buttons land instead of sitting static for
-      // seconds with nothing moving.
-      after(tScrollStart + scrollDuration + 500, runCycle);
+      const tAtBottom = tScrollStart + scrollDuration;
+      after(tAtBottom, () => setAtBottom(true));
+      // A visible "click" on Use Script — cursor arrives, taps the button —
+      // is what actually triggers the loop restart, instead of it silently
+      // resetting off-screen with no cause shown.
+      after(tAtBottom + 950, () => setClickingScript(true));
+      after(tAtBottom + 950 + 400, runCycle);
     };
     runCycle();
     return () => { cancelled = true; timers.forEach(clearTimeout); intervals.forEach(clearInterval); };
@@ -367,17 +374,39 @@ function PitchAIVisual() {
               </div>
 
               {/* Once the panel finishes scrolling down, a gentle pulse on
-                  the final CTA keeps the card feeling alive instead of just
-                  sitting static in its finished state. */}
-              <motion.div
-                initial={{ opacity: 0, y: 6 }}
-                animate={atBottom ? { opacity: 1, y: 0, scale: [1, 1.025, 1] } : { opacity: 1, y: 0 }}
-                transition={atBottom ? { repeat: Infinity, duration: 2, ease: 'easeOut' } : { delay: 0.4, duration: 0.25 }}
-                style={{ background: '#D8F950', borderRadius: '8px', padding: '11px', textAlign: 'center', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '7px', marginBottom: '4px' }}
-              >
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#041635" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                <span style={{ fontSize: '13px', fontWeight: 800, color: '#041635', fontFamily: 'var(--font-body)' }}>Use Script</span>
-              </motion.div>
+                  the final CTA keeps the card feeling alive, then a cursor
+                  arrives and actually clicks it — that click is what visibly
+                  triggers the loop restart, instead of it silently resetting
+                  with no shown cause. */}
+              <div style={{ position: 'relative' }}>
+                <motion.div
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={
+                    clickingScript ? { opacity: 1, y: 0, scale: 0.96 }
+                    : atBottom ? { opacity: 1, y: 0, scale: [1, 1.025, 1] }
+                    : { opacity: 1, y: 0 }
+                  }
+                  transition={clickingScript ? { duration: 0.12 } : atBottom ? { repeat: Infinity, duration: 2, ease: 'easeOut' } : { delay: 0.4, duration: 0.25 }}
+                  style={{ background: '#D8F950', borderRadius: '8px', padding: '11px', textAlign: 'center', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '7px', marginBottom: '4px', position: 'relative' }}
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#041635" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span style={{ fontSize: '13px', fontWeight: 800, color: '#041635', fontFamily: 'var(--font-body)' }}>Use Script</span>
+                  {clickingScript && (
+                    <motion.span initial={{ opacity: 0.4 }} animate={{ opacity: 0 }} transition={{ duration: 0.35 }} style={{ position: 'absolute', inset: 0, borderRadius: '8px', background: '#041635' }} />
+                  )}
+                </motion.div>
+                {atBottom && (
+                  <motion.svg
+                    width="22" height="22" viewBox="0 0 24 24"
+                    initial={{ opacity: 0, top: '-14px', right: '40%' }}
+                    animate={clickingScript ? { opacity: 1, top: '8px', right: '18%', scale: 0.9 } : { opacity: 1, top: '-14px', right: '40%', scale: 1 }}
+                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    style={{ position: 'absolute', zIndex: 3, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.4))' }}
+                  >
+                    <path d="M4 2l14 6-5.5 2L18 15l-2.5 2.5L11 12l-2 5.5z" fill="#041635" stroke="#fff" strokeWidth="1.4" strokeLinejoin="round"/>
+                  </motion.svg>
+                )}
+              </div>
             </>
           )}
         </div>
@@ -495,7 +524,7 @@ function BadgeVisual() {
                 </motion.svg>
                 <motion.svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"
                   animate={{ x: [6, -2, 6], opacity: [0.4, 1, 0.4] }} transition={{ repeat: Infinity, duration: 1.4, ease: 'easeInOut' }}
-                  style={{ position: 'absolute', right: '-22px', top: '50%', marginTop: '-6.5px', transform: 'rotate(180deg)' }}>
+                  style={{ position: 'absolute', right: '-22px', top: '50%', marginTop: '-6.5px', rotate: 180 }}>
                   <polyline points="9 6 15 12 9 18" />
                 </motion.svg>
               </>
@@ -599,7 +628,7 @@ const tabs = [
       'Know which locations and companies are engaging most',
     ],
     bg: '#fff',
-    tall: true,
+    auto: true,
     visual: <AnalyticsVisual />,
   },
   {
@@ -734,7 +763,12 @@ export default function Features() {
            bottom of the frame. .tall must be at least as specific as the
            mobile overrides below so it doesn't get silently beaten by them
            at narrow widths. */
-        .feat-visual.tall { height: 480px; }
+        .feat-visual.tall { height: 420px; }
+        /* Insights hugs its actual content instead of reserving a big fixed
+           height that leaves gray empty space whenever locations are
+           collapsed — !important so it wins over the mobile height
+           overrides below regardless of specificity/media-query order. */
+        .feat-visual.auto { height: auto !important; }
         .feat-swipe-hint { display: none; }
         @media (max-width: 900px) {
           .feat-body { grid-template-columns: 1fr !important; }
@@ -822,7 +856,7 @@ export default function Features() {
                       <div style={{ background: '#fff', borderRadius: '5px', padding: '2px 14px', fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', border: '1px solid #E2E4E9' }}>app.reslink.io</div>
                     </div>
                   </div>
-                  <div className={`feat-visual${t.tall ? ' tall' : ''}`} style={{ background: t.bg }}>
+                  <div className={`feat-visual${t.tall ? ' tall' : ''}${t.auto ? ' auto' : ''}`} style={{ background: t.bg }}>
                     {t.visual}
                   </div>
                 </div>

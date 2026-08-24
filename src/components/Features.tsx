@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
-import { BarChart3, Sparkles, Video, Link2 } from 'lucide-react';
+import { BarChart3, Sparkles, Video, Link2, Zap } from 'lucide-react';
 
 /** Counts 0 → target with an ease-out, holds, then loops — so a card that's
  *  scrolled back into view still reads as "live" instead of a frozen number.
@@ -121,7 +121,7 @@ function AnalyticsVisual() {
 }
 
 const PITCH_ROLE = 'Sales Development Rep';
-const PITCH_DESC = 'We’re looking for a Sales Development Rep to own top-of-funnel outreach, qualify inbound leads, and partner with Account Executives to build pipeline. 3+ years of B2B SaaS prospecting preferred.';
+const PITCH_DESC = 'We’re looking for a Sales Development Rep to own top-of-funnel outreach, qualify inbound leads, and partner with Account Executives to build pipeline. You’ll run daily prospecting across email, phone, and LinkedIn, book qualified discovery calls, and keep our CRM clean and up to date. 3+ years of B2B SaaS prospecting experience preferred, along with strong written communication and a track record of hitting monthly quota.';
 const PITCH_SCRIPT = [
   'Hey there! My name is Alex, and I am excited to introduce myself. I have 5 years of experience as a Sales Development Rep, during which I have had the opportunity to work on a variety of exciting projects.',
   'One of my proudest achievements was leading a team of 15 and increasing sales by 51%. It was an incredible learning experience that really strengthened my leadership and strategic thinking skills.',
@@ -151,7 +151,28 @@ function PitchAIVisual() {
     if (!inView) return;
     let cancelled = false;
     const timers: ReturnType<typeof setTimeout>[] = [];
+    const intervals: ReturnType<typeof setInterval>[] = [];
     const after = (ms: number, fn: () => void) => timers.push(setTimeout(() => { if (!cancelled) fn(); }, ms));
+
+    // Manual eased scroll (setInterval + elapsed-time, not requestAnimationFrame
+    // — same reasoning as CountUp above) so the panel visibly, slowly makes
+    // its way down to the buttons instead of the near-instant native
+    // scrollTo(smooth), which read as the script "scrolling away" the moment
+    // it appeared rather than something you had time to actually see.
+    const slowScrollTo = (target: number, duration: number) => {
+      const el = scrollRef.current;
+      if (!el) return;
+      const start = el.scrollTop;
+      const distance = target - start;
+      const startTime = Date.now();
+      const interval = setInterval(() => {
+        if (cancelled) { clearInterval(interval); return; }
+        const p = Math.min(1, (Date.now() - startTime) / duration);
+        el.scrollTop = start + distance * (1 - Math.pow(1 - p, 2));
+        if (p >= 1) clearInterval(interval);
+      }, 16);
+      intervals.push(interval);
+    };
 
     const runCycle = () => {
       scrollRef.current?.scrollTo({ top: 0, behavior: 'auto' });
@@ -174,12 +195,18 @@ function PitchAIVisual() {
 
       const tPasted = tRoleDone + 500;
       after(tPasted + 700, () => setPhase('generating'));
-      after(tPasted + 1900, () => setPhase('result'));
-      after(tPasted + 2100, () => scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' }));
-      after(tPasted + 1900 + 4600, runCycle);
+      const tResult = tPasted + 1900;
+      after(tResult, () => setPhase('result'));
+      // Hold with the script fully visible and un-scrolled for a beat before
+      // easing down — long enough to actually read it, not just glimpse it.
+      const tScrollStart = tResult + 1500;
+      after(tScrollStart, () => {
+        if (scrollRef.current) slowScrollTo(scrollRef.current.scrollHeight, 2400);
+      });
+      after(tScrollStart + 2400 + 3200, runCycle);
     };
     runCycle();
-    return () => { cancelled = true; timers.forEach(clearTimeout); };
+    return () => { cancelled = true; timers.forEach(clearTimeout); intervals.forEach(clearInterval); };
   }, [inView]);
 
   return (
@@ -199,7 +226,7 @@ function PitchAIVisual() {
 
       {/* Everything below scrolls as one panel — the script lands underneath
           the role/description instead of replacing them on a separate page. */}
-      <div ref={scrollRef} style={{ flex: 1, overflowY: 'hidden', scrollBehavior: 'smooth' }}>
+      <div ref={scrollRef} style={{ flex: 1, overflowY: 'hidden' }}>
         <div style={{ padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <div>
             <p style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginBottom: '6px' }}>Role you&apos;re applying for</p>
@@ -265,28 +292,39 @@ function PitchAIVisual() {
   );
 }
 
+const BADGE_TILES = [
+  { Icon: Zap, title: 'One click', desc: 'Recruiters go straight to your Reslink from any PDF viewer' },
+  { Icon: Link2, title: 'Always linked', desc: 'Every copy of your resume has the badge automatically' },
+  { Icon: BarChart3, title: 'Trackable', desc: 'See how many recruiters clicked through to your Reslink' },
+];
+
 /** Loops: cursor drifts to "Play Intro" → click bounce → an intro video
- *  bubble pops in and plays → holds → fades out → cursor resets. */
+ *  bubble pops in and plays → holds → fades out → cursor resets. Gated on
+ *  visibility (like PitchAIVisual) so a visitor always lands on the calm,
+ *  idle resume state — never mid-click or mid-play. */
 function BadgeVisual() {
   const [playing, setPlaying] = useState(false);
   const [clicking, setClicking] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(rootRef, { amount: 0.5 });
 
   useEffect(() => {
+    if (!inView) return;
     let cancelled = false;
     const timers: ReturnType<typeof setTimeout>[] = [];
     const runCycle = () => {
       setPlaying(false);
       setClicking(false);
-      timers.push(setTimeout(() => { if (!cancelled) setClicking(true); }, 1400));
-      timers.push(setTimeout(() => { if (!cancelled) { setClicking(false); setPlaying(true); } }, 1750));
-      timers.push(setTimeout(() => { if (!cancelled) runCycle(); }, 1750 + 4200));
+      timers.push(setTimeout(() => { if (!cancelled) setClicking(true); }, 1800));
+      timers.push(setTimeout(() => { if (!cancelled) { setClicking(false); setPlaying(true); } }, 2150));
+      timers.push(setTimeout(() => { if (!cancelled) runCycle(); }, 2150 + 4200));
     };
     runCycle();
     return () => { cancelled = true; timers.forEach(clearTimeout); };
-  }, []);
+  }, [inView]);
 
   return (
-    <div style={{ width: '100%', height: '100%', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px', background: '#F7F8FA', justifyContent: 'center', position: 'relative' }}>
+    <div ref={rootRef} style={{ width: '100%', height: '100%', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px', background: '#F7F8FA', justifyContent: 'center', position: 'relative' }}>
       <div style={{ background: '#fff', borderRadius: '10px', border: '1px solid #E4E7EC', padding: '16px 18px', boxShadow: '0 4px 16px rgba(4,22,53,0.06)', position: 'relative' }}>
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '12px' }}>
           <div>
@@ -294,6 +332,8 @@ function BadgeVisual() {
             <p style={{ fontSize: '10px', color: '#6B7280', fontFamily: 'var(--font-body)', marginTop: '3px' }}>City, State · 555-000-0000 · email@gmail.com</p>
             <p style={{ fontSize: '10px', color: '#6B7280', fontFamily: 'var(--font-body)', marginTop: '1px' }}>linkedin.com/in/name</p>
           </div>
+          {/* Rectangular with rounded corners, not a full pill — matches the
+              rest of the site's button shape language. */}
           <motion.div
             animate={
               clicking ? { scale: 0.9, boxShadow: '0 0 0 0 rgba(216,249,80,0)' }
@@ -301,14 +341,18 @@ function BadgeVisual() {
               : { scale: [1, 1.045, 1], boxShadow: ['0 0 0 0 rgba(216,249,80,0.55)', '0 0 0 9px rgba(216,249,80,0)', '0 0 0 0 rgba(216,249,80,0)'] }
             }
             transition={clicking || playing ? { duration: 0.15 } : { repeat: Infinity, duration: 1.7, ease: 'easeOut' }}
-            style={{ display: 'flex', alignItems: 'center', gap: '5px', background: '#0C63E3', borderRadius: '20px', padding: '7px 13px', cursor: 'pointer', flexShrink: 0, position: 'relative' }}
+            style={{ display: 'flex', alignItems: 'center', gap: '5px', background: '#0C63E3', borderRadius: '9px', padding: '7px 13px', cursor: 'pointer', flexShrink: 0, position: 'relative' }}
           >
             <svg width="9" height="9" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
             <span style={{ fontSize: '11px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)' }}>Play Intro</span>
+            {/* Bigger, brighter click flash — a filled lime pulse behind the
+                button plus two expanding rings, instead of just thin rings
+                that were easy to miss. */}
             {clicking && (
               <>
-                <motion.span initial={{ opacity: 1, scale: 0.6 }} animate={{ opacity: 0, scale: 2.1 }} transition={{ duration: 0.55 }} style={{ position: 'absolute', inset: 0, borderRadius: '20px', border: '2.5px solid #D8F950' }} />
-                <motion.span initial={{ opacity: 0.8, scale: 0.6 }} animate={{ opacity: 0, scale: 1.6 }} transition={{ duration: 0.4, delay: 0.08 }} style={{ position: 'absolute', inset: 0, borderRadius: '20px', border: '2.5px solid #fff' }} />
+                <motion.span initial={{ opacity: 0.5 }} animate={{ opacity: 0 }} transition={{ duration: 0.5 }} style={{ position: 'absolute', inset: '-6px', borderRadius: '13px', background: '#D8F950', filter: 'blur(6px)', zIndex: -1 }} />
+                <motion.span initial={{ opacity: 1, scale: 0.6 }} animate={{ opacity: 0, scale: 2.3 }} transition={{ duration: 0.6 }} style={{ position: 'absolute', inset: 0, borderRadius: '9px', border: '3px solid #D8F950' }} />
+                <motion.span initial={{ opacity: 0.9, scale: 0.6 }} animate={{ opacity: 0, scale: 1.7 }} transition={{ duration: 0.45, delay: 0.08 }} style={{ position: 'absolute', inset: 0, borderRadius: '9px', border: '2.5px solid #fff' }} />
               </>
             )}
           </motion.div>
@@ -348,8 +392,8 @@ function BadgeVisual() {
         </div>
 
         {/* Intro video bubble — pops in on "click", plays, fades out.
-            Contained within the card (not overhanging the frame) and edged
-            in the brand lime instead of a plain white border. */}
+            Sits lower, clear of the browser-chrome bar above the frame, with
+            a plain white border (the lime ring read as too much). */}
         <AnimatePresence>
           {playing && (
             <motion.div
@@ -357,7 +401,7 @@ function BadgeVisual() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.8, y: -4 }}
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              style={{ position: 'absolute', top: '2px', right: '2px', width: '128px', height: '128px', borderRadius: '16px', overflow: 'hidden', border: '3px solid #D8F950', boxShadow: '0 18px 44px rgba(0,0,0,0.35)', zIndex: 5 }}
+              style={{ position: 'absolute', top: '38px', right: '2px', width: '124px', height: '124px', borderRadius: '16px', overflow: 'hidden', border: '3px solid #fff', boxShadow: '0 18px 44px rgba(0,0,0,0.35)', zIndex: 5 }}
             >
               <video src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" autoPlay muted loop playsInline preload="auto" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               <div style={{ position: 'absolute', bottom: '7px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(4,22,53,0.78)', borderRadius: '100px', padding: '3px 9px', display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -369,13 +413,11 @@ function BadgeVisual() {
         </AnimatePresence>
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px' }}>
-        {[
-          { icon: '⚡', title: 'One click', desc: 'Recruiters go straight to your Reslink from any PDF viewer' },
-          { icon: '🔗', title: 'Always linked', desc: 'Every copy of your resume has the badge automatically' },
-          { icon: '📊', title: 'Trackable', desc: 'See how many recruiters clicked through to your Reslink' },
-        ].map(b => (
+        {BADGE_TILES.map(b => (
           <div key={b.title} style={{ background: '#fff', borderRadius: '10px', border: '1px solid #E4E7EC', padding: '12px 10px' }}>
-            <p style={{ fontSize: '14px', marginBottom: '4px' }}>{b.icon}</p>
+            <div style={{ width: '24px', height: '24px', borderRadius: '7px', background: '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '7px' }}>
+              <b.Icon size={13} color="#0C63E3" strokeWidth={2.2} />
+            </div>
             <p style={{ fontSize: '11px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', marginBottom: '4px' }}>{b.title}</p>
             <p style={{ fontSize: '10px', color: '#6B7280', fontFamily: 'var(--font-body)', lineHeight: 1.4 }}>{b.desc}</p>
           </div>
@@ -412,6 +454,7 @@ const tabs = [
       'No blank page — start from a script built for the role you want',
     ],
     bg: '#fff',
+    tall: true,
     visual: <PitchAIVisual />,
   },
   {
@@ -473,6 +516,7 @@ const tabs = [
       'See exactly how many recruiters clicked through',
     ],
     bg: '#F7F8FA',
+    tall: true,
     visual: <BadgeVisual />,
   },
 ];
@@ -558,6 +602,12 @@ export default function Features() {
         .feat-visual-frame { border-radius: 14px; overflow: hidden; border: 1px solid #E2E4E9; box-shadow: 0 12px 40px rgba(4,22,53,0.1); }
         .feat-visual-bar { background: #F1F3F5; border-bottom: 1px solid #E2E4E9; padding: 9px 14px; display: flex; align-items: center; gap: 8px; }
         .feat-visual { height: 340px; overflow: hidden; }
+        /* Pitch AI and Apply Anywhere both needed more breathing room than
+           the others — their content was hugging the top chrome bar and the
+           bottom of the frame. .tall must be at least as specific as the
+           mobile overrides below so it doesn't get silently beaten by them
+           at narrow widths. */
+        .feat-visual.tall { height: 420px; }
         .feat-swipe-hint { display: none; }
         @media (max-width: 900px) {
           .feat-body { grid-template-columns: 1fr !important; }
@@ -565,10 +615,10 @@ export default function Features() {
              frame goes full-width on a narrow screen, and with the visual centered
              vertically inside a fixed height, that extra height was pushing the top
              of the resume mockup (the Play Intro pill) out of the clipped frame. */
-          .feat-visual { height: 460px; }
+          .feat-visual, .feat-visual.tall { height: 460px; }
         }
         @media (max-width: 420px) {
-          .feat-visual { height: 520px; }
+          .feat-visual, .feat-visual.tall { height: 520px; }
         }
         @media (max-width: 860px) {
           .feat-layout { grid-template-columns: 1fr; gap: 22px; }
@@ -645,7 +695,7 @@ export default function Features() {
                       <div style={{ background: '#fff', borderRadius: '5px', padding: '2px 14px', fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', border: '1px solid #E2E4E9' }}>app.reslink.io</div>
                     </div>
                   </div>
-                  <div className="feat-visual" style={{ background: t.bg }}>
+                  <div className={`feat-visual${t.tall ? ' tall' : ''}`} style={{ background: t.bg }}>
                     {t.visual}
                   </div>
                 </div>

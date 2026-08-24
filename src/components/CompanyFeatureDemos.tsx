@@ -290,10 +290,11 @@ export function JobBoardDemo() {
     const runCycle = () => {
       scrollRef.current?.scrollTo({ top: 0, behavior: 'auto' });
       setApplyPressed(false);
-      // Almost no pause before it starts moving — scrolling down IS how you
-      // see the board, so waiting first just read as the card sitting idle.
-      const tScrollStart = 250;
-      const scrollDuration = 3600;
+      // A short beat before it starts moving, then a slow, readable scroll —
+      // fast enough to not feel idle, slow enough to actually take in what's
+      // on screen as it passes (previous 3600ms/250ms felt like a jump-cut).
+      const tScrollStart = 650;
+      const scrollDuration = 7000;
       timers.push(setTimeout(() => {
         if (scrollRef.current) slowScrollTo(scrollRef.current.scrollHeight, scrollDuration);
       }, tScrollStart));
@@ -315,61 +316,72 @@ export function JobBoardDemo() {
     // Scrolling a div with no overflow of its own does nothing.
     <div ref={scrollRef} style={{ maxHeight: '460px', overflow: 'hidden' }}>
       <div>
-        {/* Branded hero — a fictitious example company */}
-        <div style={{ background: 'linear-gradient(135deg, #4338CA 0%, #6D28D9 100%)', padding: '18px 20px 22px' }}>
-          <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4338CA" strokeWidth="2.5"><path d="M12 2 L2 7 L12 12 L22 7 Z"/><path d="M2 17 L12 22 L22 17"/><path d="M2 12 L12 17 L22 12"/></svg>
-          </div>
-          <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '18px', fontWeight: 900, color: '#fff', letterSpacing: '-0.01em' }}>NOVA ROBOTICS</p>
-          <div style={{ display: 'flex', gap: '6px', marginTop: '9px' }}>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '9.5px', fontWeight: 600, color: 'rgba(255,255,255,0.85)', background: 'rgba(255,255,255,0.1)', borderRadius: '100px', padding: '4px 10px' }}>
-              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-              Hardware Company
-            </span>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '9.5px', fontWeight: 600, color: 'rgba(255,255,255,0.85)', background: 'rgba(255,255,255,0.1)', borderRadius: '100px', padding: '4px 10px' }}>
-              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              Austin, TX
-            </span>
-          </div>
-          <div style={{ display: 'flex', gap: '7px', marginTop: '9px' }}>
-            <span style={{ fontSize: '9.5px', fontWeight: 700, color: '#fff', background: 'rgba(255,255,255,0.12)', borderRadius: '7px', padding: '5px 10px' }}>Website</span>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '9.5px', fontWeight: 700, color: '#fff', background: 'rgba(255,255,255,0.12)', borderRadius: '7px', padding: '5px 10px' }}>
-              LinkedIn <span style={{ width: '11px', height: '11px', borderRadius: '2px', background: '#0A66C2', display: 'inline-block' }} />
-            </span>
-          </div>
+        {/* Cover band — the site's own branded header above every company's board */}
+        <div style={{ position: 'relative', background: 'linear-gradient(120deg, #0C1E4D 0%, #1B3A8C 100%)', padding: '14px 20px 34px', overflow: 'hidden' }}>
+          <span style={{ display: 'inline-block', fontSize: '9px', fontWeight: 700, color: '#fff', background: 'rgba(255,255,255,0.14)', borderRadius: '6px', padding: '4px 9px', marginBottom: '10px' }}>Reslink Job Board</span>
+          <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '19px', fontWeight: 900, color: '#fff', letterSpacing: '-0.01em', lineHeight: 1.05 }}>YOUR ROLE,</p>
+          <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '19px', fontWeight: 900, color: '#C6FF3D', letterSpacing: '-0.01em', lineHeight: 1.05 }}>FOUND FASTER</p>
+        </div>
 
-          <p style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', marginTop: '18px', marginBottom: '6px' }}>About the company</p>
-          <p style={{ fontSize: '10.5px', color: 'rgba(255,255,255,0.75)', fontFamily: 'var(--font-body)', lineHeight: 1.6, maxWidth: '72%' }}>
-            We build the sensors and control systems behind next-generation warehouse robotics — a small team with real ownership over what ships, working directly with the customers who use it every day.
-          </p>
-
-          <div style={{ marginTop: '14px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.2)', position: 'relative', aspectRatio: '16/8', background: '#3730A3' }}>
-            {/* A real "image placeholder" (mountain/sun glyph, the standard
-                missing-image convention) instead of a decorative gradient —
-                reads clearly as "photo goes here", not as content itself. */}
-            <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.28)" strokeWidth="1.5">
-                <rect x="3" y="3" width="18" height="18" rx="2" />
-                <circle cx="8.5" cy="8.5" r="1.5" />
-                <path d="M21 15l-5-5L5 21" />
-              </svg>
+        {/* Company info — a fictitious example company */}
+        <div style={{ background: '#0B1220', padding: '18px 20px 20px', display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: '16px' }}>
+          <div>
+            <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1B3A8C" strokeWidth="2.5"><path d="M12 2 L2 7 L12 12 L22 7 Z"/><path d="M2 17 L12 22 L22 17"/><path d="M2 12 L12 17 L22 12"/></svg>
             </div>
-            <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(255,255,255,0.95)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="#4338CA"><path d="M8 5v14l11-7z"/></svg>
+            <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '17px', fontWeight: 900, color: '#fff', letterSpacing: '-0.01em' }}>NOVA ROBOTICS</p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '9px' }}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '9.5px', fontWeight: 600, color: 'rgba(255,255,255,0.85)', background: 'rgba(255,255,255,0.08)', borderRadius: '100px', padding: '4px 10px' }}>
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                Hardware Company
+              </span>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '9.5px', fontWeight: 600, color: 'rgba(255,255,255,0.85)', background: 'rgba(255,255,255,0.08)', borderRadius: '100px', padding: '4px 10px' }}>
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Austin, TX
+              </span>
+            </div>
+            <div style={{ display: 'flex', gap: '7px', marginTop: '9px' }}>
+              <span style={{ fontSize: '9.5px', fontWeight: 700, color: '#fff', background: 'rgba(255,255,255,0.1)', borderRadius: '7px', padding: '5px 10px' }}>Website</span>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '9.5px', fontWeight: 700, color: '#fff', background: 'rgba(255,255,255,0.1)', borderRadius: '7px', padding: '5px 10px' }}>
+                LinkedIn <span style={{ width: '11px', height: '11px', borderRadius: '2px', background: '#0A66C2', display: 'inline-block' }} />
+              </span>
+            </div>
+
+            <p style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', marginTop: '16px', marginBottom: '6px' }}>About the company</p>
+            <p style={{ fontSize: '10px', color: 'rgba(255,255,255,0.7)', fontFamily: 'var(--font-body)', lineHeight: 1.6 }}>
+              We build the sensors and control systems behind next-generation warehouse robotics — a small team with real ownership over what ships.
+            </p>
+          </div>
+
+          <div>
+            <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.14)', position: 'relative', aspectRatio: '16/11', background: '#1A2333' }}>
+              {/* A real "image placeholder" (mountain/sun glyph, the standard
+                  missing-image convention) instead of a decorative gradient —
+                  reads clearly as "photo goes here", not as content itself. */}
+              <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" />
+                </svg>
               </div>
+              <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: 'rgba(255,255,255,0.95)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#1B3A8C"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+              <span style={{ position: 'absolute', bottom: '8px', left: '10px', fontSize: '9px', color: 'rgba(255,255,255,0.7)', fontFamily: 'var(--font-body)' }}>Meet the Nova Robotics team</span>
             </div>
-            <span style={{ position: 'absolute', bottom: '8px', left: '10px', fontSize: '9.5px', color: 'rgba(255,255,255,0.8)', fontFamily: 'var(--font-body)' }}>Meet the Nova Robotics team</span>
-          </div>
 
-          <div style={{ display: 'flex', gap: '14px', marginTop: '14px' }}>
-            <div>
-              <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '16px', fontWeight: 900, color: '#fff' }}>4</p>
-              <p style={{ fontSize: '9px', color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-body)' }}>Open Roles</p>
-            </div>
-            <div>
-              <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '16px', fontWeight: 900, color: '#fff' }}>27</p>
-              <p style={{ fontSize: '9px', color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-body)' }}>Applicants</p>
+            <div style={{ display: 'flex', gap: '8px', marginTop: '10px' }}>
+              <div style={{ flex: 1, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '9px', padding: '9px 10px' }}>
+                <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '15px', fontWeight: 900, color: '#fff' }}>4</p>
+                <p style={{ fontSize: '8.5px', color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)' }}>Open Roles</p>
+              </div>
+              <div style={{ flex: 1, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '9px', padding: '9px 10px' }}>
+                <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '15px', fontWeight: 900, color: '#fff' }}>27</p>
+                <p style={{ fontSize: '8.5px', color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)' }}>Applicants</p>
+              </div>
             </div>
           </div>
         </div>

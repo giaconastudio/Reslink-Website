@@ -11,6 +11,7 @@ import { AnimatedStat } from '@/components/CountUp';
 import { TiltCard } from '@/components/TiltCard';
 import LogoTicker from '@/components/LogoTicker';
 import AIScreeningDemo from '@/components/AIScreeningDemo';
+import { CollabDemo, PipelineDemo, JobBoardDemo } from '@/components/CompanyFeatureDemos';
 import AudienceStories from '@/components/AudienceStories';
 
 /* ─── Hero notifications ─── */
@@ -492,95 +493,18 @@ const [notifA, setNotifA] = useState(0);
                       </div>
                       {t.id === 'ai' ? (
                         <AIScreeningDemo />
+                      ) : t.id === 'collab' ? (
+                        <CollabDemo />
+                      ) : t.id === 'pipeline' ? (
+                        <PipelineDemo />
+                      ) : t.id === 'board' ? (
+                        <JobBoardDemo />
                       ) : (
                         <div style={{ maxHeight: '520px', overflow: 'hidden' }}>
                           <Image src={t.img} alt={t.alt} width={2880} height={1419} quality={100} style={{ width: '100%', height: 'auto', display: 'block' }} />
                         </div>
                       )}
                     </motion.div>
-
-                    {/* ── Team Collaboration overlays ── */}
-                    {t.id === 'collab' && (<>
-                      <motion.div key="collab-float-1" className="co-chip-tl" animate={{ y: [0, -6, 0] }} transition={{ repeat: Infinity, duration: 3.4, ease: 'easeInOut', delay: 0.75 }}>
-                        <motion.div className="co-chip" initial={{ opacity: 0, y: -16, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.3, duration: 0.45, ease: [0.22,1,0.36,1] }}>
-                          <div className="co-chip-icon" style={{ background: '#7C3AED', borderRadius: '50%' }}>
-                            <span style={{ fontSize: '13px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>JP</span>
-                          </div>
-                          <div>
-                            <p className="co-chip-title">James Park left a note</p>
-                            <p className="co-chip-sub">&ldquo;Impressive — component library is legit&rdquo;</p>
-                          </div>
-                        </motion.div>
-                      </motion.div>
-                      <motion.div key="collab-float-2" className="co-chip-br" animate={{ y: [0, -7, 0] }} transition={{ repeat: Infinity, duration: 3.0, ease: 'easeInOut', delay: 1.15 }}>
-                        <motion.div className="co-chip" initial={{ opacity: 0, y: 16, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.7, duration: 0.45, ease: [0.22,1,0.36,1] }}>
-                          <div className="co-chip-icon" style={{ background: '#FFF7ED', borderRadius: '50%' }}>
-                            <span style={{ fontSize: '13px', fontWeight: 900, color: '#D97706', fontFamily: 'var(--font-phudu)' }}>YO</span>
-                          </div>
-                          <div>
-                            <p className="co-chip-title">You rated 4 stars</p>
-                            <p className="co-chip-sub">2 teammates also reviewed · just now</p>
-                          </div>
-                          <div style={{ display: 'flex', gap: '2px' }}>
-                            {[1,2,3,4].map(s => <svg key={s} width="12" height="12" viewBox="0 0 24 24" fill="#F59E0B" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>)}
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="#E5E7EB" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                          </div>
-                        </motion.div>
-                      </motion.div>
-                    </>)}
-
-                    {/* ── Pipeline overlays ── */}
-                    {t.id === 'pipeline' && (<>
-                      <motion.div key="pipe-float-1" className="co-chip-tl" animate={{ y: [0, -8, 0] }} transition={{ repeat: Infinity, duration: 2.9, ease: 'easeInOut', delay: 0.75 }}>
-                        <motion.div className="co-chip" initial={{ opacity: 0, y: -16, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.3, duration: 0.45, ease: [0.22,1,0.36,1] }}>
-                          <div className="co-chip-icon" style={{ background: '#D8F950', borderRadius: '50%' }}>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#041635" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                          </div>
-                          <div>
-                            <p className="co-chip-title">Eleanor Chu → Final Round</p>
-                            <p className="co-chip-sub">A+ · 95/100 · Senior Product Designer</p>
-                          </div>
-                        </motion.div>
-                      </motion.div>
-                      <motion.div key="pipe-float-2" className="co-chip-br" animate={{ y: [0, -6, 0] }} transition={{ repeat: Infinity, duration: 3.3, ease: 'easeInOut', delay: 1.15 }}>
-                        <motion.div className="co-chip" initial={{ opacity: 0, y: 16, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.7, duration: 0.45, ease: [0.22,1,0.36,1] }}>
-                          <div className="co-chip-icon" style={{ background: '#F0FDF4' }}>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2.2" strokeLinecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
-                          </div>
-                          <div>
-                            <p className="co-chip-title">Final Round · 5 candidates</p>
-                            <p className="co-chip-sub">3 A grades · avg score 92/100</p>
-                          </div>
-                        </motion.div>
-                      </motion.div>
-                    </>)}
-
-                    {/* ── Job Board overlays ── */}
-                    {t.id === 'board' && (<>
-                      <motion.div key="board-float-1" className="co-chip-tl" animate={{ y: [0, -7, 0] }} transition={{ repeat: Infinity, duration: 3.1, ease: 'easeInOut', delay: 0.75 }}>
-                        <motion.div className="co-chip" initial={{ opacity: 0, y: -16, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.3, duration: 0.45, ease: [0.22,1,0.36,1] }}>
-                          <div className="co-chip-icon" style={{ background: '#EEF4FF' }}>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="2.2" strokeLinecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                          </div>
-                          <div>
-                            <p className="co-chip-title">New application · Zara Mitchell</p>
-                            <p className="co-chip-sub">Marketing Intern · with video pitch · just now</p>
-                          </div>
-                          <motion.div className="co-chip-dot" animate={{ scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }} transition={{ repeat: Infinity, duration: 1.6 }} style={{ background: '#16A34A' }} />
-                        </motion.div>
-                      </motion.div>
-                      <motion.div key="board-float-2" className="co-chip-br" animate={{ y: [0, -5, 0] }} transition={{ repeat: Infinity, duration: 2.7, ease: 'easeInOut', delay: 1.2 }}>
-                        <motion.div className="co-chip" initial={{ opacity: 0, y: 16, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.75, duration: 0.45, ease: [0.22,1,0.36,1] }}>
-                          <div className="co-chip-icon" style={{ background: '#F0FDF4' }}>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2.2" strokeLinecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-                          </div>
-                          <div>
-                            <p className="co-chip-title">6 applicants this week</p>
-                            <p className="co-chip-sub">Synced to LinkedIn · Indeed · ZipRecruiter</p>
-                          </div>
-                        </motion.div>
-                      </motion.div>
-                    </>)}
                   </div>
 
                   <div className="co-feat-divider" />

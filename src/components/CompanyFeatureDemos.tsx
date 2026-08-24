@@ -259,6 +259,7 @@ const BOARD_ROLE = BOARD_ROLES[0];
 
 export function JobBoardDemo() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [applyPressed, setApplyPressed] = useState(false);
 
   // Runs on mount, not gated on useInView — this card can already be
   // sitting inside the viewport the moment the page loads (no scroll ever
@@ -288,10 +289,19 @@ export function JobBoardDemo() {
     };
     const runCycle = () => {
       scrollRef.current?.scrollTo({ top: 0, behavior: 'auto' });
+      setApplyPressed(false);
+      // Almost no pause before it starts moving — scrolling down IS how you
+      // see the board, so waiting first just read as the card sitting idle.
+      const tScrollStart = 250;
+      const scrollDuration = 3600;
       timers.push(setTimeout(() => {
-        if (scrollRef.current) slowScrollTo(scrollRef.current.scrollHeight, 4200);
-      }, 1400));
-      timers.push(setTimeout(runCycle, 1400 + 4200 + 2200));
+        if (scrollRef.current) slowScrollTo(scrollRef.current.scrollHeight, scrollDuration);
+      }, tScrollStart));
+      // Land on "Apply Now" and visibly press it — that's what triggers the
+      // loop restart, instead of just sitting at the bottom for a while.
+      const tApply = tScrollStart + scrollDuration + 500;
+      timers.push(setTimeout(() => { if (!cancelled) setApplyPressed(true); }, tApply));
+      timers.push(setTimeout(runCycle, tApply + 400));
     };
     runCycle();
     return () => { cancelled = true; timers.forEach(clearTimeout); intervals.forEach(clearInterval); };
@@ -333,10 +343,17 @@ export function JobBoardDemo() {
             We build the sensors and control systems behind next-generation warehouse robotics — a small team with real ownership over what ships, working directly with the customers who use it every day.
           </p>
 
-          <div style={{ marginTop: '14px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.2)', position: 'relative', aspectRatio: '16/8' }}>
-            {/* Placeholder thumbnail — a gradient + abstract mark standing in for real footage, since there's no video asset for this fictitious company */}
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, #1E1B4B 0%, #312E81 55%, #4338CA 100%)' }} />
-            <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.12)" strokeWidth="1" style={{ position: 'absolute', top: '10%', right: '8%' }}><path d="M12 2 L2 7 L12 12 L22 7 Z"/><path d="M2 17 L12 22 L22 17"/><path d="M2 12 L12 17 L22 12"/></svg>
+          <div style={{ marginTop: '14px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.2)', position: 'relative', aspectRatio: '16/8', background: '#3730A3' }}>
+            {/* A real "image placeholder" (mountain/sun glyph, the standard
+                missing-image convention) instead of a decorative gradient —
+                reads clearly as "photo goes here", not as content itself. */}
+            <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.28)" strokeWidth="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <path d="M21 15l-5-5L5 21" />
+              </svg>
+            </div>
             <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(255,255,255,0.95)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="#4338CA"><path d="M8 5v14l11-7z"/></svg>
@@ -394,7 +411,19 @@ export function JobBoardDemo() {
           <div style={{ background: '#fff', borderRadius: '10px', border: '1px solid #E8EAF0', padding: '14px' }}>
             <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px', marginBottom: '4px' }}>
               <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>{BOARD_ROLE.title}</p>
-              <span style={{ fontSize: '9.5px', fontWeight: 700, color: '#fff', background: '#041635', borderRadius: '7px', padding: '5px 10px', whiteSpace: 'nowrap' }}>Apply Now</span>
+              {/* Pressing this is what visibly triggers the loop restart —
+                  matches the "click to loop" pattern used elsewhere in this
+                  file (Pitch AI's Use Script) instead of a silent reset. */}
+              <motion.span
+                animate={applyPressed ? { scale: 0.92 } : { scale: 1 }}
+                transition={{ duration: 0.15 }}
+                style={{ fontSize: '9.5px', fontWeight: 700, color: '#fff', background: '#041635', borderRadius: '7px', padding: '5px 10px', whiteSpace: 'nowrap', position: 'relative' }}
+              >
+                Apply Now
+                {applyPressed && (
+                  <motion.span initial={{ opacity: 0.4 }} animate={{ opacity: 0 }} transition={{ duration: 0.35 }} style={{ position: 'absolute', inset: 0, borderRadius: '7px', background: '#fff' }} />
+                )}
+              </motion.span>
             </div>
             <p style={{ fontSize: '10px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginBottom: '8px' }}>Nova Robotics · {BOARD_ROLE.dept}</p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '12px' }}>

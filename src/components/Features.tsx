@@ -52,7 +52,15 @@ function AnimatedBar({ pct, color, delay = 0 }: { pct: number; color: string; de
 
 const RESLINK_ROWS = [
   { title: 'SDR-Bright-Labs', url: 'reslink.io/reslink/sdr-bright-labs', views: 38, last: '3d ago', expanded: false },
-  { title: 'AE-Northwind-Q3', url: 'reslink.io/reslink/ae-northwind-q3', views: 127, last: '4 hrs ago', expanded: true },
+  { title: 'CS-Renewal-Outreach', url: 'reslink.io/reslink/cs-renewal-outreach', views: 61, last: '1d ago', expanded: false },
+  { title: 'AE-Stripe-Enterprise', url: 'reslink.io/reslink/ae-stripe-enterprise', views: 127, last: '4 hrs ago', expanded: true },
+];
+
+const ALL_LOCATIONS = [
+  { city: 'Seattle, WA', pct: 35 },
+  { city: 'San Francisco, CA', pct: 28 },
+  { city: 'Austin, TX', pct: 14 },
+  { city: 'New York, NY', pct: 12 },
 ];
 
 /** Small ascending-bar sparkline, matching the tiny trend chart the real
@@ -68,12 +76,31 @@ function Sparkline() {
 }
 
 /** Matches the real app's Reslinks table (title/status/url, views, last
- *  viewed, actions) with the second row's Insights panel expanded beneath
+ *  viewed, actions) with the last row's Insights panel expanded beneath
  *  it — a real table + a single side-by-side row of stat cards, not the
- *  stacked 2x2 abstract mockup this used to be. */
+ *  stacked 2x2 abstract mockup this used to be. "Show more" on Top
+ *  Locations actually unfolds three more rows on a loop, gated on
+ *  visibility like the other animated visuals. */
 function AnalyticsVisual() {
+  const [locExpanded, setLocExpanded] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(rootRef, { amount: 0.4 });
+
+  useEffect(() => {
+    if (!inView) return;
+    let cancelled = false;
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    const runCycle = () => {
+      setLocExpanded(false);
+      timers.push(setTimeout(() => { if (!cancelled) setLocExpanded(true); }, 2600));
+      timers.push(setTimeout(() => { if (!cancelled) runCycle(); }, 2600 + 3400));
+    };
+    runCycle();
+    return () => { cancelled = true; timers.forEach(clearTimeout); };
+  }, [inView]);
+
   return (
-    <div style={{ width: '100%', height: '100%', padding: '16px 18px', display: 'flex', flexDirection: 'column', gap: '2px', background: '#fff', overflow: 'hidden' }}>
+    <div ref={rootRef} style={{ width: '100%', height: '100%', padding: '16px 18px', display: 'flex', flexDirection: 'column', gap: '2px', background: '#fff', overflow: 'hidden' }}>
       <div style={{ marginBottom: '6px' }}>
         <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '14px', fontWeight: 900, color: '#041635', letterSpacing: '-0.01em' }}>MY RESLINKS</p>
         <p style={{ fontSize: '10px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '2px' }}>10 active · 12 total</p>
@@ -130,20 +157,22 @@ function AnalyticsVisual() {
             <p style={{ fontSize: '8px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '4px' }}>19 badge · 24 portfolio</p>
           </div>
           <div style={{ background: '#fff', border: '1px solid #E8EAF0', borderRadius: '8px', padding: '9px 10px' }}>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#E11D48" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C4257B" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             <p style={{ fontSize: '8px', color: '#6B7280', fontFamily: 'var(--font-body)', marginTop: '5px' }}>Top Locations</p>
-            {[{ city: 'Seattle, WA', pct: 35, delay: 0 }].map(l => (
-              <div key={l.city} style={{ marginTop: '5px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}>
-                  <span style={{ fontSize: '9px', color: '#3A3F4C', fontFamily: 'var(--font-body)' }}>{l.city}</span>
-                  <span style={{ fontSize: '9px', color: '#9AA1AE', fontFamily: 'var(--font-body)' }}>{l.pct}%</span>
-                </div>
-                <div style={{ height: '3px', borderRadius: '2px', background: '#EDF0F4' }}>
-                  <AnimatedBar pct={l.pct} color="#E11D48" delay={l.delay} />
-                </div>
-              </div>
-            ))}
-            <p style={{ fontSize: '8px', color: '#0C63E3', fontWeight: 600, fontFamily: 'var(--font-body)', marginTop: '5px' }}>Show more (+3)</p>
+            <AnimatePresence initial={false}>
+              {ALL_LOCATIONS.filter((_, i) => i === 0 || locExpanded).map((l, i) => (
+                <motion.div key={l.city} initial={i > 0 ? { opacity: 0, height: 0 } : false} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.3, delay: i * 0.06 }} style={{ marginTop: '5px', overflow: 'hidden' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}>
+                    <span style={{ fontSize: '9px', color: '#3A3F4C', fontFamily: 'var(--font-body)' }}>{l.city}</span>
+                    <span style={{ fontSize: '9px', color: '#9AA1AE', fontFamily: 'var(--font-body)' }}>{l.pct}%</span>
+                  </div>
+                  <div style={{ height: '3px', borderRadius: '2px', background: '#EDF0F4' }}>
+                    <AnimatedBar pct={l.pct} color="#C4257B" delay={i * 100} />
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+            <p style={{ fontSize: '8px', color: '#0C63E3', fontWeight: 600, fontFamily: 'var(--font-body)', marginTop: '5px' }}>{locExpanded ? 'Show less' : 'Show more (+3)'}</p>
           </div>
         </div>
       </div>
@@ -247,7 +276,7 @@ function PitchAIVisual() {
       // Short hold at the bottom, not a long dead pause — restart the loop
       // shortly after the buttons land instead of sitting static for
       // seconds with nothing moving.
-      after(tScrollStart + scrollDuration + 1000, runCycle);
+      after(tScrollStart + scrollDuration + 500, runCycle);
     };
     runCycle();
     return () => { cancelled = true; timers.forEach(clearTimeout); intervals.forEach(clearInterval); };
@@ -256,11 +285,10 @@ function PitchAIVisual() {
   return (
     <div ref={rootRef} style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', background: '#fff' }}>
       <div style={{ background: 'linear-gradient(135deg, #0B1120 0%, #0D1829 100%)', padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '10px', borderBottom: 'none', flexShrink: 0 }}>
-        <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: 'linear-gradient(135deg, rgba(216,249,80,0.2), rgba(216,249,80,0.08))', border: '1px solid rgba(216,249,80,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="#D8F950"><path d="M12 1.5 L13.2 9.8 L21.5 12 L13.2 14.2 L12 22.5 L10.8 14.2 L2.5 12 L10.8 9.8 Z"/></svg>
-        </div>
+        {/* Icon square removed — the sparkle glyph wasn't adding anything
+            the text didn't already say, just noise next to the label. */}
         <div>
-          <span style={{ fontSize: '13px', fontWeight: 800, color: '#fff', fontFamily: 'var(--font-body)', letterSpacing: '0.06em', display: 'block', lineHeight: 1.1 }}>RESLINK AI</span>
+          <span style={{ fontSize: '13px', fontWeight: 800, color: '#fff', fontFamily: 'var(--font-body)', letterSpacing: '0.06em', display: 'block', lineHeight: 1.1 }}>RESLINK PITCH AI</span>
           <span style={{ fontSize: '10px', color: '#D8F950', fontFamily: 'var(--font-body)', fontWeight: 600, letterSpacing: '0.04em' }}>Script Generator</span>
         </div>
         <div style={{ marginLeft: 'auto', width: '22px', height: '22px', borderRadius: '6px', background: 'rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
@@ -284,12 +312,26 @@ function PitchAIVisual() {
 
           <div>
             <p style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginBottom: '6px' }}>Job description</p>
+            {/* layout + a fade/slide swap (not an instant text dump with a
+                background-color flash) so the placeholder growing into the
+                full paragraph reads as one fluid motion — the box's own
+                height eases open too, instead of jumping tall instantly. */}
             <motion.div
-              animate={pasted ? { background: ['#EEF4FF', '#FAFBFC'] } : {}}
-              transition={{ duration: 0.9 }}
-              style={{ border: '1px solid #E4E7EC', borderRadius: '10px', padding: '11px 14px', background: '#FAFBFC', fontSize: '11.5px', color: '#3A3F4C', lineHeight: 1.55, fontFamily: 'var(--font-body)', minHeight: '44px' }}
+              layout
+              transition={{ layout: { duration: 0.55, ease: 'easeInOut' } }}
+              style={{ border: '1px solid #E4E7EC', borderRadius: '10px', padding: '11px 14px', background: '#FAFBFC', fontSize: '11.5px', color: '#3A3F4C', lineHeight: 1.55, fontFamily: 'var(--font-body)', minHeight: '44px', overflow: 'hidden' }}
             >
-              {pasted ? PITCH_DESC : <span style={{ color: '#C7CBD3' }}>Paste the job description…</span>}
+              <AnimatePresence mode="wait" initial={false}>
+                {pasted ? (
+                  <motion.div key="desc" initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: 'easeOut' }}>
+                    {PITCH_DESC}
+                  </motion.div>
+                ) : (
+                  <motion.span key="placeholder" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} style={{ color: '#C7CBD3' }}>
+                    Paste the job description…
+                  </motion.span>
+                )}
+              </AnimatePresence>
             </motion.div>
           </div>
 
@@ -344,6 +386,59 @@ function PitchAIVisual() {
   );
 }
 
+const TELEPROMPTER_SCRIPT = 'Hi, I’m Oliver. I’ve spent three years building backend systems that handle millions of requests every day. At my last role I led the migration to a microservices architecture that cut our average API latency by forty percent and made our on-call rotations dramatically calmer. I’m looking for a senior engineering role where I can keep solving problems at that kind of scale, ideally on a team that cares as much about reliability as they do about shipping fast.';
+
+/** Scrolls a full script continuously, not a fixed 40px hop — the bug was a
+ *  short one-liner getting scrolled a fixed distance past its own actual
+ *  height, leaving a blank gap before the loop repeated. Measures the
+ *  text's real rendered height via ref and scrolls exactly that far, so
+ *  there's always a line of text on screen. */
+function TeleprompterVisual() {
+  const textRef = useRef<HTMLParagraphElement>(null);
+  const [scrollDistance, setScrollDistance] = useState(0);
+  const windowHeight = 62;
+
+  useEffect(() => {
+    if (textRef.current) setScrollDistance(Math.max(0, textRef.current.scrollHeight - windowHeight));
+  }, []);
+
+  return (
+    <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
+      {/* Live camera feed — real person */}
+      <video
+        src="/videos/pip-person-compressed.mp4"
+        poster="/videos/pip-person-poster.jpg"
+        autoPlay muted loop playsInline preload="auto"
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+      />
+      {/* Dark overlay for readability */}
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(11,15,26,0.85) 0%, rgba(11,15,26,0.1) 50%, rgba(11,15,26,0.3) 100%)' }} />
+      {/* REC badge */}
+      <div style={{ position: 'absolute', top: '14px', right: '14px', display: 'flex', alignItems: 'center', gap: '5px', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(6px)', borderRadius: '6px', padding: '5px 10px', zIndex: 2 }}>
+        <motion.div animate={{ opacity: [1, 0.2, 1] }} transition={{ repeat: Infinity, duration: 1.2 }} style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#EF4444' }} />
+        <span style={{ fontSize: '10px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)' }}>REC 0:41</span>
+      </div>
+      {/* Teleprompter overlay at bottom */}
+      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'rgba(4,22,53,0.82)', backdropFilter: 'blur(10px)', padding: '14px 18px', zIndex: 2, borderTop: '1px solid rgba(216,249,80,0.3)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
+          <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#D8F950' }} />
+          <span style={{ fontSize: '9px', fontWeight: 700, color: '#D8F950', letterSpacing: '0.12em', fontFamily: 'var(--font-body)' }}>TELEPROMPTER · 1.0x</span>
+        </div>
+        <div style={{ overflow: 'hidden', height: `${windowHeight}px` }}>
+          <motion.p
+            ref={textRef}
+            animate={scrollDistance > 0 ? { y: [0, -scrollDistance] } : {}}
+            transition={{ duration: 5 + scrollDistance / 22, ease: 'linear', repeat: Infinity, repeatDelay: 1.2 }}
+            style={{ fontSize: '13px', color: 'rgba(255,255,255,0.9)', lineHeight: 1.65, fontFamily: 'var(--font-body)' }}
+          >
+            {TELEPROMPTER_SCRIPT}
+          </motion.p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const BADGE_TILES = [
   { Icon: Zap, title: 'One click', desc: 'Recruiters go straight to your Reslink from any PDF viewer' },
   { Icon: Link2, title: 'Always linked', desc: 'Every copy of your resume has the badge automatically' },
@@ -386,41 +481,36 @@ function BadgeVisual() {
           </div>
           {/* Rectangular with rounded corners, not a full pill — matches the
               rest of the site's button shape language. Idle attention cue is
-              now two chevrons drifting inward toward the button (instead of
-              an expanding box-shadow ring, which read as an unattractive
-              "halo" around the whole rectangle) — a much more common,
-              subtle "look here" affordance. */}
+              two chevrons drifting inward toward the button, made bigger and
+              higher-contrast this round, plus a small synced scale pulse on
+              the button itself so the whole thing reads as one coordinated
+              "look here, click here" gesture. */}
           <div style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', flexShrink: 0 }}>
             {!clicking && !playing && (
               <>
-                <motion.svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
-                  animate={{ x: [-3, 1, -3], opacity: [0.25, 0.9, 0.25] }} transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
-                  style={{ position: 'absolute', left: '-15px', top: '50%', marginTop: '-4.5px' }}>
+                <motion.svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"
+                  animate={{ x: [-6, 2, -6], opacity: [0.4, 1, 0.4] }} transition={{ repeat: Infinity, duration: 1.4, ease: 'easeInOut' }}
+                  style={{ position: 'absolute', left: '-22px', top: '50%', marginTop: '-6.5px' }}>
                   <polyline points="9 6 15 12 9 18" />
                 </motion.svg>
-                <motion.svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
-                  animate={{ x: [3, -1, 3], opacity: [0.25, 0.9, 0.25] }} transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
-                  style={{ position: 'absolute', right: '-15px', top: '50%', marginTop: '-4.5px', transform: 'rotate(180deg)' }}>
+                <motion.svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"
+                  animate={{ x: [6, -2, 6], opacity: [0.4, 1, 0.4] }} transition={{ repeat: Infinity, duration: 1.4, ease: 'easeInOut' }}
+                  style={{ position: 'absolute', right: '-22px', top: '50%', marginTop: '-6.5px', transform: 'rotate(180deg)' }}>
                   <polyline points="9 6 15 12 9 18" />
                 </motion.svg>
               </>
             )}
             <motion.div
-              animate={clicking ? { scale: 0.9 } : { scale: 1 }}
-              transition={{ duration: 0.15 }}
+              animate={clicking ? { scale: 0.9 } : playing ? { scale: 1 } : { scale: [1, 1.035, 1] }}
+              transition={clicking ? { duration: 0.15 } : playing ? { duration: 0.15 } : { repeat: Infinity, duration: 1.4, ease: 'easeInOut' }}
               style={{ display: 'flex', alignItems: 'center', gap: '5px', background: '#0C63E3', borderRadius: '9px', padding: '7px 13px', cursor: 'pointer', position: 'relative' }}
             >
               <svg width="9" height="9" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
               <span style={{ fontSize: '11px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)' }}>Play Intro</span>
-              {/* Bigger, brighter click flash — a filled blue pulse behind the
-                  button plus two expanding rings, matching the button's own
-                  color instead of the lime used before. */}
+              {/* Restrained click feedback — one soft white flash over the
+                  button, not the loud multi-ring/glow effect from before. */}
               {clicking && (
-                <>
-                  <motion.span initial={{ opacity: 0.5 }} animate={{ opacity: 0 }} transition={{ duration: 0.5 }} style={{ position: 'absolute', inset: '-6px', borderRadius: '13px', background: '#0C63E3', filter: 'blur(6px)', zIndex: -1 }} />
-                  <motion.span initial={{ opacity: 1, scale: 0.6 }} animate={{ opacity: 0, scale: 2.3 }} transition={{ duration: 0.6 }} style={{ position: 'absolute', inset: 0, borderRadius: '9px', border: '3px solid #0C63E3' }} />
-                  <motion.span initial={{ opacity: 0.9, scale: 0.6 }} animate={{ opacity: 0, scale: 1.7 }} transition={{ duration: 0.45, delay: 0.08 }} style={{ position: 'absolute', inset: 0, borderRadius: '9px', border: '2.5px solid #fff' }} />
-                </>
+                <motion.span initial={{ opacity: 0.45 }} animate={{ opacity: 0 }} transition={{ duration: 0.35 }} style={{ position: 'absolute', inset: 0, borderRadius: '9px', background: '#fff' }} />
               )}
             </motion.div>
           </div>
@@ -539,40 +629,7 @@ const tabs = [
       'Record a natural, confident take on your first or second try',
     ],
     bg: '#0B0F1A',
-    visual: (
-      <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
-        {/* Live camera feed — real person */}
-        <video
-          src="/videos/pip-person-compressed.mp4"
-          poster="/videos/pip-person-poster.jpg"
-          autoPlay muted loop playsInline preload="auto"
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
-        />
-        {/* Dark overlay for readability */}
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(11,15,26,0.85) 0%, rgba(11,15,26,0.1) 50%, rgba(11,15,26,0.3) 100%)' }} />
-        {/* REC badge */}
-        <div style={{ position: 'absolute', top: '14px', right: '14px', display: 'flex', alignItems: 'center', gap: '5px', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(6px)', borderRadius: '6px', padding: '5px 10px', zIndex: 2 }}>
-          <motion.div animate={{ opacity: [1, 0.2, 1] }} transition={{ repeat: Infinity, duration: 1.2 }} style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#EF4444' }} />
-          <span style={{ fontSize: '10px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)' }}>REC 0:41</span>
-        </div>
-        {/* Teleprompter overlay at bottom */}
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'rgba(4,22,53,0.82)', backdropFilter: 'blur(10px)', padding: '14px 18px', zIndex: 2, borderTop: '1px solid rgba(216,249,80,0.3)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
-            <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#D8F950' }} />
-            <span style={{ fontSize: '9px', fontWeight: 700, color: '#D8F950', letterSpacing: '0.12em', fontFamily: 'var(--font-body)' }}>TELEPROMPTER · 1.0x</span>
-          </div>
-          <div style={{ overflow: 'hidden', height: '40px' }}>
-            <motion.p
-              animate={{ y: [0, -40] }}
-              transition={{ duration: 3.5, ease: 'linear', repeat: Infinity, repeatDelay: 1.5 }}
-              style={{ fontSize: '13px', color: 'rgba(255,255,255,0.9)', lineHeight: 1.65, fontFamily: 'var(--font-body)' }}
-            >
-              Hi, I&apos;m Oliver. I&apos;ve spent 3 years building backend systems that handle millions of requests. At HubSpot I cut API latency by 40%...
-            </motion.p>
-          </div>
-        </div>
-      </div>
-    ),
+    visual: <TeleprompterVisual />,
   },
   {
     id: 'badge',
@@ -677,7 +734,7 @@ export default function Features() {
            bottom of the frame. .tall must be at least as specific as the
            mobile overrides below so it doesn't get silently beaten by them
            at narrow widths. */
-        .feat-visual.tall { height: 420px; }
+        .feat-visual.tall { height: 480px; }
         .feat-swipe-hint { display: none; }
         @media (max-width: 900px) {
           .feat-body { grid-template-columns: 1fr !important; }

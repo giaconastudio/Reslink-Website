@@ -50,71 +50,102 @@ function AnimatedBar({ pct, color, delay = 0 }: { pct: number; color: string; de
   return <div style={{ height: '100%', width: `${w}%`, borderRadius: '2px', background: color, transition: 'width 1.1s cubic-bezier(0.22,1,0.36,1)' }} />;
 }
 
-/** Light theme, matching the real app's Insights panel (white cards on a
- *  pale gray backdrop) instead of the dark-navy mockup this used to use. */
+const RESLINK_ROWS = [
+  { title: 'SDR-Bright-Labs', url: 'reslink.io/reslink/sdr-bright-labs', views: 38, last: '3d ago', expanded: false },
+  { title: 'AE-Northwind-Q3', url: 'reslink.io/reslink/ae-northwind-q3', views: 127, last: '4 hrs ago', expanded: true },
+];
+
+/** Small ascending-bar sparkline, matching the tiny trend chart the real
+ *  Unique Visitors tile shows. */
+function Sparkline() {
+  return (
+    <div style={{ display: 'flex', alignItems: 'flex-end', gap: '2px', height: '16px', marginTop: '5px' }}>
+      {[6, 9, 7, 12, 15].map((h, i) => (
+        <div key={i} style={{ width: '4px', height: `${h}px`, borderRadius: '1px', background: '#0C63E3', opacity: 0.35 + i * 0.14 }} />
+      ))}
+    </div>
+  );
+}
+
+/** Matches the real app's Reslinks table (title/status/url, views, last
+ *  viewed, actions) with the second row's Insights panel expanded beneath
+ *  it — a real table + a single side-by-side row of stat cards, not the
+ *  stacked 2x2 abstract mockup this used to be. */
 function AnalyticsVisual() {
   return (
-    <div style={{ width: '100%', height: '100%', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px', background: '#F7F9FC' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9AA1AE" strokeWidth="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#6B7280', fontFamily: 'var(--font-body)' }}>Performance Analytics</span>
-        <span style={{ marginLeft: 'auto', fontSize: '10px', color: '#9AA1AE', fontFamily: 'var(--font-body)', background: '#fff', border: '1px solid #E4E7EC', borderRadius: '5px', padding: '2px 8px' }}>Last 7 days</span>
+    <div style={{ width: '100%', height: '100%', padding: '16px 18px', display: 'flex', flexDirection: 'column', gap: '2px', background: '#fff', overflow: 'hidden' }}>
+      <div style={{ marginBottom: '6px' }}>
+        <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '14px', fontWeight: 900, color: '#041635', letterSpacing: '-0.01em' }}>MY RESLINKS</p>
+        <p style={{ fontSize: '10px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '2px' }}>10 active · 12 total</p>
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '7px' }}>
-        <div style={{ background: '#fff', border: '1px solid #E8EAF0', borderRadius: '10px', padding: '13px 12px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '6px' }}>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-            <span style={{ fontSize: '9px', color: '#6B7280', fontFamily: 'var(--font-body)' }}>Unique Visitors</span>
-            <span style={{ marginLeft: 'auto', fontSize: '9px', color: '#16A34A', fontFamily: 'var(--font-body)', fontWeight: 700 }}>+18.2%</span>
-          </div>
-          <p style={{ fontSize: '26px', fontWeight: 900, color: '#041635', fontFamily: 'var(--font-phudu)', lineHeight: 1 }}><CountUp target={98} /></p>
-        </div>
-        <div style={{ background: '#fff', border: '1px solid #E8EAF0', borderRadius: '10px', padding: '13px 12px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '6px' }}>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#F97316" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span style={{ fontSize: '9px', color: '#6B7280', fontFamily: 'var(--font-body)' }}>Avg Watch Time</span>
-            <span style={{ marginLeft: 'auto', fontSize: '9px', color: '#16A34A', fontFamily: 'var(--font-body)', fontWeight: 700 }}>+12.4%</span>
-          </div>
-          <p style={{ fontSize: '26px', fontWeight: 900, color: '#041635', fontFamily: 'var(--font-phudu)', lineHeight: 1 }}><CountUp target={52} suffix="s" /></p>
-          <p style={{ fontSize: '9px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '3px' }}>85% completion rate</p>
-        </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1.7fr 0.5fr 0.8fr 1.1fr', gap: '8px', padding: '0 6px 6px', fontSize: '8px', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: '#9AA1AE', fontFamily: 'var(--font-body)' }}>
+        <span>Reslink title</span><span>Views</span><span>Last viewed</span><span style={{ textAlign: 'right' }}>Actions</span>
       </div>
-      <div style={{ background: '#fff', border: '1px solid #E8EAF0', borderRadius: '10px', padding: '12px 14px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '10px' }}>
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          <span style={{ fontSize: '9px', color: '#6B7280', fontFamily: 'var(--font-body)' }}>Clicks</span>
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '6px' }}>
-          {[
-            { v: 127, l: 'Reslink', d: '+18.2%' },
-            { v: 19, l: 'Badge', d: '+22.1%' },
-            { v: 24, l: 'Portfolio', d: '+14.7%' },
-            { v: 16, l: 'LinkedIn', d: '+9.3%' },
-          ].map(c => (
-            <div key={c.l} style={{ textAlign: 'center' }}>
-              <p style={{ fontSize: '17px', fontWeight: 900, color: '#041635', fontFamily: 'var(--font-phudu)', lineHeight: 1 }}><CountUp target={c.v} /></p>
-              <p style={{ fontSize: '8px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '2px' }}>{c.l}</p>
-              <p style={{ fontSize: '8px', color: '#16A34A', fontFamily: 'var(--font-body)', fontWeight: 600, marginTop: '2px' }}>{c.d}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div style={{ background: '#fff', border: '1px solid #E8EAF0', borderRadius: '10px', padding: '12px 14px', flex: 1 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '10px' }}>
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#E11D48" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          <span style={{ fontSize: '9px', color: '#6B7280', fontFamily: 'var(--font-body)' }}>Top Locations</span>
-        </div>
-        {[{ city: 'Seattle, WA', pct: 35, delay: 0 }, { city: 'San Francisco, CA', pct: 28, delay: 150 }].map(l => (
-          <div key={l.city} style={{ marginBottom: '8px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-              <span style={{ fontSize: '11px', color: '#3A3F4C', fontFamily: 'var(--font-body)' }}>{l.city}</span>
-              <span style={{ fontSize: '11px', color: '#9AA1AE', fontFamily: 'var(--font-body)' }}>{l.pct}%</span>
-            </div>
-            <div style={{ height: '4px', borderRadius: '2px', background: '#EDF0F4' }}>
-              <AnimatedBar pct={l.pct} color="#E11D48" delay={l.delay} />
-            </div>
+
+      {RESLINK_ROWS.map(row => (
+        <div key={row.title} style={{ display: 'grid', gridTemplateColumns: '1.7fr 0.5fr 0.8fr 1.1fr', gap: '8px', alignItems: 'center', padding: '9px 6px', borderTop: '1px solid #F0F1F4', borderRadius: row.expanded ? '8px 8px 0 0' : 0, background: row.expanded ? '#F7F9FC' : 'transparent' }}>
+          <div style={{ minWidth: 0 }}>
+            <span style={{ fontSize: '11px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>{row.title}</span>
+            <span style={{ fontSize: '8px', fontWeight: 700, color: '#16A34A', background: '#EAFBEF', borderRadius: '4px', padding: '1.5px 5px', marginLeft: '6px' }}>Active</span>
+            <p style={{ fontSize: '8.5px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{row.url}</p>
           </div>
-        ))}
+          <span style={{ fontSize: '11px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}><CountUp target={row.views} /></span>
+          <span style={{ fontSize: '10px', color: '#6B7280', fontFamily: 'var(--font-body)' }}>{row.last}</span>
+          <div style={{ display: 'flex', gap: '4px', justifyContent: 'flex-end' }}>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', fontSize: '9px', fontWeight: 700, color: row.expanded ? '#0C63E3' : '#6B7280', background: row.expanded ? '#EEF4FF' : '#F1F3F5', borderRadius: '6px', padding: '4px 7px', fontFamily: 'var(--font-body)' }}>
+              Insights
+              <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points={row.expanded ? '18 15 12 9 6 15' : '6 9 12 15 18 9'} /></svg>
+            </span>
+            <span style={{ fontSize: '9px', fontWeight: 700, color: '#fff', background: '#0C63E3', borderRadius: '6px', padding: '4px 8px', fontFamily: 'var(--font-body)' }}>View</span>
+          </div>
+        </div>
+      ))}
+
+      {/* Expanded Insights panel, directly beneath the active row */}
+      <div style={{ background: '#F7F9FC', border: '1px solid #EDF0F4', borderTop: 'none', borderRadius: '0 0 10px 10px', padding: '12px', marginTop: '-2px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '9px' }}>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9AA1AE" strokeWidth="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#041635', fontFamily: 'var(--font-body)' }}>Performance Analytics</span>
+          <span style={{ marginLeft: 'auto', fontSize: '9px', color: '#9AA1AE', fontFamily: 'var(--font-body)', background: '#fff', border: '1px solid #E4E7EC', borderRadius: '5px', padding: '2px 7px' }}>Last 7 days</span>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '7px' }}>
+          <div style={{ background: '#fff', border: '1px solid #E8EAF0', borderRadius: '8px', padding: '9px 10px' }}>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            <p style={{ fontSize: '8px', color: '#6B7280', fontFamily: 'var(--font-body)', marginTop: '5px' }}>Unique Visitors</p>
+            <p style={{ fontSize: '17px', fontWeight: 900, color: '#041635', fontFamily: 'var(--font-phudu)', lineHeight: 1, marginTop: '3px' }}><CountUp target={98} /></p>
+            <Sparkline />
+          </div>
+          <div style={{ background: '#fff', border: '1px solid #E8EAF0', borderRadius: '8px', padding: '9px 10px' }}>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F97316" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <p style={{ fontSize: '8px', color: '#6B7280', fontFamily: 'var(--font-body)', marginTop: '5px' }}>Avg Watch Time</p>
+            <p style={{ fontSize: '17px', fontWeight: 900, color: '#041635', fontFamily: 'var(--font-phudu)', lineHeight: 1, marginTop: '3px' }}><CountUp target={52} suffix="s" /></p>
+            <p style={{ fontSize: '8px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '4px' }}>85% completion</p>
+          </div>
+          <div style={{ background: '#fff', border: '1px solid #E8EAF0', borderRadius: '8px', padding: '9px 10px' }}>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            <p style={{ fontSize: '8px', color: '#6B7280', fontFamily: 'var(--font-body)', marginTop: '5px' }}>Clicks</p>
+            <p style={{ fontSize: '17px', fontWeight: 900, color: '#041635', fontFamily: 'var(--font-phudu)', lineHeight: 1, marginTop: '3px' }}><CountUp target={127} /></p>
+            <p style={{ fontSize: '8px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '4px' }}>19 badge · 24 portfolio</p>
+          </div>
+          <div style={{ background: '#fff', border: '1px solid #E8EAF0', borderRadius: '8px', padding: '9px 10px' }}>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#E11D48" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <p style={{ fontSize: '8px', color: '#6B7280', fontFamily: 'var(--font-body)', marginTop: '5px' }}>Top Locations</p>
+            {[{ city: 'Seattle, WA', pct: 35, delay: 0 }].map(l => (
+              <div key={l.city} style={{ marginTop: '5px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}>
+                  <span style={{ fontSize: '9px', color: '#3A3F4C', fontFamily: 'var(--font-body)' }}>{l.city}</span>
+                  <span style={{ fontSize: '9px', color: '#9AA1AE', fontFamily: 'var(--font-body)' }}>{l.pct}%</span>
+                </div>
+                <div style={{ height: '3px', borderRadius: '2px', background: '#EDF0F4' }}>
+                  <AnimatedBar pct={l.pct} color="#E11D48" delay={l.delay} />
+                </div>
+              </div>
+            ))}
+            <p style={{ fontSize: '8px', color: '#0C63E3', fontWeight: 600, fontFamily: 'var(--font-body)', marginTop: '5px' }}>Show more (+3)</p>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -136,6 +167,7 @@ function PitchAIVisual() {
   const [phase, setPhase] = useState<'role' | 'desc' | 'generating' | 'result'>('role');
   const [typedRole, setTypedRole] = useState('');
   const [pasted, setPasted] = useState(false);
+  const [atBottom, setAtBottom] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<HTMLDivElement>(null);
   // Gate the cycle on visibility rather than mount: a fixed mount-time loop
@@ -183,6 +215,7 @@ function PitchAIVisual() {
       setPhase('role');
       setTypedRole('');
       setPasted(false);
+      setAtBottom(false);
 
       let i = 0;
       const typeRole = () => {
@@ -201,13 +234,16 @@ function PitchAIVisual() {
       after(tPasted + 700, () => setPhase('generating'));
       const tResult = tPasted + 1900;
       after(tResult, () => setPhase('result'));
-      // Hold with the script fully visible and un-scrolled for a beat before
-      // easing down — long enough to actually read it, not just glimpse it.
-      const tScrollStart = tResult + 1500;
+      // Start scrolling almost immediately once the script lands — just
+      // enough of a beat for its fade-in to register, not a "sit and read
+      // it first" pause. Scrolling down IS how you see the script land, so
+      // waiting before starting that motion made the card look done/stuck.
+      const tScrollStart = tResult + 300;
       const scrollDuration = 2000;
       after(tScrollStart, () => {
         if (scrollRef.current) slowScrollTo(scrollRef.current.scrollHeight, scrollDuration);
       });
+      after(tScrollStart + scrollDuration, () => setAtBottom(true));
       // Short hold at the bottom, not a long dead pause — restart the loop
       // shortly after the buttons land instead of sitting static for
       // seconds with nothing moving.
@@ -288,7 +324,15 @@ function PitchAIVisual() {
                 Tell us what you want to change in the script
               </div>
 
-              <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.25 }} style={{ background: '#D8F950', borderRadius: '8px', padding: '11px', textAlign: 'center', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '7px', marginBottom: '4px' }}>
+              {/* Once the panel finishes scrolling down, a gentle pulse on
+                  the final CTA keeps the card feeling alive instead of just
+                  sitting static in its finished state. */}
+              <motion.div
+                initial={{ opacity: 0, y: 6 }}
+                animate={atBottom ? { opacity: 1, y: 0, scale: [1, 1.025, 1] } : { opacity: 1, y: 0 }}
+                transition={atBottom ? { repeat: Infinity, duration: 2, ease: 'easeOut' } : { delay: 0.4, duration: 0.25 }}
+                style={{ background: '#D8F950', borderRadius: '8px', padding: '11px', textAlign: 'center', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '7px', marginBottom: '4px' }}
+              >
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#041635" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                 <span style={{ fontSize: '13px', fontWeight: 800, color: '#041635', fontFamily: 'var(--font-body)' }}>Use Script</span>
               </motion.div>
@@ -341,29 +385,45 @@ function BadgeVisual() {
             <p style={{ fontSize: '10px', color: '#6B7280', fontFamily: 'var(--font-body)', marginTop: '1px' }}>linkedin.com/in/name</p>
           </div>
           {/* Rectangular with rounded corners, not a full pill — matches the
-              rest of the site's button shape language. */}
-          <motion.div
-            animate={
-              clicking ? { scale: 0.9, boxShadow: '0 0 0 0 rgba(12,99,227,0)' }
-              : playing ? { scale: 1, boxShadow: '0 0 0 0 rgba(12,99,227,0)' }
-              : { scale: [1, 1.03, 1], boxShadow: ['0 0 0 0 rgba(12,99,227,0.4)', '0 0 0 8px rgba(12,99,227,0)', '0 0 0 0 rgba(12,99,227,0)'] }
-            }
-            transition={clicking || playing ? { duration: 0.15 } : { repeat: Infinity, duration: 2.6, ease: 'easeOut' }}
-            style={{ display: 'flex', alignItems: 'center', gap: '5px', background: '#0C63E3', borderRadius: '9px', padding: '7px 13px', cursor: 'pointer', flexShrink: 0, position: 'relative' }}
-          >
-            <svg width="9" height="9" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
-            <span style={{ fontSize: '11px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)' }}>Play Intro</span>
-            {/* Bigger, brighter click flash — a filled blue pulse behind the
-                button plus two expanding rings, matching the idle pulse and
-                the button's own color instead of the lime used before. */}
-            {clicking && (
+              rest of the site's button shape language. Idle attention cue is
+              now two chevrons drifting inward toward the button (instead of
+              an expanding box-shadow ring, which read as an unattractive
+              "halo" around the whole rectangle) — a much more common,
+              subtle "look here" affordance. */}
+          <div style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', flexShrink: 0 }}>
+            {!clicking && !playing && (
               <>
-                <motion.span initial={{ opacity: 0.5 }} animate={{ opacity: 0 }} transition={{ duration: 0.5 }} style={{ position: 'absolute', inset: '-6px', borderRadius: '13px', background: '#0C63E3', filter: 'blur(6px)', zIndex: -1 }} />
-                <motion.span initial={{ opacity: 1, scale: 0.6 }} animate={{ opacity: 0, scale: 2.3 }} transition={{ duration: 0.6 }} style={{ position: 'absolute', inset: 0, borderRadius: '9px', border: '3px solid #0C63E3' }} />
-                <motion.span initial={{ opacity: 0.9, scale: 0.6 }} animate={{ opacity: 0, scale: 1.7 }} transition={{ duration: 0.45, delay: 0.08 }} style={{ position: 'absolute', inset: 0, borderRadius: '9px', border: '2.5px solid #fff' }} />
+                <motion.svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
+                  animate={{ x: [-3, 1, -3], opacity: [0.25, 0.9, 0.25] }} transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
+                  style={{ position: 'absolute', left: '-15px', top: '50%', marginTop: '-4.5px' }}>
+                  <polyline points="9 6 15 12 9 18" />
+                </motion.svg>
+                <motion.svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
+                  animate={{ x: [3, -1, 3], opacity: [0.25, 0.9, 0.25] }} transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
+                  style={{ position: 'absolute', right: '-15px', top: '50%', marginTop: '-4.5px', transform: 'rotate(180deg)' }}>
+                  <polyline points="9 6 15 12 9 18" />
+                </motion.svg>
               </>
             )}
-          </motion.div>
+            <motion.div
+              animate={clicking ? { scale: 0.9 } : { scale: 1 }}
+              transition={{ duration: 0.15 }}
+              style={{ display: 'flex', alignItems: 'center', gap: '5px', background: '#0C63E3', borderRadius: '9px', padding: '7px 13px', cursor: 'pointer', position: 'relative' }}
+            >
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+              <span style={{ fontSize: '11px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)' }}>Play Intro</span>
+              {/* Bigger, brighter click flash — a filled blue pulse behind the
+                  button plus two expanding rings, matching the button's own
+                  color instead of the lime used before. */}
+              {clicking && (
+                <>
+                  <motion.span initial={{ opacity: 0.5 }} animate={{ opacity: 0 }} transition={{ duration: 0.5 }} style={{ position: 'absolute', inset: '-6px', borderRadius: '13px', background: '#0C63E3', filter: 'blur(6px)', zIndex: -1 }} />
+                  <motion.span initial={{ opacity: 1, scale: 0.6 }} animate={{ opacity: 0, scale: 2.3 }} transition={{ duration: 0.6 }} style={{ position: 'absolute', inset: 0, borderRadius: '9px', border: '3px solid #0C63E3' }} />
+                  <motion.span initial={{ opacity: 0.9, scale: 0.6 }} animate={{ opacity: 0, scale: 1.7 }} transition={{ duration: 0.45, delay: 0.08 }} style={{ position: 'absolute', inset: 0, borderRadius: '9px', border: '2.5px solid #fff' }} />
+                </>
+              )}
+            </motion.div>
+          </div>
 
           {/* Cursor drifting toward, then "clicking", the Play Intro button —
               sized up and given a white outline stroke so it reads clearly
@@ -399,9 +459,10 @@ function BadgeVisual() {
           </div>
         </div>
 
-        {/* Intro video bubble — pops in on "click", plays, fades out.
-            Sits lower, clear of the browser-chrome bar above the frame, with
-            a plain white border (the lime ring read as too much). */}
+        {/* Intro video bubble — pops in on "click", plays, fades out. Sits
+            lower, clear of the browser-chrome bar above the frame. No
+            border now (blue read as unnecessary) — depth comes from the
+            shadow alone. Slightly bigger than before, taller than wide. */}
         <AnimatePresence>
           {playing && (
             <motion.div
@@ -409,7 +470,7 @@ function BadgeVisual() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.8, y: -4 }}
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              style={{ position: 'absolute', top: '64px', right: '2px', width: '124px', height: '124px', borderRadius: '16px', overflow: 'hidden', border: '3px solid #041635', boxShadow: '0 18px 44px rgba(0,0,0,0.35)', zIndex: 5 }}
+              style={{ position: 'absolute', top: '58px', right: '2px', width: '136px', height: '148px', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 18px 44px rgba(0,0,0,0.35)', zIndex: 5 }}
             >
               <video src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" autoPlay muted loop playsInline preload="auto" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               <div style={{ position: 'absolute', bottom: '7px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(4,22,53,0.78)', borderRadius: '100px', padding: '3px 9px', display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -447,7 +508,8 @@ const tabs = [
       'Track clicks on your resume, portfolio, and LinkedIn',
       'Know which locations and companies are engaging most',
     ],
-    bg: '#F7F9FC',
+    bg: '#fff',
+    tall: true,
     visual: <AnalyticsVisual />,
   },
   {

@@ -277,6 +277,7 @@ const SEARCH_TARGET = 'Hardware QA Technician';
 
 export function JobBoardDemo() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const searchBarRef = useRef<HTMLDivElement>(null);
   const [applyPressed, setApplyPressed] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [filtered, setFiltered] = useState(false);
@@ -327,28 +328,37 @@ export function JobBoardDemo() {
       setFiltered(false);
       setSelectedIndex(0);
 
-      // Hold at the top first — long enough to actually take in the hero
-      // and the role list before anything moves, instead of jumping
-      // straight into motion the instant this scrolls into view.
-      const tHold = 1600;
-      // Then type a search term into the bar and let it filter down to
-      // that one role, so the demo shows searching, not just scrolling.
-      const tTypeDone = tHold + SEARCH_TARGET.length * 45 + 500;
+      // Short beat, then scroll down to the search bar / role list first —
+      // typing the search only makes sense once that's on screen, and
+      // sitting frozen at the hero before moving read as the card being
+      // stuck.
+      const tHold = 400;
+      const scrollToSearchDuration = 1500;
+      timers.push(setTimeout(() => {
+        const el = scrollRef.current;
+        const bar = searchBarRef.current;
+        if (el && bar) slowScrollTo(bar.offsetTop - 16, scrollToSearchDuration);
+      }, tHold));
+
+      // Now that the search bar is in view, type the term and let it
+      // filter down to that one role.
+      const tTypeStart = tHold + scrollToSearchDuration + 300;
+      const tTypeDone = tTypeStart + SEARCH_TARGET.length * 45 + 400;
       timers.push(setTimeout(() => typeSearch(() => {
         if (cancelled) return;
         setFiltered(true);
         setSelectedIndex(BOARD_ROLES.findIndex(r => r.title === SEARCH_TARGET));
-      }), tHold));
+      }), tTypeStart));
 
-      // A slow, readable scroll through the rest of the board.
-      const tScrollStart = tTypeDone + 500;
-      const scrollDuration = 7000;
+      // Then a quicker scroll through the rest of the board.
+      const tScrollStart = tTypeDone + 400;
+      const scrollDuration = 4200;
       timers.push(setTimeout(() => {
         if (scrollRef.current) slowScrollTo(scrollRef.current.scrollHeight, scrollDuration);
       }, tScrollStart));
       // Land on "Apply Now" and visibly press it — that's what triggers the
       // loop restart, instead of just sitting at the bottom for a while.
-      const tApply = tScrollStart + scrollDuration + 500;
+      const tApply = tScrollStart + scrollDuration + 400;
       timers.push(setTimeout(() => { if (!cancelled) setApplyPressed(true); }, tApply));
       timers.push(setTimeout(runCycle, tApply + 400));
     };
@@ -428,7 +438,7 @@ export function JobBoardDemo() {
         </div>
 
         {/* Search + filter row */}
-        <div style={{ background: '#F7F8FA', padding: '14px 18px 0' }}>
+        <div ref={searchBarRef} style={{ background: '#F7F8FA', padding: '14px 18px 0' }}>
           <div style={{ display: 'flex', gap: '8px', marginBottom: '10px' }}>
             <div style={{ flex: 1, fontSize: '10px', color: searchText ? '#041635' : '#9AA1AE', fontFamily: 'var(--font-body)', background: '#fff', border: searchText ? '1.5px solid #2F5FE0' : '1px solid #E4E7EC', borderRadius: '8px', padding: '8px 11px' }}>
               {searchText || 'Search roles, teams, locations…'}

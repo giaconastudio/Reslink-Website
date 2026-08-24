@@ -121,7 +121,7 @@ function AnalyticsVisual() {
 }
 
 const PITCH_ROLE = 'Sales Development Rep';
-const PITCH_DESC = 'We’re looking for a Sales Development Rep to own top-of-funnel outreach, qualify inbound leads, and partner with Account Executives to build pipeline. You’ll run daily prospecting across email, phone, and LinkedIn, book qualified discovery calls, and keep our CRM clean and up to date. You will also collaborate with marketing on messaging, log every touchpoint for accurate forecasting, and help refine our outbound playbook as the team scales. 3+ years of B2B SaaS prospecting experience preferred, along with strong written communication, comfort with a fast-paced quota-driven environment, and a track record of consistently hitting monthly targets.';
+const PITCH_DESC = 'We’re looking for a Sales Development Rep to own top-of-funnel outreach, qualify inbound leads, and partner with Account Executives to build pipeline. You’ll run daily prospecting across email, phone, and LinkedIn, book qualified discovery calls, and keep our CRM clean and up to date. You will also collaborate with marketing on messaging, log every touchpoint for accurate forecasting, and help refine our outbound playbook as the team scales. This is a quota-carrying role with real room to grow into a closing position within 12-18 months for reps who consistently exceed target — we promote from within whenever we can. 3+ years of B2B SaaS prospecting experience preferred, along with strong written communication, comfort with a fast-paced quota-driven environment, familiarity with Salesforce or HubSpot, and a track record of consistently hitting monthly targets.';
 const PITCH_SCRIPT = [
   'Hey there! My name is Alex, and I am excited to introduce myself. I have 5 years of experience as a Sales Development Rep, during which I have had the opportunity to work on a variety of exciting projects.',
   'One of my proudest achievements was leading a team of 15 and increasing sales by 51%. It was an incredible learning experience that really strengthened my leadership and strategic thinking skills.',
@@ -159,6 +159,10 @@ function PitchAIVisual() {
     // its way down to the buttons instead of the near-instant native
     // scrollTo(smooth), which read as the script "scrolling away" the moment
     // it appeared rather than something you had time to actually see.
+    // ease-in-out (not ease-out-only) so it starts and settles gently
+    // instead of lurching into motion — reads as one fluid motion, not a
+    // mechanical snap.
+    const easeInOutCubic = (p: number) => p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
     const slowScrollTo = (target: number, duration: number) => {
       const el = scrollRef.current;
       if (!el) return;
@@ -168,7 +172,7 @@ function PitchAIVisual() {
       const interval = setInterval(() => {
         if (cancelled) { clearInterval(interval); return; }
         const p = Math.min(1, (Date.now() - startTime) / duration);
-        el.scrollTop = start + distance * (1 - Math.pow(1 - p, 2));
+        el.scrollTop = start + distance * easeInOutCubic(p);
         if (p >= 1) clearInterval(interval);
       }, 16);
       intervals.push(interval);
@@ -200,7 +204,7 @@ function PitchAIVisual() {
       // Hold with the script fully visible and un-scrolled for a beat before
       // easing down — long enough to actually read it, not just glimpse it.
       const tScrollStart = tResult + 1500;
-      const scrollDuration = 1500;
+      const scrollDuration = 2000;
       after(tScrollStart, () => {
         if (scrollRef.current) slowScrollTo(scrollRef.current.scrollHeight, scrollDuration);
       });
@@ -349,13 +353,13 @@ function BadgeVisual() {
           >
             <svg width="9" height="9" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
             <span style={{ fontSize: '11px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)' }}>Play Intro</span>
-            {/* Bigger, brighter click flash — a filled lime pulse behind the
-                button plus two expanding rings, instead of just thin rings
-                that were easy to miss. */}
+            {/* Bigger, brighter click flash — a filled blue pulse behind the
+                button plus two expanding rings, matching the idle pulse and
+                the button's own color instead of the lime used before. */}
             {clicking && (
               <>
-                <motion.span initial={{ opacity: 0.5 }} animate={{ opacity: 0 }} transition={{ duration: 0.5 }} style={{ position: 'absolute', inset: '-6px', borderRadius: '13px', background: '#D8F950', filter: 'blur(6px)', zIndex: -1 }} />
-                <motion.span initial={{ opacity: 1, scale: 0.6 }} animate={{ opacity: 0, scale: 2.3 }} transition={{ duration: 0.6 }} style={{ position: 'absolute', inset: 0, borderRadius: '9px', border: '3px solid #D8F950' }} />
+                <motion.span initial={{ opacity: 0.5 }} animate={{ opacity: 0 }} transition={{ duration: 0.5 }} style={{ position: 'absolute', inset: '-6px', borderRadius: '13px', background: '#0C63E3', filter: 'blur(6px)', zIndex: -1 }} />
+                <motion.span initial={{ opacity: 1, scale: 0.6 }} animate={{ opacity: 0, scale: 2.3 }} transition={{ duration: 0.6 }} style={{ position: 'absolute', inset: 0, borderRadius: '9px', border: '3px solid #0C63E3' }} />
                 <motion.span initial={{ opacity: 0.9, scale: 0.6 }} animate={{ opacity: 0, scale: 1.7 }} transition={{ duration: 0.45, delay: 0.08 }} style={{ position: 'absolute', inset: 0, borderRadius: '9px', border: '2.5px solid #fff' }} />
               </>
             )}
@@ -405,7 +409,7 @@ function BadgeVisual() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.8, y: -4 }}
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              style={{ position: 'absolute', top: '64px', right: '2px', width: '124px', height: '124px', borderRadius: '16px', overflow: 'hidden', border: '3px solid #fff', boxShadow: '0 18px 44px rgba(0,0,0,0.35)', zIndex: 5 }}
+              style={{ position: 'absolute', top: '64px', right: '2px', width: '124px', height: '124px', borderRadius: '16px', overflow: 'hidden', border: '3px solid #041635', boxShadow: '0 18px 44px rgba(0,0,0,0.35)', zIndex: 5 }}
             >
               <video src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" autoPlay muted loop playsInline preload="auto" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               <div style={{ position: 'absolute', bottom: '7px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(4,22,53,0.78)', borderRadius: '100px', padding: '3px 9px', display: 'flex', alignItems: 'center', gap: '4px' }}>

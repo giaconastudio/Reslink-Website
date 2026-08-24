@@ -51,9 +51,9 @@ function AnimatedBar({ pct, color, delay = 0 }: { pct: number; color: string; de
 }
 
 const RESLINK_ROWS = [
-  { title: 'SDR-Bright-Labs', url: 'reslink.io/reslink/sdr-bright-labs', views: 38, last: '3d ago', expanded: false },
-  { title: 'CS-Renewal-Outreach', url: 'reslink.io/reslink/cs-renewal-outreach', views: 61, last: '1d ago', expanded: false },
-  { title: 'AE-Stripe-Enterprise', url: 'reslink.io/reslink/ae-stripe-enterprise', views: 127, last: '4 hrs ago', expanded: true },
+  { title: 'SDR-Bright-Labs', url: 'reslink.io/reslink/sdr-bright-labs', views: 6, last: '3d ago', expanded: false },
+  { title: 'CS-Renewal-Outreach', url: 'reslink.io/reslink/cs-renewal-outreach', views: 11, last: '1d ago', expanded: false },
+  { title: 'AE-Stripe-Enterprise', url: 'reslink.io/reslink/ae-stripe-enterprise', views: 19, last: '4 hrs ago', expanded: true },
 ];
 
 const ALL_LOCATIONS = [
@@ -144,7 +144,7 @@ function AnalyticsVisual() {
           <div style={{ background: '#fff', border: '1px solid #E8EAF0', borderRadius: '8px', padding: '9px 10px' }}>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
             <p style={{ fontSize: '8px', color: '#6B7280', fontFamily: 'var(--font-body)', marginTop: '5px' }}>Unique Visitors</p>
-            <p style={{ fontSize: '17px', fontWeight: 900, color: '#041635', fontFamily: 'var(--font-phudu)', lineHeight: 1, marginTop: '3px' }}><CountUp target={98} /></p>
+            <p style={{ fontSize: '17px', fontWeight: 900, color: '#041635', fontFamily: 'var(--font-phudu)', lineHeight: 1, marginTop: '3px' }}><CountUp target={16} /></p>
             <Sparkline />
           </div>
           <div style={{ background: '#fff', border: '1px solid #E8EAF0', borderRadius: '8px', padding: '9px 10px' }}>
@@ -156,8 +156,8 @@ function AnalyticsVisual() {
           <div style={{ background: '#fff', border: '1px solid #E8EAF0', borderRadius: '8px', padding: '9px 10px' }}>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             <p style={{ fontSize: '8px', color: '#6B7280', fontFamily: 'var(--font-body)', marginTop: '5px' }}>Clicks</p>
-            <p style={{ fontSize: '17px', fontWeight: 900, color: '#041635', fontFamily: 'var(--font-phudu)', lineHeight: 1, marginTop: '3px' }}><CountUp target={127} /></p>
-            <p style={{ fontSize: '8px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '4px' }}>19 badge · 24 portfolio</p>
+            <p style={{ fontSize: '17px', fontWeight: 900, color: '#041635', fontFamily: 'var(--font-phudu)', lineHeight: 1, marginTop: '3px' }}><CountUp target={9} /></p>
+            <p style={{ fontSize: '8px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '4px' }}>3 badge · 4 portfolio</p>
           </div>
           <div style={{ background: '#fff', border: '1px solid #E8EAF0', borderRadius: '8px', padding: '9px 10px' }}>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C4257B" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -374,39 +374,26 @@ function PitchAIVisual() {
               </div>
 
               {/* Once the panel finishes scrolling down, a gentle pulse on
-                  the final CTA keeps the card feeling alive, then a cursor
-                  arrives and actually clicks it — that click is what visibly
-                  triggers the loop restart, instead of it silently resetting
-                  with no shown cause. */}
-              <div style={{ position: 'relative' }}>
-                <motion.div
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={
-                    clickingScript ? { opacity: 1, y: 0, scale: 0.96 }
-                    : atBottom ? { opacity: 1, y: 0, scale: [1, 1.025, 1] }
-                    : { opacity: 1, y: 0 }
-                  }
-                  transition={clickingScript ? { duration: 0.12 } : atBottom ? { repeat: Infinity, duration: 2, ease: 'easeOut' } : { delay: 0.4, duration: 0.25 }}
-                  style={{ background: '#D8F950', borderRadius: '8px', padding: '11px', textAlign: 'center', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '7px', marginBottom: '4px', position: 'relative' }}
-                >
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#041635" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span style={{ fontSize: '13px', fontWeight: 800, color: '#041635', fontFamily: 'var(--font-body)' }}>Use Script</span>
-                  {clickingScript && (
-                    <motion.span initial={{ opacity: 0.4 }} animate={{ opacity: 0 }} transition={{ duration: 0.35 }} style={{ position: 'absolute', inset: 0, borderRadius: '8px', background: '#041635' }} />
-                  )}
-                </motion.div>
-                {atBottom && (
-                  <motion.svg
-                    width="22" height="22" viewBox="0 0 24 24"
-                    initial={{ opacity: 0, top: '-14px', right: '40%' }}
-                    animate={clickingScript ? { opacity: 1, top: '8px', right: '18%', scale: 0.9 } : { opacity: 1, top: '-14px', right: '40%', scale: 1 }}
-                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    style={{ position: 'absolute', zIndex: 3, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.4))' }}
-                  >
-                    <path d="M4 2l14 6-5.5 2L18 15l-2.5 2.5L11 12l-2 5.5z" fill="#041635" stroke="#fff" strokeWidth="1.4" strokeLinejoin="round"/>
-                  </motion.svg>
+                  the final CTA keeps the card feeling alive, then it presses
+                  itself — that press is what visibly triggers the loop
+                  restart. No cursor prop for this one; the button doing its
+                  own press reads as more fluid than a cursor flying in. */}
+              <motion.div
+                initial={{ opacity: 0, y: 6 }}
+                animate={
+                  clickingScript ? { opacity: 1, y: 0, scale: 0.95 }
+                  : atBottom ? { opacity: 1, y: 0, scale: [1, 1.025, 1] }
+                  : { opacity: 1, y: 0 }
+                }
+                transition={clickingScript ? { duration: 0.16, ease: 'easeOut' } : atBottom ? { repeat: Infinity, duration: 2, ease: 'easeOut' } : { delay: 0.4, duration: 0.25 }}
+                style={{ background: '#D8F950', borderRadius: '8px', padding: '11px', textAlign: 'center', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '7px', marginBottom: '4px', position: 'relative' }}
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#041635" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span style={{ fontSize: '13px', fontWeight: 800, color: '#041635', fontFamily: 'var(--font-body)' }}>Use Script</span>
+                {clickingScript && (
+                  <motion.span initial={{ opacity: 0.4 }} animate={{ opacity: 0 }} transition={{ duration: 0.4 }} style={{ position: 'absolute', inset: 0, borderRadius: '8px', background: '#041635' }} />
                 )}
-              </div>
+              </motion.div>
             </>
           )}
         </div>
@@ -589,7 +576,7 @@ function BadgeVisual() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.8, y: -4 }}
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              style={{ position: 'absolute', top: '58px', right: '2px', width: '136px', height: '148px', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 18px 44px rgba(0,0,0,0.35)', zIndex: 5 }}
+              style={{ position: 'absolute', top: '58px', right: '2px', width: '136px', height: '148px', borderRadius: '16px', overflow: 'hidden', border: '2px solid #fff', boxShadow: '0 18px 44px rgba(0,0,0,0.35)', zIndex: 5 }}
             >
               <video src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" autoPlay muted loop playsInline preload="auto" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               <div style={{ position: 'absolute', bottom: '7px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(4,22,53,0.78)', borderRadius: '100px', padding: '3px 9px', display: 'flex', alignItems: 'center', gap: '4px' }}>

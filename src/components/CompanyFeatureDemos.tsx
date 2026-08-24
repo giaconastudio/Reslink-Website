@@ -177,7 +177,7 @@ export function PipelineDemo() {
     const id = setInterval(() => {
       i = (i + 1) % PIPELINE_LISTS.length;
       setExpandedId(PIPELINE_LISTS[i].id);
-    }, 2600);
+    }, 1700);
     return () => clearInterval(id);
   }, [inView]);
 
@@ -241,15 +241,21 @@ export function PipelineDemo() {
   );
 }
 
-/* ── Job Board: fictitious example company (not a real business — avoids
-   implying a real brand is a Reslink customer), auto-scrolling top to
-   bottom to show the branded hero, then the open-roles list. ── */
+/* ── Job Board: matches the real Reslink job board layout (branded hero
+   with company info + Website/LinkedIn links + video placeholder + stats,
+   then a search/filter row and a two-column role list + detail panel) for
+   a fictitious example company — using a real brand's name/logo here
+   would read as claiming they're a Reslink customer, which isn't true, so
+   this invents one instead (same convention as this site's other example
+   personas). Auto-scrolls top to bottom through the whole page and loops. ── */
 const BOARD_ROLES = [
-  { title: 'Marketing Intern', type: 'Internship', typeColor: '#7C3AED', pay: '$20/hr', tags: ['Remote', 'Video'], applicants: 6 },
-  { title: 'Backend Software Engineer', type: 'Full-time', typeColor: '#16A34A', pay: '$95,000 – $120,000', tags: ['Video'], applicants: 5 },
-  { title: 'Senior Product Designer', type: 'Full-time', typeColor: '#16A34A', pay: '$110,000 – $135,000', tags: ['Remote', 'Video'], applicants: 4 },
-  { title: 'Account Executive', type: 'Full-time', typeColor: '#16A34A', pay: '$70,000 base + commission', tags: [], applicants: 4 },
+  { title: 'Field Robotics Intern', dept: 'Engineering', type: 'Internship', typeColor: '#7C3AED', location: 'Remote', pay: '$24/hr', tags: ['Remote', 'Video'], applicants: 7 },
+  { title: 'Embedded Systems Engineer', dept: 'Engineering', type: 'Full-time', typeColor: '#16A34A', location: 'Austin, TX', pay: '$115,000 – $145,000', tags: ['Video'], applicants: 9 },
+  { title: 'Hardware QA Technician', dept: 'Operations', type: 'Full-time', typeColor: '#16A34A', location: 'Austin, TX', pay: '$62,000 – $78,000', tags: ['Video'], applicants: 5 },
+  { title: 'Account Executive', dept: 'Sales', type: 'Full-time', typeColor: '#16A34A', location: 'Remote', pay: '$80,000 base + commission', tags: ['Remote'], applicants: 6 },
 ];
+const BOARD_CATEGORIES = ['All Roles', 'Engineering', 'Operations', 'Sales'];
+const BOARD_ROLE = BOARD_ROLES[0];
 
 export function JobBoardDemo() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -279,9 +285,9 @@ export function JobBoardDemo() {
     const runCycle = () => {
       scrollRef.current?.scrollTo({ top: 0, behavior: 'auto' });
       timers.push(setTimeout(() => {
-        if (scrollRef.current) slowScrollTo(scrollRef.current.scrollHeight, 3200);
-      }, 1600));
-      timers.push(setTimeout(runCycle, 1600 + 3200 + 2400));
+        if (scrollRef.current) slowScrollTo(scrollRef.current.scrollHeight, 4200);
+      }, 1400));
+      timers.push(setTimeout(runCycle, 1400 + 4200 + 2200));
     };
     runCycle();
     return () => { cancelled = true; timers.forEach(clearTimeout); intervals.forEach(clearInterval); };
@@ -295,51 +301,126 @@ export function JobBoardDemo() {
           <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4338CA" strokeWidth="2.5"><path d="M12 2 L2 7 L12 12 L22 7 Z"/><path d="M2 17 L12 22 L22 17"/><path d="M2 12 L12 17 L22 12"/></svg>
           </div>
-          <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '17px', fontWeight: 900, color: '#fff', letterSpacing: '-0.01em' }}>NOVA ROBOTICS</p>
-          <div style={{ display: 'flex', gap: '6px', marginTop: '8px' }}>
-            <span style={{ fontSize: '9.5px', fontWeight: 600, color: 'rgba(255,255,255,0.85)', background: 'rgba(255,255,255,0.14)', borderRadius: '100px', padding: '3px 9px' }}>Hardware Company</span>
-            <span style={{ fontSize: '9.5px', fontWeight: 600, color: 'rgba(255,255,255,0.85)', background: 'rgba(255,255,255,0.14)', borderRadius: '100px', padding: '3px 9px' }}>Austin, TX</span>
+          <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '18px', fontWeight: 900, color: '#fff', letterSpacing: '-0.01em' }}>NOVA ROBOTICS</p>
+          <div style={{ display: 'flex', gap: '6px', marginTop: '9px' }}>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '9.5px', fontWeight: 600, color: 'rgba(255,255,255,0.85)', background: 'rgba(255,255,255,0.1)', borderRadius: '100px', padding: '4px 10px' }}>
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+              Hardware Company
+            </span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '9.5px', fontWeight: 600, color: 'rgba(255,255,255,0.85)', background: 'rgba(255,255,255,0.1)', borderRadius: '100px', padding: '4px 10px' }}>
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Austin, TX
+            </span>
           </div>
-          <p style={{ fontSize: '10.5px', color: 'rgba(255,255,255,0.75)', fontFamily: 'var(--font-body)', lineHeight: 1.55, marginTop: '12px', maxWidth: '75%' }}>
-            We build the sensors and control systems behind next-generation warehouse robotics. Small team, real ownership.
+          <div style={{ display: 'flex', gap: '7px', marginTop: '9px' }}>
+            <span style={{ fontSize: '9.5px', fontWeight: 700, color: '#fff', background: 'rgba(255,255,255,0.12)', borderRadius: '7px', padding: '5px 10px' }}>Website</span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '9.5px', fontWeight: 700, color: '#fff', background: 'rgba(255,255,255,0.12)', borderRadius: '7px', padding: '5px 10px' }}>
+              LinkedIn <span style={{ width: '11px', height: '11px', borderRadius: '2px', background: '#0A66C2', display: 'inline-block' }} />
+            </span>
+          </div>
+
+          <p style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', marginTop: '18px', marginBottom: '6px' }}>About the company</p>
+          <p style={{ fontSize: '10.5px', color: 'rgba(255,255,255,0.75)', fontFamily: 'var(--font-body)', lineHeight: 1.6, maxWidth: '72%' }}>
+            We build the sensors and control systems behind next-generation warehouse robotics — a small team with real ownership over what ships, working directly with the customers who use it every day.
           </p>
-          <div style={{ marginTop: '14px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.2)', background: 'rgba(255,255,255,0.06)', aspectRatio: '16/7', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
-            <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(255,255,255,0.95)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="#4338CA"><path d="M8 5v14l11-7z"/></svg>
+
+          <div style={{ marginTop: '14px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.2)', position: 'relative', aspectRatio: '16/8' }}>
+            {/* Placeholder thumbnail — a gradient + abstract mark standing in for real footage, since there's no video asset for this fictitious company */}
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, #1E1B4B 0%, #312E81 55%, #4338CA 100%)' }} />
+            <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.12)" strokeWidth="1" style={{ position: 'absolute', top: '10%', right: '8%' }}><path d="M12 2 L2 7 L12 12 L22 7 Z"/><path d="M2 17 L12 22 L22 17"/><path d="M2 12 L12 17 L22 12"/></svg>
+            <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(255,255,255,0.95)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="#4338CA"><path d="M8 5v14l11-7z"/></svg>
+              </div>
             </div>
-            <span style={{ position: 'absolute', bottom: '8px', left: '10px', fontSize: '9.5px', color: 'rgba(255,255,255,0.75)', fontFamily: 'var(--font-body)' }}>Meet the team</span>
+            <span style={{ position: 'absolute', bottom: '8px', left: '10px', fontSize: '9.5px', color: 'rgba(255,255,255,0.8)', fontFamily: 'var(--font-body)' }}>Meet the Nova Robotics team</span>
           </div>
-          <div style={{ display: 'flex', gap: '10px', marginTop: '14px' }}>
+
+          <div style={{ display: 'flex', gap: '14px', marginTop: '14px' }}>
             <div>
-              <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '15px', fontWeight: 900, color: '#fff' }}>4</p>
+              <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '16px', fontWeight: 900, color: '#fff' }}>4</p>
               <p style={{ fontSize: '9px', color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-body)' }}>Open Roles</p>
             </div>
             <div>
-              <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '15px', fontWeight: 900, color: '#fff' }}>19</p>
+              <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '16px', fontWeight: 900, color: '#fff' }}>27</p>
               <p style={{ fontSize: '9px', color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-body)' }}>Applicants</p>
             </div>
           </div>
         </div>
 
-        {/* Open roles */}
-        <div style={{ background: '#F7F8FA', padding: '16px 18px' }}>
-          <p style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>4 open roles</p>
+        {/* Search + filter row */}
+        <div style={{ background: '#F7F8FA', padding: '14px 18px 0' }}>
+          <div style={{ display: 'flex', gap: '8px', marginBottom: '10px' }}>
+            <div style={{ flex: 1, fontSize: '10px', color: '#9AA1AE', fontFamily: 'var(--font-body)', background: '#fff', border: '1px solid #E4E7EC', borderRadius: '8px', padding: '8px 11px' }}>Search roles, teams, locations…</div>
+            <div style={{ fontSize: '10px', color: '#3A3F4C', fontFamily: 'var(--font-body)', background: '#fff', border: '1px solid #E4E7EC', borderRadius: '8px', padding: '8px 11px', whiteSpace: 'nowrap' }}>All job types ▾</div>
+          </div>
+          <div style={{ display: 'flex', gap: '6px', overflow: 'hidden' }}>
+            {BOARD_CATEGORIES.map((cat, i) => (
+              <span key={cat} style={{ fontSize: '9.5px', fontWeight: 700, color: i === 0 ? '#fff' : '#3A3F4C', background: i === 0 ? '#041635' : '#fff', border: i === 0 ? 'none' : '1px solid #E4E7EC', borderRadius: '100px', padding: '5px 11px', whiteSpace: 'nowrap' }}>{cat}</span>
+            ))}
+          </div>
+        </div>
+
+        {/* Two-column: role list + detail */}
+        <div style={{ background: '#F7F8FA', padding: '14px 18px 18px', display: 'grid', gridTemplateColumns: '0.85fr 1.15fr', gap: '10px', alignItems: 'start' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '7px' }}>
             {BOARD_ROLES.map((r, i) => (
-              <div key={r.title} style={{ background: '#fff', borderRadius: '10px', border: i === 0 ? '1.5px solid #4338CA' : '1px solid #E8EAF0', padding: '11px 13px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginBottom: '5px' }}>
-                  <span style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>{r.title}</span>
-                  <span style={{ fontSize: '9px', fontWeight: 700, color: r.typeColor, background: `${r.typeColor}18`, borderRadius: '100px', padding: '2px 8px', flexShrink: 0 }}>{r.type}</span>
+              <div key={r.title} style={{ background: '#fff', borderRadius: '10px', border: i === 0 ? '1.5px solid #4338CA' : '1px solid #E8EAF0', padding: '10px 12px' }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '6px', marginBottom: '4px' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.3 }}>{r.title}</span>
+                  <span style={{ fontSize: '8.5px', fontWeight: 700, color: r.typeColor, background: `${r.typeColor}18`, borderRadius: '100px', padding: '2px 7px', flexShrink: 0, whiteSpace: 'nowrap' }}>{r.type}</span>
                 </div>
-                <p style={{ fontSize: '10.5px', color: '#6B7280', fontFamily: 'var(--font-body)', marginBottom: '6px' }}>{r.pay}</p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                <p style={{ fontSize: '9.5px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginBottom: '5px' }}>{r.dept} · {r.location}</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                   {r.tags.map(tag => (
-                    <span key={tag} style={{ fontSize: '9px', fontWeight: 600, color: '#4338CA', background: '#EEF2FF', borderRadius: '100px', padding: '2px 8px' }}>{tag}</span>
+                    <span key={tag} style={{ fontSize: '8.5px', fontWeight: 600, color: '#4338CA', background: '#EEF2FF', borderRadius: '100px', padding: '1.5px 7px' }}>{tag}</span>
                   ))}
-                  <span style={{ marginLeft: 'auto', fontSize: '9.5px', color: '#9AA1AE', fontFamily: 'var(--font-body)' }}>{r.applicants} applicants</span>
+                  <span style={{ marginLeft: 'auto', fontSize: '9px', color: '#9AA1AE', fontFamily: 'var(--font-body)' }}>{r.applicants} applicants</span>
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Detail panel for the first (selected) role */}
+          <div style={{ background: '#fff', borderRadius: '10px', border: '1px solid #E8EAF0', padding: '14px' }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px', marginBottom: '4px' }}>
+              <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>{BOARD_ROLE.title}</p>
+              <span style={{ fontSize: '9.5px', fontWeight: 700, color: '#fff', background: '#041635', borderRadius: '7px', padding: '5px 10px', whiteSpace: 'nowrap' }}>Apply Now</span>
+            </div>
+            <p style={{ fontSize: '10px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginBottom: '8px' }}>Nova Robotics · {BOARD_ROLE.dept}</p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '12px' }}>
+              {['Internship', 'Remote', 'Video Required'].map(tag => (
+                <span key={tag} style={{ fontSize: '8.5px', fontWeight: 600, color: '#4338CA', background: '#EEF2FF', borderRadius: '100px', padding: '2px 8px' }}>{tag}</span>
+              ))}
+            </div>
+
+            <p style={{ fontSize: '9.5px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', marginBottom: '5px' }}>Responsibilities</p>
+            <ul style={{ listStyle: 'disc', paddingLeft: '15px', display: 'flex', flexDirection: 'column', gap: '3px', marginBottom: '10px' }}>
+              <li style={{ fontSize: '9.5px', color: '#3A3F4C', fontFamily: 'var(--font-body)', lineHeight: 1.5 }}>Support field testing of new sensor rigs on live warehouse floors</li>
+              <li style={{ fontSize: '9.5px', color: '#3A3F4C', fontFamily: 'var(--font-body)', lineHeight: 1.5 }}>Log and triage hardware issues with the firmware team</li>
+            </ul>
+
+            <p style={{ fontSize: '9.5px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', marginBottom: '5px' }}>Skills &amp; Qualifications</p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '10px' }}>
+              {['Python', 'ROS', 'Soldering'].map(s => (
+                <span key={s} style={{ fontSize: '8.5px', fontWeight: 600, color: '#3A3F4C', background: '#F3F4F6', borderRadius: '100px', padding: '2px 8px' }}>{s}</span>
+              ))}
+            </div>
+
+            <p style={{ fontSize: '9.5px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', marginBottom: '5px' }}>Benefits &amp; Perks</p>
+            <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '4px', marginBottom: '10px' }}>
+              {['Fully remote with flexible hours', 'Direct mentorship from the founding team'].map(b => (
+                <li key={b} style={{ display: 'flex', alignItems: 'flex-start', gap: '6px', fontSize: '9.5px', color: '#3A3F4C', fontFamily: 'var(--font-body)', lineHeight: 1.5 }}>
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="3" strokeLinecap="round" style={{ marginTop: '2px', flexShrink: 0 }}><polyline points="20 6 9 17 4 12"/></svg>
+                  {b}
+                </li>
+              ))}
+            </ul>
+
+            <p style={{ fontSize: '9.5px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', marginBottom: '5px' }}>About the role</p>
+            <p style={{ fontSize: '9.5px', color: '#3A3F4C', fontFamily: 'var(--font-body)', lineHeight: 1.55 }}>
+              Warehouse robotics is a physical problem, not just a software one. We&apos;re looking for someone who wants hands-on time with real hardware, not just a simulator.
+            </p>
           </div>
         </div>
       </div>

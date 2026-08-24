@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { BarChart3, Sparkles, Video, Link2 } from 'lucide-react';
 
 /** Counts 0 → target with an ease-out, holds, then loops — so a card that's
@@ -137,8 +137,18 @@ function PitchAIVisual() {
   const [typedRole, setTypedRole] = useState('');
   const [pasted, setPasted] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
+  // Gate the cycle on visibility rather than mount: a fixed mount-time loop
+  // means whatever moment a visitor happens to scroll this card into view is
+  // pure luck — half the time that's the held 'result' state, which reads as
+  // frozen since nothing moves for seconds. Restarting fresh from 'role'
+  // every time it re-enters view guarantees the same seamless first
+  // impression (typing → pasting → generating → result) no matter when
+  // someone scrolls to it.
+  const inView = useInView(rootRef, { amount: 0.5 });
 
   useEffect(() => {
+    if (!inView) return;
     let cancelled = false;
     const timers: ReturnType<typeof setTimeout>[] = [];
     const after = (ms: number, fn: () => void) => timers.push(setTimeout(() => { if (!cancelled) fn(); }, ms));
@@ -170,10 +180,10 @@ function PitchAIVisual() {
     };
     runCycle();
     return () => { cancelled = true; timers.forEach(clearTimeout); };
-  }, []);
+  }, [inView]);
 
   return (
-    <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', background: '#fff' }}>
+    <div ref={rootRef} style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', background: '#fff' }}>
       <div style={{ background: 'linear-gradient(135deg, #0B1120 0%, #0D1829 100%)', padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '10px', borderBottom: 'none', flexShrink: 0 }}>
         <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: 'linear-gradient(135deg, rgba(216,249,80,0.2), rgba(216,249,80,0.08))', border: '1px solid rgba(216,249,80,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="#D8F950"><path d="M12 1.5 L13.2 9.8 L21.5 12 L13.2 14.2 L12 22.5 L10.8 14.2 L2.5 12 L10.8 9.8 Z"/></svg>
@@ -276,10 +286,7 @@ function BadgeVisual() {
   }, []);
 
   return (
-    // Extra top padding (32px vs. the 20px elsewhere) gives the enlarged PIP
-    // bubble room to overlap the card's top-right corner without its top
-    // edge getting clipped by the visual frame's overflow:hidden above it.
-    <div style={{ width: '100%', height: '100%', padding: '32px 20px 20px', display: 'flex', flexDirection: 'column', gap: '12px', background: '#F7F8FA', justifyContent: 'center', position: 'relative' }}>
+    <div style={{ width: '100%', height: '100%', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px', background: '#F7F8FA', justifyContent: 'center', position: 'relative' }}>
       <div style={{ background: '#fff', borderRadius: '10px', border: '1px solid #E4E7EC', padding: '16px 18px', boxShadow: '0 4px 16px rgba(4,22,53,0.06)', position: 'relative' }}>
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '12px' }}>
           <div>
@@ -288,14 +295,21 @@ function BadgeVisual() {
             <p style={{ fontSize: '10px', color: '#6B7280', fontFamily: 'var(--font-body)', marginTop: '1px' }}>linkedin.com/in/name</p>
           </div>
           <motion.div
-            animate={clicking ? { scale: 0.9 } : { scale: 1 }}
-            transition={{ duration: 0.15 }}
+            animate={
+              clicking ? { scale: 0.9, boxShadow: '0 0 0 0 rgba(216,249,80,0)' }
+              : playing ? { scale: 1, boxShadow: '0 0 0 0 rgba(216,249,80,0)' }
+              : { scale: [1, 1.045, 1], boxShadow: ['0 0 0 0 rgba(216,249,80,0.55)', '0 0 0 9px rgba(216,249,80,0)', '0 0 0 0 rgba(216,249,80,0)'] }
+            }
+            transition={clicking || playing ? { duration: 0.15 } : { repeat: Infinity, duration: 1.7, ease: 'easeOut' }}
             style={{ display: 'flex', alignItems: 'center', gap: '5px', background: '#0C63E3', borderRadius: '20px', padding: '7px 13px', cursor: 'pointer', flexShrink: 0, position: 'relative' }}
           >
             <svg width="9" height="9" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
             <span style={{ fontSize: '11px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)' }}>Play Intro</span>
             {clicking && (
-              <motion.span initial={{ opacity: 0.9, scale: 0.7 }} animate={{ opacity: 0, scale: 1.7 }} transition={{ duration: 0.45 }} style={{ position: 'absolute', inset: 0, borderRadius: '20px', border: '2.5px solid #fff' }} />
+              <>
+                <motion.span initial={{ opacity: 1, scale: 0.6 }} animate={{ opacity: 0, scale: 2.1 }} transition={{ duration: 0.55 }} style={{ position: 'absolute', inset: 0, borderRadius: '20px', border: '2.5px solid #D8F950' }} />
+                <motion.span initial={{ opacity: 0.8, scale: 0.6 }} animate={{ opacity: 0, scale: 1.6 }} transition={{ duration: 0.4, delay: 0.08 }} style={{ position: 'absolute', inset: 0, borderRadius: '20px', border: '2.5px solid #fff' }} />
+              </>
             )}
           </motion.div>
 
@@ -312,31 +326,38 @@ function BadgeVisual() {
             </svg>
           </motion.div>
         </div>
+        {/* Real-looking resume lines (varied color/weight, small bullet
+            markers) rather than uniform flat-gray skeleton bars, which read
+            as a "still loading" placeholder instead of actual content. */}
         <div style={{ borderTop: '1px solid #F0F1F4', paddingTop: '10px' }}>
-          <p style={{ fontSize: '9px', fontWeight: 700, color: '#6B7280', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '6px', fontFamily: 'var(--font-body)' }}>Summary</p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginBottom: '10px' }}>
-            <div style={{ height: '6px', borderRadius: '3px', background: '#E9EAEC', width: '100%' }} />
-            <div style={{ height: '6px', borderRadius: '3px', background: '#E9EAEC', width: '85%' }} />
-            <div style={{ height: '6px', borderRadius: '3px', background: '#E9EAEC', width: '92%' }} />
+          <p style={{ fontSize: '9px', fontWeight: 700, color: '#3A3F4C', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '7px', fontFamily: 'var(--font-body)' }}>Summary</p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '12px' }}>
+            <div style={{ height: '6px', borderRadius: '3px', background: '#C7CDD6', width: '100%' }} />
+            <div style={{ height: '6px', borderRadius: '3px', background: '#C7CDD6', width: '85%' }} />
+            <div style={{ height: '6px', borderRadius: '3px', background: '#D7DBE2', width: '92%' }} />
           </div>
-          <p style={{ fontSize: '9px', fontWeight: 700, color: '#6B7280', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '6px', fontFamily: 'var(--font-body)' }}>Experience</p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-            <div style={{ height: '6px', borderRadius: '3px', background: '#E9EAEC', width: '100%' }} />
-            <div style={{ height: '6px', borderRadius: '3px', background: '#E9EAEC', width: '78%' }} />
-            <div style={{ height: '6px', borderRadius: '3px', background: '#E9EAEC', width: '88%' }} />
-            <div style={{ height: '6px', borderRadius: '3px', background: '#E9EAEC', width: '70%' }} />
+          <p style={{ fontSize: '9px', fontWeight: 700, color: '#3A3F4C', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '7px', fontFamily: 'var(--font-body)' }}>Experience</p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            {[100, 78, 88, 70].map((w, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span style={{ width: '3px', height: '3px', borderRadius: '50%', background: '#9AA1AE', flexShrink: 0 }} />
+                <div style={{ height: '6px', borderRadius: '3px', background: i % 2 ? '#D7DBE2' : '#C7CDD6', width: `${w}%` }} />
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Intro video bubble — pops in on "click", plays, fades out */}
+        {/* Intro video bubble — pops in on "click", plays, fades out.
+            Contained within the card (not overhanging the frame) and edged
+            in the brand lime instead of a plain white border. */}
         <AnimatePresence>
           {playing && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.7, y: -8 }}
+              initial={{ opacity: 0, scale: 0.7, y: -6 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.8, y: -6 }}
+              exit={{ opacity: 0, scale: 0.8, y: -4 }}
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              style={{ position: 'absolute', top: '-16px', right: '4px', width: '148px', height: '148px', borderRadius: '18px', overflow: 'hidden', border: '3px solid #fff', boxShadow: '0 18px 44px rgba(0,0,0,0.35)', zIndex: 5 }}
+              style={{ position: 'absolute', top: '2px', right: '2px', width: '128px', height: '128px', borderRadius: '16px', overflow: 'hidden', border: '3px solid #D8F950', boxShadow: '0 18px 44px rgba(0,0,0,0.35)', zIndex: 5 }}
             >
               <video src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" autoPlay muted loop playsInline preload="auto" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               <div style={{ position: 'absolute', bottom: '7px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(4,22,53,0.78)', borderRadius: '100px', padding: '3px 9px', display: 'flex', alignItems: 'center', gap: '4px' }}>

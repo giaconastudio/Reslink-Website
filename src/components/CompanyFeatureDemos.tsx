@@ -249,7 +249,7 @@ export function PipelineDemo() {
    this invents one instead (same convention as this site's other example
    personas). Auto-scrolls top to bottom through the whole page and loops. ── */
 const BOARD_ROLES = [
-  { title: 'Field Robotics Intern', dept: 'Engineering', type: 'Internship', typeColor: '#7C3AED', location: 'Remote', pay: '$24/hr', tags: ['Remote', 'Video'], applicants: 7 },
+  { title: 'Field Robotics Intern', dept: 'Engineering', type: 'Internship', typeColor: '#2F5FE0', location: 'Remote', pay: '$24/hr', tags: ['Remote', 'Video'], applicants: 7 },
   { title: 'Embedded Systems Engineer', dept: 'Engineering', type: 'Full-time', typeColor: '#16A34A', location: 'Austin, TX', pay: '$115,000 – $145,000', tags: ['Video'], applicants: 9 },
   { title: 'Hardware QA Technician', dept: 'Operations', type: 'Full-time', typeColor: '#16A34A', location: 'Austin, TX', pay: '$62,000 – $78,000', tags: ['Video'], applicants: 5 },
   { title: 'Account Executive', dept: 'Sales', type: 'Full-time', typeColor: '#16A34A', location: 'Remote', pay: '$80,000 base + commission', tags: ['Remote'], applicants: 6 },
@@ -316,18 +316,16 @@ export function JobBoardDemo() {
     // Scrolling a div with no overflow of its own does nothing.
     <div ref={scrollRef} style={{ maxHeight: '460px', overflow: 'hidden' }}>
       <div>
-        {/* Cover band — the site's own branded header above every company's board */}
-        <div style={{ position: 'relative', background: 'linear-gradient(120deg, #0C1E4D 0%, #1B3A8C 100%)', padding: '14px 20px 34px', overflow: 'hidden' }}>
-          <span style={{ display: 'inline-block', fontSize: '9px', fontWeight: 700, color: '#fff', background: 'rgba(255,255,255,0.14)', borderRadius: '6px', padding: '4px 9px', marginBottom: '10px' }}>Reslink Job Board</span>
-          <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '19px', fontWeight: 900, color: '#fff', letterSpacing: '-0.01em', lineHeight: 1.05 }}>YOUR ROLE,</p>
-          <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '19px', fontWeight: 900, color: '#C6FF3D', letterSpacing: '-0.01em', lineHeight: 1.05 }}>FOUND FASTER</p>
-        </div>
+        {/* Cover band — a thin bright-blue strip above the panel, matching the real board */}
+        <div style={{ height: '10px', background: 'linear-gradient(90deg, #0B1739 0%, #2F5FE0 100%)' }} />
 
-        {/* Company info — a fictitious example company */}
-        <div style={{ background: '#0B1220', padding: '18px 20px 20px', display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: '16px' }}>
+        {/* Company info — a fictitious example company. One continuous
+            dark-navy-to-bright-blue gradient, matching the real board
+            (not flat black, not purple). */}
+        <div style={{ background: 'linear-gradient(115deg, #0B1739 0%, #16266B 55%, #2F5FE0 130%)', padding: '18px 20px 20px', display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: '16px' }}>
           <div>
             <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1B3A8C" strokeWidth="2.5"><path d="M12 2 L2 7 L12 12 L22 7 Z"/><path d="M2 17 L12 22 L22 17"/><path d="M2 12 L12 17 L22 12"/></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2F5FE0" strokeWidth="2.5"><path d="M12 2 L2 7 L12 12 L22 7 Z"/><path d="M2 17 L12 22 L22 17"/><path d="M2 12 L12 17 L22 12"/></svg>
             </div>
             <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '17px', fontWeight: 900, color: '#fff', letterSpacing: '-0.01em' }}>NOVA ROBOTICS</p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '9px' }}>
@@ -354,23 +352,31 @@ export function JobBoardDemo() {
           </div>
 
           <div>
-            <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.14)', position: 'relative', aspectRatio: '16/11', background: '#1A2333' }}>
-              {/* A real "image placeholder" (mountain/sun glyph, the standard
-                  missing-image convention) instead of a decorative gradient —
-                  reads clearly as "photo goes here", not as content itself. */}
-              <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="1.5">
-                  <rect x="3" y="3" width="18" height="18" rx="2" />
-                  <circle cx="8.5" cy="8.5" r="1.5" />
-                  <path d="M21 15l-5-5L5 21" />
-                </svg>
-              </div>
+            <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.14)', position: 'relative', aspectRatio: '16/11', background: '#DCE3EE' }}>
+              {/* Photo-style placeholder — an illustrated "office" scene
+                  (desk, window light, seated figures) rather than a bare
+                  missing-image glyph, since a flat icon on its own didn't
+                  read as "photo goes here" at this size. */}
+              <svg viewBox="0 0 320 220" preserveAspectRatio="xMidYMax slice" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
+                <rect width="320" height="220" fill="#DCE3EE" />
+                <rect x="0" y="0" width="320" height="130" fill="#EEF2F9" />
+                <rect x="40" y="18" width="70" height="112" fill="#CBD6E8" />
+                <rect x="210" y="18" width="70" height="112" fill="#CBD6E8" />
+                <circle cx="160" cy="60" r="26" fill="#F6C89A" opacity="0.9" />
+                <rect x="120" y="150" width="80" height="70" rx="6" fill="#B9C6DE" />
+                <circle cx="95" cy="185" r="16" fill="#C9AE93" />
+                <rect x="70" y="200" width="50" height="20" rx="8" fill="#9FB0CC" />
+                <circle cx="225" cy="185" r="16" fill="#D8B48A" />
+                <rect x="200" y="200" width="50" height="20" rx="8" fill="#9FB0CC" />
+                <rect x="100" y="130" width="120" height="10" fill="#AEBBD4" />
+              </svg>
+              <div style={{ position: 'absolute', inset: 0, background: 'rgba(11,23,57,0.45)' }} />
               <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: 'rgba(255,255,255,0.95)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#1B3A8C"><path d="M8 5v14l11-7z"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#2F5FE0"><path d="M8 5v14l11-7z"/></svg>
                 </div>
               </div>
-              <span style={{ position: 'absolute', bottom: '8px', left: '10px', fontSize: '9px', color: 'rgba(255,255,255,0.7)', fontFamily: 'var(--font-body)' }}>Meet the Nova Robotics team</span>
+              <span style={{ position: 'absolute', bottom: '8px', left: '10px', fontSize: '9px', color: 'rgba(255,255,255,0.85)', fontFamily: 'var(--font-body)' }}>Meet the Nova Robotics team</span>
             </div>
 
             <div style={{ display: 'flex', gap: '8px', marginTop: '10px' }}>
@@ -403,7 +409,7 @@ export function JobBoardDemo() {
         <div style={{ background: '#F7F8FA', padding: '14px 18px 18px', display: 'grid', gridTemplateColumns: '0.85fr 1.15fr', gap: '10px', alignItems: 'start' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '7px' }}>
             {BOARD_ROLES.map((r, i) => (
-              <div key={r.title} style={{ background: '#fff', borderRadius: '10px', border: i === 0 ? '1.5px solid #4338CA' : '1px solid #E8EAF0', padding: '10px 12px' }}>
+              <div key={r.title} style={{ background: '#fff', borderRadius: '10px', border: i === 0 ? '1.5px solid #2F5FE0' : '1px solid #E8EAF0', padding: '10px 12px' }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '6px', marginBottom: '4px' }}>
                   <span style={{ fontSize: '11px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.3 }}>{r.title}</span>
                   <span style={{ fontSize: '8.5px', fontWeight: 700, color: r.typeColor, background: `${r.typeColor}18`, borderRadius: '100px', padding: '2px 7px', flexShrink: 0, whiteSpace: 'nowrap' }}>{r.type}</span>
@@ -411,7 +417,7 @@ export function JobBoardDemo() {
                 <p style={{ fontSize: '9.5px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginBottom: '5px' }}>{r.dept} · {r.location}</p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                   {r.tags.map(tag => (
-                    <span key={tag} style={{ fontSize: '8.5px', fontWeight: 600, color: '#4338CA', background: '#EEF2FF', borderRadius: '100px', padding: '1.5px 7px' }}>{tag}</span>
+                    <span key={tag} style={{ fontSize: '8.5px', fontWeight: 600, color: '#2F5FE0', background: '#E8F0FE', borderRadius: '100px', padding: '1.5px 7px' }}>{tag}</span>
                   ))}
                   <span style={{ marginLeft: 'auto', fontSize: '9px', color: '#9AA1AE', fontFamily: 'var(--font-body)' }}>{r.applicants} applicants</span>
                 </div>
@@ -440,7 +446,7 @@ export function JobBoardDemo() {
             <p style={{ fontSize: '10px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginBottom: '8px' }}>Nova Robotics · {BOARD_ROLE.dept}</p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '12px' }}>
               {['Internship', 'Remote', 'Video Required'].map(tag => (
-                <span key={tag} style={{ fontSize: '8.5px', fontWeight: 600, color: '#4338CA', background: '#EEF2FF', borderRadius: '100px', padding: '2px 8px' }}>{tag}</span>
+                <span key={tag} style={{ fontSize: '8.5px', fontWeight: 600, color: '#2F5FE0', background: '#E8F0FE', borderRadius: '100px', padding: '2px 8px' }}>{tag}</span>
               ))}
             </div>
 

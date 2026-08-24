@@ -121,7 +121,7 @@ function AnalyticsVisual() {
 }
 
 const PITCH_ROLE = 'Sales Development Rep';
-const PITCH_DESC = 'We’re looking for a Sales Development Rep to own top-of-funnel outreach, qualify inbound leads, and partner with Account Executives to build pipeline. You’ll run daily prospecting across email, phone, and LinkedIn, book qualified discovery calls, and keep our CRM clean and up to date. 3+ years of B2B SaaS prospecting experience preferred, along with strong written communication and a track record of hitting monthly quota.';
+const PITCH_DESC = 'We’re looking for a Sales Development Rep to own top-of-funnel outreach, qualify inbound leads, and partner with Account Executives to build pipeline. You’ll run daily prospecting across email, phone, and LinkedIn, book qualified discovery calls, and keep our CRM clean and up to date. You will also collaborate with marketing on messaging, log every touchpoint for accurate forecasting, and help refine our outbound playbook as the team scales. 3+ years of B2B SaaS prospecting experience preferred, along with strong written communication, comfort with a fast-paced quota-driven environment, and a track record of consistently hitting monthly targets.';
 const PITCH_SCRIPT = [
   'Hey there! My name is Alex, and I am excited to introduce myself. I have 5 years of experience as a Sales Development Rep, during which I have had the opportunity to work on a variety of exciting projects.',
   'One of my proudest achievements was leading a team of 15 and increasing sales by 51%. It was an incredible learning experience that really strengthened my leadership and strategic thinking skills.',
@@ -200,10 +200,14 @@ function PitchAIVisual() {
       // Hold with the script fully visible and un-scrolled for a beat before
       // easing down — long enough to actually read it, not just glimpse it.
       const tScrollStart = tResult + 1500;
+      const scrollDuration = 1500;
       after(tScrollStart, () => {
-        if (scrollRef.current) slowScrollTo(scrollRef.current.scrollHeight, 2400);
+        if (scrollRef.current) slowScrollTo(scrollRef.current.scrollHeight, scrollDuration);
       });
-      after(tScrollStart + 2400 + 3200, runCycle);
+      // Short hold at the bottom, not a long dead pause — restart the loop
+      // shortly after the buttons land instead of sitting static for
+      // seconds with nothing moving.
+      after(tScrollStart + scrollDuration + 1000, runCycle);
     };
     runCycle();
     return () => { cancelled = true; timers.forEach(clearTimeout); intervals.forEach(clearInterval); };
@@ -336,11 +340,11 @@ function BadgeVisual() {
               rest of the site's button shape language. */}
           <motion.div
             animate={
-              clicking ? { scale: 0.9, boxShadow: '0 0 0 0 rgba(216,249,80,0)' }
-              : playing ? { scale: 1, boxShadow: '0 0 0 0 rgba(216,249,80,0)' }
-              : { scale: [1, 1.045, 1], boxShadow: ['0 0 0 0 rgba(216,249,80,0.55)', '0 0 0 9px rgba(216,249,80,0)', '0 0 0 0 rgba(216,249,80,0)'] }
+              clicking ? { scale: 0.9, boxShadow: '0 0 0 0 rgba(12,99,227,0)' }
+              : playing ? { scale: 1, boxShadow: '0 0 0 0 rgba(12,99,227,0)' }
+              : { scale: [1, 1.03, 1], boxShadow: ['0 0 0 0 rgba(12,99,227,0.4)', '0 0 0 8px rgba(12,99,227,0)', '0 0 0 0 rgba(12,99,227,0)'] }
             }
-            transition={clicking || playing ? { duration: 0.15 } : { repeat: Infinity, duration: 1.7, ease: 'easeOut' }}
+            transition={clicking || playing ? { duration: 0.15 } : { repeat: Infinity, duration: 2.6, ease: 'easeOut' }}
             style={{ display: 'flex', alignItems: 'center', gap: '5px', background: '#0C63E3', borderRadius: '9px', padding: '7px 13px', cursor: 'pointer', flexShrink: 0, position: 'relative' }}
           >
             <svg width="9" height="9" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
@@ -401,7 +405,7 @@ function BadgeVisual() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.8, y: -4 }}
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              style={{ position: 'absolute', top: '38px', right: '2px', width: '124px', height: '124px', borderRadius: '16px', overflow: 'hidden', border: '3px solid #fff', boxShadow: '0 18px 44px rgba(0,0,0,0.35)', zIndex: 5 }}
+              style={{ position: 'absolute', top: '64px', right: '2px', width: '124px', height: '124px', borderRadius: '16px', overflow: 'hidden', border: '3px solid #fff', boxShadow: '0 18px 44px rgba(0,0,0,0.35)', zIndex: 5 }}
             >
               <video src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" autoPlay muted loop playsInline preload="auto" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               <div style={{ position: 'absolute', bottom: '7px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(4,22,53,0.78)', borderRadius: '100px', padding: '3px 9px', display: 'flex', alignItems: 'center', gap: '4px' }}>

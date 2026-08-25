@@ -1,12 +1,18 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 /* Three live demos for the companies-page feature catalog — Team
  * Collaboration, Pipeline and Lists, Job Board — built the same way as
  * AIScreeningDemo (real HTML/CSS, no screenshot), modeled on the actual
- * product screens rather than the generic mockups this used to show. */
+ * product screens rather than the generic mockups this used to show.
+ *
+ * Each takes an `active` prop driven by the page's scrollspy (only the
+ * feature block currently in view is "active") rather than gating on
+ * their own useInView — all four cards are stacked and mounted at once,
+ * so without a shared source of truth every demo just free-runs
+ * regardless of which one the visitor is actually looking at. */
 
 /* ── Team Collaboration: resume + AI score + live team notes ── */
 const COLLAB_TEAM = [
@@ -20,14 +26,16 @@ const COLLAB_NOTES = [
   { who: 2, text: 'mentionRosa can you confirm his notice period?' },
 ];
 
-export function CollabDemo() {
+export function CollabDemo({ active }: { active: boolean }) {
   const [visibleCount, setVisibleCount] = useState(0);
   const [typingWho, setTypingWho] = useState<number | null>(null);
   const rootRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(rootRef, { amount: 0.4 });
 
   useEffect(() => {
-    if (!inView) return;
+    if (!active) {
+      const t = setTimeout(() => { setVisibleCount(0); setTypingWho(null); }, 0);
+      return () => clearTimeout(t);
+    }
     let cancelled = false;
     const timers: ReturnType<typeof setTimeout>[] = [];
     const after = (ms: number, fn: () => void) => timers.push(setTimeout(() => { if (!cancelled) fn(); }, ms));
@@ -46,7 +54,7 @@ export function CollabDemo() {
     };
     runCycle();
     return () => { cancelled = true; timers.forEach(clearTimeout); };
-  }, [inView]);
+  }, [active]);
 
   return (
     <div ref={rootRef} style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '1px', background: '#E8EAF0', maxHeight: '460px' }}>
@@ -166,20 +174,22 @@ const PIPELINE_LISTS = [
   ] },
 ];
 
-export function PipelineDemo() {
+export function PipelineDemo({ active }: { active: boolean }) {
   const [expandedId, setExpandedId] = useState('final');
   const rootRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(rootRef, { amount: 0.4 });
 
   useEffect(() => {
-    if (!inView) return;
+    if (!active) {
+      const t = setTimeout(() => setExpandedId('final'), 0);
+      return () => clearTimeout(t);
+    }
     let i = 0;
     const id = setInterval(() => {
       i = (i + 1) % PIPELINE_LISTS.length;
       setExpandedId(PIPELINE_LISTS[i].id);
     }, 1700);
     return () => clearInterval(id);
-  }, [inView]);
+  }, [active]);
 
   return (
     <div ref={rootRef} style={{ background: '#F7F8FA', padding: 'clamp(16px, 2.5vw, 26px)' }}>
@@ -275,7 +285,7 @@ const BOARD_ROLES = [
 const BOARD_CATEGORIES = ['All Roles', 'Engineering', 'Operations', 'Sales'];
 const SEARCH_TARGET = 'Hardware QA Technician';
 
-export function JobBoardDemo() {
+export function JobBoardDemo({ active }: { active: boolean }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const searchBarRef = useRef<HTMLDivElement>(null);
   const [applyPressed, setApplyPressed] = useState(false);
@@ -285,14 +295,24 @@ export function JobBoardDemo() {
   const visibleRoles = filtered ? BOARD_ROLES.filter(r => r.title === SEARCH_TARGET) : BOARD_ROLES;
   const selectedRole = BOARD_ROLES[selectedIndex];
 
-  // Runs on mount, not gated on useInView — this card can already be
-  // sitting inside the viewport the moment the page loads (no scroll ever
-  // happens to trigger it), and IntersectionObserver-based hooks can then
-  // sit permanently unresolved until something nudges the browser to
-  // recheck (the same class of issue ScrollToTop.tsx works around for
-  // whileInView reveals elsewhere on this site). That silently produced
-  // exactly the "no animation, nothing happening" symptom reported here.
+  // Gated on the `active` prop (driven by the page's scrollspy) rather
+  // than its own useInView — a self-measured useInView can sit
+  // permanently unresolved if the card is already in the viewport at
+  // mount with no scroll event to nudge it (the same class of issue
+  // ScrollToTop.tsx works around elsewhere on this site), and separately
+  // it doesn't know whether THIS is the card being looked at versus one
+  // of the other three stacked on the same page.
   useEffect(() => {
+    if (!active) {
+      const t = setTimeout(() => {
+        setApplyPressed(false);
+        setSearchText('');
+        setFiltered(false);
+        setSelectedIndex(0);
+        scrollRef.current?.scrollTo({ top: 0, behavior: 'auto' });
+      }, 0);
+      return () => clearTimeout(t);
+    }
     let cancelled = false;
     const timers: ReturnType<typeof setTimeout>[] = [];
     const intervals: ReturnType<typeof setInterval>[] = [];
@@ -364,7 +384,7 @@ export function JobBoardDemo() {
     };
     runCycle();
     return () => { cancelled = true; timers.forEach(clearTimeout); intervals.forEach(clearInterval); };
-  }, []);
+  }, [active]);
 
   return (
     // scrollRef has to be the element that's actually height-constrained —

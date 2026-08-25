@@ -13,15 +13,19 @@ const AI_CANDIDATES = [
   { name: 'Naomi Whitfield', role: 'Frontend Engineer Intern', initials: 'NW', color: '#E11D48', score: 72, grade: 'B', gradeColor: '#D97706' },
 ];
 
-export default function AIScreeningDemo() {
+export default function AIScreeningDemo({ active = true }: { active?: boolean }) {
   const [scoredCount, setScoredCount] = useState(0);
 
   useEffect(() => {
+    if (!active) {
+      const t = setTimeout(() => setScoredCount(0), 0);
+      return () => clearTimeout(t);
+    }
     const id = setInterval(() => {
       setScoredCount(s => (s >= AI_CANDIDATES.length ? 0 : s + 1));
     }, 1700);
     return () => clearInterval(id);
-  }, []);
+  }, [active]);
 
   const rows = AI_CANDIDATES.map((c, i) => ({ ...c, isScored: i < scoredCount }));
   rows.sort((a, b) => (b.isScored ? b.score : -1) - (a.isScored ? a.score : -1));

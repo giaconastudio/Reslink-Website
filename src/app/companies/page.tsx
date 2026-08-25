@@ -492,13 +492,13 @@ const [notifA, setNotifA] = useState(0);
                         </div>
                       </div>
                       {t.id === 'ai' ? (
-                        <AIScreeningDemo />
+                        <AIScreeningDemo active={activeTab === i} />
                       ) : t.id === 'collab' ? (
-                        <CollabDemo />
+                        <CollabDemo active={activeTab === i} />
                       ) : t.id === 'pipeline' ? (
-                        <PipelineDemo />
+                        <PipelineDemo active={activeTab === i} />
                       ) : t.id === 'board' ? (
-                        <JobBoardDemo />
+                        <JobBoardDemo active={activeTab === i} />
                       ) : (
                         <div style={{ maxHeight: '520px', overflow: 'hidden' }}>
                           <Image src={t.img} alt={t.alt} width={2880} height={1419} quality={100} style={{ width: '100%', height: 'auto', display: 'block' }} />

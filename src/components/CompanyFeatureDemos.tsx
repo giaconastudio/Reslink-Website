@@ -260,30 +260,30 @@ export function PipelineDemo({ active }: { active: boolean }) {
    personas). Auto-scrolls top to bottom through the whole page and loops. ── */
 const BOARD_ROLES = [
   {
-    title: 'Field Robotics Intern', dept: 'Engineering', type: 'Internship', typeColor: '#2F5FE0', location: 'Remote', pay: '$24/hr', tags: ['Remote', 'Video'], applicants: 7,
+    title: 'Social Media Intern', dept: 'Marketing', type: 'Internship', typeColor: '#2F5FE0', location: 'Remote', pay: '$22/hr', tags: ['Remote', 'Video'], applicants: 8,
     detail: {
       pills: ['Internship', 'Remote', 'Video Required'],
-      responsibilities: ['Support field testing of new sensor rigs on live warehouse floors', 'Log and triage hardware issues with the firmware team'],
-      skills: ['Python', 'ROS', 'Soldering'],
+      responsibilities: ['Plan and publish a weekly content calendar across Instagram and TikTok', 'Track engagement metrics and flag what’s resonating with the team'],
+      skills: ['Canva', 'Copywriting', 'Analytics'],
       benefits: ['Fully remote with flexible hours', 'Direct mentorship from the founding team'],
-      about: 'Warehouse robotics is a physical problem, not just a software one. We’re looking for someone who wants hands-on time with real hardware, not just a simulator.',
+      about: 'Social is where most of our clients’ audiences actually live. We want someone who thinks in captions and knows why a post works, not just when to publish it.',
     },
   },
-  { title: 'Embedded Systems Engineer', dept: 'Engineering', type: 'Full-time', typeColor: '#16A34A', location: 'Austin, TX', pay: '$115,000 – $145,000', tags: ['Video'], applicants: 9 },
+  { title: 'Brand Designer', dept: 'Design', type: 'Full-time', typeColor: '#16A34A', location: 'Austin, TX', pay: '$70,000 – $90,000', tags: ['Video'], applicants: 11 },
   {
-    title: 'Hardware QA Technician', dept: 'Operations', type: 'Full-time', typeColor: '#16A34A', location: 'Austin, TX', pay: '$62,000 – $78,000', tags: ['Video'], applicants: 5,
+    title: 'Account Coordinator', dept: 'Client Services', type: 'Full-time', typeColor: '#16A34A', location: 'Austin, TX', pay: '$55,000 – $68,000', tags: ['Video'], applicants: 6,
     detail: {
       pills: ['Full-time', 'On-site', 'Video Required'],
-      responsibilities: ['Run inspection and burn-in tests on every sensor rig before it ships', 'Document defects and work with engineering to close out root causes'],
-      skills: ['Test Equipment', 'GD&T', 'Excel'],
+      responsibilities: ['Keep every active client engagement on schedule and on budget', 'Sit in on strategy calls and turn decisions into clear next steps for the team'],
+      skills: ['Client Communication', 'Project Management', 'Google Workspace'],
       benefits: ['Full health coverage from day one', 'Direct mentorship from the founding team'],
-      about: 'Every unit that leaves our floor has been through this role’s hands first. We need someone meticulous who won’t wave through a rig that isn’t ready.',
+      about: 'Every client relationship runs through this seat. We need someone organized enough that nothing falls through the cracks, and personable enough that clients enjoy working with us.',
     },
   },
-  { title: 'Account Executive', dept: 'Sales', type: 'Full-time', typeColor: '#16A34A', location: 'Remote', pay: '$80,000 base + commission', tags: ['Remote'], applicants: 6 },
+  { title: 'Copywriter', dept: 'Content', type: 'Full-time', typeColor: '#16A34A', location: 'Remote', pay: '$65,000 base + bonus', tags: ['Remote'], applicants: 5 },
 ];
-const BOARD_CATEGORIES = ['All Roles', 'Engineering', 'Operations', 'Sales'];
-const SEARCH_TARGET = 'Hardware QA Technician';
+const BOARD_CATEGORIES = ['All Roles', 'Marketing', 'Design', 'Client Services'];
+const SEARCH_TARGET = 'Account Coordinator';
 
 export function JobBoardDemo({ active }: { active: boolean }) {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -406,11 +406,11 @@ export function JobBoardDemo({ active }: { active: boolean }) {
             <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2F5FE0" strokeWidth="2.5"><path d="M12 2 L2 7 L12 12 L22 7 Z"/><path d="M2 17 L12 22 L22 17"/><path d="M2 12 L12 17 L22 12"/></svg>
             </div>
-            <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '17px', fontWeight: 900, color: '#fff', letterSpacing: '-0.01em' }}>NOVA ROBOTICS</p>
+            <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '17px', fontWeight: 900, color: '#fff', letterSpacing: '-0.01em' }}>BRIGHTLINE STUDIO</p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '9px' }}>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '9.5px', fontWeight: 600, color: 'rgba(255,255,255,0.85)', background: 'rgba(255,255,255,0.08)', borderRadius: '100px', padding: '4px 10px' }}>
                 <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-                Hardware Company
+                Creative Agency
               </span>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '9.5px', fontWeight: 600, color: 'rgba(255,255,255,0.85)', background: 'rgba(255,255,255,0.08)', borderRadius: '100px', padding: '4px 10px' }}>
                 <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -426,7 +426,7 @@ export function JobBoardDemo({ active }: { active: boolean }) {
 
             <p style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', marginTop: '16px', marginBottom: '6px' }}>About the company</p>
             <p style={{ fontSize: '10px', color: 'rgba(255,255,255,0.7)', fontFamily: 'var(--font-body)', lineHeight: 1.6 }}>
-              We build the sensors and control systems behind next-generation warehouse robotics — a small team with real ownership over what ships.
+              We help growing brands tell sharper stories — from identity systems to the campaigns that carry them out into the world.
             </p>
           </div>
 
@@ -442,7 +442,7 @@ export function JobBoardDemo({ active }: { active: boolean }) {
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="#2F5FE0"><path d="M8 5v14l11-7z"/></svg>
                 </div>
               </div>
-              <span style={{ position: 'absolute', bottom: '8px', left: '10px', fontSize: '9px', color: 'rgba(255,255,255,0.85)', fontFamily: 'var(--font-body)' }}>Meet the Nova Robotics team</span>
+              <span style={{ position: 'absolute', bottom: '8px', left: '10px', fontSize: '9px', color: 'rgba(255,255,255,0.85)', fontFamily: 'var(--font-body)' }}>Meet the Brightline Studio team</span>
             </div>
 
             <div style={{ display: 'flex', gap: '8px', marginTop: '10px' }}>
@@ -518,7 +518,7 @@ export function JobBoardDemo({ active }: { active: boolean }) {
                 )}
               </motion.span>
             </div>
-            <p style={{ fontSize: '10px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginBottom: '8px' }}>Nova Robotics · {selectedRole.dept}</p>
+            <p style={{ fontSize: '10px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginBottom: '8px' }}>Brightline Studio · {selectedRole.dept}</p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '12px' }}>
               {selectedRole.detail!.pills.map(tag => (
                 <span key={tag} style={{ fontSize: '8.5px', fontWeight: 600, color: '#2F5FE0', background: '#E8F0FE', borderRadius: '100px', padding: '2px 8px' }}>{tag}</span>

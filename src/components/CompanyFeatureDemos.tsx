@@ -288,6 +288,7 @@ const SEARCH_TARGET = 'Hardware QA Technician';
 export function JobBoardDemo({ active }: { active: boolean }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const searchBarRef = useRef<HTMLDivElement>(null);
+  const detailRef = useRef<HTMLDivElement>(null);
   const [applyPressed, setApplyPressed] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [filtered, setFiltered] = useState(false);
@@ -348,12 +349,11 @@ export function JobBoardDemo({ active }: { active: boolean }) {
       setFiltered(false);
       setSelectedIndex(0);
 
-      // Short beat, then scroll down to the search bar / role list first —
-      // typing the search only makes sense once that's on screen, and
-      // sitting frozen at the hero before moving read as the card being
-      // stuck.
-      const tHold = 400;
-      const scrollToSearchDuration = 1500;
+      // A longer pause at the top before anything moves, then a slow
+      // scroll down to the search bar / role list — typing the search
+      // only makes sense once that's actually on screen.
+      const tHold = 1400;
+      const scrollToSearchDuration = 2200;
       timers.push(setTimeout(() => {
         const el = scrollRef.current;
         const bar = searchBarRef.current;
@@ -370,15 +370,16 @@ export function JobBoardDemo({ active }: { active: boolean }) {
         setSelectedIndex(BOARD_ROLES.findIndex(r => r.title === SEARCH_TARGET));
       }), tTypeStart));
 
-      // Then a quicker scroll through the rest of the board.
-      const tScrollStart = tTypeDone + 400;
-      const scrollDuration = 4200;
+      // A short nudge down to bring the detail panel's "Apply Now" into
+      // view, then press it right away — no more sitting through a long
+      // scroll-through-the-board before applying.
+      const tScrollStart = tTypeDone + 300;
+      const scrollDuration = 900;
       timers.push(setTimeout(() => {
-        if (scrollRef.current) slowScrollTo(scrollRef.current.scrollHeight, scrollDuration);
+        const detail = detailRef.current;
+        if (detail) slowScrollTo(detail.offsetTop - 16, scrollDuration);
       }, tScrollStart));
-      // Land on "Apply Now" and visibly press it — that's what triggers the
-      // loop restart, instead of just sitting at the bottom for a while.
-      const tApply = tScrollStart + scrollDuration + 400;
+      const tApply = tScrollStart + scrollDuration + 300;
       timers.push(setTimeout(() => { if (!cancelled) setApplyPressed(true); }, tApply));
       timers.push(setTimeout(runCycle, tApply + 400));
     };
@@ -500,7 +501,7 @@ export function JobBoardDemo({ active }: { active: boolean }) {
 
           {/* Detail panel for whichever role is selected */}
           <AnimatePresence mode="wait">
-          <motion.div key={selectedRole.title} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.25 }} style={{ background: '#fff', borderRadius: '10px', border: '1px solid #E8EAF0', padding: '14px' }}>
+          <motion.div ref={detailRef} key={selectedRole.title} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.25 }} style={{ background: '#fff', borderRadius: '10px', border: '1px solid #E8EAF0', padding: '14px' }}>
             <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px', marginBottom: '4px' }}>
               <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>{selectedRole.title}</p>
               {/* Pressing this is what visibly triggers the loop restart —

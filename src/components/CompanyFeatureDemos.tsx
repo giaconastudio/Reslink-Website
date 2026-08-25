@@ -56,10 +56,13 @@ export function CollabDemo({ active }: { active: boolean }) {
     return () => { cancelled = true; timers.forEach(clearTimeout); };
   }, [active]);
 
+  // flex-wrap instead of a fixed 2-col grid — the resume and sidebar
+  // each need real width to read, so on a narrow mobile card they stack
+  // instead of squeezing into ~110px columns.
   return (
-    <div ref={rootRef} style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '1px', background: '#E8EAF0', maxHeight: '460px' }}>
+    <div ref={rootRef} style={{ display: 'flex', flexWrap: 'wrap', gap: '1px', background: '#E8EAF0', maxHeight: '460px' }}>
       {/* Resume */}
-      <div style={{ background: '#fff', padding: 'clamp(16px, 2.4vw, 26px)', overflow: 'hidden' }}>
+      <div style={{ background: '#fff', padding: 'clamp(16px, 2.4vw, 26px)', overflow: 'hidden', flex: '3 1 320px' }}>
         <div style={{ textAlign: 'center', marginBottom: '14px' }}>
           <p style={{ fontFamily: 'Georgia, serif', fontSize: '17px', fontWeight: 700, color: '#111827' }}>Liam Castillo</p>
           <p style={{ fontSize: '10px', color: '#6B7280', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Austin, TX · 512-555-0244 · liam.castillo@gmail.com</p>
@@ -95,7 +98,7 @@ export function CollabDemo({ active }: { active: boolean }) {
       </div>
 
       {/* Sidebar — AI score + team notes */}
-      <div style={{ background: '#F7F8FA', padding: '14px', display: 'flex', flexDirection: 'column', gap: '10px', overflow: 'hidden' }}>
+      <div style={{ background: '#F7F8FA', padding: '14px', display: 'flex', flexDirection: 'column', gap: '10px', overflow: 'hidden', flex: '2 1 240px' }}>
         <div style={{ background: '#fff', borderRadius: '10px', border: '1px solid #E8EAF0', padding: '10px 12px', display: 'flex', alignItems: 'center', gap: '7px' }}>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="#7C3AED"><path d="M12 1.5 L13.2 9.8 L21.5 12 L13.2 14.2 L12 22.5 L10.8 14.2 L2.5 12 L10.8 9.8 Z"/></svg>
           <span style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#6B7280', fontFamily: 'var(--font-body)' }}>Reslink AI</span>
@@ -401,8 +404,11 @@ export function JobBoardDemo({ active }: { active: boolean }) {
         {/* Company info — a fictitious example company. One continuous
             dark-navy-to-bright-blue gradient, matching the real board
             (not flat black, not purple). */}
-        <div style={{ background: 'linear-gradient(115deg, #0B1739 0%, #16266B 55%, #2F5FE0 130%)', padding: '18px 20px 20px', display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: '16px' }}>
-          <div>
+        {/* flex-wrap instead of a fixed 2-col grid — company info and
+            video/stats each need real width, so they stack on a narrow
+            mobile card instead of squeezing side by side. */}
+        <div style={{ background: 'linear-gradient(115deg, #0B1739 0%, #16266B 55%, #2F5FE0 130%)', padding: '18px 20px 20px', display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
+          <div style={{ flex: '1.15 1 240px' }}>
             <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2F5FE0" strokeWidth="2.5"><path d="M12 2 L2 7 L12 12 L22 7 Z"/><path d="M2 17 L12 22 L22 17"/><path d="M2 12 L12 17 L22 12"/></svg>
             </div>
@@ -436,7 +442,7 @@ export function JobBoardDemo({ active }: { active: boolean }) {
             </p>
           </div>
 
-          <div>
+          <div style={{ flex: '1 1 200px' }}>
             <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.14)', position: 'relative', aspectRatio: '16/11', background: '#DCE3EE' }}>
               {/* Placeholder photo standing in for the intro video —
                   a stock shot rather than an empty icon, since a bare
@@ -482,9 +488,10 @@ export function JobBoardDemo({ active }: { active: boolean }) {
           </div>
         </div>
 
-        {/* Two-column: role list + detail */}
-        <div style={{ background: '#F7F8FA', padding: '14px 18px 18px', display: 'grid', gridTemplateColumns: '0.85fr 1.15fr', gap: '10px', alignItems: 'start' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '7px' }}>
+        {/* Role list + detail — flex-wrap so they stack on a narrow
+            mobile card instead of squeezing into two thin columns. */}
+        <div style={{ background: '#F7F8FA', padding: '14px 18px 18px', display: 'flex', flexWrap: 'wrap', gap: '10px', alignItems: 'flex-start' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '7px', flex: '0.85 1 220px' }}>
             {visibleRoles.map(r => {
               const i = BOARD_ROLES.indexOf(r);
               return (
@@ -507,7 +514,7 @@ export function JobBoardDemo({ active }: { active: boolean }) {
 
           {/* Detail panel for whichever role is selected */}
           <AnimatePresence mode="wait">
-          <motion.div ref={detailRef} key={selectedRole.title} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.25 }} style={{ background: '#fff', borderRadius: '10px', border: '1px solid #E8EAF0', padding: '14px' }}>
+          <motion.div ref={detailRef} key={selectedRole.title} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.25 }} style={{ background: '#fff', borderRadius: '10px', border: '1px solid #E8EAF0', padding: '14px', flex: '1.15 1 260px' }}>
             <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px', marginBottom: '4px' }}>
               <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>{selectedRole.title}</p>
               {/* Pressing this is what visibly triggers the loop restart —

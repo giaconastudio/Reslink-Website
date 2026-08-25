@@ -418,9 +418,15 @@ export function JobBoardDemo({ active }: { active: boolean }) {
               </span>
             </div>
             <div style={{ display: 'flex', gap: '7px', marginTop: '9px' }}>
-              <span style={{ fontSize: '9.5px', fontWeight: 700, color: '#fff', background: 'rgba(255,255,255,0.1)', borderRadius: '7px', padding: '5px 10px' }}>Website</span>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '9.5px', fontWeight: 700, color: '#fff', background: 'rgba(255,255,255,0.1)', borderRadius: '7px', padding: '5px 10px' }}>
-                LinkedIn <span style={{ width: '11px', height: '11px', borderRadius: '2px', background: '#0A66C2', display: 'inline-block' }} />
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '9.5px', fontWeight: 700, color: '#fff', background: 'rgba(255,255,255,0.1)', borderRadius: '7px', padding: '5px 10px' }}>
+                Website
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </span>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '9.5px', fontWeight: 700, color: '#fff', background: 'rgba(255,255,255,0.1)', borderRadius: '7px', padding: '5px 10px' }}>
+                LinkedIn
+                <span style={{ width: '14px', height: '14px', borderRadius: '3px', background: '#0A66C2', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <svg width="9" height="9" viewBox="0 0 24 24" fill="#fff"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+                </span>
               </span>
             </div>
 

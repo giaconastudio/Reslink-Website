@@ -50,7 +50,7 @@ const testimonials = [
     role: 'Early access user',
     company: 'hired in automotive',
     initials: 'SC',
-    color: '#041635',
+    color: '#061A3A',
   },
   {
     quote: "Honestly thought video resumes were gimmicky. Then I got a reply from a top payments company within 24 hours of sending my Reslink. I was wrong.",
@@ -75,10 +75,10 @@ function Card({ t }: { t: typeof testimonials[0] }) {
     <div className="testi-card" style={{
       background: '#fff', borderRadius: '16px', padding: '24px 26px',
       border: '1px solid #ECEEF1', width: '340px', flexShrink: 0,
-      boxShadow: '0 2px 12px rgba(4,22,53,0.05)',
+      boxShadow: '0 2px 12px rgba(6,26,58,0.05)',
     }}>
       <div style={{ display: 'flex', gap: '3px', marginBottom: '14px' }}>
-        {[...Array(5)].map((_, j) => <Star key={j} size={13} fill="#D8F950" color="#D8F950" />)}
+        {[...Array(5)].map((_, j) => <Star key={j} size={13} fill="#F5B301" color="#F5B301" />)}
       </div>
       <p style={{ fontSize: '14px', color: '#3A3F4C', lineHeight: 1.65, marginBottom: '20px', fontFamily: 'var(--font-body)' }}>
         &ldquo;{t.quote}&rdquo;
@@ -91,7 +91,7 @@ function Card({ t }: { t: typeof testimonials[0] }) {
           fontWeight: 700, flexShrink: 0, fontFamily: 'var(--font-phudu)',
         }}>{t.initials}</div>
         <div>
-          <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{t.name}</p>
+          <p style={{ fontSize: '13px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{t.name}</p>
           <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{t.role} · {t.company}</p>
         </div>
       </div>
@@ -115,7 +115,7 @@ export default function Testimonials() {
   const row2 = testimonials.slice(3);
 
   return (
-    <section style={{ padding: 'clamp(64px, 8vw, 100px) 0', background: '#F7F8FA', overflow: 'hidden' }}>
+    <section style={{ padding: 'clamp(64px, 8vw, 100px) 0', background: '#061A3A', overflow: 'hidden' }}>
       <style>{`
         @keyframes testi-scroll { from { transform: translateX(0) } to { transform: translateX(-50%) } }
         @keyframes testi-scroll-rev { from { transform: translateX(-50%) } to { transform: translateX(0) } }
@@ -137,13 +137,13 @@ export default function Testimonials() {
         transition={{ duration: 0.5 }}
         style={{ textAlign: 'center', maxWidth: '520px', margin: '0 auto 56px', padding: '0 24px' }}
       >
-        <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>
+        <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>
           Success stories
         </p>
-        <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#041635', lineHeight: 0.98, marginBottom: '20px' }}>
+        <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#ffffff', lineHeight: 0.98, marginBottom: '20px' }}>
           Real results from<br />real candidates.
         </h2>
-        <p style={{ fontSize: '16px', color: '#5C6070', lineHeight: 1.65, fontFamily: 'var(--font-body)' }}>
+        <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.6)', lineHeight: 1.65, fontFamily: 'var(--font-body)' }}>
           Over 10,000 job seekers have used Reslink to stand out and land interviews at top companies.
         </p>
       </motion.div>

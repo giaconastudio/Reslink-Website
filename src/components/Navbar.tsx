@@ -34,17 +34,17 @@ function DropItem({ href, icon: Icon, label, desc, badge, onClick }: {
   return (
     <Link href={href} onClick={onClick} {...(isExternal ? {} : {})}
       style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '7px 10px', borderRadius: '8px', textDecoration: 'none', transition: 'background 0.15s' }}
-      onMouseEnter={e => { e.currentTarget.style.background = '#F7F8FA'; setHovered(true); }}
+      onMouseEnter={e => { e.currentTarget.style.background = '#F6F7F9'; setHovered(true); }}
       onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; setHovered(false); }}
     >
       <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: hovered ? '#EEF4FF' : '#ECEEF1', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'background 0.15s' }}>
-        <Icon size={14} color={hovered ? '#0C63E3' : '#6B7280'} strokeWidth={1.8} />
+        <Icon size={14} color={hovered ? '#1468E8' : '#6B7280'} strokeWidth={1.8} />
       </div>
       <div style={{ flex: 1 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
-          <p style={{ fontSize: '13px', fontWeight: 600, color: '#041635', lineHeight: 1.2, fontFamily: 'var(--font-body)' }}>{label}</p>
+          <p style={{ fontSize: '13px', fontWeight: 600, color: '#061A3A', lineHeight: 1.2, fontFamily: 'var(--font-body)' }}>{label}</p>
           {badge && (
-            <span style={{ fontSize: '10px', fontWeight: 700, color: '#0C63E3', background: '#EEF4FF', border: '1px solid #C7DEFF', borderRadius: '100px', padding: '1px 7px', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>
+            <span style={{ fontSize: '10px', fontWeight: 700, color: '#1468E8', background: '#EEF4FF', border: '1px solid #C7DEFF', borderRadius: '100px', padding: '1px 7px', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>
               {badge}
             </span>
           )}
@@ -106,8 +106,8 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
 
   const isDark = dark || blue;
   const linkColor = isDark ? 'rgba(255,255,255,0.85)' : '#5C6070';
-  const linkActiveColor = isDark ? '#fff' : '#041635';
-  const linkHoverBg = isDark ? 'rgba(255,255,255,0.12)' : '#F7F8FA';
+  const linkActiveColor = isDark ? '#fff' : '#061A3A';
+  const linkHoverBg = isDark ? 'rgba(255,255,255,0.12)' : '#F6F7F9';
   const navLinkStyle = {
     fontSize: '14px', fontWeight: 500, color: linkColor, textDecoration: 'none',
     padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center',
@@ -121,9 +121,9 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
     <header style={{
       position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, transform: 'translateZ(0)', WebkitTransform: 'translateZ(0)',
       background: blue
-        ? (scrolled ? 'rgba(10,82,196,0.97)' : '#0C63E3')
+        ? (scrolled ? 'rgba(10,82,196,0.97)' : '#1468E8')
         : dark
-          ? (scrolled ? 'rgba(4,22,53,0.96)' : '#041635')
+          ? (scrolled ? 'rgba(6,26,58,0.96)' : '#061A3A')
           : (scrolled ? 'rgba(255,255,255,0.92)' : '#fff'),
       backdropFilter: scrolled ? 'blur(12px)' : 'none',
       WebkitBackdropFilter: scrolled ? 'blur(12px)' : 'none',
@@ -161,7 +161,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
                 </button>
                 {open === 'resources' && (
                   <div style={{ position: 'absolute', top: '100%', left: '-8px', paddingTop: '6px', zIndex: 100 }}>
-                  <motion.div initial={{ opacity: 0, y: 8, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.18, ease: 'easeOut' }} style={{ background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 12px 40px rgba(4,22,53,0.12), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', minWidth: '230px', transformOrigin: 'top left' }}>
+                  <motion.div initial={{ opacity: 0, y: 8, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.18, ease: 'easeOut' }} style={{ background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 12px 40px rgba(6,26,58,0.12), 0 2px 8px rgba(6,26,58,0.06)', padding: '8px', minWidth: '230px', transformOrigin: 'top left' }}>
                     {resources.map((r, i) => (
                       <motion.div key={r.href} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 + i * 0.045, duration: 0.18 }}>
                         <DropItem {...r} onClick={() => setOpen(null)} />
@@ -178,7 +178,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
                 </button>
                 {open === 'company' && (
                   <div style={{ position: 'absolute', top: '100%', left: '-8px', paddingTop: '6px', zIndex: 100 }}>
-                  <motion.div initial={{ opacity: 0, y: 8, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.18, ease: 'easeOut' }} style={{ background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 12px 40px rgba(4,22,53,0.12), 0 2px 8px rgba(4,22,53,0.06)', padding: '8px', minWidth: '230px', transformOrigin: 'top left' }}>
+                  <motion.div initial={{ opacity: 0, y: 8, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.18, ease: 'easeOut' }} style={{ background: '#fff', borderRadius: '14px', border: '1px solid #EEEEF0', boxShadow: '0 12px 40px rgba(6,26,58,0.12), 0 2px 8px rgba(6,26,58,0.06)', padding: '8px', minWidth: '230px', transformOrigin: 'top left' }}>
                     {company.map((c, i) => (
                       <motion.div key={c.href} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 + i * 0.045, duration: 0.18 }}>
                         <DropItem {...c} onClick={() => setOpen(null)} />
@@ -212,7 +212,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
             <Link href={signupHref} className="btn-primary" style={{ padding: '8px 14px', fontSize: '13px', fontWeight: 700 }}>
               Get started
             </Link>
-            <button onClick={() => { setMobileOpen(!mobileOpen); setMobileExpanded(null); }} style={{ width: '44px', height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'none', border: 'none', cursor: 'pointer', color: isDark ? '#fff' : '#041635', flexShrink: 0 }}>
+            <button onClick={() => { setMobileOpen(!mobileOpen); setMobileExpanded(null); }} style={{ width: '44px', height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'none', border: 'none', cursor: 'pointer', color: isDark ? '#fff' : '#061A3A', flexShrink: 0 }}>
               {mobileOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
@@ -221,10 +221,10 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
 
       {/* Mobile menu — collapsible sections */}
       {mobileOpen && (
-        <div style={{ background: blue ? '#0C63E3' : dark ? '#041635' : '#fff', borderTop: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid #EEEEF0', padding: '8px 20px 20px', maxHeight: 'calc(100vh - 68px)', overflowY: 'auto' }}>
+        <div style={{ background: blue ? '#1468E8' : dark ? '#061A3A' : '#fff', borderTop: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid #EEEEF0', padding: '8px 20px 20px', maxHeight: 'calc(100vh - 68px)', overflowY: 'auto' }}>
 
-          <Link href="/job-seekers" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#041635', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => { clearHash(); setMobileOpen(false); }}>For Individuals</Link>
-          <Link href="/companies" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#041635', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => { clearHash(); setMobileOpen(false); }}>For Business</Link>
+          <Link href="/job-seekers" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#061A3A', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => { clearHash(); setMobileOpen(false); }}>For Individuals</Link>
+          <Link href="/companies" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#061A3A', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => { clearHash(); setMobileOpen(false); }}>For Business</Link>
 
           {/* Nav sections accordion */}
           {[
@@ -236,7 +236,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
                 onClick={() => toggleMobileSection(key)}
                 style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', padding: '16px 0', background: 'none', border: 'none', cursor: 'pointer' }}
               >
-                <span style={{ fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#041635', fontFamily: 'var(--font-body)' }}>{label}</span>
+                <span style={{ fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#061A3A', fontFamily: 'var(--font-body)' }}>{label}</span>
                 <ChevronDown size={16} color="#9A9FA8" style={{ transform: mobileExpanded === key ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
               </button>
               {mobileExpanded === key && (
@@ -252,9 +252,9 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
                             <Icon size={13} color={isDark ? 'rgba(255,255,255,0.7)' : '#6B7280'} />
                           </div>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '7px', flexWrap: 'wrap' }}>
-                            <span style={{ fontSize: '14px', fontWeight: 500, color: isDark ? 'rgba(255,255,255,0.85)' : '#041635', fontFamily: 'var(--font-body)' }}>{item.label}</span>
+                            <span style={{ fontSize: '14px', fontWeight: 500, color: isDark ? 'rgba(255,255,255,0.85)' : '#061A3A', fontFamily: 'var(--font-body)' }}>{item.label}</span>
                             {'badge' in item && (item as { badge?: string | null }).badge && (
-                              <span style={{ fontSize: '10px', fontWeight: 700, color: '#0C63E3', background: '#EEF4FF', border: '1px solid #C7DEFF', borderRadius: '100px', padding: '1px 7px', fontFamily: 'var(--font-body)' }}>{(item as { badge?: string | null }).badge}</span>
+                              <span style={{ fontSize: '10px', fontWeight: 700, color: '#1468E8', background: '#EEF4FF', border: '1px solid #C7DEFF', borderRadius: '100px', padding: '1px 7px', fontFamily: 'var(--font-body)' }}>{(item as { badge?: string | null }).badge}</span>
                             )}
                           </div>
                         </Link>
@@ -265,7 +265,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
             </div>
           ))}
 
-          <Link href="/pricing" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#041635', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => setMobileOpen(false)}>Pricing</Link>
+          <Link href="/pricing" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#061A3A', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => setMobileOpen(false)}>Pricing</Link>
           <Link href={signupHref} className="btn-primary" style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }} onClick={() => setMobileOpen(false)}>Get started free</Link>
         </div>
       )}

@@ -18,15 +18,21 @@ const SEEKER_FREE = [
   'Limited Pitch AI access',
   'Basic email support',
 ];
-const SEEKER_PREMIUM = [
-  'Unlimited Reslinks',
-  'Upload your own video pitch',
-  'Full Pitch AI access (unlimited)',
-  'Application insights: see who viewed you',
-  'Watch-time analytics per recruiter',
-  'In-app recording + teleprompter',
-  'Resource center access',
-  'Priority email support',
+const SEEKER_PREMIUM: { header: string | null; items: string[] }[] = [
+  { header: null, items: [
+    'Unlimited Reslinks',
+    'Upload your own video pitch',
+    'Full Pitch AI access (unlimited)',
+    'In-app recording + teleprompter',
+    'Resource center access',
+  ] },
+  { header: 'Analytics', items: [
+    'Application insights: see who viewed you',
+    'Watch-time analytics per recruiter',
+  ] },
+  { header: 'Support', items: [
+    'Priority email support',
+  ] },
 ];
 
 /* ─── Company features by tier ─── */
@@ -88,10 +94,10 @@ type BillingCycle = 'monthly' | 'quarterly' | 'annual';
 function CheckItem({ label, dark }: { label: string; dark?: boolean }) {
   return (
     <li style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-      <div style={{ width: '18px', height: '18px', borderRadius: '50%', flexShrink: 0, marginTop: '1px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: dark ? 'rgba(216,249,80,0.15)' : '#ECEEF1', border: dark ? '1px solid rgba(216,249,80,0.3)' : 'none' }}>
-        <Check size={10} color={dark ? '#D8F950' : '#5C6070'} strokeWidth={2.5} />
+      <div style={{ width: '20px', height: '20px', borderRadius: '50%', flexShrink: 0, marginTop: '0px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: dark ? '#C2E532' : '#EAF1FF' }}>
+        <Check size={11} color={dark ? '#061A3A' : '#1468E8'} strokeWidth={3} />
       </div>
-      <span style={{ fontSize: '14px', color: dark ? 'rgba(255,255,255,0.7)' : '#5C6070', fontFamily: 'var(--font-body)', lineHeight: 1.45 }}>{label}</span>
+      <span style={{ fontSize: '14px', color: dark ? 'rgba(255,255,255,0.82)' : '#5C6070', fontFamily: 'var(--font-body)', lineHeight: 1.45 }}>{label}</span>
     </li>
   );
 }
@@ -99,8 +105,8 @@ function CheckItem({ label, dark }: { label: string; dark?: boolean }) {
 function FeatureCell({ value, tier = 'base' }: { value: Maybe; tier?: 'base' | 'mid' | 'top' }) {
   const cfg = {
     base: { bg: '#ECEEF1', check: '#6B7280', xBg: '#ECEEF1', xColor: '#9A9FA8', text: '#5C6070' },
-    mid:  { bg: '#EEF4FF', check: '#0C63E3', xBg: '#DDE8FF', xColor: '#7AAAE8', text: '#0C63E3' },
-    top:  { bg: '#D8F950', check: '#041635', xBg: '#E8F08A', xColor: '#7A9010', text: '#041635' },
+    mid:  { bg: '#EEF4FF', check: '#1468E8', xBg: '#DDE8FF', xColor: '#7AAAE8', text: '#1468E8' },
+    top:  { bg: '#D7FF43', check: '#061A3A', xBg: '#E8F08A', xColor: '#7A9010', text: '#061A3A' },
   }[tier];
   if (value === true) return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -118,7 +124,7 @@ function FeatureCell({ value, tier = 'base' }: { value: Maybe; tier?: 'base' | '
   );
   if (tier === 'top') return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <span style={{ fontSize: '12px', fontWeight: 700, color: '#041635', background: '#D8F950', padding: '3px 10px', borderRadius: '100px', fontFamily: 'var(--font-body)' }}>{value}</span>
+      <span style={{ fontSize: '12px', fontWeight: 700, color: '#061A3A', background: '#D7FF43', padding: '3px 10px', borderRadius: '100px', fontFamily: 'var(--font-body)' }}>{value}</span>
     </div>
   );
   return <p style={{ fontSize: '13px', fontWeight: 600, color: cfg.text, fontFamily: 'var(--font-body)', textAlign: 'center' }}>{value}</p>;
@@ -126,15 +132,15 @@ function FeatureCell({ value, tier = 'base' }: { value: Maybe; tier?: 'base' | '
 
 function TestiCard({ t }: { t: typeof TESTIMONIALS[0] }) {
   return (
-    <div style={{ background: '#fff', borderRadius: '16px', padding: '24px 26px', border: '1px solid #ECEEF1', width: '340px', flexShrink: 0, boxShadow: '0 2px 12px rgba(4,22,53,0.05)' }}>
+    <div style={{ background: '#fff', borderRadius: '16px', padding: '24px 26px', border: '1px solid #ECEEF1', width: '340px', flexShrink: 0, boxShadow: '0 2px 12px rgba(6,26,58,0.05)' }}>
       <div style={{ display: 'flex', gap: '3px', marginBottom: '14px' }}>
-        {[...Array(5)].map((_, j) => <Star key={j} size={13} fill="#D8F950" color="#D8F950" />)}
+        {[...Array(5)].map((_, j) => <Star key={j} size={13} fill="#D7FF43" color="#D7FF43" />)}
       </div>
       <p style={{ fontSize: '14px', color: '#3A3F4C', lineHeight: 1.65, marginBottom: '20px', fontFamily: 'var(--font-body)' }}>&ldquo;{t.quote}&rdquo;</p>
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
         <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: t.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '12px', fontWeight: 700, flexShrink: 0, fontFamily: 'var(--font-phudu)' }}>{t.initials}</div>
         <div>
-          <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{t.name}</p>
+          <p style={{ fontSize: '13px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{t.name}</p>
           <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{t.role}</p>
         </div>
       </div>
@@ -175,9 +181,8 @@ export default function PricingPage() {
     agencyBilling === 'annual' ? 'Save 20%' : null;
 
   const AUDIENCE = [
-    { key: 'seekers' as PlanTab, Icon: Briefcase, label: 'Job Seekers', desc: 'Build and share your video profile' },
-    { key: 'companies' as PlanTab, Icon: Building2, label: 'Companies', desc: 'Hire smarter with video-first candidates' },
-    { key: 'agencies' as PlanTab, Icon: Users, label: 'Recruitment Agencies', desc: 'Win more placements, faster' },
+    { key: 'seekers' as PlanTab, Icon: Briefcase, label: 'For individuals', desc: 'Build and share your video profile' },
+    { key: 'companies' as PlanTab, Icon: Building2, label: 'For businesses', desc: 'Hire smarter with video-first candidates' },
   ];
 
   return (
@@ -217,51 +222,32 @@ export default function PricingPage() {
       <main style={{ paddingTop: '68px' }}>
 
         {/* ─── Hero ─── */}
-        <section style={{ background: '#041635', padding: 'clamp(72px, 10vw, 120px) 24px 0', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', top: '-10%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '700px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.28), transparent 60%)', pointerEvents: 'none' }} />
-          <div style={{ position: 'relative', zIndex: 1, maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
+        <section style={{ background: 'linear-gradient(180deg, #FFFFFF 0%, #EAF1FF 100%)', padding: 'clamp(64px, 9vw, 104px) 24px clamp(44px, 5vw, 60px)', position: 'relative', overflow: 'hidden' }}>
+          <div aria-hidden style={{ position: 'absolute', top: '-150px', right: '-90px', width: '540px', height: '440px', background: 'radial-gradient(ellipse at center, rgba(214,61,157,0.09), transparent 66%)', pointerEvents: 'none' }} />
+          <div aria-hidden style={{ position: 'absolute', top: '-110px', left: '-70px', width: '520px', height: '420px', background: 'radial-gradient(ellipse at center, rgba(20,104,232,0.08), transparent 66%)', pointerEvents: 'none' }} />
+          <div style={{ position: 'relative', zIndex: 1, maxWidth: '960px', margin: '0 auto', textAlign: 'center' }}>
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(216,249,80,0.12)', border: '1px solid rgba(216,249,80,0.25)', borderRadius: '100px', padding: '5px 14px', marginBottom: '24px' }}>
-                <Zap size={11} color="#D8F950" fill="#D8F950" />
-                <span style={{ fontSize: '12px', fontWeight: 700, color: '#D8F950', letterSpacing: '0.1em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>Simple pricing</span>
-              </div>
-              <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(44px, 7vw, 82px)', fontWeight: 900, color: '#fff', lineHeight: 0.92, letterSpacing: '-0.03em', marginBottom: '22px' }}>
-                Start free.<br /><span style={{ color: '#D8F950' }}>Upgrade when ready.</span>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '18px', fontFamily: 'var(--font-body)' }}>Simple pricing</p>
+              <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(42px, 8vw, 92px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.94, letterSpacing: '-0.03em', marginBottom: '20px' }}>
+                Start free.<br />
+                <span style={{ background: 'linear-gradient(#D7FF43, #D7FF43) no-repeat', backgroundSize: '100% 0.34em', backgroundPosition: '0 calc(100% - 0.1em)', padding: '0 0.05em', WebkitBoxDecorationBreak: 'clone', boxDecorationBreak: 'clone' }}>Upgrade when ready.</span>
               </h1>
-              <p style={{ fontSize: 'clamp(16px, 2vw, 18px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginBottom: '48px' }}>
+              <p style={{ fontSize: 'clamp(16px, 2vw, 18px)', color: '#5C6070', lineHeight: 1.65, fontFamily: 'var(--font-body)', maxWidth: '540px', margin: '0 auto 34px' }}>
                 Job seekers get a powerful free plan. Companies and agencies get tools built to close faster and hire smarter.
               </p>
             </motion.div>
 
-            {/* ─── Audience selector cards (in hero, overlapping into white) ─── */}
-            <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.12 }}>
-              <div className="audience-grid" style={{ marginBottom: '-1px', position: 'relative', zIndex: 2 }}>
-                {AUDIENCE.map(({ key, Icon, label, desc }) => {
+            {/* ─── Audience selector — segmented pill ─── */}
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.12 }}>
+              <div style={{ display: 'inline-flex', background: '#fff', border: '1px solid #E4E7EC', borderRadius: '100px', padding: '5px', gap: '4px', boxShadow: '0 2px 12px rgba(6,26,58,0.06)', maxWidth: '100%', flexWrap: 'wrap', justifyContent: 'center' }}>
+                {AUDIENCE.map(({ key, label }) => {
                   const active = planTab === key;
                   return (
-                    <button key={key} onClick={() => setPlanTab(key)} className="audience-card" style={{
-                      background: active ? '#fff' : 'rgba(255,255,255,0.05)',
-                      border: active ? '2px solid #fff' : '1.5px solid rgba(255,255,255,0.1)',
-                      borderBottom: active ? '2px solid #fff' : '1.5px solid rgba(255,255,255,0.1)',
-                      borderRadius: '16px 16px 0 0',
-                      padding: '20px 20px 24px',
-                      cursor: 'pointer',
-                      textAlign: 'left',
-                      transition: 'all 0.2s',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '10px',
-                      position: 'relative',
-                    }}>
-                      {active && <div style={{ position: 'absolute', bottom: '-2px', left: 0, right: 0, height: '4px', background: '#fff' }} />}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <div className="audience-card-icon" style={{ width: '36px', height: '36px', borderRadius: '10px', background: active ? '#EEF4FF' : 'rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                          <Icon size={17} color={active ? '#0C63E3' : 'rgba(255,255,255,0.5)'} strokeWidth={1.8} />
-                        </div>
-                        <span className="audience-card-label" style={{ fontFamily: 'var(--font-phudu)', fontSize: '17px', fontWeight: 900, color: active ? '#041635' : '#fff', letterSpacing: '-0.02em', lineHeight: 1 }}>{label}</span>
-                      </div>
-                      <p className="audience-card-desc" style={{ fontSize: '12px', color: active ? '#5C6070' : 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', lineHeight: 1.4 }}>{desc}</p>
-                    </button>
+                    <button key={key} onClick={() => setPlanTab(key)} style={{
+                      padding: '10px 24px', borderRadius: '100px', border: 'none', cursor: 'pointer',
+                      fontSize: '15px', fontWeight: 700, fontFamily: 'var(--font-body)', transition: 'all 0.15s', whiteSpace: 'nowrap',
+                      background: active ? '#1468E8' : 'transparent', color: active ? '#fff' : '#5C6070',
+                    }}>{label}</button>
                   );
                 })}
               </div>
@@ -270,7 +256,7 @@ export default function PricingPage() {
         </section>
 
         {/* ─── Plans section ─── */}
-        <section style={{ background: '#fff', padding: '0 24px clamp(80px, 10vw, 120px)' }}>
+        <section style={{ background: '#fff', padding: 'clamp(20px, 3vw, 36px) 24px clamp(80px, 10vw, 120px)' }}>
           <div style={{ maxWidth: '1020px', margin: '0 auto' }}>
 
             <AnimatePresence mode="wait">
@@ -280,20 +266,20 @@ export default function PricingPage() {
                 <motion.div key="seekers" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.28 }}>
 
                   {/* Billing cycle */}
-                  <div style={{ padding: '32px 0 28px', textAlign: 'center' }}>
-                    <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 3.5vw, 40px)', fontWeight: 900, color: '#041635', letterSpacing: '-0.02em' }}>For Job Seekers</p>
+                  <div style={{ padding: '8px 0 24px', textAlign: 'center' }}>
+                    <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 3.5vw, 40px)', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.02em' }}>For individuals</p>
                     <p style={{ fontSize: '15px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '6px', marginBottom: '24px' }}>Free to start. Upgrade when you want full analytics and unlimited reach.</p>
-                    <div className="billing-seg" style={{ display: 'inline-flex', background: '#F0F2F5', borderRadius: '14px', border: '1px solid #ECEEF1', padding: '4px', gap: '3px' }}>
+                    <div className="billing-seg" style={{ display: 'inline-flex', background: '#F0F2F5', borderRadius: '100px', border: '1px solid #ECEEF1', padding: '4px', gap: '3px' }}>
                       {([
                         { key: 'monthly' as BillingCycle, label: 'Monthly' },
                         { key: 'quarterly' as BillingCycle, label: 'Quarterly', badge: 'Save 29%' },
                         { key: 'annual' as BillingCycle, label: 'Annual', badge: 'Save 64%' },
                       ]).map(({ key, label, badge }) => (
                         <button key={key} onClick={() => setBilling(key)}
-                          style={{ padding: '10px 22px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '15px', fontWeight: 700, fontFamily: 'var(--font-body)', transition: 'all 0.15s', background: billing === key ? '#041635' : 'transparent', color: billing === key ? '#fff' : '#5C6070', display: 'flex', alignItems: 'center', gap: '8px', whiteSpace: 'nowrap', boxShadow: billing === key ? '0 2px 8px rgba(4,22,53,0.18)' : 'none' }}>
+                          style={{ padding: '10px 22px', borderRadius: '100px', border: 'none', cursor: 'pointer', fontSize: '15px', fontWeight: 700, fontFamily: 'var(--font-body)', transition: 'all 0.15s', background: billing === key ? '#061A3A' : 'transparent', color: billing === key ? '#fff' : '#5C6070', display: 'flex', alignItems: 'center', gap: '8px', whiteSpace: 'nowrap', boxShadow: billing === key ? '0 2px 8px rgba(6,26,58,0.18)' : 'none' }}>
                           {label}
                           {badge && (
-                            <span className="billing-badge" style={{ fontSize: '11px', fontWeight: 700, padding: '3px 9px', borderRadius: '100px', background: billing === key ? '#D8F950' : '#E0E3EA', color: billing === key ? '#041635' : '#9A9FA8', fontFamily: 'var(--font-body)', transition: 'all 0.15s' }}>{badge}</span>
+                            <span className="billing-badge" style={{ fontSize: '11px', fontWeight: 700, padding: '3px 9px', borderRadius: '100px', background: billing === key ? '#D7FF43' : '#E0E3EA', color: billing === key ? '#061A3A' : '#9A9FA8', fontFamily: 'var(--font-body)', transition: 'all 0.15s' }}>{badge}</span>
                           )}
                         </button>
                       ))}
@@ -303,27 +289,27 @@ export default function PricingPage() {
                   <div className="pricing-grid-2">
 
                     {/* Free */}
-                    <TiltCard max={3} style={{ background: '#F7F8FA', borderRadius: '20px', border: '1px solid #ECEEF1', padding: 'clamp(28px, 4vw, 40px)', display: 'flex', flexDirection: 'column', boxSizing: 'border-box' }}>
+                    <TiltCard max={3} style={{ background: '#F6F7F9', borderRadius: '20px', border: '1px solid #ECEEF1', padding: 'clamp(28px, 4vw, 40px)', display: 'flex', flexDirection: 'column', boxSizing: 'border-box' }}>
                       <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>Free</p>
                       <div style={{ display: 'flex', alignItems: 'flex-end', gap: '4px', marginBottom: '6px' }}>
-                        <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(44px, 5.5vw, 56px)', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em' }}>$0</span>
+                        <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(44px, 5.5vw, 56px)', fontWeight: 900, color: '#061A3A', lineHeight: 1, letterSpacing: '-0.03em' }}>$0</span>
                         <span style={{ fontSize: '14px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '8px' }}>/month</span>
                       </div>
                       <p style={{ fontSize: '14px', color: '#5C6070', fontFamily: 'var(--font-body)', lineHeight: 1.5, marginBottom: '28px' }}>Everything you need to get started. No credit card.</p>
                       <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '36px', flex: 1 }}>
                         {SEEKER_FREE.map(f => <CheckItem key={f} label={f} />)}
                       </ul>
-                      <Link href="/get-started" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#fff', color: '#041635', fontWeight: 700, fontSize: '15px', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)', border: '1.5px solid #E4E6EC' }}>
+                      <Link href="/get-started" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#fff', color: '#061A3A', fontWeight: 700, fontSize: '15px', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)', border: '1.5px solid #E4E6EC' }}>
                         Get started free
                       </Link>
                     </TiltCard>
 
                     {/* Premium */}
-                    <TiltCard max={3} style={{ background: '#041635', borderRadius: '20px', border: '2px solid #D8F950', padding: 'clamp(28px, 4vw, 40px)', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', boxShadow: '0 24px 80px rgba(4,22,53,0.18)', boxSizing: 'border-box' }}>
-                      <div style={{ position: 'absolute', top: '-40%', right: '-20%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(12,99,227,0.2), transparent 65%)', pointerEvents: 'none' }} />
-                      <div style={{ position: 'absolute', top: '20px', right: '20px', fontSize: '10px', fontWeight: 700, color: '#041635', background: '#D8F950', padding: '4px 12px', borderRadius: '100px', letterSpacing: '0.06em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>Most popular</div>
+                    <TiltCard max={3} style={{ background: '#061A3A', borderRadius: '20px', border: '2px solid #D7FF43', padding: 'clamp(28px, 4vw, 40px)', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', boxShadow: '0 24px 80px rgba(6,26,58,0.18)', boxSizing: 'border-box' }}>
+                      <div style={{ position: 'absolute', top: '-40%', right: '-20%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(214,61,157,0.45), transparent 62%)', pointerEvents: 'none' }} />
+                      <div style={{ position: 'absolute', top: '20px', right: '20px', fontSize: '10px', fontWeight: 700, color: '#061A3A', background: '#D7FF43', padding: '4px 12px', borderRadius: '100px', letterSpacing: '0.06em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>Most popular</div>
                       <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
-                        <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#D8F950', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>Premium</p>
+                        <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#D7FF43', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>Premium</p>
                         <div style={{ display: 'flex', alignItems: 'flex-end', gap: '4px', marginBottom: '4px' }}>
                           <AnimatePresence mode="wait">
                             <motion.span key={seekerPrice} initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 6 }} transition={{ duration: 0.15 }}
@@ -335,14 +321,19 @@ export default function PricingPage() {
                         </div>
                         {seekerBilledLine && (
                           <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)', marginBottom: '6px' }}>
-                            {seekerBilledLine}{seekerSaveLabel && <span style={{ color: '#D8F950', fontWeight: 700 }}> · {seekerSaveLabel}</span>}
+                            {seekerBilledLine}{seekerSaveLabel && <span style={{ color: '#D7FF43', fontWeight: 700 }}> · {seekerSaveLabel}</span>}
                           </p>
                         )}
                         <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', lineHeight: 1.5, marginBottom: '28px', marginTop: '6px' }}>Unlimited everything. Know exactly who&apos;s watching.</p>
                         <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '36px', flex: 1 }}>
-                          {SEEKER_PREMIUM.map(f => <CheckItem key={f} label={f} dark />)}
+                          {SEEKER_PREMIUM.flatMap((group, gi) => [
+                            ...(group.header ? [
+                              <li key={`h${gi}`} style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', marginTop: '6px' }}>{group.header}</li>,
+                            ] : []),
+                            ...group.items.map(f => <CheckItem key={f} label={f} dark />),
+                          ])}
                         </ul>
-                        <Link href="/signup?plan=premium" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#D8F950', color: '#041635', fontWeight: 700, fontSize: '15px', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                        <Link href="/signup?plan=premium" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#D7FF43', color: '#061A3A', fontWeight: 700, fontSize: '15px', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                           Get Reslink Premium
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                         </Link>
@@ -351,7 +342,7 @@ export default function PricingPage() {
                   </div>
 
                   {/* Trust row — no emojis */}
-                  <div style={{ marginTop: '20px', background: '#F7F8FA', borderRadius: '12px', border: '1px solid #ECEEF1', padding: '16px 24px', display: 'flex', gap: '28px', flexWrap: 'wrap', justifyContent: 'center' }}>
+                  <div style={{ marginTop: '20px', background: '#F6F7F9', borderRadius: '12px', border: '1px solid #ECEEF1', padding: '16px 24px', display: 'flex', gap: '28px', flexWrap: 'wrap', justifyContent: 'center' }}>
                     {([
                       { Icon: RefreshCw, text: 'Cancel anytime' },
                       { Icon: Lock, text: 'Secure checkout' },
@@ -366,19 +357,18 @@ export default function PricingPage() {
                   </div>
 
                   {/* Students & veterans discount */}
-                  <div style={{ marginTop: '16px', background: '#F4F9EC', borderRadius: '12px', border: '1px solid #D9EFC0', padding: '18px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                      <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: '#D8F950', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                        <Zap size={16} color="#041635" strokeWidth={2} />
+                  <div style={{ marginTop: '16px', background: '#FBEAF5', borderRadius: '16px', border: '1px solid #F3D9E6', padding: 'clamp(20px, 3vw, 28px) clamp(24px, 3.5vw, 36px)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '24px', flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '20px', flex: '1 1 360px', minWidth: 0 }}>
+                      <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(40px, 5vw, 56px)', fontWeight: 900, color: '#9E2462', letterSpacing: '-0.03em', lineHeight: 1, flexShrink: 0 }}>50%</span>
+                      <div>
+                        <p style={{ fontSize: '15px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.3 }}>off Premium for students and veterans</p>
+                        <p style={{ fontSize: '13.5px', color: '#8A6577', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Verified after signup &mdash; no code needed.</p>
                       </div>
-                      <p style={{ fontSize: '13.5px', color: '#3A3F4C', fontFamily: 'var(--font-body)', lineHeight: 1.5 }}>
-                        <strong style={{ color: '#041635' }}>Students and veterans get 50% off Premium.</strong> Verify with a .edu email or DD-214 after signing up and the discount applies automatically.
-                      </p>
                     </div>
-                    <div style={{ display: 'flex', gap: '10px', flexShrink: 0 }}>
-                      <Link href="/students" style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', textDecoration: 'none', padding: '8px 14px', borderRadius: '8px', background: '#fff', border: '1px solid #D9EFC0' }}>For students</Link>
-                      <Link href="/veterans" style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', textDecoration: 'none', padding: '8px 14px', borderRadius: '8px', background: '#fff', border: '1px solid #D9EFC0' }}>For veterans</Link>
-                    </div>
+                    <Link href="/eligibility" style={{ fontSize: '14px', fontWeight: 700, color: '#9E2462', fontFamily: 'var(--font-body)', textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0, display: 'inline-flex', alignItems: 'center', gap: '7px' }}>
+                      Check if you&apos;re eligible
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </Link>
                   </div>
                 </motion.div>
               )}
@@ -387,20 +377,20 @@ export default function PricingPage() {
               {planTab === 'companies' && (
                 <motion.div key="companies" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.28 }}>
 
-                  <div style={{ padding: '32px 0 28px', textAlign: 'center' }}>
-                    <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 3.5vw, 40px)', fontWeight: 900, color: '#041635', letterSpacing: '-0.02em' }}>For Companies</p>
+                  <div style={{ padding: '8px 0 24px', textAlign: 'center' }}>
+                    <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 3.5vw, 40px)', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.02em' }}>For businesses</p>
                     <p style={{ fontSize: '15px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '6px' }}>Start with a 14-day free trial. No credit card required.</p>
                     <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
-                      <div className="billing-seg" style={{ display: 'inline-flex', background: '#F0F2F5', borderRadius: '14px', border: '1px solid #ECEEF1', padding: '4px', gap: '3px' }}>
+                      <div className="billing-seg" style={{ display: 'inline-flex', background: '#F0F2F5', borderRadius: '100px', border: '1px solid #ECEEF1', padding: '4px', gap: '3px' }}>
                         {([
                           { key: 'monthly' as BillingCycle, label: 'Monthly' },
                           { key: 'quarterly' as BillingCycle, label: 'Quarterly', badge: 'Save 16%' },
                           { key: 'annual' as BillingCycle, label: 'Annual', badge: 'Save 23%' },
                         ]).map(({ key, label, badge }) => (
                           <button key={key} onClick={() => setCompanyBilling(key)}
-                            style={{ padding: '10px 22px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '15px', fontWeight: 700, fontFamily: 'var(--font-body)', transition: 'all 0.15s', background: companyBilling === key ? '#041635' : 'transparent', color: companyBilling === key ? '#fff' : '#5C6070', display: 'flex', alignItems: 'center', gap: '8px', whiteSpace: 'nowrap', boxShadow: companyBilling === key ? '0 2px 8px rgba(4,22,53,0.18)' : 'none' }}>
+                            style={{ padding: '10px 22px', borderRadius: '100px', border: 'none', cursor: 'pointer', fontSize: '15px', fontWeight: 700, fontFamily: 'var(--font-body)', transition: 'all 0.15s', background: companyBilling === key ? '#061A3A' : 'transparent', color: companyBilling === key ? '#fff' : '#5C6070', display: 'flex', alignItems: 'center', gap: '8px', whiteSpace: 'nowrap', boxShadow: companyBilling === key ? '0 2px 8px rgba(6,26,58,0.18)' : 'none' }}>
                             {label}
-                            {badge && <span className="billing-badge" style={{ fontSize: '11px', fontWeight: 700, padding: '3px 9px', borderRadius: '100px', background: companyBilling === key ? '#D8F950' : '#E0E3EA', color: companyBilling === key ? '#041635' : '#9A9FA8' }}>{badge}</span>}
+                            {badge && <span className="billing-badge" style={{ fontSize: '11px', fontWeight: 700, padding: '3px 9px', borderRadius: '100px', background: companyBilling === key ? '#D7FF43' : '#E0E3EA', color: companyBilling === key ? '#061A3A' : '#9A9FA8' }}>{badge}</span>}
                           </button>
                         ))}
                       </div>
@@ -410,10 +400,10 @@ export default function PricingPage() {
                   <div className="pricing-grid-3">
 
                     {/* Free Trial */}
-                    <div style={{ background: '#F7F8FA', borderRadius: '20px', border: '1px solid #ECEEF1', padding: 'clamp(24px, 3.5vw, 36px)', display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ background: '#F6F7F9', borderRadius: '20px', border: '1px solid #ECEEF1', padding: 'clamp(24px, 3.5vw, 36px)', display: 'flex', flexDirection: 'column' }}>
                       <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '8px' }}>Free Trial</p>
                       <div style={{ display: 'flex', alignItems: 'flex-end', gap: '4px', marginBottom: '4px' }}>
-                        <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 4vw, 48px)', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em' }}>$0</span>
+                        <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 4vw, 48px)', fontWeight: 900, color: '#061A3A', lineHeight: 1, letterSpacing: '-0.03em' }}>$0</span>
                         <span style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '7px' }}>/14 days</span>
                       </div>
                       <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '16px' }}>No credit card required</p>
@@ -425,35 +415,35 @@ export default function PricingPage() {
                           </div>
                         ))}
                       </div>
-                      <Link href="/signup?plan=company-trial" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#fff', color: '#041635', fontWeight: 700, fontSize: '14px', padding: '12px 20px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)', border: '1.5px solid #E4E6EC' }}>
+                      <Link href="/signup?plan=company-trial" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#fff', color: '#061A3A', fontWeight: 700, fontSize: '14px', padding: '12px 20px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)', border: '1.5px solid #E4E6EC' }}>
                         Start free trial
                       </Link>
                     </div>
 
                     {/* Growth — featured */}
-                    <div style={{ background: '#041635', borderRadius: '20px', border: '2px solid #D8F950', padding: 'clamp(24px, 3.5vw, 36px)', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', boxShadow: '0 24px 80px rgba(4,22,53,0.18)', transform: 'scale(1.025)', transformOrigin: 'center' }} className="featured-scale">
-                      <div style={{ position: 'absolute', top: '-30%', right: '-15%', width: '350px', height: '350px', background: 'radial-gradient(circle, rgba(12,99,227,0.25), transparent 65%)', pointerEvents: 'none' }} />
-                      <div style={{ position: 'absolute', top: '16px', right: '16px', fontSize: '10px', fontWeight: 700, color: '#041635', background: '#D8F950', padding: '4px 10px', borderRadius: '100px', letterSpacing: '0.06em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>Most popular</div>
+                    <div style={{ background: '#061A3A', borderRadius: '20px', border: '2px solid #D7FF43', padding: 'clamp(24px, 3.5vw, 36px)', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', boxShadow: '0 24px 80px rgba(6,26,58,0.18)', transform: 'scale(1.025)', transformOrigin: 'center' }} className="featured-scale">
+                      <div style={{ position: 'absolute', top: '-30%', right: '-15%', width: '350px', height: '350px', background: 'radial-gradient(circle, rgba(214,61,157,0.48), transparent 62%)', pointerEvents: 'none' }} />
+                      <div style={{ position: 'absolute', top: '16px', right: '16px', fontSize: '10px', fontWeight: 700, color: '#061A3A', background: '#D7FF43', padding: '4px 10px', borderRadius: '100px', letterSpacing: '0.06em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>Most popular</div>
                       <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
-                        <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#D8F950', fontFamily: 'var(--font-body)', marginBottom: '8px' }}>Growth</p>
+                        <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#D7FF43', fontFamily: 'var(--font-body)', marginBottom: '8px' }}>Growth</p>
                         <div style={{ display: 'flex', alignItems: 'flex-end', gap: '4px', marginBottom: '4px' }}>
                           <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 4vw, 48px)', fontWeight: 900, color: '#fff', lineHeight: 1, letterSpacing: '-0.03em' }}>${companyPrice}</span>
                           <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', marginBottom: '7px' }}>/month</span>
                         </div>
                         <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)', marginBottom: '16px' }}>
-                          {companyBilledLine ? <>{companyBilledLine} · <span style={{ color: '#D8F950', fontWeight: 700 }}>{companySaveLabel}</span></> : 'Billed monthly'}
+                          {companyBilledLine ? <>{companyBilledLine} · <span style={{ color: '#D7FF43', fontWeight: 700 }}>{companySaveLabel}</span></> : 'Billed monthly'}
                         </p>
                         <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '18px', marginBottom: '24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '9px' }}>
                           {['Up to 25 job postings', '10 team seats', 'Browse candidate Reslinks', 'Watch-time analytics', 'Shortlist & tag candidates', 'ATS-friendly exports', 'Custom branded company page', 'Priority email support'].map(f => (
                             <div key={f} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                              <div style={{ width: '15px', height: '15px', borderRadius: '50%', background: 'rgba(216,249,80,0.15)', border: '1px solid rgba(216,249,80,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                                <Check size={8} color="#D8F950" strokeWidth={2.5} />
+                              <div style={{ width: '18px', height: '18px', borderRadius: '50%', background: '#C2E532', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                <Check size={10} color="#061A3A" strokeWidth={3} />
                               </div>
                               <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.65)', fontFamily: 'var(--font-body)' }}>{f}</span>
                             </div>
                           ))}
                         </div>
-                        <Link href="/signup?plan=company-growth" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#D8F950', color: '#041635', fontWeight: 700, fontSize: '14px', padding: '13px 20px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                        <Link href="/signup?plan=company-growth" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#D7FF43', color: '#061A3A', fontWeight: 700, fontSize: '14px', padding: '13px 20px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                           Get started
                           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                         </Link>
@@ -461,21 +451,21 @@ export default function PricingPage() {
                     </div>
 
                     {/* Enterprise */}
-                    <div style={{ background: '#F7F8FA', borderRadius: '20px', border: '1px solid #ECEEF1', padding: 'clamp(24px, 3.5vw, 36px)', display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ background: '#F6F7F9', borderRadius: '20px', border: '1px solid #ECEEF1', padding: 'clamp(24px, 3.5vw, 36px)', display: 'flex', flexDirection: 'column' }}>
                       <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '8px' }}>Enterprise</p>
                       <div style={{ marginBottom: '4px' }}>
-                        <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 3.5vw, 42px)', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em' }}>Custom</span>
+                        <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 3.5vw, 42px)', fontWeight: 900, color: '#061A3A', lineHeight: 1, letterSpacing: '-0.03em' }}>Custom</span>
                       </div>
                       <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '16px' }}>Tailored to your hiring volume</p>
                       <div style={{ borderTop: '1px solid #ECEEF1', paddingTop: '18px', marginBottom: '24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '9px' }}>
                         {['Everything in Growth', 'Unlimited job postings', 'Unlimited team seats', 'Priority candidate matching', 'SSO & advanced permissions', 'Dedicated account manager', 'SLA-backed support', 'API access'].map(f => (
                           <div key={f} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <Check size={12} color={f === 'Everything in Growth' ? '#0C63E3' : '#9A9FA8'} strokeWidth={2.5} />
-                            <span style={{ fontSize: '13px', color: f === 'Everything in Growth' ? '#0C63E3' : '#5C6070', fontFamily: 'var(--font-body)', fontWeight: f === 'Everything in Growth' ? 700 : 400 }}>{f}</span>
+                            <Check size={12} color={f === 'Everything in Growth' ? '#1468E8' : '#9A9FA8'} strokeWidth={2.5} />
+                            <span style={{ fontSize: '13px', color: f === 'Everything in Growth' ? '#1468E8' : '#5C6070', fontFamily: 'var(--font-body)', fontWeight: f === 'Everything in Growth' ? 700 : 400 }}>{f}</span>
                           </div>
                         ))}
                       </div>
-                      <Link href="/contact/sales" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#041635', color: '#fff', fontWeight: 700, fontSize: '14px', padding: '12px 20px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                      <Link href="/contact/sales" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#061A3A', color: '#fff', fontWeight: 700, fontSize: '14px', padding: '12px 20px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                         Request a demo
                       </Link>
                     </div>
@@ -485,7 +475,7 @@ export default function PricingPage() {
                   <div style={{ marginTop: '40px' }}>
                     <p style={{ fontSize: '12px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px', textAlign: 'center' }}>Full feature comparison</p>
                     <div className="feat-table-wrap"><div className="feat-table-inner" style={{ borderRadius: '16px', overflow: 'hidden' }}>
-                      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', background: '#F7F8FA', padding: '12px 24px', borderBottom: '1px solid #E8EAF0' }}>
+                      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', background: '#F6F7F9', padding: '12px 24px', borderBottom: '1px solid #E8EAF0' }}>
                         <p style={{ fontSize: '11px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Feature</p>
                         {['Free Trial', 'Growth', 'Enterprise'].map(h => (
                           <p key={h} style={{ fontSize: '11px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.08em', textAlign: 'center' }}>{h}</p>
@@ -504,12 +494,12 @@ export default function PricingPage() {
 
                   <div style={{ marginTop: '16px', background: '#EEF4FF', borderRadius: '10px', border: '1px solid #C7DEFF', padding: '14px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <Zap size={14} color="#0C63E3" strokeWidth={2} />
+                      <Zap size={14} color="#1468E8" strokeWidth={2} />
                       <p style={{ fontSize: '13px', color: '#1D4ED8', fontFamily: 'var(--font-body)' }}>
                         <strong>14-day free trial on the Growth plan.</strong> No credit card required. Not sure which plan fits? We will walk you through it.
                       </p>
                     </div>
-                    <Link href="/contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '9px 18px', background: '#0C63E3', color: '#fff', borderRadius: '8px', fontSize: '13px', fontWeight: 700, fontFamily: 'var(--font-body)', textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                    <Link href="/contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '9px 18px', background: '#1468E8', color: '#fff', borderRadius: '8px', fontSize: '13px', fontWeight: 700, fontFamily: 'var(--font-body)', textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0 }}>
                       Schedule a demo →
                     </Link>
                   </div>
@@ -520,20 +510,20 @@ export default function PricingPage() {
               {planTab === 'agencies' && (
                 <motion.div key="agencies" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.28 }}>
 
-                  <div style={{ padding: '32px 0 28px', textAlign: 'center' }}>
-                    <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 3.5vw, 40px)', fontWeight: 900, color: '#041635', letterSpacing: '-0.02em' }}>For Recruitment Agencies</p>
+                  <div style={{ padding: '8px 0 24px', textAlign: 'center' }}>
+                    <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 3.5vw, 40px)', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.02em' }}>For Recruitment Agencies</p>
                     <p style={{ fontSize: '15px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '6px' }}>Priced by candidate volume and recruiter seats. Scales with your team.</p>
                     <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
-                      <div className="billing-seg" style={{ display: 'inline-flex', background: '#F0F2F5', borderRadius: '14px', border: '1px solid #ECEEF1', padding: '4px', gap: '3px' }}>
+                      <div className="billing-seg" style={{ display: 'inline-flex', background: '#F0F2F5', borderRadius: '100px', border: '1px solid #ECEEF1', padding: '4px', gap: '3px' }}>
                         {([
                           { key: 'monthly' as BillingCycle, label: 'Monthly' },
                           { key: 'quarterly' as BillingCycle, label: 'Quarterly', badge: 'Save 16%' },
                           { key: 'annual' as BillingCycle, label: 'Annual', badge: 'Save 20%' },
                         ]).map(({ key, label, badge }) => (
                           <button key={key} onClick={() => setAgencyBilling(key)}
-                            style={{ padding: '10px 22px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '15px', fontWeight: 700, fontFamily: 'var(--font-body)', transition: 'all 0.15s', background: agencyBilling === key ? '#041635' : 'transparent', color: agencyBilling === key ? '#fff' : '#5C6070', display: 'flex', alignItems: 'center', gap: '8px', whiteSpace: 'nowrap', boxShadow: agencyBilling === key ? '0 2px 8px rgba(4,22,53,0.18)' : 'none' }}>
+                            style={{ padding: '10px 22px', borderRadius: '100px', border: 'none', cursor: 'pointer', fontSize: '15px', fontWeight: 700, fontFamily: 'var(--font-body)', transition: 'all 0.15s', background: agencyBilling === key ? '#061A3A' : 'transparent', color: agencyBilling === key ? '#fff' : '#5C6070', display: 'flex', alignItems: 'center', gap: '8px', whiteSpace: 'nowrap', boxShadow: agencyBilling === key ? '0 2px 8px rgba(6,26,58,0.18)' : 'none' }}>
                             {label}
-                            {badge && <span className="billing-badge" style={{ fontSize: '11px', fontWeight: 700, padding: '3px 9px', borderRadius: '100px', background: agencyBilling === key ? '#D8F950' : '#E0E3EA', color: agencyBilling === key ? '#041635' : '#9A9FA8' }}>{badge}</span>}
+                            {badge && <span className="billing-badge" style={{ fontSize: '11px', fontWeight: 700, padding: '3px 9px', borderRadius: '100px', background: agencyBilling === key ? '#D7FF43' : '#E0E3EA', color: agencyBilling === key ? '#061A3A' : '#9A9FA8' }}>{badge}</span>}
                           </button>
                         ))}
                       </div>
@@ -543,10 +533,10 @@ export default function PricingPage() {
                   <div className="pricing-grid-3">
 
                     {/* Starter */}
-                    <div style={{ background: '#F7F8FA', borderRadius: '20px', border: '1px solid #ECEEF1', padding: 'clamp(24px, 3.5vw, 36px)', display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ background: '#F6F7F9', borderRadius: '20px', border: '1px solid #ECEEF1', padding: 'clamp(24px, 3.5vw, 36px)', display: 'flex', flexDirection: 'column' }}>
                       <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '8px' }}>Starter</p>
                       <div style={{ display: 'flex', alignItems: 'flex-end', gap: '4px', marginBottom: '4px' }}>
-                        <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 4vw, 48px)', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em' }}>$99</span>
+                        <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 4vw, 48px)', fontWeight: 900, color: '#061A3A', lineHeight: 1, letterSpacing: '-0.03em' }}>$99</span>
                         <span style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '7px' }}>/month</span>
                       </div>
                       <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '16px' }}>Billed annually ($79/mo)</p>
@@ -558,35 +548,35 @@ export default function PricingPage() {
                           </div>
                         ))}
                       </div>
-                      <Link href="/signup?plan=agency-starter" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#fff', color: '#041635', fontWeight: 700, fontSize: '14px', padding: '12px 20px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)', border: '1.5px solid #E4E6EC' }}>
+                      <Link href="/signup?plan=agency-starter" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#fff', color: '#061A3A', fontWeight: 700, fontSize: '14px', padding: '12px 20px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)', border: '1.5px solid #E4E6EC' }}>
                         Start free trial
                       </Link>
                     </div>
 
                     {/* Growth — featured */}
-                    <div style={{ background: '#041635', borderRadius: '20px', border: '2px solid #D8F950', padding: 'clamp(24px, 3.5vw, 36px)', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', boxShadow: '0 24px 80px rgba(4,22,53,0.18)', transform: 'scale(1.025)', transformOrigin: 'center' }} className="featured-scale">
-                      <div style={{ position: 'absolute', top: '-30%', right: '-15%', width: '350px', height: '350px', background: 'radial-gradient(circle, rgba(12,99,227,0.25), transparent 65%)', pointerEvents: 'none' }} />
-                      <div style={{ position: 'absolute', top: '16px', right: '16px', fontSize: '10px', fontWeight: 700, color: '#041635', background: '#D8F950', padding: '4px 10px', borderRadius: '100px', letterSpacing: '0.06em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>Most popular</div>
+                    <div style={{ background: '#061A3A', borderRadius: '20px', border: '2px solid #D7FF43', padding: 'clamp(24px, 3.5vw, 36px)', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', boxShadow: '0 24px 80px rgba(6,26,58,0.18)', transform: 'scale(1.025)', transformOrigin: 'center' }} className="featured-scale">
+                      <div style={{ position: 'absolute', top: '-30%', right: '-15%', width: '350px', height: '350px', background: 'radial-gradient(circle, rgba(214,61,157,0.48), transparent 62%)', pointerEvents: 'none' }} />
+                      <div style={{ position: 'absolute', top: '16px', right: '16px', fontSize: '10px', fontWeight: 700, color: '#061A3A', background: '#D7FF43', padding: '4px 10px', borderRadius: '100px', letterSpacing: '0.06em', textTransform: 'uppercase', fontFamily: 'var(--font-body)' }}>Most popular</div>
                       <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
-                        <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#D8F950', fontFamily: 'var(--font-body)', marginBottom: '8px' }}>Growth</p>
+                        <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#D7FF43', fontFamily: 'var(--font-body)', marginBottom: '8px' }}>Growth</p>
                         <div style={{ display: 'flex', alignItems: 'flex-end', gap: '4px', marginBottom: '4px' }}>
                           <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 4vw, 48px)', fontWeight: 900, color: '#fff', lineHeight: 1, letterSpacing: '-0.03em' }}>${agencyPrice}</span>
                           <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', marginBottom: '7px' }}>/month</span>
                         </div>
                         <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)', marginBottom: '16px' }}>
-                          {agencyBilledLine ? <>{agencyBilledLine} · <span style={{ color: '#D8F950', fontWeight: 700 }}>{agencySaveLabel}</span></> : 'Billed monthly'}
+                          {agencyBilledLine ? <>{agencyBilledLine} · <span style={{ color: '#D7FF43', fontWeight: 700 }}>{agencySaveLabel}</span></> : 'Billed monthly'}
                         </p>
                         <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '18px', marginBottom: '24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '9px' }}>
                           {['Up to 100 active profiles', '10 recruiter seats', 'Client-facing share links', 'Watch-time analytics', 'Pipeline management', 'Branded landing page', 'Client shortlist branding', 'Priority support'].map(f => (
                             <div key={f} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                              <div style={{ width: '15px', height: '15px', borderRadius: '50%', background: 'rgba(216,249,80,0.15)', border: '1px solid rgba(216,249,80,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                                <Check size={8} color="#D8F950" strokeWidth={2.5} />
+                              <div style={{ width: '18px', height: '18px', borderRadius: '50%', background: '#C2E532', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                <Check size={10} color="#061A3A" strokeWidth={3} />
                               </div>
                               <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.65)', fontFamily: 'var(--font-body)' }}>{f}</span>
                             </div>
                           ))}
                         </div>
-                        <Link href="/signup?plan=agency-growth" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#D8F950', color: '#041635', fontWeight: 700, fontSize: '14px', padding: '13px 20px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                        <Link href="/signup?plan=agency-growth" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#D7FF43', color: '#061A3A', fontWeight: 700, fontSize: '14px', padding: '13px 20px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                           Get started
                           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                         </Link>
@@ -594,21 +584,21 @@ export default function PricingPage() {
                     </div>
 
                     {/* Scale */}
-                    <div style={{ background: '#F7F8FA', borderRadius: '20px', border: '1px solid #ECEEF1', padding: 'clamp(24px, 3.5vw, 36px)', display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ background: '#F6F7F9', borderRadius: '20px', border: '1px solid #ECEEF1', padding: 'clamp(24px, 3.5vw, 36px)', display: 'flex', flexDirection: 'column' }}>
                       <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '8px' }}>Scale</p>
                       <div style={{ marginBottom: '4px' }}>
-                        <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 3.5vw, 42px)', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.03em' }}>Custom</span>
+                        <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 3.5vw, 42px)', fontWeight: 900, color: '#061A3A', lineHeight: 1, letterSpacing: '-0.03em' }}>Custom</span>
                       </div>
                       <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '16px' }}>Priced by candidate volume</p>
                       <div style={{ borderTop: '1px solid #ECEEF1', paddingTop: '18px', marginBottom: '24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '9px' }}>
                         {['Everything in Growth', 'Unlimited candidate profiles', 'Unlimited recruiter seats', 'White-label profile pages', 'API access for ATS integrations', 'Dedicated success manager', 'SLA-backed priority support'].map(f => (
                           <div key={f} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <Check size={12} color={f === 'Everything in Growth' ? '#0C63E3' : '#9A9FA8'} strokeWidth={2.5} />
-                            <span style={{ fontSize: '13px', color: f === 'Everything in Growth' ? '#0C63E3' : '#5C6070', fontFamily: 'var(--font-body)', fontWeight: f === 'Everything in Growth' ? 700 : 400 }}>{f}</span>
+                            <Check size={12} color={f === 'Everything in Growth' ? '#1468E8' : '#9A9FA8'} strokeWidth={2.5} />
+                            <span style={{ fontSize: '13px', color: f === 'Everything in Growth' ? '#1468E8' : '#5C6070', fontFamily: 'var(--font-body)', fontWeight: f === 'Everything in Growth' ? 700 : 400 }}>{f}</span>
                           </div>
                         ))}
                       </div>
-                      <Link href="/contact/sales" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#041635', color: '#fff', fontWeight: 700, fontSize: '14px', padding: '12px 20px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                      <Link href="/contact/sales" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#061A3A', color: '#fff', fontWeight: 700, fontSize: '14px', padding: '12px 20px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                         Talk to sales
                       </Link>
                     </div>
@@ -618,7 +608,7 @@ export default function PricingPage() {
                   <div style={{ marginTop: '40px' }}>
                     <p style={{ fontSize: '12px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px', textAlign: 'center' }}>Full feature comparison</p>
                     <div className="feat-table-wrap"><div className="feat-table-inner" style={{ borderRadius: '16px', overflow: 'hidden' }}>
-                      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', background: '#F7F8FA', padding: '12px 24px', borderBottom: '1px solid #E8EAF0' }}>
+                      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', background: '#F6F7F9', padding: '12px 24px', borderBottom: '1px solid #E8EAF0' }}>
                         <p style={{ fontSize: '11px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Feature</p>
                         {['Starter', 'Growth', 'Scale'].map(h => (
                           <p key={h} style={{ fontSize: '11px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.08em', textAlign: 'center' }}>{h}</p>
@@ -637,12 +627,12 @@ export default function PricingPage() {
 
                   <div style={{ marginTop: '16px', background: '#EEF4FF', borderRadius: '10px', border: '1px solid #C7DEFF', padding: '14px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <Zap size={14} color="#0C63E3" strokeWidth={2} />
+                      <Zap size={14} color="#1468E8" strokeWidth={2} />
                       <p style={{ fontSize: '13px', color: '#1D4ED8', fontFamily: 'var(--font-body)' }}>
                         <strong>Not sure which plan fits?</strong> We will walk you through the right fit for your team size and placement volume.
                       </p>
                     </div>
-                    <Link href="/contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '9px 18px', background: '#0C63E3', color: '#fff', borderRadius: '8px', fontSize: '13px', fontWeight: 700, fontFamily: 'var(--font-body)', textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                    <Link href="/contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '9px 18px', background: '#1468E8', color: '#fff', borderRadius: '8px', fontSize: '13px', fontWeight: 700, fontFamily: 'var(--font-body)', textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0 }}>
                       Schedule a demo →
                     </Link>
                   </div>
@@ -652,42 +642,24 @@ export default function PricingPage() {
           </div>
         </section>
 
-        {/* ─── Testimonials ─── */}
-        <section style={{ background: '#F7F8FA', padding: 'clamp(72px, 9vw, 112px) 0', overflow: 'hidden' }}>
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-            style={{ textAlign: 'center', marginBottom: '48px', padding: '0 24px' }}>
-            <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Success stories</p>
-            <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, color: '#041635', lineHeight: 0.95, letterSpacing: '-0.03em' }}>
-              Real results from<br />real candidates.
-            </h2>
-          </motion.div>
-          <div style={{ position: 'relative' }}>
-            <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '120px', background: 'linear-gradient(to right, #F7F8FA, transparent)', zIndex: 1, pointerEvents: 'none' }} />
-            <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '120px', background: 'linear-gradient(to left, #F7F8FA, transparent)', zIndex: 1, pointerEvents: 'none' }} />
-            <div className="p-testi-track" style={{ gap: '16px', paddingLeft: '16px' }}>
-              {doubled.map((t, i) => <TestiCard key={i} t={t} />)}
-            </div>
-          </div>
-        </section>
-
         {/* ─── FAQ ─── */}
-        <section style={{ background: '#F7F8FA', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
+        <section style={{ background: '#F6F7F9', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
           <div style={{ maxWidth: '700px', margin: '0 auto' }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
               style={{ textAlign: 'center', marginBottom: '52px' }}>
-              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Frequently asked questions</p>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 48px)', fontWeight: 900, color: '#041635', lineHeight: 0.96, letterSpacing: '-0.03em' }}>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Frequently asked questions</p>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 48px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.96, letterSpacing: '-0.03em' }}>
                 Everything you need to know
               </h2>
             </motion.div>
-            <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '0 28px', boxShadow: '0 1px 8px rgba(4,22,53,0.04)' }}>
+            <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '0 28px', boxShadow: '0 1px 8px rgba(6,26,58,0.04)' }}>
               {FAQS.map((faq, i) => (
                 <div key={i} style={{ borderBottom: i < FAQS.length - 1 ? '1px solid #ECEEF1' : 'none' }}>
                   <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
                     style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', padding: '20px 0', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left' }}>
-                    <span style={{ fontSize: '15px', fontWeight: 600, color: '#041635', fontFamily: 'var(--font-body)' }}>{faq.q}</span>
-                    <span style={{ width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0, background: openFaq === i ? '#0C63E3' : '#F7F8FA', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.15s' }}>
-                      {openFaq === i ? <Minus size={12} color="#fff" strokeWidth={2.5} /> : <Plus size={12} color="#5C6070" strokeWidth={2.5} />}
+                    <span style={{ fontSize: '15px', fontWeight: 600, color: '#061A3A', fontFamily: 'var(--font-body)' }}>{faq.q}</span>
+                    <span style={{ width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0, background: openFaq === i ? '#1468E8' : '#EAF1FF', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.15s' }}>
+                      {openFaq === i ? <Minus size={12} color="#fff" strokeWidth={2.5} /> : <Plus size={12} color="#1468E8" strokeWidth={2.5} />}
                     </span>
                   </button>
                   <AnimatePresence>
@@ -700,30 +672,6 @@ export default function PricingPage() {
                 </div>
               ))}
             </div>
-          </div>
-        </section>
-
-        {/* ─── Bottom CTA ─── */}
-        <section style={{ background: '#041635', padding: 'clamp(72px, 10vw, 120px) 24px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', top: '-20%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '600px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.25), transparent 60%)', pointerEvents: 'none' }} />
-          <div style={{ maxWidth: '600px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(40px, 6vw, 72px)', fontWeight: 900, color: '#fff', lineHeight: 0.92, letterSpacing: '-0.03em', marginBottom: '20px' }}>
-                Ready to<br /><span style={{ color: '#D8F950' }}>stand out?</span>
-              </h2>
-              <p style={{ fontSize: '17px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginBottom: '36px' }}>
-                Free to start. No credit card. Takes less than 5 minutes.
-              </p>
-              <div className="pricing-cta-btns" style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
-                <Link href="/get-started" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
-                  Create your Reslink
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                </Link>
-                <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', padding: '14px 24px', fontSize: '15px', fontWeight: 600, color: 'rgba(255,255,255,0.65)', background: 'rgba(255,255,255,0.08)', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                  Talk to sales
-                </Link>
-              </div>
-            </motion.div>
           </div>
         </section>
 

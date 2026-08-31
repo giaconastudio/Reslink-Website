@@ -18,7 +18,7 @@ type Person = {
 const JOBSEEKER_PEOPLE: Person[] = [
   {
     id: 'students',
-    video: '/videos/student.mp4',
+    video: '/videos/students.mp4',
     objectPosition: '46% 32%',
     eyebrow: 'For students',
     title: 'Landing your first role, without years of experience.',
@@ -42,8 +42,8 @@ const JOBSEEKER_PEOPLE: Person[] = [
 const B2B_PEOPLE: Person[] = [
   {
     id: 'agencies',
-    video: '/videos/agency-recruiter.mp4',
-    objectPosition: '50% 22%',
+    video: '/videos/agencies-office.mp4',
+    objectPosition: '55% 35%',
     eyebrow: 'For recruitment agencies',
     title: 'Placing candidates faster, with proof clients can watch.',
     body: 'Screen and shortlist with video from day one, then hand clients a Reslink instead of a stack of PDFs they have to take your word for.',
@@ -51,8 +51,8 @@ const B2B_PEOPLE: Person[] = [
   },
   {
     id: 'universities',
-    video: '/videos/university-campus.mp4',
-    objectPosition: '50% 30%',
+    video: '/videos/universities-students.mp4',
+    objectPosition: '50% 45%',
     eyebrow: 'For universities & career centers',
     title: 'Giving every student a placement edge, at scale.',
     body: 'Equip your career center with a tool that helps students stand out in a crowded market, and shows administrators the outcomes to prove it.',
@@ -160,7 +160,7 @@ export default function AudienceStories({ variant = 'jobseekers' }: Props) {
         .as-acc-card.expanded { flex-grow: 4.2; }
         .as-acc-scrim {
           position: absolute; inset: 0;
-          background: linear-gradient(to top, rgba(4,22,53,0.88) 0%, rgba(4,22,53,0.25) 40%, rgba(4,22,53,0.05) 65%, transparent 80%);
+          background: linear-gradient(to top, rgba(6,26,58,0.88) 0%, rgba(6,26,58,0.25) 40%, rgba(6,26,58,0.05) 65%, transparent 80%);
           pointer-events: none;
         }
         .as-acc-content { position: absolute; left: 0; right: 0; bottom: 0; padding: 20px; z-index: 1; }
@@ -176,7 +176,7 @@ export default function AudienceStories({ variant = 'jobseekers' }: Props) {
         .as-acc-desc { font-size: 13.5px; color: rgba(255,255,255,0.78); line-height: 1.6; font-family: var(--font-body); margin-bottom: 14px; }
         .as-acc-pill {
           display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700;
-          color: #041635; background: #D8F950; text-decoration: none; border-radius: 100px; padding: 9px 16px;
+          color: #061A3A; background: #D7FF43; text-decoration: none; border-radius: 100px; padding: 9px 16px;
         }
 
         @media (max-width: 760px) {
@@ -189,8 +189,8 @@ export default function AudienceStories({ variant = 'jobseekers' }: Props) {
       <div className="as-inner">
         <div className="as-head">
           <motion.div className="as-head-text" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>{eyebrow}</p>
-            <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 48px)', fontWeight: 900, color: '#041635', lineHeight: 0.96, letterSpacing: '-0.03em' }}>
+            <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>{eyebrow}</p>
+            <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 48px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.96, letterSpacing: '-0.03em' }}>
               {heading}
             </h2>
           </motion.div>

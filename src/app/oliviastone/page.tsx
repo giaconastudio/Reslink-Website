@@ -1,9 +1,9 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowRight, Play, Pause, Download, MapPin, Mail, Eye, Clock, MousePointerClick, Sparkles, Globe } from 'lucide-react';
+import { ArrowRight, Play, Pause, Download, MapPin, Mail, Eye, Clock, MousePointerClick, Globe } from 'lucide-react';
 
 function LinkedinIcon({ size = 14 }: { size?: number }) {
   return (
@@ -53,13 +53,22 @@ const SKILLS = ['Outbound prospecting', 'Discovery calls', 'Salesforce & HubSpot
 const ANALYTICS_TILES = [
   { icon: Eye, value: '12', label: 'Profile views', sub: 'this week · up 4' },
   { icon: Clock, value: '0:58', label: 'Avg. watch time', sub: '85% finish it' },
-  { icon: Download, value: '3', label: 'Resume downloads', sub: 'latest 1d ago' },
+  { icon: Download, value: '3', label: 'CV downloads', sub: 'latest 1d ago' },
   { icon: MousePointerClick, value: '9', label: 'Link clicks', sub: 'this week' },
 ];
 
 export default function ExampleProfilePage() {
   const pipRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
+
+  // Autoplay the intro (muted) as soon as the page opens — browsers only allow
+  // autoplay without a click when the video is muted.
+  useEffect(() => {
+    const v = pipRef.current;
+    if (!v) return;
+    v.muted = true;
+    v.play().then(() => setPlaying(true)).catch(() => { /* autoplay blocked */ });
+  }, []);
 
   const togglePlay = async () => {
     const v = pipRef.current;
@@ -80,17 +89,17 @@ export default function ExampleProfilePage() {
       <Navbar dark />
       <main style={{ paddingTop: '68px', background: '#F4F6F9', minHeight: '100vh' }}>
 
-        {/* Example banner */}
-        <div style={{ background: '#D8F950', padding: '10px 24px', textAlign: 'center' }}>
-          <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center', gap: '4px 8px', lineHeight: 1.4 }}>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-              <Sparkles size={13} />
-              This is an example Reslink — exactly what recruiters see when you share your link.
-            </span>
-            <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#041635', textDecoration: 'none', fontWeight: 800, borderBottom: '2px solid #041635' }}>
-              Create yours free <ArrowRight size={13} strokeWidth={2.5} />
+        {/* Example banner — compact centered pill */}
+        <div style={{ padding: 'clamp(16px, 3vw, 28px) 24px 0', textAlign: 'center' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap', justifyContent: 'center', background: '#fff', borderRadius: '100px', padding: '7px 8px 7px 20px', boxShadow: '0 6px 24px rgba(6,26,58,0.08)' }}>
+            <p style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)', display: 'inline-flex', alignItems: 'center', gap: '9px', lineHeight: 1.4, margin: 0 }}>
+              <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 1.4 }} style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#5B7A0F', flexShrink: 0 }} />
+              <span><strong style={{ color: '#061A3A', fontWeight: 700 }}>Example Reslink.</strong> This is exactly what recruiters see.</span>
+            </p>
+            <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#061A3A', color: '#fff', fontSize: '12.5px', fontWeight: 700, borderRadius: '100px', padding: '9px 18px', textDecoration: 'none', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>
+              Create yours <ArrowRight size={13} strokeWidth={2.5} />
             </Link>
-          </p>
+          </div>
         </div>
 
         <style>{`
@@ -129,18 +138,17 @@ export default function ExampleProfilePage() {
 
           {/* Profile header */}
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }}
-            style={{ background: '#041635', borderRadius: '20px 20px 0 0', padding: 'clamp(24px, 4vw, 40px)', position: 'relative', overflow: 'hidden' }}>
-            <div style={{ position: 'absolute', top: '-40%', right: '-10%', width: '500px', height: '400px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.3), transparent 65%)', pointerEvents: 'none' }} />
+            style={{ background: 'radial-gradient(ellipse 75% 95% at 92% 0%, rgba(168,72,214,0.42), transparent 55%), linear-gradient(140deg, #0A1E48 0%, #06122B 100%)', borderRadius: '20px 20px 0 0', padding: 'clamp(24px, 4vw, 40px)', position: 'relative', overflow: 'hidden' }}>
             <div className="ex-header-row" style={{ position: 'relative', zIndex: 1 }}>
               <div className="ex-header-identity" style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
-                <div className="ex-header-avatar" style={{ width: '64px', height: '64px', borderRadius: '50%', flexShrink: 0, overflow: 'hidden', border: '2px solid rgba(255,255,255,0.25)' }}>
+                <div className="ex-header-avatar" style={{ width: '140px', height: '140px', borderRadius: '50%', flexShrink: 0, overflow: 'hidden', border: '3px solid rgba(255,255,255,0.25)' }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/videos/pip-person-poster.jpg" alt="Olivia Stone" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} />
+                  <img src="/videos/pip-person-poster.jpg" alt="Olivia Stone" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
                 </div>
                 <div className="ex-header-name">
                   <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 4.5vw, 42px)', fontWeight: 900, color: '#fff', lineHeight: 0.95, letterSpacing: '-0.02em', marginBottom: '8px' }}>OLIVIA STONE</h1>
                   <p className="ex-header-role" style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>
-                    Business Development Representative<span className="ex-header-sep"> · </span><span className="ex-header-yrs">5 yrs experience</span>
+                    Business Development Representative
                   </p>
                   <div className="ex-header-contacts" style={{ display: 'flex', gap: '6px 16px', flexWrap: 'wrap' }}>
                     <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '12px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)' }}><MapPin size={12} /> London, UK</span>
@@ -159,13 +167,13 @@ export default function ExampleProfilePage() {
               <div className="ex-header-actions" style={{ display: 'flex', gap: '10px' }}>
                 <motion.button
                   onClick={togglePlay}
-                  animate={playing ? { scale: 1, boxShadow: '0 0 0 0 rgba(216,249,80,0)' } : {
+                  animate={playing ? { scale: 1, boxShadow: '0 0 0 0 rgba(215,255,67,0)' } : {
                     scale: [1, 1.045, 1],
-                    boxShadow: ['0 0 0 0 rgba(216,249,80,0.55)', '0 0 0 12px rgba(216,249,80,0)', '0 0 0 0 rgba(216,249,80,0)'],
+                    boxShadow: ['0 0 0 0 rgba(215,255,67,0.55)', '0 0 0 12px rgba(215,255,67,0)', '0 0 0 0 rgba(215,255,67,0)'],
                   }}
                   transition={playing ? { duration: 0.2 } : { repeat: Infinity, duration: 1.8, ease: 'easeOut' }}
-                  style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '12px 22px', background: '#D8F950', color: '#041635', border: 'none', borderRadius: '10px', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: 'pointer' }}>
-                  {playing ? <Pause size={14} /> : <Play size={14} fill="#041635" />} {playing ? 'Pause intro' : 'Play intro'}
+                  style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '12px 22px', background: '#D7FF43', color: '#061A3A', border: 'none', borderRadius: '10px', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: 'pointer' }}>
+                  {playing ? <Pause size={14} /> : <Play size={14} fill="#061A3A" />} {playing ? 'Pause intro' : 'Play intro'}
                 </motion.button>
                 <span title="Disabled in this example" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '12px 22px', background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.5)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '10px', fontSize: '14px', fontWeight: 600, fontFamily: 'var(--font-body)', cursor: 'default' }}>
                   <Download size={14} /> Resume
@@ -179,26 +187,26 @@ export default function ExampleProfilePage() {
             className="ex-resume-window">
 
             {/* The resume "paper" — scrollable */}
-            <div className="ex-resume-scroll" style={{ maxWidth: '860px', margin: '0 auto', background: '#fff', borderRadius: '6px', boxShadow: '0 8px 40px rgba(4,22,53,0.12)', padding: 'clamp(28px, 4.5vw, 56px)' }}>
-              <div style={{ textAlign: 'center', borderBottom: '1.5px solid #041635', paddingBottom: '16px', marginBottom: '20px' }}>
-                <p style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(20px, 3vw, 26px)', fontWeight: 700, color: '#041635', letterSpacing: '0.01em' }}>Olivia Stone</p>
+            <div className="ex-resume-scroll" style={{ maxWidth: '860px', margin: '0 auto', background: '#fff', borderRadius: '6px', boxShadow: '0 8px 40px rgba(6,26,58,0.12)', padding: 'clamp(28px, 4.5vw, 56px)' }}>
+              <div style={{ textAlign: 'center', borderBottom: '1.5px solid #061A3A', paddingBottom: '16px', marginBottom: '20px' }}>
+                <p style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(20px, 3vw, 26px)', fontWeight: 700, color: '#061A3A', letterSpacing: '0.01em' }}>Olivia Stone</p>
                 <p style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)', marginTop: '4px' }}>Business Development Representative</p>
                 <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '3px' }}>London, UK · olivia@example.com · linkedin.com/in/oliviastone</p>
               </div>
 
-              <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#041635', fontFamily: 'var(--font-body)', marginBottom: '8px' }}>Summary</p>
+              <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#061A3A', fontFamily: 'var(--font-body)', marginBottom: '8px' }}>Summary</p>
               <p style={{ fontSize: '12px', color: '#5C6070', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginBottom: '18px' }}>
                 Quota-beating business development representative with five years across B2B SaaS and agency environments. Consistent top performer with a track record of building outbound systems that scale — not just hitting numbers, but improving how the whole team sells. Looking for a senior BDR or AE-track role at a product-led company.
               </p>
 
-              <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#041635', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>Professional experience</p>
+              <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#061A3A', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>Professional experience</p>
               {EXPERIENCE.map(e => (
                 <div key={e.role} style={{ marginBottom: '16px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px', flexWrap: 'wrap' }}>
-                    <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>{e.role}</p>
+                    <p style={{ fontSize: '13px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)' }}>{e.role}</p>
                     <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{e.period}</p>
                   </div>
-                  <p style={{ fontSize: '12px', color: '#0C63E3', fontFamily: 'var(--font-body)', fontWeight: 600, margin: '2px 0 6px' }}>{e.org}</p>
+                  <p style={{ fontSize: '12px', color: '#1468E8', fontFamily: 'var(--font-body)', fontWeight: 600, margin: '2px 0 6px' }}>{e.org}</p>
                   <ul style={{ listStyle: 'disc', paddingLeft: '18px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                     {e.points.map(pt => (
                       <li key={pt} style={{ fontSize: '12px', color: '#5C6070', lineHeight: 1.55, fontFamily: 'var(--font-body)' }}>{pt}</li>
@@ -207,28 +215,28 @@ export default function ExampleProfilePage() {
                 </div>
               ))}
 
-              <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#041635', fontFamily: 'var(--font-body)', margin: '18px 0 10px' }}>Education</p>
+              <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#061A3A', fontFamily: 'var(--font-body)', margin: '18px 0 10px' }}>Education</p>
               {EDUCATION.map(ed => (
                 <div key={ed.degree} style={{ display: 'flex', justifyContent: 'space-between', gap: '10px', flexWrap: 'wrap', marginBottom: '4px' }}>
                   <div>
-                    <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>{ed.degree}</p>
-                    <p style={{ fontSize: '12px', color: '#0C63E3', fontFamily: 'var(--font-body)', fontWeight: 600, marginTop: '2px' }}>{ed.school}</p>
+                    <p style={{ fontSize: '13px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)' }}>{ed.degree}</p>
+                    <p style={{ fontSize: '12px', color: '#1468E8', fontFamily: 'var(--font-body)', fontWeight: 600, marginTop: '2px' }}>{ed.school}</p>
                   </div>
                   <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{ed.period}</p>
                 </div>
               ))}
 
-              <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#041635', fontFamily: 'var(--font-body)', margin: '18px 0 8px' }}>Certifications</p>
+              <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#061A3A', fontFamily: 'var(--font-body)', margin: '18px 0 8px' }}>Certifications</p>
               <ul style={{ listStyle: 'disc', paddingLeft: '18px', display: 'flex', flexDirection: 'column', gap: '4px', marginBottom: '18px' }}>
                 {CERTS.map(c => (
                   <li key={c} style={{ fontSize: '12px', color: '#5C6070', lineHeight: 1.55, fontFamily: 'var(--font-body)' }}>{c}</li>
                 ))}
               </ul>
 
-              <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#041635', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>Skills</p>
+              <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#061A3A', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>Skills</p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                 {SKILLS.map(s => (
-                  <span key={s} style={{ fontSize: '11px', fontWeight: 600, color: '#041635', background: '#F0F3F7', borderRadius: '100px', padding: '4px 12px', fontFamily: 'var(--font-body)' }}>{s}</span>
+                  <span key={s} style={{ fontSize: '11px', fontWeight: 600, color: '#061A3A', background: '#F0F3F7', borderRadius: '100px', padding: '4px 12px', fontFamily: 'var(--font-body)' }}>{s}</span>
                 ))}
               </div>
             </div>
@@ -243,8 +251,8 @@ export default function ExampleProfilePage() {
                 <video ref={pipRef} src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" playsInline preload="metadata"
                   onEnded={() => setPlaying(false)}
                   style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                <div style={{ position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(4,22,53,0.78)', backdropFilter: 'blur(6px)', borderRadius: '100px', padding: '3px 10px', display: 'flex', alignItems: 'center', gap: '5px', whiteSpace: 'nowrap' }}>
-                  <motion.div animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 1.4 }} style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#D8F950', flexShrink: 0 }} />
+                <div style={{ position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(6,26,58,0.78)', backdropFilter: 'blur(6px)', borderRadius: '100px', padding: '3px 10px', display: 'flex', alignItems: 'center', gap: '5px', whiteSpace: 'nowrap' }}>
+                  <motion.div animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 1.4 }} style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#D7FF43', flexShrink: 0 }} />
                   <span style={{ fontSize: '10px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Intro playing</span>
                 </div>
               </div>
@@ -260,53 +268,43 @@ export default function ExampleProfilePage() {
               {/* Header with prominent "what Olivia sees" cue */}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', marginBottom: '18px', flexWrap: 'wrap' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#16A34A', display: 'inline-block', boxShadow: '0 0 0 3px rgba(22,163,74,0.15)' }} />
-                  <p style={{ fontSize: '12px', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#041635', fontFamily: 'var(--font-body)' }}>Live analytics</p>
+                  <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 1.4 }} style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#16A34A', display: 'inline-block', boxShadow: '0 0 0 3px rgba(22,163,74,0.15)' }} />
+                  <p style={{ fontSize: '12px', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#061A3A', fontFamily: 'var(--font-body)' }}>Live analytics</p>
                 </div>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '11px', fontWeight: 800, color: '#041635', background: '#D8F950', borderRadius: '100px', padding: '5px 11px', fontFamily: 'var(--font-body)', border: '1.5px solid #041635' }}>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '11px', fontWeight: 700, color: '#C0398A', background: '#FBEAF5', borderRadius: '100px', padding: '5px 11px', fontFamily: 'var(--font-body)' }}>
                   <Eye size={12} strokeWidth={2.5} /> Only Olivia sees this
                 </span>
               </div>
 
               {/* 2×2 stat tiles */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '10px' }}>
-                {ANALYTICS_TILES.map(({ icon: Icon, value, label, sub }) => (
-                  <div key={label} style={{ background: '#F7F9FC', border: '1px solid #EDF0F5', borderRadius: '12px', padding: '14px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                      <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                        <Icon size={14} color="#0C63E3" strokeWidth={2} />
-                      </div>
-                      <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: '#041635', lineHeight: 1, letterSpacing: '-0.02em' }}>{value}</span>
-                    </div>
-                    <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{label}</p>
+                {ANALYTICS_TILES.map(({ value, label, sub }) => (
+                  <div key={label} style={{ background: '#F7F9FC', border: '1px solid #EDF0F5', borderRadius: '12px', padding: '16px' }}>
+                    <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '26px', fontWeight: 900, color: '#061A3A', lineHeight: 1, letterSpacing: '-0.02em', display: 'block', marginBottom: '8px' }}>{value}</span>
+                    <p style={{ fontSize: '12px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{label}</p>
                     <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '1px' }}>{sub}</p>
                   </div>
                 ))}
               </div>
 
               {/* Locations bar */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: '#F7F9FC', border: '1px solid #EDF0F5', borderRadius: '12px', padding: '12px 14px', marginTop: 'auto' }}>
-                <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <MapPin size={14} color="#0C63E3" strokeWidth={2} />
-                </div>
-                <div>
-                  <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Top viewer locations</p>
-                  <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>London · New York · Berlin</p>
-                </div>
+              <div style={{ background: '#F7F9FC', border: '1px solid #EDF0F5', borderRadius: '12px', padding: '14px 16px', marginTop: 'auto' }}>
+                <p style={{ fontSize: '12px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Top viewer locations</p>
+                <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px' }}>London · New York · Berlin</p>
               </div>
             </motion.div>
 
             {/* CTA card — matches analytics height */}
             <motion.div initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.45, delay: 0.25 }}
-              style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', background: '#041635', borderRadius: '16px', padding: 'clamp(24px, 3vw, 36px)', position: 'relative', overflow: 'hidden' }}>
-              <div style={{ position: 'absolute', top: '-50%', right: '-30%', width: '300px', height: '250px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.35), transparent 65%)', pointerEvents: 'none' }} />
-              <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(24px, 3vw, 30px)', fontWeight: 900, color: '#fff', lineHeight: 0.98, letterSpacing: '-0.02em', marginBottom: '12px', position: 'relative' }}>This could be you.</p>
-              <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.55)', lineHeight: 1.6, fontFamily: 'var(--font-body)', marginBottom: '22px', position: 'relative' }}>
-                One link with your resume, your video pitch, and live analytics on everyone who views it. Build yours in under 5 minutes — free.
+              style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', background: 'radial-gradient(ellipse 75% 95% at 92% 0%, rgba(168,72,214,0.42), transparent 55%), linear-gradient(140deg, #0A1E48 0%, #06122B 100%)', borderRadius: '16px', padding: 'clamp(26px, 3.2vw, 38px)', position: 'relative', overflow: 'hidden' }}>
+              <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3.4vw, 34px)', fontWeight: 900, color: '#fff', lineHeight: 0.98, letterSpacing: '-0.02em', marginBottom: '14px', position: 'relative' }}>This could<br />be you.</p>
+              <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.55)', lineHeight: 1.6, fontFamily: 'var(--font-body)', marginBottom: '24px', position: 'relative' }}>
+                One link with your resume, your video pitch, and live analytics on everyone who views it.
               </p>
-              <Link href="/get-started" className="btn-primary" style={{ fontSize: '15px', padding: '14px 26px', background: '#D8F950', color: '#041635', position: 'relative', alignSelf: 'flex-start' }}>
+              <Link href="/get-started" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', fontSize: '15px', fontWeight: 800, padding: '17px 26px', background: '#D7FF43', color: '#061A3A', borderRadius: '12px', textDecoration: 'none', fontFamily: 'var(--font-body)', position: 'relative', width: '100%', boxSizing: 'border-box' }}>
                 Create your Reslink <ArrowRight size={15} />
               </Link>
+              <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', textAlign: 'center', marginTop: '12px', position: 'relative' }}>Free · under 5 minutes</p>
             </motion.div>
           </div>
 

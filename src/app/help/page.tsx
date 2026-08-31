@@ -12,7 +12,7 @@ type Category = { icon: React.ElementType; color: string; bg: string; title: str
 
 const RECRUITER_CATS: Category[] = [
   {
-    icon: UserCheck, color: '#0C63E3', bg: '#EEF4FF',
+    icon: UserCheck, color: '#1468E8', bg: '#EEF4FF',
     title: 'Getting Started',
     articles: [
       { q: 'Creating a recruiter account', a: 'Sign up at reslink.io/agencies with your work email to create your agency workspace and start managing candidates in minutes.' },
@@ -22,7 +22,7 @@ const RECRUITER_CATS: Category[] = [
     ],
   },
   {
-    icon: Users, color: '#0C63E3', bg: '#EEF4FF',
+    icon: Users, color: '#1468E8', bg: '#EEF4FF',
     title: 'Managing Candidates',
     articles: [
       { q: 'How to add and manage candidates', a: 'Click Add Candidate to upload a resume and invite them to record a Reslink, or import candidates who’ve already applied through your job board.' },
@@ -32,7 +32,7 @@ const RECRUITER_CATS: Category[] = [
     ],
   },
   {
-    icon: Play, color: '#0C63E3', bg: '#EEF4FF',
+    icon: Play, color: '#1468E8', bg: '#EEF4FF',
     title: 'Presenting to Clients',
     articles: [
       { q: 'Creating client-facing candidate packs', a: 'Select multiple shortlisted candidates and click Create Pack to generate a single branded link showcasing all of them for your client.' },
@@ -42,7 +42,7 @@ const RECRUITER_CATS: Category[] = [
     ],
   },
   {
-    icon: DollarSign, color: '#0C63E3', bg: '#EEF4FF',
+    icon: DollarSign, color: '#1468E8', bg: '#EEF4FF',
     title: 'Plans & Billing',
     articles: [
       { q: 'Agency pricing overview', a: 'Plans are priced by active candidate profiles and recruiter seats: Starter (25 profiles, 3 seats), Growth (100 profiles, 10 seats), and Scale (unlimited, custom).' },
@@ -52,7 +52,7 @@ const RECRUITER_CATS: Category[] = [
     ],
   },
   {
-    icon: BarChart2, color: '#0C63E3', bg: '#EEF4FF',
+    icon: BarChart2, color: '#1468E8', bg: '#EEF4FF',
     title: 'Analytics & Reporting',
     articles: [
       { q: 'Candidate engagement reports', a: 'See which candidates clients are actually watching and for how long — useful context before your next follow-up call.' },
@@ -62,7 +62,7 @@ const RECRUITER_CATS: Category[] = [
     ],
   },
   {
-    icon: Settings, color: '#0C63E3', bg: '#EEF4FF',
+    icon: Settings, color: '#1468E8', bg: '#EEF4FF',
     title: 'Integrations & Tools',
     articles: [
       { q: 'Connecting your CRM', a: 'Sync candidate and client data with your CRM from Settings > Integrations to keep every system in step automatically.' },
@@ -75,7 +75,7 @@ const RECRUITER_CATS: Category[] = [
 
 const SEEKER_CATS: Category[] = [
   {
-    icon: UserCheck, color: '#0C63E3', bg: '#EEF4FF',
+    icon: UserCheck, color: '#1468E8', bg: '#EEF4FF',
     title: 'Getting Started',
     articles: [
       { q: 'How to create a Reslink account', a: 'Sign up free at reslink.io using your name and email — no credit card required. Your profile is ready the moment you land, and you can start building your first Reslink right away.' },
@@ -85,7 +85,7 @@ const SEEKER_CATS: Category[] = [
     ],
   },
   {
-    icon: Play, color: '#0C63E3', bg: '#EEF4FF',
+    icon: Play, color: '#1468E8', bg: '#EEF4FF',
     title: 'Using Reslink',
     articles: [
       { q: 'How to create a video using the in-app recorder', a: 'From your dashboard, click Record, grant camera access, and hit the red button when you’re ready. The teleprompter scrolls your script on screen so you stay natural and on-camera.' },
@@ -95,7 +95,7 @@ const SEEKER_CATS: Category[] = [
     ],
   },
   {
-    icon: DollarSign, color: '#0C63E3', bg: '#EEF4FF',
+    icon: DollarSign, color: '#1468E8', bg: '#EEF4FF',
     title: 'Pricing & Subscriptions',
     articles: [
       { q: 'Free vs Premium', a: 'Free gets you up to 2 Reslinks, in-app recording, and limited Pitch AI. Premium unlocks unlimited Reslinks, full analytics on who’s watching, and unlimited Pitch AI script generation.' },
@@ -105,7 +105,7 @@ const SEEKER_CATS: Category[] = [
     ],
   },
   {
-    icon: BarChart2, color: '#0C63E3', bg: '#EEF4FF',
+    icon: BarChart2, color: '#1468E8', bg: '#EEF4FF',
     title: 'Analytics & Views',
     articles: [
       { q: 'Understanding your view analytics', a: 'Your dashboard shows every recruiter who opens your Reslink, how much of your video they watched, and when — so you know exactly who’s paying attention.' },
@@ -115,7 +115,7 @@ const SEEKER_CATS: Category[] = [
     ],
   },
   {
-    icon: Settings, color: '#0C63E3', bg: '#EEF4FF',
+    icon: Settings, color: '#1468E8', bg: '#EEF4FF',
     title: 'Account & Settings',
     articles: [
       { q: 'Changing your username or email', a: 'Go to Account Settings > Profile to update your email or username. We’ll send a confirmation link to your new email before the change takes effect.' },
@@ -125,7 +125,7 @@ const SEEKER_CATS: Category[] = [
     ],
   },
   {
-    icon: Users, color: '#0C63E3', bg: '#EEF4FF',
+    icon: Users, color: '#1468E8', bg: '#EEF4FF',
     title: 'Sharing & Privacy',
     articles: [
       { q: 'Controlling who can see your Reslink', a: 'Set your link to Public (discoverable) or Unlisted (only people with the link can view) from Settings > Privacy — you can switch anytime.' },
@@ -138,7 +138,7 @@ const SEEKER_CATS: Category[] = [
 
 const COMPANY_CATS: Category[] = [
   {
-    icon: Briefcase, color: '#0C63E3', bg: '#EEF4FF',
+    icon: Briefcase, color: '#1468E8', bg: '#EEF4FF',
     title: 'Getting Started',
     articles: [
       { q: 'Creating a company account', a: 'Sign up at reslink.io/companies with your work email. You’ll set your company name and logo, then get instant access to your hiring workspace.' },
@@ -148,7 +148,7 @@ const COMPANY_CATS: Category[] = [
     ],
   },
   {
-    icon: Play, color: '#0C63E3', bg: '#EEF4FF',
+    icon: Play, color: '#1468E8', bg: '#EEF4FF',
     title: 'Reviewing Candidates',
     articles: [
       { q: 'How to view candidate Reslinks', a: 'Every applicant’s profile — video pitch, resume, and AI score — is a single click away from your candidate list. No downloads or attachments needed.' },
@@ -158,7 +158,7 @@ const COMPANY_CATS: Category[] = [
     ],
   },
   {
-    icon: DollarSign, color: '#0C63E3', bg: '#EEF4FF',
+    icon: DollarSign, color: '#1468E8', bg: '#EEF4FF',
     title: 'Plans & Billing',
     articles: [
       { q: 'Company pricing overview', a: 'Plans are priced by job postings and team seats: Free Trial (14 days, up to 5 postings), Growth (up to 25 postings, 10 seats), and Enterprise (unlimited, custom pricing).' },
@@ -168,7 +168,7 @@ const COMPANY_CATS: Category[] = [
     ],
   },
   {
-    icon: BarChart2, color: '#0C63E3', bg: '#EEF4FF',
+    icon: BarChart2, color: '#1468E8', bg: '#EEF4FF',
     title: 'Analytics & Reporting',
     articles: [
       { q: 'Candidate engagement analytics', a: 'See applicant volume, average AI score, and time-to-review trends for every open role from your Analytics dashboard.' },
@@ -178,7 +178,7 @@ const COMPANY_CATS: Category[] = [
     ],
   },
   {
-    icon: Settings, color: '#0C63E3', bg: '#EEF4FF',
+    icon: Settings, color: '#1468E8', bg: '#EEF4FF',
     title: 'Integrations',
     articles: [
       { q: 'ATS integrations overview', a: 'Reslink connects with major ATS platforms so candidate Reslinks sync directly into your existing pipeline — no double data entry.' },
@@ -188,7 +188,7 @@ const COMPANY_CATS: Category[] = [
     ],
   },
   {
-    icon: GraduationCap, color: '#0C63E3', bg: '#EEF4FF',
+    icon: GraduationCap, color: '#1468E8', bg: '#EEF4FF',
     title: 'Universities & Agencies',
     articles: [
       { q: 'Setting up a university account', a: 'Career centers can request a university account at reslink.io/universities to give every student free or discounted access.' },
@@ -201,7 +201,7 @@ const COMPANY_CATS: Category[] = [
 
 const UNIVERSITY_CATS: Category[] = [
   {
-    icon: GraduationCap, color: '#0C63E3', bg: '#EEF4FF',
+    icon: GraduationCap, color: '#1468E8', bg: '#EEF4FF',
     title: 'Getting Started',
     articles: [
       { q: 'Setting up a university account', a: 'Career centers can request access at reslink.io/universities. We’ll set up your school’s branded portal and issue admin access to your career services team.' },
@@ -211,7 +211,7 @@ const UNIVERSITY_CATS: Category[] = [
     ],
   },
   {
-    icon: Users, color: '#0C63E3', bg: '#EEF4FF',
+    icon: Users, color: '#1468E8', bg: '#EEF4FF',
     title: 'Student Onboarding',
     articles: [
       { q: 'Bulk student onboarding', a: 'Upload a CSV of student emails from your dashboard to send bulk Reslink invitations to your entire class or department in one click.' },
@@ -221,7 +221,7 @@ const UNIVERSITY_CATS: Category[] = [
     ],
   },
   {
-    icon: Briefcase, color: '#0C63E3', bg: '#EEF4FF',
+    icon: Briefcase, color: '#1468E8', bg: '#EEF4FF',
     title: 'Career Services Tools',
     articles: [
       { q: 'Reviewing student profiles', a: 'Career advisors can browse every student’s Reslink from the admin dashboard to give feedback before it goes live to employers.' },
@@ -231,7 +231,7 @@ const UNIVERSITY_CATS: Category[] = [
     ],
   },
   {
-    icon: BarChart2, color: '#0C63E3', bg: '#EEF4FF',
+    icon: BarChart2, color: '#1468E8', bg: '#EEF4FF',
     title: 'Analytics & Reporting',
     articles: [
       { q: 'Cohort engagement analytics', a: 'See completion rates, average watch time, and employer views broken down by class year or major from your Analytics dashboard.' },
@@ -241,7 +241,7 @@ const UNIVERSITY_CATS: Category[] = [
     ],
   },
   {
-    icon: DollarSign, color: '#0C63E3', bg: '#EEF4FF',
+    icon: DollarSign, color: '#1468E8', bg: '#EEF4FF',
     title: 'Plans & Billing',
     articles: [
       { q: 'University pricing overview', a: 'University programs are priced per student cohort with volume discounts — reach out for a custom quote based on your enrollment size.' },
@@ -251,7 +251,7 @@ const UNIVERSITY_CATS: Category[] = [
     ],
   },
   {
-    icon: Settings, color: '#0C63E3', bg: '#EEF4FF',
+    icon: Settings, color: '#1468E8', bg: '#EEF4FF',
     title: 'Support & Resources',
     articles: [
       { q: 'Training career center staff', a: 'We offer a live onboarding session for your career services team covering the admin dashboard, student support, and reporting.' },
@@ -277,11 +277,11 @@ function FAQ({ q, a, open, toggle }: { q: string; a: string; open: boolean; togg
     <div style={{ borderBottom: '1px solid #ECEEF1' }}>
       <button onClick={toggle}
         style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', padding: '20px 0', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left' }}>
-        <span style={{ fontSize: '15px', fontWeight: 600, color: '#041635', fontFamily: 'var(--font-body)' }}>{q}</span>
-        <span style={{ width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0, background: open ? '#0C63E3' : '#ECEEF1', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.15s' }}>
+        <span style={{ fontSize: '15px', fontWeight: 600, color: '#061A3A', fontFamily: 'var(--font-body)' }}>{q}</span>
+        <span style={{ width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0, background: open ? '#1468E8' : '#EAF1FF', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.15s' }}>
           {open
             ? <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            : <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#5C6070" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            : <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1468E8" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           }
         </span>
       </button>
@@ -315,17 +315,17 @@ function ArticleModal({ flat, index, catTitleFor, onClose, onNav }: {
     <motion.div
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       onClick={onClose}
-      style={{ position: 'fixed', inset: 0, background: 'rgba(4,22,53,0.55)', backdropFilter: 'blur(4px)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}
+      style={{ position: 'fixed', inset: 0, background: 'rgba(6,26,58,0.55)', backdropFilter: 'blur(4px)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}
     >
       <motion.div
         initial={{ opacity: 0, y: 16, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 10, scale: 0.98 }}
         transition={{ duration: 0.2 }}
         onClick={e => e.stopPropagation()}
-        style={{ background: '#fff', borderRadius: '20px', maxWidth: '560px', width: '100%', maxHeight: '82vh', overflowY: 'auto', boxShadow: '0 32px 100px rgba(4,22,53,0.35)', position: 'relative' }}
+        style={{ background: '#fff', borderRadius: '20px', maxWidth: '560px', width: '100%', maxHeight: '82vh', overflowY: 'auto', boxShadow: '0 32px 100px rgba(6,26,58,0.35)', position: 'relative' }}
       >
         <div style={{ padding: 'clamp(28px, 4vw, 40px)' }}>
           <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '16px', marginBottom: '18px' }}>
-            <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#0C63E3', background: '#EEF4FF', borderRadius: '100px', padding: '5px 12px', fontFamily: 'var(--font-body)' }}>
+            <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#1468E8', background: '#EEF4FF', borderRadius: '100px', padding: '5px 12px', fontFamily: 'var(--font-body)' }}>
               {catTitleFor(index)}
             </span>
             <button onClick={onClose} aria-label="Close"
@@ -333,7 +333,7 @@ function ArticleModal({ flat, index, catTitleFor, onClose, onNav }: {
               <X size={16} color="#5C6070" />
             </button>
           </div>
-          <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(22px, 3vw, 28px)', fontWeight: 900, color: '#041635', lineHeight: 1.08, letterSpacing: '-0.02em', marginBottom: '16px' }}>
+          <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(22px, 3vw, 28px)', fontWeight: 900, color: '#061A3A', lineHeight: 1.08, letterSpacing: '-0.02em', marginBottom: '16px' }}>
             {article.q}
           </h3>
           <p style={{ fontSize: '15px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>
@@ -342,12 +342,12 @@ function ArticleModal({ flat, index, catTitleFor, onClose, onNav }: {
         </div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', padding: '18px clamp(28px, 4vw, 40px)', borderTop: '1px solid #ECEEF1' }}>
           <button onClick={() => onNav(index - 1)} disabled={index === 0}
-            style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '9px 16px', borderRadius: '8px', border: '1.5px solid #E4E6EC', background: '#fff', color: index === 0 ? '#C7CAD1' : '#041635', fontSize: '13px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: index === 0 ? 'default' : 'pointer' }}>
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '9px 16px', borderRadius: '8px', border: '1.5px solid #E4E6EC', background: '#fff', color: index === 0 ? '#C7CAD1' : '#061A3A', fontSize: '13px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: index === 0 ? 'default' : 'pointer' }}>
             <ChevronLeft size={14} /> Previous
           </button>
           <span style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{index + 1} of {flat.length}</span>
           <button onClick={() => onNav(index + 1)} disabled={index === flat.length - 1}
-            style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '9px 16px', borderRadius: '8px', border: 'none', background: index === flat.length - 1 ? '#F1F3F5' : '#041635', color: index === flat.length - 1 ? '#C7CAD1' : '#fff', fontSize: '13px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: index === flat.length - 1 ? 'default' : 'pointer' }}>
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '9px 16px', borderRadius: '8px', border: 'none', background: index === flat.length - 1 ? '#F1F3F5' : '#061A3A', color: index === flat.length - 1 ? '#C7CAD1' : '#fff', fontSize: '13px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: index === flat.length - 1 ? 'default' : 'pointer' }}>
             Next <ChevronRight size={14} />
           </button>
         </div>
@@ -379,33 +379,35 @@ export default function HelpPage() {
 
   return (
     <>
-      <Navbar dark />
+      <Navbar />
       <main style={{ paddingTop: '68px' }}>
 
         {/* Hero + search */}
-        <section style={{ background: '#041635', padding: 'clamp(72px, 10vw, 120px) 24px clamp(64px, 8vw, 96px)', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', top: '-20%', left: '50%', transform: 'translateX(-50%)', width: '800px', height: '600px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.22), transparent 60%)', pointerEvents: 'none' }} />
-          <div style={{ maxWidth: '620px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+        <section style={{ background: 'linear-gradient(180deg, #FFFFFF 0%, #EAF1FF 100%)', padding: 'clamp(64px, 9vw, 104px) 24px clamp(56px, 7vw, 84px)', position: 'relative', overflow: 'hidden' }}>
+          <div aria-hidden style={{ position: 'absolute', top: '-150px', right: '-90px', width: '540px', height: '440px', background: 'radial-gradient(ellipse at center, rgba(214,61,157,0.09), transparent 66%)', pointerEvents: 'none' }} />
+          <div aria-hidden style={{ position: 'absolute', top: '-110px', left: '-70px', width: '520px', height: '420px', background: 'radial-gradient(ellipse at center, rgba(20,104,232,0.08), transparent 66%)', pointerEvents: 'none' }} />
+          <div style={{ maxWidth: '640px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-              <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 7vw, 84px)', fontWeight: 900, color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '28px' }}>
-                Need Help?
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '18px', fontFamily: 'var(--font-body)' }}>Help center</p>
+              <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(42px, 8vw, 92px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.92, letterSpacing: '-0.03em', marginBottom: '22px' }}>
+                Need <span style={{ background: 'linear-gradient(#D7FF43, #D7FF43) no-repeat', backgroundSize: '100% 0.34em', backgroundPosition: '0 calc(100% - 0.1em)', padding: '0 0.05em', WebkitBoxDecorationBreak: 'clone', boxDecorationBreak: 'clone' }}>help?</span>
               </h1>
-              <p style={{ fontSize: 'clamp(15px, 1.8vw, 17px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginBottom: '32px' }}>
+              <p style={{ fontSize: 'clamp(15px, 1.8vw, 18px)', color: '#5C6070', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginBottom: '30px', maxWidth: '520px', margin: '0 auto 30px' }}>
                 Explore our FAQs, tutorials, and other helpful resources to find the answers you&apos;re looking for.
               </p>
               <div style={{ position: 'relative' }}>
                 <span style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', display: 'flex', alignItems: 'center', zIndex: 2 }}>
-                  <Search size={18} color="rgba(255,255,255,0.45)" />
+                  <Search size={18} color="#9AA1AE" />
                 </span>
                 <input type="text" placeholder="Search for answers..." value={query} onChange={e => setQuery(e.target.value)}
-                  style={{ width: '100%', padding: '16px 16px 16px 48px', borderRadius: '14px', border: '1.5px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.08)', color: '#fff', fontSize: '15px', fontFamily: 'var(--font-body)', outline: 'none', boxSizing: 'border-box', backdropFilter: 'blur(8px)' }} />
+                  style={{ width: '100%', padding: '16px 16px 16px 48px', borderRadius: '14px', border: '1.5px solid #E4E7EC', background: '#fff', color: '#061A3A', fontSize: '15px', fontFamily: 'var(--font-body)', outline: 'none', boxSizing: 'border-box', boxShadow: '0 2px 12px rgba(6,26,58,0.06)' }} />
               </div>
             </motion.div>
           </div>
         </section>
 
         {/* Categories */}
-        <section style={{ background: '#F7F8FA', padding: 'clamp(56px, 7vw, 88px) 24px' }}>
+        <section style={{ background: '#F6F7F9', padding: 'clamp(56px, 7vw, 88px) 24px' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
 
             {/* Tabs */}
@@ -423,10 +425,10 @@ export default function HelpPage() {
             `}</style>
             <div className="help-tabs-wrap">
               <div className="help-tabs-inner">
-                {[{ id: 'seeker', label: 'For Job Seekers' }, { id: 'company', label: 'For Companies' }, { id: 'recruiter', label: 'For Recruiters' }, { id: 'university', label: 'For Universities' }].map(t => (
+                {[{ id: 'seeker', label: 'Job seekers' }, { id: 'company', label: 'Companies' }, { id: 'recruiter', label: 'Recruiters' }, { id: 'university', label: 'Universities' }].map(t => (
                   <button key={t.id} onClick={() => { setTab(t.id as 'seeker' | 'company'); setOpenArticle(null); }}
-                    style={{ padding: '10px 22px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', transition: 'color 0.2s', background: 'transparent', color: tab === t.id ? '#fff' : '#9A9FA8', whiteSpace: 'nowrap', position: 'relative' }}>
-                    {tab === t.id && <motion.span layoutId="helpTabPill" transition={{ type: 'spring', stiffness: 450, damping: 38 }} style={{ position: 'absolute', inset: 0, background: '#041635', borderRadius: '10px', zIndex: 0 }} />}
+                    style={{ padding: '11px 26px', borderRadius: '100px', border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', transition: 'color 0.2s', background: 'transparent', color: tab === t.id ? '#fff' : '#64748B', whiteSpace: 'nowrap', position: 'relative' }}>
+                    {tab === t.id && <motion.span layoutId="helpTabPill" transition={{ type: 'spring', stiffness: 450, damping: 38 }} style={{ position: 'absolute', inset: 0, background: '#061A3A', borderRadius: '100px', zIndex: 0 }} />}
                     <span style={{ position: 'relative', zIndex: 1 }}>{t.label}</span>
                   </button>
                 ))}
@@ -449,18 +451,18 @@ export default function HelpPage() {
                   const catStart = catBounds[ci].start;
                   return (
                     <motion.div key={cat.title} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25, delay: ci * 0.04 }} style={{ height: '100%' }}>
-                      <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '24px', boxShadow: '0 1px 8px rgba(4,22,53,0.04)', transition: 'box-shadow 0.15s, transform 0.15s', height: '100%', boxSizing: 'border-box' }}
-                        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 20px rgba(4,22,53,0.09)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; }}
-                        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 1px 8px rgba(4,22,53,0.04)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; }}>
+                      <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '24px', boxShadow: '0 1px 8px rgba(6,26,58,0.04)', transition: 'box-shadow 0.15s, transform 0.15s', height: '100%', boxSizing: 'border-box' }}
+                        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 20px rgba(6,26,58,0.09)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; }}
+                        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 1px 8px rgba(6,26,58,0.04)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; }}>
                         <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: cat.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '14px' }}>
                           <cat.icon size={20} color={cat.color} strokeWidth={1.8} />
                         </div>
-                        <p style={{ fontSize: '15px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', marginBottom: '12px' }}>{cat.title}</p>
+                        <p style={{ fontSize: '15px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', marginBottom: '12px' }}>{cat.title}</p>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                           {cat.articles.map((a, ai) => (
                             <button key={a.q} onClick={() => setOpenArticle(catStart + ai)}
                               style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)', textDecoration: 'none', lineHeight: 1.4, transition: 'color 0.15s', background: 'none', border: 'none', padding: 0, textAlign: 'left', cursor: 'pointer' }}
-                              onMouseEnter={e => (e.currentTarget.style.color = '#0C63E3')}
+                              onMouseEnter={e => (e.currentTarget.style.color = '#1468E8')}
                               onMouseLeave={e => (e.currentTarget.style.color = '#5C6070')}>
                               {a.q}
                             </button>
@@ -476,14 +478,14 @@ export default function HelpPage() {
             {/* FAQ */}
             <div style={{ maxWidth: '720px', margin: '0 auto' }}>
               <div style={{ textAlign: 'center', marginBottom: '36px' }}>
-                <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '12px', fontFamily: 'var(--font-body)' }}>Common questions</p>
-                <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3.5vw, 40px)', fontWeight: 900, color: '#041635', letterSpacing: '-0.02em', marginBottom: '10px' }}>Got questions? We&apos;ve got answers.</h2>
+                <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '12px', fontFamily: 'var(--font-body)' }}>Common questions</p>
+                <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3.5vw, 40px)', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.02em', marginBottom: '10px' }}>Got questions? We&apos;ve got answers.</h2>
                 <p style={{ fontSize: '14px', color: '#5C6070', fontFamily: 'var(--font-body)' }}>
                   Can&apos;t find what you need?{' '}
-                  <Link href="/contact/support" style={{ color: '#0C63E3', textDecoration: 'none', fontWeight: 600 }}>Contact support</Link>. we reply fast.
+                  <Link href="/contact/support" style={{ color: '#1468E8', textDecoration: 'none', fontWeight: 600 }}>Contact support</Link>. we reply fast.
                 </p>
               </div>
-              <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '0 28px', boxShadow: '0 1px 8px rgba(4,22,53,0.04)' }}>
+              <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '0 28px', boxShadow: '0 1px 8px rgba(6,26,58,0.04)' }}>
                 {FAQS.map((f, i) => <FAQ key={f.q} q={f.q} a={f.a} open={openFaq === i} toggle={() => setOpenFaq(openFaq === i ? null : i)} />)}
               </div>
             </div>

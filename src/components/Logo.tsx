@@ -1,6 +1,6 @@
 // SVG recreation of the Reslink logo — paper plane + RESLINK wordmark
 export default function Logo({ dark = true, height = 32 }: { dark?: boolean; height?: number }) {
-  const color = dark ? '#041635' : '#ffffff';
+  const color = dark ? '#061A3A' : '#ffffff';
   return (
     <svg height={height} viewBox="0 0 160 36" fill="none" xmlns="http://www.w3.org/2000/svg">
       {/* Paper plane icon */}

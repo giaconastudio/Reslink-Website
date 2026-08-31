@@ -672,6 +672,16 @@ const FEATURE_GROUPS: { label: string; ids: string[] }[] = [
   { label: 'Share', ids: ['badge'] },
 ];
 
+// Per-feature accent colours — card 1 blue, cards 2 & 3 pink, card 4 green.
+// `badge`/`badgeBg` colour the eyebrow pill; `bullet`/`check` colour the
+// checkmark circle and its tick in the bullet list.
+const ACCENT: Record<string, { badge: string; badgeBg: string; bullet: string; check: string }> = {
+  analytics:    { badge: '#1468E8', badgeBg: '#EAF1FF', bullet: '#1468E8', check: '#fff' },
+  pitchai:      { badge: '#D63D9D', badgeBg: '#FBEAF5', bullet: '#D63D9D', check: '#fff' },
+  teleprompter: { badge: '#D63D9D', badgeBg: '#FBEAF5', bullet: '#D63D9D', check: '#fff' },
+  badge:        { badge: '#5B7A0F', badgeBg: '#EEF7CF', bullet: '#C2E532', check: '#041635' },
+};
+
 export default function Features() {
   const [activeTab, setActiveTab] = useState(0);
   const featureRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -742,7 +752,10 @@ export default function Features() {
         }
         .feat-divider { height: 1px; background: #ECEFF4; margin: 28px 0 24px; }
         .feat-body { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
-        .feat-visual-frame { border-radius: 14px; overflow: hidden; border: 1px solid #E2E4E9; box-shadow: 0 12px 40px rgba(4,22,53,0.1); }
+        /* Same lift-on-hover as the companies-page feature demos:
+           scale up a touch and deepen the shadow. */
+        .feat-visual-frame { border-radius: 14px; overflow: hidden; border: 1px solid #E2E4E9; box-shadow: 0 12px 40px rgba(4,22,53,0.1); cursor: default; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .feat-visual-frame:hover { transform: scale(1.01); box-shadow: 0 24px 64px rgba(4,22,53,0.16); }
         .feat-visual-bar { background: #F1F3F5; border-bottom: 1px solid #E2E4E9; padding: 9px 14px; display: flex; align-items: center; gap: 8px; }
         .feat-visual { height: 340px; overflow: hidden; }
         /* Pitch AI and Apply Anywhere both needed more breathing room than
@@ -751,11 +764,13 @@ export default function Features() {
            mobile overrides below so it doesn't get silently beaten by them
            at narrow widths. */
         .feat-visual.tall { height: 420px; }
-        /* Insights hugs its actual content instead of reserving a big fixed
-           height that leaves gray empty space whenever locations are
-           collapsed — !important so it wins over the mobile height
-           overrides below regardless of specificity/media-query order. */
-        .feat-visual.auto { height: auto !important; }
+        /* Insights reserves a fixed height sized to its fully-expanded state
+           (the Top Locations list animates open/closed on a loop). A fixed
+           frame keeps that animation clipped inside the visual so the height
+           never changes — otherwise the reflow shoved the heading and bullet
+           copy beneath it up and down. !important so it wins over the mobile
+           height overrides regardless of specificity/media-query order. */
+        .feat-visual.auto { height: 444px !important; }
         .feat-swipe-hint { display: none; }
         @media (max-width: 900px) {
           .feat-body { grid-template-columns: 1fr !important; }
@@ -764,9 +779,11 @@ export default function Features() {
              vertically inside a fixed height, that extra height was pushing the top
              of the resume mockup (the Play Intro pill) out of the clipped frame. */
           .feat-visual, .feat-visual.tall { height: 460px; }
+          .feat-visual.auto { height: 460px !important; }
         }
         @media (max-width: 420px) {
           .feat-visual, .feat-visual.tall { height: 520px; }
+          .feat-visual.auto { height: 500px !important; }
         }
         @media (max-width: 860px) {
           .feat-layout { grid-template-columns: 1fr; gap: 22px; }
@@ -805,7 +822,10 @@ export default function Features() {
               <nav className="feat-nav" aria-label="Product features">
                 {FEATURE_GROUPS.map(group => (
                   <div key={group.label} className="feat-group">
-                    <p className="feat-group-label">{group.label}</p>
+                    <p className="feat-group-label" style={{ color: ACCENT[group.ids[0]]?.badge, display: 'flex', alignItems: 'center', gap: '7px' }}>
+                      <span style={{ width: '7px', height: '7px', borderRadius: '2px', background: ACCENT[group.ids[0]]?.badge, display: 'inline-block' }} />
+                      {group.label}
+                    </p>
                     {group.ids.map(id => {
                       const i = tabs.findIndex(t => t.id === id);
                       const t = tabs[i];
@@ -829,7 +849,7 @@ export default function Features() {
           <div style={{ minWidth: 0, display: 'flex', flexDirection: 'column', gap: 'clamp(56px, 7vw, 96px)' }}>
             {tabs.map((t, i) => (
               <motion.div key={t.id} ref={(el: HTMLDivElement | null) => { featureRefs.current[i] = el; }} className="feat-card" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.4 }}>
-                <span className="feat-eyebrow">
+                <span className="feat-eyebrow" style={{ color: ACCENT[t.id]?.badge, background: ACCENT[t.id]?.badgeBg }}>
                   <t.icon size={13} strokeWidth={2.4} />
                   {t.label}
                 </span>
@@ -858,8 +878,8 @@ export default function Features() {
                   <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '14px', paddingTop: '4px' }}>
                     {t.bullets.map((b, bi) => (
                       <motion.li key={b} initial={{ opacity: 0, x: 12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ delay: bi * 0.08 + 0.15, duration: 0.28 }} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', fontSize: '14px', color: '#3A3F4C', fontFamily: 'var(--font-body)', lineHeight: 1.5 }}>
-                        <span style={{ width: '22px', height: '22px', borderRadius: '50%', background: '#041635', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '1px' }}>
-                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#D8F950" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span style={{ width: '22px', height: '22px', borderRadius: '50%', background: ACCENT[t.id]?.bullet ?? '#041635', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '1px' }}>
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke={ACCENT[t.id]?.check ?? '#D8F950'} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                         </span>
                         {b}
                       </motion.li>

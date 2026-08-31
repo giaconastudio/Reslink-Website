@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --navy: #041635;
-  --accent: #D8F950;
-  --accent-dark: #C5DE3A;
-  --blue-light: #0C63E3;
-  --blue-xlight: #D6E6FF;
-  --magenta: #C4257B;
-  --magenta-light: #FDEEF5;
-  --gray-50: #F7F8FA;
+  --navy: #061A3A;
+  --accent: #D7FF43;
+  --accent-dark: #C2E532;
+  --blue-light: #1468E8;
+  --blue-xlight: #DCEAFF;
+  --magenta: #D63D9D;
+  --magenta-light: #FBEAF5;
+  --gray-50: #F6F7F9;
   --gray-100: #EEEEF0;
   --gray-400: #9A9FA8;
   --gray-600: #5C6070;
@@ -21,7 +21,7 @@ html { scroll-behavior: smooth; }
 
 body {
   background: #fff;
-  color: #041635;
+  color: #061A3A;
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
 }
@@ -42,7 +42,7 @@ h1, h2, h3, h4 {
   align-items: center;
   gap: 8px;
   padding: 13px 24px;
-  background: #0C63E3;
+  background: #1468E8;
   color: #fff;
   font-weight: 700;
   font-size: 15px;
@@ -70,7 +70,7 @@ h1, h2, h3, h4 {
   gap: 8px;
   padding: 13px 24px;
   background: transparent;
-  color: #041635;
+  color: #061A3A;
   font-weight: 600;
   font-size: 15px;
   border-radius: 8px;
@@ -82,8 +82,8 @@ h1, h2, h3, h4 {
   font-family: var(--font-body);
 }
 .btn-outline:hover {
-  border-color: #041635;
-  background: #F7F8FA;
+  border-color: #061A3A;
+  background: #F6F7F9;
 }
 .btn-outline:active {
   transform: scale(0.97);

@@ -68,9 +68,9 @@ export default function PrivacyPage() {
       <Navbar dark />
       <main style={{ paddingTop: '68px', background: '#fff', minHeight: '100vh' }}>
         {/* Hero */}
-        <section style={{ background: '#041635', padding: 'clamp(60px, 8vw, 96px) 24px' }}>
+        <section style={{ background: '#061A3A', padding: 'clamp(60px, 8vw, 96px) 24px' }}>
           <div style={{ maxWidth: '760px', margin: '0 auto' }}>
-            <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>Legal</p>
+            <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>Legal</p>
             <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 60px)', fontWeight: 900, color: '#fff', lineHeight: 0.95, letterSpacing: '-0.02em', marginBottom: '20px' }}>Privacy Policy</h1>
             <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', lineHeight: 1.6 }}>Last updated: June 2025</p>
           </div>
@@ -92,10 +92,10 @@ export default function PrivacyPage() {
               <div key={s.n} style={{ marginBottom: '40px', paddingBottom: '40px', borderBottom: '1px solid #F0F1F3' }}>
                 <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
                   <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
-                    <span style={{ fontSize: '12px', fontWeight: 700, color: '#0C63E3', fontFamily: 'var(--font-body)' }}>{s.n}</span>
+                    <span style={{ fontSize: '12px', fontWeight: 700, color: '#1468E8', fontFamily: 'var(--font-body)' }}>{s.n}</span>
                   </div>
                   <div style={{ flex: 1 }}>
-                    <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: '#041635', letterSpacing: '-0.01em', marginBottom: '10px' }}>{s.title}</h2>
+                    <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.01em', marginBottom: '10px' }}>{s.title}</h2>
                     <p style={{ fontSize: '15px', color: '#4B5563', fontFamily: 'var(--font-body)', lineHeight: 1.75 }}>{s.body}</p>
                   </div>
                 </div>
@@ -103,10 +103,10 @@ export default function PrivacyPage() {
             ))}
 
             {/* Cross-link to Terms */}
-            <div style={{ background: '#F7F8FA', borderRadius: '14px', padding: '28px 32px', border: '1px solid #E8E9EC' }}>
+            <div style={{ background: '#F6F7F9', borderRadius: '14px', padding: '28px 32px', border: '1px solid #E8E9EC' }}>
               <p style={{ fontSize: '15px', color: '#4B5563', fontFamily: 'var(--font-body)', lineHeight: 1.75 }}>
                 This Privacy Policy is incorporated by reference into our{' '}
-                <a href="/terms" style={{ color: '#0C63E3', textDecoration: 'underline' }}>Terms of Service</a>.
+                <a href="/terms" style={{ color: '#1468E8', textDecoration: 'underline' }}>Terms of Service</a>.
                 By using Reslink, you agree to both documents.
               </p>
             </div>

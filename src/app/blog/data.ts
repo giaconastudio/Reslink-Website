@@ -1,12 +1,12 @@
 export const POSTS = [
   {
     slug: 'how-to-write-sales-resume',
-    tag: 'Job Search Tips', tagColor: '#0C63E3', tagBg: '#EEF4FF',
+    tag: 'Job Search Tips', tagColor: '#4B57C4', tagBg: '#ECEEFB',
     title: 'How to Write a Sales Resume That Gets Interviews (Examples + Templates)',
     excerpt: 'Learn how to write a winning sales resume with examples, templates, and tips to showcase your achievements.',
     author: 'Sarah Johnson', authorInitials: 'SJ',
     date: 'Mar 20, 2026', read: '8 min',
-    image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=900&h=500&fit=crop',
+    image: '/blog/cover-1.avif',
     imageFull: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1400&h=700&fit=crop',
     hot: true,
     body: [
@@ -28,12 +28,12 @@ export const POSTS = [
   },
   {
     slug: 'how-long-should-resume-be',
-    tag: 'Job Search Tips', tagColor: '#0C63E3', tagBg: '#EEF4FF',
+    tag: 'Job Search Tips', tagColor: '#4B57C4', tagBg: '#ECEEFB',
     title: 'How Long Should a Resume Be? The Complete Guide for Job Seekers',
     excerpt: 'Learn how long a resume should be, from entry-level to executive roles, with tips, examples, and best practices.',
     author: 'Michael Chen', authorInitials: 'MC',
     date: 'Mar 18, 2026', read: '5 min',
-    image: 'https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg?auto=compress&cs=tinysrgb&w=900&h=500&fit=crop',
+    image: '/blog/cover-2.avif',
     imageFull: 'https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg?auto=compress&cs=tinysrgb&w=1400&h=700&fit=crop',
     hot: false,
     body: [
@@ -53,12 +53,12 @@ export const POSTS = [
   },
   {
     slug: 'internship-resume-guide',
-    tag: 'Job Search Tips', tagColor: '#0C63E3', tagBg: '#EEF4FF',
+    tag: 'Job Search Tips', tagColor: '#4B57C4', tagBg: '#ECEEFB',
     title: 'Internship Resume Guide: How to Write One That Lands You Interviews',
     excerpt: 'Learn how to write an internship resume that stands out. Includes examples, templates, and tips from recruiters.',
     author: 'Sarah Johnson', authorInitials: 'SJ',
     date: 'Mar 15, 2026', read: '8 min',
-    image: 'https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=900&h=500&fit=crop',
+    image: '/blog/cover-3.avif',
     imageFull: 'https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=1400&h=700&fit=crop',
     hot: false,
     body: [
@@ -76,12 +76,12 @@ export const POSTS = [
   },
   {
     slug: 'showcase-soft-skills',
-    tag: 'Job Search Tips', tagColor: '#0C63E3', tagBg: '#EEF4FF',
+    tag: 'Job Search Tips', tagColor: '#4B57C4', tagBg: '#ECEEFB',
     title: 'How to Showcase Soft Skills on Your Resume (With Real Examples)',
     excerpt: 'Learn the top soft skills for resumes, how to showcase them effectively, and why employers care more than ever.',
     author: 'Michael Chen', authorInitials: 'MC',
     date: 'Mar 12, 2026', read: '5 min',
-    image: 'https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=900&h=500&fit=crop',
+    image: '/blog/cover-4.avif',
     imageFull: 'https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=1400&h=700&fit=crop',
     hot: true,
     body: [
@@ -97,7 +97,7 @@ export const POSTS = [
   },
   {
     slug: 'best-video-resume-tools',
-    tag: 'Video Resume Tips', tagColor: '#7C3AED', tagBg: '#F3EEFF',
+    tag: 'Video Resume Tips', tagColor: '#C0398A', tagBg: '#FBEAF5',
     title: 'The Best Video Resume Tools for Job Seekers (2026 Edition)',
     excerpt: 'Discover the best video resume tools in 2026, including Loom.com, VEED.IO, and Reslink. Learn how to choose.',
     author: 'Roxanne Taku', authorInitials: 'RT',
@@ -119,7 +119,7 @@ export const POSTS = [
   },
   {
     slug: 'do-video-resumes-work',
-    tag: 'Video Resume Tips', tagColor: '#7C3AED', tagBg: '#F3EEFF',
+    tag: 'Video Resume Tips', tagColor: '#C0398A', tagBg: '#FBEAF5',
     title: 'Do Video Resumes Really Increase Your Chances of Getting an Interview?',
     excerpt: 'Can a video resume help you land more interviews? See the data, psychology, and best practices behind the trend.',
     author: 'Sarah Johnson', authorInitials: 'SJ',
@@ -142,7 +142,7 @@ export const POSTS = [
   },
   {
     slug: 'resume-mistakes',
-    tag: 'Job Search Tips', tagColor: '#0C63E3', tagBg: '#EEF4FF',
+    tag: 'Job Search Tips', tagColor: '#4B57C4', tagBg: '#ECEEFB',
     title: '10 Resume Mistakes That Are Costing You Interviews',
     excerpt: 'Avoid these common resume mistakes that hiring managers see every day. Learn what to fix and how to fix it fast.',
     author: 'Roxanne Taku', authorInitials: 'RT',
@@ -167,7 +167,7 @@ export const POSTS = [
   },
   {
     slug: 'create-video-resume',
-    tag: 'Video Resume Tips', tagColor: '#7C3AED', tagBg: '#F3EEFF',
+    tag: 'Video Resume Tips', tagColor: '#C0398A', tagBg: '#FBEAF5',
     title: 'How to Create a Video Resume That Actually Gets You Hired',
     excerpt: 'Step-by-step guide to creating a video resume that hiring managers love. Includes scripts, tips, and examples.',
     author: 'Michael Chen', authorInitials: 'MC',
@@ -192,7 +192,7 @@ export const POSTS = [
   },
   {
     slug: 'analytics-dashboard',
-    tag: 'Product Updates', tagColor: '#059669', tagBg: '#ECFDF5',
+    tag: 'Product Updates', tagColor: '#5B7A0F', tagBg: '#EEF7CF',
     title: 'Product Update: Introducing Analytics Dashboard 2.0',
     excerpt: 'Get deeper insights into your Reslink performance with our new analytics dashboard. See what\'s new.',
     author: 'Dominic Giacona', authorInitials: 'DG',

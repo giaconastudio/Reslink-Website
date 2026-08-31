@@ -27,48 +27,13 @@ function CountUp({ end, suffix, duration = 1.4 }: { end: number; suffix: string;
   return <span>{count}{suffix}</span>;
 }
 
-// One accent per card — blue, lime, and the new magenta, plus a navy card to
-// close the row (matches the trust-strip pattern: blue for action, lime for
-// the payoff, magenta as the warm human layer).
+// Four stat cards, each its own brand colour — blue, lime, pink, navy — keeping
+// the accent bar (not icons).
 const STATS = [
-  {
-    tone: 'blue', end: 3, unitSuffix: '×', label: 'more recruiter callbacks',
-    icon: (
-      <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
-        <rect x="3" y="13" width="4" height="8" rx="1" fill="var(--blue-light)" opacity="0.45" />
-        <rect x="10" y="9" width="4" height="12" rx="1" fill="var(--blue-light)" opacity="0.7" />
-        <rect x="17" y="4" width="4" height="17" rx="1" fill="var(--blue-light)" />
-      </svg>
-    ),
-  },
-  {
-    tone: 'lime', end: 48, unitSuffix: 'h', label: 'average time to first response',
-    icon: (
-      <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
-        <path d="M4 16a8 8 0 1 1 16 0" stroke="var(--accent-dark)" strokeWidth="2.5" strokeLinecap="round" />
-        <circle cx="19" cy="16" r="1.6" fill="var(--accent-dark)" />
-      </svg>
-    ),
-  },
-  {
-    tone: 'magenta', end: 85, unitSuffix: '%', label: 'average video watch-through',
-    icon: (
-      <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="12" r="8" stroke="var(--magenta)" strokeOpacity="0.25" strokeWidth="2.5" />
-        <path d="M12 4a8 8 0 0 1 7.4 11" stroke="var(--magenta)" strokeWidth="2.5" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-  {
-    tone: 'navy', end: 5, unitSuffix: ' min', label: 'to create your first Reslink',
-    icon: (
-      <svg width="60" height="12" viewBox="0 0 60 12" fill="none">
-        {[0, 1, 2, 3, 4].map(i => (
-          <circle key={i} cx={6 + i * 13} cy="6" r="5" fill="var(--accent)" opacity={1 - i * 0.14} />
-        ))}
-      </svg>
-    ),
-  },
+  { end: 3, unitSuffix: '×', label: 'more recruiter callbacks', bg: '#E9F1FF', border: '#DCE8FB', bar: '#1468E8', num: '#061A3A', unit: 'rgba(6,26,58,0.45)', labelColor: '#5C6070' },
+  { end: 48, unitSuffix: 'h', label: 'average time to first response', bg: '#E9F1FF', border: '#DCE8FB', bar: '#1468E8', num: '#061A3A', unit: 'rgba(6,26,58,0.45)', labelColor: '#5C6070' },
+  { end: 85, unitSuffix: '%', label: 'average video watch-through', bg: '#E9F1FF', border: '#DCE8FB', bar: '#1468E8', num: '#061A3A', unit: 'rgba(6,26,58,0.45)', labelColor: '#5C6070' },
+  { end: 140, unitSuffix: 'k', label: 'Reslinks viewed by recruiters', bg: '#E9F1FF', border: '#DCE8FB', bar: '#1468E8', num: '#061A3A', unit: 'rgba(6,26,58,0.45)', labelColor: '#5C6070' },
 ] as const;
 
 export default function ValueProp() {
@@ -82,7 +47,10 @@ export default function ValueProp() {
   }, []);
 
   return (
-    <section style={{ padding: '96px 0 112px', background: '#fff' }}>
+    <section style={{ padding: '96px 0 112px', background: '#fff', position: 'relative', overflow: 'hidden' }}>
+      {/* Soft pastel warmth — magenta + blue glows for the airy Vizzy feel */}
+      <div aria-hidden style={{ position: 'absolute', top: '-120px', left: '-90px', width: '640px', height: '540px', background: 'radial-gradient(ellipse at center, rgba(214,61,157,0.10), transparent 68%)', pointerEvents: 'none', zIndex: 0 }} />
+      <div aria-hidden style={{ position: 'absolute', top: '-30px', right: '-110px', width: '640px', height: '540px', background: 'radial-gradient(ellipse at center, rgba(20,104,232,0.09), transparent 68%)', pointerEvents: 'none', zIndex: 0 }} />
       <style>{`
         .vp-compare { display: grid; grid-template-columns: 1fr 1.55fr; gap: 16px; align-items: stretch; }
         .vp-before-col { height: 100%; }
@@ -92,28 +60,15 @@ export default function ValueProp() {
            run longer or shorter depending on content) instead of leaving
            invisible slack below the card's own border. */
         .vp-after { height: 100%; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .vp-after:hover { transform: translateY(-3px); box-shadow: 0 24px 72px rgba(4,22,53,0.16) !important; }
+        .vp-after:hover { transform: translateY(-3px); box-shadow: 0 24px 72px rgba(6,26,58,0.16) !important; }
         .vp-after-last { flex: 1; }
-        /* Stats — tinted cards, one accent per card */
-        .vp-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 56px; }
-        .vp-stat-card { border-radius: 20px; padding: 28px 24px 24px; display: flex; flex-direction: column; }
-        .vp-stat-icon { height: 34px; display: flex; align-items: center; margin-bottom: 22px; }
-        .vp-stat-number { font-family: var(--font-phudu); font-size: clamp(30px, 3.2vw, 38px); font-weight: 900; line-height: 1; letter-spacing: -0.03em; display: flex; align-items: baseline; gap: 2px; }
-        .vp-stat-unit { font-size: 0.5em; font-weight: 700; }
-        .vp-stat-label { font-size: 13px; margin-top: 10px; font-family: var(--font-body); line-height: 1.4; }
-        .vp-stat-blue { background: var(--blue-xlight); }
-        .vp-stat-blue .vp-stat-number { color: var(--blue-light); }
-        .vp-stat-blue .vp-stat-label { color: #5C6070; }
-        .vp-stat-lime { background: #FAFEE8; }
-        .vp-stat-lime .vp-stat-number { color: var(--navy); }
-        .vp-stat-lime .vp-stat-label { color: #5C6070; }
-        .vp-stat-magenta { background: var(--magenta-light); }
-        .vp-stat-magenta .vp-stat-number { color: var(--magenta); }
-        .vp-stat-magenta .vp-stat-label { color: #5C6070; }
-        .vp-stat-navy { background: var(--navy); }
-        .vp-stat-navy .vp-stat-number { color: #fff; }
-        .vp-stat-navy .vp-stat-label { color: rgba(255,255,255,0.55); }
-        .vp-stats-caption { text-align: center; font-size: 13px; color: #9A9FA8; font-family: var(--font-body); margin-top: 24px; }
+        /* Stats — light neutral cards, navy numbers, small accent bar per card */
+        .vp-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 76px; }
+        .vp-stat-cell { background: #E9F1FF; border: 1px solid #DCE8FB; border-radius: 18px; padding: clamp(20px, 2.4vw, 28px); }
+        .vp-stat-bar { width: 30px; height: 6px; border-radius: 100px; margin-bottom: clamp(16px, 2vw, 22px); }
+        .vp-stat-number { font-family: var(--font-phudu); font-size: clamp(32px, 3.6vw, 46px); font-weight: 900; line-height: 0.9; letter-spacing: -0.035em; color: var(--navy); display: flex; align-items: baseline; gap: 2px; margin-bottom: 10px; }
+        .vp-stat-unit { font-size: 0.46em; font-weight: 800; letter-spacing: -0.02em; color: rgba(6,26,58,0.55); }
+        .vp-stat-label { font-size: 13px; color: #9A9FA8; font-weight: 500; font-family: var(--font-body); line-height: 1.45; }
 
         /* Before-card timeline — replaces the single "no response" alert with
            a real applied → followed up → nothing sequence. */
@@ -131,16 +86,15 @@ export default function ValueProp() {
         @media (max-width: 760px) {
           .vp-compare { grid-template-columns: 1fr; }
           .vp-before-col { order: 2; }
-          .vp-stats-grid { grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 40px; }
-          .vp-stat-card { padding: 20px 18px 18px; border-radius: 16px; }
-          .vp-stat-icon { height: 28px; margin-bottom: 16px; }
+          .vp-stats-grid { grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 44px; }
+          .vp-stat-cell { padding: 18px; border-radius: 16px; }
           .vp-pip { top: -12px !important; right: -12px !important; width: 88px !important; height: 88px !important; border-radius: 12px !important; }
           .vp-header-row { padding-right: 108px !important; }
           .vp-with-reslink { display: none !important; }
           .vp-pip-label { display: none !important; }
         }
       `}</style>
-      <div className="container">
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
 
         {/* Centered headline */}
         <motion.div
@@ -149,11 +103,11 @@ export default function ValueProp() {
           transition={{ duration: 0.5 }}
           style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto 56px' }}
         >
-          <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>
+          <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--magenta)', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>
             Before vs. after
           </p>
-          <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 4.8vw, 60px)', fontWeight: 900, color: '#041635', lineHeight: 0.95, letterSpacing: '-0.03em', marginBottom: '24px' }}>
-            From ignored<br /><span style={{ color: '#0C63E3' }}>to interview.</span>
+          <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 4.8vw, 60px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.95, letterSpacing: '-0.03em', marginBottom: '24px' }}>
+            From ignored<br /><span style={{ color: '#1468E8' }}>to interview.</span>
           </h2>
           <p style={{ fontSize: '17px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>
             A static PDF cannot attract attention, share with one click, or show who you actually are. A Reslink does all three. And lands interviews faster.
@@ -170,7 +124,7 @@ export default function ValueProp() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <div className="vp-before-card" style={{ borderRadius: '18px', border: '1px solid #E8EAF0', padding: '24px', background: '#FAFBFC' }}>
+            <div className="vp-before-card" style={{ borderRadius: '22px', border: '1px solid #E8EAF0', padding: '24px', background: '#FAFBFC' }}>
               {/* Label */}
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <span style={{ fontSize: '12px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Before</span>
@@ -222,22 +176,27 @@ export default function ValueProp() {
             </div>
           </motion.div>
 
-          {/* After — Reslink profile */}
+          {/* After — Reslink profile. Slow "pop" as it scrolls into view.
+              Scale-only (opacity stays 1) on purpose: IntersectionObserver
+              reveals have stuck at their initial state in this section before
+              (see CountUp), so a stuck state here is just 90% size — still
+              fully visible — never invisible. */}
           <motion.div
-            initial={{ opacity: 0, x: 16 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.18 }}
+            initial={{ scale: 0.9 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.9, ease: [0.34, 1.56, 0.64, 1] }}
             style={{ position: 'relative' }}
           >
-            <div className="vp-after" style={{ borderRadius: '18px', border: '2px solid #D8F950', overflow: 'hidden', boxShadow: '0 16px 56px rgba(4,22,53,0.12)' }}>
+            <div className="vp-after" style={{ borderRadius: '22px', border: '2px solid #D7FF43', overflow: 'hidden', boxShadow: '0 16px 56px rgba(6,26,58,0.12)' }}>
 
               {/* With Reslink label */}
-              <div className="vp-with-reslink" style={{ position: 'absolute', top: '16px', right: '16px', zIndex: 5, fontSize: '10px', fontWeight: 700, color: '#041635', background: '#D8F950', padding: '4px 11px', borderRadius: '100px', letterSpacing: '0.05em', fontFamily: 'var(--font-body)', textTransform: 'uppercase' }}>
+              <div className="vp-with-reslink" style={{ position: 'absolute', top: '16px', right: '16px', zIndex: 5, fontSize: '10px', fontWeight: 700, color: '#061A3A', background: '#D7FF43', padding: '4px 11px', borderRadius: '100px', letterSpacing: '0.05em', fontFamily: 'var(--font-body)', textTransform: 'uppercase' }}>
                 With Reslink
               </div>
 
               {/* Dark navy profile header */}
-              <div style={{ background: '#041635', padding: '22px 24px 20px' }}>
+              <div style={{ background: '#061A3A', padding: '22px 24px 20px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '16px', paddingRight: '90px' }} className="vp-header-row">
                   <div style={{ width: '56px', height: '56px', borderRadius: '50%', flexShrink: 0, overflow: 'hidden', border: '2px solid rgba(255,255,255,0.2)' }}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -253,9 +212,9 @@ export default function ValueProp() {
                   </div>
                 </div>
                 <div style={{ display: 'flex', gap: '8px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '7px', background: '#D8F950', borderRadius: '8px', padding: '9px 16px', cursor: 'pointer' }}>
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="#041635"><path d="M8 5v14l11-7z"/></svg>
-                    <span style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>Play Intro</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '7px', background: '#D7FF43', borderRadius: '8px', padding: '9px 16px', cursor: 'pointer' }}>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="#061A3A"><path d="M8 5v14l11-7z"/></svg>
+                    <span style={{ fontSize: '13px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)' }}>Play Intro</span>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '7px', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px', padding: '9px 16px', cursor: 'pointer' }}>
                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -266,15 +225,15 @@ export default function ValueProp() {
 
               {/* Resume document peek — realistic so it's clearly a resume */}
               <div style={{ background: '#fff', padding: '16px 24px 18px', borderBottom: '1px solid #F0F1F4' }}>
-                <span style={{ display: 'inline-block', fontSize: '9px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#0C63E3', background: '#EEF4FF', borderRadius: '100px', padding: '2px 9px', marginBottom: '10px', fontFamily: 'var(--font-body)' }}>Resume</span>
+                <span style={{ display: 'inline-block', fontSize: '9px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#1468E8', background: '#EEF4FF', borderRadius: '100px', padding: '2px 9px', marginBottom: '10px', fontFamily: 'var(--font-body)' }}>Resume</span>
                 <div style={{ textAlign: 'center', borderBottom: '1px solid #EDEFF2', paddingBottom: '9px', marginBottom: '10px' }}>
-                  <p style={{ fontFamily: 'Georgia, serif', fontSize: '16px', fontWeight: 700, color: '#041635' }}>Olivia Stone</p>
+                  <p style={{ fontFamily: 'Georgia, serif', fontSize: '16px', fontWeight: 700, color: '#061A3A' }}>Olivia Stone</p>
                   <p style={{ fontSize: '11px', color: '#5C6070', fontFamily: 'var(--font-body)', marginTop: '2px' }}>Business Development Representative</p>
                   <p style={{ fontSize: '10px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px' }}>London, UK · olivia@example.com · LinkedIn</p>
                 </div>
                 <p style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#8A8F9A', fontFamily: 'var(--font-body)', marginBottom: '4px' }}>Experience</p>
-                <p style={{ fontSize: '11px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>Business Development Representative</p>
-                <p style={{ fontSize: '10px', color: '#0C63E3', fontWeight: 600, fontFamily: 'var(--font-body)', marginBottom: '3px' }}>Growth-stage SaaS company · 2023–Present</p>
+                <p style={{ fontSize: '11px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)' }}>Business Development Representative</p>
+                <p style={{ fontSize: '10px', color: '#1468E8', fontWeight: 600, fontFamily: 'var(--font-body)', marginBottom: '3px' }}>Growth-stage SaaS company · 2023–Present</p>
                 <ul style={{ listStyle: 'disc', paddingLeft: '15px', margin: 0, display: 'flex', flexDirection: 'column', gap: '2px' }}>
                   <li style={{ fontSize: '10px', color: '#5C6070', lineHeight: 1.4, fontFamily: 'var(--font-body)' }}>Booked 140+ qualified meetings — 128% of quota</li>
                   <li style={{ fontSize: '10px', color: '#5C6070', lineHeight: 1.4, fontFamily: 'var(--font-body)' }}>Top-performing BDR for three consecutive quarters</li>
@@ -282,25 +241,25 @@ export default function ValueProp() {
               </div>
 
               {/* Recruiter activity */}
-              <div style={{ background: '#F7F8FA', padding: '14px 24px', display: 'flex', alignItems: 'center', gap: '10px', borderBottom: '1px solid #F0F1F4' }}>
-                <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#0C63E3', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <div style={{ background: '#F6F7F9', padding: '14px 24px', display: 'flex', alignItems: 'center', gap: '10px', borderBottom: '1px solid #F0F1F4' }}>
+                <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#1468E8', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <span style={{ fontSize: '12px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>G</span>
                 </div>
                 <div style={{ flex: 1 }}>
-                  <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Google Recruiter viewed you</p>
+                  <p style={{ fontSize: '13px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Google Recruiter viewed you</p>
                   <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Watched 0:44 of 0:47 · 1h ago</p>
                 </div>
-                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#0C63E3', flexShrink: 0 }} />
+                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#1468E8', flexShrink: 0 }} />
               </div>
 
               {/* Interview booked — grows to absorb any extra height so the
                   card always fills its full stretched column height */}
               <div className="vp-after-last" style={{ padding: '14px 24px', background: '#FAFFF0', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#D8F950', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#041635" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#D7FF43', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#061A3A" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                 </div>
                 <div>
-                  <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Interview request received</p>
+                  <p style={{ fontSize: '13px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Interview request received</p>
                   <p style={{ fontSize: '11px', color: '#6B7280', fontFamily: 'var(--font-body)' }}>HubSpot · 2 days after sharing</p>
                 </div>
               </div>
@@ -311,11 +270,12 @@ export default function ValueProp() {
               <div style={{ width: '100%', height: '100%', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.36)' }}>
                 <video ref={pipRef} src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" autoPlay muted loop playsInline preload="auto" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
-              <div className="vp-pip-label" style={{ position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(4,22,53,0.78)', backdropFilter: 'blur(6px)', borderRadius: '100px', padding: '3px 10px', display: 'flex', alignItems: 'center', gap: '5px', whiteSpace: 'nowrap' }}>
-                <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#D8F950', flexShrink: 0 }} />
+              <div className="vp-pip-label" style={{ position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(6,26,58,0.78)', backdropFilter: 'blur(6px)', borderRadius: '100px', padding: '3px 10px', display: 'flex', alignItems: 'center', gap: '5px', whiteSpace: 'nowrap' }}>
+                <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#D7FF43', flexShrink: 0 }} />
                 <span style={{ fontSize: '10px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Intro playing</span>
               </div>
             </div>
+
           </motion.div>
         </div>
 
@@ -327,16 +287,15 @@ export default function ValueProp() {
         >
           <div className="vp-stats-grid">
             {STATS.map(s => (
-              <div key={s.label} className={`vp-stat-card vp-stat-${s.tone}`}>
-                <div className="vp-stat-icon">{s.icon}</div>
-                <p className="vp-stat-number">
-                  <CountUp end={s.end} suffix="" /><span className="vp-stat-unit">{s.unitSuffix}</span>
+              <div key={s.label} className="vp-stat-cell" style={{ background: s.bg, borderColor: s.border }}>
+                <div className="vp-stat-bar" style={{ background: s.bar }} />
+                <p className="vp-stat-number" style={{ color: s.num }}>
+                  <CountUp end={s.end} suffix="" /><span className="vp-stat-unit" style={{ color: s.unit }}>{s.unitSuffix}</span>
                 </p>
-                <p className="vp-stat-label">{s.label}</p>
+                <p className="vp-stat-label" style={{ color: s.labelColor }}>{s.label}</p>
               </div>
             ))}
           </div>
-          <p className="vp-stats-caption">Based on 10,000+ Reslinks created · updated 2026</p>
         </motion.div>
 
       </div>

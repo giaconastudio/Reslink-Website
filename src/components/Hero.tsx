@@ -4,6 +4,27 @@ import { useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import Link from 'next/link';
 
+const EXPERIENCE = [
+  {
+    org: 'Resume Worded', period: 'Nov 2015 – Present',
+    points: [
+      'Cut ERP implementation cost 15.5% in six months on a mid-market retail rollout.',
+      'Standardised logistics across 5 countries and 21 distribution centres, reducing overhead 8%.',
+      'Led a strategic project with German retailers, saving $1.2M a year in transportation.',
+    ],
+  },
+  {
+    org: 'Global Retail Group', period: '2012 – 2015',
+    points: [
+      'Built demand-forecasting models that cut stockouts 22% across 3 regional warehouses.',
+      'Owned the monthly S&OP cycle for a $40M product portfolio.',
+    ],
+  },
+];
+
+const SKILLS = ['SAP APO', 'Six Sigma', 'Demand planning', 'MRP', 'Forecasting', 'S&OP'];
+const LANGUAGES = ['English', 'Russian'];
+
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
@@ -24,9 +45,8 @@ export default function Hero() {
     glowY.set((e.clientY - r.top - 300) * 0.15);
   };
 
-  // hero.mp4 is pre-trimmed to open on the "she comes to life" moment (the
-  // Reslink reveal + speaking), so it just needs to autoplay from its own
-  // start — no more skipping ahead past intro app-flow footage.
+  // The hero video card autoplays muted/looping. If the file isn't present yet
+  // the pink gradient + placeholder figure behind it shows through instead.
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
@@ -36,17 +56,17 @@ export default function Hero() {
 
   return (
     <section ref={sectionRef} onMouseMove={onGlowMove} style={{ background: '#fff', position: 'relative', overflow: 'hidden', paddingBottom: '72px' }}>
-      <motion.div style={{ position: 'absolute', top: '-10%', left: '50%', marginLeft: '-450px', width: '900px', height: '700px', background: 'radial-gradient(ellipse at center, rgba(12,99,227,0.08), transparent 65%)', pointerEvents: 'none', zIndex: 0, x: sGlowX, y: sGlowY }} />
+      <motion.div style={{ position: 'absolute', top: '-10%', left: '50%', marginLeft: '-450px', width: '900px', height: '700px', background: 'radial-gradient(ellipse at center, rgba(20,104,232,0.08), transparent 65%)', pointerEvents: 'none', zIndex: 0, x: sGlowX, y: sGlowY }} />
 
       <style>{`
-        .hero-inner { max-width: 1120px; margin: 0 auto; padding: 96px 24px 0; text-align: center; position: relative; z-index: 1; }
+        .hero-inner { max-width: 1120px; margin: 0 auto; padding: 120px 24px 0; text-align: center; position: relative; z-index: 1; }
         .hero-h1 {
           font-family: var(--font-phudu);
           font-size: clamp(42px, 8vw, 92px);
           font-weight: 900;
           line-height: 0.92;
           letter-spacing: -0.03em;
-          color: #041635;
+          color: #061A3A;
           margin-bottom: 24px;
         }
         @media (max-width: 520px) {
@@ -68,54 +88,100 @@ export default function Hero() {
         .hero-proof-sep { color: #C7CBD3; }
         .hero-proof-text { font-size: 13px; color: #9A9FA8; font-family: var(--font-body); }
 
-        .hero-stage { max-width: 1160px; margin: 0 auto; position: relative; z-index: 1; }
+        .hero-stage { max-width: 1120px; margin: 0 auto; position: relative; z-index: 1; }
+        /* Dark navy outer frame — overflow visible so the recruiter notification
+           can spill past the bottom-right edge without being clipped. */
         .hero-frame {
-          border-radius: 18px;
-          overflow: hidden;
-          border: 1px solid #E6E8EC;
-          background: #fff;
-          box-shadow: 0 40px 120px rgba(4,22,53,0.18), 0 8px 28px rgba(4,22,53,0.08);
+          border-radius: clamp(20px, 2.6vw, 28px);
+          overflow: visible;
+          border: 1px solid rgba(255,255,255,0.06);
+          background: #061A3A;
+          padding: clamp(16px, 2.2vw, 24px);
+          box-shadow: 0 40px 120px rgba(6,26,58,0.28), 0 8px 28px rgba(6,26,58,0.12);
         }
-        .hero-bar { background: #041635; padding: 11px 16px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 6px; }
-        .hero-video {
-          position: relative;
-          overflow: hidden;
-          background: #060D24;
-          aspect-ratio: 16/9;
-          width: 100%;
-        }
-        .hero-float {
-          position: absolute; background: #fff; border-radius: 14px;
-          box-shadow: 0 16px 40px rgba(4,22,53,0.14); border: 1px solid #EEEEF0;
-          padding: 12px 14px; z-index: 3;
-        }
-        .float-tr { top: 64px; right: -28px; }
-        .float-bl { bottom: 70px; left: -34px; }
 
+        .hero-split { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.25fr); gap: clamp(14px, 1.8vw, 22px); align-items: stretch; }
+        @media (max-width: 760px) { .hero-split { grid-template-columns: 1fr; gap: 16px; } }
+
+        /* Video card (left) — height driven by the resume so both stay equal
+           and there's no blank space on the right. */
+        .hero-videocard {
+          position: relative; border-radius: 16px; overflow: hidden;
+          min-height: 300px;
+          background: linear-gradient(150deg, #FF54BE 0%, #D01F92 52%, #A61680 100%);
+          box-shadow: 0 20px 50px rgba(180,20,120,0.25);
+        }
+        .hero-videocard video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; transform: scale(1.18); display: block; }
+        .hero-playing {
+          position: absolute; top: 16px; left: 16px; z-index: 3;
+          display: inline-flex; align-items: center; gap: 7px;
+          background: rgba(6,26,58,0.55); backdrop-filter: blur(6px);
+          border-radius: 100px; padding: 6px 13px 6px 11px;
+        }
+        .hero-playing-dot { width: 8px; height: 8px; border-radius: 50%; background: #fff; }
+        .hero-playing-txt { font-size: 12px; font-weight: 700; color: #fff; font-family: var(--font-body); letter-spacing: 0.02em; }
+        .hero-vc-overlay {
+          position: absolute; left: 0; right: 0; bottom: 0; z-index: 4;
+          padding: 18px 16px 16px; display: flex; flex-direction: column; gap: 12px;
+          background: linear-gradient(to top, rgba(80,10,55,0.7), transparent);
+        }
+        .hero-vc-caption { font-size: 14px; font-weight: 600; color: #fff; font-family: var(--font-body); line-height: 1.35; text-shadow: 0 1px 8px rgba(0,0,0,0.35); }
+        .hero-vc-btn {
+          align-self: flex-start; display: inline-flex; align-items: center; gap: 8px;
+          background: #fff; color: #061A3A; border-radius: 100px; padding: 9px 18px;
+          font-size: 13px; font-weight: 700; font-family: var(--font-body); text-decoration: none;
+          box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+        }
+        .hero-vc-progress { height: 4px; border-radius: 100px; background: rgba(255,255,255,0.35); overflow: hidden; }
+        .hero-vc-progress > span { display: block; height: 100%; width: 34%; background: #fff; border-radius: 100px; }
+
+        /* Resume (right) — white card */
+        .hero-resume-card { background: #fff; border-radius: 16px; padding: clamp(20px, 2.4vw, 30px); overflow: hidden; }
+        .hero-resume { display: grid; grid-template-columns: 1.4fr 0.6fr; gap: clamp(18px, 2.4vw, 30px); text-align: left; align-content: start; }
+        .hero-resume-aside { border-left: 1px solid #EBEDF1; padding-left: clamp(16px, 2vw, 26px); }
+        @media (max-width: 480px) { .hero-resume { grid-template-columns: 1fr; gap: 16px; } .hero-resume-aside { border-left: none; padding-left: 0; } }
+        .hero-resume-name { font-family: var(--font-phudu); font-size: clamp(24px, 3.4vw, 32px); font-weight: 900; color: #1468E8; letter-spacing: -0.02em; line-height: 1; }
+        .hero-resume-role { font-size: 14px; color: #5C6070; font-family: var(--font-body); margin-top: 8px; }
+        .hero-resume-h { font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #1468E8; font-family: var(--font-body); }
+        .hero-resume-org { font-size: 13.5px; font-family: var(--font-body); margin: 14px 0 8px; }
+        .hero-resume-org b { color: #061A3A; font-weight: 700; }
+        .hero-resume-org span { color: #9A9FA8; }
+        .hero-resume-pts { list-style: disc; padding-left: 18px; display: flex; flex-direction: column; gap: 7px; }
+        .hero-resume-pts li { font-size: 12.5px; color: #5C6070; line-height: 1.5; font-family: var(--font-body); }
+        .hero-chip { display: inline-block; font-size: 11.5px; font-weight: 600; color: #061A3A; border: 1px solid #E4E7EC; border-radius: 100px; padding: 5px 12px; font-family: var(--font-body); }
+        .hero-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+
+        /* Floating "recruiter opened" notification */
+        .hero-notif {
+          position: absolute; right: -14px; bottom: -26px; z-index: 6;
+          width: 320px; max-width: 78vw;
+          background: #fff; border: 1px solid #EEEEF0; border-radius: 16px;
+          box-shadow: 0 24px 60px rgba(6,26,58,0.18); padding: 16px 18px;
+        }
+        .hero-notif-top { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+        .hero-notif-av { width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; background: #635BFF; display: flex; align-items: center; justify-content: center; }
+        .hero-notif-av span { color: #fff; font-weight: 800; font-size: 10px; letter-spacing: -0.03em; font-family: var(--font-body); }
+        .hero-notif-title { font-size: 14px; font-weight: 700; color: #061A3A; font-family: var(--font-body); line-height: 1.3; }
+        .hero-notif-time { font-size: 12px; color: #9A9FA8; font-family: var(--font-body); margin-top: 3px; }
+        .hero-notif-bar { height: 6px; border-radius: 100px; background: #EAF0FB; overflow: hidden; margin-bottom: 8px; }
+        .hero-notif-bar > span { display: block; height: 100%; width: 87%; background: #1468E8; border-radius: 100px; }
+        .hero-notif-stat { font-size: 12.5px; font-weight: 700; color: #1468E8; font-family: var(--font-body); }
         @media (max-width: 760px) {
-          .hero-inner { padding: 78px 20px 0; }
-          .hero-float { display: none; }
+          .hero-inner { padding: 96px 20px 0; }
           .hero-proof-row { flex-direction: column; gap: 12px; margin-bottom: 32px; }
           .hero-proof-sep { display: none; }
           .hero-ctas { gap: 10px; }
           .hero-ctas > div { width: 100%; }
           .hero-ctas a { width: 100%; justify-content: center; box-sizing: border-box; }
           .hero-stage { padding: 0 16px; }
+          .hero-notif { position: static; width: 100%; max-width: 100%; margin-top: 18px; }
           .hero-pill-avatar { width: 22px !important; height: 22px !important; }
           .hero-pill { font-size: 11px !important; padding: 5px 12px 5px 6px !important; gap: 7px !important; }
         }
         @media (max-width: 400px) {
-          .hero-inner { padding: 70px 16px 0; }
+          .hero-inner { padding: 84px 16px 0; }
         }
 
-        /* Above-the-fold entrance — plain CSS, not JS-driven.
-           Framer Motion's spring/tween reveals tick via requestAnimationFrame,
-           which browsers throttle hard (sometimes to a near-standstill) while
-           a tab is loading in the background or hasn't taken focus yet — the
-           hero could get stuck at ~2% opacity indefinitely. CSS animations are
-           driven by the compositor and always resolve to their end state once
-           the tab is visible again, so the very first thing visitors see can't
-           get silently stuck invisible. */
         @keyframes heroReveal {
           from { opacity: 0; transform: translateY(var(--hero-reveal-y, 14px)); }
           to { opacity: 1; transform: translateY(0); }
@@ -126,13 +192,8 @@ export default function Hero() {
           to { opacity: 1; transform: translateY(0) rotateX(0) scale(1); }
         }
         .hero-stage-reveal { opacity: 0; animation: heroStageReveal 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards; animation-delay: 0.3s; }
-        @keyframes heroFloatReveal {
-          from { opacity: 0; transform: translateX(var(--hero-float-x, 0)); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-        .hero-float-reveal { opacity: 0; animation: heroFloatReveal 0.4s ease forwards; animation-delay: var(--hero-reveal-delay, 0s); }
         @media (prefers-reduced-motion: reduce) {
-          .hero-reveal, .hero-stage-reveal, .hero-float-reveal { animation: none; opacity: 1; transform: none; }
+          .hero-reveal, .hero-stage-reveal { animation: none; opacity: 1; transform: none; }
         }
       `}</style>
 
@@ -141,11 +202,7 @@ export default function Hero() {
         <h1 className="hero-h1 hero-reveal" style={{ ['--hero-reveal-y' as string]: '18px', ['--hero-reveal-delay' as string]: '0.05s' }}>
           <span style={{ color: '#9CA3AF' }}>Resumes get ignored.</span><br />
           Reslinks get{' '}
-          <span style={{ display: 'inline-block', position: 'relative' }}>
-            watched.
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/vector-underline.svg" alt="" aria-hidden="true" style={{ position: 'absolute', bottom: '-16px', left: 0, width: '100%', height: 'auto', pointerEvents: 'none' }} />
-          </span>
+          <span style={{ background: 'linear-gradient(#D7FF43, #D7FF43) no-repeat', backgroundSize: '100% 0.34em', backgroundPosition: '0 calc(100% - 0.1em)', padding: '0 0.05em', WebkitBoxDecorationBreak: 'clone', boxDecorationBreak: 'clone' }}>watched.</span>
         </h1>
 
         {/* Subtext */}
@@ -164,113 +221,89 @@ export default function Hero() {
           </Link>
         </div>
 
-        {/* Social proof row — real faces + free-to-start line, sits under the CTAs */}
+        {/* Social proof row */}
         <div className="hero-proof-row hero-reveal" style={{ ['--hero-reveal-y' as string]: '10px', ['--hero-reveal-delay' as string]: '0.24s' }}>
-          <span className="hero-pill" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#fff', color: '#5C6070', fontSize: '13px', fontWeight: 500, padding: '7px 16px 7px 8px', borderRadius: '100px', fontFamily: 'var(--font-body)', border: '1.5px solid #E4E7EC', boxShadow: '0 2px 8px rgba(4,22,53,0.06)' }}>
+          <span className="hero-pill" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#fff', color: '#5C6070', fontSize: '13px', fontWeight: 500, padding: '7px 16px 7px 8px', borderRadius: '100px', fontFamily: 'var(--font-body)', border: '1.5px solid #E4E7EC', boxShadow: '0 2px 8px rgba(6,26,58,0.06)' }}>
             <span style={{ display: 'flex' }}>
               {['/avatars/a1.jpg', '/avatars/a2.jpg', '/avatars/a3.jpg', '/avatars/a4.jpg', '/avatars/a5.jpg'].map((src, i) => (
                 <img key={i} src={src} alt="" width={28} height={28} className="hero-pill-avatar"
                   style={{ width: '28px', height: '28px', borderRadius: '50%', border: '2px solid #fff', marginLeft: i === 0 ? 0 : '-8px', objectFit: 'cover', display: 'block' }} />
               ))}
             </span>
-            <span style={{ color: '#5C6070' }}><strong style={{ color: '#041635', fontWeight: 700 }}>10,000+</strong> job seekers worldwide</span>
+            <span style={{ color: '#5C6070' }}><strong style={{ color: '#061A3A', fontWeight: 700 }}>10,000+</strong> job seekers worldwide</span>
           </span>
           <span className="hero-proof-sep">·</span>
           <span className="hero-proof-text">Free to start · Under 5 minutes</span>
         </div>
       </div>
 
-      {/* Living product stage — perspective tilt entrance (CSS) + scroll parallax (JS, safe since it's driven by scroll position, not elapsed time) */}
+      {/* Living product stage — split card: video (left) + resume (right) */}
       <motion.div style={{ scale: stageScale, y: stageY }}>
-      <div
-        className="hero-stage hero-stage-reveal"
-        style={{ perspective: '1200px', transformOrigin: 'center bottom' }}
-      >
-        <Link href="/oliviastone" aria-label="Explore the example Reslink" style={{ display: 'block', textDecoration: 'none', cursor: 'pointer' }} className="hero-frame-link">
-          <style>{`
-            .hero-frame-link .hero-open-hint { opacity: 0; transition: opacity 0.25s ease; }
-            .hero-frame-link:hover .hero-open-hint { opacity: 1; }
-            /* No hover on touch devices, so the full-frame scrim+pill never had a
-               way to show up. Rather than force it always-on (it blocks the video
-               it's supposed to be advertising), leave it hidden on touch and
-               instead pulse the existing "Open example" link in the browser-chrome
-               bar — same affordance, without covering anything. */
-            @media (hover: none) {
-              .hero-frame-link .hero-open-hint { display: none; }
-              .hero-open-example { animation: hero-hint-pulse 1.8s ease-in-out infinite; }
-            }
-            @keyframes hero-hint-pulse {
-              0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(12,99,227,0.35); }
-              50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(12,99,227,0); }
-            }
-          `}</style>
-          <div className="hero-frame" style={{ position: 'relative' }}>
-            <div className="hero-bar">
-              <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#FF5F57', display: 'inline-block' }} />
-              <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#FEBC2E', display: 'inline-block' }} />
-              <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#28C840', display: 'inline-block' }} />
-              <div style={{ flex: 1, margin: '0 12px', background: 'rgba(255,255,255,0.08)', borderRadius: '6px', padding: '4px 14px', fontSize: '11px', color: 'rgba(255,255,255,0.5)', textAlign: 'center', fontFamily: 'var(--font-body)' }}>
-                reslink.io/oliviastone
-              </div>
-              <span className="hero-open-example" style={{ fontSize: '11px', fontWeight: 700, color: '#D8F950', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', display: 'inline-flex', alignItems: 'center', gap: '4px', borderRadius: '100px', padding: '4px 8px' }}>
-                Open example
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </span>
-            </div>
-
-            <div className="hero-video">
-              <video
-                ref={videoRef}
-                src="/videos/hero.mp4"
-                poster="/videos/hero-poster.jpg"
-                autoPlay muted loop playsInline preload="auto"
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', transform: 'scale(1.06)' }}
-              />
-              <div className="hero-open-hint" style={{ position: 'absolute', inset: 0, background: 'rgba(4,22,53,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 2 }}>
-                <style>{`
-                  @media (hover: none) {
-                    .hero-open-hint-pill { padding: 10px 16px !important; font-size: 12.5px !important; }
-                  }
-                `}</style>
-                <span className="hero-open-hint-pill" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#fff', color: '#041635', borderRadius: '100px', padding: '12px 24px', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', boxShadow: '0 12px 40px rgba(0,0,0,0.3)' }}>
-                  Explore this example Reslink
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      <div className="hero-stage hero-stage-reveal" style={{ perspective: '1200px', transformOrigin: 'center bottom' }}>
+        <div className="hero-frame" style={{ position: 'relative' }}>
+            <div className="hero-split">
+              {/* Video card */}
+              <div className="hero-videocard">
+                <video
+                  ref={videoRef}
+                  src="/videos/hero-pink.mp4"
+                  autoPlay muted loop playsInline preload="auto"
+                />
+                <span className="hero-playing">
+                  <motion.span className="hero-playing-dot" animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 1.6 }} />
+                  <span className="hero-playing-txt">Playing</span>
                 </span>
+                <div className="hero-vc-overlay">
+                  <p className="hero-vc-caption">&ldquo;Ten years making supply chains actually work&hellip;&rdquo;</p>
+                  <Link href="/oliviastone" className="hero-vc-btn">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4" /></svg>
+                    See a real Reslink
+                  </Link>
+                  <div className="hero-vc-progress"><span /></div>
+                </div>
+              </div>
+
+              {/* Resume */}
+              <div className="hero-resume-card">
+                <div className="hero-resume">
+                  <div>
+                    <p className="hero-resume-name">Olivia Stone</p>
+                    <p className="hero-resume-role">Planning and Supply Chain Specialist · New York</p>
+                    <p className="hero-resume-h" style={{ marginTop: '22px' }}>Work experience</p>
+                    {EXPERIENCE.map(job => (
+                      <div key={job.org} style={{ marginBottom: '14px' }}>
+                        <p className="hero-resume-org"><b>{job.org}</b> <span>· {job.period}</span></p>
+                        <ul className="hero-resume-pts">
+                          {job.points.map(pt => <li key={pt}>{pt}</li>)}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="hero-resume-aside">
+                    <p className="hero-resume-h">Skills</p>
+                    <div className="hero-chips">
+                      {SKILLS.map(s => <span key={s} className="hero-chip">{s}</span>)}
+                    </div>
+                    <p className="hero-resume-h" style={{ marginTop: '20px' }}>Languages</p>
+                    <div className="hero-chips">
+                      {LANGUAGES.map(l => <span key={l} className="hero-chip">{l}</span>)}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </Link>
 
-        {/* Floating feature card — view analytics */}
-        <div
-          className="hero-float float-tr hero-float-reveal"
-          style={{ ['--hero-float-x' as string]: '20px', ['--hero-reveal-delay' as string]: '0.85s' }}
-        >
-          <motion.div animate={{ y: [0, -6, 0] }} transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }} style={{ display: 'flex', alignItems: 'center', gap: '9px', minWidth: '190px' }}>
-            <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          {/* Floating recruiter notification */}
+          <motion.div className="hero-notif" animate={{ y: [0, -6, 0] }} transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}>
+            <div className="hero-notif-top">
+              <span className="hero-notif-av"><span>stripe</span></span>
+              <div>
+                <p className="hero-notif-title">Recruiter at Stripe opened your Reslink</p>
+                <p className="hero-notif-time">2 minutes ago</p>
+              </div>
             </div>
-            <div>
-              <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>See who viewed you</p>
-              <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Live in your dashboard</p>
-            </div>
-            <motion.div animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 1.8 }} style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#0C63E3', flexShrink: 0 }} />
-          </motion.div>
-        </div>
-
-        {/* Floating feature card — watch-time tracking */}
-        <div
-          className="hero-float float-bl hero-float-reveal"
-          style={{ ['--hero-float-x' as string]: '-20px', ['--hero-reveal-delay' as string]: '1.0s' }}
-        >
-          <motion.div animate={{ y: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }} style={{ display: 'flex', alignItems: 'center', gap: '9px' }}>
-            <div style={{ width: '30px', height: '30px', borderRadius: '50%', background: '#D8F950', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#041635" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-            <div>
-              <p style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Every second tracked</p>
-              <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Know exactly what they watched</p>
-            </div>
+            <div className="hero-notif-bar"><span /></div>
+            <p className="hero-notif-stat">Watched 87% · 52s of 60s</p>
           </motion.div>
         </div>
       </div>

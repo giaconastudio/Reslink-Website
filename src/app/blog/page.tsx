@@ -1,21 +1,26 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Search, SlidersHorizontal, ChevronDown, Clock, TrendingUp, LayoutGrid, List } from 'lucide-react';
+import { Search, Clock, ArrowLeft, ArrowRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { POSTS } from './data';
 
-const TAGS = ['All', 'Product Updates', 'Video Resume Tips', 'Job Search Tips'];
+const CATS: { key: string; label: string; color: string | null; activeBg: string; activeText: string }[] = [
+  { key: 'All', label: 'All', color: null, activeBg: '#061A3A', activeText: '#fff' },
+  { key: 'Job Search Tips', label: 'Job search', color: '#1468E8', activeBg: '#1468E8', activeText: '#fff' },
+  { key: 'Video Resume Tips', label: 'Video resumes', color: '#C0398A', activeBg: '#C0398A', activeText: '#fff' },
+  { key: 'Product Updates', label: 'Product', color: '#5B7A0F', activeBg: '#D7FF43', activeText: '#061A3A' },
+];
 
 export default function BlogPage() {
   const [active, setActive] = useState('All');
   const [search, setSearch] = useState('');
-  const [sort, setSort] = useState('Newest');
-  const [sortOpen, setSortOpen] = useState(false);
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [page, setPage] = useState(1);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const PER_PAGE = 7;
 
   const filtered = POSTS.filter(p => {
     const matchTag = active === 'All' || p.tag === active;
@@ -23,8 +28,22 @@ export default function BlogPage() {
     return matchTag && matchSearch;
   });
 
-  const featured = filtered.slice(0, 2);
-  const rest = filtered.slice(2);
+  // Reset to the first page whenever the filter or search changes.
+  useEffect(() => setPage(1), [active, search]);
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
+  const pagePosts = filtered.slice((page - 1) * PER_PAGE, (page - 1) * PER_PAGE + PER_PAGE);
+  // The large featured card only appears on the first page; other pages are all grid.
+  const featured = page === 1 ? pagePosts[0] : null;
+  const rest = page === 1 ? pagePosts.slice(1) : pagePosts;
+
+  const goToPage = (n: number) => {
+    setPage(n);
+    if (contentRef.current) {
+      const y = contentRef.current.getBoundingClientRect().top + window.scrollY - 130;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
 
   return (
     <>
@@ -35,32 +54,25 @@ export default function BlogPage() {
           .blog-search-input:focus { outline: none; border-color: rgba(255,255,255,0.4) !important; }
           .blog-card-img { transition: transform 0.4s ease; }
           .blog-card:hover .blog-card-img { transform: scale(1.04); }
-          .blog-card { transition: box-shadow 0.2s, transform 0.2s; }
-          .blog-card:hover { box-shadow: 0 12px 36px rgba(4,22,53,0.12) !important; transform: translateY(-2px); }
-          .sort-btn:hover { background: #F7F8FA !important; }
-          @media (max-width: 700px) { .featured-grid { grid-template-columns: 1fr !important; } .all-grid { grid-template-columns: 1fr !important; } }
+          .blog-card { border-radius: 18px !important; box-shadow: 0 1px 8px rgba(6,26,58,0.04) !important; transition: box-shadow 0.25s ease, transform 0.25s ease; }
+          .blog-card:hover { box-shadow: 0 12px 36px rgba(6,26,58,0.10) !important; transform: translateY(-2px); }
+          .tag-featured { font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #061A3A; background: #D7FF43; border-radius: 100px; padding: 4px 11px; font-family: var(--font-body); white-space: nowrap; }
+          .tag-cat { font-size: 10px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 100px; padding: 4px 11px; font-family: var(--font-body); white-space: nowrap; }
+          @media (max-width: 700px) { .featured-grid { grid-template-columns: 1fr !important; } .all-grid { grid-template-columns: 1fr !important; } .feat-card { grid-template-columns: 1fr !important; } }
           @media (max-width: 960px) { .all-grid { grid-template-columns: 1fr 1fr !important; } }
-          @media (max-width: 600px) {
-            .blog-filter-bar { flex-wrap: wrap !important; gap: 0 !important; padding: 0 !important; }
-            .blog-filter-tags { width: 100%; border-bottom: 1px solid #ECEEF1; }
-            .blog-filter-controls { width: 100%; padding: 10px 0; justify-content: flex-end; }
-          }
         `}</style>
 
         {/* Hero / Search */}
-        <section style={{ background: '#041635', padding: 'clamp(72px, 9vw, 110px) 24px clamp(56px, 7vw, 80px)', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', top: '-30%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '700px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.18), transparent 60%)', pointerEvents: 'none' }} />
+        <section style={{ background: '#061A3A', padding: 'clamp(72px, 9vw, 110px) 24px clamp(56px, 7vw, 80px)', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: '-30%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '700px', background: 'radial-gradient(ellipse, rgba(20,104,232,0.18), transparent 60%)', pointerEvents: 'none' }} />
           <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '18px', fontFamily: 'var(--font-body)' }}>The Reslink Blog</p>
               <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 7vw, 96px)', fontWeight: 900, color: '#fff', lineHeight: 0.88, letterSpacing: '-0.03em', marginBottom: '0' }}>
-                RESLINK{' '}
-                <span style={{ display: 'inline-block', position: 'relative' }}>
-                  BLOG
-                  <img src="/vector-underline.svg" alt="" aria-hidden style={{ position: 'absolute', bottom: '-10px', left: 0, width: '100%', pointerEvents: 'none' }} />
-                </span>
+                Getting seen,<br />Getting <span style={{ color: '#D7FF43' }}>hired.</span>
               </h1>
               <p style={{ fontSize: 'clamp(15px, 1.8vw, 18px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginTop: '40px', marginBottom: '36px', maxWidth: '560px', margin: '40px auto 36px' }}>
-                Expert tips and actionable insights to improve your job applications and help you land your next role
+                Learn what will get you hired.
               </p>
 
               {/* Search bar */}
@@ -81,163 +93,58 @@ export default function BlogPage() {
           </div>
         </section>
 
-        {/* Filter bar */}
-        <section style={{ background: '#fff', borderBottom: '1px solid #ECEEF1', padding: '0 24px', position: 'sticky', top: '68px', zIndex: 10 }}>
-          <div className="blog-filter-bar" style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
-            <div className="blog-filter-tags" style={{ display: 'flex', gap: '2px', overflowX: 'auto', padding: '12px 0' }}>
-              {TAGS.map(t => {
-                const isActive = active === t;
-                const count = t === 'All' ? POSTS.length : POSTS.filter(p => p.tag === t).length;
+        {/* Filter bar — centered category pills */}
+        <section style={{ background: '#F6F7F9', padding: '44px 24px 32px', position: 'sticky', top: '68px', zIndex: 10 }}>
+          <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', justifyContent: 'center' }}>
+            <div style={{ display: 'inline-flex', flexWrap: 'wrap', justifyContent: 'center', gap: '4px', background: '#ECEEF1', borderRadius: '14px', padding: '5px' }}>
+              {CATS.map(cat => {
+                const isActive = active === cat.key;
                 return (
-                  <button key={t} onClick={() => setActive(t)}
-                    style={{ padding: '8px 18px', borderRadius: '10px', border: 'none', background: isActive ? '#041635' : 'transparent', color: isActive ? '#fff' : '#5C6070', fontSize: '13px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: 'pointer', transition: 'all 0.15s', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: '8px', position: 'relative' }}>
-                    {t}
-                    <span style={{ fontSize: '10px', fontWeight: 800, background: isActive ? '#D8F950' : '#F0F2F5', color: isActive ? '#041635' : '#9A9FA8', borderRadius: '6px', padding: '2px 7px', lineHeight: 1.4, fontFamily: 'var(--font-body)', transition: 'all 0.15s' }}>
-                      {count}
-                    </span>
+                  <button key={cat.key} onClick={() => setActive(cat.key)}
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '9px 18px', borderRadius: '100px', border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', transition: 'background 0.2s, color 0.2s', background: isActive ? cat.activeBg : 'transparent', color: isActive ? cat.activeText : '#061A3A', whiteSpace: 'nowrap' }}>
+                    {cat.color && <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: isActive ? cat.activeText : cat.color, flexShrink: 0 }} />}
+                    {cat.label}
                   </button>
                 );
               })}
-            </div>
-
-            <div className="blog-filter-controls" style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
-              {/* View toggle */}
-              <div style={{ display: 'flex', background: '#F0F2F5', borderRadius: '8px', padding: '3px' }}>
-                <button onClick={() => setViewMode('grid')}
-                  style={{ width: '30px', height: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '6px', border: 'none', background: viewMode === 'grid' ? '#fff' : 'transparent', cursor: 'pointer', boxShadow: viewMode === 'grid' ? '0 1px 4px rgba(4,22,53,0.10)' : 'none', transition: 'all 0.15s' }}>
-                  <LayoutGrid size={14} color={viewMode === 'grid' ? '#041635' : '#9A9FA8'} />
-                </button>
-                <button onClick={() => setViewMode('list')}
-                  style={{ width: '30px', height: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '6px', border: 'none', background: viewMode === 'list' ? '#fff' : 'transparent', cursor: 'pointer', boxShadow: viewMode === 'list' ? '0 1px 4px rgba(4,22,53,0.10)' : 'none', transition: 'all 0.15s' }}>
-                  <List size={14} color={viewMode === 'list' ? '#041635' : '#9A9FA8'} />
-                </button>
-              </div>
-
-              {/* Sort */}
-              <div style={{ position: 'relative' }}>
-                <button className="sort-btn" onClick={() => setSortOpen(o => !o)}
-                  style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '7px 14px', borderRadius: '8px', border: '1.5px solid #ECEEF1', background: '#fff', fontSize: '13px', fontWeight: 600, color: '#041635', fontFamily: 'var(--font-body)', cursor: 'pointer', whiteSpace: 'nowrap' }}>
-                  <SlidersHorizontal size={13} color="#9A9FA8" />
-                  Sort: {sort}
-                  <ChevronDown size={12} color="#9A9FA8" />
-                </button>
-                {sortOpen && (
-                  <div style={{ position: 'absolute', right: 0, top: 'calc(100% + 6px)', background: '#fff', border: '1px solid #ECEEF1', borderRadius: '10px', boxShadow: '0 8px 24px rgba(4,22,53,0.10)', zIndex: 20, minWidth: '140px', overflow: 'hidden' }}>
-                    {['Newest', 'Oldest', 'Most Popular'].map(s => (
-                      <button key={s} onClick={() => { setSort(s); setSortOpen(false); }}
-                        style={{ display: 'block', width: '100%', padding: '10px 16px', background: sort === s ? '#EEF4FF' : '#fff', border: 'none', textAlign: 'left', fontSize: '13px', fontWeight: sort === s ? 700 : 500, color: sort === s ? '#0C63E3' : '#041635', fontFamily: 'var(--font-body)', cursor: 'pointer' }}>
-                        {s}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
             </div>
           </div>
         </section>
 
         {/* Content */}
-        <section style={{ background: '#F7F8FA', padding: 'clamp(40px, 5vw, 64px) 24px clamp(72px, 9vw, 112px)' }}>
-          <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+        <section style={{ background: '#F6F7F9', padding: 'clamp(12px, 1.5vw, 20px) 24px clamp(40px, 5vw, 56px)' }}>
+          <div ref={contentRef} style={{ maxWidth: '1100px', margin: '0 auto' }}>
 
             {filtered.length === 0 ? (
               <div style={{ textAlign: 'center', padding: '80px 0', color: '#9A9FA8', fontFamily: 'var(--font-body)', fontSize: '15px' }}>
                 No articles found. Try a different search.
               </div>
-            ) : viewMode === 'list' ? (
-              /* ── List view ── */
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                {filtered.map((post, i) => (
-                  <motion.div key={post.slug} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: i * 0.04 }}>
-                    <Link href={`/blog/${post.slug}`} style={{ textDecoration: 'none', display: 'block' }}>
-                      <div className="blog-card" style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '0', display: 'flex', alignItems: 'stretch', gap: '0', boxShadow: '0 1px 8px rgba(4,22,53,0.04)', overflow: 'hidden' }}>
-                        <div style={{ width: '180px', minHeight: '120px', flexShrink: 0, overflow: 'hidden', position: 'relative' }}>
-                          <img className="blog-card-img" src={post.image} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 }} />
-                          {post.hot && (
-                            <span style={{ position: 'absolute', top: '10px', left: '10px', display: 'inline-flex', alignItems: 'center', gap: '3px', background: '#D8F950', color: '#041635', fontSize: '10px', fontWeight: 800, borderRadius: '100px', padding: '3px 9px', fontFamily: 'var(--font-body)' }}>
-                              <TrendingUp size={8} strokeWidth={2.5} /> Hot
-                            </span>
-                          )}
-                        </div>
-                        <div style={{ flex: 1, padding: '20px 22px', display: 'flex', alignItems: 'center', gap: '20px', minWidth: 0 }}>
-                          <div style={{ flex: 1, minWidth: 0 }}>
-                            <span style={{ fontSize: '11px', fontWeight: 700, color: post.tagColor, background: post.tagBg, borderRadius: '100px', padding: '3px 10px', fontFamily: 'var(--font-body)', display: 'inline-block', marginBottom: '8px' }}>{post.tag}</span>
-                            <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: '17px', fontWeight: 900, color: '#041635', lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: '6px' }}>{post.title}</h3>
-                            <p style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)', lineHeight: 1.55, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>{post.excerpt}</p>
-                          </div>
-                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '8px', flexShrink: 0 }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                              <div style={{ width: '24px', height: '24px', borderRadius: '50%', background: '#0C63E3', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '9px', fontWeight: 800, color: '#fff', fontFamily: 'var(--font-phudu)', flexShrink: 0 }}>{post.authorInitials}</div>
-                              <span style={{ fontSize: '12px', fontWeight: 600, color: '#041635', fontFamily: 'var(--font-body)' }}>{post.author}</span>
-                            </div>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                              <Clock size={11} color="#9A9FA8" />
-                              <span style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{post.read} read</span>
-                            </div>
-                            <span style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{post.date}</span>
-                            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '7px 14px', background: '#0C63E3', color: '#fff', borderRadius: '8px', fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-body)' }}>Read More →</span>
-                          </div>
-                        </div>
-                      </div>
-                    </Link>
-                  </motion.div>
-                ))}
-              </div>
             ) : (
-              /* ── Grid view ── */
               <>
                 {/* Featured */}
-                {featured.length > 0 && (
+                {featured && (
                   <>
-                    <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <span style={{ display: 'inline-flex', width: '18px', height: '18px', background: '#D8F950', borderRadius: '4px', alignItems: 'center', justifyContent: 'center' }}>
-                        <TrendingUp size={10} color="#041635" strokeWidth={2.5} />
-                      </span>
-                      Featured Articles
-                    </p>
-                    <div className="featured-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '48px' }}>
-                      {featured.map((post, i) => (
-                        <motion.div key={post.slug} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay: i * 0.06 }}>
-                          <Link href={`/blog/${post.slug}`} style={{ textDecoration: 'none', display: 'block' }}>
-                            <div className="blog-card" style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', overflow: 'hidden', boxShadow: '0 1px 8px rgba(4,22,53,0.04)' }}>
-                              <div style={{ height: '220px', overflow: 'hidden', position: 'relative' }}>
-                                <img className="blog-card-img" src={post.image} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                                <div style={{ position: 'absolute', top: '12px', left: '12px', display: 'flex', gap: '6px' }}>
-                                  {post.hot && (
-                                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', background: '#D8F950', color: '#041635', fontSize: '11px', fontWeight: 800, borderRadius: '100px', padding: '3px 10px', fontFamily: 'var(--font-body)' }}>
-                                      <TrendingUp size={9} strokeWidth={2.5} /> Trending
-                                    </span>
-                                  )}
-                                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', background: 'rgba(4,22,53,0.55)', backdropFilter: 'blur(8px)', color: '#fff', fontSize: '11px', fontWeight: 600, borderRadius: '100px', padding: '3px 10px', fontFamily: 'var(--font-body)' }}>
-                                    <Clock size={9} /> {post.read} read
-                                  </span>
-                                </div>
-                              </div>
-                              <div style={{ padding: '20px 22px 22px' }}>
-                                <div style={{ display: 'flex', gap: '6px', marginBottom: '12px', flexWrap: 'wrap' }}>
-                                  <span style={{ fontSize: '11px', fontWeight: 700, color: post.tagColor, background: post.tagBg, borderRadius: '100px', padding: '3px 10px', fontFamily: 'var(--font-body)' }}>Job Seeker</span>
-                                  <span style={{ fontSize: '11px', fontWeight: 700, color: post.tagColor, background: post.tagBg, borderRadius: '100px', padding: '3px 10px', fontFamily: 'var(--font-body)' }}>{post.tag}</span>
-                                </div>
-                                <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: '19px', fontWeight: 900, color: '#041635', lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: '10px' }}>{post.title}</h3>
-                                <p style={{ fontSize: '13px', color: '#5C6070', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginBottom: '18px' }}>{post.excerpt}</p>
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                    <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#0C63E3', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', fontWeight: 800, color: '#fff', fontFamily: 'var(--font-phudu)', flexShrink: 0 }}>{post.authorInitials}</div>
-                                    <div>
-                                      <p style={{ fontSize: '12px', fontWeight: 600, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.1 }}>{post.author}</p>
-                                      <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{post.date}</p>
-                                    </div>
-                                  </div>
-                                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '8px 16px', background: '#0C63E3', color: '#fff', borderRadius: '8px', fontSize: '12px', fontWeight: 700, fontFamily: 'var(--font-body)' }}>
-                                    Read More ↗
-                                  </span>
-                                </div>
-                              </div>
+                    <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} style={{ marginBottom: '48px' }}>
+                      <Link href={`/blog/${featured.slug}`} style={{ textDecoration: 'none', display: 'block' }}>
+                        <div className="blog-card feat-card" style={{ background: '#fff', borderRadius: '20px', border: '1px solid #ECEEF1', overflow: 'hidden', boxShadow: '0 1px 8px rgba(6,26,58,0.04)', display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+                          <div style={{ position: 'relative', margin: '16px', borderRadius: '14px', overflow: 'hidden', minHeight: '236px' }}>
+                            <img className="blog-card-img" src={featured.image} alt={featured.title} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                          </div>
+                          <div style={{ padding: 'clamp(20px, 2.6vw, 36px) clamp(24px, 3vw, 40px) clamp(20px, 2.6vw, 36px) 4px', display: 'flex', flexDirection: 'column' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', marginBottom: '20px' }}>
+                              <span className="tag-featured">Featured</span>
+                              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}><Clock size={12} /> {featured.read} read</span>
                             </div>
-                          </Link>
-                        </motion.div>
-                      ))}
-                    </div>
+                            <h3 style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(22px, 2.6vw, 30px)', fontWeight: 800, color: '#061A3A', lineHeight: 1.2, letterSpacing: '-0.01em', marginBottom: '12px' }}>{featured.title}</h3>
+                            <p style={{ fontSize: '15px', color: '#5C6070', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginBottom: '24px' }}>{featured.excerpt}</p>
+                            <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
+                              <span style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{featured.date}</span>
+                              <span className="tag-cat" style={{ color: featured.tagColor, background: featured.tagBg }}>{featured.tag}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                    </motion.div>
                   </>
                 )}
 
@@ -246,39 +153,24 @@ export default function BlogPage() {
                   <>
                     <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '16px' }}>
                       All Articles
-                      <span style={{ marginLeft: '8px', fontWeight: 500, textTransform: 'none', letterSpacing: 0 }}>— {rest.length} article{rest.length !== 1 ? 's' : ''} found</span>
                     </p>
                     <div className="all-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
                       {rest.map((post, i) => (
                         <motion.div key={post.slug} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay: i * 0.05 }}>
                           <Link href={`/blog/${post.slug}`} style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
-                            <div className="blog-card" style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', overflow: 'hidden', boxShadow: '0 1px 8px rgba(4,22,53,0.04)', height: '100%', display: 'flex', flexDirection: 'column' }}>
-                              <div style={{ height: '170px', overflow: 'hidden', position: 'relative', flexShrink: 0 }}>
+                            <div className="blog-card" style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', overflow: 'hidden', boxShadow: '0 1px 8px rgba(6,26,58,0.04)', height: '100%', display: 'flex', flexDirection: 'column' }}>
+                              <div style={{ height: '190px', overflow: 'hidden', position: 'relative', flexShrink: 0 }}>
                                 <img className="blog-card-img" src={post.image} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                                <div style={{ position: 'absolute', top: '10px', left: '10px', display: 'flex', gap: '5px' }}>
-                                  {post.hot && (
-                                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', background: '#D8F950', color: '#041635', fontSize: '10px', fontWeight: 800, borderRadius: '100px', padding: '2px 8px', fontFamily: 'var(--font-body)' }}>
-                                      <TrendingUp size={8} strokeWidth={2.5} /> Hot
-                                    </span>
-                                  )}
-                                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', background: 'rgba(4,22,53,0.55)', backdropFilter: 'blur(8px)', color: '#fff', fontSize: '10px', fontWeight: 600, borderRadius: '100px', padding: '2px 8px', fontFamily: 'var(--font-body)' }}>
-                                    <Clock size={8} /> {post.read} read
-                                  </span>
-                                </div>
+                                <span style={{ position: 'absolute', top: '12px', left: '12px', display: 'inline-flex', alignItems: 'center', gap: '4px', background: 'rgba(6,26,58,0.6)', backdropFilter: 'blur(8px)', color: '#fff', fontSize: '10px', fontWeight: 600, borderRadius: '100px', padding: '3px 9px', fontFamily: 'var(--font-body)' }}>
+                                  <Clock size={8} /> {post.read}
+                                </span>
                               </div>
                               <div style={{ padding: '18px 20px 20px', display: 'flex', flexDirection: 'column', flex: 1 }}>
-                                <div style={{ display: 'flex', gap: '5px', marginBottom: '10px', flexWrap: 'wrap' }}>
-                                  <span style={{ fontSize: '10px', fontWeight: 700, color: post.tagColor, background: post.tagBg, borderRadius: '100px', padding: '2px 8px', fontFamily: 'var(--font-body)' }}>Job Seeker</span>
-                                  <span style={{ fontSize: '10px', fontWeight: 700, color: post.tagColor, background: post.tagBg, borderRadius: '100px', padding: '2px 8px', fontFamily: 'var(--font-body)' }}>{post.tag}</span>
-                                </div>
-                                <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: '16px', fontWeight: 900, color: '#041635', lineHeight: 1.15, letterSpacing: '-0.02em', marginBottom: '8px', flex: 1 }}>{post.title}</h3>
-                                <p style={{ fontSize: '12px', color: '#5C6070', lineHeight: 1.6, fontFamily: 'var(--font-body)', marginBottom: '14px' }}>{post.excerpt.length > 90 ? post.excerpt.slice(0, 90) + '...' : post.excerpt}</p>
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto' }}>
-                                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                    <div style={{ width: '24px', height: '24px', borderRadius: '50%', background: '#0C63E3', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '9px', fontWeight: 800, color: '#fff', fontFamily: 'var(--font-phudu)', flexShrink: 0 }}>{post.authorInitials}</div>
-                                    <span style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{post.date}</span>
-                                  </div>
-                                  <span style={{ fontSize: '12px', fontWeight: 700, color: '#0C63E3', fontFamily: 'var(--font-body)' }}>Read →</span>
+                                <h3 style={{ fontFamily: 'var(--font-body)', fontSize: '18px', fontWeight: 800, color: '#061A3A', lineHeight: 1.3, letterSpacing: '-0.01em', marginBottom: '10px' }}>{post.title}</h3>
+                                <p style={{ fontSize: '13.5px', color: '#5C6070', lineHeight: 1.6, fontFamily: 'var(--font-body)', marginBottom: '18px' }}>{post.excerpt.length > 110 ? post.excerpt.slice(0, 110) + '...' : post.excerpt}</p>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto', gap: '10px' }}>
+                                  <span style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{post.date}</span>
+                                  <span className="tag-cat" style={{ color: post.tagColor, background: post.tagBg }}>{post.tag}</span>
                                 </div>
                               </div>
                             </div>
@@ -290,27 +182,52 @@ export default function BlogPage() {
                 )}
               </>
             )}
+
+            {/* Pagination */}
+            {filtered.length > 0 && totalPages > 1 && (
+              <div style={{ borderTop: '1px solid #ECEEF1', marginTop: '48px', paddingTop: '28px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
+                <button onClick={() => goToPage(Math.max(1, page - 1))} disabled={page === 1}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'none', border: 'none', cursor: page === 1 ? 'default' : 'pointer', color: page === 1 ? '#C7CBD3' : '#061A3A', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)' }}>
+                  <ArrowLeft size={16} /> Previous
+                </button>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(n => {
+                    const isActive = n === page;
+                    return (
+                      <button key={n} onClick={() => goToPage(n)}
+                        style={{ minWidth: '36px', height: '36px', padding: '0 10px', borderRadius: '10px', border: 'none', cursor: 'pointer', background: isActive ? '#D7FF43' : 'transparent', color: isActive ? '#061A3A' : '#5C6070', fontSize: '14px', fontWeight: isActive ? 800 : 600, fontFamily: 'var(--font-body)', transition: 'all 0.15s' }}>
+                        {n}
+                      </button>
+                    );
+                  })}
+                </div>
+                <button onClick={() => goToPage(Math.min(totalPages, page + 1))} disabled={page === totalPages}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'none', border: 'none', cursor: page === totalPages ? 'default' : 'pointer', color: page === totalPages ? '#C7CBD3' : '#061A3A', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)' }}>
+                  Next <ArrowRight size={16} />
+                </button>
+              </div>
+            )}
           </div>
         </section>
 
         {/* Newsletter CTA */}
-        <section style={{ background: 'linear-gradient(135deg, #0C63E3 0%, #041635 100%)', padding: 'clamp(56px, 7vw, 88px) 24px', textAlign: 'center' }}>
-          <div style={{ maxWidth: '540px', margin: '0 auto' }}>
-            <div style={{ width: '52px', height: '52px', background: '#D8F950', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="#041635" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <polyline points="22,6 12,13 2,6" stroke="#041635" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+        <section style={{ background: '#F6F7F9', padding: '0 24px clamp(64px, 8vw, 96px)' }}>
+          <div style={{ maxWidth: '1120px', margin: '0 auto', background: 'radial-gradient(ellipse 55% 90% at 92% 10%, rgba(214,61,157,0.34), transparent 55%), linear-gradient(140deg, #071B3D 0%, #05142C 100%)', borderRadius: '28px', padding: 'clamp(36px, 5vw, 56px) clamp(32px, 5vw, 60px)', position: 'relative', overflow: 'hidden' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'clamp(28px, 5vw, 56px)', flexWrap: 'wrap', position: 'relative', zIndex: 1 }}>
+              <div style={{ flex: '1 1 320px' }}>
+                <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3.4vw, 40px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.03em', lineHeight: 0.98, marginBottom: '12px' }}>Stay Updated</h2>
+                <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-body)', lineHeight: 1.6, maxWidth: '440px' }}>
+                  Get the latest job search tips, video resume strategies, and product updates delivered to your inbox every week.
+                </p>
+              </div>
+              <div style={{ flexShrink: 0 }}>
+                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                  <input type="email" placeholder="example@mail.com" style={{ width: '300px', maxWidth: '100%', padding: '15px 18px', borderRadius: '12px', border: 'none', background: '#fff', color: '#061A3A', fontSize: '15px', fontFamily: 'var(--font-body)', outline: 'none' }} />
+                  <button style={{ padding: '15px 28px', background: '#D7FF43', color: '#061A3A', border: 'none', borderRadius: '12px', fontSize: '15px', fontWeight: 800, fontFamily: 'var(--font-body)', cursor: 'pointer', whiteSpace: 'nowrap' }}>Subscribe</button>
+                </div>
+                <p style={{ marginTop: '12px', fontSize: '12px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)' }}>Join 10,000+ job seekers already subscribed.</p>
+              </div>
             </div>
-            <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.03em', lineHeight: 0.95, marginBottom: '14px' }}>Stay Updated</h2>
-            <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-body)', lineHeight: 1.65, marginBottom: '28px' }}>
-              Get the latest job search tips, video resume strategies, and product updates delivered to your inbox every week.
-            </p>
-            <div style={{ display: 'flex', gap: '8px', maxWidth: '420px', margin: '0 auto' }}>
-              <input type="email" placeholder="Enter your email" style={{ flex: 1, padding: '13px 16px', borderRadius: '10px', border: '1.5px solid rgba(255,255,255,0.2)', background: 'rgba(255,255,255,0.1)', color: '#fff', fontSize: '14px', fontFamily: 'var(--font-body)', outline: 'none' }} />
-              <button style={{ padding: '13px 22px', background: '#D8F950', color: '#041635', border: 'none', borderRadius: '10px', fontSize: '14px', fontWeight: 800, fontFamily: 'var(--font-body)', cursor: 'pointer', whiteSpace: 'nowrap' }}>Subscribe</button>
-            </div>
-            <p style={{ marginTop: '12px', fontSize: '12px', color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-body)' }}>Join 10,000+ job seekers already subscribed. Unsubscribe anytime.</p>
           </div>
         </section>
 

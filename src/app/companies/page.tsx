@@ -4,15 +4,16 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Plus, Minus, Star, UserPlus, FilePlus, Zap, Video, Users, List, Globe } from 'lucide-react';
+import { ArrowRight, Plus, Minus, UserPlus, FilePlus, Zap, Video, Users, List, Globe } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { AnimatedStat } from '@/components/CountUp';
-import { TiltCard } from '@/components/TiltCard';
 import LogoTicker from '@/components/LogoTicker';
 import AIScreeningDemo from '@/components/AIScreeningDemo';
 import { CollabDemo, PipelineDemo, JobBoardDemo } from '@/components/CompanyFeatureDemos';
+import TeamReel from '@/components/TeamReel';
 import AudienceStories from '@/components/AudienceStories';
+import CTA from '@/components/CTA';
 
 /* ─── Hero notifications ─── */
 const NOTIFICATIONS = [
@@ -24,12 +25,12 @@ const NOTIFICATIONS = [
 
 function NotifCard({ n }: { n: typeof NOTIFICATIONS[0] }) {
   return (
-    <div className="co-notif-card" style={{ background: '#fff', borderRadius: '12px', padding: '10px 14px', display: 'flex', alignItems: 'center', gap: '10px', boxShadow: '0 8px 32px rgba(4,22,53,0.2)', border: '1px solid rgba(255,255,255,0.9)', minWidth: '220px' }}>
+    <div className="co-notif-card" style={{ background: '#fff', borderRadius: '12px', padding: '10px 14px', display: 'flex', alignItems: 'center', gap: '10px', boxShadow: '0 8px 32px rgba(6,26,58,0.2)', border: '1px solid rgba(255,255,255,0.9)', minWidth: '220px' }}>
       <div className="co-notif-avatar" style={{ width: '34px', height: '34px', borderRadius: '50%', background: n.avatarBg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
         <span style={{ fontSize: '11px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>{n.initials}</span>
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
-        <p className="co-notif-name" style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{n.name}</p>
+        <p className="co-notif-name" style={{ fontSize: '12px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{n.name}</p>
         <p className="co-notif-sub" style={{ fontSize: '10px', color: '#9A9FA8', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>New Reslink submitted</p>
       </div>
       <div style={{ background: n.color, borderRadius: '6px', padding: '2px 7px', flexShrink: 0 }}>
@@ -47,15 +48,15 @@ const STEPS = [
     title: 'Create your account',
     desc: 'Sign up in minutes. Add your company details, invite your hiring team, and get your branded job board live the same day.',
     tag: 'Free to start',
-    tagColor: '#D8F950',
-    tagText: '#041635',
+    tagColor: 'rgba(255,255,255,0.1)',
+    tagText: 'rgba(255,255,255,0.6)',
   },
   {
     icon: FilePlus,
     num: '02',
     title: 'Post your first role',
     desc: 'Write your job post directly in Reslink or import from your existing tools. Your public board is instantly updated and shareable anywhere.',
-    tag: 'Takes 5 minutes',
+    tag: '5 minutes',
     tagColor: 'rgba(255,255,255,0.1)',
     tagText: 'rgba(255,255,255,0.6)',
   },
@@ -64,7 +65,7 @@ const STEPS = [
     num: '03',
     title: 'Add Reslink Credits',
     desc: 'Credits power AI screening. Each applicant consumes one credit to generate an AI score, video pitch analysis, resume match, and role fit breakdown. No credits, no AI magic.',
-    tag: 'Starts at $0.50 per applicant',
+    tag: 'From $0.50 per applicant',
     tagColor: 'rgba(255,255,255,0.1)',
     tagText: 'rgba(255,255,255,0.6)',
   },
@@ -73,9 +74,9 @@ const STEPS = [
     num: '04',
     title: 'Interview only your top picks',
     desc: 'AI ranks every applicant. Your team reviews video pitches on their own schedule, aligns on a shortlist together, and books interviews only with the people worth talking to.',
-    tag: 'Where most clients save the most time',
-    tagColor: 'rgba(216,249,80,0.12)',
-    tagText: '#D8F950',
+    tag: 'Biggest time saving',
+    tagColor: '#D7FF43',
+    tagText: '#061A3A',
   },
 ];
 
@@ -145,9 +146,9 @@ function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; 
   return (
     <div style={{ borderBottom: '1px solid #EEEEF0' }}>
       <button onClick={toggle} style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', padding: '20px 0', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left' }}>
-        <span style={{ fontSize: '15px', fontWeight: 600, color: '#041635', fontFamily: 'var(--font-body)' }}>{q}</span>
-        <span style={{ width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0, background: open ? '#0C63E3' : '#F7F8FA', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.15s' }}>
-          {open ? <Minus size={12} color="#fff" /> : <Plus size={12} color="#5C6070" />}
+        <span style={{ fontSize: '15px', fontWeight: 600, color: '#061A3A', fontFamily: 'var(--font-body)' }}>{q}</span>
+        <span style={{ width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0, background: open ? '#1468E8' : '#EAF1FF', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.15s' }}>
+          {open ? <Minus size={12} color="#fff" /> : <Plus size={12} color="#1468E8" />}
         </span>
       </button>
       <AnimatePresence>
@@ -163,14 +164,90 @@ function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; 
 
 /* ─── Testimonials ─── */
 const FEATURED = {
-  quote: 'We reviewed 40 Reslinks in an afternoon. Our entire hiring team was aligned on a shortlist before end of day. I have not seen that happen in ten years of recruiting.',
-  name: 'Head of Talent Acquisition', role: 'Early access partner', company: 'Series B fintech', color: '#635BFF',
+  quote: "We reviewed 40 Reslinks in an afternoon. Our whole hiring team was aligned on a shortlist before end of day. I haven't seen that happen in ten years of recruiting.",
+  stat: '40 candidates reviewed in one afternoon',
+  name: 'Head of Talent Acquisition', sub: 'Series B fintech · 40 hires a year',
+  avatar: 'radial-gradient(circle at 32% 28%, #F5A8D6, #D63D9D)',
 };
 const SIDE_QUOTES = [
-  { quote: 'Reslink cut our first-round phone screen volume by 60%. The candidates we do call are genuinely the right ones.', name: 'VP of People', role: 'Early access partner', company: 'SaaS scale-up', color: '#FF7A59' },
-  { quote: 'Our time to hire dropped by nearly a third in our first quarter using Reslink. The ROI was immediate.', name: 'Recruiting Manager', role: 'Early access partner', company: 'enterprise tech co.', color: '#4285F4' },
-  { quote: 'The analytics dashboard changed how I manage my team hiring. We can see exactly where we lose candidates and why.', name: 'Talent Lead', role: 'Early access partner', company: 'consumer internet co.', color: '#1877F2' },
+  { quote: 'Reslink cut our first-round phone screen volume by 60%. The candidates we do call are genuinely the right ones.', name: 'VP of People', sub: 'SaaS scale-up', avatar: 'radial-gradient(circle at 32% 28%, #8FB4FF, #4F6EF7)' },
+  { quote: 'Our time to hire dropped by nearly a third in the first quarter. The ROI was immediate.', name: 'Recruiting Manager', sub: 'Enterprise tech', avatar: 'radial-gradient(circle at 32% 28%, #F0A0D0, #D63D9D)' },
+  { quote: 'The analytics changed how I manage my team. We can see exactly where we lose candidates, and why.', name: 'Talent Lead', sub: 'Consumer internet', avatar: 'radial-gradient(circle at 32% 28%, #C3DD7E, #8BA353)' },
 ];
+
+/* Candidate scorecard shown in the CTA — the recruiter's-eye view: a video
+   intro, an AI role-fit score, graded signals, and Pass / Shortlist actions. */
+function CandidateScorecard() {
+  const metrics = [
+    { label: 'Outbound experience', value: 'Strong', pct: 92, color: '#5B7A0F' },
+    { label: 'Quota history', value: '128%', pct: 72, color: '#1468E8' },
+    { label: 'Communication', value: 'Excellent', pct: 96, color: '#D63D9D' },
+  ];
+  return (
+    <div className="cs-wrap">
+      <style>{`
+        .cs-wrap { width: 100%; max-width: 380px; margin: 0 auto; }
+        .cs-card { background: #fff; border-radius: 24px; overflow: hidden; box-shadow: 0 24px 60px rgba(6,26,58,0.22); }
+        .cs-vid { position: relative; height: 184px; background: #C74FA0; overflow: hidden; }
+        .cs-vid video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+        .cs-tag { position: absolute; top: 12px; left: 12px; background: #D7FF43; color: #061A3A; font-family: var(--font-body); font-weight: 800; font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; }
+        .cs-dur { position: absolute; top: 12px; right: 12px; background: rgba(6,26,58,0.55); backdrop-filter: blur(6px); color: #fff; font-family: var(--font-body); font-weight: 700; font-size: 11px; padding: 3px 9px; border-radius: 8px; }
+        .cs-body { padding: 16px 20px 18px; }
+        .cs-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+        .cs-name { font-family: var(--font-body); font-weight: 800; font-size: 16px; color: #061A3A; letter-spacing: -0.01em; }
+        .cs-role { font-family: var(--font-body); font-size: 12px; color: #8A93A3; margin-top: 2px; }
+        .cs-fit { text-align: right; flex-shrink: 0; }
+        .cs-fit-num { font-family: var(--font-phudu); font-weight: 900; font-size: 30px; line-height: 0.9; color: #4F6B15; letter-spacing: -0.02em; }
+        .cs-fit-lbl { font-family: var(--font-body); font-size: 11px; color: #8A93A3; margin-top: 2px; }
+        .cs-metric { margin-bottom: 11px; }
+        .cs-metric-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; }
+        .cs-metric-label { font-family: var(--font-body); font-size: 13px; color: #6B7480; }
+        .cs-metric-val { font-family: var(--font-body); font-size: 13px; font-weight: 800; color: #061A3A; }
+        .cs-track { height: 6px; border-radius: 100px; background: #EDEFF3; overflow: hidden; }
+        .cs-fill { height: 100%; border-radius: 100px; }
+        .cs-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+        .cs-pass { background: #F1F3F6; color: #3A4250; font-family: var(--font-body); font-weight: 700; font-size: 14px; border: none; border-radius: 11px; padding: 12px 0; cursor: pointer; transition: background 0.15s ease; }
+        .cs-pass:hover { background: #E7EAEF; }
+        .cs-short { background: #D7FF43; color: #061A3A; font-family: var(--font-body); font-weight: 800; font-size: 14px; border: none; border-radius: 11px; padding: 12px 0; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; transition: background 0.15s ease; }
+        .cs-short:hover { background: #C2E532; }
+      `}</style>
+      <motion.div className="cs-card" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
+        <div className="cs-vid">
+          <video src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" autoPlay muted loop playsInline style={{ objectPosition: '50% 18%' }} />
+          <span className="cs-tag">Video intro</span>
+          <span className="cs-dur">0:47</span>
+        </div>
+        <div className="cs-body">
+          <div className="cs-head">
+            <div>
+              <p className="cs-name">Olivia Stone</p>
+              <p className="cs-role">Business Dev Rep · 5 yrs</p>
+            </div>
+            <div className="cs-fit">
+              <p className="cs-fit-num">94</p>
+              <p className="cs-fit-lbl">role fit</p>
+            </div>
+          </div>
+          {metrics.map((m, i) => (
+            <div className="cs-metric" key={m.label}>
+              <div className="cs-metric-top">
+                <span className="cs-metric-label">{m.label}</span>
+                <span className="cs-metric-val">{m.value}</span>
+              </div>
+              <div className="cs-track">
+                <motion.div className="cs-fill" style={{ background: m.color }} initial={{ width: 0 }} whileInView={{ width: `${m.pct}%` }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.15 + i * 0.12, ease: 'easeOut' }} />
+              </div>
+            </div>
+          ))}
+          <div className="cs-btns">
+            <button className="cs-pass">Pass</button>
+            <button className="cs-short">Shortlist <ArrowRight size={15} /></button>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
 
 /* ─── Page ─── */
 export default function CompaniesPage() {
@@ -247,20 +324,20 @@ const [notifA, setNotifA] = useState(0);
           cursor: pointer; text-align: left; transition: color 0.18s;
         }
         .co-feat-navitem > * { position: relative; z-index: 1; }
-        .co-feat-navitem:hover:not(.active) { color: #041635; }
-        .co-feat-navitem.active { color: #041635; font-weight: 700; }
+        .co-feat-navitem:hover:not(.active) { color: #061A3A; }
+        .co-feat-navitem.active { color: #061A3A; font-weight: 700; }
         .co-feat-dot { width: 7px; height: 7px; border-radius: 50%; background: #C9CFD9; flex-shrink: 0; transition: background 0.18s; }
-        .co-feat-navitem.active .co-feat-dot { background: #D8F950; box-shadow: 0 0 0 3px rgba(216,249,80,0.35); }
+        .co-feat-navitem.active .co-feat-dot { background: #D7FF43; box-shadow: 0 0 0 3px rgba(215,255,67,0.35); }
         /* Each feature = one card so the visual and its copy read as a pair */
         .co-feat-card {
           background: #fff; border: 1px solid #E6E9EF; border-radius: 22px;
           padding: clamp(18px, 2.4vw, 30px);
-          box-shadow: 0 2px 12px rgba(4,22,53,0.05);
+          box-shadow: 0 2px 12px rgba(6,26,58,0.05);
         }
         .co-feat-eyebrow {
           display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px;
           font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
-          color: #041635; font-family: var(--font-body);
+          color: #061A3A; font-family: var(--font-body);
           background: #F1F4F8; border-radius: 100px; padding: 6px 14px;
         }
         .co-feat-divider { height: 1px; background: #ECEFF4; margin: 28px 0 24px; }
@@ -271,21 +348,21 @@ const [notifA, setNotifA] = useState(0);
         }
         @media (max-width: 860px) {
           .co-feat-layout { grid-template-columns: 1fr; gap: 22px; }
-          .co-feat-nav-col { position: sticky; top: 68px; z-index: 20; background: #F7F8FA; padding: 10px 0; margin: -10px 0 0; }
+          .co-feat-nav-col { position: sticky; top: 68px; z-index: 20; background: #F6F7F9; padding: 10px 0; margin: -10px 0 0; }
           .co-feat-nav { position: static; flex-direction: row; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
           .co-feat-nav::-webkit-scrollbar { display: none; }
           .co-feat-group { display: contents; }
           .co-feat-group-label { display: none; }
           .co-feat-navitem { width: auto; white-space: nowrap; flex-shrink: 0; background: #fff; border: 1px solid #E2E4E9; padding: 9px 15px; font-size: 14px; }
-          .co-feat-navitem.active { border-color: #041635; }
+          .co-feat-navitem.active { border-color: #061A3A; }
         }
-        .co-chip { background: #fff; border-radius: 16px; padding: 14px 18px; box-shadow: 0 16px 48px rgba(4,22,53,0.22), 0 2px 8px rgba(4,22,53,0.1); display: flex; align-items: center; gap: 14px; border: 1px solid rgba(4,22,53,0.07); white-space: nowrap; }
-        @media (max-width: 640px) { .co-chip { padding: 6px 9px; gap: 6px; border-radius: 10px; box-shadow: 0 4px 16px rgba(4,22,53,0.15); } }
+        .co-chip { background: #fff; border-radius: 16px; padding: 14px 18px; box-shadow: 0 16px 48px rgba(6,26,58,0.22), 0 2px 8px rgba(6,26,58,0.1); display: flex; align-items: center; gap: 14px; border: 1px solid rgba(6,26,58,0.07); white-space: nowrap; }
+        @media (max-width: 640px) { .co-chip { padding: 6px 9px; gap: 6px; border-radius: 10px; box-shadow: 0 4px 16px rgba(6,26,58,0.15); } }
         .co-chip-icon { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         @media (max-width: 640px) { .co-chip-icon { width: 22px; height: 22px; border-radius: 6px; } }
         .co-chip-icon svg { width: 18px; height: 18px; }
         @media (max-width: 640px) { .co-chip-icon svg { width: 10px; height: 10px; } }
-        .co-chip-title { font-size: 13px; font-weight: 700; color: #041635; font-family: var(--font-body); line-height: 1.2; }
+        .co-chip-title { font-size: 13px; font-weight: 700; color: #061A3A; font-family: var(--font-body); line-height: 1.2; }
         @media (max-width: 640px) { .co-chip-title { font-size: 9px; } }
         .co-chip-sub { font-size: 12px; color: #6B7280; font-family: var(--font-body); margin-top: 3px; }
         @media (max-width: 640px) { .co-chip-sub { display: none; } }
@@ -318,19 +395,19 @@ const [notifA, setNotifA] = useState(0);
       <main style={{ paddingTop: '68px' }}>
 
         {/* ─── Hero ─── */}
-        <section style={{ background: '#041635', padding: 'clamp(72px, 10vw, 112px) 24px 0', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', top: '-10%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '700px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.22), transparent 65%)', pointerEvents: 'none' }} />
+        <section style={{ background: '#061A3A', padding: 'clamp(72px, 10vw, 112px) 24px 0', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: '-10%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '700px', background: 'radial-gradient(ellipse, rgba(20,104,232,0.22), transparent 65%)', pointerEvents: 'none' }} />
           <div style={{ maxWidth: '860px', margin: '0 auto', position: 'relative', zIndex: 1, textAlign: 'center' }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
-              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For companies</p>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For companies</p>
               <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 7.5vw, 96px)', fontWeight: 900, color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '24px' }}>
-                Make better hiring<br />decisions, <span style={{ color: '#D8F950' }}>faster.</span>
+                Make better hiring<br />decisions, <span style={{ color: '#D7FF43' }}>faster.</span>
               </h1>
               <p style={{ fontSize: 'clamp(16px, 1.6vw, 18px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '520px', margin: '0 auto 36px' }}>
-                Reslink gives your hiring team dynamic video profiles so you can assess candidates, align quickly, and move on the right people before your competitors do.
+                Ten thousand people have already stopped being a PDF.
               </p>
               <div className="co-hero-btns" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '56px' }}>
-                <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: '#D8F950', color: '#041635', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                   Schedule a demo <ArrowRight size={16} />
                 </Link>
                 <Link href="/get-started?type=company" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
@@ -339,97 +416,61 @@ const [notifA, setNotifA] = useState(0);
               </div>
             </motion.div>
 
-            {/* Screenshot + floating notifs */}
-            <motion.div initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }} style={{ position: 'relative' }}>
-              {/* Notification A */}
-              <div style={{ position: 'absolute', top: '36px', left: '-16px', zIndex: 10, pointerEvents: 'none' }}>
-                <AnimatePresence mode="wait">
-                  {notifVisible && (
-                    <motion.div key={`a${notifA}`} initial={{ opacity: 0, x: -10, y: 6 }} animate={{ opacity: 1, x: 0, y: 0 }} exit={{ opacity: 0, x: -8 }} transition={{ duration: 0.32 }}>
-                      <motion.div animate={{ y: [0, -5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}>
-                        <NotifCard n={NOTIFICATIONS[notifA]} />
-                      </motion.div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-              {/* Notification B */}
-              <div style={{ position: 'absolute', bottom: '56px', right: '-16px', zIndex: 10, pointerEvents: 'none' }}>
-                <AnimatePresence mode="wait">
-                  {notifVisible && (
-                    <motion.div key={`b${notifB}`} initial={{ opacity: 0, x: 10, y: 6 }} animate={{ opacity: 1, x: 0, y: 0 }} exit={{ opacity: 0, x: 8 }} transition={{ duration: 0.32, delay: 0.08 }}>
-                      <motion.div animate={{ y: [0, -5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 0.6 }}>
-                        <NotifCard n={NOTIFICATIONS[notifB]} />
-                      </motion.div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-              {/* Live pill */}
-              <div style={{ position: 'absolute', top: '14px', right: '14px', zIndex: 10, display: 'flex', alignItems: 'center', gap: '6px', background: 'rgba(4,22,53,0.75)', backdropFilter: 'blur(8px)', borderRadius: '100px', padding: '5px 12px', border: '1px solid rgba(255,255,255,0.1)' }}>
-                <motion.div animate={{ opacity: [1, 0.2, 1] }} transition={{ duration: 1.4, repeat: Infinity }} style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#22C55E' }} />
-                <span style={{ fontSize: '11px', fontWeight: 600, color: '#fff', fontFamily: 'var(--font-body)' }}>Live applicants</span>
-              </div>
-              {/* Screenshot */}
-              <div style={{ borderRadius: '12px 12px 0 0', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)', borderBottom: 'none', boxShadow: '0 40px 100px rgba(0,0,0,0.5)' }}>
-                <div style={{ background: '#1C2333', borderBottom: '1px solid rgba(255,255,255,0.07)', padding: '10px 14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <div style={{ display: 'flex', gap: '5px' }}>
-                    {['#FF5F57', '#FFBD2E', '#28CA41'].map(c => <div key={c} style={{ width: '10px', height: '10px', borderRadius: '50%', background: c }} />)}
-                  </div>
-                  <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
-                    <div style={{ background: 'rgba(255,255,255,0.07)', borderRadius: '5px', padding: '3px 14px', fontSize: '11px', color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-body)' }}>app.reslink.io</div>
-                  </div>
-                </div>
-                <Image src="/feature-dashboard.png" alt="Reslink hiring dashboard" width={3840} height={1892} quality={100} style={{ width: '100%', height: 'auto', display: 'block' }} />
-              </div>
+            {/* People reel */}
+            <motion.div initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }} style={{ paddingBottom: 'clamp(56px, 8vw, 96px)' }}>
+              <TeamReel />
             </motion.div>
           </div>
         </section>
 
         {/* ─── Logo ticker ─── */}
-        <div style={{ background: '#F7F8FA' }}><LogoTicker /></div>
+        <div style={{ background: '#F6F7F9' }}><LogoTicker /></div>
 
         {/* ─── How it works ─── */}
-        <section style={{ background: '#041635', padding: 'clamp(72px, 9vw, 112px) 24px', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', top: '20%', right: '-5%', width: '600px', height: '600px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.15), transparent 65%)', pointerEvents: 'none' }} />
+        <section style={{ background: '#061A3A', padding: 'clamp(72px, 9vw, 112px) 24px', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: '-12%', right: '-8%', width: '620px', height: '620px', background: 'radial-gradient(ellipse, rgba(214,61,157,0.16), transparent 62%)', pointerEvents: 'none' }} />
           <div style={{ maxWidth: '760px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '64px' }}>
-              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>How it works</p>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>How it works</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#fff', lineHeight: 0.93, letterSpacing: '-0.03em' }}>
                 Up and hiring in four steps.
               </h2>
             </motion.div>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              {STEPS.map((s, i) => (
-                <motion.div key={s.num} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.1 }} style={{ display: 'flex', gap: '24px' }}>
+              {STEPS.map((s, i) => {
+                const isLast = i === STEPS.length - 1;
+                return (
+                <motion.div key={s.num} initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }} style={{ display: 'flex', gap: '24px' }}>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0, width: '52px' }}>
-                    <div style={{ width: '52px', height: '52px', borderRadius: '50%', background: 'rgba(255,255,255,0.08)', border: '2px solid rgba(255,255,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                      <s.icon size={20} color="#D8F950" strokeWidth={2} />
+                    {/* Numbered node — the final step is filled lime to flag the payoff */}
+                    <div style={{ width: '52px', height: '52px', borderRadius: '50%', background: isLast ? '#D7FF43' : 'rgba(255,255,255,0.05)', border: isLast ? 'none' : '1.5px solid rgba(255,255,255,0.18)', boxShadow: isLast ? '0 0 0 6px rgba(215,255,67,0.12)' : 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: isLast ? '#061A3A' : '#fff', lineHeight: 1 }}>{i + 1}</span>
                     </div>
-                    {i < STEPS.length - 1 && (
-                      <div style={{ width: '2px', flex: 1, background: 'linear-gradient(to bottom, rgba(216,249,80,0.4), rgba(255,255,255,0.08))', marginTop: '8px', minHeight: '40px' }} />
+                    {!isLast && (
+                      <div style={{ width: '2px', flex: 1, background: 'rgba(255,255,255,0.1)', marginTop: '8px', minHeight: '40px' }} />
                     )}
                   </div>
                   <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', padding: '24px 28px', flex: 1, marginBottom: i < STEPS.length - 1 ? '16px' : 0 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px', flexWrap: 'wrap' }}>
                       <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '13px', fontWeight: 900, color: 'rgba(255,255,255,0.25)', letterSpacing: '0.06em' }}>STEP {s.num}</span>
-                      <span style={{ padding: '2px 10px', borderRadius: '100px', background: s.tagColor, fontSize: '11px', fontWeight: 600, color: s.tagText, fontFamily: 'var(--font-body)' }}>{s.tag}</span>
+                      <span style={{ padding: '3px 12px', borderRadius: '100px', background: s.tagColor, fontSize: '11px', fontWeight: 700, color: s.tagText, fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>{s.tag}</span>
                     </div>
                     <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(20px, 2.5vw, 26px)', fontWeight: 900, color: '#fff', lineHeight: 1.05, letterSpacing: '-0.02em', marginBottom: '10px' }}>{s.title}</h3>
                     <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.75, fontFamily: 'var(--font-body)', margin: 0 }}>{s.desc}</p>
                   </div>
                 </motion.div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
 
         {/* ─── Features tabbed showcase ─── */}
-        <section style={{ background: '#F7F8FA', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
+        <section style={{ background: '#F6F7F9', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '48px' }}>
-              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Everything your team needs</p>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#041635', lineHeight: 0.95, letterSpacing: '-0.03em' }}>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Everything your team needs</p>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.95, letterSpacing: '-0.03em' }}>
                 Built for how great<br />teams hire.
               </h2>
             </motion.div>
@@ -480,8 +521,8 @@ const [notifA, setNotifA] = useState(0);
                       initial={{ scale: 0.97, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       transition={{ duration: 0.3 }}
-                      whileHover={{ scale: 1.01, boxShadow: '0 24px 64px rgba(4,22,53,0.16)' }}
-                      style={{ borderRadius: '14px', overflow: 'hidden', border: '1px solid #E2E4E9', boxShadow: '0 12px 40px rgba(4,22,53,0.1)', cursor: 'default' }}
+                      whileHover={{ scale: 1.01, boxShadow: '0 24px 64px rgba(6,26,58,0.16)' }}
+                      style={{ borderRadius: '14px', overflow: 'hidden', border: '1px solid #E2E4E9', boxShadow: '0 12px 40px rgba(6,26,58,0.1)', cursor: 'default' }}
                     >
                       <div style={{ background: '#F1F3F5', borderBottom: '1px solid #E2E4E9', padding: '9px 14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <div style={{ display: 'flex', gap: '5px' }}>
@@ -492,7 +533,7 @@ const [notifA, setNotifA] = useState(0);
                         </div>
                       </div>
                       {t.id === 'ai' ? (
-                        <AIScreeningDemo active={activeTab === i} />
+                        <AIScreeningDemo />
                       ) : t.id === 'collab' ? (
                         <CollabDemo active={activeTab === i} />
                       ) : t.id === 'pipeline' ? (
@@ -512,14 +553,14 @@ const [notifA, setNotifA] = useState(0);
                   {/* Text content */}
                   <div className="co-feat-body">
                     <div>
-                      <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(22px, 2.8vw, 34px)', fontWeight: 900, color: '#041635', lineHeight: 1.0, letterSpacing: '-0.03em', marginBottom: '12px' }}>{t.tagline}</h3>
+                      <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(22px, 2.8vw, 34px)', fontWeight: 900, color: '#061A3A', lineHeight: 1.0, letterSpacing: '-0.03em', marginBottom: '12px' }}>{t.tagline}</h3>
                       <p style={{ fontSize: '15px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>{t.desc}</p>
                     </div>
                     <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '14px', paddingTop: '4px' }}>
                       {t.bullets.map((b, bi) => (
                         <motion.li key={b} initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: bi * 0.08 + 0.15, duration: 0.28 }} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', fontSize: '14px', color: '#3A3F4C', fontFamily: 'var(--font-body)', lineHeight: 1.5 }}>
-                          <span style={{ width: '22px', height: '22px', borderRadius: '50%', background: '#041635', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '1px' }}>
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#D8F950" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                          <span style={{ width: '22px', height: '22px', borderRadius: '50%', background: '#061A3A', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '1px' }}>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#D7FF43" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                           </span>
                           {b}
                         </motion.li>
@@ -534,8 +575,8 @@ const [notifA, setNotifA] = useState(0);
         </section>
 
         {/* ─── Stats ─── */}
-        <section style={{ background: '#041635', padding: 'clamp(64px, 8vw, 96px) 24px', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', top: '-30%', left: '50%', transform: 'translateX(-50%)', width: '800px', height: '600px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.2), transparent 65%)', pointerEvents: 'none' }} />
+        <section style={{ background: '#061A3A', padding: 'clamp(64px, 8vw, 96px) 24px', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: '-30%', left: '50%', transform: 'translateX(-50%)', width: '800px', height: '600px', background: 'radial-gradient(ellipse, rgba(20,104,232,0.2), transparent 65%)', pointerEvents: 'none' }} />
           <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
             <div className="co-stats-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '32px', textAlign: 'center' }}>
               {[
@@ -544,7 +585,7 @@ const [notifA, setNotifA] = useState(0);
                 { value: '91%', label: 'of hiring managers say video improves decisions' },
               ].map((s, i) => (
                 <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-                  <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(52px, 7vw, 80px)', fontWeight: 900, color: '#D8F950', lineHeight: 1, letterSpacing: '-0.03em' }}><AnimatedStat value={s.value} /></p>
+                  <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(52px, 7vw, 80px)', fontWeight: 900, color: '#D7FF43', lineHeight: 1, letterSpacing: '-0.03em' }}><AnimatedStat value={s.value} /></p>
                   <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', marginTop: '10px', lineHeight: 1.5, maxWidth: '180px', margin: '10px auto 0' }}>{s.label}</p>
                 </motion.div>
               ))}
@@ -556,55 +597,48 @@ const [notifA, setNotifA] = useState(0);
         <AudienceStories variant="b2b" />
 
         {/* ─── Testimonials ─── */}
-        <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
+        <section style={{ background: '#FBEEF5', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '56px' }}>
-              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>What hiring teams say</p>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#041635', lineHeight: 0.98 }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '48px' }}>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D63D9D', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>What hiring teams say</p>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#061A3A', lineHeight: 0.98, marginBottom: '16px' }}>
                 Trusted by the teams<br />building great companies.
               </h2>
+              <p style={{ fontSize: '16px', color: '#8A7A85', fontFamily: 'var(--font-body)' }}>All early-access partners. Titles shown with permission.</p>
             </motion.div>
             <div className="co-testi-grid">
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                <TiltCard max={3} style={{ background: '#041635', borderRadius: '20px', padding: 'clamp(32px, 4vw, 48px)', height: '100%', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                  <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: '400px', height: '400px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.25), transparent 65%)', pointerEvents: 'none' }} />
+              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+                <div style={{ background: '#061A3A', borderRadius: '24px', padding: 'clamp(32px, 4vw, 48px)', height: '100%', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                  <div style={{ position: 'absolute', top: '-15%', right: '-12%', width: '440px', height: '440px', background: 'radial-gradient(ellipse, rgba(170,72,214,0.34), transparent 62%)', pointerEvents: 'none' }} />
                   <div style={{ position: 'relative', zIndex: 1 }}>
-                    <div style={{ display: 'flex', gap: '3px', marginBottom: '24px' }}>
-                      {[...Array(5)].map((_, j) => <Star key={j} size={16} fill="#D8F950" color="#D8F950" />)}
-                    </div>
-                    <p style={{ fontSize: 'clamp(17px, 2vw, 22px)', color: '#fff', lineHeight: 1.6, fontFamily: 'var(--font-body)', fontWeight: 500, marginBottom: '32px' }}>&ldquo;{FEATURED.quote}&rdquo;</p>
+                    <p style={{ fontSize: 'clamp(20px, 2.3vw, 27px)', color: '#fff', lineHeight: 1.45, fontFamily: 'var(--font-body)', fontWeight: 700, letterSpacing: '-0.01em', marginBottom: '26px' }}>&ldquo;{FEATURED.quote}&rdquo;</p>
+                    <span style={{ display: 'inline-block', background: '#D7FF43', color: '#061A3A', fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: '14px', padding: '8px 16px', borderRadius: '100px' }}>{FEATURED.stat}</span>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px', position: 'relative', zIndex: 1 }}>
-                    <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: FEATURED.color, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                      <span style={{ fontSize: '14px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>{FEATURED.name.split(' ').map(n => n[0]).join('')}</span>
-                    </div>
-                    <div>
-                      <p style={{ fontSize: '15px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{FEATURED.name}</p>
-                      <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)' }}>{FEATURED.role} at {FEATURED.company}</p>
+                  <div style={{ position: 'relative', zIndex: 1 }}>
+                    <div style={{ borderTop: '1px solid rgba(255,255,255,0.12)', margin: '28px 0 22px' }} />
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                      <div style={{ width: '52px', height: '52px', borderRadius: '50%', background: FEATURED.avatar, flexShrink: 0 }} />
+                      <div>
+                        <p style={{ fontSize: '16px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{FEATURED.name}</p>
+                        <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', marginTop: '2px' }}>{FEATURED.sub}</p>
+                      </div>
                     </div>
                   </div>
-                </TiltCard>
+                </div>
               </motion.div>
               <div className="co-testi-side">
                 {SIDE_QUOTES.map((q, i) => (
-                  <motion.div key={q.name} initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.1 }} style={{ flex: 1 }}>
-                    <TiltCard max={5} style={{ background: '#F7F8FA', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '24px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxSizing: 'border-box' }}>
-                      <div>
-                        <div style={{ display: 'flex', gap: '3px', marginBottom: '12px' }}>
-                          {[...Array(5)].map((_, j) => <Star key={j} size={12} fill="#D8F950" color="#D8F950" />)}
-                        </div>
-                        <p style={{ fontSize: '14px', color: '#3A3F4C', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginBottom: '16px' }}>&ldquo;{q.quote}&rdquo;</p>
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: q.color, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                          <span style={{ fontSize: '11px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>{q.name.split(' ').map(n => n[0]).join('')}</span>
-                        </div>
+                  <motion.div key={q.name} initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} style={{ flex: 1 }}>
+                    <div style={{ background: '#fff', borderRadius: '18px', border: '1px solid #F3DCEA', padding: '26px 28px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxSizing: 'border-box', boxShadow: '0 10px 30px rgba(214,61,157,0.06)' }}>
+                      <p style={{ fontSize: '15px', color: '#2A3242', lineHeight: 1.6, fontFamily: 'var(--font-body)', marginBottom: '20px' }}>&ldquo;{q.quote}&rdquo;</p>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: q.avatar, flexShrink: 0 }} />
                         <div>
-                          <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{q.name}</p>
-                          <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{q.role} at {q.company}</p>
+                          <p style={{ fontSize: '14px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{q.name}</p>
+                          <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px' }}>{q.sub}</p>
                         </div>
                       </div>
-                    </TiltCard>
+                    </div>
                   </motion.div>
                 ))}
               </div>
@@ -613,39 +647,31 @@ const [notifA, setNotifA] = useState(0);
         </section>
 
         {/* ─── FAQ ─── */}
-        <section style={{ padding: 'clamp(64px, 8vw, 96px) 24px', background: '#F7F8FA' }}>
+        <section style={{ padding: 'clamp(64px, 8vw, 96px) 24px', background: '#fff' }}>
           <div style={{ maxWidth: '680px', margin: '0 auto' }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '52px' }}>
-              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>Frequently asked questions</p>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 48px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#041635', lineHeight: 0.95 }}>Everything you need to know</h2>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>Frequently asked questions</p>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 48px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#061A3A', lineHeight: 0.95 }}>Everything you need to know</h2>
             </motion.div>
-            <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '0 28px', boxShadow: '0 1px 8px rgba(4,22,53,0.04)' }}>
+            <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '0 28px', boxShadow: '0 1px 8px rgba(6,26,58,0.04)' }}>
               {FAQS.map((f, i) => <FAQItem key={f.q} q={f.q} a={f.a} open={openFaq === i} toggle={() => setOpenFaq(openFaq === i ? null : i)} />)}
             </div>
           </div>
         </section>
 
-        {/* ─── CTA ─── */}
-        <section style={{ padding: 'clamp(72px, 10vw, 120px) 24px', background: '#041635', position: 'relative', overflow: 'hidden', textAlign: 'center' }}>
-          <div style={{ position: 'absolute', top: '-20%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '600px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.25), transparent 60%)', pointerEvents: 'none' }} />
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ maxWidth: '640px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-            <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(42px, 6vw, 76px)', fontWeight: 900, letterSpacing: '-0.035em', lineHeight: 0.92, color: '#fff', marginBottom: '20px' }}>
-              Find the best talent<br />for your<br /><span style={{ color: '#D8F950' }}>open roles.</span>
-            </h2>
-            <p style={{ fontSize: '18px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, marginBottom: '40px', fontFamily: 'var(--font-body)' }}>
-              Join the founders and hiring teams transforming how they find great people.
-            </p>
-            <div className="co-cta-btns" style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '20px' }}>
-              <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 28px', background: '#D8F950', color: '#041635', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                Schedule a demo <ArrowRight size={16} />
-              </Link>
-              <Link href="/get-started?type=company" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 28px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                Sign up for free
-              </Link>
-            </div>
-            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.2)', fontFamily: 'var(--font-body)' }}>Free to start. 14-day trial. No credit card required.</p>
-          </motion.div>
-        </section>
+        {/* ─── CTA ─── (shared component — left copy + video-resume card, pink-glow navy box) */}
+        <CTA
+          eyebrow="Get started"
+          heading={<>Ready to hire better?</>}
+          body="See every applicant's video pitch, AI score, and role fit before you spend a minute on interviews."
+          primaryLabel="Schedule a demo"
+          primaryHref="/contact/sales"
+          secondaryLabel="Sign up for free"
+          secondaryHref="/get-started?type=company"
+          footnote="Free to start · 14-day trial · no card needed"
+          sectionBg="#fff"
+          visual={<CandidateScorecard />}
+        />
 
       </main>
       <Footer />

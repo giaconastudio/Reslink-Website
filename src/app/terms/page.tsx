@@ -83,9 +83,9 @@ export default function TermsPage() {
       <Navbar dark />
       <main style={{ paddingTop: '68px', background: '#fff', minHeight: '100vh' }}>
         {/* Hero */}
-        <section style={{ background: '#041635', padding: 'clamp(60px, 8vw, 96px) 24px' }}>
+        <section style={{ background: '#061A3A', padding: 'clamp(60px, 8vw, 96px) 24px' }}>
           <div style={{ maxWidth: '760px', margin: '0 auto' }}>
-            <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>Legal</p>
+            <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>Legal</p>
             <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 60px)', fontWeight: 900, color: '#fff', lineHeight: 0.95, letterSpacing: '-0.02em', marginBottom: '20px' }}>Terms of Service</h1>
             <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', lineHeight: 1.6 }}>Last updated: June 2025</p>
           </div>
@@ -98,10 +98,10 @@ export default function TermsPage() {
               <div key={s.n} style={{ marginBottom: '40px', paddingBottom: '40px', borderBottom: '1px solid #F0F1F3' }}>
                 <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
                   <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
-                    <span style={{ fontSize: '12px', fontWeight: 700, color: '#0C63E3', fontFamily: 'var(--font-body)' }}>{s.n}</span>
+                    <span style={{ fontSize: '12px', fontWeight: 700, color: '#1468E8', fontFamily: 'var(--font-body)' }}>{s.n}</span>
                   </div>
                   <div style={{ flex: 1 }}>
-                    <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: '#041635', letterSpacing: '-0.01em', marginBottom: '10px' }}>{s.title}</h2>
+                    <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.01em', marginBottom: '10px' }}>{s.title}</h2>
                     {s.body && (
                       <p style={{ fontSize: '15px', color: '#4B5563', fontFamily: 'var(--font-body)', lineHeight: 1.75 }}>{s.body}</p>
                     )}
@@ -111,9 +111,9 @@ export default function TermsPage() {
                         <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 14px 0', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                           {s.cookies.map((c) => (
                             <li key={c.label} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
-                              <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#0C63E3', marginTop: '8px', flexShrink: 0 }} />
+                              <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#1468E8', marginTop: '8px', flexShrink: 0 }} />
                               <p style={{ fontSize: '15px', color: '#4B5563', fontFamily: 'var(--font-body)', lineHeight: 1.75 }}>
-                                <strong style={{ color: '#041635' }}>{c.label}:</strong> {c.desc}
+                                <strong style={{ color: '#061A3A' }}>{c.label}:</strong> {c.desc}
                               </p>
                             </li>
                           ))}
@@ -127,10 +127,10 @@ export default function TermsPage() {
             ))}
 
             {/* Acknowledgement */}
-            <div style={{ background: '#F7F8FA', borderRadius: '14px', padding: '28px 32px', border: '1px solid #E8E9EC' }}>
+            <div style={{ background: '#F6F7F9', borderRadius: '14px', padding: '28px 32px', border: '1px solid #E8E9EC' }}>
               <p style={{ fontSize: '15px', color: '#4B5563', fontFamily: 'var(--font-body)', lineHeight: 1.75 }}>
                 By using Reslink, you acknowledge that you have read, understood, and agree to these Terms of Service and our{' '}
-                <a href="/privacy" style={{ color: '#0C63E3', textDecoration: 'underline' }}>Privacy Policy</a>.
+                <a href="/privacy" style={{ color: '#1468E8', textDecoration: 'underline' }}>Privacy Policy</a>.
                 If you do not agree, please refrain from using the website.
               </p>
             </div>

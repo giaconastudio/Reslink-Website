@@ -17,7 +17,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 /* ── Team Collaboration: resume + AI score + live team notes ── */
 const COLLAB_TEAM = [
   { initials: 'JP', color: '#7C3AED', name: 'James Park' },
-  { initials: 'RT', color: '#0C63E3', name: 'Rosa Tran' },
+  { initials: 'RT', color: '#1468E8', name: 'Rosa Tran' },
   { initials: 'YO', color: '#D97706', name: 'You' },
 ];
 const COLLAB_NOTES = [
@@ -73,7 +73,7 @@ export function CollabDemo({ active }: { active: boolean }) {
             <span style={{ fontSize: '11px', fontWeight: 700, color: '#111827', fontFamily: 'var(--font-body)' }}>Backend Engineer II · Notion</span>
             <span style={{ fontSize: '9.5px', color: '#9CA3AF', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>Jan 2024 – Present</span>
           </div>
-          <p style={{ fontSize: '10px', color: '#0C63E3', fontFamily: 'var(--font-body)', margin: '2px 0 5px' }}>San Francisco, CA</p>
+          <p style={{ fontSize: '10px', color: '#1468E8', fontFamily: 'var(--font-body)', margin: '2px 0 5px' }}>San Francisco, CA</p>
           <ul style={{ listStyle: 'disc', paddingLeft: '16px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
             <li style={{ fontSize: '10px', color: '#374151', fontFamily: 'var(--font-body)', lineHeight: 1.5 }}>Built real-time sync engine serving 10M+ daily active users</li>
             <li style={{ fontSize: '10px', color: '#374151', fontFamily: 'var(--font-body)', lineHeight: 1.5 }}>Shipped Block Storage API, cutting read latency 55%</li>
@@ -84,7 +84,7 @@ export function CollabDemo({ active }: { active: boolean }) {
             <span style={{ fontSize: '11px', fontWeight: 700, color: '#111827', fontFamily: 'var(--font-body)' }}>Software Engineer · Twilio</span>
             <span style={{ fontSize: '9.5px', color: '#9CA3AF', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>Jul 2022 – Dec 2023</span>
           </div>
-          <p style={{ fontSize: '10px', color: '#0C63E3', fontFamily: 'var(--font-body)', margin: '2px 0 5px' }}>Remote</p>
+          <p style={{ fontSize: '10px', color: '#1468E8', fontFamily: 'var(--font-body)', margin: '2px 0 5px' }}>Remote</p>
           <ul style={{ listStyle: 'disc', paddingLeft: '16px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
             <li style={{ fontSize: '10px', color: '#374151', fontFamily: 'var(--font-body)', lineHeight: 1.5 }}>Led incident response on 3 P0 outages, cutting MTTR 45→12 min</li>
           </ul>
@@ -104,14 +104,14 @@ export function CollabDemo({ active }: { active: boolean }) {
           <span style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#6B7280', fontFamily: 'var(--font-body)' }}>Reslink AI</span>
           <span style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '5px' }}>
             <span style={{ fontSize: '9px', fontWeight: 900, color: '#fff', background: '#16A34A', borderRadius: '5px', padding: '2px 6px' }}>A</span>
-            <span style={{ fontSize: '11px', fontWeight: 800, color: '#041635', fontFamily: 'var(--font-phudu)' }}>94/100</span>
+            <span style={{ fontSize: '11px', fontWeight: 800, color: '#061A3A', fontFamily: 'var(--font-phudu)' }}>94/100</span>
           </span>
         </div>
 
         <div style={{ background: '#fff', borderRadius: '10px', border: '1px solid #E8EAF0', padding: '12px', flex: 1, display: 'flex', flexDirection: 'column' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
-            <span style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>Team Notes</span>
-            <span style={{ fontSize: '9.5px', fontWeight: 700, color: '#0C63E3', background: '#EEF4FF', borderRadius: '100px', padding: '1px 7px' }}>{visibleCount}</span>
+            <span style={{ fontSize: '12px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)' }}>Team Notes</span>
+            <span style={{ fontSize: '9.5px', fontWeight: 700, color: '#1468E8', background: '#EEF4FF', borderRadius: '100px', padding: '1px 7px' }}>{visibleCount}</span>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', flex: 1 }}>
@@ -125,10 +125,10 @@ export function CollabDemo({ active }: { active: boolean }) {
                       <span style={{ fontSize: '8.5px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>{author.initials}</span>
                     </div>
                     <div style={{ minWidth: 0 }}>
-                      <p style={{ fontSize: '10.5px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>{author.name}</p>
+                      <p style={{ fontSize: '10.5px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)' }}>{author.name}</p>
                       <p style={{ fontSize: '10.5px', color: '#3A3F4C', fontFamily: 'var(--font-body)', lineHeight: 1.4 }}>
                         {before}
-                        {mention && <span style={{ color: '#0C63E3', fontWeight: 700 }}>@{mention}</span>}
+                        {mention && <span style={{ color: '#1468E8', fontWeight: 700 }}>@{mention}</span>}
                         {after}
                       </p>
                     </div>
@@ -168,8 +168,8 @@ const PIPELINE_LISTS = [
     { name: 'Liam Castillo', role: 'Backend Software Engineer', initials: 'LC', color: '#4F6EF7', grade: 'A', gradeColor: '#16A34A' },
     { name: 'Eleanor Chu', role: 'Senior Product Designer', initials: 'EC', color: '#10B981', grade: 'A+', gradeColor: '#16A34A' },
   ] },
-  { id: 'maybe', label: 'Strong Maybes', color: '#0C63E3', count: 6, candidates: [
-    { name: 'Priya Nair', role: 'Data Analyst', initials: 'PN', color: '#F59E0B', grade: 'B+', gradeColor: '#0C63E3' },
+  { id: 'maybe', label: 'Strong Maybes', color: '#1468E8', count: 6, candidates: [
+    { name: 'Priya Nair', role: 'Data Analyst', initials: 'PN', color: '#F59E0B', grade: 'B+', gradeColor: '#1468E8' },
     { name: 'Marcus Lee', role: 'Sales Development Rep', initials: 'ML', color: '#EF4444', grade: 'A', gradeColor: '#16A34A' },
   ] },
   { id: 'warm', label: 'Keep Warm', color: '#D97706', count: 4, candidates: [
@@ -198,16 +198,16 @@ export function PipelineDemo({ active }: { active: boolean }) {
     <div ref={rootRef} style={{ background: '#F7F8FA', padding: 'clamp(16px, 2.5vw, 26px)' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
         <div>
-          <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '15px', fontWeight: 900, color: '#041635', letterSpacing: '-0.01em' }}>SAVED LISTS</p>
+          <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '15px', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.01em' }}>SAVED LISTS</p>
           <p style={{ fontSize: '10px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '2px' }}>Organize candidates into custom shortlists</p>
         </div>
-        <span style={{ fontSize: '10px', fontWeight: 700, color: '#fff', background: '#041635', borderRadius: '7px', padding: '6px 10px', fontFamily: 'var(--font-body)' }}>+ New List</span>
+        <span style={{ fontSize: '10px', fontWeight: 700, color: '#fff', background: '#061A3A', borderRadius: '7px', padding: '6px 10px', fontFamily: 'var(--font-body)' }}>+ New List</span>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', marginBottom: '12px' }}>
         {[{ v: 3, l: 'Lists' }, { v: 15, l: 'Candidates Saved' }, { v: 8, l: 'Grade A' }].map(s => (
           <div key={s.l} style={{ background: '#fff', border: '1px solid #E8EAF0', borderRadius: '10px', padding: '10px', textAlign: 'center' }}>
-            <p style={{ fontSize: '17px', fontWeight: 900, color: '#041635', fontFamily: 'var(--font-phudu)' }}>{s.v}</p>
+            <p style={{ fontSize: '17px', fontWeight: 900, color: '#061A3A', fontFamily: 'var(--font-phudu)' }}>{s.v}</p>
             <p style={{ fontSize: '8.5px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '2px' }}>{s.l}</p>
           </div>
         ))}
@@ -220,7 +220,7 @@ export function PipelineDemo({ active }: { active: boolean }) {
             <motion.div key={list.id} layout transition={{ layout: { duration: 0.4, ease: 'easeInOut' } }} style={{ background: '#fff', border: '1px solid #E8EAF0', borderRadius: '10px', overflow: 'hidden' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '11px 13px', cursor: 'pointer' }}>
                 <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: list.color, flexShrink: 0 }} />
-                <span style={{ fontSize: '12px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>{list.label}</span>
+                <span style={{ fontSize: '12px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)' }}>{list.label}</span>
                 <span style={{ fontSize: '9.5px', fontWeight: 700, color: list.color, background: `${list.color}18`, borderRadius: '100px', padding: '2px 8px' }}>{list.count} candidates</span>
                 <motion.svg animate={{ rotate: isExpanded ? 180 : 0 }} transition={{ duration: 0.3 }} width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9AA1AE" strokeWidth="2.5" style={{ marginLeft: 'auto' }}>
                   <polyline points="6 9 12 15 18 9" />
@@ -236,7 +236,7 @@ export function PipelineDemo({ active }: { active: boolean }) {
                             <span style={{ fontSize: '9px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>{c.initials}</span>
                           </div>
                           <div style={{ flex: 1, minWidth: 0 }}>
-                            <p style={{ fontSize: '11px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{c.name}</p>
+                            <p style={{ fontSize: '11px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{c.name}</p>
                             <p style={{ fontSize: '9.5px', color: '#9AA1AE', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{c.role}</p>
                           </div>
                           <span style={{ fontSize: '9px', fontWeight: 800, color: '#fff', background: c.gradeColor, borderRadius: '5px', padding: '2px 6px', flexShrink: 0 }}>{c.grade}</span>
@@ -473,7 +473,7 @@ export function JobBoardDemo({ active }: { active: boolean }) {
         {/* Search + filter row */}
         <div ref={searchBarRef} style={{ background: '#F7F8FA', padding: '14px 18px 0' }}>
           <div style={{ display: 'flex', gap: '8px', marginBottom: '10px' }}>
-            <div style={{ flex: 1, fontSize: '10px', color: searchText ? '#041635' : '#9AA1AE', fontFamily: 'var(--font-body)', background: '#fff', border: searchText ? '1.5px solid #2F5FE0' : '1px solid #E4E7EC', borderRadius: '8px', padding: '8px 11px' }}>
+            <div style={{ flex: 1, fontSize: '10px', color: searchText ? '#061A3A' : '#9AA1AE', fontFamily: 'var(--font-body)', background: '#fff', border: searchText ? '1.5px solid #2F5FE0' : '1px solid #E4E7EC', borderRadius: '8px', padding: '8px 11px' }}>
               {searchText || 'Search roles, teams, locations…'}
               {searchText && searchText.length < SEARCH_TARGET.length && (
                 <motion.span animate={{ opacity: [1, 0] }} transition={{ duration: 0.5, repeat: Infinity, repeatType: 'reverse' }} style={{ display: 'inline-block', width: '1px', height: '10px', background: '#2F5FE0', marginLeft: '1px', verticalAlign: 'middle' }} />
@@ -483,7 +483,7 @@ export function JobBoardDemo({ active }: { active: boolean }) {
           </div>
           <div style={{ display: 'flex', gap: '6px', overflow: 'hidden' }}>
             {BOARD_CATEGORIES.map((cat, i) => (
-              <span key={cat} style={{ fontSize: '9.5px', fontWeight: 700, color: i === 0 ? '#fff' : '#3A3F4C', background: i === 0 ? '#041635' : '#fff', border: i === 0 ? 'none' : '1px solid #E4E7EC', borderRadius: '100px', padding: '5px 11px', whiteSpace: 'nowrap' }}>{cat}</span>
+              <span key={cat} style={{ fontSize: '9.5px', fontWeight: 700, color: i === 0 ? '#fff' : '#3A3F4C', background: i === 0 ? '#061A3A' : '#fff', border: i === 0 ? 'none' : '1px solid #E4E7EC', borderRadius: '100px', padding: '5px 11px', whiteSpace: 'nowrap' }}>{cat}</span>
             ))}
           </div>
         </div>
@@ -497,7 +497,7 @@ export function JobBoardDemo({ active }: { active: boolean }) {
               return (
               <div key={r.title} style={{ background: '#fff', borderRadius: '10px', border: i === selectedIndex ? '1.5px solid #2F5FE0' : '1px solid #E8EAF0', padding: '10px 12px' }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '6px', marginBottom: '4px' }}>
-                  <span style={{ fontSize: '11px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.3 }}>{r.title}</span>
+                  <span style={{ fontSize: '11px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.3 }}>{r.title}</span>
                   <span style={{ fontSize: '8.5px', fontWeight: 700, color: r.typeColor, background: `${r.typeColor}18`, borderRadius: '100px', padding: '2px 7px', flexShrink: 0, whiteSpace: 'nowrap' }}>{r.type}</span>
                 </div>
                 <p style={{ fontSize: '9.5px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginBottom: '5px' }}>{r.dept} · {r.location}</p>
@@ -516,14 +516,14 @@ export function JobBoardDemo({ active }: { active: boolean }) {
           <AnimatePresence mode="wait">
           <motion.div ref={detailRef} key={selectedRole.title} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.25 }} style={{ background: '#fff', borderRadius: '10px', border: '1px solid #E8EAF0', padding: '14px', flex: '1.15 1 260px' }}>
             <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px', marginBottom: '4px' }}>
-              <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)' }}>{selectedRole.title}</p>
+              <p style={{ fontSize: '13px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)' }}>{selectedRole.title}</p>
               {/* Pressing this is what visibly triggers the loop restart —
                   matches the "click to loop" pattern used elsewhere in this
                   file (Pitch AI's Use Script) instead of a silent reset. */}
               <motion.span
                 animate={applyPressed ? { scale: 0.92 } : { scale: 1 }}
                 transition={{ duration: 0.15 }}
-                style={{ fontSize: '9.5px', fontWeight: 700, color: '#fff', background: '#041635', borderRadius: '7px', padding: '5px 10px', whiteSpace: 'nowrap', position: 'relative' }}
+                style={{ fontSize: '9.5px', fontWeight: 700, color: '#fff', background: '#061A3A', borderRadius: '7px', padding: '5px 10px', whiteSpace: 'nowrap', position: 'relative' }}
               >
                 Apply Now
                 {applyPressed && (
@@ -538,21 +538,21 @@ export function JobBoardDemo({ active }: { active: boolean }) {
               ))}
             </div>
 
-            <p style={{ fontSize: '9.5px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', marginBottom: '5px' }}>Responsibilities</p>
+            <p style={{ fontSize: '9.5px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', marginBottom: '5px' }}>Responsibilities</p>
             <ul style={{ listStyle: 'disc', paddingLeft: '15px', display: 'flex', flexDirection: 'column', gap: '3px', marginBottom: '10px' }}>
               {selectedRole.detail!.responsibilities.map(r => (
                 <li key={r} style={{ fontSize: '9.5px', color: '#3A3F4C', fontFamily: 'var(--font-body)', lineHeight: 1.5 }}>{r}</li>
               ))}
             </ul>
 
-            <p style={{ fontSize: '9.5px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', marginBottom: '5px' }}>Skills &amp; Qualifications</p>
+            <p style={{ fontSize: '9.5px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', marginBottom: '5px' }}>Skills &amp; Qualifications</p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '10px' }}>
               {selectedRole.detail!.skills.map(s => (
                 <span key={s} style={{ fontSize: '8.5px', fontWeight: 600, color: '#3A3F4C', background: '#F3F4F6', borderRadius: '100px', padding: '2px 8px' }}>{s}</span>
               ))}
             </div>
 
-            <p style={{ fontSize: '9.5px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', marginBottom: '5px' }}>Benefits &amp; Perks</p>
+            <p style={{ fontSize: '9.5px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', marginBottom: '5px' }}>Benefits &amp; Perks</p>
             <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '4px', marginBottom: '10px' }}>
               {selectedRole.detail!.benefits.map(b => (
                 <li key={b} style={{ display: 'flex', alignItems: 'flex-start', gap: '6px', fontSize: '9.5px', color: '#3A3F4C', fontFamily: 'var(--font-body)', lineHeight: 1.5 }}>
@@ -562,7 +562,7 @@ export function JobBoardDemo({ active }: { active: boolean }) {
               ))}
             </ul>
 
-            <p style={{ fontSize: '9.5px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', marginBottom: '5px' }}>About the role</p>
+            <p style={{ fontSize: '9.5px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', marginBottom: '5px' }}>About the role</p>
             <p style={{ fontSize: '9.5px', color: '#3A3F4C', fontFamily: 'var(--font-body)', lineHeight: 1.55 }}>
               {selectedRole.detail!.about}
             </p>

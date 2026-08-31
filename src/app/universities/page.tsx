@@ -3,21 +3,22 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Video, BarChart2, Zap, Globe, FileText, Share2, ArrowRight, Plus, Minus, Star, CheckCircle, GraduationCap, BarChart, Users } from 'lucide-react';
+import { Video, BarChart2, Zap, Globe, FileText, Share2, ArrowRight, Plus, Minus, Star, CheckCircle } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import LogoTicker from '@/components/LogoTicker';
 import { AnimatedStat } from '@/components/CountUp';
 import { TiltCard } from '@/components/TiltCard';
+import CTA from '@/components/CTA';
 
 /* ─── Student features (same tools as job seekers, framed for career centers) ─── */
 const FEATURES = [
-  { icon: Zap, color: '#0C63E3', bg: '#EEF4FF', title: 'AI writes their pitch', body: 'PitchAI generates a personalized 90-second script from a student\'s resume, tailored to the roles they\'re targeting. No blank-page paralysis.' },
-  { icon: Video, color: '#0C63E3', bg: '#EEF4FF', title: 'Teleprompter-guided recording', body: 'Students record on any device. The built-in teleprompter scrolls their script line by line so they stay on camera looking natural, not down at notes.' },
-  { icon: BarChart2, color: '#0C63E3', bg: '#EEF4FF', title: 'Real-time view analytics', body: 'Every student can see when a recruiter opens their profile, how long they watched, and how many times. Anxiety replaced with data.' },
-  { icon: FileText, color: '#0C63E3', bg: '#EEF4FF', title: 'Resume paired with video', body: 'A Reslink profile combines their video pitch with resume highlights in one clean page. Employers get the full picture without opening attachments.' },
-  { icon: Globe, color: '#0C63E3', bg: '#EEF4FF', title: 'One link, everywhere', body: 'Students add their Reslink to LinkedIn, email signatures, career fair badges, and every application. One link works on every device.' },
-  { icon: Share2, color: '#0C63E3', bg: '#EEF4FF', title: 'Impossible to ignore', body: 'A video profile link in an application email stands out before the recruiter even opens the resume. Most applications look identical. Reslinks don\'t.' },
+  { icon: Zap, color: '#1468E8', bg: '#EEF4FF', title: 'AI writes their pitch', body: 'PitchAI generates a personalized 90-second script from a student\'s resume, tailored to the roles they\'re targeting. No blank-page paralysis.' },
+  { icon: Video, color: '#1468E8', bg: '#EEF4FF', title: 'Teleprompter-guided recording', body: 'Students record on any device. The built-in teleprompter scrolls their script line by line so they stay on camera looking natural, not down at notes.' },
+  { icon: BarChart2, color: '#1468E8', bg: '#EEF4FF', title: 'Real-time view analytics', body: 'Every student can see when a recruiter opens their profile, how long they watched, and how many times. Anxiety replaced with data.' },
+  { icon: FileText, color: '#1468E8', bg: '#EEF4FF', title: 'Resume paired with video', body: 'A Reslink profile combines their video pitch with resume highlights in one clean page. Employers get the full picture without opening attachments.' },
+  { icon: Globe, color: '#1468E8', bg: '#EEF4FF', title: 'One link, everywhere', body: 'Students add their Reslink to LinkedIn, email signatures, career fair badges, and every application. One link works on every device.' },
+  { icon: Share2, color: '#1468E8', bg: '#EEF4FF', title: 'Impossible to ignore', body: 'A video profile link in an application email stands out before the recruiter even opens the resume. Most applications look identical. Reslinks don\'t.' },
 ];
 
 /* ─── FAQs ─── */
@@ -34,8 +35,8 @@ function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; 
   return (
     <div style={{ borderBottom: '1px solid #EEEEF0' }}>
       <button onClick={toggle} style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', padding: '20px 0', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left' }}>
-        <span style={{ fontSize: '15px', fontWeight: 600, color: '#041635', fontFamily: 'var(--font-body)' }}>{q}</span>
-        <span style={{ width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0, background: open ? '#0C63E3' : '#F7F8FA', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.15s' }}>
+        <span style={{ fontSize: '15px', fontWeight: 600, color: '#061A3A', fontFamily: 'var(--font-body)' }}>{q}</span>
+        <span style={{ width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0, background: open ? '#1468E8' : '#F6F7F9', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.15s' }}>
           {open ? <Minus size={12} color="#fff" /> : <Plus size={12} color="#5C6070" />}
         </span>
       </button>
@@ -52,12 +53,19 @@ function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; 
 
 const UNI_FEATURED = {
   quote: "Before Reslink our students were submitting PDFs no one was reading. Now employers watch their pitch before the first call. Our placement rate is up 34% in one year.",
-  name: 'Director of Career Services', role: 'Pilot program', company: 'public research university', color: '#059669',
+  name: 'Director of Career Services', role: 'Pilot program', company: 'public research university', color: '#1468E8',
 };
 const UNI_SIDE_QUOTES = [
-  { quote: "Employers come back to us now. They tell us our students are different. They actually know how to present themselves. Reslink made that happen.", name: 'Career Development Lead', role: 'Pilot program', company: 'state university', color: '#0C63E3' },
-  { quote: "Students who were struggling to get callbacks started landing interviews once they had a video profile. It levels the playing field in a way a resume never could.", name: 'Career Counselor', role: 'Pilot program', company: 'technical institute', color: '#7C3AED' },
-  { quote: 'We used to rely on word of mouth to prove our placement numbers. Now I pull a real report every semester and show exactly what our career center delivered.', name: 'VP of Student Success', role: 'Pilot program', company: 'private college', color: '#D97706' },
+  { quote: "Employers come back to us now. They tell us our students are different. They actually know how to present themselves. Reslink made that happen.", name: 'Career Development Lead', role: 'Pilot program', company: 'state university', color: '#D63D9D' },
+  { quote: "Students who were struggling to get callbacks started landing interviews once they had a video profile. It levels the playing field in a way a resume never could.", name: 'Career Counselor', role: 'Pilot program', company: 'technical institute', color: '#5B7A0F' },
+  { quote: 'We used to rely on word of mouth to prove our placement numbers. Now I pull a real report every semester and show exactly what our career center delivered.', name: 'VP of Student Success', role: 'Pilot program', company: 'private college', color: '#061A3A' },
+];
+
+/* ─── How it works steps (canonical numbered-node list, matches companies) ─── */
+const UNI_STEPS = [
+  { num: '01', tag: 'Free consultation', tagColor: '#EAF1FF', tagText: '#1468E8', title: 'Schedule a demo', desc: 'Connect with our team to explore how Reslink fits into your career services, employability modules, or student success programs.' },
+  { num: '02', tag: 'Done in days, not months', tagColor: '#EAF3DE', tagText: '#3B6D11', title: 'Set up access for your students', desc: 'We guide your team through setup and onboarding with ready-to-use resources so students can start creating within days of sign-off.' },
+  { num: '03', tag: 'Where outcomes are built', tagColor: '#FBEAF5', tagText: '#9E2462', title: 'Students create. You track results.', desc: 'Students record their pitches, get AI coaching, and share their Reslink everywhere they apply. Your dashboard shows every view, every placement.' },
 ];
 
 export default function UniversitiesPage() {
@@ -104,20 +112,20 @@ export default function UniversitiesPage() {
       <main style={{ paddingTop: '68px' }}>
 
         {/* ─── Hero ─── */}
-        <section style={{ background: '#041635', padding: 'clamp(72px, 10vw, 120px) 24px', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', top: '-10%', left: '30%', width: '900px', height: '700px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.22), transparent 60%)', pointerEvents: 'none' }} />
+        <section style={{ background: '#061A3A', padding: 'clamp(72px, 10vw, 120px) 24px', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: '-10%', left: '30%', width: '900px', height: '700px', background: 'radial-gradient(ellipse, rgba(20,104,232,0.22), transparent 60%)', pointerEvents: 'none' }} />
           <div style={{ maxWidth: '1060px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
             <div className="uni-hero-grid">
               <motion.div className="uni-hero-text" style={{ display: 'flex', flexDirection: 'column' }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
-                <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For universities and career centers</p>
+                <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For universities and career centers</p>
                 <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 6.5vw, 84px)', fontWeight: 900, color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '24px' }}>
-                  Equip every student<br />to <span style={{ color: '#D8F950' }}>stand out.</span>
+                  Equip every student<br />to <span style={{ color: '#D7FF43' }}>stand out.</span>
                 </h1>
                 <p style={{ fontSize: 'clamp(16px, 1.6vw, 18px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.75, fontFamily: 'var(--font-body)', marginBottom: '36px', maxWidth: '480px' }}>
                   Reslink gives every student a video pitch, AI-powered coaching, and the analytics to know it's working. Measurable outcomes for your career center, real results for your students.
                 </p>
                 <div className="uni-hero-btns" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '36px' }}>
-                  <Link href="/get-started?type=university" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: '#D8F950', color: '#041635', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                  <Link href="/get-started?type=university" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                     Add your school to the waitlist <ArrowRight size={16} />
                   </Link>
                   <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
@@ -136,12 +144,12 @@ export default function UniversitiesPage() {
 
               {/* Coded UI mockup: student Reslink profile + view notification */}
               <motion.div className="uni-hero-visual" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.15 }}>
-                <div style={{ borderRadius: '20px', overflow: 'hidden', border: '2px solid rgba(216,249,80,0.25)', boxShadow: '0 40px 100px rgba(0,0,0,0.5)' }}>
+                <div style={{ borderRadius: '20px', overflow: 'hidden', border: '2px solid rgba(215,255,67,0.25)', boxShadow: '0 40px 100px rgba(0,0,0,0.5)' }}>
                   {/* Profile header */}
                   <div style={{ background: '#0A1F3A', padding: '24px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
                       <span style={{ fontSize: '10px', fontWeight: 700, color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Student Reslink</span>
-                      <span style={{ fontSize: '10px', fontWeight: 700, color: '#041635', background: '#D8F950', padding: '3px 10px', borderRadius: '100px', fontFamily: 'var(--font-body)' }}>LIVE</span>
+                      <span style={{ fontSize: '10px', fontWeight: 700, color: '#061A3A', background: '#D7FF43', padding: '3px 10px', borderRadius: '100px', fontFamily: 'var(--font-body)' }}>LIVE</span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '20px' }}>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -173,22 +181,22 @@ export default function UniversitiesPage() {
                     </div>
                   </div>
                   {/* Recruiter view notification */}
-                  <div style={{ background: '#F7F8FA', padding: '14px 20px', borderTop: '1px solid #ECEEF1', display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#0C63E3', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ background: '#F6F7F9', padding: '14px 20px', borderTop: '1px solid #ECEEF1', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#1468E8', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                       <span style={{ fontSize: '11px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>G</span>
                     </div>
                     <div style={{ flex: 1 }}>
-                      <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Google Recruiter viewed Ava&apos;s Reslink</p>
+                      <p style={{ fontSize: '13px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Google Recruiter viewed Ava&apos;s Reslink</p>
                       <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Watched 0:44 of 0:47 · 2h ago</p>
                     </div>
-                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#0C63E3', flexShrink: 0 }} />
+                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#1468E8', flexShrink: 0 }} />
                   </div>
                   <div style={{ background: '#FAFFF0', padding: '14px 20px', borderTop: '1px solid #ECEEF1', display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#D8F950', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                      <CheckCircle size={15} color="#041635" strokeWidth={2.5} />
+                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#D7FF43', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <CheckCircle size={15} color="#061A3A" strokeWidth={2.5} />
                     </div>
                     <div>
-                      <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Interview request received</p>
+                      <p style={{ fontSize: '13px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Interview request received</p>
                       <p style={{ fontSize: '11px', color: '#6B7280', fontFamily: 'var(--font-body)' }}>Brandify · 2 days after profile shared</p>
                     </div>
                   </div>
@@ -201,8 +209,8 @@ export default function UniversitiesPage() {
         <LogoTicker variant="university" />
 
         {/* ─── Stats ─── */}
-        <section style={{ background: '#041635', padding: 'clamp(64px, 8vw, 96px) 24px', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', top: '-30%', left: '50%', transform: 'translateX(-50%)', width: '800px', height: '600px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.2), transparent 65%)', pointerEvents: 'none' }} />
+        <section style={{ background: '#061A3A', padding: 'clamp(64px, 8vw, 96px) 24px', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: '-30%', left: '50%', transform: 'translateX(-50%)', width: '800px', height: '600px', background: 'radial-gradient(ellipse, rgba(20,104,232,0.2), transparent 65%)', pointerEvents: 'none' }} />
           <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
             <div className="uni-stats-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '24px', textAlign: 'center' }}>
               {[
@@ -212,7 +220,7 @@ export default function UniversitiesPage() {
                 { value: '85%', label: 'of students report more callbacks' },
               ].map((s, i) => (
                 <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}>
-                  <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 60px)', fontWeight: 900, color: '#D8F950', lineHeight: 1, letterSpacing: '-0.03em' }}><AnimatedStat value={s.value} /></p>
+                  <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 60px)', fontWeight: 900, color: '#D7FF43', lineHeight: 1, letterSpacing: '-0.03em' }}><AnimatedStat value={s.value} /></p>
                   <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', lineHeight: 1.5, maxWidth: '140px', margin: '10px auto 0' }}>{s.label}</p>
                 </motion.div>
               ))}
@@ -224,8 +232,8 @@ export default function UniversitiesPage() {
         <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 108px) 24px' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', maxWidth: '580px', margin: '0 auto 64px' }}>
-              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>For your career center</p>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#041635', lineHeight: 0.93, letterSpacing: '-0.03em', marginBottom: '20px' }}>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>For your career center</p>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.93, letterSpacing: '-0.03em', marginBottom: '20px' }}>
                 Measurable outcomes.<br />Provable results.
               </h2>
               <p style={{ fontSize: '17px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>
@@ -234,13 +242,13 @@ export default function UniversitiesPage() {
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}>
               {/* Desktop table */}
-              <div className="uni-compare-desktop" style={{ borderRadius: '20px', border: '1px solid #E4E6EC', overflow: 'hidden', boxShadow: '0 4px 24px rgba(4,22,53,0.07)' }}>
+              <div className="uni-compare-desktop" style={{ borderRadius: '20px', border: '1px solid #E4E6EC', overflow: 'hidden', boxShadow: '0 4px 24px rgba(6,26,58,0.07)' }}>
                 <div className="uni-compare-row">
-                  <div style={{ padding: '18px 28px', background: '#F7F8FA', borderBottom: '1px solid #ECEEF1', borderRight: '1px solid #ECEEF1' }}>
+                  <div style={{ padding: '18px 28px', background: '#F6F7F9', borderBottom: '1px solid #ECEEF1', borderRight: '1px solid #ECEEF1' }}>
                     <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Without Reslink</p>
                   </div>
-                  <div style={{ padding: '18px 28px', background: '#041635', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                    <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#D8F950', fontFamily: 'var(--font-body)' }}>With Reslink</p>
+                  <div style={{ padding: '18px 28px', background: '#061A3A', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                    <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#D7FF43', fontFamily: 'var(--font-body)' }}>With Reslink</p>
                   </div>
                 </div>
                 {[
@@ -256,16 +264,16 @@ export default function UniversitiesPage() {
                       <span style={{ fontSize: '14px', color: '#6B7280', fontFamily: 'var(--font-body)', lineHeight: 1.55 }}>{before}</span>
                     </div>
                     <div style={{ padding: '16px 28px', display: 'flex', alignItems: 'flex-start', gap: '10px', background: i % 2 === 0 ? '#fff' : '#F8FAFF' }}>
-                      <span style={{ fontSize: '13px', color: '#0C63E3', fontWeight: 700, flexShrink: 0, marginTop: '2px' }}>✓</span>
-                      <span style={{ fontSize: '14px', color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.55, fontWeight: 500 }}>{after}</span>
+                      <span style={{ fontSize: '13px', color: '#1468E8', fontWeight: 700, flexShrink: 0, marginTop: '2px' }}>✓</span>
+                      <span style={{ fontSize: '14px', color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.55, fontWeight: 500 }}>{after}</span>
                     </div>
                   </div>
                 ))}
               </div>
               {/* Mobile two-card layout */}
               <div className="uni-compare-mobile">
-                <div style={{ borderRadius: '16px', border: '1px solid #E4E6EC', overflow: 'hidden', boxShadow: '0 2px 12px rgba(4,22,53,0.06)' }}>
-                  <div style={{ padding: '14px 20px', background: '#F7F8FA', borderBottom: '1px solid #ECEEF1' }}>
+                <div style={{ borderRadius: '16px', border: '1px solid #E4E6EC', overflow: 'hidden', boxShadow: '0 2px 12px rgba(6,26,58,0.06)' }}>
+                  <div style={{ padding: '14px 20px', background: '#F6F7F9', borderBottom: '1px solid #ECEEF1' }}>
                     <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Without Reslink</p>
                   </div>
                   {['Students submit identical PDF resumes', "No visibility into who's actually hiring", 'Placement data comes from self-reported surveys', 'Career fairs rely on awkward cold introductions', 'Hard to prove the ROI of your program'].map((item, i) => (
@@ -275,13 +283,13 @@ export default function UniversitiesPage() {
                     </div>
                   ))}
                 </div>
-                <div style={{ borderRadius: '16px', overflow: 'hidden', boxShadow: '0 2px 12px rgba(4,22,53,0.12)' }}>
-                  <div style={{ padding: '14px 20px', background: '#041635', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                    <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#D8F950', fontFamily: 'var(--font-body)' }}>With Reslink</p>
+                <div style={{ borderRadius: '16px', overflow: 'hidden', boxShadow: '0 2px 12px rgba(6,26,58,0.12)' }}>
+                  <div style={{ padding: '14px 20px', background: '#061A3A', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                    <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#D7FF43', fontFamily: 'var(--font-body)' }}>With Reslink</p>
                   </div>
                   {['Every student has a video pitch employers actually watch', 'Dashboard shows recruiter views and engagement in real time', 'Placement outcomes tracked automatically, no surveys needed', 'Students share Reslinks at career fairs. Employers remember them', 'Annual report pulls directly from your career center dashboard'].map((item, i) => (
-                    <div key={i} style={{ padding: '14px 20px', borderBottom: i < 4 ? '1px solid rgba(255,255,255,0.06)' : 'none', display: 'flex', alignItems: 'flex-start', gap: '10px', background: i % 2 === 0 ? '#041635' : '#061C3D' }}>
-                      <span style={{ fontSize: '13px', color: '#0C63E3', fontWeight: 700, flexShrink: 0, marginTop: '2px' }}>✓</span>
+                    <div key={i} style={{ padding: '14px 20px', borderBottom: i < 4 ? '1px solid rgba(255,255,255,0.06)' : 'none', display: 'flex', alignItems: 'flex-start', gap: '10px', background: i % 2 === 0 ? '#061A3A' : '#061C3D' }}>
+                      <span style={{ fontSize: '13px', color: '#1468E8', fontWeight: 700, flexShrink: 0, marginTop: '2px' }}>✓</span>
                       <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.85)', fontFamily: 'var(--font-body)', lineHeight: 1.55, fontWeight: 500 }}>{item}</span>
                     </div>
                   ))}
@@ -292,55 +300,58 @@ export default function UniversitiesPage() {
         </section>
 
         {/* ─── How it works ─── */}
-        <section style={{ background: '#041635', padding: 'clamp(72px, 9vw, 112px) 24px', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', top: '0%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '600px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.18), transparent 65%)', pointerEvents: 'none' }} />
+        <section style={{ background: '#061A3A', padding: 'clamp(72px, 9vw, 112px) 24px', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: '0%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '600px', background: 'radial-gradient(ellipse, rgba(20,104,232,0.18), transparent 65%)', pointerEvents: 'none' }} />
           <div style={{ maxWidth: '1060px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '56px' }}>
-              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D8F950', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>How it works</p>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>How it works</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#fff', lineHeight: 0.93, letterSpacing: '-0.03em' }}>
                 Up and running<br />in three steps.
               </h2>
             </motion.div>
-            <div className="uni-steps-row">
-              {[
-                { icon: GraduationCap, num: '01', tag: 'Free consultation', tagDark: false, title: 'Schedule a demo', desc: 'Connect with our team to explore how Reslink fits into your career services, employability modules, or student success programs.' },
-                { icon: Users, num: '02', tag: 'Done in days, not months', tagDark: true, title: 'Set up access for your students', desc: "We guide your team through setup and onboarding with ready-to-use resources so students can start creating within days of sign-off." },
-                { icon: BarChart, num: '03', tag: 'Where outcomes are built', tagDark: false, title: 'Students create. You track results.', desc: 'Students record their pitches, get AI coaching, and share their Reslink everywhere they apply. Your dashboard shows every view, every placement.' },
-              ].map((s, i) => (
-                <motion.div key={s.num} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.12 }}>
-                  <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '20px', padding: '32px 28px', height: '100%', position: 'relative', overflow: 'hidden' }}>
-                    <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '72px', fontWeight: 900, color: 'rgba(255,255,255,0.04)', lineHeight: 1, position: 'absolute', top: '12px', right: '20px' }}>#{s.num}</span>
-                    <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
-                      <s.icon size={20} color="#D8F950" strokeWidth={1.8} />
+            <div style={{ maxWidth: '760px', margin: '0 auto', display: 'flex', flexDirection: 'column' }}>
+              {UNI_STEPS.map((s, i) => {
+                const isLast = i === UNI_STEPS.length - 1;
+                return (
+                  <motion.div key={s.num} initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }} style={{ display: 'flex', gap: '24px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0, width: '52px' }}>
+                      <div style={{ width: '52px', height: '52px', borderRadius: '50%', background: isLast ? '#D7FF43' : 'rgba(255,255,255,0.05)', border: isLast ? 'none' : '1.5px solid rgba(255,255,255,0.18)', boxShadow: isLast ? '0 0 0 6px rgba(215,255,67,0.12)' : 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: isLast ? '#061A3A' : '#fff', lineHeight: 1 }}>{i + 1}</span>
+                      </div>
+                      {!isLast && <div style={{ width: '2px', flex: 1, background: 'rgba(255,255,255,0.1)', marginTop: '8px', minHeight: '40px' }} />}
                     </div>
-                    <span style={{ display: 'block', padding: '3px 10px', background: i === 0 ? '#D8F950' : i === 2 ? 'rgba(216,249,80,0.12)' : 'rgba(255,255,255,0.08)', borderRadius: '100px', fontSize: '11px', fontWeight: 700, color: i === 0 ? '#041635' : i === 2 ? '#D8F950' : 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', marginBottom: '16px', width: 'fit-content' }}>{s.tag}</span>
-                    <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '11px', fontWeight: 900, color: 'rgba(255,255,255,0.2)', letterSpacing: '0.1em', marginBottom: '8px' }}>STEP {s.num}</p>
-                    <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(19px, 2vw, 24px)', fontWeight: 900, color: '#fff', lineHeight: 1.05, letterSpacing: '-0.02em', marginBottom: '14px' }}>{s.title}</h3>
-                    <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.75, fontFamily: 'var(--font-body)' }}>{s.desc}</p>
-                  </div>
-                </motion.div>
-              ))}
+                    <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', padding: '24px 28px', flex: 1, marginBottom: isLast ? 0 : '16px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px', flexWrap: 'wrap' }}>
+                        <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '13px', fontWeight: 900, color: 'rgba(255,255,255,0.25)', letterSpacing: '0.06em' }}>STEP {s.num}</span>
+                        <span style={{ padding: '3px 12px', borderRadius: '100px', background: s.tagColor, fontSize: '11px', fontWeight: 700, color: s.tagText, fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>{s.tag}</span>
+                      </div>
+                      <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(20px, 2.5vw, 26px)', fontWeight: 900, color: '#fff', lineHeight: 1.05, letterSpacing: '-0.02em', marginBottom: '10px' }}>{s.title}</h3>
+                      <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.75, fontFamily: 'var(--font-body)', margin: 0 }}>{s.desc}</p>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </section>
 
         {/* ─── What students get: the same tools ─── */}
-        <section style={{ background: '#F7F8FA', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
+        <section style={{ background: '#F6F7F9', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '56px' }}>
-              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>What your students get access to</p>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 54px)', fontWeight: 900, color: '#041635', lineHeight: 0.95, letterSpacing: '-0.03em' }}>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>What your students get access to</p>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 54px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.95, letterSpacing: '-0.03em' }}>
                 Every tool they need<br />to stand out and get hired.
               </h2>
             </motion.div>
             <div className="uni-feat-grid">
               {FEATURES.map((f, i) => (
                 <motion.div key={f.title} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}>
-                  <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '28px', boxShadow: '0 1px 8px rgba(4,22,53,0.04)', height: '100%' }}>
+                  <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '28px', boxShadow: '0 1px 8px rgba(6,26,58,0.04)', height: '100%' }}>
                     <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: f.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
                       <f.icon size={22} color={f.color} strokeWidth={1.8} />
                     </div>
-                    <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: '20px', fontWeight: 900, color: '#041635', lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: '10px' }}>{f.title}</h3>
+                    <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: '20px', fontWeight: 900, color: '#061A3A', lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: '10px' }}>{f.title}</h3>
                     <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>{f.body}</p>
                   </div>
                 </motion.div>
@@ -353,18 +364,18 @@ export default function UniversitiesPage() {
         <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '56px' }}>
-              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>From career centers</p>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#041635', lineHeight: 0.98 }}>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>From career centers</p>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#061A3A', lineHeight: 0.98 }}>
                 Career centers that<br />get results.
               </h2>
             </motion.div>
             <div className="uni-testi-grid">
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                <TiltCard max={3} style={{ background: '#041635', borderRadius: '20px', padding: 'clamp(32px, 4vw, 48px)', height: '100%', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                  <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: '400px', height: '400px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.25), transparent 65%)', pointerEvents: 'none' }} />
+                <TiltCard max={3} style={{ background: '#061A3A', borderRadius: '20px', padding: 'clamp(32px, 4vw, 48px)', height: '100%', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                  <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: '400px', height: '400px', background: 'radial-gradient(ellipse, rgba(20,104,232,0.25), transparent 65%)', pointerEvents: 'none' }} />
                   <div style={{ position: 'relative', zIndex: 1 }}>
                     <div style={{ display: 'flex', gap: '3px', marginBottom: '24px' }}>
-                      {[...Array(5)].map((_, j) => <Star key={j} size={16} fill="#D8F950" color="#D8F950" />)}
+                      {[...Array(5)].map((_, j) => <Star key={j} size={16} fill="#D7FF43" color="#D7FF43" />)}
                     </div>
                     <p style={{ fontSize: 'clamp(17px, 2vw, 22px)', color: '#fff', lineHeight: 1.6, fontFamily: 'var(--font-body)', fontWeight: 500, marginBottom: '32px' }}>&ldquo;{UNI_FEATURED.quote}&rdquo;</p>
                   </div>
@@ -382,10 +393,10 @@ export default function UniversitiesPage() {
               <div className="uni-testi-side">
                 {UNI_SIDE_QUOTES.map((q, i) => (
                   <motion.div key={q.name} initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.1 }} style={{ flex: 1 }}>
-                    <TiltCard max={5} style={{ background: '#F7F8FA', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '24px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxSizing: 'border-box' }}>
+                    <TiltCard max={5} style={{ background: '#F6F7F9', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '24px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxSizing: 'border-box' }}>
                       <div>
                         <div style={{ display: 'flex', gap: '3px', marginBottom: '12px' }}>
-                          {[...Array(5)].map((_, j) => <Star key={j} size={12} fill="#D8F950" color="#D8F950" />)}
+                          {[...Array(5)].map((_, j) => <Star key={j} size={12} fill="#D7FF43" color="#D7FF43" />)}
                         </div>
                         <p style={{ fontSize: '14px', color: '#3A3F4C', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginBottom: '16px' }}>&ldquo;{q.quote}&rdquo;</p>
                       </div>
@@ -394,7 +405,7 @@ export default function UniversitiesPage() {
                           <span style={{ fontSize: '11px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>{q.name.split(' ').map(n => n[0]).join('')}</span>
                         </div>
                         <div>
-                          <p style={{ fontSize: '13px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{q.name}</p>
+                          <p style={{ fontSize: '13px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{q.name}</p>
                           <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{q.role} at {q.company}</p>
                         </div>
                       </div>
@@ -407,40 +418,29 @@ export default function UniversitiesPage() {
         </section>
 
         {/* ─── FAQ ─── */}
-        <section style={{ padding: 'clamp(64px, 8vw, 96px) 24px', background: '#F7F8FA' }}>
+        <section style={{ padding: 'clamp(64px, 8vw, 96px) 24px', background: '#F6F7F9' }}>
           <div style={{ maxWidth: '680px', margin: '0 auto' }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '52px' }}>
-              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>Frequently asked questions</p>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 48px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#041635', lineHeight: 0.95 }}>Everything you need to know</h2>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>Frequently asked questions</p>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 48px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#061A3A', lineHeight: 0.95 }}>Everything you need to know</h2>
             </motion.div>
-            <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '0 28px', boxShadow: '0 1px 8px rgba(4,22,53,0.04)' }}>
+            <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '0 28px', boxShadow: '0 1px 8px rgba(6,26,58,0.04)' }}>
               {FAQS.map((f, i) => <FAQItem key={f.q} q={f.q} a={f.a} open={openFaq === i} toggle={() => setOpenFaq(openFaq === i ? null : i)} />)}
             </div>
           </div>
         </section>
 
-        {/* ─── CTA ─── */}
-        <section style={{ padding: 'clamp(72px, 10vw, 120px) 24px', background: '#041635', position: 'relative', overflow: 'hidden', textAlign: 'center' }}>
-          <div style={{ position: 'absolute', top: '-20%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '600px', background: 'radial-gradient(ellipse, rgba(12,99,227,0.25), transparent 60%)', pointerEvents: 'none' }} />
-          <div style={{ position: 'absolute', bottom: '-30%', left: '50%', transform: 'translateX(-50%)', width: '700px', height: '500px', background: 'radial-gradient(ellipse, rgba(216,249,80,0.07), transparent 60%)', pointerEvents: 'none' }} />
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ maxWidth: '640px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-            <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(42px, 6vw, 76px)', fontWeight: 900, letterSpacing: '-0.035em', lineHeight: 0.92, color: '#fff', marginBottom: '20px' }}>
-              Give your students<br /><span style={{ color: '#D8F950' }}>a real advantage.</span>
-            </h2>
-            <p style={{ fontSize: '18px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, marginBottom: '40px', fontFamily: 'var(--font-body)' }}>
-              Join hundreds of universities using Reslink to get their students hired at better companies, faster.
-            </p>
-            <div className="uni-cta-btn" style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '20px' }}>
-              <Link href="/get-started?type=university" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 28px', background: '#D8F950', color: '#041635', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                Add your school to the waitlist <ArrowRight size={16} />
-              </Link>
-              <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 28px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                Schedule a demo
-              </Link>
-            </div>
-            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.2)', fontFamily: 'var(--font-body)' }}>Free for students · No credit card to join the waitlist</p>
-          </motion.div>
-        </section>
+        {/* ─── CTA ─── (shared component — pink-glow navy box, matches the rest of the site) */}
+        <CTA
+          eyebrow="For universities and career centers"
+          heading={<>Give your students<br /><span>a real advantage.</span></>}
+          body="Join hundreds of universities using Reslink to get their students hired at better companies, faster."
+          primaryLabel="Add your school to the waitlist"
+          primaryHref="/get-started?type=university"
+          secondaryLabel="Schedule a demo"
+          secondaryHref="/contact/sales"
+          footnote="Free for students · No credit card to join the waitlist"
+        />
 
       </main>
       <Footer />

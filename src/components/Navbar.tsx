@@ -203,7 +203,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
               onMouseLeave={e => { (e.currentTarget.style.background = 'transparent'); (e.currentTarget.style.color = linkColor); }}
             >Log in</Link>
             <Link href={signupHref} className="btn-primary" style={{ padding: '9px 18px', fontSize: '14px' }}>
-              Get started free
+              Get started for free
             </Link>
           </div>
 
@@ -266,7 +266,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
           ))}
 
           <Link href="/pricing" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#061A3A', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => setMobileOpen(false)}>Pricing</Link>
-          <Link href={signupHref} className="btn-primary" style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }} onClick={() => setMobileOpen(false)}>Get started free</Link>
+          <Link href={signupHref} className="btn-primary" style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }} onClick={() => setMobileOpen(false)}>Get started for free</Link>
         </div>
       )}
 

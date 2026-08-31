@@ -10,21 +10,22 @@ import { AnimatedStat } from '@/components/CountUp';
 import CTA from '@/components/CTA';
 
 const FEATURES = [
-  { icon: Zap, title: 'Translate military experience', body: 'PitchAI translates your service record into language civilian hiring managers immediately recognize and value.' },
-  { icon: Video, title: 'Show who you are', body: 'A 90-second video pitch communicates what a resume can\'t: presence, composure, and the confidence that comes from military service.' },
-  { icon: FileText, title: 'Resume + video in one link', body: 'Your Reslink pairs your video introduction with resume highlights. Hiring managers get the full picture before the first call.' },
-  { icon: BarChart2, title: 'Know when employers view you', body: 'See when a recruiter opens your profile and how long they engaged. Follow up with confidence and real data.' },
-  { icon: Globe, title: 'Works everywhere you apply', body: 'Add your Reslink to LinkedIn, email, and every application. One link that opens on any device.' },
-  { icon: Users, title: 'Stand out from the stack', body: 'A video profile link in your application immediately separates you from hundreds of identical PDFs.' },
+  { icon: Zap, title: 'Translate the acronyms', body: 'PitchAI turns your service record into language a civilian hiring manager recognises.' },
+  { icon: Users, title: 'Explain what you ran', body: 'Say the headcount, the budget, the deployments. The things a job title hides.' },
+  { icon: Video, title: 'Read your script on screen', body: 'The teleprompter scrolls as you record, so you stay looking at the camera.' },
+  { icon: BarChart2, title: 'See who watched, and when', body: 'Every recruiter who opened it, how long they stayed, what they clicked.' },
+  { icon: Play, title: 'Add a Play button to your CV', body: 'One click from your resume PDF takes them straight to your video.' },
+  { icon: FileText, title: 'Keep the record underneath', body: 'Your video sits on top, your full service record sits below it.' },
 ];
 
 const FAQS = [
-  { q: 'I\'ve never used a video resume before. Where do I start?', a: 'Upload your resume, let PitchAI generate your script, and record with our built-in teleprompter. Most veterans create their first Reslink in under 10 minutes.' },
-  { q: 'How do I explain military roles to civilian employers?', a: 'PitchAI translates military experience into civilian language. Describe your role and it generates a script that frames your leadership, technical skills, and accomplishments in terms any hiring manager understands.' },
-  { q: 'Is Reslink free?', a: 'Yes. Veterans can create and share a full Reslink profile for free. Pro plans unlock advanced analytics, multiple videos, and custom branding.' },
-  { q: 'How long should my video be?', a: '60 to 90 seconds. That\'s enough time to introduce yourself, highlight two or three key strengths, and express interest in the role. Shorter, confident, and direct.' },
-  { q: 'Will this work alongside my existing resume and LinkedIn?', a: 'Yes. Reslink supplements your standard resume. You continue submitting through any ATS. Reslink is the extra layer that makes you stand out and be remembered.' },
-  { q: 'What if I\'m not confident on camera yet?', a: 'The teleprompter scrolls your script while you record. You look straight at the camera and sound prepared. Because you are.' },
+  { q: 'How do I explain military roles to civilian employers?', a: 'PitchAI does the translation. Describe your role and it turns the acronyms and rank into plain language, framing your leadership, scope and results the way a civilian hiring manager reads them.' },
+  { q: 'How much should I lead with my service?', a: 'Lead with what you did, not only where. Your service is the proof, but recruiters connect with the scope you ran and the results you delivered, so put both up front.' },
+  { q: 'What if I\'m not confident on camera yet?', a: 'The teleprompter scrolls your script while you record, so you can just read it and look straight at the camera. Most veterans feel natural after a take or two.' },
+  { q: 'Can I use Reslink before I\'ve separated?', a: 'Yes. Plenty of service members build their Reslink while still in, so it\'s ready the day they start applying. Nothing stops you from setting it up early.' },
+  { q: 'Will this work alongside my resume and LinkedIn?', a: 'Yes. Reslink sits alongside your resume and LinkedIn, it doesn\'t replace them. You still submit your PDF, and you add your Reslink to applications, your email and your LinkedIn profile.' },
+  { q: 'Is Reslink free for veterans?', a: 'Yes. You can create and share a full Reslink for free. Pro features are half price for veterans, verified instantly through ID.me.' },
+  { q: 'How long should my video be?', a: 'Aim for 60 to 90 seconds. Enough to introduce yourself, cover two or three strengths, and show you want the role. Short, direct and confident.' },
 ];
 
 function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; toggle: () => void }) {
@@ -78,17 +79,17 @@ export default function VeteransPage() {
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For veterans</p>
               <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 4vw, 56px)', fontWeight: 900, color: '#fff', lineHeight: 1.0, letterSpacing: '-0.03em', marginBottom: '24px' }}>
                 From service<br />
-                <span style={{ color: '#D7FF43' }}>to standout.</span>
+                <span style={{ color: '#D7FF43' }}>to hired</span>
               </h1>
               <p style={{ fontSize: 'clamp(15px, 1.6vw, 17px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '440px', marginBottom: '36px' }}>
-                Military skills are some of the most valuable in any workforce. Reslink helps you communicate them to civilian employers in a way a PDF never could.
+                Civilian recruiters don&apos;t always know what your title meant. Reslink lets you explain it yourself, in your own words, before they open your resume.
               </p>
               <div className="vets-hero-btns" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                 <Link href="/get-started?type=veteran" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 28px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                  Create free Reslink
+                  Get started for free
                 </Link>
-                <Link href="/job-seekers" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                  See how it works
+                <Link href="/oliviastone" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                  See a real Reslink
                 </Link>
               </div>
 
@@ -98,8 +99,8 @@ export default function VeteransPage() {
                   <span style={{ fontFamily: 'var(--font-phudu)', fontWeight: 900, fontSize: '38px', color: '#fff', lineHeight: 1, letterSpacing: '-0.02em', whiteSpace: 'nowrap' }}>50% off</span>
                 </p>
                 <div>
-                  <p style={{ fontSize: '15px', fontWeight: 700, color: '#D7FF43', fontFamily: 'var(--font-body)', lineHeight: 1.3 }}>Veteran price — just $29/yr</p>
-                  <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Verified instantly through ID.me</p>
+                  <p style={{ fontSize: '15px', fontWeight: 700, color: '#D7FF43', fontFamily: 'var(--font-body)', lineHeight: 1.3 }}>Half price for those who served</p>
+                  <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', marginTop: '3px' }}>$29/year. Verified instantly through ID.me.</p>
                 </div>
               </div>
             </motion.div>
@@ -117,25 +118,25 @@ export default function VeteransPage() {
                   <div style={{ position: 'absolute', inset: 0, borderRadius: '20px', boxShadow: 'inset 0 0 0 1.5px rgba(255,255,255,0.12)', pointerEvents: 'none' }} />
                   {/* Bottom-left chip */}
                   <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8, duration: 0.4 }}
-                    style={{ position: 'absolute', bottom: '24px', left: '20px', background: '#fff', borderRadius: '14px', padding: '12px 14px', boxShadow: '0 16px 48px rgba(6,26,58,0.28)', display: 'flex', alignItems: 'center', gap: '10px', minWidth: '195px' }}>
-                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#D7FF43', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                      <CheckCircle size={16} color="#061A3A" strokeWidth={2.5} />
+                    style={{ position: 'absolute', bottom: '24px', left: '20px', background: '#fff', border: '1px solid #EEF0F3', borderRadius: '14px', padding: '12px 14px', boxShadow: '0 16px 40px rgba(6,26,58,0.20)', display: 'flex', alignItems: 'center', gap: '11px', minWidth: '196px' }}>
+                    <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: '#D7FF43', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <CheckCircle size={17} color="#061A3A" strokeWidth={2.5} />
                     </div>
                     <div>
-                      <p style={{ fontSize: '12px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Offer accepted</p>
-                      <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Defense tech · 8 days after sharing</p>
+                      <p style={{ fontSize: '13px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.25 }}>Offer accepted</p>
+                      <p style={{ fontSize: '11px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '1px' }}>Defense tech · 8 days after sharing</p>
                     </div>
                   </motion.div>
                 </div>
                 {/* Top-right external chip */}
                 <motion.div className="vets-hero-chip-ext" initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.0, duration: 0.4 }}
-                  style={{ position: 'absolute', top: '-14px', right: '-20px', zIndex: 3, background: '#0A1F45', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '14px', padding: '10px 14px', boxShadow: '0 12px 36px rgba(6,26,58,0.45)', display: 'flex', alignItems: 'center', gap: '10px', minWidth: '168px' }}>
-                  <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: 'rgba(215,255,67,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <MessageCircle size={13} color="#D7FF43" />
+                  style={{ position: 'absolute', top: '-14px', right: '-20px', zIndex: 3, background: '#fff', border: '1px solid #EEF0F3', borderRadius: '14px', padding: '11px 14px', boxShadow: '0 16px 40px rgba(6,26,58,0.20)', display: 'flex', alignItems: 'center', gap: '11px', minWidth: '182px' }}>
+                  <div style={{ width: '32px', height: '32px', borderRadius: '9px', background: '#1468E8', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <MessageCircle size={15} color="#fff" strokeWidth={2} />
                   </div>
                   <div>
-                    <p style={{ fontSize: '11px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Recruiter messaged</p>
-                    <p style={{ fontSize: '10px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)' }}>LinkedIn · 3 days after sharing</p>
+                    <p style={{ fontSize: '12px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.25 }}>Recruiter messaged</p>
+                    <p style={{ fontSize: '10.5px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '1px' }}>LinkedIn · 3 days after sharing</p>
                   </div>
                 </motion.div>
               </div>
@@ -179,13 +180,10 @@ export default function VeteransPage() {
             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>The challenge</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 3.8vw, 50px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.93, letterSpacing: '-0.03em', marginBottom: '20px' }}>
-                Your experience is real.<br />The translation gap is too.
+                The skills transfer.<br />The vocabulary doesn&apos;t
               </h2>
-              <p style={{ fontSize: '16px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '20px' }}>
-                Civilian recruiters often struggle to decode military titles and acronyms. A 90-second video pitch closes that gap instantly. Your leadership and presence speaks for itself.
-              </p>
               <p style={{ fontSize: '16px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>
-                Reslink&apos;s PitchAI translates your service record into a compelling civilian narrative that hiring managers immediately connect with.
+                A hiring manager reads &ldquo;Operations Chief, USMC&rdquo; and has no idea whether that&apos;s twelve people or two hundred. They&apos;re not dismissing you - they just can&apos;t see it. Ninety seconds of you explaining it closes the gap before it costs you the interview.
               </p>
             </motion.div>
           </div>
@@ -196,15 +194,15 @@ export default function VeteransPage() {
           <div style={{ maxWidth: '1060px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }} className="vets-pip-grid">
             <style>{`@media (max-width: 820px) { .vets-pip-grid { grid-template-columns: 1fr !important; gap: 40px !important; } }`}</style>
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
-              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>One link, everything</p>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Everything in one link</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 52px)', fontWeight: 900, color: '#fff', lineHeight: 0.93, letterSpacing: '-0.03em', marginBottom: '24px' }}>
-                Your Reslink is your<br /><span style={{ color: '#D7FF43' }}>first impression.</span>
+                Your Reslink is your<br /><span style={{ color: '#D7FF43' }}>first impression</span>
               </h2>
               <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '28px' }}>
-                One link combines your video pitch, service record highlights, and real-time recruiter analytics. Share it anywhere.
+                Your video sits at the top, your service record sits underneath, and every view comes back to you. One link, sent anywhere.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                {['Military-to-civilian script translation', 'Video pitch + resume in one link', 'See when recruiters view you', 'Works on every device and platform'].map(item => (
+                {['The scope a job title hides', 'Video and resume in one link', 'See who watched, and for how long'].map(item => (
                   <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <CheckCircle size={18} color="#061A3A" fill="#D7FF43" strokeWidth={2.5} style={{ flexShrink: 0 }} />
                     <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.75)', fontFamily: 'var(--font-body)' }}>{item}</span>
@@ -285,13 +283,13 @@ export default function VeteransPage() {
           </div>
         </section>
 
-        {/* Features */}
-        <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 108px) 24px' }}>
+        {/* Features — light blue */}
+        <section style={{ background: '#EAF1FF', padding: 'clamp(72px, 9vw, 108px) 24px' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} style={{ textAlign: 'center', marginBottom: '52px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Built for the transition</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4.5vw, 54px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.93, letterSpacing: '-0.03em' }}>
-                Every tool you need.
+                Every tool you need
               </h2>
             </motion.div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }} className="vets-feat-grid">
@@ -319,7 +317,7 @@ export default function VeteransPage() {
         <section style={{ background: '#fff', padding: 'clamp(64px, 8vw, 96px) 24px' }}>
           <div style={{ maxWidth: '720px', margin: '0 auto' }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} style={{ textAlign: 'center', marginBottom: '40px' }}>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3.5vw, 42px)', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.02em' }}>Common questions</h2>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3.5vw, 42px)', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.02em' }}>Questions we get from veterans</h2>
             </motion.div>
             <div className="vets-faq-box" style={{ background: '#F6F7F9', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '0 28px' }}>
               {FAQS.map((f, i) => <FAQItem key={f.q} q={f.q} a={f.a} open={openFaq === i} toggle={() => setOpenFaq(openFaq === i ? null : i)} />)}

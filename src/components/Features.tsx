@@ -140,7 +140,7 @@ function AnalyticsVisual() {
           <span style={{ marginLeft: 'auto', fontSize: '9px', color: '#9AA1AE', fontFamily: 'var(--font-body)', background: '#fff', border: '1px solid #E4E7EC', borderRadius: '5px', padding: '2px 7px' }}>Last 7 days</span>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '7px' }}>
+        <div className="insights-stat-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '7px' }}>
           <div style={{ background: '#fff', border: '1px solid #E8EAF0', borderRadius: '8px', padding: '9px 10px' }}>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
             <p style={{ fontSize: '8px', color: '#6B7280', fontFamily: 'var(--font-body)', marginTop: '5px' }}>Unique Visitors</p>
@@ -783,7 +783,16 @@ export default function Features() {
         }
         @media (max-width: 420px) {
           .feat-visual, .feat-visual.tall { height: 520px; }
-          .feat-visual.auto { height: 500px !important; }
+          /* Taller than the desktop 444px because the stat tiles below go
+             two-per-row instead of four, which adds a row of height. */
+          .feat-visual.auto { height: 670px !important; }
+        }
+        /* Insights' four stat tiles get squeezed to ~65px each once the
+           frame is full-width on a phone, which pushed the Top Locations
+           tile (city + percentage on one row) past the frame edge. Two
+           per row keeps every tile readable. */
+        @media (max-width: 560px) {
+          .insights-stat-grid { grid-template-columns: repeat(2, 1fr) !important; }
         }
         @media (max-width: 860px) {
           .feat-layout { grid-template-columns: 1fr; gap: 22px; }

@@ -23,7 +23,7 @@ const EXPERIENCE = [
 ];
 
 const SKILLS = ['SAP APO', 'Six Sigma', 'Demand planning', 'MRP', 'Forecasting', 'S&OP'];
-const LANGUAGES = ['English', 'Russian'];
+const LANGUAGES = ['English', 'French'];
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -31,7 +31,8 @@ export default function Hero() {
 
   // Scroll parallax — product frame recedes slightly as you scroll past
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
-  const stageScale = useTransform(scrollYProgress, [0, 1], [1, 0.95]);
+  // Vertical parallax only — no scroll-driven scale, which rasterises the card
+  // layer and softens the button/text as you scroll.
   const stageY = useTransform(scrollYProgress, [0, 1], [0, 48]);
 
   // Cursor-following glow
@@ -82,11 +83,39 @@ export default function Hero() {
         }
         .hero-ctas { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 28px; }
         .hero-proof-row {
-          display: flex; align-items: center; justify-content: center; gap: 16px;
+          display: flex; align-items: center; justify-content: center; gap: 20px;
           flex-wrap: wrap; margin-bottom: 40px;
         }
         .hero-proof-sep { color: #C7CBD3; }
         .hero-proof-text { font-size: 13px; color: #9A9FA8; font-family: var(--font-body); }
+
+        .hero-cosell { display: flex; justify-content: center; margin-bottom: 40px; }
+        .hero-cosell-link {
+          display: inline-flex; align-items: center; gap: 6px;
+          font-size: 13.5px; color: #8A93A3; font-family: var(--font-body);
+          text-decoration: none; transition: color 0.15s ease;
+        }
+        .hero-cosell-link strong { color: #061A3A; font-weight: 700; }
+        .hero-cosell-link:hover, .hero-cosell-link:hover strong { color: #1468E8; }
+
+        .hero-cobanner { display: flex; justify-content: center; margin-bottom: 40px; }
+        .hero-cobanner-inner {
+          display: inline-flex; align-items: center; gap: 14px; max-width: 100%;
+          background: #fff; border: 1.5px solid #E4E7EC; border-radius: 100px;
+          padding: 6px 6px 6px 18px; box-shadow: 0 2px 10px rgba(6,26,58,0.06);
+        }
+        .hero-cobanner-text { font-size: 14px; font-family: var(--font-body); color: #5C6070; white-space: nowrap; }
+        .hero-cobanner-btn {
+          display: inline-flex; align-items: center; gap: 7px; flex-shrink: 0;
+          background: #061A3A; color: #fff; font-size: 13px; font-weight: 700;
+          font-family: var(--font-body); text-decoration: none; border-radius: 100px; padding: 9px 16px;
+          transition: background 0.15s ease;
+        }
+        .hero-cobanner-btn:hover { background: #0A234C; }
+        @media (max-width: 520px) {
+          .hero-cobanner-inner { flex-direction: column; gap: 10px; border-radius: 18px; padding: 14px 16px; }
+          .hero-cobanner-text { white-space: normal; text-align: center; }
+        }
 
         .hero-stage { max-width: 1120px; margin: 0 auto; position: relative; z-index: 1; }
         /* Dark navy outer frame — overflow visible so the recruiter notification
@@ -128,9 +157,9 @@ export default function Hero() {
         .hero-vc-caption { font-size: 14px; font-weight: 600; color: #fff; font-family: var(--font-body); line-height: 1.35; text-shadow: 0 1px 8px rgba(0,0,0,0.35); }
         .hero-vc-btn {
           align-self: flex-start; display: inline-flex; align-items: center; gap: 8px;
-          background: #fff; color: #061A3A; border-radius: 100px; padding: 9px 18px;
+          background: #D7FF43; color: #061A3A; border-radius: 100px; padding: 9px 18px;
           font-size: 13px; font-weight: 700; font-family: var(--font-body); text-decoration: none;
-          box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+          box-shadow: 0 6px 20px rgba(6,26,58,0.22);
         }
         .hero-vc-progress { height: 4px; border-radius: 100px; background: rgba(255,255,255,0.35); overflow: hidden; }
         .hero-vc-progress > span { display: block; height: 100%; width: 34%; background: #fff; border-radius: 100px; }
@@ -164,12 +193,11 @@ export default function Hero() {
         .hero-notif-title { font-size: 14px; font-weight: 700; color: #061A3A; font-family: var(--font-body); line-height: 1.3; }
         .hero-notif-time { font-size: 12px; color: #9A9FA8; font-family: var(--font-body); margin-top: 3px; }
         .hero-notif-bar { height: 6px; border-radius: 100px; background: #EAF0FB; overflow: hidden; margin-bottom: 8px; }
-        .hero-notif-bar > span { display: block; height: 100%; width: 87%; background: #1468E8; border-radius: 100px; }
+        .hero-notif-bar > span { display: block; height: 100%; width: 87%; background: linear-gradient(90deg, #1468E8, #D63D9D); border-radius: 100px; }
         .hero-notif-stat { font-size: 12.5px; font-weight: 700; color: #1468E8; font-family: var(--font-body); }
         @media (max-width: 760px) {
           .hero-inner { padding: 96px 20px 0; }
-          .hero-proof-row { flex-direction: column; gap: 12px; margin-bottom: 32px; }
-          .hero-proof-sep { display: none; }
+          .hero-proof-row { flex-direction: column; gap: 14px; margin-bottom: 32px; }
           .hero-ctas { gap: 10px; }
           .hero-ctas > div { width: 100%; }
           .hero-ctas a { width: 100%; justify-content: center; box-sizing: border-box; }
@@ -213,11 +241,11 @@ export default function Hero() {
         {/* CTAs */}
         <div className="hero-ctas hero-reveal" style={{ ['--hero-reveal-y' as string]: '12px', ['--hero-reveal-delay' as string]: '0.18s' }}>
           <Link href="/get-started" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
-            Create your Reslink
+            Get started for free
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </Link>
-          <Link href="#how-it-works" className="btn-outline" style={{ fontSize: '15px', padding: '14px 26px' }}>
-            See how it works
+          <Link href="/oliviastone" className="btn-outline" style={{ fontSize: '15px', padding: '14px 26px' }}>
+            See a real Reslink
           </Link>
         </div>
 
@@ -230,15 +258,17 @@ export default function Hero() {
                   style={{ width: '28px', height: '28px', borderRadius: '50%', border: '2px solid #fff', marginLeft: i === 0 ? 0 : '-8px', objectFit: 'cover', display: 'block' }} />
               ))}
             </span>
-            <span style={{ color: '#5C6070' }}><strong style={{ color: '#061A3A', fontWeight: 700 }}>10,000+</strong> job seekers worldwide</span>
+            <span><strong style={{ color: '#061A3A', fontWeight: 700 }}>10,000+</strong> job seekers</span>
           </span>
-          <span className="hero-proof-sep">·</span>
-          <span className="hero-proof-text">Free to start · Under 5 minutes</span>
+          <Link href="/companies" className="hero-cosell-link">
+            <strong>Hiring?</strong> See how teams screen with Reslink
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </Link>
         </div>
       </div>
 
       {/* Living product stage — split card: video (left) + resume (right) */}
-      <motion.div style={{ scale: stageScale, y: stageY }}>
+      <motion.div style={{ y: stageY }}>
       <div className="hero-stage hero-stage-reveal" style={{ perspective: '1200px', transformOrigin: 'center bottom' }}>
         <div className="hero-frame" style={{ position: 'relative' }}>
             <div className="hero-split">
@@ -267,7 +297,7 @@ export default function Hero() {
               <div className="hero-resume-card">
                 <div className="hero-resume">
                   <div>
-                    <p className="hero-resume-name">Olivia Stone</p>
+                    <p className="hero-resume-name">Amara Okafor</p>
                     <p className="hero-resume-role">Planning and Supply Chain Specialist · New York</p>
                     <p className="hero-resume-h" style={{ marginTop: '22px' }}>Work experience</p>
                     {EXPERIENCE.map(job => (

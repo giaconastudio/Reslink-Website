@@ -11,25 +11,25 @@ const steps = [
   {
     num: '01',
     label: 'Create your account',
-    desc: 'Sign up free — just your name and email. No credit card, no setup fee. Your profile is ready the moment you land.',
+    desc: 'Just your name and email. No card, no setup.',
     bg: '#071733',
   },
   {
     num: '02',
     label: 'Upload your resume',
-    desc: 'Drop in your PDF and we parse it instantly — work history, skills, education, all pulled in automatically. No manual entry.',
+    desc: 'Drop in your PDF and we parse it instantly. No manual entry.',
     bg: '#9E2462',
   },
   {
     num: '03',
     label: 'Record your pitch',
-    desc: 'Sixty seconds. Our built-in teleprompter scrolls your script on screen so you stay on camera looking natural, not down at notes.',
+    desc: 'Sixty seconds. Our teleprompter scrolls your script so you stay looking at the camera.',
     bg: '#3C6B18',
   },
   {
     num: '04',
-    label: 'Share & track everything',
-    desc: 'Paste your Reslink into any application, email, or LinkedIn. See every recruiter who opens it and every second of video watched.',
+    label: 'Share and track everything',
+    desc: 'Paste your Reslink into any application, email or LinkedIn, and see every recruiter who opens it.',
     bg: '#0B44A6',
   },
 ];
@@ -142,9 +142,9 @@ export default function HowItWorks() {
         .hiw-row:not(.active):hover .hiw-stepnum-label, .hiw-row:not(.active):hover .hiw-stepnum-value { color: rgba(255,255,255,0.7); }
         .hiw-rowcontent { padding: 0 0 4px; border-radius: 14px; transition: opacity 0.3s, background 0.3s, padding 0.3s; }
         .hiw-rowcontent.active { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); box-shadow: inset 3px 0 0 var(--hiw-accent); padding: 12px 16px 16px; margin: -12px -16px -4px; }
-        .hiw-rowlabel { font-family: var(--font-phudu); font-size: 17px; font-weight: 800; letter-spacing: -0.01em; color: #fff; line-height: 1.15; transition: color 0.3s; }
+        .hiw-rowlabel { font-family: var(--font-phudu); font-size: 19px; font-weight: 800; letter-spacing: -0.01em; color: #fff; line-height: 1.15; transition: color 0.3s; }
         .hiw-rowdesc { overflow: hidden; }
-        .hiw-rowdesc p { font-size: 13.5px; color: rgba(255,255,255,0.5); line-height: 1.55; font-family: var(--font-body); padding-top: 6px; max-width: 340px; }
+        .hiw-rowdesc p { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.55; font-family: var(--font-body); padding-top: 6px; max-width: 340px; }
 
         /* Product stage + step rail sit close together as one visual unit */
         .hiw-stage-row { display: flex; align-items: center; justify-content: center; gap: 14px; }
@@ -202,9 +202,9 @@ export default function HowItWorks() {
             {/* Centered header, spanning the full card width */}
             <div className="hiw-header">
               <p className="hiw-eyebrow">How it works</p>
-              <h2 className="hiw-title">Four steps to your <span className="hiw-hl">next</span> interview.</h2>
+              <h2 className="hiw-title">Five minutes, start to finish</h2>
               <Link href="/get-started" className="btn-primary hiw-cta">
-                Create your free account
+                Get started for free
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
               </Link>
             </div>

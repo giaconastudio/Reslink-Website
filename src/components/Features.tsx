@@ -607,12 +607,12 @@ const tabs = [
     id: 'analytics',
     label: 'Insights',
     icon: BarChart3,
-    headline: 'View insights on Reslink engagement.',
-    sub: 'Track who views your Reslinks and understand engagement levels: watch time, link clicks, location, and more.',
+    headline: 'See who watched, and for how long',
+    sub: '',
     bullets: [
-      'See exactly who viewed your Reslink and for how long',
-      'Track clicks on your resume, portfolio, and LinkedIn',
-      'Know which locations and companies are engaging most',
+      'Every recruiter who opened it, and when',
+      'Watch time and completion rate per view',
+      'Track resume, portfolio and LinkedIn clicks',
     ],
     bg: '#fff',
     auto: true,
@@ -622,12 +622,12 @@ const tabs = [
     id: 'pitchai',
     label: 'Pitch AI',
     icon: Sparkles,
-    headline: 'Enhance your video pitch with AI.',
-    sub: 'Reslink Pitch AI generates a standout video script tailored to your experience and the role you\'re applying for.',
+    headline: 'Get a script built\nfor the role',
+    sub: '',
     bullets: [
-      'Generates a tailored script from your resume in seconds',
-      'Rewrite it shorter, longer, more casual, or more formal in one click',
-      'No blank page — start from a script built for the role you want',
+      'Paste the job description, get a script',
+      'Written from your own experience',
+      'Shorter, longer, casual, formal - one click',
     ],
     bg: '#fff',
     tall: true,
@@ -637,12 +637,12 @@ const tabs = [
     id: 'teleprompter',
     label: 'Teleprompter',
     icon: Video,
-    headline: 'Look confident. Sound confident.',
-    sub: 'Capture your pitch effortlessly using our in-app teleprompter, guiding you to deliver your best performance every time.',
+    headline: 'Look confident.\nSound confident',
+    sub: '',
     bullets: [
-      'Scrolls your script on screen while you record',
-      'Stay looking at the camera, not down at notes',
-      'Record a natural, confident take on your first or second try',
+      'Your script scrolls as you record',
+      'Eyes on the camera, not on notes',
+      'A natural take in one or two tries',
     ],
     bg: '#0B0F1A',
     visual: <TeleprompterVisual />,
@@ -651,12 +651,12 @@ const tabs = [
     id: 'badge',
     label: 'Apply Anywhere',
     icon: Link2,
-    headline: 'Your Reslink, right inside your resume.',
-    sub: 'A clickable Play Intro button is embedded directly in your resume PDF. When a recruiter opens it, one click takes them straight to your video.',
+    headline: 'A Play button inside your resume',
+    sub: '',
     bullets: [
-      'A Play Intro button embeds directly in your resume PDF',
-      'Every copy of your resume carries the badge automatically',
-      'See exactly how many recruiters clicked through',
+      'Embeds directly in your resume PDF',
+      'Every copy carries it automatically',
+      'One click straight to your video',
     ],
     bg: '#F7F8FA',
     tall: true,
@@ -813,9 +813,9 @@ export default function Features() {
           <div className="feat-nav-col">
             <div className="feat-side-sticky">
               <motion.div className="feat-side-head" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-                <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '10px', fontFamily: 'var(--font-body)' }}>Everything you need to stand out</p>
+                <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '10px', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>Everything a PDF can&apos;t do</p>
                 <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 2.6vw, 32px)', fontWeight: 900, color: '#041635', lineHeight: 1.0, letterSpacing: '-0.03em' }}>
-                  Built for<br />job seekers.
+                  Built for<br />job seekers
                 </h2>
               </motion.div>
 
@@ -872,8 +872,8 @@ export default function Features() {
 
                 <div className="feat-body">
                   <div>
-                    <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(22px, 2.8vw, 34px)', fontWeight: 900, color: '#041635', lineHeight: 1.0, letterSpacing: '-0.03em', marginBottom: '12px' }}>{t.headline}</h3>
-                    <p style={{ fontSize: '15px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>{t.sub}</p>
+                    <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(22px, 2.8vw, 34px)', fontWeight: 900, color: '#041635', lineHeight: 1.0, letterSpacing: '-0.03em', marginBottom: '12px', whiteSpace: 'pre-line' }}>{t.headline}</h3>
+                    {t.sub && <p style={{ fontSize: '15px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>{t.sub}</p>}
                   </div>
                   <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '14px', paddingTop: '4px' }}>
                     {t.bullets.map((b, bi) => (

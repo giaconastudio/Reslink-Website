@@ -94,16 +94,9 @@ export default function Footer() {
         <div className="footer-grid">
           {/* Brand + newsletter + socials */}
           <div className="footer-brand">
-            <Link href="/" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '11px' }}>
-              <svg width="30" height="30" viewBox="0 0 36 36" fill="none" aria-hidden="true">
-                <g transform="translate(3, 4)">
-                  <path d="M2 14L28 2L20 28L14 18L2 14Z" fill="#2F6BFF" />
-                  <path d="M14 18L20 28L28 2" stroke="#1E4FD8" strokeWidth="1.4" strokeLinejoin="round" fill="none" />
-                </g>
-              </svg>
-              <span style={{ fontFamily: 'var(--font-phudu)', fontWeight: 800, fontSize: '24px', letterSpacing: '-0.02em', lineHeight: 1 }}>
-                <span style={{ color: '#fff' }}>RES</span><span style={{ color: 'rgba(255,255,255,0.55)' }}>LINK</span>
-              </span>
+            <Link href="/" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/reslink-logo.svg" alt="Reslink" style={{ height: '30px', width: 'auto', display: 'block' }} />
             </Link>
 
             <p className="footer-blurb">

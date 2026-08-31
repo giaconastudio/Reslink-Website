@@ -92,7 +92,6 @@ function Card({ t }: { t: typeof testimonials[0] }) {
         }}>{t.initials}</div>
         <div>
           <p style={{ fontSize: '13px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{t.name}</p>
-          <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{t.role} · {t.company}</p>
         </div>
       </div>
     </div>
@@ -141,10 +140,10 @@ export default function Testimonials() {
           Success stories
         </p>
         <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#ffffff', lineHeight: 0.98, marginBottom: '20px' }}>
-          Real results from<br />real candidates.
+          What happens<br />after you send it
         </h2>
         <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.6)', lineHeight: 1.65, fontFamily: 'var(--font-body)' }}>
-          Over 10,000 job seekers have used Reslink to stand out and land interviews at top companies.
+          8,000 job seekers have sent a Reslink instead of a resume.
         </p>
       </motion.div>
 

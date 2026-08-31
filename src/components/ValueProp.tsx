@@ -107,10 +107,10 @@ export default function ValueProp() {
             Before vs. after
           </p>
           <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 4.8vw, 60px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.95, letterSpacing: '-0.03em', marginBottom: '24px' }}>
-            From ignored<br /><span style={{ color: '#1468E8' }}>to interview.</span>
+            From ignored<br /><span style={{ color: '#1468E8' }}>to interview</span>
           </h2>
           <p style={{ fontSize: '17px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>
-            A static PDF cannot attract attention, share with one click, or show who you actually are. A Reslink does all three. And lands interviews faster.
+            A PDF can&apos;t introduce you, can&apos;t be opened in one click,<br />and can&apos;t tell you who read it. A Reslink does all three.
           </p>
         </motion.div>
 
@@ -182,10 +182,10 @@ export default function ValueProp() {
               (see CountUp), so a stuck state here is just 90% size — still
               fully visible — never invisible. */}
           <motion.div
-            initial={{ scale: 0.9 }}
+            initial={{ scale: 0.97 }}
             whileInView={{ scale: 1 }}
             viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.9, ease: [0.34, 1.56, 0.64, 1] }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             style={{ position: 'relative' }}
           >
             <div className="vp-after" style={{ borderRadius: '22px', border: '2px solid #D7FF43', overflow: 'hidden', boxShadow: '0 16px 56px rgba(6,26,58,0.12)' }}>

@@ -6,12 +6,13 @@ import { Plus, Minus } from 'lucide-react';
 
 const faqs = [
   { q: 'Is Reslink free?', a: 'Yes. Creating a job seeker account and building your video resume is completely free. We offer premium plans with advanced analytics and features for power users.' },
-  { q: 'How long should my video pitch be?', a: "We recommend 60–90 seconds. A tight, confident pitch that respects the recruiter's time performs significantly better than a long one." },
+  { q: "What if I'm not comfortable on camera?", a: "That's what the teleprompter is for. Your script scrolls on screen as you record, so you can just read and stay looking at the camera. Most people are happy with their take after a try or two." },
+  { q: 'Will my video affect ATS compatibility?', a: 'No. Your traditional resume is still uploaded alongside your video. Reslink supplements your PDF. It works with all ATS systems.' },
+  { q: 'How long should my video be?', a: "We recommend 60-90 seconds. A tight, confident pitch that respects the recruiter's time performs significantly better than a long one." },
+  { q: 'Do I need special equipment?', a: 'No. Your laptop or phone camera is all you need. Good lighting and a quiet room make a big difference.' },
   { q: 'Can I use Reslink for any type of job?', a: 'Absolutely. Reslink works across all industries: tech, finance, marketing, creative, operations, and more.' },
-  { q: 'Will my video pitch affect ATS compatibility?', a: 'No. Your traditional resume is still uploaded alongside your video. Reslink supplements your PDF. It works with all ATS systems.' },
-  { q: 'Do I need special equipment to record my video?', a: 'No. Your laptop or phone camera is all you need. Good lighting and a quiet room make a big difference.' },
-  { q: 'Can companies search for candidates on Reslink?', a: 'Yes. Companies and recruiters can discover and search candidate profiles directly on the platform.' },
-  { q: 'Do I have access to resources on creating a great video resume?', a: "Yes. We have a full library of guides, templates, and tips. Head to our Resources section to get started." },
+  { q: 'Can companies search for candidates on Reslink?', a: "No. Reslink isn't a searchable database. Recruiters only see your Reslink when you share it with them, whether that's in an application, your email, or on LinkedIn. You decide who gets the link." },
+  { q: 'Where can I learn to make a great Reslink?', a: 'We have a full library of guides, templates, and examples. Head to our Resources section to get started.' },
 ];
 
 export default function FAQ() {
@@ -30,7 +31,7 @@ export default function FAQ() {
             Frequently asked questions
           </p>
           <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 48px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.96, letterSpacing: '-0.03em' }}>
-            Everything you need to know
+            Before you record
           </h2>
         </motion.div>
 

@@ -27,8 +27,8 @@ interface CTAProps {
 export default function CTA({
   eyebrow = 'Get started',
   heading,
-  body = 'Record once. Attach it to every application. Find out who actually watched.',
-  primaryLabel = 'Create your Reslink',
+  body = 'One link with your video intro, your resume and your work. And you see exactly who opens it.',
+  primaryLabel = 'Get started for free',
   primaryHref = '/get-started',
   secondaryLabel = 'See a real Reslink',
   secondaryHref = '/oliviastone',
@@ -78,7 +78,7 @@ export default function CTA({
         /* Watch-analytics card floating over the top-right */
         .cta-card-b { position: absolute; bottom: 12px; right: -8px; width: 232px; padding: 14px 16px; z-index: 2; }
         .cta-card-b .top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-        .cta-note-av { width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0; background: #635BFF; display: flex; align-items: center; justify-content: center; }
+        .cta-note-av { width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0; background: #FF7A59; display: flex; align-items: center; justify-content: center; }
         .cta-note-av span { color: #fff; font-weight: 800; font-size: 8.5px; letter-spacing: -0.03em; font-family: var(--font-body); }
         .cta-note-t { font-size: 12.5px; font-weight: 700; color: #061A3A; font-family: var(--font-body); line-height: 1.25; }
         .cta-note-s { font-size: 11px; color: #9AA1AE; font-family: var(--font-body); margin-top: 2px; }
@@ -123,17 +123,25 @@ export default function CTA({
                 <span className="cta-vid-tag">Video intro</span>
                 <span className="cta-vid-dur">0:47</span>
                 <div className="cta-vid-cap">
-                  <p className="cta-vid-name">Olivia Stone</p>
-                  <p className="cta-vid-role">Business Dev Rep · her Reslink</p>
+                  <p className="cta-vid-name">Daniel Chen</p>
+                  <p className="cta-vid-role">Business Dev Rep · his Reslink</p>
                 </div>
               </div>
             </div>
 
             <div className="cta-card cta-card-b">
               <div className="top">
-                <span className="cta-note-av"><span>stripe</span></span>
+                <span className="cta-note-av">
+                  <svg width="19" height="19" viewBox="0 0 32 32" fill="none" aria-label="HubSpot">
+                    <path d="M8.6 9.4 L16.5 15.8 M24 8 L20.6 13.4 M13 25 L16.4 20.4" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" />
+                    <circle cx="18.6" cy="17.4" r="4.7" stroke="#fff" strokeWidth="3" fill="none" />
+                    <circle cx="7" cy="8" r="3.1" fill="#fff" />
+                    <circle cx="25" cy="6.2" r="2.5" fill="#fff" />
+                    <circle cx="11.6" cy="26.4" r="3" fill="#fff" />
+                  </svg>
+                </span>
                 <div>
-                  <p className="cta-note-t">Recruiter at Stripe viewed you</p>
+                  <p className="cta-note-t">Recruiter at HubSpot viewed you</p>
                   <p className="cta-note-s">2 minutes ago</p>
                 </div>
               </div>

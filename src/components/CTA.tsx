@@ -98,7 +98,7 @@ export default function CTA({
           <div>
             <p className="cta-eyebrow">{eyebrow}</p>
             <h2 className="cta-h">
-              {heading ?? <>Ready to be watched?</>}
+              {heading ?? <>Ready to stand out?</>}
             </h2>
             <p className="cta-body">{body}</p>
             <div className="cta-btns">

@@ -12,21 +12,22 @@ import LogoTicker from '@/components/LogoTicker';
 import CTA from '@/components/CTA';
 
 const FEATURES = [
-  { icon: Zap, title: 'AI writes your pitch', body: 'PitchAI generates a personalized 90-second script from your resume, tailored to the internship or job you\'re targeting.' },
-  { icon: Video, title: 'Teleprompter recording', body: 'Record on your laptop or phone. The built-in teleprompter scrolls your script so you stay confident on camera.' },
-  { icon: FileText, title: 'Showcase your coursework', body: 'Pair your projects and skills with a video pitch. Give recruiters the full picture before they open your resume.' },
-  { icon: BarChart2, title: 'Track recruiter views', body: 'See exactly when a recruiter opens your profile and how long they watched. Follow up with perfect timing.' },
-  { icon: Globe, title: 'Share everywhere', body: 'Add your Reslink to LinkedIn, email, and every application. One link on every device, every platform.' },
-  { icon: Share2, title: 'Stand out at career fairs', body: 'Hand a recruiter your Reslink instead of paper. They open it on their phone and see you immediately.' },
+  { icon: Zap, title: 'Enhance your pitch with AI', body: 'Paste the job description and get a script written from your own experience.' },
+  { icon: Video, title: 'Read your script while you record', body: 'The teleprompter scrolls on screen, so you stay looking at the camera.' },
+  { icon: BarChart2, title: 'See who watched, and for how long', body: 'Every recruiter who opened it, their watch time, and what they clicked.' },
+  { icon: FileText, title: 'Show more than a resume', body: 'Add your coursework, portfolio and side projects alongside your CV.' },
+  { icon: Play, title: 'Put a Play button in your resume', body: 'One click from the PDF takes a recruiter straight to your video.' },
+  { icon: Share2, title: 'Skip the paper CV at careers fairs', body: 'Hand over a link. They open it on their phone and see you.' },
 ];
 
 const FAQS = [
-  { q: 'Do I need work experience to use Reslink?', a: 'Not at all. Coursework, projects, clubs, volunteer work, and part-time jobs are all fair game. The video pitch lets you explain your potential in a way a resume never can.' },
-  { q: 'Is Reslink free for students?', a: 'Yes. Students can create and share a full Reslink profile for free. Pro features like advanced analytics and multiple videos are available on paid plans.' },
-  { q: 'How long should my video pitch be?', a: 'Aim for 60 to 90 seconds. That\'s enough time to introduce yourself, highlight two or three strengths, and express genuine interest in the role.' },
-  { q: 'Can I use Reslink for internship applications?', a: 'Absolutely. A video pitch shows the enthusiasm and communication skills that internship hiring managers actually care about.' },
-  { q: 'What if I\'m not comfortable on camera?', a: 'That\'s what the teleprompter is for. Your script scrolls while you record, so you never have to memorize a thing. Most students feel confident after two or three takes.' },
-  { q: 'Will Reslink work alongside my standard resume?', a: 'Yes. Reslink supplements your resume, it doesn\'t replace it. You still submit your PDF through any ATS. Reslink is the extra layer that makes you memorable.' },
+  { q: 'Do I need work experience to use Reslink?', a: 'Not at all. Coursework, projects, clubs, volunteer work and part-time jobs are all fair game. A video pitch lets you show your potential in a way a resume never can.' },
+  { q: 'Is Reslink free for students?', a: 'Yes. You can create and share a full Reslink profile for free. Pro features like advanced analytics are on paid plans, and they\'re half price with a valid .edu address.' },
+  { q: 'What if I\'m not comfortable on camera?', a: 'That\'s what the teleprompter is for. Your script scrolls on screen while you record, so you never have to memorise a thing. Most students feel natural after a take or two.' },
+  { q: 'Will recruiters take a video seriously?', a: 'They already do. A 60-second intro tells a recruiter more about you than a page of bullet points, and Reslink shows you exactly who watched, so you know it\'s landing.' },
+  { q: 'Will Reslink work alongside my standard resume?', a: 'Yes. Reslink supplements your resume, it doesn\'t replace it. You still submit your PDF, and Reslink is the extra layer that makes you memorable.' },
+  { q: 'Will it affect ATS compatibility?', a: 'No. Your traditional resume is still what you upload, so it parses like any other PDF. Reslink is a link you add on top, and it works with every ATS.' },
+  { q: 'How long should my video be?', a: 'Aim for 60 to 90 seconds. That\'s enough to introduce yourself, highlight two or three strengths, and show genuine interest in the role.' },
 ];
 
 function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; toggle: () => void }) {
@@ -90,17 +91,17 @@ export default function StudentsPage() {
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For students</p>
               <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 4vw, 56px)', fontWeight: 900, color: '#fff', lineHeight: 1.0, letterSpacing: '-0.03em', marginBottom: '24px' }}>
                 Be the candidate<br />
-                <span style={{ color: '#D7FF43' }}>they remember.</span>
+                <span style={{ color: '#D7FF43' }}>they remember</span>
               </h1>
               <p style={{ fontSize: 'clamp(15px, 1.6vw, 17px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '440px', marginBottom: '36px' }}>
-                Land internships and first jobs by showing recruiters who you actually are. Not just a list of coursework on a PDF.
+                Land internships and first jobs by showing recruiters who you actually are, not just a list of coursework.
               </p>
               <div className="students-hero-btns" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                 <Link href="/get-started?type=student" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 28px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                  Create free Reslink
+                  Get started for free
                 </Link>
-                <Link href="/job-seekers" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                  See how it works
+                <Link href="/oliviastone" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                  See a real Reslink
                 </Link>
               </div>
 
@@ -109,8 +110,8 @@ export default function StudentsPage() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '18px', marginBottom: '16px' }}>
                   <span style={{ fontFamily: 'var(--font-phudu)', fontWeight: 900, fontSize: '38px', color: '#fff', lineHeight: 1, letterSpacing: '-0.02em', whiteSpace: 'nowrap', flexShrink: 0 }}>50% off</span>
                   <div>
-                    <p style={{ fontSize: '15px', fontWeight: 700, color: '#D7FF43', fontFamily: 'var(--font-body)', lineHeight: 1.3, margin: 0 }}>Student price — just $29/yr</p>
-                    <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Check your student email — instant, no code needed</p>
+                    <p style={{ fontSize: '15px', fontWeight: 700, color: '#D7FF43', fontFamily: 'var(--font-body)', lineHeight: 1.3, margin: 0 }}>$29/year with a valid .edu address</p>
+                    <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Verified instantly, no code needed</p>
                   </div>
                 </div>
 
@@ -171,25 +172,25 @@ export default function StudentsPage() {
                   <div style={{ position: 'absolute', inset: 0, borderRadius: '20px', boxShadow: 'inset 0 0 0 1.5px rgba(255,255,255,0.12)', pointerEvents: 'none' }} />
                   {/* Bottom-left chip */}
                   <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8, duration: 0.4 }}
-                    style={{ position: 'absolute', bottom: '24px', left: '20px', background: '#fff', borderRadius: '14px', padding: '12px 14px', boxShadow: '0 16px 48px rgba(6,26,58,0.28)', display: 'flex', alignItems: 'center', gap: '10px', minWidth: '195px' }}>
-                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#D7FF43', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                      <CheckCircle size={16} color="#061A3A" strokeWidth={2.5} />
+                    style={{ position: 'absolute', bottom: '24px', left: '20px', background: '#fff', border: '1px solid #EEF0F3', borderRadius: '14px', padding: '12px 14px', boxShadow: '0 16px 40px rgba(6,26,58,0.20)', display: 'flex', alignItems: 'center', gap: '11px', minWidth: '196px' }}>
+                    <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: '#D7FF43', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <CheckCircle size={17} color="#061A3A" strokeWidth={2.5} />
                     </div>
                     <div>
-                      <p style={{ fontSize: '12px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Interview booked</p>
-                      <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Google · 2 days after sharing</p>
+                      <p style={{ fontSize: '13px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.25 }}>Interview booked</p>
+                      <p style={{ fontSize: '11px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '1px' }}>Google · 2 days after sharing</p>
                     </div>
                   </motion.div>
                 </div>
                 {/* Top-right external chip */}
                 <motion.div className="students-hero-chip-ext" initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.0, duration: 0.4 }}
-                  style={{ position: 'absolute', top: '-14px', right: '-20px', zIndex: 3, background: '#fff', border: '1px solid rgba(255,255,255,0.6)', borderRadius: '14px', padding: '10px 14px', boxShadow: '0 16px 44px rgba(6,26,58,0.5)', display: 'flex', alignItems: 'center', gap: '10px', minWidth: '168px' }}>
-                  <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#EAF1FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <Eye size={13} color="#1468E8" />
+                  style={{ position: 'absolute', top: '-14px', right: '-20px', zIndex: 3, background: '#fff', border: '1px solid #EEF0F3', borderRadius: '14px', padding: '11px 14px', boxShadow: '0 16px 40px rgba(6,26,58,0.20)', display: 'flex', alignItems: 'center', gap: '11px', minWidth: '178px' }}>
+                  <div style={{ width: '32px', height: '32px', borderRadius: '9px', background: '#1468E8', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Eye size={15} color="#fff" strokeWidth={2} />
                   </div>
                   <div>
-                    <p style={{ fontSize: '11px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Profile viewed</p>
-                    <p style={{ fontSize: '10px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>LinkedIn Recruiter · Just now</p>
+                    <p style={{ fontSize: '12px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.25 }}>Profile viewed</p>
+                    <p style={{ fontSize: '10.5px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '1px' }}>LinkedIn Recruiter · Just now</p>
                   </div>
                 </motion.div>
               </div>
@@ -225,7 +226,7 @@ export default function StudentsPage() {
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} style={{ textAlign: 'center', marginBottom: '56px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>How it works</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4.5vw, 54px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.93, letterSpacing: '-0.03em' }}>
-                Ready in under 10 minutes.
+                Ready in under five minutes
               </h2>
             </motion.div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }} className="students-steps-grid">
@@ -235,10 +236,10 @@ export default function StudentsPage() {
                 @media (max-width: 480px) { .students-steps-grid { grid-template-columns: 1fr !important; } }
               `}</style>
               {[
-                { n: '01', title: 'Upload your resume', desc: 'Paste your resume and PitchAI generates a script tailored to the roles you want.' },
-                { n: '02', title: 'Record with teleprompter', desc: 'Your script scrolls as you record. Stay on camera and on message.' },
-                { n: '03', title: 'Share your link', desc: 'Drop your Reslink into every application, LinkedIn, and your email signature.' },
-                { n: '04', title: 'Track who watches', desc: 'Get notified when recruiters view you. Follow up at the exact right moment.' },
+                { n: '01', title: 'Upload your resume', desc: 'PitchAI turns it into a script for the role you\'re going for.' },
+                { n: '02', title: 'Record the video', desc: 'Your script scrolls on screen while you record. Just read it.' },
+                { n: '03', title: 'Share your link', desc: 'Add it to your applications, LinkedIn and email signature.' },
+                { n: '04', title: 'Track who watches', desc: 'Get notified the moment a recruiter opens it.' },
               ].map((step, i) => (
                 <motion.div key={step.n} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: i * 0.08 }}>
                   <div style={{ background: '#fff', borderRadius: '16px', padding: '28px 24px', height: '100%', boxSizing: 'border-box', boxShadow: '0 1px 3px rgba(6,26,58,0.05)' }}>
@@ -260,15 +261,15 @@ export default function StudentsPage() {
             <style>{`@media (max-width: 820px) { .students-pip-grid { grid-template-columns: 1fr !important; gap: 40px !important; } }`}</style>
             {/* Left: copy */}
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
-              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>One link, everything</p>
+              <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Everything in one link</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 52px)', fontWeight: 900, color: '#fff', lineHeight: 0.93, letterSpacing: '-0.03em', marginBottom: '24px' }}>
-                Your Reslink is your<br /><span style={{ color: '#D7FF43' }}>first impression.</span>
+                Your Reslink is your<br /><span style={{ color: '#D7FF43' }}>first impression</span>
               </h2>
               <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '28px' }}>
-                One link combines your video pitch, resume highlights, and real-time view analytics. Share it anywhere and know exactly who watched.
+                A recruiter looking at a graduate resume sees a degree, a summer job and a list of software. Your Reslink shows them the person who did all that.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                {['Video pitch + resume in one link', 'See when recruiters view you', 'Works on every device and platform', 'Free to start, takes under 10 minutes'].map(item => (
+                {['What you worked on, not just where', 'Why you want this specific job', 'Proof that they watched, and for how long'].map(item => (
                   <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <CheckCircle size={18} color="#061A3A" fill="#D7FF43" strokeWidth={2.5} style={{ flexShrink: 0 }} />
                     <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.75)', fontFamily: 'var(--font-body)' }}>{item}</span>
@@ -358,7 +359,7 @@ export default function StudentsPage() {
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} style={{ textAlign: 'center', marginBottom: '52px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D63D9D', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Everything you need</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4.5vw, 54px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.93, letterSpacing: '-0.03em' }}>
-                Built for early careers.
+                Built for early careers
               </h2>
             </motion.div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }} className="students-feat-grid">
@@ -386,7 +387,7 @@ export default function StudentsPage() {
         <section style={{ background: '#fff', padding: 'clamp(64px, 8vw, 96px) 24px' }}>
           <div style={{ maxWidth: '720px', margin: '0 auto' }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} style={{ textAlign: 'center', marginBottom: '40px' }}>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3.5vw, 42px)', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.02em' }}>Common questions</h2>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3.5vw, 42px)', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.02em' }}>What students ask us</h2>
             </motion.div>
             <div className="students-faq-box" style={{ background: '#F6F7F9', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '0 28px' }}>
               {FAQS.map((f, i) => <FAQItem key={f.q} q={f.q} a={f.a} open={openFaq === i} toggle={() => setOpenFaq(openFaq === i ? null : i)} />)}

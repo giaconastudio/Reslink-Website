@@ -34,17 +34,17 @@ function DropItem({ href, icon: Icon, label, desc, badge, onClick }: {
   return (
     <Link href={href} onClick={onClick} {...(isExternal ? {} : {})}
       style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '7px 10px', borderRadius: '8px', textDecoration: 'none', transition: 'background 0.15s' }}
-      onMouseEnter={e => { e.currentTarget.style.background = '#F6F7F9'; setHovered(true); }}
+      onMouseEnter={e => { e.currentTarget.style.background = '#F5F8FF'; setHovered(true); }}
       onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; setHovered(false); }}
     >
-      <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: hovered ? '#EEF4FF' : '#ECEEF1', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'background 0.15s' }}>
-        <Icon size={14} color={hovered ? '#1468E8' : '#6B7280'} strokeWidth={1.8} />
+      <div style={{ width: '32px', height: '32px', borderRadius: '9px', background: hovered ? '#1468E8' : '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'background 0.15s' }}>
+        <Icon size={15} color={hovered ? '#fff' : '#1468E8'} strokeWidth={2} />
       </div>
       <div style={{ flex: 1 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
-          <p style={{ fontSize: '13px', fontWeight: 600, color: '#061A3A', lineHeight: 1.2, fontFamily: 'var(--font-body)' }}>{label}</p>
+          <p style={{ fontSize: '13px', fontWeight: 700, color: '#061A3A', lineHeight: 1.2, fontFamily: 'var(--font-body)' }}>{label}</p>
           {badge && (
-            <span style={{ fontSize: '10px', fontWeight: 700, color: '#1468E8', background: '#EEF4FF', border: '1px solid #C7DEFF', borderRadius: '100px', padding: '1px 7px', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>
+            <span style={{ fontSize: '10px', fontWeight: 800, color: '#061A3A', background: '#D7FF43', borderRadius: '100px', padding: '2px 8px', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', letterSpacing: '0.01em' }}>
               {badge}
             </span>
           )}
@@ -248,13 +248,13 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
                           style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 4px', textDecoration: 'none' }}
                           onClick={() => setMobileOpen(false)}
                         >
-                          <div style={{ width: '28px', height: '28px', borderRadius: '7px', background: isDark ? 'rgba(255,255,255,0.1)' : '#ECEEF1', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                            <Icon size={13} color={isDark ? 'rgba(255,255,255,0.7)' : '#6B7280'} />
+                          <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: isDark ? 'rgba(215,255,67,0.14)' : '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                            <Icon size={14} color={isDark ? '#D7FF43' : '#1468E8'} strokeWidth={2} />
                           </div>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '7px', flexWrap: 'wrap' }}>
                             <span style={{ fontSize: '14px', fontWeight: 500, color: isDark ? 'rgba(255,255,255,0.85)' : '#061A3A', fontFamily: 'var(--font-body)' }}>{item.label}</span>
                             {'badge' in item && (item as { badge?: string | null }).badge && (
-                              <span style={{ fontSize: '10px', fontWeight: 700, color: '#1468E8', background: '#EEF4FF', border: '1px solid #C7DEFF', borderRadius: '100px', padding: '1px 7px', fontFamily: 'var(--font-body)' }}>{(item as { badge?: string | null }).badge}</span>
+                              <span style={{ fontSize: '10px', fontWeight: 800, color: '#061A3A', background: '#D7FF43', borderRadius: '100px', padding: '2px 8px', fontFamily: 'var(--font-body)' }}>{(item as { badge?: string | null }).badge}</span>
                             )}
                           </div>
                         </Link>

@@ -257,24 +257,53 @@ function FeatureShowcase() {
   const [active, setActive] = useState(0);
   const [fill, setFill] = useState(0);
   const rows = useRef<(HTMLDivElement | null)[]>([]);
+  // Widening the IntersectionObserver's trigger band (previous pass) cut
+  // down on single-scroll-tick flicker, but the underlying mechanism was
+  // still wrong for what was actually being asked for: with a 20%+ tall
+  // band, several rows can be intersecting at once, and the observer just
+  // fires setActive for whichever one's entry happens to be processed last
+  // in that callback — not necessarily the one nearest the middle of the
+  // screen. That's what read as "jumps all around based on where I scroll"
+  // rather than advancing one row at a time as you scroll past each one.
+  //
+  // Replaced with a scrollspy: on every scroll tick, measure every row's
+  // distance from a fixed target line and activate whichever one is
+  // closest. Exactly one winner, always, so it can only ever step through
+  // the list in order — the same pattern this site already uses for
+  // How It Works and the companies-page nav (see HowItWorks.tsx).
   useEffect(() => {
-    // rootMargin shrinks the observed viewport down to a trigger band. It was
-    // -48%/-48%, leaving only a 4%-tall sliver in the middle of the screen —
-    // on a typical viewport that's under 40px, so the active row flipped on
-    // the smallest scroll wiggle, felt "too sensitive," and could re-trigger
-    // faster than the 350-420ms expand/collapse transitions settle. A 20%-tall
-    // band needs roughly 5x the scroll distance to cross, matching the pace
-    // the reveal animation can actually keep up with.
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach((e) => { if (e.isIntersecting) setActive(Number((e.target as HTMLElement).dataset.idx)); });
-    }, { rootMargin: '-40% 0px -40% 0px' });
-    rows.current.forEach((el) => el && obs.observe(el));
-    return () => obs.disconnect();
+    let ticking = false;
+    const measure = () => {
+      ticking = false;
+      // The last row whose top has crossed the line, not "nearest to the
+      // line by centre" — a row's own expand/collapse changes its height,
+      // which would move its centre and could make it fight with its
+      // neighbour for "closest" mid-transition. Top-edge crossing only
+      // depends on where each row STARTS, so it can't self-trigger like that.
+      const line = window.innerHeight * 0.45;
+      let current = 0;
+      rows.current.forEach((el, i) => {
+        if (el && el.getBoundingClientRect().top <= line) current = i;
+      });
+      setActive(current);
+    };
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(measure);
+    };
+    measure();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
   }, []);
   // Move the rail's pink fill down to the active feature's dot (re-measure once
   // the expand/collapse animation settles so it lands exactly on the dot).
   useEffect(() => {
-    const measure = () => { const el = rows.current[active]; if (el) setFill(el.offsetTop + 22); };
+    const measure = () => { const el = rows.current[active]; if (el) setFill(el.offsetTop + 35); };
     measure();
     const t = setTimeout(measure, 420);
     return () => clearTimeout(t);
@@ -295,8 +324,15 @@ function FeatureShowcase() {
           const done = i <= active;
           return (
             <div key={r.title} data-idx={i} ref={(el) => { rows.current[i] = el; }} onMouseEnter={() => setActive(i)}
-              style={{ position: 'relative', padding: '15px 0', cursor: 'default', transform: on ? 'translateX(6px)' : 'none', opacity: on ? 1 : 0.5, transition: 'transform 0.35s ease, opacity 0.35s ease' }}>
-              <span style={{ position: 'absolute', left: on ? '-33px' : '-30px', top: on ? '18px' : '21px', width: on ? '14px' : '8px', height: on ? '14px' : '8px', borderRadius: '50%', background: done ? '#D63D9D' : '#D3D8E0', border: on ? '3px solid #fff' : 'none', boxShadow: on ? '0 0 0 1.5px #D63D9D' : 'none', transition: 'all 0.35s ease' }} />
+              /* Padding was 15px 0 (~54px collapsed row). The scrollspy above
+                 advances one row per ~one-row-height of scroll, so a short
+                 row meant a step every ~54px — most of what read as "too
+                 fast." Taller rows require more scroll per step, independent
+                 of the trigger mechanism itself. */
+              style={{ position: 'relative', padding: '28px 0', cursor: 'default', transform: on ? 'translateX(6px)' : 'none', opacity: on ? 1 : 0.5, transition: 'transform 0.35s ease, opacity 0.35s ease' }}>
+              {/* top offsets shifted +13px to match the row's padding-top
+                  going 15px -> 28px, keeping the dot level with the title */}
+              <span style={{ position: 'absolute', left: on ? '-33px' : '-30px', top: on ? '31px' : '34px', width: on ? '14px' : '8px', height: on ? '14px' : '8px', borderRadius: '50%', background: done ? '#D63D9D' : '#D3D8E0', border: on ? '3px solid #fff' : 'none', boxShadow: on ? '0 0 0 1.5px #D63D9D' : 'none', transition: 'all 0.35s ease' }} />
               <p style={{ fontSize: on ? '18px' : '16px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', margin: 0, letterSpacing: '-0.01em', transition: 'font-size 0.3s ease' }}>{r.title}</p>
               <div style={{ overflow: 'hidden', maxHeight: on ? '200px' : '0px', opacity: on ? 1 : 0, transition: 'max-height 0.42s ease, opacity 0.35s ease' }}>
                 <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', margin: 0, paddingTop: '8px' }}>

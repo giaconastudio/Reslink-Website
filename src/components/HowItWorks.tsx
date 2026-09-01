@@ -173,18 +173,26 @@ export default function HowItWorks() {
              video to be shrunk to fit a budget that was never actually
              tight — content here is ~200px shorter than the card was. */
           .hiw-card { height: auto; max-height: calc(100vh - 68px - 16px); border-radius: 22px; }
-          .hiw-inner { padding: 22px 16px; }
-          .hiw-header { margin-bottom: 18px; }
-          .hiw-grid { grid-template-columns: 1fr; gap: 18px; }
-          .hiw-list { gap: 11px; }
+          /* Extra bottom padding reserves the band the scroll chevron floats
+             in — it's positioned out of flow below, so it costs no height of
+             its own. */
+          .hiw-inner { padding: 24px 16px 44px; }
+          .hiw-header { margin-bottom: 20px; }
+          .hiw-grid { grid-template-columns: 1fr; gap: 22px; }
+          .hiw-list { gap: 13px; }
           .hiw-stage-row { order: -1; }
-          /* Aspect is 1.35 rather than the desktop 1.29: the source videos are
-             1600x1040 (1.54) with content spanning the entire frame and no
-             blank margins, so every bit of extra height crops real UI off the
-             sides. 1.35 gains height over 1.29 while cropping less than it
-             did. The cap keeps tablets sane — they hit this same breakpoint,
-             and uncapped the stage ballooned past the card's height there. */
-          .hiw-stage { max-width: 460px; aspect-ratio: 1.35; }
+          /* The source videos are 1600x1040, but the app UI inside them only
+             occupies the middle 53-67% of the width — the rest is flat #f8f8f8
+             padding. Measured content boxes: step1 x380 w840, step2 x336 w928,
+             step3 x332 w940, step4 x280 w1076. So a symmetric crop to
+             x260-1340 (1080 wide) keeps every step's content while dropping
+             the dead margin, and object-fit:cover centres exactly there.
+             1080x1040 is a ~1.04 aspect; framing to that renders the actual UI
+             ~1.5x larger at the same box width, which is what makes the demo
+             readable on a phone. Vertical can't be cropped — step 1's content
+             starts at y0 and step 4's runs to y1040.
+             The cap keeps tablets sane; they hit this breakpoint too. */
+          .hiw-stage { max-width: 460px; aspect-ratio: 1.04; }
           .hiw-title { font-size: 22px; }
           .hiw-cta { margin-top: 16px; padding: 11px 20px !important; font-size: 13.5px !important; }
           .hiw-eyebrow { margin-bottom: 7px; }
@@ -206,9 +214,11 @@ export default function HowItWorks() {
           .hiw-row.active .hiw-stepnum-value { font-size: 27px; }
           .hiw-rowlabel { font-size: 16px; }
           .hiw-rowdesc p { font-size: 13.5px; }
-          /* Mobile keeps a small "scroll for the next step" chevron anchored to
-             the last step's row (the desktop text hint is gone). */
-          .hiw-row-scroll { display: flex; }
+          /* The scroll hint floats in the padding band at the bottom of the
+             card rather than sitting in the flow, so it costs no layout
+             height. Centred with left rather than translateX because
+             framer-motion drives transform to bounce it. */
+          .hiw-row-scroll { display: flex; position: absolute; bottom: 4px; left: calc(50% - 16px); margin: 0; }
         }
 
         /* Phones only. The card is ~370px wide here, so width is the single
@@ -220,6 +230,11 @@ export default function HowItWorks() {
         @media (max-width: 600px) {
           .hiw-stage-row { margin: 0 -16px; }
           .hiw-stage { max-width: none; border-radius: 0; border-left: none; border-right: none; }
+          /* The in-card CTA is dropped on phones. It duplicates the "Get
+             started" button in the sticky navbar, which is on screen the
+             whole time this section is pinned, and reclaiming its ~50px is
+             what lets the demo and the steps breathe here. */
+          .hiw-cta { display: none; }
         }
 
         /* Short phones (SE-sized, and anything in landscape) genuinely cannot
@@ -238,7 +253,7 @@ export default function HowItWorks() {
              stays a smaller inset panel — which means putting back the radius
              and side borders the full-bleed rule above removes. */
           .hiw-stage-row { margin: 0; }
-          .hiw-stage { max-width: min(340px, 33vh); border-radius: 14px; border-left: 1px solid rgba(255,255,255,0.12); border-right: 1px solid rgba(255,255,255,0.12); }
+          .hiw-stage { max-width: min(340px, 40vh); border-radius: 14px; border-left: 1px solid rgba(255,255,255,0.12); border-right: 1px solid rgba(255,255,255,0.12); }
           .hiw-rowlabel { font-size: 15px; }
           .hiw-rowdesc p { font-size: 12.5px; }
           .hiw-stepnum-value { font-size: 18px; }

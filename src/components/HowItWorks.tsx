@@ -164,34 +164,61 @@ export default function HowItWorks() {
 
         @media (max-width: 860px) {
           /* .hiw-sticky's top:68px (set in the base rule) docks it below the
-             navbar; subtract that same 68px here so the card's own height
-             stays within the visible area instead of overflowing past the
-             bottom of the screen. */
+             navbar; subtract that same 68px here so the card stays within
+             the visible area instead of overflowing past the bottom. */
           .hiw-sticky { padding: 12px; }
-          .hiw-card { height: calc(100vh - 68px - 24px); max-height: none; border-radius: 22px; }
-          .hiw-inner { padding: 0 20px 40px; }
-          .hiw-header { margin-bottom: 12px; }
-          .hiw-grid { grid-template-columns: 1fr; gap: 12px; }
-          .hiw-list { gap: 8px; }
+          /* Height follows the content (capped to the screen) rather than
+             being pinned to the full viewport. The fixed height left a big
+             band of empty navy under step 4 on tall phones, and forced the
+             video to be shrunk to fit a budget that was never actually
+             tight — content here is ~200px shorter than the card was. */
+          .hiw-card { height: auto; max-height: calc(100vh - 68px - 24px); border-radius: 22px; }
+          .hiw-inner { padding: 26px 20px; }
+          .hiw-header { margin-bottom: 20px; }
+          .hiw-grid { grid-template-columns: 1fr; gap: 20px; }
+          .hiw-list { gap: 15px; }
           .hiw-stage-row { order: -1; }
-          .hiw-stage { max-width: 200px; }
-          .hiw-title { font-size: 20px; }
-          .hiw-cta { margin-top: 14px; padding: 10px 18px !important; font-size: 13px !important; }
-          .hiw-eyebrow { margin-bottom: 6px; }
+          /* Was a flat 200px, which read as a thumbnail rather than a demo.
+             Scales up to 340px wide, but the vh term caps its height on short
+             screens (and in landscape) so the card never has to clip. */
+          .hiw-stage { max-width: min(340px, 52vh); }
+          .hiw-title { font-size: 22px; }
+          .hiw-cta { margin-top: 16px; padding: 11px 20px !important; font-size: 13.5px !important; }
+          .hiw-eyebrow { margin-bottom: 7px; }
           .hiw-rail { display: none; }
-          /* Mobile's vertical budget is razor-thin (title + 4 steps + video
-             stacked in one screen-height card) — the active-step highlight
-             must not add any net height here, only a background tint, or
-             content overflows the fixed-height card and gets clipped by its
-             overflow:hidden. No extra vertical padding, just horizontal bleed. */
+          /* The active row grows by revealing its description, so its
+             highlight stays a light tint with only horizontal bleed — it
+             must not add net height that pushes content past the cap. */
+          .hiw-row { grid-template-columns: 44px 1fr; gap: 14px; }
           .hiw-rowcontent { padding-bottom: 4px; }
           .hiw-rowcontent.active { background: rgba(255,255,255,0.05); border: none; border-radius: 10px; margin: 0 -10px 0 0; padding: 0 10px 8px; }
-          .hiw-stepnum-value { font-size: 22px; }
+          .hiw-stepnum-value { font-size: 21px; }
+          .hiw-row.active .hiw-stepnum-value { font-size: 27px; }
           .hiw-rowlabel { font-size: 16px; }
           .hiw-rowdesc p { font-size: 13.5px; }
           /* Mobile keeps a small "scroll for the next step" chevron anchored to
              the last step's row (the desktop text hint is gone). */
           .hiw-row-scroll { display: flex; }
+        }
+
+        /* Short phones (SE-sized, and anything in landscape) genuinely cannot
+           fit header + a large video + four steps in one screen height. The
+           52vh stage cap above is width-bound at these sizes, so it doesn't
+           shrink on its own — tighten the spacing and cap the stage far
+           harder here, rather than letting the card clip its own content. */
+        @media (max-width: 860px) and (max-height: 760px) {
+          .hiw-inner { padding: 16px 20px; }
+          .hiw-header { margin-bottom: 12px; }
+          .hiw-title { font-size: 19px; }
+          .hiw-cta { margin-top: 10px; padding: 9px 16px !important; font-size: 12.5px !important; }
+          .hiw-grid { gap: 12px; }
+          .hiw-list { gap: 9px; }
+          .hiw-stage { max-width: min(340px, 30vh); }
+          .hiw-rowlabel { font-size: 15px; }
+          .hiw-rowdesc p { font-size: 12.5px; }
+          .hiw-stepnum-value { font-size: 18px; }
+          .hiw-row.active .hiw-stepnum-value { font-size: 23px; }
+          .hiw-row { grid-template-columns: 38px 1fr; gap: 11px; }
         }
       `}</style>
 

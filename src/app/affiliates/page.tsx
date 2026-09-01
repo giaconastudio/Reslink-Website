@@ -258,9 +258,16 @@ function FeatureShowcase() {
   const [fill, setFill] = useState(0);
   const rows = useRef<(HTMLDivElement | null)[]>([]);
   useEffect(() => {
+    // rootMargin shrinks the observed viewport down to a trigger band. It was
+    // -48%/-48%, leaving only a 4%-tall sliver in the middle of the screen —
+    // on a typical viewport that's under 40px, so the active row flipped on
+    // the smallest scroll wiggle, felt "too sensitive," and could re-trigger
+    // faster than the 350-420ms expand/collapse transitions settle. A 20%-tall
+    // band needs roughly 5x the scroll distance to cross, matching the pace
+    // the reveal animation can actually keep up with.
     const obs = new IntersectionObserver((entries) => {
       entries.forEach((e) => { if (e.isIntersecting) setActive(Number((e.target as HTMLElement).dataset.idx)); });
-    }, { rootMargin: '-48% 0px -48% 0px' });
+    }, { rootMargin: '-40% 0px -40% 0px' });
     rows.current.forEach((el) => el && obs.observe(el));
     return () => obs.disconnect();
   }, []);

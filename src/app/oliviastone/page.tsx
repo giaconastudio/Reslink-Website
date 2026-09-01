@@ -59,31 +59,7 @@ const ANALYTICS_TILES = [
 
 export default function ExampleProfilePage() {
   const pipRef = useRef<HTMLVideoElement>(null);
-  const resumeRef = useRef<HTMLDivElement>(null);
   const [playing, setPlaying] = useState(false);
-  /* The mobile PIP rides along while the resume is on screen and retires once
-   * you scroll past the end of it, rather than following the page forever.
-   * A plain passive scroll listener rather than IntersectionObserver: the
-   * observer can sit unresolved when the target is already in view at mount
-   * with no scroll to nudge it (the same trap ScrollToTop.tsx works around). */
-  const [pastResume, setPastResume] = useState(false);
-  useEffect(() => {
-    const onScroll = () => {
-      const el = resumeRef.current;
-      if (!el) return;
-      // Retire it once the resume's bottom edge rises above where the PIP sits.
-      const pipTop = window.innerHeight - 140;
-      setPastResume(el.getBoundingClientRect().bottom < pipTop);
-    };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
-  }, []);
-  const pipVisible = playing && !pastResume;
 
   // Autoplay the intro (muted) as soon as the page opens — browsers only allow
   // autoplay without a click when the video is muted.
@@ -117,7 +93,7 @@ export default function ExampleProfilePage() {
         <div style={{ padding: 'clamp(16px, 3vw, 28px) 24px 0', textAlign: 'center' }}>
           <div className="ex-banner" style={{ display: 'inline-flex', alignItems: 'center', gap: '16px', justifyContent: 'center', background: '#fff', borderRadius: '100px', padding: '7px 8px 7px 20px', boxShadow: '0 6px 24px rgba(6,26,58,0.08)' }}>
             <p className="ex-banner-text" style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)', display: 'inline-flex', alignItems: 'center', gap: '9px', lineHeight: 1.4, margin: 0, textAlign: 'left' }}>
-              <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 1.4 }} style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#5B7A0F', flexShrink: 0 }} />
+              <motion.span className="ex-banner-dot" animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 1.4 }} style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#5B7A0F', flexShrink: 0 }} />
               <span><strong style={{ color: '#061A3A', fontWeight: 700 }}>Example Reslink.</strong> This is exactly what recruiters see.</span>
             </p>
             <Link href="/get-started" className="ex-banner-cta" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '6px', background: '#061A3A', color: '#fff', fontSize: '12.5px', fontWeight: 700, borderRadius: '100px', padding: '9px 18px', textDecoration: 'none', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', flexShrink: 0 }}>
@@ -142,6 +118,13 @@ export default function ExampleProfilePage() {
               border-radius: 16px !important; padding: 14px 16px !important;
             }
             .ex-banner-text { font-size: 13.5px !important; align-items: flex-start !important; }
+            /* The dot is a flex sibling of the (now 2-line) text. align-items
+               flex-start puts its top edge at the top of the whole text block
+               — i.e. the top of line 1's line-box, not the visual middle of
+               that line's glyphs — which read as floating above "Example
+               Reslink" rather than beside it. Nudge it down to the centre of
+               a ~19px line (13.5px font * 1.4 line-height). */
+            .ex-banner-dot { margin-top: 6px; }
             .ex-banner-cta { width: 100%; padding: 11px 18px !important; font-size: 13.5px !important; }
           }
           .ex-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 24px; align-items: stretch; }
@@ -161,20 +144,43 @@ export default function ExampleProfilePage() {
           }
           .ex-resume-window { position: relative; background: #E9ECF1; padding: clamp(20px, 4vw, 44px); border-radius: 0 0 20px 20px; border: 1px solid #DFE3EA; border-top: none; }
           @media (max-width: 620px) { .ex-resume-window { padding: 16px 12px; } }
-          .ex-pip { position: absolute; top: 20px; right: 20px; width: clamp(120px, 22vw, 200px); aspect-ratio: 1; z-index: 5; }
-          /* On mobile the intro is a true picture-in-picture: pinned to the
-             bottom-right of the viewport for as long as it plays.
-             It used to be position:sticky with a negative top margin, but once
-             the resume card scrolled past, the sticky element rode up to its
-             container's top edge and — at z-index 60, above the navbar's 50 —
-             was drawn over the header. z-index 40 keeps it under the navbar so
-             it can never cover it, and the safe-area inset keeps it clear of
-             the home indicator / browser chrome. */
+          /* Desktop: pinned to the top-right corner of the resume window,
+             overlapping its padding — a fixed decoration, not scroll-aware. */
+          .ex-pip-wrap { z-index: 5; }
+          .ex-pip { position: absolute; top: 20px; right: 20px; width: clamp(120px, 22vw, 200px); aspect-ratio: 1; }
+          /* Mobile: a true sticky picture-in-picture. .ex-pip-wrap spans the
+             full height of .ex-resume-window (its start = top of the resume,
+             its end = bottom of the resume), so the sticky child inside it can
+             only stick for exactly that span — it starts docked at the top of
+             the resume, then once you've scrolled far enough that its natural
+             position would go off the bottom of the screen, it sticks near the
+             bottom of the viewport, and it leaves with the resume once the
+             wrap's own bottom edge scrolls above the sticky offset. No JS, no
+             opacity-fade "vanish": it just scrolls away as part of the layout,
+             like any other content leaving the screen.
+             Two earlier attempts got this wrong: sticky-with-a-negative-margin
+             overlaid the resume but rode up over the navbar once scrolled past
+             (fixed by z-index below, this time round); fixed-to-viewport kept
+             it on screen through unrelated sections entirely. */
           @media (max-width: 640px) {
+            .ex-pip-wrap { position: absolute; inset: 0; padding: 16px 12px; pointer-events: none; }
+            /* A bottom offset on position:sticky only clamps an element whose
+               flow position would drop below that line — the guard a
+               bottom-resting element needs when scrolling up. This element
+               rests near the top of a tall container, so scrolling down only
+               ever moves its flow position further above that line: with
+               bottom alone, sticky never engaged and it just scrolled with
+               the page (confirmed by measuring its top track scrollY 1:1,
+               with zero clamping at any point).
+               A top offset is what actually holds while scrolling down, so
+               the visually-near-the-bottom placement comes from computing
+               that top offset as (screen height minus box minus gap) instead. */
             .ex-pip {
-              position: fixed; top: auto; left: auto;
-              right: 12px; bottom: calc(14px + env(safe-area-inset-bottom, 0px));
-              width: 116px; height: 116px; margin: 0; z-index: 40;
+              position: sticky;
+              top: calc(100vh - 116px - 14px - env(safe-area-inset-bottom, 0px));
+              bottom: auto; right: auto;
+              width: 116px; height: 116px; margin-left: auto; pointer-events: auto;
+              display: block;
             }
           }
           .ex-resume-scroll { max-height: 760px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #C3C8D2 transparent; }
@@ -234,7 +240,7 @@ export default function ExampleProfilePage() {
           </motion.div>
 
           {/* Resume window (grey) + intro PIP (appears on play, upper-right) */}
-          <motion.div ref={resumeRef} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.1 }}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.1 }}
             className="ex-resume-window">
 
             {/* The resume "paper" — scrollable */}
@@ -292,22 +298,27 @@ export default function ExampleProfilePage() {
               </div>
             </div>
 
-            {/* Floating intro PIP — upper-right, visible only while playing (stays mounted so the ref exists) */}
-            <motion.div className="ex-pip"
-              initial={false}
-              animate={pipVisible ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.85, y: -10 }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              style={{ pointerEvents: pipVisible ? 'auto' : 'none' }}>
-              <div onClick={togglePlay} style={{ width: '100%', height: '100%', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.35)', border: '3px solid #fff', cursor: 'pointer', position: 'relative' }}>
-                <video ref={pipRef} src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" playsInline preload="metadata"
-                  onEnded={() => setPlaying(false)}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                <div style={{ position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(6,26,58,0.78)', backdropFilter: 'blur(6px)', borderRadius: '100px', padding: '3px 10px', display: 'flex', alignItems: 'center', gap: '5px', whiteSpace: 'nowrap' }}>
-                  <motion.div animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 1.4 }} style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#D7FF43', flexShrink: 0 }} />
-                  <span style={{ fontSize: '10px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Intro playing</span>
+            {/* Floating intro PIP — visible only while playing (stays mounted
+                so the ref exists). Wrapped so mobile can make it sticky
+                within the resume's own height without affecting desktop,
+                where it's a plain absolute corner decoration. */}
+            <div className="ex-pip-wrap">
+              <motion.div className="ex-pip"
+                initial={false}
+                animate={playing ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.85, y: -10 }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                style={{ pointerEvents: playing ? 'auto' : 'none' }}>
+                <div onClick={togglePlay} style={{ width: '100%', height: '100%', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.35)', border: '3px solid #fff', cursor: 'pointer', position: 'relative' }}>
+                  <video ref={pipRef} src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" playsInline preload="metadata"
+                    onEnded={() => setPlaying(false)}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                  <div style={{ position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(6,26,58,0.78)', backdropFilter: 'blur(6px)', borderRadius: '100px', padding: '3px 10px', display: 'flex', alignItems: 'center', gap: '5px', whiteSpace: 'nowrap' }}>
+                    <motion.div animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 1.4 }} style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#D7FF43', flexShrink: 0 }} />
+                    <span style={{ fontSize: '10px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Intro playing</span>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
           </motion.div>
 
           {/* Analytics + CTA, below the resume */}

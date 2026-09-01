@@ -131,7 +131,7 @@ export default function HowItWorks() {
         /* Monzo-style step marker — "Step" label over a big plain numeral,
            no circle/connector-line, sitting left of the title+description. */
         .hiw-row { position: relative; display: grid; grid-template-columns: 52px 1fr; gap: 18px; align-items: start; cursor: pointer; border: none; background: none; text-align: left; width: 100%; padding: 0; }
-        .hiw-row-scroll { position: absolute; top: -10px; right: 14px; z-index: 3; display: none; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.06); backdrop-filter: blur(8px); border: 1.5px solid rgba(215,255,67,0.45); }
+        .hiw-row-scroll { display: none; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.06); backdrop-filter: blur(8px); border: 1.5px solid rgba(215,255,67,0.45); margin: 12px auto 0; }
         .hiw-stepnum { display: flex; flex-direction: column; }
         .hiw-stepnum-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 2px; font-family: var(--font-body); transition: color 0.3s; }
         .hiw-stepnum-value { font-family: var(--font-phudu); font-size: 24px; font-weight: 900; line-height: 1; color: rgba(255,255,255,0.5); transition: color 0.3s, font-size 0.3s, transform 0.3s; }
@@ -166,22 +166,25 @@ export default function HowItWorks() {
           /* .hiw-sticky's top:68px (set in the base rule) docks it below the
              navbar; subtract that same 68px here so the card stays within
              the visible area instead of overflowing past the bottom. */
-          .hiw-sticky { padding: 12px; }
+          .hiw-sticky { padding: 8px; }
           /* Height follows the content (capped to the screen) rather than
              being pinned to the full viewport. The fixed height left a big
              band of empty navy under step 4 on tall phones, and forced the
              video to be shrunk to fit a budget that was never actually
              tight — content here is ~200px shorter than the card was. */
-          .hiw-card { height: auto; max-height: calc(100vh - 68px - 24px); border-radius: 22px; }
-          .hiw-inner { padding: 26px 20px; }
-          .hiw-header { margin-bottom: 20px; }
-          .hiw-grid { grid-template-columns: 1fr; gap: 20px; }
-          .hiw-list { gap: 15px; }
+          .hiw-card { height: auto; max-height: calc(100vh - 68px - 16px); border-radius: 22px; }
+          .hiw-inner { padding: 22px 16px; }
+          .hiw-header { margin-bottom: 18px; }
+          .hiw-grid { grid-template-columns: 1fr; gap: 18px; }
+          .hiw-list { gap: 11px; }
           .hiw-stage-row { order: -1; }
-          /* Was a flat 200px, which read as a thumbnail rather than a demo.
-             Scales up to 340px wide, but the vh term caps its height on short
-             screens (and in landscape) so the card never has to clip. */
-          .hiw-stage { max-width: min(340px, 52vh); }
+          /* Aspect is 1.35 rather than the desktop 1.29: the source videos are
+             1600x1040 (1.54) with content spanning the entire frame and no
+             blank margins, so every bit of extra height crops real UI off the
+             sides. 1.35 gains height over 1.29 while cropping less than it
+             did. The cap keeps tablets sane — they hit this same breakpoint,
+             and uncapped the stage ballooned past the card's height there. */
+          .hiw-stage { max-width: 460px; aspect-ratio: 1.35; }
           .hiw-title { font-size: 22px; }
           .hiw-cta { margin-top: 16px; padding: 11px 20px !important; font-size: 13.5px !important; }
           .hiw-eyebrow { margin-bottom: 7px; }
@@ -189,7 +192,14 @@ export default function HowItWorks() {
           /* The active row grows by revealing its description, so its
              highlight stays a light tint with only horizontal bleed — it
              must not add net height that pushes content past the cap. */
-          .hiw-row { grid-template-columns: 44px 1fr; gap: 14px; }
+          /* "Step" sits beside the numeral rather than above it here. Stacked,
+             the marker was ~35px tall and set each row's height on its own —
+             taller than the title next to it — which is most of what made the
+             list as tall as the video. Inline, the row collapses to its
+             title's height. */
+          .hiw-row { grid-template-columns: 56px 1fr; gap: 12px; }
+          .hiw-stepnum { flex-direction: row; align-items: baseline; gap: 5px; }
+          .hiw-stepnum-label { margin-bottom: 0; }
           .hiw-rowcontent { padding-bottom: 4px; }
           .hiw-rowcontent.active { background: rgba(255,255,255,0.05); border: none; border-radius: 10px; margin: 0 -10px 0 0; padding: 0 10px 8px; }
           .hiw-stepnum-value { font-size: 21px; }
@@ -199,6 +209,17 @@ export default function HowItWorks() {
           /* Mobile keeps a small "scroll for the next step" chevron anchored to
              the last step's row (the desktop text hint is gone). */
           .hiw-row-scroll { display: flex; }
+        }
+
+        /* Phones only. The card is ~370px wide here, so width is the single
+           lever for making the demo bigger — the stage breaks out of
+           .hiw-inner's padding and runs the full card width. Full-bleed reads
+           as a media band rather than a floating thumbnail, so the side
+           radius and borders come off with it. Tablets keep the capped,
+           inset stage from the rule above. */
+        @media (max-width: 600px) {
+          .hiw-stage-row { margin: 0 -16px; }
+          .hiw-stage { max-width: none; border-radius: 0; border-left: none; border-right: none; }
         }
 
         /* Short phones (SE-sized, and anything in landscape) genuinely cannot
@@ -213,7 +234,11 @@ export default function HowItWorks() {
           .hiw-cta { margin-top: 10px; padding: 9px 16px !important; font-size: 12.5px !important; }
           .hiw-grid { gap: 12px; }
           .hiw-list { gap: 9px; }
-          .hiw-stage { max-width: min(340px, 30vh); }
+          /* Not enough height here for the full-bleed treatment, so the stage
+             stays a smaller inset panel — which means putting back the radius
+             and side borders the full-bleed rule above removes. */
+          .hiw-stage-row { margin: 0; }
+          .hiw-stage { max-width: min(340px, 33vh); border-radius: 14px; border-left: 1px solid rgba(255,255,255,0.12); border-right: 1px solid rgba(255,255,255,0.12); }
           .hiw-rowlabel { font-size: 15px; }
           .hiw-rowdesc p { font-size: 12.5px; }
           .hiw-stepnum-value { font-size: 18px; }
@@ -263,16 +288,18 @@ export default function HowItWorks() {
                             )}
                           </AnimatePresence>
                         </span>
-                        {i === steps.length - 1 && (
-                          <motion.span className="hiw-row-scroll" animate={{ y: [0, 4, 0] }} transition={{ repeat: Infinity, duration: 1.3 }}>
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={activeAccent} strokeWidth="2.8"><polyline points="6 9 12 15 18 9"/></svg>
-                          </motion.span>
-                        )}
                       </button>
                     );
                   })}
                 </div>
 
+                {/* "Keep scrolling" hint. Sits below the list as its own
+                    centered element — it used to be absolutely positioned
+                    inside the last step's row, where it overlapped that
+                    row's label on mobile. */}
+                <motion.span className="hiw-row-scroll" animate={{ y: [0, 4, 0] }} transition={{ repeat: Infinity, duration: 1.3 }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={activeAccent} strokeWidth="2.8"><polyline points="6 9 12 15 18 9"/></svg>
+                </motion.span>
               </div>
 
               {/* Right — pinned video stage, with the step rail sitting right beside it */}

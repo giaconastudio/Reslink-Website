@@ -121,11 +121,21 @@ export default function ExampleProfilePage() {
           .ex-resume-window { position: relative; background: #E9ECF1; padding: clamp(20px, 4vw, 44px); border-radius: 0 0 20px 20px; border: 1px solid #DFE3EA; border-top: none; }
           @media (max-width: 620px) { .ex-resume-window { padding: 16px 12px; } }
           .ex-pip { position: absolute; top: 20px; right: 20px; width: clamp(120px, 22vw, 200px); aspect-ratio: 1; z-index: 5; }
-          /* On mobile the intro docks to the bottom of the resume section and scrolls
-             away with it, instead of following the whole page like a fixed overlay.
-             The negative top margin cancels its own height in the flow so it overlays
-             the resume instead of reserving its own blank space beneath it. */
-          @media (max-width: 640px) { .ex-pip { position: sticky; top: auto; bottom: 16px; width: 128px; height: 128px; margin: -128px 4px 0 auto; z-index: 60; } }
+          /* On mobile the intro is a true picture-in-picture: pinned to the
+             bottom-right of the viewport for as long as it plays.
+             It used to be position:sticky with a negative top margin, but once
+             the resume card scrolled past, the sticky element rode up to its
+             container's top edge and — at z-index 60, above the navbar's 50 —
+             was drawn over the header. z-index 40 keeps it under the navbar so
+             it can never cover it, and the safe-area inset keeps it clear of
+             the home indicator / browser chrome. */
+          @media (max-width: 640px) {
+            .ex-pip {
+              position: fixed; top: auto; left: auto;
+              right: 12px; bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+              width: 116px; height: 116px; margin: 0; z-index: 40;
+            }
+          }
           .ex-resume-scroll { max-height: 760px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #C3C8D2 transparent; }
           .ex-resume-scroll::-webkit-scrollbar { width: 6px; }
           .ex-resume-scroll::-webkit-scrollbar-thumb { background: #C3C8D2; border-radius: 3px; }

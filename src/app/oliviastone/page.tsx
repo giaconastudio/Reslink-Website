@@ -89,20 +89,37 @@ export default function ExampleProfilePage() {
       <Navbar dark />
       <main style={{ paddingTop: '68px', background: '#F4F6F9', minHeight: '100vh' }}>
 
-        {/* Example banner — compact centered pill */}
+        {/* Example banner — a pill on desktop, a compact card once it wraps */}
         <div style={{ padding: 'clamp(16px, 3vw, 28px) 24px 0', textAlign: 'center' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap', justifyContent: 'center', background: '#fff', borderRadius: '100px', padding: '7px 8px 7px 20px', boxShadow: '0 6px 24px rgba(6,26,58,0.08)' }}>
-            <p style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)', display: 'inline-flex', alignItems: 'center', gap: '9px', lineHeight: 1.4, margin: 0 }}>
+          <div className="ex-banner" style={{ display: 'inline-flex', alignItems: 'center', gap: '16px', justifyContent: 'center', background: '#fff', borderRadius: '100px', padding: '7px 8px 7px 20px', boxShadow: '0 6px 24px rgba(6,26,58,0.08)' }}>
+            <p className="ex-banner-text" style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)', display: 'inline-flex', alignItems: 'center', gap: '9px', lineHeight: 1.4, margin: 0, textAlign: 'left' }}>
               <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 1.4 }} style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#5B7A0F', flexShrink: 0 }} />
               <span><strong style={{ color: '#061A3A', fontWeight: 700 }}>Example Reslink.</strong> This is exactly what recruiters see.</span>
             </p>
-            <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#061A3A', color: '#fff', fontSize: '12.5px', fontWeight: 700, borderRadius: '100px', padding: '9px 18px', textDecoration: 'none', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>
+            <Link href="/get-started" className="ex-banner-cta" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '6px', background: '#061A3A', color: '#fff', fontSize: '12.5px', fontWeight: 700, borderRadius: '100px', padding: '9px 18px', textDecoration: 'none', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', flexShrink: 0 }}>
               Create yours <ArrowRight size={13} strokeWidth={2.5} />
             </Link>
           </div>
         </div>
 
         <style>{`
+          /* The pill shape only works while text and button sit on one line.
+             It used to wrap at this width while keeping the 100px radius,
+             which turned it into a tall white lozenge with the button
+             stranded underneath. Below 720px it becomes a normal card:
+             stacked, squared-off, full width, with a full-width CTA. */
+          /* !important throughout: the banner's radius, padding, gap and
+             align-items are set as inline styles on the element, which would
+             otherwise win over this rule. */
+          @media (max-width: 720px) {
+            .ex-banner {
+              display: flex !important; flex-direction: column; align-items: stretch !important;
+              gap: 12px !important; width: 100%;
+              border-radius: 16px !important; padding: 14px 16px !important;
+            }
+            .ex-banner-text { font-size: 13.5px !important; align-items: flex-start !important; }
+            .ex-banner-cta { width: 100%; padding: 11px 18px !important; font-size: 13.5px !important; }
+          }
           .ex-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 24px; align-items: stretch; }
           @media (max-width: 760px) { .ex-grid { grid-template-columns: 1fr; } }
           .ex-header-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }

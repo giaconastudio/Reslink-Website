@@ -59,7 +59,31 @@ const ANALYTICS_TILES = [
 
 export default function ExampleProfilePage() {
   const pipRef = useRef<HTMLVideoElement>(null);
+  const resumeRef = useRef<HTMLDivElement>(null);
   const [playing, setPlaying] = useState(false);
+  /* The mobile PIP rides along while the resume is on screen and retires once
+   * you scroll past the end of it, rather than following the page forever.
+   * A plain passive scroll listener rather than IntersectionObserver: the
+   * observer can sit unresolved when the target is already in view at mount
+   * with no scroll to nudge it (the same trap ScrollToTop.tsx works around). */
+  const [pastResume, setPastResume] = useState(false);
+  useEffect(() => {
+    const onScroll = () => {
+      const el = resumeRef.current;
+      if (!el) return;
+      // Retire it once the resume's bottom edge rises above where the PIP sits.
+      const pipTop = window.innerHeight - 140;
+      setPastResume(el.getBoundingClientRect().bottom < pipTop);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+  const pipVisible = playing && !pastResume;
 
   // Autoplay the intro (muted) as soon as the page opens — browsers only allow
   // autoplay without a click when the video is muted.
@@ -210,7 +234,7 @@ export default function ExampleProfilePage() {
           </motion.div>
 
           {/* Resume window (grey) + intro PIP (appears on play, upper-right) */}
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.1 }}
+          <motion.div ref={resumeRef} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.1 }}
             className="ex-resume-window">
 
             {/* The resume "paper" — scrollable */}
@@ -271,9 +295,9 @@ export default function ExampleProfilePage() {
             {/* Floating intro PIP — upper-right, visible only while playing (stays mounted so the ref exists) */}
             <motion.div className="ex-pip"
               initial={false}
-              animate={playing ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.85, y: -10 }}
+              animate={pipVisible ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.85, y: -10 }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              style={{ pointerEvents: playing ? 'auto' : 'none' }}>
+              style={{ pointerEvents: pipVisible ? 'auto' : 'none' }}>
               <div onClick={togglePlay} style={{ width: '100%', height: '100%', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.35)', border: '3px solid #fff', cursor: 'pointer', position: 'relative' }}>
                 <video ref={pipRef} src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" playsInline preload="metadata"
                   onEnded={() => setPlaying(false)}

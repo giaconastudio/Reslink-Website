@@ -173,26 +173,25 @@ export default function HowItWorks() {
              video to be shrunk to fit a budget that was never actually
              tight — content here is ~200px shorter than the card was. */
           .hiw-card { height: auto; max-height: calc(100vh - 68px - 16px); border-radius: 22px; }
-          /* Extra bottom padding reserves the band the scroll chevron floats
-             in — it's positioned out of flow below, so it costs no height of
-             its own. */
-          .hiw-inner { padding: 24px 16px 44px; }
-          .hiw-header { margin-bottom: 20px; }
-          .hiw-grid { grid-template-columns: 1fr; gap: 22px; }
-          .hiw-list { gap: 13px; }
+          /* Spacing is vh-relative so it opens right up on a tall phone (where
+             the uncropped video leaves ~150px spare) and tightens by itself on
+             short ones, instead of one hardcoded value that is either cramped
+             or overflowing depending on the device. */
+          .hiw-inner { padding: clamp(18px, 3vh, 34px) 16px; }
+          .hiw-header { margin-bottom: clamp(14px, 2.8vh, 28px); }
+          .hiw-grid { grid-template-columns: 1fr; gap: clamp(16px, 3vh, 30px); }
+          .hiw-list { gap: clamp(13px, 3.2vh, 30px); }
           .hiw-stage-row { order: -1; }
-          /* The source videos are 1600x1040, but the app UI inside them only
-             occupies the middle 53-67% of the width — the rest is flat #f8f8f8
-             padding. Measured content boxes: step1 x380 w840, step2 x336 w928,
-             step3 x332 w940, step4 x280 w1076. So a symmetric crop to
-             x260-1340 (1080 wide) keeps every step's content while dropping
-             the dead margin, and object-fit:cover centres exactly there.
-             1080x1040 is a ~1.04 aspect; framing to that renders the actual UI
-             ~1.5x larger at the same box width, which is what makes the demo
-             readable on a phone. Vertical can't be cropped — step 1's content
-             starts at y0 and step 4's runs to y1040.
+          /* Native 1600x1040 aspect — do NOT crop this. A single sampled frame
+             makes the videos look like they have wide dead margins, but they
+             pan and zoom: sampled across each clip's full duration, step 1
+             fills x0-1596, step 3 reaches x1488 and step 4 x1352. Any
+             symmetric crop tight enough to matter cuts real UI (an earlier
+             1.04 framing chopped the recording panel off step 3). With
+             object-fit:cover, matching the source aspect exactly means
+             nothing is ever cropped.
              The cap keeps tablets sane; they hit this breakpoint too. */
-          .hiw-stage { max-width: 460px; aspect-ratio: 1.04; }
+          .hiw-stage { max-width: 460px; aspect-ratio: 1600 / 1040; }
           .hiw-title { font-size: 22px; }
           .hiw-cta { margin-top: 16px; padding: 11px 20px !important; font-size: 13.5px !important; }
           .hiw-eyebrow { margin-bottom: 7px; }
@@ -214,11 +213,11 @@ export default function HowItWorks() {
           .hiw-row.active .hiw-stepnum-value { font-size: 27px; }
           .hiw-rowlabel { font-size: 16px; }
           .hiw-rowdesc p { font-size: 13.5px; }
-          /* The scroll hint floats in the padding band at the bottom of the
-             card rather than sitting in the flow, so it costs no layout
-             height. Centred with left rather than translateX because
-             framer-motion drives transform to bounce it. */
-          .hiw-row-scroll { display: flex; position: absolute; bottom: 4px; left: calc(50% - 16px); margin: 0; }
+          /* Kept in normal flow, centred under the list. Both previous
+             attempts — absolutely positioned inside the last step's row, then
+             floating in the card's bottom padding — ended up drawn over step
+             4's label. In flow it simply cannot overlap anything. */
+          .hiw-row-scroll { display: flex; position: static; margin: clamp(12px, 2.4vh, 22px) auto 0; }
         }
 
         /* Phones only. The card is ~370px wide here, so width is the single
@@ -248,7 +247,9 @@ export default function HowItWorks() {
           .hiw-title { font-size: 19px; }
           .hiw-cta { margin-top: 10px; padding: 9px 16px !important; font-size: 12.5px !important; }
           .hiw-grid { gap: 12px; }
-          .hiw-list { gap: 9px; }
+          /* No list-gap override here — the vh clamp above already tightens
+             it to ~21px at this height, and the uncropped (shorter) video
+             leaves enough room to keep the steps from bunching up. */
           /* Not enough height here for the full-bleed treatment, so the stage
              stays a smaller inset panel — which means putting back the radius
              and side borders the full-bleed rule above removes. */

@@ -60,17 +60,17 @@ const VALUES = [
   {
     num: '01',
     title: 'Your story is your edge',
-    body: 'Credentials open doors. Personality closes deals. Reslink is where who you are becomes your greatest competitive advantage.',
+    body: 'Credentials open doors. Personality closes deals. Reslink is where who you are stops being the thing nobody asks about.',
   },
   {
     num: '02',
     title: 'Be seen, not skimmed',
-    body: 'A resume gets scanned in seconds. A Reslink gets watched, remembered, and shared. We give your story the stage it deserves.',
+    body: 'A resume gets scanned in seconds. A Reslink gets watched, and then forwarded to the person who makes the decision.',
   },
   {
     num: '03',
-    title: 'Connection over credentials',
-    body: 'The best hire is rarely the most impressive resume. We believe authentic human connection should drive every hiring decision.',
+    title: 'Better information, both directions',
+    body: 'A hiring decision made from two pages is a guess. Both sides deserve more to go on before anyone commits to an interview.',
   },
   {
     num: '04',
@@ -151,6 +151,7 @@ export default function AboutPage() {
             .ah-hl-half { background: linear-gradient(#D7FF43, #D7FF43) no-repeat; background-size: 100% 0.34em; background-position: 0 calc(100% - 0.1em); padding: 0 0.05em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
             .ah-sub { font-size: clamp(16px, 2vw, 20px); color: #5C6070; line-height: 1.6; font-family: var(--font-body); max-width: 500px; margin: 0; }
             .ah-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+            .ah-ctas .btn-outline:hover { background: transparent; }
             .ah-proof { display: flex; align-items: center; gap: 12px; margin-top: 22px; }
             .ah-proof-avatars { display: flex; }
             .ah-proof-avatars img { width: 30px; height: 30px; border-radius: 50%; border: 2px solid #fff; display: block; object-fit: cover; }
@@ -172,11 +173,11 @@ export default function AboutPage() {
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>About us</p>
                 <h1 className="ah-h1">
-                  We make hiring<br />
-                  a <span className="ah-hl-half">human</span> decision
+                  Hiring is a<br />
+                  <span className="ah-hl-half">human</span> decision
                 </h1>
                 <p className="ah-sub">
-                  At Reslink, we help candidates show who they really are — and help companies see it.
+                  At Reslink, we help candidates show who they really are, and give companies a way to see it.
                 </p>
                 <div className="ah-ctas">
                   <a href="/get-started" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
@@ -230,7 +231,7 @@ export default function AboutPage() {
                   A resume tells you what<br />someone did. Never<br />who they are.
                 </h2>
                 <p style={{ fontSize: 'clamp(15px, 1.6vw, 17px)', color: '#5C6070', lineHeight: 1.75, fontFamily: 'var(--font-body)' }}>
-                  Energy, judgement, the way someone thinks &mdash; none of it survives a PDF. So the format filters for the wrong thing, and the people who lose out aren&rsquo;t the least qualified. They&rsquo;re the ones who don&rsquo;t read well on paper.
+                  Energy, judgement, the way someone thinks. None of it survives a PDF. So the people who lose out aren&rsquo;t the least qualified. They just don&rsquo;t read well on paper. And the person who&rsquo;d have been brilliant in the room never gets into it.
                 </p>
               </div>
             </motion.div>
@@ -262,7 +263,7 @@ export default function AboutPage() {
               style={{ marginBottom: '56px', textAlign: 'center' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>What we stand for</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 58px)', fontWeight: 900, color: '#fff', lineHeight: 0.93, letterSpacing: '-0.03em' }}>
-                Four principles we<br />refuse to compromise on.
+                Four principles we<br />refuse to compromise on
               </h2>
             </motion.div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2px' }} className="values-grid">
@@ -289,7 +290,7 @@ export default function AboutPage() {
               style={{ marginBottom: '56px', textAlign: 'center' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>The people behind it</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 58px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.93, letterSpacing: '-0.03em' }}>
-                Built by people who've<br />felt the problem firsthand.
+                Built by people who&rsquo;ve<br />been on both sides
               </h2>
             </motion.div>
 
@@ -309,12 +310,12 @@ export default function AboutPage() {
           boxBg="radial-gradient(ellipse 52% 64% at 93% 0%, rgba(214,61,157,0.42), transparent 52%), linear-gradient(140deg, #071B3D 0%, #05142C 100%)"
           onDark
           eyebrow="Join the mission"
-          heading={<>Be part of<br />the story.</>}
-          body="Whether you're a job seeker ready to stand out, a company looking to hire better, or someone who wants to build with us, there's a place for you here."
+          heading={<>Come build<br />it with us</>}
+          body="We're a small team solving something that affects almost everyone at some point. If that sounds like your kind of problem, we'd like to meet you."
           primaryLabel="See open positions"
           primaryHref="/careers"
           secondaryLabel=""
-          footnote="Now hiring across product, engineering, and growth"
+          footnote=""
           visual={
             <div style={{ borderRadius: '20px', overflow: 'hidden', boxShadow: '0 22px 55px rgba(6,26,58,0.16)', aspectRatio: '3 / 2' }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}

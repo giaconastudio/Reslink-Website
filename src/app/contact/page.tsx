@@ -11,8 +11,8 @@ const OPTIONS = [
     icon: Calendar,
     color: '#1468E8',
     bg: '#EEF4FF',
-    title: 'Contact Sales',
-    body: 'Want to use Reslink in your hiring process? Reach out to learn about our plans and pricing.',
+    title: 'Talk to sales',
+    body: "Using Reslink to hire? We'll walk you through plans and pricing.",
     cta: 'Schedule a demo',
     href: '/contact/sales',
   },
@@ -20,17 +20,17 @@ const OPTIONS = [
     icon: HelpCircle,
     color: '#5B7A0F',
     bg: '#EEF7CF',
-    title: 'Visit Our Help Center',
-    body: 'Find helpful articles, guides, and tutorials to make the most of your Reslink experience.',
-    cta: 'Visit help center',
+    title: 'Help centre',
+    body: 'Guides, tutorials and answers to the most common questions.',
+    cta: 'Visit help centre',
     href: '/help',
   },
   {
     icon: MessageSquare,
     color: '#D63D9D',
     bg: '#FBEAF5',
-    title: 'Contact Support',
-    body: 'Have questions or need assistance with your account? Our support team is ready to help.',
+    title: 'Contact support',
+    body: 'Something wrong with your account or a Reslink? Our team will sort it.',
     cta: 'Contact support',
     href: '/contact/support',
   },
@@ -43,7 +43,7 @@ export default function ContactPage() {
       <main style={{ paddingTop: '68px' }}>
 
         {/* Hero */}
-        <section style={{ background: '#061A3A', padding: 'clamp(56px, 8vw, 100px) 24px clamp(60px, 8vw, 96px)', position: 'relative', overflow: 'hidden' }}>
+        <section style={{ background: '#061A3A', padding: 'clamp(48px, 6vw, 76px) 24px clamp(60px, 8vw, 96px)', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', top: '-10%', left: '50%', transform: 'translateX(-50%)', width: '860px', height: '620px', background: 'radial-gradient(ellipse at center, rgba(20,104,232,0.16), transparent 64%)', pointerEvents: 'none' }} />
           <div style={{ maxWidth: '700px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
@@ -51,8 +51,8 @@ export default function ContactPage() {
               <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(52px, 8vw, 96px)', fontWeight: 900, color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '24px' }}>
                 Get in touch
               </h1>
-              <p style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.65, fontFamily: 'var(--font-body)' }}>
-                Have questions, feedback, or need help with platform issues?<br />We're here to assist with it all.
+              <p style={{ fontSize: 'clamp(16px, 1.6vw, 18px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.65, fontFamily: 'var(--font-body)' }}>
+                Questions, feedback, or something not working. We&apos;ll help.
               </p>
             </motion.div>
           </div>
@@ -100,7 +100,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)', lineHeight: 1.7, marginBottom: '24px' }}>
-                    At Reslink, we're always looking for passionate, driven people to help shape the future of hiring. If you're ready to make an impact in an innovative, collaborative environment, we'd love to hear from you.
+                    We're a small team working on the moment a stranger decides whether you're worth meeting. If that's a problem you'd like to spend your time on, we'd like to hear from you.
                   </p>
                   <Link href="/careers" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 24px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '14px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                     See open positions <ArrowUpRight size={15} />

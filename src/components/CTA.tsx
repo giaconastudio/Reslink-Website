@@ -111,7 +111,7 @@ export default function CTA({
                 </a>
               )}
             </div>
-            <p className="cta-fine">{footnote}</p>
+            {footnote && <p className="cta-fine">{footnote}</p>}
           </div>
 
           {/* Right — custom visual, or the default video-resume card */}

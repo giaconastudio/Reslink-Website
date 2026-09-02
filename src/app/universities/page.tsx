@@ -112,7 +112,7 @@ export default function UniversitiesPage() {
       <main style={{ paddingTop: '68px' }}>
 
         {/* ─── Hero ─── */}
-        <section style={{ background: '#061A3A', padding: 'clamp(72px, 10vw, 120px) 24px', position: 'relative', overflow: 'hidden' }}>
+        <section style={{ background: '#061A3A', padding: 'clamp(48px, 6vw, 76px) 24px', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', top: '-10%', left: '30%', width: '900px', height: '700px', background: 'radial-gradient(ellipse, rgba(20,104,232,0.22), transparent 60%)', pointerEvents: 'none' }} />
           <div style={{ maxWidth: '1060px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
             <div className="uni-hero-grid">

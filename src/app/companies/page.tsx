@@ -395,7 +395,7 @@ const [notifA, setNotifA] = useState(0);
       <main style={{ paddingTop: '68px' }}>
 
         {/* ─── Hero ─── */}
-        <section style={{ background: '#061A3A', padding: 'clamp(72px, 10vw, 112px) 24px 0', position: 'relative', overflow: 'hidden' }}>
+        <section style={{ background: '#061A3A', padding: 'clamp(48px, 6vw, 76px) 24px 0', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', top: '-10%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '700px', background: 'radial-gradient(ellipse, rgba(20,104,232,0.22), transparent 65%)', pointerEvents: 'none' }} />
           <div style={{ maxWidth: '860px', margin: '0 auto', position: 'relative', zIndex: 1, textAlign: 'center' }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>

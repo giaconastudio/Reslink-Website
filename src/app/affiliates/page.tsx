@@ -257,53 +257,17 @@ function FeatureShowcase() {
   const [active, setActive] = useState(0);
   const [fill, setFill] = useState(0);
   const rows = useRef<(HTMLDivElement | null)[]>([]);
-  // Widening the IntersectionObserver's trigger band (previous pass) cut
-  // down on single-scroll-tick flicker, but the underlying mechanism was
-  // still wrong for what was actually being asked for: with a 20%+ tall
-  // band, several rows can be intersecting at once, and the observer just
-  // fires setActive for whichever one's entry happens to be processed last
-  // in that callback — not necessarily the one nearest the middle of the
-  // screen. That's what read as "jumps all around based on where I scroll"
-  // rather than advancing one row at a time as you scroll past each one.
-  //
-  // Replaced with a scrollspy: on every scroll tick, measure every row's
-  // distance from a fixed target line and activate whichever one is
-  // closest. Exactly one winner, always, so it can only ever step through
-  // the list in order — the same pattern this site already uses for
-  // How It Works and the companies-page nav (see HowItWorks.tsx).
   useEffect(() => {
-    let ticking = false;
-    const measure = () => {
-      ticking = false;
-      // The last row whose top has crossed the line, not "nearest to the
-      // line by centre" — a row's own expand/collapse changes its height,
-      // which would move its centre and could make it fight with its
-      // neighbour for "closest" mid-transition. Top-edge crossing only
-      // depends on where each row STARTS, so it can't self-trigger like that.
-      const line = window.innerHeight * 0.45;
-      let current = 0;
-      rows.current.forEach((el, i) => {
-        if (el && el.getBoundingClientRect().top <= line) current = i;
-      });
-      setActive(current);
-    };
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(measure);
-    };
-    measure();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) setActive(Number((e.target as HTMLElement).dataset.idx)); });
+    }, { rootMargin: '-48% 0px -48% 0px' });
+    rows.current.forEach((el) => el && obs.observe(el));
+    return () => obs.disconnect();
   }, []);
   // Move the rail's pink fill down to the active feature's dot (re-measure once
   // the expand/collapse animation settles so it lands exactly on the dot).
   useEffect(() => {
-    const measure = () => { const el = rows.current[active]; if (el) setFill(el.offsetTop + 35); };
+    const measure = () => { const el = rows.current[active]; if (el) setFill(el.offsetTop + 22); };
     measure();
     const t = setTimeout(measure, 420);
     return () => clearTimeout(t);
@@ -324,15 +288,8 @@ function FeatureShowcase() {
           const done = i <= active;
           return (
             <div key={r.title} data-idx={i} ref={(el) => { rows.current[i] = el; }} onMouseEnter={() => setActive(i)}
-              /* Padding was 15px 0 (~54px collapsed row). The scrollspy above
-                 advances one row per ~one-row-height of scroll, so a short
-                 row meant a step every ~54px — most of what read as "too
-                 fast." Taller rows require more scroll per step, independent
-                 of the trigger mechanism itself. */
-              style={{ position: 'relative', padding: '28px 0', cursor: 'default', transform: on ? 'translateX(6px)' : 'none', opacity: on ? 1 : 0.5, transition: 'transform 0.35s ease, opacity 0.35s ease' }}>
-              {/* top offsets shifted +13px to match the row's padding-top
-                  going 15px -> 28px, keeping the dot level with the title */}
-              <span style={{ position: 'absolute', left: on ? '-33px' : '-30px', top: on ? '31px' : '34px', width: on ? '14px' : '8px', height: on ? '14px' : '8px', borderRadius: '50%', background: done ? '#D63D9D' : '#D3D8E0', border: on ? '3px solid #fff' : 'none', boxShadow: on ? '0 0 0 1.5px #D63D9D' : 'none', transition: 'all 0.35s ease' }} />
+              style={{ position: 'relative', padding: '15px 0', cursor: 'default', transform: on ? 'translateX(6px)' : 'none', opacity: on ? 1 : 0.5, transition: 'transform 0.35s ease, opacity 0.35s ease' }}>
+              <span style={{ position: 'absolute', left: on ? '-31px' : '-25px', transform: 'translateX(-50%)', top: on ? '19px' : '21px', width: on ? '10px' : '8px', height: on ? '10px' : '8px', borderRadius: '50%', background: done ? '#D63D9D' : '#D3D8E0', boxShadow: on ? '0 0 0 3px #fff, 0 0 0 5px #D63D9D' : 'none', transition: 'all 0.35s ease' }} />
               <p style={{ fontSize: on ? '18px' : '16px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', margin: 0, letterSpacing: '-0.01em', transition: 'font-size 0.3s ease' }}>{r.title}</p>
               <div style={{ overflow: 'hidden', maxHeight: on ? '200px' : '0px', opacity: on ? 1 : 0, transition: 'max-height 0.42s ease, opacity 0.35s ease' }}>
                 <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', margin: 0, paddingTop: '8px' }}>
@@ -362,7 +319,7 @@ export default function AffiliatesPage() {
 
   return (
     <>
-      <Navbar dark />
+      <Navbar />
       <style>{`
         @media (max-width: 860px) {
           .af-hero-split { grid-template-columns: 1fr !important; }
@@ -385,41 +342,15 @@ export default function AffiliatesPage() {
 
       <main style={{ paddingTop: '68px' }}>
 
-        {/* ─── Hero (split: copy + animated earnings preview) ─── */}
-        <section style={{ background: '#061A3A', padding: 'clamp(56px, 7vw, 96px) 24px', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(255,255,255,0.045) 1px, transparent 1px)', backgroundSize: '24px 24px', pointerEvents: 'none' }} />
-          <div style={{ position: 'absolute', top: '-15%', right: '-6%', width: '620px', height: '620px', background: 'radial-gradient(ellipse, rgba(214,61,157,0.22), transparent 62%)', pointerEvents: 'none' }} />
-          <div style={{ position: 'absolute', bottom: '-25%', left: '-8%', width: '560px', height: '560px', background: 'radial-gradient(ellipse, rgba(20,104,232,0.28), transparent 65%)', pointerEvents: 'none' }} />
-          <div className="af-hero-split" style={{ maxWidth: '1080px', margin: '0 auto', position: 'relative', zIndex: 1, display: 'grid', gridTemplateColumns: '1.05fr 0.95fr', gap: 'clamp(32px, 5vw, 64px)', alignItems: 'center' }}>
-            <motion.div className="af-hero-copy" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-              <p style={{ ...eyebrow('#D7FF43'), marginBottom: '18px' }}>Affiliate programme</p>
-              <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(34px, 4.8vw, 62px)', fontWeight: 900, color: '#fff', lineHeight: 0.94, letterSpacing: '-0.03em', marginBottom: '18px' }}>
-                Get paid for every referral.
-              </h1>
-              <p style={{ fontSize: 'clamp(15px, 1.7vw, 18px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.65, fontFamily: 'var(--font-body)', maxWidth: '440px', marginBottom: '32px' }}>
-                <span style={{ color: '#D7FF43', fontWeight: 700 }}>45% recurring</span> on every customer you send — not a one-off bounty. A referral you make today is still paying you in twenty-three months.
-              </p>
-              <div className="af-hero-btns" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '18px' }}>
-                <Link href="/get-started?type=affiliate" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 28px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                  Apply now <ArrowRight size={16} />
-                </Link>
-                <a href="#calculator" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 28px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.16)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                  Work out your earnings
-                </a>
-              </div>
-              <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '12px', letterSpacing: '0.06em', color: 'rgba(255,255,255,0.28)', textTransform: 'uppercase' }}>Free to join · approval usually within 2 working days</p>
-            </motion.div>
-            <HeroPayouts />
-          </div>
-        </section>
-
-        {/* ─── Earnings calculator ─── */}
-        <section id="calculator" style={{ background: '#F6F7F9', padding: 'clamp(64px, 8vw, 100px) 24px', scrollMarginTop: '80px' }}>
-          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+        {/* ─── Hero: earnings calculator (background + font sizes match the pricing page) ─── */}
+        <section id="calculator" style={{ background: 'linear-gradient(180deg, #FFFFFF 0%, #EAF1FF 100%)', padding: 'clamp(64px, 9vw, 104px) 24px clamp(56px, 7vw, 80px)', scrollMarginTop: '80px', position: 'relative', overflow: 'hidden' }}>
+          <div aria-hidden style={{ position: 'absolute', top: '-150px', right: '-90px', width: '540px', height: '440px', background: 'radial-gradient(ellipse at center, rgba(214,61,157,0.09), transparent 66%)', pointerEvents: 'none' }} />
+          <div aria-hidden style={{ position: 'absolute', top: '-110px', left: '-70px', width: '520px', height: '420px', background: 'radial-gradient(ellipse at center, rgba(20,104,232,0.08), transparent 66%)', pointerEvents: 'none' }} />
+          <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '44px' }}>
-              <p style={eyebrow('#1468E8')}>Earnings calculator</p>
-              <h2 style={h2Style}>What could this be worth?</h2>
-              <p style={{ fontSize: '16px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '460px', margin: '16px auto 0' }}>
+              <p style={{ ...eyebrow('#1468E8'), marginBottom: '18px' }}>Affiliate programme</p>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(42px, 8vw, 92px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.94, letterSpacing: '-0.03em' }}>Get 45% on every customer <span style={{ background: 'linear-gradient(#D7FF43, #D7FF43) no-repeat', backgroundSize: '100% 0.34em', backgroundPosition: '0 calc(100% - 0.1em)', padding: '0 0.05em', WebkitBoxDecorationBreak: 'clone', boxDecorationBreak: 'clone' }}>you refer</span></h2>
+              <p style={{ fontSize: 'clamp(16px, 2vw, 18px)', color: '#5C6070', lineHeight: 1.65, fontFamily: 'var(--font-body)', maxWidth: '540px', margin: '18px auto 0' }}>
                 Move the slider. This is the part most affiliate programmes don&apos;t want you to work out.
               </p>
             </motion.div>

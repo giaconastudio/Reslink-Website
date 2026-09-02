@@ -10,27 +10,27 @@ const GAP = 44; // dashed connector length from node up to card bottom
 const MS = [
   {
     xPct: 12.5, nodeY: 440, color: '#C7CBD3', halo: 'rgba(199,203,211,0.35)',
-    date: 'Early 2024', chip: 'The spark', chipBg: '#EEF0F3', chipFg: '#5C6070',
-    title: 'More than a PDF', dark: false, nodeDelay: 0.22, connDelay: 0.32, cardDelay: 0.4,
-    body: <>Dominic kept getting overlooked — qualified, but reduced to bullet points. So he built the first Reslink for himself.</>,
+    date: '2023', chip: 'The spark', chipBg: '#EEF0F3', chipFg: '#5C6070',
+    title: 'Reslink was born', dark: false, nodeDelay: 0.22, connDelay: 0.32, cardDelay: 0.4,
+    body: <>Dominic kept getting overlooked. Qualified, but reduced to bullet points. So he built the first version for himself.</>,
   },
   {
     xPct: 37.5, nodeY: 396, color: '#1468E8', halo: 'rgba(20,104,232,0.22)',
-    date: 'Late 2024', chip: 'Launch', chipBg: '#DCEAFF', chipFg: '#1468E8',
+    date: '2024', chip: 'Launch', chipBg: '#DCEAFF', chipFg: '#1468E8',
     title: 'Anyone can record', dark: false, nodeDelay: 0.64, connDelay: 0.74, cardDelay: 0.8,
-    body: <>The tool went public: a video intro, a resume and a portfolio behind <strong>one link</strong> — with tracking, so you know who watched.</>,
+    body: <>The first version shipped: a video intro, a resume and a portfolio behind <strong>one link</strong>, with tracking so you know who watched.</>,
   },
   {
     xPct: 62.5, nodeY: 352, color: '#D63D9D', halo: 'rgba(214,61,157,0.20)',
     date: '2025', chip: 'Forces join', chipBg: '#FBEAF5', chipFg: '#D63D9D',
-    title: 'The team forms', dark: false, nodeDelay: 1.04, connDelay: 1.14, cardDelay: 1.2,
-    body: <>Roxanne and Joana of <strong>TechTalk</strong> — a community of 400,000 job seekers — teamed up with Dominic.</>,
+    title: 'Three founders', dark: false, nodeDelay: 1.04, connDelay: 1.14, cardDelay: 1.2,
+    body: <>Roxanne and Joana joined from the other side of the same problem, after years coaching job seekers through <strong>TechTalk</strong>.</>,
   },
   {
     xPct: 87.5, nodeY: 308, color: '#C2E532', halo: 'rgba(194,229,50,0.30)',
-    date: 'Today', chip: 'Now', chipBg: '#D7FF43', chipFg: '#061A3A',
-    title: 'Impossible to ignore', dark: true, nodeDelay: 1.44, connDelay: 1.54, cardDelay: 1.6,
-    body: <>Where job seekers stop being a document and start being a person recruiters actually meet.</>,
+    date: '2026', chip: 'Next', chipBg: '#D7FF43', chipFg: '#061A3A',
+    title: "Building for what's next", dark: true, nodeDelay: 1.44, connDelay: 1.54, cardDelay: 1.6,
+    body: <>Dan London joined as COO and Taylor Bagwell as CTO, and Reslink 2.0 launched: candidates make their case, companies see who&rsquo;s worth meeting.</>,
   },
 ];
 
@@ -90,7 +90,7 @@ export default function StoryTimeline() {
         >
           <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>Our story</p>
           <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.6vw, 58px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.98, letterSpacing: '-0.03em' }}>
-            How we got here.
+            How we got here
           </h2>
           <p style={{ fontSize: 'clamp(15px, 1.7vw, 18px)', color: '#5C6070', lineHeight: 1.6, fontFamily: 'var(--font-body)', maxWidth: '520px', margin: '18px auto 0' }}>
             One person kept getting skipped over. That turned into a product, then a team, then a way of applying.

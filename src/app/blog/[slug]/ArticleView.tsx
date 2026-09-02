@@ -45,13 +45,13 @@ export default function ArticleView({ post, related }: { post: Post; related: Po
           .toc-link.active { color: #1468E8; font-weight: 700; border-left-color: #1468E8; }
           .toc-news-input::placeholder { color: rgba(255,255,255,0.4); }
           .toc-news-input:focus { outline: none; border-color: rgba(255,255,255,0.35) !important; }
-          .article-body p { font-size: 17px; color: #3D4452; line-height: 1.8; font-family: var(--font-body); margin: 0 0 20px; }
+          .article-body p { font-size: 16px; color: #3D4452; line-height: 1.7; font-family: var(--font-body); margin: 0 0 18px; }
           .article-body a { color: #1468E8; text-decoration: underline; text-underline-offset: 2px; font-weight: 600; overflow-wrap: anywhere; }
           .article-body a:hover { color: #0F52B8; }
           .article-body strong { font-weight: 800; color: #061A3A; }
           .article-body em { font-style: italic; }
           .article-body ul, .article-body ol { margin: 0 0 20px; padding-left: 24px; }
-          .article-body li { font-size: 17px; color: #3D4452; line-height: 1.8; font-family: var(--font-body); margin-bottom: 8px; }
+          .article-body li { font-size: 16px; color: #3D4452; line-height: 1.7; font-family: var(--font-body); margin-bottom: 8px; }
           .article-body li > p { margin: 0; }
           .article-body ul { list-style: disc; }
           .article-body ol { list-style: decimal; }

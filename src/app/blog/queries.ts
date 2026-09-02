@@ -119,16 +119,26 @@ function cleanExcerpt(raw: string | null): string {
   return (raw ?? '').replace(/^\s*meta\s*description\s*:\s*/i, '').trim();
 }
 
+/* Card tag colours are driven from code (keyed by category name) so they stay
+ * consistent with the filter pills, rather than depending on per-category
+ * colours set in the CMS. Falls back to CMS values, then a neutral grey. */
+const TAG_STYLES: Record<string, { text: string; bg: string }> = {
+  'Job Search Tips': { text: '#1468E8', bg: '#EAF1FF' },
+  'Video Resume Tips': { text: '#C0398A', bg: '#FBEAF5' },
+  'Product Updates': { text: '#5B7A0F', bg: '#EEF7CF' },
+};
+
 function toPost(r: DatoPostRecord): Post {
   const category = r.tags.find(t => !AUDIENCE_IDS.includes(t.id)) ?? r.tags[0] ?? null;
   const cover = r.coverImage?.responsiveImage?.url ?? r.coverImage?.url ?? '';
+  const tagStyle = category?.name ? TAG_STYLES[category.name] : undefined;
   return {
     slug: r.slug ?? '',
     title: r.title ?? 'Untitled',
     excerpt: cleanExcerpt(r.description),
     tag: category?.name ?? 'Article',
-    tagColor: category?.textColor ?? '#5C6070',
-    tagBg: category?.bgColor ?? '#ECEEF1',
+    tagColor: tagStyle?.text ?? category?.textColor ?? '#5C6070',
+    tagBg: tagStyle?.bg ?? category?.bgColor ?? '#ECEEF1',
     date: formatDate(r._firstPublishedAt),
     read: r.readTimeline ?? '',
     image: cover,

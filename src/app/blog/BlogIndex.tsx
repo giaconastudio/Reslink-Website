@@ -66,16 +66,16 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
         `}</style>
 
         {/* Hero / Search */}
-        <section style={{ background: '#061A3A', padding: 'clamp(72px, 9vw, 110px) 24px clamp(56px, 7vw, 80px)', position: 'relative', overflow: 'hidden' }}>
+        <section style={{ background: '#061A3A', padding: 'clamp(48px, 6vw, 76px) 24px clamp(56px, 7vw, 80px)', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', top: '-30%', left: '50%', transform: 'translateX(-50%)', width: '900px', height: '700px', background: 'radial-gradient(ellipse, rgba(20,104,232,0.18), transparent 60%)', pointerEvents: 'none' }} />
           <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '18px', fontFamily: 'var(--font-body)' }}>The Reslink Blog</p>
               <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 7vw, 96px)', fontWeight: 900, color: '#fff', lineHeight: 0.88, letterSpacing: '-0.03em', marginBottom: '0' }}>
-                Getting seen,<br />Getting <span style={{ color: '#D7FF43' }}>hired.</span>
+                Getting seen,<br />Getting <span style={{ color: '#D7FF43' }}>hired</span>
               </h1>
               <p style={{ fontSize: 'clamp(15px, 1.8vw, 18px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginTop: '40px', marginBottom: '36px', maxWidth: '560px', margin: '40px auto 36px' }}>
-                Learn what will get you hired.
+                Practical advice on applications, interviews and getting noticed, from people who do this every day.
               </p>
 
               {/* Search bar */}

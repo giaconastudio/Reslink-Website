@@ -25,16 +25,20 @@ export default function LoginPage() {
         input:focus { border-color: #1468E8 !important; }
         .login-wrap { width: 100%; max-width: 460px; background: #fff; border-radius: 20px; box-shadow: 0 8px 48px rgba(6,26,58,0.13); overflow: hidden; }
         .login-right { background: #fff; display: flex; justify-content: center; padding: clamp(36px, 6vw, 52px) clamp(28px, 6vw, 48px); }
+        .login-legal-link { transition: color 0.15s; }
+        .login-legal-link:hover { color: #1468E8 !important; }
       `}</style>
 
-      <div style={{ minHeight: '100vh', background: '#F6F7F9', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '108px 24px 48px', boxSizing: 'border-box' }}>
-        <div className="login-wrap">
+      <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #FFFFFF 0%, #EAF1FF 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '108px 24px 48px', boxSizing: 'border-box', position: 'relative', overflow: 'hidden' }}>
+        <div aria-hidden style={{ position: 'absolute', top: '-150px', right: '-90px', width: '540px', height: '440px', background: 'radial-gradient(ellipse at center, rgba(214,61,157,0.09), transparent 66%)', pointerEvents: 'none' }} />
+        <div aria-hidden style={{ position: 'absolute', top: '-110px', left: '-70px', width: '520px', height: '420px', background: 'radial-gradient(ellipse at center, rgba(20,104,232,0.08), transparent 66%)', pointerEvents: 'none' }} />
+        <div className="login-wrap" style={{ position: 'relative', zIndex: 1 }}>
 
           {/* ── Sign-in form (centred, no side panel) ── */}
           <div className="login-right">
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} style={{ width: '100%', maxWidth: '400px' }}>
 
-              <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: '32px', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.03em', marginBottom: '6px', textAlign: 'center' }}>Welcome back.</h1>
+              <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: '32px', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.03em', marginBottom: '6px', textAlign: 'center' }}>Log in to your account</h1>
               <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '32px', textAlign: 'center' }}>
                 New here?{' '}
                 <Link href="/get-started" style={{ color: '#1468E8', textDecoration: 'none', fontWeight: 700 }}>Create an account</Link>
@@ -81,8 +85,8 @@ export default function LoginPage() {
 
               <p style={{ marginTop: '24px', fontSize: '11px', color: '#C4C8D0', fontFamily: 'var(--font-body)', textAlign: 'center' }}>
                 By signing in, you agree to our{' '}
-                <Link href="#" style={{ color: '#9A9FA8', textDecoration: 'none' }}>Terms</Link> &{' '}
-                <Link href="#" style={{ color: '#9A9FA8', textDecoration: 'none' }}>Privacy Policy</Link>.
+                <Link href="/terms" className="login-legal-link" style={{ color: '#9A9FA8', textDecoration: 'none' }}>Terms</Link> &{' '}
+                <Link href="/privacy" className="login-legal-link" style={{ color: '#9A9FA8', textDecoration: 'none' }}>Privacy Policy</Link>.
               </p>
             </motion.div>
           </div>

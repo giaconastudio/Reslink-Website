@@ -21,11 +21,12 @@ const STATS = [
 
 
 const FAQS = [
-  { q: 'Who is Reslink for?', a: 'Reslink is built for companies, recruitment agencies, and universities that want a more human, memorable way to evaluate candidates. If you\'re hiring or placing talent, Reslink is for you.' },
-  { q: 'How long does onboarding take?', a: 'Most teams are up and running within a day. We provide a dedicated onboarding session and setup support to make sure everything works for your workflow.' },
-  { q: 'Can I trial Reslink before committing?', a: 'Yes. we offer a free trial for organizations that want to test Reslink with their team before signing up for a plan. Ask about it during your demo.' },
-  { q: 'Do you offer custom pricing for large organizations?', a: 'Absolutely. For teams with enterprise-scale hiring needs, we offer custom plans. Reach out and we\'ll build something that works for your volume and budget.' },
+  { q: 'Do we have to pay to get started?', a: 'No. You can start with a free trial and explore Reslink with your team before committing to a plan. We only talk pricing once you know it is a fit.' },
   { q: 'Is Reslink compatible with our existing ATS?', a: 'Yes. Reslink integrates with most major ATS platforms. Candidates can include their Reslink link as part of their standard application, so it fits right into your existing workflow.' },
+  { q: 'Do candidates need an account to apply?', a: 'Candidates create a free Reslink to record their intro and share their link, but they can send it to you however you already receive applications - no account or login needed on your side.' },
+  { q: 'What happens to candidate data?', a: 'Candidate data stays private and is only visible to the team members you invite. We never sell it or share it with third parties, and each candidate controls exactly what they include in their Reslink.' },
+  { q: 'How long does onboarding take?', a: 'Most teams are up and running within a day. We provide a dedicated onboarding session and setup support to make sure everything works for your workflow.' },
+  { q: 'Do you offer custom pricing for large organizations?', a: 'Absolutely. For teams with enterprise-scale hiring needs, we offer custom plans. Reach out and we\'ll build something that works for your volume and budget.' },
   { q: 'What support is included?', a: 'All paid plans include email support and access to our help center. Enterprise plans include priority support, a dedicated account manager, and regular check-in calls.' },
 ];
 
@@ -52,19 +53,25 @@ function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; 
 
 export default function SalesPage() {
   const [sent, setSent] = useState(false);
-  const [form, setForm] = useState({ firstName: '', lastName: '', email: '', org: '', message: '' });
+  const [form, setForm] = useState({ firstName: '', lastName: '', email: '', rolesCount: '', orgType: '', message: '', hearAbout: '' });
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const inputStyle: React.CSSProperties = {
-    width: '100%', padding: '13px 14px', borderRadius: '10px',
-    border: '1.5px solid #E4E7EC', fontSize: '14px',
+    width: '100%', padding: '11px 13px', borderRadius: '10px',
+    border: '1.5px solid #E7EAF0', fontSize: '14px',
     fontFamily: 'var(--font-body)', color: '#061A3A', outline: 'none',
     boxSizing: 'border-box', background: '#F6F7F9',
   };
-  const labelStyle: React.CSSProperties = {
-    display: 'block', fontSize: '10px', fontWeight: 700, color: '#9AA1AE',
-    marginBottom: '6px', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.08em',
-  };
+  const selectStyle = (val: string): React.CSSProperties => ({
+    ...inputStyle, appearance: 'none', cursor: 'pointer', paddingRight: '40px',
+    color: val ? '#061A3A' : '#9AA1AE',
+  });
+  const Chevron = () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AA1AE" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"
+      style={{ position: 'absolute', right: '15px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }}>
+      <polyline points="6 9 12 15 18 9" />
+    </svg>
+  );
 
   return (
     <>
@@ -126,40 +133,36 @@ export default function SalesPage() {
                   ) : (
                     <>
                       <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: '24px', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.02em', marginBottom: '4px' }}>Book your demo</h2>
-                      <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', lineHeight: 1.55, marginBottom: '22px' }}>Pick a time on the next screen — no back-and-forth email.</p>
-                      <form onSubmit={e => { e.preventDefault(); setSent(true); }} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                      <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', lineHeight: 1.55, marginBottom: '16px' }}>Pick a time on the next screen. No back-and-forth.</p>
+                      <form onSubmit={e => { e.preventDefault(); setSent(true); }} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                          <div>
-                            <label style={labelStyle}>First name</label>
-                            <input type="text" placeholder="Jane" value={form.firstName} onChange={e => setForm(p => ({ ...p, firstName: e.target.value }))} required style={inputStyle} />
-                          </div>
-                          <div>
-                            <label style={labelStyle}>Last name</label>
-                            <input type="text" placeholder="Smith" value={form.lastName} onChange={e => setForm(p => ({ ...p, lastName: e.target.value }))} required style={inputStyle} />
-                          </div>
+                          <input type="text" placeholder="First name" value={form.firstName} onChange={e => setForm(p => ({ ...p, firstName: e.target.value }))} required style={inputStyle} />
+                          <input type="text" placeholder="Last name" value={form.lastName} onChange={e => setForm(p => ({ ...p, lastName: e.target.value }))} required style={inputStyle} />
                         </div>
-                        <div>
-                          <label style={labelStyle}>Work email</label>
-                          <input type="email" placeholder="jane@company.com" value={form.email} onChange={e => setForm(p => ({ ...p, email: e.target.value }))} required style={inputStyle} />
-                        </div>
-                        <div>
-                          <label style={labelStyle}>Company size</label>
-                          <select value={form.org} onChange={e => setForm(p => ({ ...p, org: e.target.value }))} required
-                            style={{ ...inputStyle, appearance: 'none', cursor: 'pointer', color: form.org ? '#061A3A' : '#9AA1AE' } as React.CSSProperties}>
-                            <option value="" disabled>Select...</option>
-                            <option>1–10 employees</option>
-                            <option>11–50 employees</option>
-                            <option>51–200 employees</option>
-                            <option>201–1,000 employees</option>
-                            <option>1,000+ employees</option>
+                        <input type="email" placeholder="Business email" value={form.email} onChange={e => setForm(p => ({ ...p, email: e.target.value }))} required style={inputStyle} />
+                        <div style={{ position: 'relative' }}>
+                          <select value={form.rolesCount} onChange={e => setForm(p => ({ ...p, rolesCount: e.target.value }))} required style={selectStyle(form.rolesCount)}>
+                            <option value="" disabled>How many roles / students will you use Reslink for?</option>
+                            <option>For 1-10 roles</option>
+                            <option>For 10-100 roles</option>
+                            <option>For &gt;100 roles</option>
+                            <option>Not sure yet</option>
                           </select>
+                          <Chevron />
                         </div>
-                        <div>
-                          <label style={labelStyle}>Roles you&apos;re hiring for <span style={{ color: '#C0C4CC', textTransform: 'none', letterSpacing: 0, fontWeight: 600 }}>optional</span></label>
-                          <textarea placeholder="Two engineers and a designer this quarter..." rows={3} value={form.message} onChange={e => setForm(p => ({ ...p, message: e.target.value }))} style={{ ...inputStyle, resize: 'vertical' } as React.CSSProperties} />
+                        <div style={{ position: 'relative' }}>
+                          <select value={form.orgType} onChange={e => setForm(p => ({ ...p, orgType: e.target.value }))} required style={selectStyle(form.orgType)}>
+                            <option value="" disabled>Which best describes your organization?</option>
+                            <option>Company</option>
+                            <option>Recruitment agency</option>
+                            <option>University</option>
+                          </select>
+                          <Chevron />
                         </div>
+                        <textarea placeholder="How can we help you?" rows={3} value={form.message} onChange={e => setForm(p => ({ ...p, message: e.target.value }))} style={{ ...inputStyle, resize: 'vertical' } as React.CSSProperties} />
+                        <input type="text" placeholder="How did you hear about Reslink?" value={form.hearAbout} onChange={e => setForm(p => ({ ...p, hearAbout: e.target.value }))} style={inputStyle} />
                         <button type="submit"
-                          style={{ width: '100%', padding: '14px', background: '#1468E8', color: '#fff', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', transition: 'background 0.15s' }}
+                          style={{ width: '100%', padding: '13px', background: '#1468E8', color: '#fff', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', transition: 'background 0.15s', marginTop: '4px' }}
                           onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#0A52C4'; }}
                           onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '#1468E8'; }}>
                           Choose a time <ArrowRight size={15} />
@@ -182,7 +185,7 @@ export default function SalesPage() {
           <div style={{ maxWidth: '720px', margin: '0 auto' }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '48px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Frequently asked questions</p>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 48px)', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.03em', lineHeight: 0.96 }}>Everything you need to know</h2>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 48px)', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.03em', lineHeight: 0.96 }}>Before you book</h2>
             </motion.div>
             <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '0 28px', boxShadow: '0 1px 8px rgba(6,26,58,0.04)' }}>
               {FAQS.map((f, i) => (

@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 const EXPERIENCE = [
   {
-    org: 'Resume Worded', period: 'Nov 2015 – Present',
+    org: 'Meridian Logistics', period: 'Nov 2015 – Present',
     points: [
       'Cut ERP implementation cost 15.5% in six months on a mid-market retail rollout.',
       'Standardised logistics across 5 countries and 21 distribution centres, reducing overhead 8%.',

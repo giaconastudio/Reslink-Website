@@ -68,10 +68,10 @@ export default function TemplatesPage() {
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '18px', fontFamily: 'var(--font-body)' }}>Free download</p>
               <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(38px, 5vw, 62px)', fontWeight: 900, color: '#fff', lineHeight: 0.92, letterSpacing: '-0.03em', marginBottom: '20px' }}>
-                Resume templates that get past the filter.
+                ATS-proof<br />resume templates
               </h1>
               <p style={{ fontSize: 'clamp(15px, 1.7vw, 17px)', color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '28px', maxWidth: '420px' }}>
-                Three ATS-safe layouts, built from the formatting rules that actually trip up parsers. Editable in Docs, Word or Pages.
+                Three layouts built around the formatting rules that actually trip up parsers.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '13px', marginBottom: '30px' }}>
                 {HERO_CHECKS.map(c => (
@@ -79,7 +79,7 @@ export default function TemplatesPage() {
                     <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: '#C2E532', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                       <Check size={12} color="#061A3A" strokeWidth={3} />
                     </div>
-                    <span style={{ fontSize: '14px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)' }}>{c.label} <span style={{ fontWeight: 400, color: 'rgba(255,255,255,0.55)' }}>— {c.desc}</span></span>
+                    <span style={{ fontSize: '14px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)' }}>{c.label} <span style={{ fontWeight: 400, color: 'rgba(255,255,255,0.55)' }}>- {c.desc}</span></span>
                   </div>
                 ))}
               </div>
@@ -112,7 +112,11 @@ export default function TemplatesPage() {
                     <input className="tmpl-form-input" type="email" placeholder="Email address" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} style={{ marginBottom: '16px' }} />
                     <button
                       onClick={() => { if (form.firstName && form.email) setSubmitted(true); }}
-                      style={{ width: '100%', padding: '15px', background: '#D7FF43', color: '#061A3A', border: 'none', borderRadius: '12px', fontSize: '15px', fontWeight: 800, fontFamily: 'var(--font-body)', cursor: 'pointer', marginBottom: '14px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)'; (e.currentTarget as HTMLElement).style.filter = 'brightness(0.94)'; }}
+                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; (e.currentTarget as HTMLElement).style.filter = 'none'; }}
+                      onMouseDown={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(0) scale(0.98)'; }}
+                      onMouseUp={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)'; }}
+                      style={{ width: '100%', padding: '15px', background: '#D7FF43', color: '#061A3A', border: 'none', borderRadius: '12px', fontSize: '15px', fontWeight: 800, fontFamily: 'var(--font-body)', cursor: 'pointer', marginBottom: '14px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', transition: 'transform 0.15s ease, filter 0.15s ease' }}>
                       Send me the templates
                       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </button>
@@ -132,7 +136,7 @@ export default function TemplatesPage() {
           <div style={{ maxWidth: '1080px', margin: '0 auto' }}>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.5 }} style={{ textAlign: 'center', marginBottom: '48px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>What you&apos;re getting</p>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 48px)', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.03em', lineHeight: 0.96, marginBottom: '16px' }}>Three templates, three situations.</h2>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 48px)', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.03em', lineHeight: 0.96, marginBottom: '16px' }}>Three templates, three situations</h2>
               <p style={{ fontSize: '16px', color: '#5C6070', lineHeight: 1.6, fontFamily: 'var(--font-body)', maxWidth: '540px', margin: '0 auto' }}>Not three colourways of the same thing. Each one solves a different problem with how your history reads.</p>
             </motion.div>
 
@@ -171,9 +175,9 @@ export default function TemplatesPage() {
           <div className="tmpl-while" style={{ maxWidth: '1080px', margin: '0 auto' }}>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.5 }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D63D9D', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>While you&apos;re here</p>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 3.6vw, 44px)', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.03em', lineHeight: 0.98, marginBottom: '20px' }}>A good template gets you read. It won&apos;t get you remembered.</h2>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 3.3vw, 40px)', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.03em', lineHeight: 1.02, marginBottom: '20px' }}>A good template gets you read.<br />It won&apos;t get you remembered.</h2>
               <p style={{ fontSize: '16px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '30px', maxWidth: '460px' }}>
-                These templates are built to survive the parser — that&apos;s genuinely worth having. But once a human opens it, you&apos;re still <strong style={{ color: '#061A3A', fontWeight: 700 }}>competing with forty other well-formatted PDFs.</strong> That&apos;s the bit a Reslink handles: a 60-second video attached to the same document, and data on who actually watched.
+                These templates get you past the parser, which is worth doing. But it only puts you in the pile with <strong style={{ color: '#061A3A', fontWeight: 700 }}>the forty other people who managed it.</strong> A Reslink adds what a document can&apos;t: sixty seconds of you, and a record of who watched.
               </p>
               <Link href="/oliviastone" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#061A3A', color: '#fff', fontWeight: 700, fontSize: '15px', borderRadius: '12px', padding: '14px 26px', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                 See what a Reslink looks like
@@ -185,8 +189,24 @@ export default function TemplatesPage() {
             <motion.div className="tmpl-while-visual" initial={{ opacity: 0, scale: 0.96 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.55 }}
               style={{ position: 'relative', height: '340px' }}>
               {/* resume paper behind */}
-              <div aria-hidden style={{ position: 'absolute', top: '17%', left: '0%', width: '46%', height: '72%', background: '#fff', borderRadius: '14px', boxShadow: '0 20px 46px rgba(6,26,58,0.12)', transform: 'rotate(-5deg)', padding: '20px 18px' }}>
-                {[60, 100, 92, 96, 70].map((w, i) => <div key={i} style={{ height: '7px', borderRadius: '4px', background: '#E7EBF2', width: `${w}%`, marginBottom: '9px' }} />)}
+              <div aria-hidden style={{ position: 'absolute', top: '15%', left: '0%', width: '48%', height: '76%', background: '#fff', borderRadius: '14px', boxShadow: '0 20px 46px rgba(6,26,58,0.12)', transform: 'rotate(-5deg)', padding: '18px 16px', overflow: 'hidden' }}>
+                {/* header: name + contact + rule */}
+                <div style={{ textAlign: 'center', borderBottom: '1.5px solid #DDE3EE', paddingBottom: '9px', marginBottom: '11px' }}>
+                  <div style={{ height: '8px', borderRadius: '4px', background: '#B9C1D2', width: '54%', margin: '0 auto 5px' }} />
+                  <div style={{ height: '4px', borderRadius: '3px', background: '#E7EBF2', width: '72%', margin: '0 auto' }} />
+                </div>
+                {/* section blocks */}
+                {[{ w: '30%', lines: [100, 94, 88] }, { w: '34%', lines: [96, 82] }, { w: '26%', lines: [90, 98, 76] }].map((sec, si) => (
+                  <div key={si} style={{ marginBottom: '11px' }}>
+                    <div style={{ height: '5px', borderRadius: '3px', background: '#1468E8', width: sec.w, marginBottom: '7px' }} />
+                    {sec.lines.map((w, i) => (
+                      <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '5px' }}>
+                        <span style={{ width: '3px', height: '3px', borderRadius: '50%', background: '#C7CDDA', flexShrink: 0 }} />
+                        <div style={{ height: '4px', borderRadius: '3px', background: '#E7EBF2', width: `${w}%` }} />
+                      </div>
+                    ))}
+                  </div>
+                ))}
               </div>
               {/* video card (pink frame) */}
               <div style={{ position: 'absolute', top: 0, right: '2%', width: '54%', aspectRatio: '4 / 5', borderRadius: '20px', overflow: 'hidden', background: 'linear-gradient(155deg, #D63D9D 0%, #8E2467 62%, #5A1541 100%)', boxShadow: '0 26px 60px rgba(6,26,58,0.22)', border: '5px solid #fff' }}>

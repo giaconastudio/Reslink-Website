@@ -7,8 +7,8 @@ import { motion } from 'framer-motion';
 const CANDIDATES = [
   { name: 'Zara Mitchell', role: 'Frontend Engineer', loc: 'London', video: '/videos/reel-d.mp4', frame: 4 },
   { name: 'Marcus Bell', role: 'Product Designer', loc: 'Berlin', video: '/videos/reel-a.mp4', frame: 6.5 },
-  { name: 'Amara Okafor', role: 'Data Analyst', loc: 'Toronto', video: '/videos/reel-b.mp4', frame: 9 },
-  { name: 'Daniel Chen', role: 'Sales Lead', loc: 'Austin', video: '/videos/reel-c.mp4', frame: 5.5 },
+  { name: 'Nadia Rahman', role: 'Data Analyst', loc: 'Toronto', video: '/videos/reel-b.mp4', frame: 9 },
+  { name: 'Andre Costa', role: 'Sales Lead', loc: 'Austin', video: '/videos/reel-c.mp4', frame: 5.5 },
 ];
 const CYCLE = 5000;
 const SPRING = { type: 'spring' as const, stiffness: 190, damping: 25 };

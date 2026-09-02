@@ -17,27 +17,12 @@ import Footer from '@/components/Footer';
 
 const EXPERIENCE = [
   {
-    role: 'Business Development Representative', org: 'Growth-stage SaaS company', period: '2023 – Present',
+    org: 'HubSpot', loc: 'London, UK',
+    role: 'Business Development Representative', period: 'January 2020 – January 2023',
     points: [
-      'Booked 140+ qualified meetings in 12 months — 128% of quota',
-      'Top-performing BDR on a team of nine for three consecutive quarters',
-      'Sourced the two largest enterprise deals in company history ($480k combined ACV)',
-      'Mentored three new hires through onboarding; all three hit ramp quota early',
-    ],
-  },
-  {
-    role: 'Sales Associate', org: 'B2B software startup', period: '2021 – 2023',
-    points: [
-      'Built outbound sequences that lifted reply rates from 4% to 11%',
-      'Promoted to senior associate within 14 months',
-      'Owned inbound qualification for 200+ leads per month at 92% SLA compliance',
-    ],
-  },
-  {
-    role: 'Account Coordinator', org: 'Marketing agency', period: '2019 – 2021',
-    points: [
-      'Managed renewal communications across a 40-account portfolio (96% retention)',
-      'Introduced a CRM hygiene process later adopted agency-wide',
+      'Developed and executed a targeted outreach campaign that resulted in 50 new high-value clients, contributing to a 20% increase in revenue over two quarters.',
+      'Implemented a new pricing strategy that increased average deal size by 15%, resulting in an additional £750k in revenue over the course of the year.',
+      'Conducted thorough market research and identified untapped markets, leading to the successful launch of three new product lines that generated £1.5M in revenue within six months.',
     ],
   },
 ];
@@ -48,13 +33,28 @@ const EDUCATION = [
 
 const CERTS = ['HubSpot Sales Software Certified', 'Salesforce Trailhead Ranger', 'MEDDIC Sales Methodology'];
 
-const SKILLS = ['Outbound prospecting', 'Discovery calls', 'Salesforce & HubSpot', 'Cold email & sequencing', 'Objection handling', 'Pipeline management'];
+const AREAS: { text: string; tool?: string }[] = [
+  { text: 'Business development' },
+  { text: 'Territory expansion' },
+  { text: 'Account management' },
+  { text: 'Problem-solving' },
+  { text: 'Data analysis' },
+  { text: 'CRM tools', tool: 'Salesforce' },
+  { text: 'Cold calling', tool: 'Apollo' },
+  { text: 'Prospecting', tool: 'Outreach' },
+  { text: 'Personalisation', tool: 'VIDU' },
+];
+
+const ACHIEVEMENTS = [
+  { title: 'Market expansion', desc: 'Identified untapped markets and led the successful launch of three new product lines at HubSpot, generating £1.5M in revenue within six months.' },
+  { title: 'Revenue growth', desc: 'Successfully implemented a new pricing strategy at HubSpot, increasing average deal size by 15% and generating an additional £750k in revenue within a year.' },
+];
 
 const ANALYTICS_TILES = [
-  { icon: Eye, value: '12', label: 'Profile views', sub: 'this week · up 4' },
-  { icon: Clock, value: '0:58', label: 'Avg. watch time', sub: '85% finish it' },
-  { icon: Download, value: '3', label: 'CV downloads', sub: 'latest 1d ago' },
-  { icon: MousePointerClick, value: '9', label: 'Link clicks', sub: 'this week' },
+  { icon: Eye, value: '12', label: 'Reslink views' },
+  { icon: Clock, value: '0:58', label: 'Avg. watch time' },
+  { icon: Download, value: '3', label: 'Resume downloads' },
+  { icon: MousePointerClick, value: '9', label: 'Link clicks' },
 ];
 
 export default function ExampleProfilePage() {
@@ -245,25 +245,50 @@ export default function ExampleProfilePage() {
 
             {/* The resume "paper" — scrollable */}
             <div className="ex-resume-scroll" style={{ maxWidth: '860px', margin: '0 auto', background: '#fff', borderRadius: '6px', boxShadow: '0 8px 40px rgba(6,26,58,0.12)', padding: 'clamp(28px, 4.5vw, 56px)' }}>
+              <style>{`
+                .ex-resume-scroll .rz-h { display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #E7EAF0; padding-bottom: 6px; color: #1468E8 !important; }
+                .ex-resume-scroll .rz-h::before { content: ''; width: 12px; height: 2px; background: #1468E8; border-radius: 2px; flex-shrink: 0; }
+              `}</style>
               <div style={{ textAlign: 'center', borderBottom: '1.5px solid #061A3A', paddingBottom: '16px', marginBottom: '20px' }}>
                 <p style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(20px, 3vw, 26px)', fontWeight: 700, color: '#061A3A', letterSpacing: '0.01em' }}>Olivia Stone</p>
                 <p style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)', marginTop: '4px' }}>Business Development Representative</p>
                 <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '3px' }}>London, UK · olivia@example.com · linkedin.com/in/oliviastone</p>
               </div>
 
-              <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#061A3A', fontFamily: 'var(--font-body)', marginBottom: '8px' }}>Summary</p>
+              <p className="rz-h" style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#061A3A', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>Summary</p>
               <p style={{ fontSize: '12px', color: '#5C6070', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginBottom: '18px' }}>
-                Quota-beating business development representative with five years across B2B SaaS and agency environments. Consistent top performer with a track record of building outbound systems that scale — not just hitting numbers, but improving how the whole team sells. Looking for a senior BDR or AE-track role at a product-led company.
+                Results-driven business development representative with over 2+ years of experience in prospecting, closing deals and project management. Proven record of leveraging sales tools to drive sales efficiencies, and increase revenue. Seeking a dynamic and challenging role to challenge myself and contribute to business success.
               </p>
 
-              <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#061A3A', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>Professional experience</p>
+              <p className="rz-h" style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#061A3A', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>Areas of expertise</p>
+              <ul style={{ listStyle: 'disc', paddingLeft: '18px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridTemplateRows: 'repeat(3, auto)', gridAutoFlow: 'column', gap: '5px 20px', marginBottom: '20px' }}>
+                {AREAS.map(a => (
+                  <li key={a.text} style={{ fontSize: '12px', color: '#3D4452', lineHeight: 1.5, fontFamily: 'var(--font-body)' }}>
+                    {a.text}{a.tool && <> ({a.tool})</>}
+                  </li>
+                ))}
+              </ul>
+
+              <p className="rz-h" style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#061A3A', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>Key achievements</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '18px' }}>
+                {ACHIEVEMENTS.map(a => (
+                  <p key={a.title} style={{ fontSize: '12px', color: '#5C6070', lineHeight: 1.6, fontFamily: 'var(--font-body)' }}>
+                    <b style={{ color: '#061A3A' }}>{a.title}:</b> {a.desc}
+                  </p>
+                ))}
+              </div>
+
+              <p className="rz-h" style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#061A3A', fontFamily: 'var(--font-body)', marginBottom: '12px' }}>Professional experience</p>
               {EXPERIENCE.map(e => (
                 <div key={e.role} style={{ marginBottom: '16px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px', flexWrap: 'wrap' }}>
-                    <p style={{ fontSize: '13px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)' }}>{e.role}</p>
+                    <p style={{ fontSize: '13px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)' }}>{e.org}</p>
+                    <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{e.loc}</p>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px', flexWrap: 'wrap', margin: '2px 0 6px' }}>
+                    <p style={{ fontSize: '12px', color: '#061A3A', fontFamily: 'var(--font-body)', fontWeight: 600 }}>{e.role}</p>
                     <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{e.period}</p>
                   </div>
-                  <p style={{ fontSize: '12px', color: '#1468E8', fontFamily: 'var(--font-body)', fontWeight: 600, margin: '2px 0 6px' }}>{e.org}</p>
                   <ul style={{ listStyle: 'disc', paddingLeft: '18px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                     {e.points.map(pt => (
                       <li key={pt} style={{ fontSize: '12px', color: '#5C6070', lineHeight: 1.55, fontFamily: 'var(--font-body)' }}>{pt}</li>
@@ -272,30 +297,23 @@ export default function ExampleProfilePage() {
                 </div>
               ))}
 
-              <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#061A3A', fontFamily: 'var(--font-body)', margin: '18px 0 10px' }}>Education</p>
+              <p className="rz-h" style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#061A3A', fontFamily: 'var(--font-body)', margin: '20px 0 12px' }}>Education</p>
               {EDUCATION.map(ed => (
                 <div key={ed.degree} style={{ display: 'flex', justifyContent: 'space-between', gap: '10px', flexWrap: 'wrap', marginBottom: '4px' }}>
                   <div>
                     <p style={{ fontSize: '13px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)' }}>{ed.degree}</p>
-                    <p style={{ fontSize: '12px', color: '#1468E8', fontFamily: 'var(--font-body)', fontWeight: 600, marginTop: '2px' }}>{ed.school}</p>
+                    <p style={{ fontSize: '12px', color: '#061A3A', fontFamily: 'var(--font-body)', fontWeight: 600, marginTop: '2px' }}>{ed.school}</p>
                   </div>
                   <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{ed.period}</p>
                 </div>
               ))}
 
-              <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#061A3A', fontFamily: 'var(--font-body)', margin: '18px 0 8px' }}>Certifications</p>
-              <ul style={{ listStyle: 'disc', paddingLeft: '18px', display: 'flex', flexDirection: 'column', gap: '4px', marginBottom: '18px' }}>
+              <p className="rz-h" style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#061A3A', fontFamily: 'var(--font-body)', margin: '20px 0 12px' }}>Certifications</p>
+              <ul style={{ listStyle: 'disc', paddingLeft: '18px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                 {CERTS.map(c => (
                   <li key={c} style={{ fontSize: '12px', color: '#5C6070', lineHeight: 1.55, fontFamily: 'var(--font-body)' }}>{c}</li>
                 ))}
               </ul>
-
-              <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#061A3A', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>Skills</p>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                {SKILLS.map(s => (
-                  <span key={s} style={{ fontSize: '11px', fontWeight: 600, color: '#061A3A', background: '#F0F3F7', borderRadius: '100px', padding: '4px 12px', fontFamily: 'var(--font-body)' }}>{s}</span>
-                ))}
-              </div>
             </div>
 
             {/* Floating intro PIP — visible only while playing (stays mounted
@@ -340,11 +358,10 @@ export default function ExampleProfilePage() {
 
               {/* 2×2 stat tiles */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '10px' }}>
-                {ANALYTICS_TILES.map(({ value, label, sub }) => (
+                {ANALYTICS_TILES.map(({ value, label }) => (
                   <div key={label} style={{ background: '#F7F9FC', border: '1px solid #EDF0F5', borderRadius: '12px', padding: '16px' }}>
                     <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '26px', fontWeight: 900, color: '#061A3A', lineHeight: 1, letterSpacing: '-0.02em', display: 'block', marginBottom: '8px' }}>{value}</span>
                     <p style={{ fontSize: '12px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{label}</p>
-                    <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '1px' }}>{sub}</p>
                   </div>
                 ))}
               </div>
@@ -359,12 +376,12 @@ export default function ExampleProfilePage() {
             {/* CTA card — matches analytics height */}
             <motion.div initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.45, delay: 0.25 }}
               style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', background: 'radial-gradient(ellipse 75% 95% at 92% 0%, rgba(168,72,214,0.42), transparent 55%), linear-gradient(140deg, #0A1E48 0%, #06122B 100%)', borderRadius: '16px', padding: 'clamp(26px, 3.2vw, 38px)', position: 'relative', overflow: 'hidden' }}>
-              <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3.4vw, 34px)', fontWeight: 900, color: '#fff', lineHeight: 0.98, letterSpacing: '-0.02em', marginBottom: '14px', position: 'relative' }}>This could<br />be you.</p>
+              <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3.4vw, 34px)', fontWeight: 900, color: '#fff', lineHeight: 0.98, letterSpacing: '-0.02em', marginBottom: '14px', position: 'relative' }}>Create your<br />first Reslink</p>
               <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.55)', lineHeight: 1.6, fontFamily: 'var(--font-body)', marginBottom: '24px', position: 'relative' }}>
                 One link with your resume, your video pitch, and live analytics on everyone who views it.
               </p>
               <Link href="/get-started" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', fontSize: '15px', fontWeight: 800, padding: '17px 26px', background: '#D7FF43', color: '#061A3A', borderRadius: '12px', textDecoration: 'none', fontFamily: 'var(--font-body)', position: 'relative', width: '100%', boxSizing: 'border-box' }}>
-                Create your Reslink <ArrowRight size={15} />
+                Get started for free <ArrowRight size={15} />
               </Link>
               <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', textAlign: 'center', marginTop: '12px', position: 'relative' }}>Free · under 5 minutes</p>
             </motion.div>

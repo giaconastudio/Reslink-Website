@@ -3,11 +3,11 @@
 import { useRef } from 'react';
 
 const PEOPLE = [
-  { name: 'Maya Chen', role: 'Product Designer', video: '/videos/reel-d.mp4', poster: '/videos/hero-reel-d.jpg', pos: '50% 28%' },
-  { name: 'Marcus Bell', role: 'Account Executive', video: '/videos/reel-a.mp4', poster: '/videos/hero-reel-a.jpg', pos: '50% 22%' },
-  { name: 'Tom Reid', role: 'Marketing Lead', video: '/videos/cta-resume.mp4', poster: '/videos/hero-cta-resume.jpg', pos: '50% 30%' },
-  { name: 'Amara Okafor', role: 'Data Analyst', video: '/videos/reel-b.mp4', poster: '/videos/hero-reel-b.jpg', pos: '50% 26%' },
-  { name: 'Daniel Chen', role: 'Sales Lead', video: '/videos/reel-c.mp4', poster: '/videos/hero-reel-c.jpg', pos: '50% 28%' },
+  { name: 'Zara Mitchell', role: 'Frontend Engineer', video: '/videos/reel-d.mp4', poster: '/videos/hero-reel-d.jpg', pos: '50% 28%' },
+  { name: 'Marcus Bell', role: 'Product Designer', video: '/videos/reel-a.mp4', poster: '/videos/hero-reel-a.jpg', pos: '50% 22%' },
+  { name: 'Daniel Chen', role: 'Business Dev Rep', video: '/videos/cta-resume.mp4', poster: '/videos/hero-cta-resume.jpg', pos: '50% 30%' },
+  { name: 'Nadia Rahman', role: 'Data Analyst', video: '/videos/reel-b.mp4', poster: '/videos/hero-reel-b.jpg', pos: '50% 26%' },
+  { name: 'Andre Costa', role: 'Sales Lead', video: '/videos/reel-c.mp4', poster: '/videos/hero-reel-c.jpg', pos: '50% 28%' },
   { name: 'Olivia Stone', role: 'Business Dev Rep', video: '/videos/pip-person-compressed.mp4', poster: '/videos/pip-person-poster.jpg', pos: '50% 22%' },
 ];
 

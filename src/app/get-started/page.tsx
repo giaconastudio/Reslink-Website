@@ -19,9 +19,9 @@ const INDIVIDUAL_TYPES: TypeCard[] = [
 ];
 
 const ORG_TYPES: TypeCard[] = [
-  { id: 'company', icon: Building2, label: 'Company', desc: 'Hire faster with video-first hiring' },
-  { id: 'agency', icon: Users, label: 'Recruitment Agency', desc: 'Scale your placements with video' },
-  { id: 'university', icon: GraduationCap, label: 'University', desc: 'Empower your students to launch careers' },
+  { id: 'company', icon: Building2, label: 'Company', desc: 'Hiring for your own team' },
+  { id: 'agency', icon: Users, label: 'Recruitment Agency', desc: 'Placing candidates with clients' },
+  { id: 'university', icon: GraduationCap, label: 'University', desc: 'Supporting students into work' },
 ];
 
 const ALL_TYPES = [...INDIVIDUAL_TYPES, ...ORG_TYPES];
@@ -47,40 +47,51 @@ const COMPANY_FACES = [
 // Job seeker / student / veteran share ONE right-hand panel — only the tag
 // (from ALL_TYPES) and the video (from VIDEOS) change between them.
 const INDIVIDUAL_PANEL = {
-  headline: 'Your story deserves\nto be heard.',
-  sub: 'A video intro, your resume and live view analytics behind one link.',
+  headline: 'Show them why\nthey should hire you',
+  sub: 'One link. Your video intro, your resume, your work.',
   quote: '"Reslink got me interviews at companies that had ignored my PDF for months."',
   author: 'Software Engineer', role: 'hired at a Fortune 500',
   stats: [{ val: '3×', label: 'more callbacks' }, { val: '85%', label: 'avg. watch rate' }, { val: '5 min', label: 'to your first Reslink' }],
 };
 
+// The candidate banner under the video — one person per individual type, matched
+// to the face in that type's video and the example profile on its page.
+const INDIVIDUAL_BANNER: Record<'seeker' | 'student' | 'veteran', { name: string; role: string; watch: string }> = {
+  seeker: { name: 'Amara Okafor', role: 'Supply Chain Specialist · New York', watch: 'Recruiter at HubSpot watched 87%' },
+  student: { name: 'Zara Johnson', role: 'Marketing · Class of 2025', watch: 'Recruiter at Google watched 92%' },
+  veteran: { name: 'Jordan Hayes', role: 'Operations · US Marines Veteran', watch: 'Recruiter at Deloitte watched 90%' },
+};
+
 const PANELS: Record<AccountType, {
   headline: string; sub: string; quote: string; author: string; role: string;
-  stats: { val: string; label: string }[];
+  stats: { val: string; label: string }[]; avatar?: string;
 }> = {
   seeker: INDIVIDUAL_PANEL,
   student: INDIVIDUAL_PANEL,
   veteran: INDIVIDUAL_PANEL,
   company: {
-    headline: 'Hire people,\nnot paper.',
-    sub: 'See candidates as they really are before the first call.',
-    quote: '"Video pitches helped us find the right cultural fit in half the time."',
-    author: 'Head of Talent', role: 'Series B startup',
-    stats: [{ val: '5×', label: 'better hire quality' }, { val: '30%', label: 'faster time-to-hire' }, { val: '91%', label: 'HM satisfaction' }],
+    headline: "See who's worth a call\nbefore you make one",
+    sub: 'Every applicant sends a video pitch, not just a PDF.',
+    quote: '"Reslink cut our first-round phone screens by 60%. The candidates we do call are genuinely the right ones."',
+    author: 'Head of Talent', role: '',
+    avatar: '/avatars/a4.jpg',
+    stats: [],
   },
   agency: {
-    headline: 'Place candidates\nfaster.',
-    sub: 'Give clients a reason to say yes before the interview.',
-    quote: '"We cut screening time by 60% and our placement rate went through the roof."',
-    author: 'Principal Recruiter', role: 'staffing agency',
-    stats: [{ val: '4×', label: 'faster placements' }, { val: '60%', label: 'less screening' }, { val: '92%', label: 'recruiter satisfaction' }],
+    headline: 'Send clients more\nthan a resume',
+    sub: 'Clients see the person, not just the paperwork.',
+    quote: '"Our resume-to-interview ratio doubled. Same candidates, better presented."',
+    author: 'Principal Recruiter', role: '',
+    avatar: '/avatars/a3.jpg',
+    stats: [],
   },
   university: {
-    headline: 'Launch your\nstudents further.',
-    sub: 'Give graduates a competitive edge before they walk the stage.',
-    quote: '"Students using Reslink saw a 3× higher callback rate from employers."',
-    author: 'Director of Career Services', role: 'public research university',
-    stats: [{ val: '34%', label: 'placement lift' }, { val: '3×', label: 'employer callbacks' }, { val: '48h', label: 'fastest hire' }],
+    headline: 'Get more of your\nstudents hired',
+    sub: 'Every student sends a video pitch, not just a PDF.',
+    quote: '"It\'s the first thing we\'ve given students that helps the ones without internships or connections."',
+    author: 'Director of Career Services', role: '',
+    avatar: '/avatars/a5.jpg',
+    stats: [],
   },
 };
 
@@ -89,14 +100,13 @@ function RightSide({ type }: { type: AccountType }) {
   const label = ALL_TYPES.find(t => t.id === type)!.label;
   const v = VIDEOS[type];
   const isIndividual = type === 'seeker' || type === 'student' || type === 'veteran';
+  const banner = isIndividual ? INDIVIDUAL_BANNER[type] : null;
   // Agency & university show just the clip — no candidate banner, badge, or timer.
   const videoOnly = type === 'agency' || type === 'university';
   // Company sees a grid of candidate faces instead of a single video card.
   const isCompany = type === 'company';
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', borderRadius: '0 20px 20px 0', background: 'radial-gradient(ellipse 62% 50% at 94% 0%, rgba(214,61,157,0.30), transparent 55%), linear-gradient(160deg, #0A2350 0%, #061A3A 62%)' }}>
-      {/* Subtle dot texture */}
-      <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px)', backgroundSize: '22px 22px', pointerEvents: 'none' }} />
       <motion.div key={type} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}
           style={{ position: 'relative', zIndex: 1, height: '100%', display: 'flex', flexDirection: 'column', padding: '38px 34px', gap: '18px' }}>
           {/* Tag — changes per type */}
@@ -105,7 +115,7 @@ function RightSide({ type }: { type: AccountType }) {
           </span>
           <div>
             <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 2.8vw, 38px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.03em', lineHeight: 0.95, whiteSpace: 'pre-line', marginBottom: '12px' }}>{p.headline}</h2>
-            <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)', lineHeight: 1.6, maxWidth: '320px' }}>{p.sub}</p>
+            <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)', lineHeight: 1.6, maxWidth: '400px' }}>{p.sub}</p>
           </div>
 
           {/* Company: a grid of candidate faces. Everyone else: a single video card. */}
@@ -128,18 +138,17 @@ function RightSide({ type }: { type: AccountType }) {
                   <span style={{ position: 'absolute', top: '12px', left: '12px', display: 'inline-flex', alignItems: 'center', gap: '5px', background: 'rgba(6,26,58,0.55)', backdropFilter: 'blur(6px)', color: '#fff', fontSize: '11px', fontWeight: 700, padding: '3px 9px', borderRadius: '100px', fontFamily: 'var(--font-body)' }}>
                     <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#D7FF43' }} /> Playing
                   </span>
-                  <span style={{ position: 'absolute', top: '12px', right: '12px', background: 'rgba(6,26,58,0.55)', backdropFilter: 'blur(6px)', color: '#fff', fontSize: '11px', fontWeight: 700, padding: '3px 9px', borderRadius: '8px', fontFamily: 'var(--font-body)' }}>0:47</span>
                 </>
               )}
             </div>
             {!videoOnly && (
               <div style={{ padding: '13px 18px' }}>
-                <p style={{ fontSize: '16px', fontWeight: 800, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.1 }}>Olivia Stone</p>
-                <p style={{ fontSize: '12px', color: '#8A93A3', fontFamily: 'var(--font-body)', marginTop: '2px' }}>Business Dev Rep · London</p>
+                <p style={{ fontSize: '16px', fontWeight: 800, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.1 }}>{banner?.name}</p>
+                <p style={{ fontSize: '12px', color: '#8A93A3', fontFamily: 'var(--font-body)', marginTop: '2px' }}>{banner?.role}</p>
                 <div style={{ borderTop: '1px solid #EDEFF2', margin: '11px 0 9px' }} />
                 <p style={{ display: 'flex', alignItems: 'center', gap: '7px', fontSize: '12px', color: '#3A4150', fontFamily: 'var(--font-body)' }}>
                   <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#5B7A0F', flexShrink: 0 }} />
-                  Recruiter at Stripe watched 87%
+                  {banner?.watch}
                 </p>
               </div>
             )}
@@ -152,13 +161,19 @@ function RightSide({ type }: { type: AccountType }) {
               <div style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '14px', padding: '16px 18px' }}>
                 <p style={{ fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.9)', lineHeight: 1.6, fontFamily: 'var(--font-body)', marginBottom: '12px' }}>{p.quote}</p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <div style={{ width: '30px', height: '30px', borderRadius: '50%', background: 'radial-gradient(circle at 32% 28%, #8FB4FF, #4F6EF7)', flexShrink: 0 }} />
+                  {p.avatar ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={p.avatar} alt="" style={{ width: '30px', height: '30px', borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
+                  ) : (
+                    <div style={{ width: '30px', height: '30px', borderRadius: '50%', background: 'radial-gradient(circle at 32% 28%, #8FB4FF, #4F6EF7)', flexShrink: 0 }} />
+                  )}
                   <div>
                     <p style={{ fontSize: '12px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{p.author}</p>
-                    <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', marginTop: '2px' }}>{p.role}</p>
+                    {p.role && <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', marginTop: '2px' }}>{p.role}</p>}
                   </div>
                 </div>
               </div>
+              {p.stats.length > 0 && (
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', marginTop: 'auto' }}>
                 {p.stats.map(s => {
                   const m = s.val.match(/^([\d.]+)\s*(.*)$/);
@@ -174,6 +189,7 @@ function RightSide({ type }: { type: AccountType }) {
                   );
                 })}
               </div>
+              )}
             </>
           )}
         </motion.div>

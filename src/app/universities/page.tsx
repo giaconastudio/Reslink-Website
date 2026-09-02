@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Video, BarChart2, Zap, Globe, FileText, Share2, ArrowRight, Plus, Minus, Star, CheckCircle } from 'lucide-react';
+import { Video, BarChart2, Zap, Globe, FileText, Share2, ArrowRight, Plus, Minus, CheckCircle, Check, X } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import LogoTicker from '@/components/LogoTicker';
@@ -53,12 +53,14 @@ function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; 
 
 const UNI_FEATURED = {
   quote: "Before Reslink our students were submitting PDFs no one was reading. Now employers watch their pitch before the first call. Our placement rate is up 34% in one year.",
-  name: 'Director of Career Services', role: 'Pilot program', company: 'public research university', color: '#1468E8',
+  stat: 'Placement rate up 34% in one year',
+  name: 'Director of Career Services', sub: 'Pilot program at public research university',
+  avatar: '/avatars/a1.jpg',
 };
 const UNI_SIDE_QUOTES = [
-  { quote: "Employers come back to us now. They tell us our students are different. They actually know how to present themselves. Reslink made that happen.", name: 'Career Development Lead', role: 'Pilot program', company: 'state university', color: '#D63D9D' },
-  { quote: "Students who were struggling to get callbacks started landing interviews once they had a video profile. It levels the playing field in a way a resume never could.", name: 'Career Counselor', role: 'Pilot program', company: 'technical institute', color: '#5B7A0F' },
-  { quote: 'We used to rely on word of mouth to prove our placement numbers. Now I pull a real report every semester and show exactly what our career center delivered.', name: 'VP of Student Success', role: 'Pilot program', company: 'private college', color: '#061A3A' },
+  { quote: "Employers come back to us now. They tell us our students are different. They actually know how to present themselves. Reslink made that happen.", name: 'Career Development Lead', sub: 'Pilot program at state university', avatar: '/avatars/a2.jpg' },
+  { quote: "Students who were struggling to get callbacks started landing interviews once they had a video profile. It levels the playing field in a way a resume never could.", name: 'Career Counselor', sub: 'Pilot program at technical institute', avatar: '/avatars/a3.jpg' },
+  { quote: 'We used to rely on word of mouth to prove our placement numbers. Now I pull a real report every semester and show exactly what our career center delivered.', name: 'VP of Student Success', sub: 'Pilot program at private college', avatar: '/avatars/a4.jpg' },
 ];
 
 /* ─── How it works steps (canonical numbered-node list, matches companies) ─── */
@@ -78,17 +80,15 @@ export default function UniversitiesPage() {
         .uni-testi-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: stretch; }
         .uni-testi-side { display: flex; flex-direction: column; gap: 16px; }
         @media (max-width: 760px) { .uni-testi-grid { grid-template-columns: 1fr !important; } }
-        .uni-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+        .uni-hero-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: 44px; align-items: center; }
         .uni-feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .uni-compare-row { display: grid; grid-template-columns: 1fr 1fr; }
-        .uni-compare-mobile { display: none; }
+        .uni-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; }
         .uni-steps-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
         @media (max-width: 960px) {
           .uni-hero-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
         }
         @media (max-width: 760px) {
-          .uni-compare-desktop { display: none !important; }
-          .uni-compare-mobile { display: flex !important; flex-direction: column; gap: 16px; }
+          .uni-compare { grid-template-columns: 1fr !important; gap: 16px !important; }
         }
         @media (max-width: 760px) {
           .uni-steps-row { grid-template-columns: repeat(2, 1fr) !important; }
@@ -118,27 +118,23 @@ export default function UniversitiesPage() {
             <div className="uni-hero-grid">
               <motion.div className="uni-hero-text" style={{ display: 'flex', flexDirection: 'column' }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For universities and career centers</p>
-                <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 6.5vw, 84px)', fontWeight: 900, color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '24px' }}>
-                  Equip every student<br />to <span style={{ color: '#D7FF43' }}>stand out.</span>
+                <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(44px, 6.6vw, 78px)', fontWeight: 900, color: '#fff', lineHeight: 0.92, letterSpacing: '-0.03em', marginBottom: '26px' }}>
+                  Get more of your<br />students <span style={{ color: '#D7FF43' }}>hired</span>
                 </h1>
-                <p style={{ fontSize: 'clamp(16px, 1.6vw, 18px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.75, fontFamily: 'var(--font-body)', marginBottom: '36px', maxWidth: '480px' }}>
-                  Reslink gives every student a video pitch, AI-powered coaching, and the analytics to know it's working. Measurable outcomes for your career center, real results for your students.
+                <p style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.6, fontFamily: 'var(--font-body)', marginBottom: '36px', maxWidth: '500px' }}>
+                  Graduates all look the same on paper. A video pitch is what makes one of them memorable.
                 </p>
-                <div className="uni-hero-btns" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '36px' }}>
-                  <Link href="/get-started?type=university" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                    Add your school to the waitlist <ArrowRight size={16} />
+                <div className="uni-hero-btns" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                  <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)', transition: 'transform 0.15s ease, filter 0.15s ease' }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)'; (e.currentTarget as HTMLElement).style.filter = 'brightness(0.94)'; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; (e.currentTarget as HTMLElement).style.filter = 'none'; }}>
+                    Schedule a demo <ArrowRight size={16} />
                   </Link>
-                  <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                    Schedule a demo
+                  <Link href="/oliviastone" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)', transition: 'background 0.15s ease, border-color 0.15s ease' }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.15)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.3)'; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.08)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.15)'; }}>
+                    See a student Reslink
                   </Link>
-                </div>
-                <div className="uni-hero-inline-stats" style={{ display: 'flex', gap: '28px', flexWrap: 'wrap' }}>
-                  {[['200+', 'universities onboarded'], ['34%', 'avg. placement rate lift'], ['48h', 'fastest student hire']].map(([v, l]) => (
-                    <div key={l}>
-                      <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '24px', fontWeight: 900, color: '#fff', lineHeight: 1 }}><AnimatedStat value={v} /></p>
-                      <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', marginTop: '3px' }}>{l}</p>
-                    </div>
-                  ))}
                 </div>
               </motion.div>
 
@@ -209,9 +205,8 @@ export default function UniversitiesPage() {
         <LogoTicker variant="university" />
 
         {/* ─── Stats ─── */}
-        <section style={{ background: '#061A3A', padding: 'clamp(64px, 8vw, 96px) 24px', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', top: '-30%', left: '50%', transform: 'translateX(-50%)', width: '800px', height: '600px', background: 'radial-gradient(ellipse, rgba(20,104,232,0.2), transparent 65%)', pointerEvents: 'none' }} />
-          <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+        <section style={{ background: '#FBEEF5', padding: 'clamp(64px, 8vw, 96px) 24px' }}>
+          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
             <div className="uni-stats-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '24px', textAlign: 'center' }}>
               {[
                 { value: '200+', label: 'universities onboarded' },
@@ -219,9 +214,9 @@ export default function UniversitiesPage() {
                 { value: '4x', label: 'employer engagement vs. resumes' },
                 { value: '85%', label: 'of students report more callbacks' },
               ].map((s, i) => (
-                <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}>
-                  <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 60px)', fontWeight: 900, color: '#D7FF43', lineHeight: 1, letterSpacing: '-0.03em' }}><AnimatedStat value={s.value} /></p>
-                  <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', lineHeight: 1.5, maxWidth: '140px', margin: '10px auto 0' }}>{s.label}</p>
+                <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}>
+                  <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 60px)', fontWeight: 900, color: '#061A3A', lineHeight: 1, letterSpacing: '-0.03em' }}><AnimatedStat value={s.value} /></p>
+                  <p style={{ fontSize: '13px', color: '#8A7A85', fontFamily: 'var(--font-body)', lineHeight: 1.5, maxWidth: '140px', margin: '10px auto 0' }}>{s.label}</p>
                 </motion.div>
               ))}
             </div>
@@ -234,63 +229,50 @@ export default function UniversitiesPage() {
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', maxWidth: '580px', margin: '0 auto 64px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>For your career center</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.93, letterSpacing: '-0.03em', marginBottom: '20px' }}>
-                Measurable outcomes.<br />Provable results.
+                Finally, numbers you<br />didn&apos;t have to chase
               </h2>
               <p style={{ fontSize: '17px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>
-                Reslink is not just a student tool. It gives your career center real placement data, employer engagement metrics, and the proof your program is working.
+                Real placement data, employer engagement metrics,<br />and the proof your program is working.
               </p>
             </motion.div>
-            <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}>
-              {/* Desktop table */}
-              <div className="uni-compare-desktop" style={{ borderRadius: '20px', border: '1px solid #E4E6EC', overflow: 'hidden', boxShadow: '0 4px 24px rgba(6,26,58,0.07)' }}>
-                <div className="uni-compare-row">
-                  <div style={{ padding: '18px 28px', background: '#F6F7F9', borderBottom: '1px solid #ECEEF1', borderRight: '1px solid #ECEEF1' }}>
-                    <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Without Reslink</p>
-                  </div>
-                  <div style={{ padding: '18px 28px', background: '#061A3A', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                    <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#D7FF43', fontFamily: 'var(--font-body)' }}>With Reslink</p>
-                  </div>
-                </div>
-                {[
-                  ['Students submit identical PDF resumes', 'Every student has a video pitch employers actually watch'],
-                  ["No visibility into who's actually hiring", 'Dashboard shows recruiter views and engagement in real time'],
-                  ['Placement data comes from self-reported surveys', 'Placement outcomes tracked automatically, no surveys needed'],
-                  ['Career fairs rely on awkward cold introductions', 'Students share Reslinks at career fairs. Employers remember them'],
-                  ['Hard to prove the ROI of your program', 'Annual report pulls directly from your career center dashboard'],
-                ].map(([before, after], i) => (
-                  <div key={i} className="uni-compare-row" style={{ borderBottom: i < 4 ? '1px solid #ECEEF1' : 'none' }}>
-                    <div style={{ padding: '16px 28px', borderRight: '1px solid #ECEEF1', display: 'flex', alignItems: 'flex-start', gap: '10px', background: i % 2 === 0 ? '#fff' : '#FAFBFC' }}>
-                      <span style={{ fontSize: '13px', color: '#EF4444', fontWeight: 700, flexShrink: 0, marginTop: '2px' }}>✕</span>
-                      <span style={{ fontSize: '14px', color: '#6B7280', fontFamily: 'var(--font-body)', lineHeight: 1.55 }}>{before}</span>
-                    </div>
-                    <div style={{ padding: '16px 28px', display: 'flex', alignItems: 'flex-start', gap: '10px', background: i % 2 === 0 ? '#fff' : '#F8FAFF' }}>
-                      <span style={{ fontSize: '13px', color: '#1468E8', fontWeight: 700, flexShrink: 0, marginTop: '2px' }}>✓</span>
-                      <span style={{ fontSize: '14px', color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.55, fontWeight: 500 }}>{after}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              {/* Mobile two-card layout */}
-              <div className="uni-compare-mobile">
-                <div style={{ borderRadius: '16px', border: '1px solid #E4E6EC', overflow: 'hidden', boxShadow: '0 2px 12px rgba(6,26,58,0.06)' }}>
-                  <div style={{ padding: '14px 20px', background: '#F6F7F9', borderBottom: '1px solid #ECEEF1' }}>
-                    <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>Without Reslink</p>
-                  </div>
-                  {['Students submit identical PDF resumes', "No visibility into who's actually hiring", 'Placement data comes from self-reported surveys', 'Career fairs rely on awkward cold introductions', 'Hard to prove the ROI of your program'].map((item, i) => (
-                    <div key={i} style={{ padding: '14px 20px', borderBottom: i < 4 ? '1px solid #ECEEF1' : 'none', display: 'flex', alignItems: 'flex-start', gap: '10px', background: i % 2 === 0 ? '#fff' : '#FAFBFC' }}>
-                      <span style={{ fontSize: '13px', color: '#EF4444', fontWeight: 700, flexShrink: 0, marginTop: '2px' }}>✕</span>
-                      <span style={{ fontSize: '14px', color: '#6B7280', fontFamily: 'var(--font-body)', lineHeight: 1.55 }}>{item}</span>
+            <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="uni-compare">
+              {/* Without Reslink — muted card */}
+              <div style={{ background: '#F6F7F9', border: '1px solid #ECEEF1', borderRadius: '22px', padding: 'clamp(24px, 3vw, 34px)' }}>
+                <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginBottom: '22px' }}>Without Reslink</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                  {[
+                    'Students submit identical PDF resumes',
+                    "No visibility into who's actually hiring",
+                    'Placement data comes from self-reported surveys',
+                    'Career fairs rely on awkward cold introductions',
+                    'Hard to prove the ROI of your program',
+                  ].map(item => (
+                    <div key={item} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                      <span style={{ width: '22px', height: '22px', borderRadius: '50%', background: '#E4E7EC', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '1px' }}>
+                        <X size={12} color="#9AA1AE" strokeWidth={3} />
+                      </span>
+                      <span style={{ fontSize: '14.5px', color: '#6B7280', fontFamily: 'var(--font-body)', lineHeight: 1.5 }}>{item}</span>
                     </div>
                   ))}
                 </div>
-                <div style={{ borderRadius: '16px', overflow: 'hidden', boxShadow: '0 2px 12px rgba(6,26,58,0.12)' }}>
-                  <div style={{ padding: '14px 20px', background: '#061A3A', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                    <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#D7FF43', fontFamily: 'var(--font-body)' }}>With Reslink</p>
-                  </div>
-                  {['Every student has a video pitch employers actually watch', 'Dashboard shows recruiter views and engagement in real time', 'Placement outcomes tracked automatically, no surveys needed', 'Students share Reslinks at career fairs. Employers remember them', 'Annual report pulls directly from your career center dashboard'].map((item, i) => (
-                    <div key={i} style={{ padding: '14px 20px', borderBottom: i < 4 ? '1px solid rgba(255,255,255,0.06)' : 'none', display: 'flex', alignItems: 'flex-start', gap: '10px', background: i % 2 === 0 ? '#061A3A' : '#061C3D' }}>
-                      <span style={{ fontSize: '13px', color: '#1468E8', fontWeight: 700, flexShrink: 0, marginTop: '2px' }}>✓</span>
-                      <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.85)', fontFamily: 'var(--font-body)', lineHeight: 1.55, fontWeight: 500 }}>{item}</span>
+              </div>
+
+              {/* With Reslink — elevated navy card, CTA-style blue + pink glow */}
+              <div style={{ position: 'relative', background: 'radial-gradient(ellipse 58% 62% at 94% 0%, rgba(214,61,157,0.38), transparent 55%), radial-gradient(ellipse 60% 60% at 4% 100%, rgba(20,104,232,0.32), transparent 55%), linear-gradient(140deg, #071B3D 0%, #05142C 100%)', border: '2px solid #D7FF43', borderRadius: '22px', padding: 'clamp(24px, 3vw, 34px)', overflow: 'hidden', boxShadow: '0 26px 60px rgba(6,26,58,0.22)' }}>
+                <p style={{ position: 'relative', zIndex: 1, fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#D7FF43', fontFamily: 'var(--font-body)', marginBottom: '22px' }}>With Reslink</p>
+                <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                  {[
+                    'Every student has a video pitch employers actually watch',
+                    'Dashboard shows recruiter views and engagement in real time',
+                    'Placement outcomes tracked automatically, no surveys needed',
+                    'Students share Reslinks at career fairs. Employers remember them',
+                    'Annual report pulls directly from your career center dashboard',
+                  ].map(item => (
+                    <div key={item} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                      <span style={{ width: '22px', height: '22px', borderRadius: '50%', background: '#D7FF43', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '1px' }}>
+                        <Check size={12} color="#061A3A" strokeWidth={3} />
+                      </span>
+                      <span style={{ fontSize: '14.5px', color: 'rgba(255,255,255,0.9)', fontFamily: 'var(--font-body)', lineHeight: 1.5, fontWeight: 500 }}>{item}</span>
                     </div>
                   ))}
                 </div>
@@ -361,55 +343,49 @@ export default function UniversitiesPage() {
         </section>
 
         {/* ─── Testimonials ─── */}
-        <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
+        <section style={{ background: '#EEF4FF', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '56px' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '48px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>From career centers</p>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#061A3A', lineHeight: 0.98 }}>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#061A3A', lineHeight: 0.98, marginBottom: '16px' }}>
                 Career centers that<br />get results.
               </h2>
+              <p style={{ fontSize: '16px', color: '#7A85A0', fontFamily: 'var(--font-body)' }}>All pilot partners. Titles shown with permission.</p>
             </motion.div>
             <div className="uni-testi-grid">
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                <TiltCard max={3} style={{ background: '#061A3A', borderRadius: '20px', padding: 'clamp(32px, 4vw, 48px)', height: '100%', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                  <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: '400px', height: '400px', background: 'radial-gradient(ellipse, rgba(20,104,232,0.25), transparent 65%)', pointerEvents: 'none' }} />
+              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+                <div style={{ background: 'radial-gradient(ellipse 58% 62% at 94% 0%, rgba(214,61,157,0.34), transparent 55%), radial-gradient(ellipse 60% 60% at 4% 100%, rgba(20,104,232,0.3), transparent 55%), linear-gradient(140deg, #071B3D 0%, #05142C 100%)', borderRadius: '24px', padding: 'clamp(32px, 4vw, 48px)', height: '100%', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                   <div style={{ position: 'relative', zIndex: 1 }}>
-                    <div style={{ display: 'flex', gap: '3px', marginBottom: '24px' }}>
-                      {[...Array(5)].map((_, j) => <Star key={j} size={16} fill="#D7FF43" color="#D7FF43" />)}
-                    </div>
-                    <p style={{ fontSize: 'clamp(17px, 2vw, 22px)', color: '#fff', lineHeight: 1.6, fontFamily: 'var(--font-body)', fontWeight: 500, marginBottom: '32px' }}>&ldquo;{UNI_FEATURED.quote}&rdquo;</p>
+                    <p style={{ fontSize: 'clamp(20px, 2.3vw, 27px)', color: '#fff', lineHeight: 1.45, fontFamily: 'var(--font-body)', fontWeight: 700, letterSpacing: '-0.01em', marginBottom: '26px' }}>&ldquo;{UNI_FEATURED.quote}&rdquo;</p>
+                    <span style={{ display: 'inline-block', background: '#D7FF43', color: '#061A3A', fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: '14px', padding: '8px 16px', borderRadius: '100px' }}>{UNI_FEATURED.stat}</span>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px', position: 'relative', zIndex: 1 }}>
-                    <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: UNI_FEATURED.color, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                      <span style={{ fontSize: '14px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>{UNI_FEATURED.name.split(' ').map(n => n[0]).join('')}</span>
-                    </div>
-                    <div>
-                      <p style={{ fontSize: '15px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{UNI_FEATURED.name}</p>
-                      <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)' }}>{UNI_FEATURED.role} at {UNI_FEATURED.company}</p>
+                  <div style={{ position: 'relative', zIndex: 1 }}>
+                    <div style={{ borderTop: '1px solid rgba(255,255,255,0.12)', margin: '28px 0 22px' }} />
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={UNI_FEATURED.avatar} alt="" style={{ width: '52px', height: '52px', borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
+                      <div>
+                        <p style={{ fontSize: '16px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{UNI_FEATURED.name}</p>
+                        <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', marginTop: '2px' }}>{UNI_FEATURED.sub}</p>
+                      </div>
                     </div>
                   </div>
-                </TiltCard>
+                </div>
               </motion.div>
               <div className="uni-testi-side">
                 {UNI_SIDE_QUOTES.map((q, i) => (
-                  <motion.div key={q.name} initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.1 }} style={{ flex: 1 }}>
-                    <TiltCard max={5} style={{ background: '#F6F7F9', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '24px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxSizing: 'border-box' }}>
-                      <div>
-                        <div style={{ display: 'flex', gap: '3px', marginBottom: '12px' }}>
-                          {[...Array(5)].map((_, j) => <Star key={j} size={12} fill="#D7FF43" color="#D7FF43" />)}
-                        </div>
-                        <p style={{ fontSize: '14px', color: '#3A3F4C', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginBottom: '16px' }}>&ldquo;{q.quote}&rdquo;</p>
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: q.color, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                          <span style={{ fontSize: '11px', fontWeight: 900, color: '#fff', fontFamily: 'var(--font-phudu)' }}>{q.name.split(' ').map(n => n[0]).join('')}</span>
-                        </div>
+                  <motion.div key={q.name} initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} style={{ flex: 1 }}>
+                    <div style={{ background: '#fff', borderRadius: '18px', border: '1px solid #DCE8FB', padding: '26px 28px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxSizing: 'border-box', boxShadow: '0 10px 30px rgba(20,104,232,0.06)' }}>
+                      <p style={{ fontSize: '15px', color: '#2A3242', lineHeight: 1.6, fontFamily: 'var(--font-body)', marginBottom: '20px' }}>&ldquo;{q.quote}&rdquo;</p>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={q.avatar} alt="" style={{ width: '44px', height: '44px', borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
                         <div>
-                          <p style={{ fontSize: '13px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{q.name}</p>
-                          <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{q.role} at {q.company}</p>
+                          <p style={{ fontSize: '14px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{q.name}</p>
+                          <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px' }}>{q.sub}</p>
                         </div>
                       </div>
-                    </TiltCard>
+                    </div>
                   </motion.div>
                 ))}
               </div>

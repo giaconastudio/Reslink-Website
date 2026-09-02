@@ -264,12 +264,20 @@ const UNIVERSITY_CATS: Category[] = [
 
 const FAQS = [
   { q: 'Is Reslink free?', a: 'Yes. Reslink has a free tier that lets you create and share a video resume at no cost. Pro and Premium plans unlock advanced analytics, multiple videos, and custom branding.' },
+  { q: 'What if I\'m not comfortable on camera?', a: 'That is completely normal. Reslink has a built-in teleprompter so you can read from a script, and you can re-record as many times as you like until it feels right. Most people are surprised how natural it feels after a couple of takes.' },
+  { q: 'Can I edit or re-record my Reslink after sharing it?', a: 'Yes. You can update or re-record your video anytime. Your link stays the same, so anyone who already received it will see your latest version automatically.' },
+  { q: 'Who can see my Reslink?', a: 'Only the people you share your link with. Your Reslink is not public or searchable, so you decide exactly who gets it - whether that is a single recruiter or everyone who sees your LinkedIn.' },
   { q: 'How can employers view my Reslink?', a: 'Anyone with your unique Reslink link can view your profile. Share it on LinkedIn, in email applications, or directly with recruiters.' },
-  { q: 'Can I use Reslink for any type of job?', a: 'Absolutely. Reslink works for any industry or role. Whether you\'re applying for a creative or technical position, video resumes help you stand out.' },
-  { q: 'How long should my video pitch be?', a: 'We recommend 60–90 seconds. Concise and confident. Shorter videos get watched all the way through. which is exactly what you want.' },
-  { q: 'Can I edit my Reslink after sharing it?', a: 'Yes. You can update your video anytime. Your link stays the same, so anyone who already received it will see your latest version automatically.' },
-  { q: 'Will my video pitch affect ATS compatibility?', a: 'Reslink is a supplement to your standard application, not a replacement. You still submit your traditional resume through ATS. Reslink is the extra layer that makes you memorable.' },
+  { q: 'Will my Reslink affect ATS compatibility?', a: 'Reslink is a supplement to your standard application, not a replacement. You still submit your traditional resume through ATS. Reslink is the extra layer that makes you memorable.' },
+  { q: 'How long should my video be?', a: 'We recommend 60-90 seconds. Concise and confident. Shorter videos get watched all the way through, which is exactly what you want.' },
   { q: 'Do I need special equipment to record?', a: 'No. Your laptop webcam or smartphone camera works great. Good lighting and a quiet space make the biggest difference.' },
+];
+
+// Everything searchable: every article across all tabs, plus the FAQs.
+const ALL_ENTRIES: { q: string; a: string; group: string }[] = [
+  ...[...SEEKER_CATS, ...COMPANY_CATS, ...RECRUITER_CATS, ...UNIVERSITY_CATS]
+    .flatMap(c => c.articles.map(a => ({ q: a.q, a: a.a, group: c.title }))),
+  ...FAQS.map(f => ({ q: f.q, a: f.a, group: 'Common questions' })),
 ];
 
 function FAQ({ q, a, open, toggle }: { q: string; a: string; open: boolean; toggle: () => void }) {
@@ -361,7 +369,17 @@ export default function HelpPage() {
   const [tab, setTab] = useState<'seeker' | 'company' | 'recruiter' | 'university'>('seeker');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [openArticle, setOpenArticle] = useState<number | null>(null);
+  const [openResult, setOpenResult] = useState<number | null>(null);
   const cats = tab === 'seeker' ? SEEKER_CATS : tab === 'company' ? COMPANY_CATS : tab === 'recruiter' ? RECRUITER_CATS : UNIVERSITY_CATS;
+
+  const searching = query.trim().length > 0;
+  const results = useMemo(() => {
+    const t = query.trim().toLowerCase();
+    if (!t) return [];
+    return ALL_ENTRIES.filter(e => e.q.toLowerCase().includes(t) || e.a.toLowerCase().includes(t));
+  }, [query]);
+  // Collapse any open result when the query changes so the wrong one isn't left open.
+  useEffect(() => { setOpenResult(null); }, [query]);
 
   // Flatten the current tab's categories into one browsable list, and track
   // which category each flattened index belongs to (for the modal's label).
@@ -383,7 +401,7 @@ export default function HelpPage() {
       <main style={{ paddingTop: '68px' }}>
 
         {/* Hero + search */}
-        <section style={{ background: 'linear-gradient(180deg, #FFFFFF 0%, #EAF1FF 100%)', padding: 'clamp(64px, 9vw, 104px) 24px clamp(56px, 7vw, 84px)', position: 'relative', overflow: 'hidden' }}>
+        <section style={{ background: 'linear-gradient(180deg, #FFFFFF 0%, #EAF1FF 100%)', padding: 'clamp(48px, 6vw, 76px) 24px clamp(56px, 7vw, 84px)', position: 'relative', overflow: 'hidden' }}>
           <div aria-hidden style={{ position: 'absolute', top: '-150px', right: '-90px', width: '540px', height: '440px', background: 'radial-gradient(ellipse at center, rgba(214,61,157,0.09), transparent 66%)', pointerEvents: 'none' }} />
           <div aria-hidden style={{ position: 'absolute', top: '-110px', left: '-70px', width: '520px', height: '420px', background: 'radial-gradient(ellipse at center, rgba(20,104,232,0.08), transparent 66%)', pointerEvents: 'none' }} />
           <div style={{ maxWidth: '640px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
@@ -393,7 +411,7 @@ export default function HelpPage() {
                 Need <span style={{ background: 'linear-gradient(#D7FF43, #D7FF43) no-repeat', backgroundSize: '100% 0.34em', backgroundPosition: '0 calc(100% - 0.1em)', padding: '0 0.05em', WebkitBoxDecorationBreak: 'clone', boxDecorationBreak: 'clone' }}>help?</span>
               </h1>
               <p style={{ fontSize: 'clamp(15px, 1.8vw, 18px)', color: '#5C6070', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginBottom: '30px', maxWidth: '520px', margin: '0 auto 30px' }}>
-                Explore our FAQs, tutorials, and other helpful resources to find the answers you&apos;re looking for.
+                Search, or browse the guides below.
               </p>
               <div style={{ position: 'relative' }}>
                 <span style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', display: 'flex', alignItems: 'center', zIndex: 2 }}>
@@ -410,6 +428,29 @@ export default function HelpPage() {
         <section style={{ background: '#F6F7F9', padding: 'clamp(56px, 7vw, 88px) 24px' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
 
+            {searching && (
+              <div style={{ maxWidth: '720px', margin: '0 auto' }}>
+                <p style={{ fontSize: '14px', color: '#5C6070', fontFamily: 'var(--font-body)', marginBottom: '18px', textAlign: 'center' }}>
+                  {results.length} {results.length === 1 ? 'result' : 'results'} for &ldquo;{query.trim()}&rdquo;
+                </p>
+                {results.length === 0 ? (
+                  <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '44px 28px', textAlign: 'center', boxShadow: '0 1px 8px rgba(6,26,58,0.04)' }}>
+                    <p style={{ fontSize: '15px', color: '#5C6070', fontFamily: 'var(--font-body)', lineHeight: 1.6 }}>
+                      No results found. Try a different search, or{' '}
+                      <Link href="/contact/support" style={{ color: '#1468E8', textDecoration: 'none', fontWeight: 600 }}>contact support</Link>.
+                    </p>
+                  </div>
+                ) : (
+                  <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '0 28px', boxShadow: '0 1px 8px rgba(6,26,58,0.04)' }}>
+                    {results.map((r, i) => (
+                      <FAQ key={`${r.q}-${i}`} q={r.q} a={r.a} open={openResult === i} toggle={() => setOpenResult(openResult === i ? null : i)} />
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {!searching && (<>
             {/* Tabs */}
             <style>{`
               .help-tabs-wrap { display: flex; justify-content: center; margin-bottom: 12px; }
@@ -478,8 +519,8 @@ export default function HelpPage() {
             {/* FAQ */}
             <div style={{ maxWidth: '720px', margin: '0 auto' }}>
               <div style={{ textAlign: 'center', marginBottom: '36px' }}>
-                <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '12px', fontFamily: 'var(--font-body)' }}>Common questions</p>
-                <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3.5vw, 40px)', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.02em', marginBottom: '10px' }}>Got questions? We&apos;ve got answers.</h2>
+                <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D63D9D', marginBottom: '12px', fontFamily: 'var(--font-body)' }}>Common questions</p>
+                <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3.5vw, 40px)', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.02em', marginBottom: '10px' }}>Got questions? We&apos;ve got answers</h2>
                 <p style={{ fontSize: '14px', color: '#5C6070', fontFamily: 'var(--font-body)' }}>
                   Can&apos;t find what you need?{' '}
                   <Link href="/contact/support" style={{ color: '#1468E8', textDecoration: 'none', fontWeight: 600 }}>Contact support</Link>. we reply fast.
@@ -489,6 +530,7 @@ export default function HelpPage() {
                 {FAQS.map((f, i) => <FAQ key={f.q} q={f.q} a={f.a} open={openFaq === i} toggle={() => setOpenFaq(openFaq === i ? null : i)} />)}
               </div>
             </div>
+            </>)}
           </div>
         </section>
 

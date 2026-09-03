@@ -401,7 +401,7 @@ const [notifA, setNotifA] = useState(0);
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For companies</p>
               <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 7.5vw, 96px)', fontWeight: 900, color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '24px' }}>
-                Make better hiring<br />decisions, <span style={{ color: '#D7FF43' }}>faster.</span>
+                Make better hiring{' '}<br className="br-desktop" />decisions, <span style={{ color: '#D7FF43' }}>faster.</span>
               </h1>
               <p style={{ fontSize: 'clamp(16px, 1.6vw, 18px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '520px', margin: '0 auto 36px' }}>
                 Ten thousand people have already stopped being a PDF.
@@ -471,7 +471,7 @@ const [notifA, setNotifA] = useState(0);
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '48px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Everything your team needs</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.95, letterSpacing: '-0.03em' }}>
-                Built for how great<br />teams hire.
+                Built for how great{' '}<br className="br-desktop" />teams hire.
               </h2>
             </motion.div>
 
@@ -602,7 +602,7 @@ const [notifA, setNotifA] = useState(0);
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '48px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D63D9D', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>What hiring teams say</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#061A3A', lineHeight: 0.98, marginBottom: '16px' }}>
-                Trusted by the teams<br />building great companies.
+                Trusted by the teams{' '}<br className="br-desktop" />building great companies.
               </h2>
               <p style={{ fontSize: '16px', color: '#8A7A85', fontFamily: 'var(--font-body)' }}>All early-access partners. Titles shown with permission.</p>
             </motion.div>

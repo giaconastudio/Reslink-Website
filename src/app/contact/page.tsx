@@ -96,7 +96,7 @@ export default function ContactPage() {
                   <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'rgba(215,255,67,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
                     <Rocket size={20} color="#D7FF43" strokeWidth={1.8} />
                   </div>
-                  <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 3.5vw, 42px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.03em', lineHeight: 0.95 }}>Looking to join<br />our team?</h2>
+                  <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 3.5vw, 42px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.03em', lineHeight: 0.95 }}>Looking to join{' '}<br className="br-desktop" />our team?</h2>
                 </div>
                 <div>
                   <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)', lineHeight: 1.7, marginBottom: '24px' }}>

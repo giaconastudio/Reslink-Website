@@ -173,7 +173,7 @@ export default function AboutPage() {
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>About us</p>
                 <h1 className="ah-h1">
-                  Hiring is a<br />
+                  Hiring is a{' '}<br className="br-desktop" />
                   <span className="ah-hl-half">human</span> decision
                 </h1>
                 <p className="ah-sub">
@@ -228,7 +228,7 @@ export default function AboutPage() {
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
               <div className="ms-top">
                 <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 3.6vw, 44px)', fontWeight: 900, color: '#061A3A', lineHeight: 1.02, letterSpacing: '-0.03em' }}>
-                  A resume tells you what<br />someone did. Never<br />who they are.
+                  A resume tells you what{' '}<br className="br-desktop" />someone did. Never{' '}<br className="br-desktop" />who they are.
                 </h2>
                 <p style={{ fontSize: 'clamp(15px, 1.6vw, 17px)', color: '#5C6070', lineHeight: 1.75, fontFamily: 'var(--font-body)' }}>
                   Energy, judgement, the way someone thinks. None of it survives a PDF. So the people who lose out aren&rsquo;t the least qualified. They just don&rsquo;t read well on paper. And the person who&rsquo;d have been brilliant in the room never gets into it.
@@ -263,7 +263,7 @@ export default function AboutPage() {
               style={{ marginBottom: '56px', textAlign: 'center' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>What we stand for</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 58px)', fontWeight: 900, color: '#fff', lineHeight: 0.93, letterSpacing: '-0.03em' }}>
-                Four principles we<br />refuse to compromise on
+                Four principles we{' '}<br className="br-desktop" />refuse to compromise on
               </h2>
             </motion.div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2px' }} className="values-grid">
@@ -290,7 +290,7 @@ export default function AboutPage() {
               style={{ marginBottom: '56px', textAlign: 'center' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>The people behind it</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 58px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.93, letterSpacing: '-0.03em' }}>
-                Built by people who&rsquo;ve<br />been on both sides
+                Built by people who&rsquo;ve{' '}<br className="br-desktop" />been on both sides
               </h2>
             </motion.div>
 
@@ -310,7 +310,7 @@ export default function AboutPage() {
           boxBg="radial-gradient(ellipse 52% 64% at 93% 0%, rgba(214,61,157,0.42), transparent 52%), linear-gradient(140deg, #071B3D 0%, #05142C 100%)"
           onDark
           eyebrow="Join the mission"
-          heading={<>Come build<br />it with us</>}
+          heading={<>Come build{' '}<br className="br-desktop" />it with us</>}
           body="We're a small team solving something that affects almost everyone at some point. If that sounds like your kind of problem, we'd like to meet you."
           primaryLabel="See open positions"
           primaryHref="/careers"

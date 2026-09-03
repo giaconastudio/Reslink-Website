@@ -140,7 +140,7 @@ export default function Testimonials() {
           Success stories
         </p>
         <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#ffffff', lineHeight: 0.98, marginBottom: '20px' }}>
-          What happens<br />after you send it
+          What happens{' '}<br className="br-desktop" />after you send it
         </h2>
         <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.6)', lineHeight: 1.65, fontFamily: 'var(--font-body)' }}>
           8,000 job seekers have sent a Reslink instead of a resume.

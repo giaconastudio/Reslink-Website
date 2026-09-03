@@ -228,7 +228,7 @@ export default function Hero() {
       <div className="hero-inner">
         {/* Headline */}
         <h1 className="hero-h1 hero-reveal" style={{ ['--hero-reveal-y' as string]: '18px', ['--hero-reveal-delay' as string]: '0.05s' }}>
-          <span style={{ color: '#9CA3AF' }}>Resumes get ignored.</span><br />
+          <span style={{ color: '#9CA3AF' }}>Resumes get ignored.</span>{' '}<br className="br-desktop" />
           Reslinks get{' '}
           <span style={{ background: 'linear-gradient(#D7FF43, #D7FF43) no-repeat', backgroundSize: '100% 0.34em', backgroundPosition: '0 calc(100% - 0.1em)', padding: '0 0.05em', WebkitBoxDecorationBreak: 'clone', boxDecorationBreak: 'clone' }}>watched.</span>
         </h1>

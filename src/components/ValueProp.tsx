@@ -85,6 +85,10 @@ export default function ValueProp() {
 
         @media (max-width: 760px) {
           .vp-compare { grid-template-columns: 1fr; }
+          /* Grid items are min-width:auto by default and won't shrink below
+             their content's intrinsic width, so these columns overflowed the
+             collapsed single-column track and got clipped. */
+          .vp-compare > * { min-width: 0; }
           .vp-before-col { order: 2; }
           .vp-stats-grid { grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 44px; }
           .vp-stat-cell { padding: 18px; border-radius: 16px; }
@@ -107,10 +111,10 @@ export default function ValueProp() {
             Before vs. after
           </p>
           <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 4.8vw, 60px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.95, letterSpacing: '-0.03em', marginBottom: '24px' }}>
-            From ignored<br /><span style={{ color: '#1468E8' }}>to interview</span>
+            From ignored{' '}<br className="br-desktop" /><span style={{ color: '#1468E8' }}>to interview</span>
           </h2>
           <p style={{ fontSize: '17px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>
-            A PDF can&apos;t introduce you, can&apos;t be opened in one click,<br />and can&apos;t tell you who read it. A Reslink does all three.
+            A PDF can&apos;t introduce you, can&apos;t be opened in one click,<br className="br-desktop" />and can&apos;t tell you who read it. A Reslink does all three.
           </p>
         </motion.div>
 

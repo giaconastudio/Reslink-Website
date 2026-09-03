@@ -122,7 +122,7 @@ export default function AgenciesPage() {
       <style>{`
         .ag-testi-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: stretch; }
         .ag-testi-side { display: flex; flex-direction: column; gap: 16px; }
-        @media (max-width: 760px) { .ag-testi-grid { grid-template-columns: 1fr !important; } }
+        @media (max-width: 760px) { .ag-testi-grid { grid-template-columns: 1fr !important; } .ag-testi-grid > * { min-width: 0; } }
         .ag-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
         .ag-feat-alt { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
         .ag-stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; }
@@ -130,6 +130,11 @@ export default function AgenciesPage() {
         @media (max-width: 960px) {
           .ag-hero-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
           .ag-feat-alt { grid-template-columns: 1fr !important; }
+          /* Grid items default to min-width:auto, which refuses to shrink
+             below the intrinsic width of their content — so the hero's right
+             column stayed 371px wide inside a 327px column and its contents
+             were clipped. min-width:0 lets them take the column's width. */
+          .ag-hero-grid > *, .ag-feat-alt > * { min-width: 0; }
         }
         @media (max-width: 960px) { .ag-hero-btns { flex-direction: column !important; align-self: stretch !important; margin-bottom: 0 !important; } }
         @media (max-width: 960px) { .ag-hero-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; } }
@@ -165,7 +170,7 @@ export default function AgenciesPage() {
               <motion.div className="ag-hero-text" style={{ display: 'flex', flexDirection: 'column' }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For recruitment agencies</p>
                 <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 6vw, 80px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.91, letterSpacing: '-0.03em', marginBottom: '24px' }}>
-                  Win more placements.<br />
+                  Win more placements.{' '}<br className="br-desktop" />
                   <span style={{ background: 'linear-gradient(#D7FF43, #D7FF43) no-repeat', backgroundSize: '100% 0.34em', backgroundPosition: '0 calc(100% - 0.1em)', padding: '0 0.05em', WebkitBoxDecorationBreak: 'clone', boxDecorationBreak: 'clone' }}>Faster.</span>
                 </h1>
                 <p style={{ fontSize: 'clamp(16px, 1.6vw, 18px)', color: '#5C6070', lineHeight: 1.75, fontFamily: 'var(--font-body)', marginBottom: '36px', maxWidth: '460px' }}>
@@ -243,7 +248,7 @@ export default function AgenciesPage() {
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '56px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Your new process</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.93, letterSpacing: '-0.03em' }}>
-                From brief to placement.<br />In less time.
+                From brief to placement.{' '}<br className="br-desktop" />In less time.
               </h2>
             </motion.div>
             <div className="ag-process-grid">
@@ -273,7 +278,7 @@ export default function AgenciesPage() {
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', maxWidth: '560px', margin: '0 auto 56px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Why agencies choose Reslink</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 54px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.95, letterSpacing: '-0.03em' }}>
-                The edge your agency<br />has been missing.
+                The edge your agency{' '}<br className="br-desktop" />has been missing.
               </h2>
             </motion.div>
             <div className="ag-feat-alt">
@@ -302,7 +307,7 @@ export default function AgenciesPage() {
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '52px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>The difference</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 52px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.95, letterSpacing: '-0.03em' }}>
-                Agencies that use Reslink<br />operate differently.
+                Agencies that use Reslink{' '}<br className="br-desktop" />operate differently.
               </h2>
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}>
@@ -370,7 +375,7 @@ export default function AgenciesPage() {
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '56px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>What agencies say</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#061A3A', lineHeight: 0.98 }}>
-                Recruiters who switched<br />don&apos;t go back.
+                Recruiters who switched{' '}<br className="br-desktop" />don&apos;t go back.
               </h2>
             </motion.div>
             <div className="ag-testi-grid">
@@ -437,7 +442,7 @@ export default function AgenciesPage() {
         {/* ─── CTA ─── (shared component — pink-glow navy box, matches the rest of the site) */}
         <CTA
           eyebrow="For recruitment agencies"
-          heading={<>Send a shortlist<br /><span>they can&apos;t forget.</span></>}
+          heading={<>Send a shortlist{' '}<br className="br-desktop" /><span>they can&apos;t forget.</span></>}
           body="Join 500+ agencies already using Reslink to close more placements and win more business."
           primaryLabel="Get started free"
           primaryHref="/get-started?type=agency"

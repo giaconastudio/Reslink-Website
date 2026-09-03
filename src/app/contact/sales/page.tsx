@@ -93,7 +93,7 @@ export default function SalesPage() {
               <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>For companies</p>
                 <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(44px, 6.6vw, 78px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.03em', lineHeight: 0.92, marginBottom: '26px' }}>
-                  Schedule a<br />Reslink demo
+                  Schedule a{' '}<br className="br-desktop" />Reslink demo
                 </h1>
                 <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)', lineHeight: 1.7, marginBottom: '30px', maxWidth: '400px' }}>
                   Thirty minutes, your roles, your process. We&apos;ll show you what candidates look like when you can see them.

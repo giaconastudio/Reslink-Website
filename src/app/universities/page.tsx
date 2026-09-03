@@ -119,7 +119,7 @@ export default function UniversitiesPage() {
               <motion.div className="uni-hero-text" style={{ display: 'flex', flexDirection: 'column' }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For universities and career centers</p>
                 <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(44px, 6.6vw, 78px)', fontWeight: 900, color: '#fff', lineHeight: 0.92, letterSpacing: '-0.03em', marginBottom: '26px' }}>
-                  Get more of your<br />students <span style={{ color: '#D7FF43' }}>hired</span>
+                  Get more of your{' '}<br className="br-desktop" />students <span style={{ color: '#D7FF43' }}>hired</span>
                 </h1>
                 <p style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.6, fontFamily: 'var(--font-body)', marginBottom: '36px', maxWidth: '500px' }}>
                   Graduates all look the same on paper. A video pitch is what makes one of them memorable.
@@ -229,10 +229,10 @@ export default function UniversitiesPage() {
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', maxWidth: '580px', margin: '0 auto 64px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>For your career center</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.93, letterSpacing: '-0.03em', marginBottom: '20px' }}>
-                Finally, numbers you<br />didn&apos;t have to chase
+                Finally, numbers you{' '}<br className="br-desktop" />didn&apos;t have to chase
               </h2>
               <p style={{ fontSize: '17px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>
-                Real placement data, employer engagement metrics,<br />and the proof your program is working.
+                Real placement data, employer engagement metrics,{' '}<br className="br-desktop" />and the proof your program is working.
               </p>
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="uni-compare">
@@ -288,7 +288,7 @@ export default function UniversitiesPage() {
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '56px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>How it works</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#fff', lineHeight: 0.93, letterSpacing: '-0.03em' }}>
-                Up and running<br />in three steps.
+                Up and running{' '}<br className="br-desktop" />in three steps.
               </h2>
             </motion.div>
             <div style={{ maxWidth: '760px', margin: '0 auto', display: 'flex', flexDirection: 'column' }}>
@@ -323,7 +323,7 @@ export default function UniversitiesPage() {
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '56px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>What your students get access to</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 54px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.95, letterSpacing: '-0.03em' }}>
-                Every tool they need<br />to stand out and get hired.
+                Every tool they need{' '}<br className="br-desktop" />to stand out and get hired.
               </h2>
             </motion.div>
             <div className="uni-feat-grid">
@@ -348,7 +348,7 @@ export default function UniversitiesPage() {
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '48px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>From career centers</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#061A3A', lineHeight: 0.98, marginBottom: '16px' }}>
-                Career centers that<br />get results.
+                Career centers that{' '}<br className="br-desktop" />get results.
               </h2>
               <p style={{ fontSize: '16px', color: '#7A85A0', fontFamily: 'var(--font-body)' }}>All pilot partners. Titles shown with permission.</p>
             </motion.div>
@@ -409,7 +409,7 @@ export default function UniversitiesPage() {
         {/* ─── CTA ─── (shared component — pink-glow navy box, matches the rest of the site) */}
         <CTA
           eyebrow="For universities and career centers"
-          heading={<>Give your students<br /><span>a real advantage.</span></>}
+          heading={<>Give your students{' '}<br className="br-desktop" /><span>a real advantage.</span></>}
           body="Join hundreds of universities using Reslink to get their students hired at better companies, faster."
           primaryLabel="Add your school to the waitlist"
           primaryHref="/get-started?type=university"

@@ -824,7 +824,7 @@ export default function Features() {
               <motion.div className="feat-side-head" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0C63E3', marginBottom: '10px', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>Everything a PDF can&apos;t do</p>
                 <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 2.6vw, 32px)', fontWeight: 900, color: '#041635', lineHeight: 1.0, letterSpacing: '-0.03em' }}>
-                  Built for<br />job seekers
+                  Built for{' '}<br className="br-desktop" />job seekers
                 </h2>
               </motion.div>
 

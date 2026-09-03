@@ -61,8 +61,23 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
           .blog-card:hover { box-shadow: 0 12px 36px rgba(6,26,58,0.10) !important; transform: translateY(-2px); }
           .tag-featured { font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #061A3A; background: #D7FF43; border-radius: 100px; padding: 4px 11px; font-family: var(--font-body); white-space: nowrap; }
           .tag-cat { font-size: 10px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 100px; padding: 4px 11px; font-family: var(--font-body); white-space: nowrap; }
-          @media (max-width: 700px) { .featured-grid { grid-template-columns: 1fr !important; } .all-grid { grid-template-columns: 1fr !important; } .feat-card { grid-template-columns: 1fr !important; } }
+          /* Order matters: both of these match on a phone and carry equal
+             specificity, so whichever comes last wins. With the 700px rule
+             first, the 960px two-column rule was overriding it at 375px —
+             the card grid stayed 2-up and pushed the page 92px wider than
+             the viewport, giving the blog a horizontal scrollbar. Tablet
+             range first, phone override second. */
           @media (max-width: 960px) { .all-grid { grid-template-columns: 1fr 1fr !important; } }
+          @media (max-width: 700px) { .featured-grid { grid-template-columns: 1fr !important; } .all-grid { grid-template-columns: 1fr !important; } .feat-card { grid-template-columns: 1fr !important; } }
+          /* The newsletter's form column is flex-shrink:0 so the 300px input
+             and Subscribe button stay side by side on desktop. On a phone
+             that fixed 440px width overflowed the card's 263px content area
+             by 177px, so let it shrink and stack instead. */
+          @media (max-width: 700px) {
+            .blog-news-col { flex-shrink: 1 !important; min-width: 0; width: 100%; }
+            .blog-news-col input { width: 100% !important; }
+            .blog-news-col button { width: 100%; }
+          }
         `}</style>
 
         {/* Hero / Search */}
@@ -72,7 +87,7 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '18px', fontFamily: 'var(--font-body)' }}>The Reslink Blog</p>
               <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 7vw, 96px)', fontWeight: 900, color: '#fff', lineHeight: 0.88, letterSpacing: '-0.03em', marginBottom: '0' }}>
-                Getting seen,<br />Getting <span style={{ color: '#D7FF43' }}>hired</span>
+                Getting seen,{' '}<br className="br-desktop" />Getting <span style={{ color: '#D7FF43' }}>hired</span>
               </h1>
               <p style={{ fontSize: 'clamp(15px, 1.8vw, 18px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginTop: '40px', marginBottom: '36px', maxWidth: '560px', margin: '40px auto 36px' }}>
                 Practical advice on applications, interviews and getting noticed, from people who do this every day.
@@ -225,7 +240,7 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
                   Get the latest job search tips, video resume strategies, and product updates delivered to your inbox every week.
                 </p>
               </div>
-              <div style={{ flexShrink: 0 }}>
+              <div className="blog-news-col" style={{ flexShrink: 0 }}>
                 <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                   <input type="email" placeholder="example@mail.com" style={{ width: '300px', maxWidth: '100%', padding: '15px 18px', borderRadius: '12px', border: 'none', background: '#fff', color: '#061A3A', fontSize: '15px', fontFamily: 'var(--font-body)', outline: 'none' }} />
                   <button style={{ padding: '15px 28px', background: '#D7FF43', color: '#061A3A', border: 'none', borderRadius: '12px', fontSize: '15px', fontWeight: 800, fontFamily: 'var(--font-body)', cursor: 'pointer', whiteSpace: 'nowrap' }}>Subscribe</button>

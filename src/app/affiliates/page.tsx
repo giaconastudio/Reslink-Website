@@ -596,7 +596,7 @@ export default function AffiliatesPage() {
           <div style={{ position: 'absolute', bottom: '-30%', left: '-6%', width: '560px', height: '560px', background: 'radial-gradient(ellipse, rgba(20,104,232,0.26), transparent 65%)', pointerEvents: 'none' }} />
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ maxWidth: '640px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
             <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(38px, 6vw, 74px)', fontWeight: 900, color: '#fff', lineHeight: 0.92, letterSpacing: '-0.035em', marginBottom: '20px' }}>
-              Start earning on<br /><span style={{ color: '#D7FF43' }}>every referral.</span>
+              Start earning on{' '}<br className="br-desktop" /><span style={{ color: '#D7FF43' }}>every referral.</span>
             </h2>
             <p style={{ fontSize: '17px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, fontFamily: 'var(--font-body)', marginBottom: '36px' }}>
               Free to join. Approval usually within two working days. Your first assets are waiting inside.

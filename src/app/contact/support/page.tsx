@@ -87,7 +87,7 @@ export default function SupportPage() {
               <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#C0398A', marginBottom: '18px', fontFamily: 'var(--font-body)' }}>Support</p>
                 <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(44px, 6.6vw, 78px)', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.03em', lineHeight: 0.92, marginBottom: '26px' }}>
-                  Talk to a<br /><span style={{ background: 'linear-gradient(#D7FF43, #D7FF43) no-repeat', backgroundSize: '100% 0.34em', backgroundPosition: '0 calc(100% - 0.08em)', padding: '0 0.05em', WebkitBoxDecorationBreak: 'clone', boxDecorationBreak: 'clone' }}>real person</span>
+                  Talk to a{' '}<br className="br-desktop" /><span style={{ background: 'linear-gradient(#D7FF43, #D7FF43) no-repeat', backgroundSize: '100% 0.34em', backgroundPosition: '0 calc(100% - 0.08em)', padding: '0 0.05em', WebkitBoxDecorationBreak: 'clone', boxDecorationBreak: 'clone' }}>real person</span>
                 </h1>
                 <p style={{ fontSize: '16px', color: '#5C6070', fontFamily: 'var(--font-body)', lineHeight: 1.7, marginBottom: '28px', maxWidth: '360px' }}>
                   We&apos;re a small team and we answer our own inbox. No ticket queue, no bot.

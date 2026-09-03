@@ -179,7 +179,10 @@ export default function HowItWorks() {
              or overflowing depending on the device. */
           .hiw-inner { padding: clamp(18px, 3vh, 34px) 16px; }
           .hiw-header { margin-bottom: clamp(14px, 2.8vh, 28px); }
+          /* min-width:0 — grid items otherwise refuse to shrink below their
+             content's intrinsic width and overflow the collapsed column. */
           .hiw-grid { grid-template-columns: 1fr; gap: clamp(16px, 3vh, 30px); }
+          .hiw-grid > * { min-width: 0; }
           .hiw-list { gap: clamp(13px, 3.2vh, 30px); }
           .hiw-stage-row { order: -1; }
           /* Native 1600x1040 aspect — do NOT crop this. A single sampled frame

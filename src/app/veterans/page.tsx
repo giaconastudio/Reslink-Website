@@ -78,7 +78,7 @@ export default function VeteransPage() {
               className="vets-hero-section-inner" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 'clamp(64px, 8vw, 100px) 0 clamp(64px, 8vw, 100px)', position: 'relative', zIndex: 1 }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For veterans</p>
               <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 4vw, 56px)', fontWeight: 900, color: '#fff', lineHeight: 1.0, letterSpacing: '-0.03em', marginBottom: '24px' }}>
-                From service<br />
+                From service{' '}<br className="br-desktop" />
                 <span style={{ color: '#D7FF43' }}>to hired</span>
               </h1>
               <p style={{ fontSize: 'clamp(15px, 1.6vw, 17px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '440px', marginBottom: '36px' }}>
@@ -180,7 +180,7 @@ export default function VeteransPage() {
             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>The challenge</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 3.8vw, 50px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.93, letterSpacing: '-0.03em', marginBottom: '20px' }}>
-                The skills transfer.<br />The vocabulary doesn&apos;t
+                The skills transfer.{' '}<br className="br-desktop" />The vocabulary doesn&apos;t
               </h2>
               <p style={{ fontSize: '16px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>
                 A hiring manager reads &ldquo;Operations Chief, USMC&rdquo; and has no idea whether that&apos;s twelve people or two hundred. They&apos;re not dismissing you - they just can&apos;t see it. Ninety seconds of you explaining it closes the gap before it costs you the interview.
@@ -196,7 +196,7 @@ export default function VeteransPage() {
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Everything in one link</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 52px)', fontWeight: 900, color: '#fff', lineHeight: 0.93, letterSpacing: '-0.03em', marginBottom: '24px' }}>
-                Your Reslink is your<br /><span style={{ color: '#D7FF43' }}>first impression</span>
+                Your Reslink is your{' '}<br className="br-desktop" /><span style={{ color: '#D7FF43' }}>first impression</span>
               </h2>
               <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '28px' }}>
                 Your video sits at the top, your service record sits underneath, and every view comes back to you. One link, sent anywhere.

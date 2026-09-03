@@ -90,7 +90,7 @@ export default function StudentsPage() {
               className="students-hero-section-inner" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 'clamp(64px, 8vw, 100px) 0 clamp(64px, 8vw, 100px)', position: 'relative', zIndex: 1 }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For students</p>
               <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 4vw, 56px)', fontWeight: 900, color: '#fff', lineHeight: 1.0, letterSpacing: '-0.03em', marginBottom: '24px' }}>
-                Be the candidate<br />
+                Be the candidate{' '}<br className="br-desktop" />
                 <span style={{ color: '#D7FF43' }}>they remember</span>
               </h1>
               <p style={{ fontSize: 'clamp(15px, 1.6vw, 17px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '440px', marginBottom: '36px' }}>
@@ -258,12 +258,12 @@ export default function StudentsPage() {
         {/* See it in action — dark navy with profile card + PIP */}
         <section style={{ background: '#061A3A', padding: 'clamp(72px, 9vw, 108px) 24px', overflow: 'hidden' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }} className="students-pip-grid">
-            <style>{`@media (max-width: 820px) { .students-pip-grid { grid-template-columns: 1fr !important; gap: 40px !important; } }`}</style>
+            <style>{`@media (max-width: 820px) { .students-pip-grid { grid-template-columns: 1fr !important; gap: 40px !important; } .students-pip-grid > * { min-width: 0; } }`}</style>
             {/* Left: copy */}
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Everything in one link</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 52px)', fontWeight: 900, color: '#fff', lineHeight: 0.93, letterSpacing: '-0.03em', marginBottom: '24px' }}>
-                Your Reslink is your<br /><span style={{ color: '#D7FF43' }}>first impression</span>
+                Your Reslink is your{' '}<br className="br-desktop" /><span style={{ color: '#D7FF43' }}>first impression</span>
               </h2>
               <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '28px' }}>
                 A recruiter looking at a graduate resume sees a degree, a summer job and a list of software. Your Reslink shows them the person who did all that.

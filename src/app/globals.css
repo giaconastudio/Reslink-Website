@@ -89,6 +89,21 @@ h1, h2, h3, h4 {
   transform: scale(0.97);
 }
 
+/* Display headings across the marketing pages hard-code <br> to control how
+   the line breaks at desktop widths. Those break points are wrong on a phone,
+   where the text already wraps on its own: measured at 375px they produced a
+   line 124% of its own container (an h1 overflowing itself), stranded
+   one-word lines as short as 12% of the width, and generally ragged
+   composition. Dropping the forced breaks below 640px lets each heading wrap
+   naturally to whatever width it actually has.
+   .br-desktop opts the same behaviour into non-heading copy that does the
+   same thing. */
+@media (max-width: 640px) {
+  .br-desktop {
+    display: none;
+  }
+}
+
 /* Ticker */
 @keyframes ticker {
   0% { transform: translateX(0); }

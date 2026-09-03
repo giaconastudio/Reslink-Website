@@ -12,14 +12,14 @@ import {
 } from 'lucide-react';
 
 const resources = [
-  { label: 'Blog', href: '/blog', desc: 'Tips, guides, and career advice', icon: BookOpen },
-  { label: 'Free Templates', href: '/templates', desc: 'Ready-to-use video resume scripts', icon: LayoutTemplate },
-  { label: 'Help Center', href: '/help', desc: 'Answers to common questions', icon: LifeBuoy },
+  { label: 'Blog', href: '/blog', desc: 'Tips, guides and advice', icon: BookOpen },
+  { label: 'Resume Templates', href: '/templates', desc: 'Download for free', icon: LayoutTemplate },
+  { label: 'Help Center', href: '/help', desc: 'Find an answer fast', icon: LifeBuoy },
 ];
 
 const company = [
-  { label: 'About Us', href: '/about', desc: 'Our mission and story', icon: Compass, badge: null },
-  { label: 'Careers', href: '/careers', desc: 'Join the team', icon: Rocket, badge: "we're hiring" },
+  { label: 'About Us', href: '/about', desc: 'How we got here', icon: Compass, badge: null },
+  { label: 'Careers', href: '/careers', desc: 'See open roles', icon: Rocket, badge: "we're hiring" },
   { label: 'Contact Us', href: '/contact', desc: 'Get in touch with our team', icon: Phone, badge: null },
 ];
 

@@ -95,6 +95,16 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
     closeTimer.current = setTimeout(() => setOpen(null), 350);
   };
 
+  /* Hold the page still while the menu is open. Without it the page scrolls
+     under the panel, which is how the hero's own CTA ended up sliding around
+     directly beneath the menu's near-identical one. */
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = prev; };
+  }, [mobileOpen]);
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       window.history.scrollRestoration = 'manual';
@@ -118,6 +128,24 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
     setMobileExpanded(prev => prev === key ? null : key);
 
   return (
+    <>
+    {/* Backstop for the dimming. The panel now runs the full height so the
+        page shouldn't show at all, but if dvh isn't supported the panel falls
+        back to its content height and the hero reappears underneath — and
+        since the hero's first button is also a blue "Get started for free",
+        the two read as one broken stack. Sits at 49, just under the
+        header's 50. */}
+    {mobileOpen && (
+      <div
+        aria-hidden
+        onClick={() => { setMobileOpen(false); setMobileExpanded(null); }}
+        style={{
+          position: 'fixed', inset: 0, zIndex: 49,
+          background: 'rgba(6,26,58,0.72)',
+          backdropFilter: 'blur(5px)', WebkitBackdropFilter: 'blur(5px)',
+        }}
+      />
+    )}
     <header style={{
       position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, transform: 'translateZ(0)', WebkitTransform: 'translateZ(0)',
       background: blue
@@ -221,7 +249,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
 
       {/* Mobile menu — collapsible sections */}
       {mobileOpen && (
-        <div style={{ background: blue ? '#1468E8' : dark ? '#061A3A' : '#fff', borderTop: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid #EEEEF0', padding: '8px 20px 20px', maxHeight: 'calc(100vh - 68px)', overflowY: 'auto' }}>
+        <div style={{ background: blue ? '#1468E8' : dark ? '#061A3A' : '#fff', borderTop: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid #EEEEF0', padding: '8px 20px 20px', height: 'calc(100dvh - 68px)', maxHeight: 'calc(100vh - 68px)', overflowY: 'auto', boxShadow: '0 18px 40px rgba(6,26,58,0.22)' }}>
 
           <Link href="/job-seekers" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#061A3A', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => { clearHash(); setMobileOpen(false); }}>For Individuals</Link>
           <Link href="/companies" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#061A3A', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => { clearHash(); setMobileOpen(false); }}>For Business</Link>
@@ -277,5 +305,6 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
         }
       `}</style>
     </header>
+    </>
   );
 }

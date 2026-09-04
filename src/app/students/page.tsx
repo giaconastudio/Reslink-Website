@@ -84,8 +84,15 @@ export default function StudentsPage() {
                  side in ~330px the number crowds the text into a narrow
                  column, so on phones it sits above the terms instead. */
               @media (max-width: 640px) {
-                .students-discount-head { flex-direction: column !important; align-items: flex-start !important; gap: 8px !important; }
-                .students-discount-num { font-size: 32px !important; }
+                .students-discount-head { flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; }
+                /* A 32px "50% off" alone on its own line read as an orphaned
+                   figure. As a lime chip above full-width terms it reads as a
+                   deliberate lockup, and matches the pill used on veterans. */
+                .students-discount-num {
+                  display: inline-block; font-size: 14px !important; letter-spacing: 0.06em !important;
+                  text-transform: uppercase; background: #D7FF43; color: #061A3A !important;
+                  border-radius: 100px; padding: 6px 13px; line-height: 1 !important;
+                }
                 /* Button matches the input's width rather than its own label. */
                 .students-elig-form { flex-direction: column !important; flex-wrap: nowrap !important; }
                 .students-elig-form > div { flex: 1 1 auto !important; width: 100% !important; box-sizing: border-box !important; }

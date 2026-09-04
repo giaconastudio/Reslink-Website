@@ -68,6 +68,20 @@ export default function VeteransPage() {
               @media (max-width: 860px) { .vets-hero-btns { flex-direction: column !important; align-self: stretch !important; } }
               @media (max-width: 860px) { .vets-hero-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; } }
               @media (max-width: 860px) { .vets-hero-discount { display: flex !important; align-self: stretch !important; } }
+              /* On a phone the number and the terms can't share a row — the
+                 terms get squeezed into ~190px and wrap raggedly. The number
+                 becomes a lime chip above full-width copy instead, which
+                 reads as a deliberate lockup rather than a big orphaned
+                 figure floating off to the left. */
+              @media (max-width: 640px) {
+                .vets-hero-discount { flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; }
+                .vets-hero-discount > p { flex-shrink: 0; }
+                .vets-discount-num {
+                  display: inline-block; font-size: 14px !important; letter-spacing: 0.06em !important;
+                  text-transform: uppercase; background: #D7FF43; color: #061A3A !important;
+                  border-radius: 100px; padding: 6px 13px; line-height: 1 !important;
+                }
+              }
               @media (max-width: 480px) { .vets-hero-section-inner { padding-top: 48px !important; padding-bottom: 24px !important; } }
               @media (max-width: 480px) { .vets-cta-btn { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; } }
               @media (max-width: 480px) { .vets-faq-box { padding: 0 16px !important; } }
@@ -96,7 +110,7 @@ export default function VeteransPage() {
               {/* Veteran pricing banner */}
               <div className="vets-hero-discount" style={{ marginTop: '30px', paddingTop: '26px', borderTop: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', gap: '20px' }}>
                 <p style={{ flexShrink: 0, margin: 0 }}>
-                  <span style={{ fontFamily: 'var(--font-phudu)', fontWeight: 900, fontSize: '38px', color: '#fff', lineHeight: 1, letterSpacing: '-0.02em', whiteSpace: 'nowrap' }}>50% off</span>
+                  <span className="vets-discount-num" style={{ fontFamily: 'var(--font-phudu)', fontWeight: 900, fontSize: '38px', color: '#fff', lineHeight: 1, letterSpacing: '-0.02em', whiteSpace: 'nowrap' }}>50% off</span>
                 </p>
                 <div>
                   <p style={{ fontSize: '15px', fontWeight: 700, color: '#D7FF43', fontFamily: 'var(--font-body)', lineHeight: 1.3 }}>Half price for those who served</p>

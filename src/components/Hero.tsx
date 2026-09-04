@@ -236,7 +236,10 @@ export default function Hero() {
 
         {/* Subtext */}
         <p className="hero-sub hero-reveal" style={{ ['--hero-reveal-y' as string]: '14px', ['--hero-reveal-delay' as string]: '0.12s' }}>
-          One link. Your video intro, your resume, your work.
+          {/* Non-breaking space so "your work" can't be split. Left to wrap on
+              its own at 375px it broke after "your", stranding "work." alone on
+              the second line; this makes the line end on the comma instead. */}
+          One link. Your video intro, your resume, your&nbsp;work.
         </p>
 
         {/* CTAs */}

@@ -14,7 +14,7 @@ const PEOPLE = [
 /** A single card: shows a frozen video frame (the "static image") and plays the
  *  clip on hover (desktop) or on tap (touch, where there is no hover). */
 function TeamCard({
-  person, index, total, isActive, onActivate, videoRef, clone, onHover, onHoverEnd,
+  person, index, total, isActive, onActivate, videoRef, onHover, onHoverEnd,
 }: {
   person: (typeof PEOPLE)[number];
   index: number;
@@ -22,7 +22,6 @@ function TeamCard({
   isActive: boolean;
   onActivate: (i: number, el: HTMLVideoElement | null) => void;
   videoRef?: (el: HTMLVideoElement | null) => void;
-  clone?: boolean;
   onHover?: (i: number) => void;
   onHoverEnd?: (i: number) => void;
 }) {
@@ -32,10 +31,10 @@ function TeamCard({
 
   return (
     <div
-      className={`tr-card${isActive ? ' is-active' : ''}${clone ? ' tr-clone' : ''}`}
+      className={`tr-card${isActive ? ' is-active' : ''}`}
       style={{ ['--rot' as string]: `${rot}deg`, zIndex: index }}
-      onMouseEnter={() => { if (!clone) onHover?.(index); }}
-      onMouseLeave={() => { if (!clone) onHoverEnd?.(index); }}
+      onMouseEnter={() => onHover?.(index)}
+      onMouseLeave={() => onHoverEnd?.(index)}
       /* Touch has no hover, so a tap is what starts the clip there. Harmless on
          desktop: the pointer is already hovering, so this just restarts it. */
       onClick={() => onActivate(index, ref.current)}
@@ -44,7 +43,6 @@ function TeamCard({
       <img
         src={person.poster}
         alt={person.name}
-        loading={clone ? 'lazy' : undefined}
         className="tr-card-media"
         style={{ objectPosition: person.pos }}
       />
@@ -71,8 +69,7 @@ export default function TeamReel() {
   // so the scrim/label need a state-driven class instead.
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const rowRef = useRef<HTMLDivElement>(null);
-  // The six real cards, in order. Clones aren't registered — only the
-  // originals are ever played.
+  // The six cards, in order.
   const videos = useRef<(HTMLVideoElement | null)[]>([]);
   // While the reader is hovering or has just tapped, they're in charge.
   // Hover is a boolean rather than a timed window: a pointer can rest on a
@@ -92,7 +89,7 @@ export default function TeamReel() {
     const row = rowRef.current;
     if (!row) return;
 
-    const CYCLE_MS = 3000;
+    const CYCLE_MS = 4500; // long enough to actually take each person in
     let timer: ReturnType<typeof setTimeout> | undefined;
     let idx = 0;
     let running = false;
@@ -168,45 +165,51 @@ export default function TeamReel() {
     manualUntil.current = performance.now() + 1200; // let the cycle pick up again
   };
 
-  /* Mobile strip drifts on its own. Driving scrollLeft rather than animating a
-     transform keeps the container a real scroller, so a thumb-swipe still
-     works and simply interrupts the drift. The card list is rendered twice;
-     rewinding by half the width at the seam makes the loop continuous. */
+  /* The strip follows whoever is playing, so the clip being shown is always
+     on screen. This replaced a constant drift: the drift moved independently
+     of the cycle, so the playing card regularly sat off the side of a phone
+     while a face nobody could see did the talking. Only kicks in when the row
+     is actually scrollable, which on desktop it never is. */
+  useEffect(() => {
+    const row = rowRef.current;
+    if (row == null || activeIndex == null) return;
+    /* Test that the row is a scroll container, not merely that its content is
+       wider: the rotated cards overhang by ~80px on desktop, where overflow-x
+       is visible and scrolling it means nothing. */
+    const overflowX = getComputedStyle(row).overflowX;
+    if (overflowX !== 'auto' && overflowX !== 'scroll') return;
+    if (row.scrollWidth <= row.clientWidth) return;
+    // Don't yank the strip out from under a thumb mid-swipe.
+    if (performance.now() < nudgedUntil.current) return;
+
+    const card = row.querySelectorAll<HTMLElement>('.tr-card')[activeIndex];
+    if (!card) return;
+
+    const centred = card.offsetLeft - (row.clientWidth - card.offsetWidth) / 2;
+    const max = row.scrollWidth - row.clientWidth;
+    const left = Math.max(0, Math.min(centred, max));
+
+    /* Feature-detected rather than assumed: where smooth scrolling isn't
+       supported (iOS Safari before 15.4), scrollTo with a behavior option is
+       silently ignored — which would leave the playing card off-screen, the
+       very thing this exists to prevent. Jumping is worse than gliding but
+       far better than not moving. */
+    const smooth = typeof document !== 'undefined'
+      && 'scrollBehavior' in document.documentElement.style
+      && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (smooth) row.scrollTo({ left, behavior: 'smooth' });
+    else row.scrollLeft = left;
+  }, [activeIndex]);
+
+  // A swipe hands control back to the reader for a few seconds.
   useEffect(() => {
     const row = rowRef.current;
     if (!row) return;
-    if (!window.matchMedia('(max-width: 640px)').matches) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    let raf = 0;
-    let last = performance.now();
-    const SPEED = 26; // px per second
-
-    const tick = (now: number) => {
-      /* Clamped: browsers suspend rAF entirely while the tab is backgrounded,
-         so the first frame after the reader comes back reports however long
-         they were away. Unclamped that lurches the strip forward by hundreds
-         of pixels in one frame. A cap of ~3 frames' worth just resumes. */
-      const dt = Math.min((now - last) / 1000, 0.05);
-      last = now;
-      /* Only a real touch stops the drift. It deliberately keeps moving while
-         the auto-cycle plays clips — those are two separate things, and
-         halting the strip for every clip would leave it stationary forever. */
-      if (now > nudgedUntil.current) {
-        row.scrollLeft += SPEED * dt;
-        const half = row.scrollWidth / 2;
-        if (half > 0 && row.scrollLeft >= half) row.scrollLeft -= half;
-      }
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-
-    // Any manual interaction wins for a few seconds.
-    const nudge = () => { nudgedUntil.current = performance.now() + 3500; };
+    const nudge = () => { nudgedUntil.current = performance.now() + 4000; };
     row.addEventListener('touchstart', nudge, { passive: true });
     row.addEventListener('touchmove', nudge, { passive: true });
     return () => {
-      cancelAnimationFrame(raf);
       row.removeEventListener('touchstart', nudge);
       row.removeEventListener('touchmove', nudge);
     };
@@ -233,8 +236,6 @@ export default function TeamReel() {
     <>
       <style>{`
         .tr-row { display: flex; justify-content: center; align-items: center; }
-        /* The duplicate pass exists only for the phone marquee's seam. */
-        .tr-clone { display: none; }
         .tr-card {
           position: relative; width: clamp(112px, 14vw, 180px); aspect-ratio: 3 / 4;
           border-radius: 18px; overflow: hidden; flex-shrink: 0;
@@ -275,22 +276,21 @@ export default function TeamReel() {
             overflow-x: auto;
             margin-inline: -24px;
             padding: 22px 24px 26px;
-            scroll-snap-type: x proximity;
+            /* No snapping: the reel scrolls itself to whoever is playing, and
+               snap points fight a programmatic scrollTo, landing it on the
+               neighbouring card instead. */
+            scroll-snap-type: none;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
             overscroll-behavior-x: contain;
           }
           .tr-row::-webkit-scrollbar { display: none; }
-          .tr-clone { display: block; }
-          /* Snapping would fight the drift — it keeps yanking the strip back
-             to the nearest card. The reel scrolls freely instead. */
-          .tr-row { scroll-snap-type: none; }
           .tr-card {
             /* Bigger than the desktop clamp's 112px floor — at 375px that
                floor made each face tiny, which is what pushed the old layout
                into a grid in the first place. */
             width: 148px;
-            scroll-snap-align: center;
+
           }
           /* No lift on tap — a transform here would fight the scroll container. */
           .tr-card.is-active { z-index: 50; box-shadow: 0 26px 54px rgba(0,0,0,0.5); }
@@ -308,19 +308,6 @@ export default function TeamReel() {
             videoRef={el => { videos.current[i] = el; }}
             onHover={handleHover}
             onHoverEnd={handleHoverEnd}
-          />
-        ))}
-        {/* Second pass of the same faces. Only the phone layout shows it, and
-            only so the auto-drift has something to run into at the seam. */}
-        {PEOPLE.map((p, i) => (
-          <TeamCard
-            key={`clone-${p.name}`}
-            person={p}
-            index={i}
-            total={PEOPLE.length}
-            isActive={false}
-            onActivate={activate}
-            clone
           />
         ))}
       </div>

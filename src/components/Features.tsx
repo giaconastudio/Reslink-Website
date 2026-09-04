@@ -576,6 +576,7 @@ function BadgeVisual() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.8, y: -4 }}
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="feat-badge-pip"
               style={{ position: 'absolute', top: '58px', right: '2px', width: '136px', height: '148px', borderRadius: '16px', overflow: 'hidden', border: '2px solid #fff', boxShadow: '0 18px 44px rgba(0,0,0,0.35)', zIndex: 5 }}
             >
               <video src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" autoPlay muted loop playsInline preload="auto" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
@@ -793,6 +794,20 @@ export default function Features() {
            per row keeps every tile readable. */
         @media (max-width: 560px) {
           .insights-stat-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          /* The intro bubble is a fixed 136px, but the resume card it sits on
+             shrinks with the viewport — 21% of the card's width on desktop
+             becomes 55% at 375px, which is why it swamped the card. Sized back
+             to roughly a third here, keeping the 136:148 aspect, and pushed a
+             little further right so it overhangs the corner rather than
+             sitting on top of the text. !important because the position and
+             size are inline styles on the element. */
+          .feat-badge-pip {
+            width: 88px !important;
+            height: 96px !important;
+            top: 52px !important;
+            right: -10px !important;
+            border-radius: 12px !important;
+          }
         }
         @media (max-width: 860px) {
           .feat-layout { grid-template-columns: 1fr; gap: 22px; }

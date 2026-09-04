@@ -207,7 +207,7 @@ const UNIVERSITY_CATS: Category[] = [
       { q: 'Setting up a university account', a: 'Career centers can request access at reslink.io/universities. We’ll set up your school’s branded portal and issue admin access to your career services team.' },
       { q: 'Adding your career center team', a: 'Invite career advisors from Settings > Team so they can help students set up profiles and track engagement across your student body.' },
       { q: 'Branding your university’s Reslink portal', a: 'Upload your school’s logo and colors so every student Reslink carries your university’s branding when shared with employers.' },
-      { q: 'Understanding student eligibility', a: 'Any current student or recent alum with a valid .edu email (or one you manually verify) can be onboarded to your university’s Reslink program.' },
+      { q: 'Understanding student eligibility', a: 'Any current student or recent alum with a school-issued email address — from any country, whatever domain your institution uses — can be onboarded to your university’s Reslink program, as can anyone you verify manually.' },
     ],
   },
   {

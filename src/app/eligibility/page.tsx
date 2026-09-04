@@ -88,7 +88,7 @@ export default function EligibilityPage() {
                 <Mail size={17} color="#B4BAC4" style={{ position: 'absolute', left: '15px', top: '50%', transform: 'translateY(-50%)' }} />
                 <input className="elig-input" type="email" value={email}
                   onChange={(e) => { setEmail(e.target.value); if (status === 'error' || status === 'no' || status === 'eligible' || status === 'manual') reset(); }}
-                  placeholder={kind === 'student' ? 'you@university.ac.uk' : 'you@example.com'} style={inputStyle} />
+                  placeholder={kind === 'student' ? 'Your school email address' : 'Your service or personal email'} style={inputStyle} />
               </div>
 
               <button type="submit" disabled={status === 'checking'}
@@ -131,10 +131,10 @@ export default function EligibilityPage() {
                   style={{ marginTop: '20px', background: '#FFF6E9', border: '1px solid #F6D9A8', borderRadius: '14px', padding: '20px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
                     <span style={{ width: '30px', height: '30px', borderRadius: '50%', background: '#BA7517', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><AlertCircle size={17} color="#fff" /></span>
-                    <p style={{ fontSize: '16px', fontWeight: 800, color: '#6B430A', fontFamily: 'var(--font-body)', margin: 0 }}>That doesn&apos;t look like a student email.</p>
+                    <p style={{ fontSize: '16px', fontWeight: 800, color: '#6B430A', fontFamily: 'var(--font-body)', margin: 0 }}>That looks like a personal address.</p>
                   </div>
                   <p style={{ fontSize: '13.5px', color: '#8A5A18', fontFamily: 'var(--font-body)', lineHeight: 1.6, margin: '0 0 6px' }}>
-                    We verify with your school-issued address — usually ending in <strong>.edu</strong>, <strong>.ac.uk</strong>, or your university&apos;s domain. Try that email instead.
+                    Use whatever address your school issued you — any country, any domain. We&apos;ll take it from there.
                   </p>
                   <button onClick={() => { setKind('veteran'); reset(); }} style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', fontSize: '13.5px', fontWeight: 700, color: '#9E2462', fontFamily: 'var(--font-body)' }}>
                     Not a student? Check as a veteran →
@@ -150,9 +150,11 @@ export default function EligibilityPage() {
                     <p style={{ fontSize: '16px', fontWeight: 800, color: '#0C447C', fontFamily: 'var(--font-body)', margin: 0 }}>You&apos;re still eligible — one quick step.</p>
                   </div>
                   <p style={{ fontSize: '13.5px', color: '#1B5299', fontFamily: 'var(--font-body)', lineHeight: 1.6, margin: '0 0 14px' }}>
-                    That isn&apos;t a military email, so we&apos;ll confirm your service record at signup instead. It takes a minute and the 50% discount still applies.
+                    {kind === 'student'
+                      ? "We don't recognise that domain automatically — plenty of universities don't use .edu or .ac.uk — so we'll confirm it after you sign up. The 50% discount still applies."
+                      : "That isn't a military email, so we'll confirm your service record at signup instead. It takes a minute and the 50% discount still applies."}
                   </p>
-                  <Link href="/get-started?type=veteran"
+                  <Link href={`/get-started?type=${kind === 'student' ? 'student' : 'veteran'}`}
                     style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', background: '#061A3A', color: '#fff', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', textDecoration: 'none', padding: '11px 18px', borderRadius: '10px' }}>
                     Continue and verify <ArrowRight size={15} />
                   </Link>

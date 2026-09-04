@@ -22,7 +22,7 @@ const FEATURES = [
 
 const FAQS = [
   { q: 'Do I need work experience to use Reslink?', a: 'Not at all. Coursework, projects, clubs, volunteer work and part-time jobs are all fair game. A video pitch lets you show your potential in a way a resume never can.' },
-  { q: 'Is Reslink free for students?', a: 'Yes. You can create and share a full Reslink profile for free. Pro features like advanced analytics are on paid plans, and they\'re half price with a valid .edu address.' },
+  { q: 'Is Reslink free for students?', a: 'Yes. You can create and share a full Reslink profile for free. Pro features like advanced analytics are on paid plans, and they\'re half price for students anywhere in the world — use whatever email your school issued you.' },
   { q: 'What if I\'m not comfortable on camera?', a: 'That\'s what the teleprompter is for. Your script scrolls on screen while you record, so you never have to memorise a thing. Most students feel natural after a take or two.' },
   { q: 'Will recruiters take a video seriously?', a: 'They already do. A 60-second intro tells a recruiter more about you than a page of bullet points, and Reslink shows you exactly who watched, so you know it\'s landing.' },
   { q: 'Will Reslink work alongside my standard resume?', a: 'Yes. Reslink supplements your resume, it doesn\'t replace it. You still submit your PDF, and Reslink is the extra layer that makes you memorable.' },
@@ -53,14 +53,14 @@ function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; 
 export default function StudentsPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [chkEmail, setChkEmail] = useState('');
-  const [chkStatus, setChkStatus] = useState<'idle' | 'checking' | 'eligible' | 'no' | 'error'>('idle');
+  const [chkStatus, setChkStatus] = useState<'idle' | 'checking' | 'eligible' | 'no' | 'manual' | 'error'>('idle');
 
   const runChk = (e: React.FormEvent) => {
     e.preventDefault();
     const verdict = checkEligibility(chkEmail, 'student');
     if (verdict === 'invalid') { setChkStatus('error'); return; }
     setChkStatus('checking');
-    window.setTimeout(() => setChkStatus(verdict === 'eligible' ? 'eligible' : 'no'), 850);
+    window.setTimeout(() => setChkStatus(verdict), 850);
   };
 
   return (
@@ -128,7 +128,7 @@ export default function StudentsPage() {
                 <div className="students-discount-head" style={{ display: 'flex', alignItems: 'center', gap: '18px', marginBottom: '16px' }}>
                   <span className="students-discount-num" style={{ fontFamily: 'var(--font-phudu)', fontWeight: 900, fontSize: '38px', color: '#fff', lineHeight: 1, letterSpacing: '-0.02em', whiteSpace: 'nowrap', flexShrink: 0 }}>50% off</span>
                   <div>
-                    <p style={{ fontSize: '15px', fontWeight: 700, color: '#D7FF43', fontFamily: 'var(--font-body)', lineHeight: 1.3, margin: 0 }}>$29/year with a valid .edu address</p>
+                    <p style={{ fontSize: '15px', fontWeight: 700, color: '#D7FF43', fontFamily: 'var(--font-body)', lineHeight: 1.3, margin: 0 }}>$29/year with your school email</p>
                     <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Email verification coming soon — discount applied manually until then</p>
                   </div>
                 </div>
@@ -138,7 +138,7 @@ export default function StudentsPage() {
                     <Mail size={16} color="#8A93A3" style={{ flexShrink: 0 }} />
                     <input type="email" value={chkEmail}
                       onChange={(e) => { setChkEmail(e.target.value); if (chkStatus !== 'idle') setChkStatus('idle'); }}
-                      placeholder="you@university.ac.uk"
+                      placeholder="Your school email address"
                       style={{ width: '100%', border: 'none', outline: 'none', background: 'transparent', padding: '12px 8px', fontSize: '14px', color: '#061A3A', fontFamily: 'var(--font-body)' }} />
                   </div>
                   <button type="submit" disabled={chkStatus === 'checking'} className="students-elig-btn"
@@ -165,12 +165,22 @@ export default function StudentsPage() {
                   </motion.div>
                 )}
 
+                {chkStatus === 'manual' && (
+                  <motion.div key="s-manual" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}
+                    style={{ marginTop: '12px', maxWidth: '440px', display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(215,255,67,0.12)', border: '1px solid rgba(215,255,67,0.35)', borderRadius: '10px', padding: '11px 14px' }}>
+                    <span style={{ width: '24px', height: '24px', borderRadius: '50%', background: '#D7FF43', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><CheckCircle size={14} color="#061A3A" strokeWidth={2.5} /></span>
+                    <p style={{ fontSize: '13.5px', color: '#fff', fontFamily: 'var(--font-body)', margin: 0, lineHeight: 1.45 }}>
+                      Looks like a school address — we&apos;ll confirm it after you sign up, and the 50% still applies.
+                    </p>
+                  </motion.div>
+                )}
+
                 {chkStatus === 'no' && (
                   <motion.div key="s-no" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}
                     style={{ marginTop: '12px', maxWidth: '440px', display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.14)', borderRadius: '10px', padding: '11px 14px' }}>
                     <span style={{ width: '24px', height: '24px', borderRadius: '50%', background: 'rgba(240,153,123,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><AlertCircle size={14} color="#F0997B" /></span>
                     <p style={{ fontSize: '13.5px', color: 'rgba(255,255,255,0.75)', fontFamily: 'var(--font-body)', margin: 0, lineHeight: 1.45 }}>
-                      Use your school email (ending in <strong style={{ color: '#fff' }}>.edu</strong> or <strong style={{ color: '#fff' }}>.ac.uk</strong>) so we can confirm your discount.
+                      That looks like a personal address. Use the email your school issued you and we can confirm the discount.
                     </p>
                   </motion.div>
                 )}

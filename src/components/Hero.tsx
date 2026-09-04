@@ -95,6 +95,7 @@ export default function Hero() {
           font-size: 13.5px; color: #8A93A3; font-family: var(--font-body);
           text-decoration: none; transition: color 0.15s ease;
         }
+        @media (max-width: 640px) { .hero-cosell-link { min-height: 44px; } }
         .hero-cosell-link strong { color: #061A3A; font-weight: 700; }
         .hero-cosell-link:hover, .hero-cosell-link:hover strong { color: #1468E8; }
 

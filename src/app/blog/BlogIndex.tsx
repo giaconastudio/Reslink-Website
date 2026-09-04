@@ -69,6 +69,12 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
              range first, phone override second. */
           @media (max-width: 960px) { .all-grid { grid-template-columns: 1fr 1fr !important; } }
           @media (max-width: 700px) { .featured-grid { grid-template-columns: 1fr !important; } .all-grid { grid-template-columns: 1fr !important; } .feat-card { grid-template-columns: 1fr !important; } }
+          /* Prev + numbered pages + Next stop fitting on one line around
+             360px — measured a 38px horizontal page scroll at 320px. Wrapping
+             the row centres the number strip under the two arrows instead. */
+          @media (max-width: 400px) {
+            .blog-pager { flex-wrap: wrap; justify-content: center !important; gap: 12px !important; }
+          }
           /* The newsletter's form column is flex-shrink:0 so the 300px input
              and Subscribe button stay side by side on desktop. On a phone
              that fixed 440px width overflowed the card's 263px content area
@@ -205,8 +211,8 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
 
             {/* Pagination */}
             {filtered.length > 0 && totalPages > 1 && (
-              <div style={{ borderTop: '1px solid #ECEEF1', marginTop: '48px', paddingTop: '28px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
-                <button onClick={() => goToPage(Math.max(1, page - 1))} disabled={page === 1}
+              <div className="blog-pager" style={{ borderTop: '1px solid #ECEEF1', marginTop: '48px', paddingTop: '28px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
+                <button className="tap-44" onClick={() => goToPage(Math.max(1, page - 1))} disabled={page === 1}
                   style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'none', border: 'none', cursor: page === 1 ? 'default' : 'pointer', color: page === 1 ? '#C7CBD3' : '#061A3A', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)' }}>
                   <ArrowLeft size={16} /> Previous
                 </button>
@@ -221,7 +227,7 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
                     );
                   })}
                 </div>
-                <button onClick={() => goToPage(Math.min(totalPages, page + 1))} disabled={page === totalPages}
+                <button className="tap-44" onClick={() => goToPage(Math.min(totalPages, page + 1))} disabled={page === totalPages}
                   style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'none', border: 'none', cursor: page === totalPages ? 'default' : 'pointer', color: page === totalPages ? '#C7CBD3' : '#061A3A', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)' }}>
                   Next <ArrowRight size={16} />
                 </button>

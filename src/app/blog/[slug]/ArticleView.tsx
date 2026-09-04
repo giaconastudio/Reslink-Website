@@ -72,7 +72,7 @@ export default function ArticleView({ post, related }: { post: Post; related: Po
           <div style={{ position: 'absolute', top: '-20%', left: '50%', transform: 'translateX(-50%)', width: '800px', height: '600px', background: 'radial-gradient(ellipse, rgba(20,104,232,0.22), transparent 60%)', pointerEvents: 'none' }} />
           <div style={{ maxWidth: '780px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-              <Link href="/blog" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-body)', fontSize: '14px', fontWeight: 700, textDecoration: 'none', marginBottom: '28px', transition: 'color 0.15s' }}
+              <Link href="/blog" className="tap-44" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-body)', fontSize: '14px', fontWeight: 700, textDecoration: 'none', marginBottom: '28px', transition: 'color 0.15s' }}
                 onMouseEnter={e => (e.currentTarget.style.color = '#D7FF43')}
                 onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.6)')}>
                 <ArrowLeft size={16} /> Back to Blog

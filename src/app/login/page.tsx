@@ -41,7 +41,7 @@ export default function LoginPage() {
               <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: '32px', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.03em', marginBottom: '6px', textAlign: 'center' }}>Log in to your account</h1>
               <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '32px', textAlign: 'center' }}>
                 New here?{' '}
-                <Link href="/get-started" style={{ color: '#1468E8', textDecoration: 'none', fontWeight: 700 }}>Create an account</Link>
+                <Link href="/get-started" className="tap-44" style={{ color: '#1468E8', textDecoration: 'none', fontWeight: 700 }}>Create an account</Link>
               </p>
 
               {/* Google SSO */}
@@ -66,7 +66,7 @@ export default function LoginPage() {
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
                     <label style={{ fontSize: '11px', fontWeight: 700, color: '#9A9FA8', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Password</label>
-                    <Link href="#" style={{ fontSize: '12px', color: '#1468E8', textDecoration: 'none', fontFamily: 'var(--font-body)', fontWeight: 600 }}>Forgot password?</Link>
+                    <Link href="#" className="tap-44" style={{ fontSize: '12px', color: '#1468E8', textDecoration: 'none', fontFamily: 'var(--font-body)', fontWeight: 600 }}>Forgot password?</Link>
                   </div>
                   <div style={{ position: 'relative' }}>
                     <input type={showPw ? 'text' : 'password'} placeholder="••••••••" value={form.password} onChange={e => setForm(p => ({ ...p, password: e.target.value }))} required style={{ ...inputStyle, paddingRight: '44px' }} />

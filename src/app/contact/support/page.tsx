@@ -65,7 +65,9 @@ export default function SupportPage() {
     boxSizing: 'border-box', background: '#F6F7F9',
   };
   const labelStyle: React.CSSProperties = {
-    display: 'block', fontSize: '10px', fontWeight: 700, color: '#9AA1AE',
+    // 11px matches the uppercase label convention used by the other forms
+    // (eligibility, sales); 10px made this the smallest real copy on the site.
+    display: 'block', fontSize: '11px', fontWeight: 700, color: '#9AA1AE',
     marginBottom: '4px', fontFamily: 'var(--font-body)', textTransform: 'uppercase', letterSpacing: '0.08em',
   };
 

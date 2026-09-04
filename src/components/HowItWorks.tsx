@@ -230,6 +230,9 @@ export default function HowItWorks() {
            radius and borders come off with it. Tablets keep the capped,
            inset stage from the rule above. */
         @media (max-width: 600px) {
+          /* 28px tall is under the 44px a fingertip needs. The row is already
+             full-width, so only the height needs a floor. */
+          .hiw-row { min-height: 44px; align-items: center; }
           .hiw-stage-row { margin: 0 -16px; }
           .hiw-stage { max-width: none; border-radius: 0; border-left: none; border-right: none; }
           /* The in-card CTA is dropped on phones. It duplicates the "Get

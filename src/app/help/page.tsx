@@ -501,7 +501,7 @@ export default function HelpPage() {
                         <p style={{ fontSize: '15px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', marginBottom: '12px' }}>{cat.title}</p>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                           {cat.articles.map((a, ai) => (
-                            <button key={a.q} onClick={() => setOpenArticle(catStart + ai)}
+                            <button key={a.q} className="tap-44" onClick={() => setOpenArticle(catStart + ai)}
                               style={{ fontSize: '13px', color: '#5C6070', fontFamily: 'var(--font-body)', textDecoration: 'none', lineHeight: 1.4, transition: 'color 0.15s', background: 'none', border: 'none', padding: 0, textAlign: 'left', cursor: 'pointer' }}
                               onMouseEnter={e => (e.currentTarget.style.color = '#1468E8')}
                               onMouseLeave={e => (e.currentTarget.style.color = '#5C6070')}>
@@ -523,7 +523,7 @@ export default function HelpPage() {
                 <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3.5vw, 40px)', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.02em', marginBottom: '10px' }}>Got questions? We&apos;ve got answers</h2>
                 <p style={{ fontSize: '14px', color: '#5C6070', fontFamily: 'var(--font-body)' }}>
                   Can&apos;t find what you need?{' '}
-                  <Link href="/contact/support" style={{ color: '#1468E8', textDecoration: 'none', fontWeight: 600 }}>Contact support</Link>. we reply fast.
+                  <Link href="/contact/support" style={{ color: '#1468E8', textDecoration: 'none', fontWeight: 600 }}>Contact support</Link>. We reply fast.
                 </p>
               </div>
               <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '0 28px', boxShadow: '0 1px 8px rgba(6,26,58,0.04)' }}>

@@ -102,6 +102,42 @@ h1, h2, h3, h4 {
   .br-desktop {
     display: none;
   }
+
+  /* Once the forced breaks are gone the headings wrap naturally, and natural
+     wrapping at 375px strands a lot of last lines on one short word — "know",
+     "steps.", "on", "us". Measured across the site, 24 headings ended on a
+     last line under a third of the line above it. Balancing evens the lines
+     out instead, which is exactly what this property is for. */
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+  }
+
+}
+
+/* Touch targets.
+   Gated on the pointer, not the width: a tablet is finger-driven at 768px
+   or 1024px just as much as a phone is at 375px, and width alone was
+   leaving every tablet on the 21px targets. The width branch is kept
+   alongside it so a narrow desktop window — and any browser that reports
+   no pointer at all — still gets the larger hit areas. */
+@media (pointer: coarse), (max-width: 640px) {
+  /* Buttons render 36px tall, under the 44px a fingertip needs. Padding stays
+     as-is so the horizontal proportions don't change — only the floor moves. */
+  .btn-primary,
+  .btn-outline {
+    min-height: 44px;
+  }
+
+  /* Opt-in touch target for the text links and bare buttons that carry their
+     own inline styles — pagination, help-centre article lists, login links.
+     They measured 13-21px tall. min-height is not set inline on any of them,
+     so no !important is needed. Links that sit mid-sentence are deliberately
+     left out: a 44px box inside running text breaks the line box. */
+  .tap-44 {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
 }
 
 /* Ticker */

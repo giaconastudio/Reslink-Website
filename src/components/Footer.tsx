@@ -88,6 +88,20 @@ export default function Footer() {
           .footer-bottom { flex-direction: column; align-items: flex-start; gap: 12px; }
           .footer-sub { max-width: 100%; }
         }
+
+        /* Touch targets. The links render 21px tall with a 13px gap, so each
+           one is a 21px-high strip with dead space around it — under half the
+           44px a fingertip needs. Growing the link itself to 44px and taking
+           the gap out of the list keeps the visible rhythm close to what it
+           was (34px pitch becomes 44px) while making the whole row tappable.
+           The ul's gap is an inline style, hence the !important. */
+        @media (pointer: coarse), (max-width: 640px) {
+          .footer-grid ul { gap: 0 !important; }
+          .footer-link { display: inline-flex; align-items: center; min-height: 44px; }
+          .footer-legal { gap: 8px; flex-wrap: wrap; }
+          .footer-legal-link { display: inline-flex; align-items: center; min-height: 44px; }
+          .footer-hiring { font-size: 11px; padding: 3px 10px; }
+        }
       `}</style>
 
       <div className="container" style={{ padding: '56px 24px 36px' }}>

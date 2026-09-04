@@ -24,7 +24,7 @@ const FAQS = [
   { q: 'What if I\'m not confident on camera yet?', a: 'The teleprompter scrolls your script while you record, so you can just read it and look straight at the camera. Most veterans feel natural after a take or two.' },
   { q: 'Can I use Reslink before I\'ve separated?', a: 'Yes. Plenty of service members build their Reslink while still in, so it\'s ready the day they start applying. Nothing stops you from setting it up early.' },
   { q: 'Will this work alongside my resume and LinkedIn?', a: 'Yes. Reslink sits alongside your resume and LinkedIn, it doesn\'t replace them. You still submit your PDF, and you add your Reslink to applications, your email and your LinkedIn profile.' },
-  { q: 'Is Reslink free for veterans?', a: 'Yes. You can create and share a full Reslink for free. Pro features are half price for veterans, verified instantly through ID.me.' },
+  { q: 'Is Reslink free for veterans?', a: 'Yes. You can create and share a full Reslink for free. Pro features are half price for veterans. Automatic ID.me verification is coming soon \u2014 until then, sign up and contact support with your service email and we will apply the discount manually.' },
   { q: 'How long should my video be?', a: 'Aim for 60 to 90 seconds. Enough to introduce yourself, cover two or three strengths, and show you want the role. Short, direct and confident.' },
 ];
 
@@ -100,7 +100,7 @@ export default function VeteransPage() {
                 </p>
                 <div>
                   <p style={{ fontSize: '15px', fontWeight: 700, color: '#D7FF43', fontFamily: 'var(--font-body)', lineHeight: 1.3 }}>Half price for those who served</p>
-                  <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', marginTop: '3px' }}>$29/year. Verified instantly through ID.me.</p>
+                  <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', marginTop: '3px' }}>$29/year. ID.me verification coming soon — discount applied manually until then.</p>
                 </div>
               </div>
             </motion.div>

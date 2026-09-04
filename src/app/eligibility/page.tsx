@@ -117,7 +117,7 @@ export default function EligibilityPage() {
                     <p style={{ fontSize: '16px', fontWeight: 800, color: '#2C4D08', fontFamily: 'var(--font-body)', margin: 0 }}>You&apos;re eligible for 50% off.</p>
                   </div>
                   <p style={{ fontSize: '13.5px', color: '#4A6321', fontFamily: 'var(--font-body)', lineHeight: 1.55, margin: '0 0 14px' }}>
-                    <strong>{email.trim()}</strong> checks out as {kind === 'student' ? 'a student' : 'a service'} email. Your discount is applied automatically when you sign up — no code needed.
+                    <strong>{email.trim()}</strong> checks out as {kind === 'student' ? 'a student email' : 'a service email'}. Automatic verification is coming soon — for now, sign up and contact support from this address and we&apos;ll apply the discount to your account.
                   </p>
                   <Link href={`/get-started?type=${kind === 'student' ? 'student' : 'veteran'}`}
                     style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', background: '#061A3A', color: '#fff', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', textDecoration: 'none', padding: '11px 18px', borderRadius: '10px' }}>

@@ -66,7 +66,7 @@ const FAQS = [
   { group: 'personal', q: 'Do I need a card to start?', a: 'No. The free plan needs no card at all. You only add a payment method if and when you decide to upgrade to Premium.' },
   { group: 'personal', q: 'Can I cancel anytime?', a: 'Absolutely. Cancel any time from your account settings. Your Premium access stays active until the end of the billing period, no matter which cycle you chose.' },
   { group: 'personal', q: 'What happens to my Reslinks if I downgrade?', a: "Your Reslinks stay live. If you have more than 2, they remain accessible via direct link but you'll need Premium to create new ones." },
-  { group: 'personal', q: 'How does the student and veteran discount work?', a: 'Students and veterans get 50% off Premium. Verify with your student email or your service email (through ID.me) after signup - no code needed, and the discount applies automatically.' },
+  { group: 'personal', q: 'How does the student and veteran discount work?', a: 'Students and veterans get 50% off Premium. Automatic email verification (student email, or service email through ID.me) is coming soon. Until it launches, sign up and contact support with your student or service email and we will apply the discount to your account manually.' },
   { group: 'business', q: 'How does company pricing work?', a: 'Companies start with a 14-day free trial on the Growth plan, no card required. Paid plans scale with your open job postings and team seats, and Enterprise is tailored to your hiring volume - just request a demo.' },
   { group: 'business', q: 'What are Reslink Credits, and what happens if I run out?', a: 'Credits power AI screening. Each applicant you screen uses one credit to generate an AI score, video pitch analysis, resume match and role-fit breakdown, from $0.50 per applicant. If you run out, AI screening simply pauses - your postings and candidates stay put - and you can top up any time to switch it back on.' },
   { group: 'business', q: 'Do you offer invoicing or annual contracts?', a: 'Yes. Growth and Enterprise plans can be billed annually, and Enterprise customers can pay by invoice with custom contract terms. Talk to sales and we will set it up.' },
@@ -349,7 +349,7 @@ export default function PricingPage() {
                       <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(40px, 5vw, 56px)', fontWeight: 900, color: '#9E2462', letterSpacing: '-0.03em', lineHeight: 1, flexShrink: 0 }}>50%</span>
                       <div>
                         <p style={{ fontSize: '15px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.3 }}>off for students and veterans</p>
-                        <p style={{ fontSize: '13.5px', color: '#8A6577', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Verify with your student or service email after signup. No code needed.</p>
+                        <p style={{ fontSize: '13.5px', color: '#8A6577', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Email verification coming soon. Until then we apply the discount manually after signup.</p>
                       </div>
                     </div>
                     <Link href="/eligibility" className="tap-44" style={{ fontSize: '14px', fontWeight: 700, color: '#9E2462', fontFamily: 'var(--font-body)', textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0, display: 'inline-flex', alignItems: 'center', gap: '7px' }}>

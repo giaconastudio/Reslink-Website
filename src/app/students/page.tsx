@@ -122,7 +122,7 @@ export default function StudentsPage() {
                   <span className="students-discount-num" style={{ fontFamily: 'var(--font-phudu)', fontWeight: 900, fontSize: '38px', color: '#fff', lineHeight: 1, letterSpacing: '-0.02em', whiteSpace: 'nowrap', flexShrink: 0 }}>50% off</span>
                   <div>
                     <p style={{ fontSize: '15px', fontWeight: 700, color: '#D7FF43', fontFamily: 'var(--font-body)', lineHeight: 1.3, margin: 0 }}>$29/year with a valid .edu address</p>
-                    <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Verified instantly, no code needed</p>
+                    <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Email verification coming soon — discount applied manually until then</p>
                   </div>
                 </div>
 
@@ -163,7 +163,7 @@ export default function StudentsPage() {
                     style={{ marginTop: '12px', maxWidth: '440px', display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.14)', borderRadius: '10px', padding: '11px 14px' }}>
                     <span style={{ width: '24px', height: '24px', borderRadius: '50%', background: 'rgba(240,153,123,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><AlertCircle size={14} color="#F0997B" /></span>
                     <p style={{ fontSize: '13.5px', color: 'rgba(255,255,255,0.75)', fontFamily: 'var(--font-body)', margin: 0, lineHeight: 1.45 }}>
-                      Use your school email (ending in <strong style={{ color: '#fff' }}>.edu</strong> or <strong style={{ color: '#fff' }}>.ac.uk</strong>) to verify instantly.
+                      Use your school email (ending in <strong style={{ color: '#fff' }}>.edu</strong> or <strong style={{ color: '#fff' }}>.ac.uk</strong>) so we can confirm your discount.
                     </p>
                   </motion.div>
                 )}

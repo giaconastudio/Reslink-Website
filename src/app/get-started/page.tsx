@@ -221,11 +221,21 @@ function GetStartedForm() {
   return (
     <>
       <Navbar />
-      <div style={{ minHeight: '100vh', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '108px 24px 48px', boxSizing: 'border-box' }}>
+      <div className="gs-wrap" style={{ minHeight: '100vh', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '108px 24px 48px', boxSizing: 'border-box' }}>
         <style>{`
-          .gs-card { display: grid; grid-template-columns: 460px 1fr; width: 100%; max-width: 1040px; min-height: 600px; background: #fff; border-radius: 20px; box-shadow: 0 8px 48px rgba(6,26,58,0.13); overflow: hidden; }
+          .gs-card { display: grid; grid-template-columns: 560px 1fr; width: 100%; max-width: 1120px; min-height: 600px; background: #fff; border-radius: 20px; box-shadow: 0 8px 48px rgba(6,26,58,0.13); overflow: hidden; }
+          /* The choices, the toggle and Continue are all 100% of this column,
+             so the column width is what sets them. At 460px with 40px padding
+             they had 380px to work with inside a 1040px card; 560px gives them
+             480px and leaves the right-hand visual 560px, still generous. */
+          .gs-left-col { padding: 44px 40px; }
           .gs-right-col { display: block; }
           @media (max-width: 800px) { .gs-card { grid-template-columns: 1fr !important; } .gs-right-col { min-height: 280px !important; border-radius: 0 !important; } }
+          /* Stacked, 40px of card padding on top of 24px of page padding left
+             64px unused down each side — the choices were using two thirds of
+             a 375px screen. */
+          @media (max-width: 800px) { .gs-left-col { padding: 36px 22px !important; } }
+          @media (max-width: 480px) { .gs-wrap { padding-left: 16px !important; padding-right: 16px !important; } }
           @media (max-width: 800px) { .gs-right-col > div { border-radius: 0 0 20px 20px !important; } }
           .gs-type-btn:hover { background: #F4F6FF !important; border-color: #BDC8D8 !important; }
           input:focus { border-color: #1468E8 !important; outline: none; }
@@ -237,7 +247,7 @@ function GetStartedForm() {
           {step === 1 && (
             <motion.div key="s1" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.3 }} className="gs-card">
               {/* Left */}
-              <div style={{ padding: '44px 40px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div className="gs-left-col" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <div>
                   <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: '32px', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.03em', marginBottom: '8px' }}>Create an account</h1>
                   <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', lineHeight: 1.5, marginBottom: '20px' }}>What best describes you?</p>
@@ -305,7 +315,7 @@ function GetStartedForm() {
           {step === 2 && (
             <motion.div key="s2" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.3 }} className="gs-card">
               {/* Left */}
-              <div style={{ padding: '44px 40px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <div className="gs-left-col" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#EEF4FF', borderRadius: '100px', padding: '5px 12px', marginBottom: '16px', width: 'fit-content' }}>
                   {(() => { const t = ALL_TYPES.find(t => t.id === selectedType)!; const Icon = t.icon; return <><Icon size={12} color="#1468E8" /><span style={{ fontSize: '12px', fontWeight: 700, color: '#1468E8', fontFamily: 'var(--font-body)' }}>{t.label}</span></>; })()}
                 </div>

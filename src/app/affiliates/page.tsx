@@ -257,31 +257,36 @@ function FeatureShowcase() {
   const [active, setActive] = useState(0);
   const [fill, setFill] = useState(0);
   const rows = useRef<(HTMLDivElement | null)[]>([]);
-  const mediaRef = useRef<HTMLDivElement | null>(null);
+  /* Below 860px the visual can't sit beside the list, so it moves inside
+     whichever feature is open and renders under that feature's copy. Tracked
+     in state rather than CSS because the visual is *moved*, not just
+     restyled, and mounting it in both places would run two copies. */
+  const [stacked, setStacked] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 860px)');
+    const sync = () => setStacked(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
+
   useEffect(() => {
     let obs: IntersectionObserver | null = null;
-
     const build = () => {
       obs?.disconnect();
-      /* Desktop reads the row crossing the middle of the viewport. On a phone
-         the visual is pinned to the top instead of sitting alongside, so the
-         middle of the viewport is *behind* it — a row would go active while
-         hidden under the pinned panel. Put the trigger band in the strip of
-         list that's actually visible below it. */
-      const stacked = window.matchMedia('(max-width: 860px)').matches;
-      let rootMargin = '-48% 0px -48% 0px';
-      if (stacked) {
-        const mediaBottom = (mediaRef.current?.getBoundingClientRect().height ?? 0) + 98;
-        rootMargin = `-${Math.round(mediaBottom)}px 0px -25% 0px`;
-      }
+      /* Side by side, the row crossing the middle of the viewport wins.
+         Stacked, each open feature is tall — its copy plus its visual — so
+         the trigger sits nearer the top: a feature opens as its title comes
+         up the screen, and its visual then fills the space below it. */
+      const rootMargin = window.matchMedia('(max-width: 860px)').matches
+        ? '-26% 0px -64% 0px'
+        : '-48% 0px -48% 0px';
       obs = new IntersectionObserver((entries) => {
         entries.forEach((e) => { if (e.isIntersecting) setActive(Number((e.target as HTMLElement).dataset.idx)); });
       }, { rootMargin });
       rows.current.forEach((el) => el && obs!.observe(el));
     };
-
     build();
-    // The band depends on the layout, so rebuild it when the layout can change.
     let t: ReturnType<typeof setTimeout>;
     const onResize = () => { clearTimeout(t); t = setTimeout(build, 200); };
     window.addEventListener('resize', onResize);
@@ -297,11 +302,13 @@ function FeatureShowcase() {
   }, [active]);
   return (
     <div className="af-recommend-grid" style={{ display: 'grid', gridTemplateColumns: '340px 1fr', gap: 'clamp(32px, 5vw, 64px)', alignItems: 'start' }}>
-      <div className="af-recommend-media" ref={mediaRef} style={{ position: 'sticky', top: '96px', maxWidth: '340px' }}>
-        <motion.div key={RECOMMEND[active].key} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}>
-          <FeatureVisual type={RECOMMEND[active].key} />
-        </motion.div>
-      </div>
+      {!stacked && (
+        <div className="af-recommend-media" style={{ position: 'sticky', top: '96px', maxWidth: '340px' }}>
+          <motion.div key={RECOMMEND[active].key} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}>
+            <FeatureVisual type={RECOMMEND[active].key} />
+          </motion.div>
+        </div>
+      )}
       {/* Progress rail: a pink fill + dot travels to whichever feature is active */}
       <div style={{ position: 'relative', paddingLeft: '32px' }}>
         <div style={{ position: 'absolute', left: '6px', top: '10px', bottom: '10px', width: '2px', background: '#EEF0F3', borderRadius: '2px' }} />
@@ -314,10 +321,16 @@ function FeatureShowcase() {
               style={{ position: 'relative', padding: '15px 0', cursor: 'default', transform: on ? 'translateX(6px)' : 'none', opacity: on ? 1 : 0.5, transition: 'transform 0.35s ease, opacity 0.35s ease' }}>
               <span style={{ position: 'absolute', left: on ? '-31px' : '-25px', transform: 'translateX(-50%)', top: on ? '19px' : '21px', width: on ? '10px' : '8px', height: on ? '10px' : '8px', borderRadius: '50%', background: done ? '#D63D9D' : '#D3D8E0', boxShadow: on ? '0 0 0 3px #fff, 0 0 0 5px #D63D9D' : 'none', transition: 'all 0.35s ease' }} />
               <p style={{ fontSize: on ? '18px' : '16px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', margin: 0, letterSpacing: '-0.01em', transition: 'font-size 0.3s ease' }}>{r.title}</p>
-              <div style={{ overflow: 'hidden', maxHeight: on ? '200px' : '0px', opacity: on ? 1 : 0, transition: 'max-height 0.42s ease, opacity 0.35s ease' }}>
+              <div style={{ overflow: 'hidden', maxHeight: on ? (stacked ? '900px' : '200px') : '0px', opacity: on ? 1 : 0, transition: 'max-height 0.42s ease, opacity 0.35s ease' }}>
                 <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', margin: 0, paddingTop: '8px' }}>
                   {r.body}{r.em && <><span style={{ color: '#D63D9D', fontWeight: 600 }}>{r.em}</span>{r.tail}</>}
                 </p>
+                {stacked && on && (
+                  <motion.div key={r.key} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}
+                    style={{ maxWidth: '300px', margin: '18px auto 4px' }}>
+                    <FeatureVisual type={r.key} />
+                  </motion.div>
+                )}
               </div>
             </div>
           );
@@ -348,24 +361,17 @@ export default function AffiliatesPage() {
           .af-hero-split { grid-template-columns: 1fr !important; }
           .af-hero-copy { text-align: center; }
           .af-hero-copy p, .af-hero-copy h1 { margin-left: auto !important; margin-right: auto !important; }
-          .af-hero-btns { flex-direction: column !important; align-self: stretch !important; justify-content: center !important; }
+          /* display:flex, not the inline-flex the final CTA sets: inline-flex
+             shrinks the group to its content, so "full width" buttons came out
+             only as wide as the longest label. */
+          .af-hero-btns { display: flex !important; flex-direction: column !important; align-self: stretch !important; justify-content: center !important; }
           .af-hero-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; }
           .af-calc-grid { grid-template-columns: 1fr !important; }
           .af-calc-right { border-radius: 0 0 0 0 !important; }
           .af-give-grid, .af-recommend-grid { grid-template-columns: 1fr !important; }
           .af-reels-grid { grid-template-columns: 1fr !important; max-width: 380px; margin: 0 auto; }
           .af-gain-grid, .af-why-grid, .af-proof-grid { grid-template-columns: 1fr !important; }
-          /* Stays pinned while the feature list scrolls under it. It used to
-             go static here, so the animation scrolled away and you read the
-             whole list with nothing to look at — the visual is the point of
-             the section. Opaque because the list passes behind it. */
-          .af-recommend-media {
-            top: 78px !important;
-            z-index: 2;
-            margin: 0 auto 20px !important;
-            background: #fff;
-            padding-bottom: 14px;
-          }
+
         }
         @media (max-width: 640px) { .af-give-grid { grid-template-columns: 1fr !important; } }
         .af-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 100px; background: linear-gradient(90deg, #1468E8 var(--fill,10%), #E7EBF2 var(--fill,10%)); outline: none; }

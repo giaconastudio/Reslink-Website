@@ -62,6 +62,25 @@ function TeamCard({
   );
 }
 
+/* Start a clip in the order iOS needs.
+
+   play() has to be reached synchronously inside the user gesture, and it must
+   not be preceded by anything that can throw. Seeking is exactly that: the
+   cards load with preload="none", so on the first tap readyState is 0 and
+   `currentTime = 0` raises InvalidStateError on Safari. That aborted the
+   handler before play() ran, which is why tapping a card did nothing on a
+   phone while it worked in desktop Chrome, where the same assignment is
+   tolerated. So: ask for the data, play, and only rewind once there's
+   something to rewind to. */
+function startClip(el: HTMLVideoElement) {
+  if (el.preload !== 'auto') el.preload = 'auto';
+  const rewind = () => { try { if (el.readyState >= 1) el.currentTime = 0; } catch { /* not seekable yet */ } };
+  if (el.readyState >= 1) rewind();
+  else el.addEventListener('loadedmetadata', rewind, { once: true });
+  const p = el.play();
+  if (p && typeof p.catch === 'function') p.catch(() => {});
+}
+
 /** A fanned row of candidate cards. Each shows a still video frame and plays
  *  its clip on hover. Meant to be dropped into any dark section. */
 export default function TeamReel() {
@@ -105,8 +124,7 @@ export default function TeamReel() {
       const v = videos.current[i];
       if (!v) return;
       pauseAll(i);
-      v.currentTime = 0;
-      v.play().catch(() => {});
+      startClip(v);
       setActiveIndex(i);
       /* Warm the next clip so the handover isn't a black frame — the cards
          load with preload="none" to keep six videos off the initial page. */
@@ -162,8 +180,7 @@ export default function TeamReel() {
     const v = videos.current[i];
     if (!v) return;
     videos.current.forEach((o, j) => { if (o && j !== i) o.pause(); });
-    v.currentTime = 0;
-    v.play().catch(() => {});
+    startClip(v);
     setActiveIndex(i);
   };
   const handleHoverEnd = (i: number) => {
@@ -254,9 +271,8 @@ export default function TeamReel() {
     }
     resumeFrom.current = (i + 1) % PEOPLE.length;
 
-    el.currentTime = 0;
-    el.play().catch(() => {});
     setActiveIndex(i);
+    startClip(el);
   };
 
   return (
@@ -278,7 +294,17 @@ export default function TeamReel() {
           z-index: 50 !important;
           box-shadow: 0 34px 66px rgba(0,0,0,0.55);
         }
-        .tr-card-media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+        /* Bled a pixel past the card on every side. aspect-ratio on a
+           fractional width gives the card a fractional height — 205.72px at
+           390px wide — and the absolutely positioned media rounds to 205.12,
+           leaving a 0.3px strip of the card's own navy background showing
+           along the bottom edge. It reads as a faint underline under every
+           card. The card clips to its radius, so over-covering is free. */
+        .tr-card-media {
+          position: absolute; inset: -1px;
+          width: calc(100% + 2px); height: calc(100% + 2px);
+          object-fit: cover; display: block;
+        }
         /* Video overlays the still and fades in only while hovered (or tapped). */
         .tr-card-vid { opacity: 0; transition: opacity 0.35s ease; }
         .tr-card:hover .tr-card-vid, .tr-card.is-active .tr-card-vid { opacity: 1; }

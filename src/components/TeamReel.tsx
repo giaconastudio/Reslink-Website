@@ -77,6 +77,9 @@ export default function TeamReel() {
   // would also stall the reel if mouseleave never arrived.
   const manualUntil = useRef(0);
   const hovering = useRef(false);
+  // Set by a tap so the cycle carries on from the person the reader chose,
+  // rather than from wherever it happened to be when they interrupted it.
+  const resumeFrom = useRef<number | null>(null);
   const nudgedUntil = useRef(0);
 
   /* The reel introduces the team by itself — each clip plays for a few
@@ -116,6 +119,10 @@ export default function TeamReel() {
       if (hovering.current || performance.now() < manualUntil.current) {
         timer = setTimeout(step, 600);
         return;
+      }
+      if (resumeFrom.current != null) {
+        idx = resumeFrom.current;
+        resumeFrom.current = null;
       }
       playAt(idx);
       idx = (idx + 1) % PEOPLE.length;
@@ -216,17 +223,37 @@ export default function TeamReel() {
   }, []);
 
   const activate = (i: number, el: HTMLVideoElement | null) => {
-    // A tap is a deliberate choice — hold the auto-cycle off for a while so
-    // it doesn't yank the reel onto someone else mid-watch.
-    manualUntil.current = performance.now() + 12_000;
     // One clip at a time — stop whatever else is running first.
     rowRef.current?.querySelectorAll('video').forEach(v => { if (v !== el) v.pause(); });
     if (!el) return;
+
+    // Tapping the one that's already playing stops it, and hands the reel
+    // straight back to the cycle.
     if (activeIndex === i && !el.paused) {
       el.pause();
       setActiveIndex(null);
+      manualUntil.current = 0;
       return;
     }
+
+    /* Hold the cycle off for however long this clip actually runs, so a
+       deliberate tap gets watched to the end instead of being pulled onto
+       someone else partway through. Clips here run 11-18s, so a fixed window
+       would cut some of them short. duration is NaN until metadata loads. */
+    const hold = (ms: number) => { manualUntil.current = performance.now() + ms + 1_500; };
+    if (Number.isFinite(el.duration) && el.duration > 0) {
+      hold(el.duration * 1000);
+    } else {
+      /* Cards load with preload="none", so duration is still NaN on the first
+         tap. Start on a sensible guess and correct it the moment metadata
+         lands, which is well before the guess would have run out. */
+      hold(15_000);
+      el.addEventListener('loadedmetadata', () => {
+        if (Number.isFinite(el.duration) && el.duration > 0) hold(el.duration * 1000);
+      }, { once: true });
+    }
+    resumeFrom.current = (i + 1) % PEOPLE.length;
+
     el.currentTime = 0;
     el.play().catch(() => {});
     setActiveIndex(i);

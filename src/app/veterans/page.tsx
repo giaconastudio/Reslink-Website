@@ -74,12 +74,12 @@ export default function VeteransPage() {
                  reads as a deliberate lockup rather than a big orphaned
                  figure floating off to the left. */
               @media (max-width: 640px) {
-                .vets-hero-discount { flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; }
+                .vets-hero-discount { flex-direction: column !important; align-items: center !important; gap: 12px !important; text-align: center; }
                 .vets-hero-discount > p { flex-shrink: 0; }
                 .vets-discount-num {
-                  display: inline-block; font-size: 14px !important; letter-spacing: 0.06em !important;
+                  display: inline-block; font-size: 20px !important; letter-spacing: 0.04em !important;
                   text-transform: uppercase; background: #D7FF43; color: #061A3A !important;
-                  border-radius: 100px; padding: 6px 13px; line-height: 1 !important;
+                  border-radius: 100px; padding: 9px 20px; line-height: 1 !important;
                 }
               }
               @media (max-width: 480px) { .vets-hero-section-inner { padding-top: 48px !important; padding-bottom: 24px !important; } }

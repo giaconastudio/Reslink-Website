@@ -14,7 +14,7 @@ const PEOPLE = [
 /** A single card: shows a frozen video frame (the "static image") and plays the
  *  clip on hover (desktop) or on tap (touch, where there is no hover). */
 function TeamCard({
-  person, index, total, isActive, onActivate, videoRef, clone,
+  person, index, total, isActive, onActivate, videoRef, clone, onHover, onHoverEnd,
 }: {
   person: (typeof PEOPLE)[number];
   index: number;
@@ -23,6 +23,8 @@ function TeamCard({
   onActivate: (i: number, el: HTMLVideoElement | null) => void;
   videoRef?: (el: HTMLVideoElement | null) => void;
   clone?: boolean;
+  onHover?: (i: number) => void;
+  onHoverEnd?: (i: number) => void;
 }) {
   const ref = useRef<HTMLVideoElement>(null);
   const mid = (total - 1) / 2;
@@ -32,8 +34,8 @@ function TeamCard({
     <div
       className={`tr-card${isActive ? ' is-active' : ''}${clone ? ' tr-clone' : ''}`}
       style={{ ['--rot' as string]: `${rot}deg`, zIndex: index }}
-      onMouseEnter={() => { const v = ref.current; if (v) { v.currentTime = 0; v.play().catch(() => {}); } }}
-      onMouseLeave={() => { ref.current?.pause(); }}
+      onMouseEnter={() => { if (!clone) onHover?.(index); }}
+      onMouseLeave={() => { if (!clone) onHoverEnd?.(index); }}
       /* Touch has no hover, so a tap is what starts the clip there. Harmless on
          desktop: the pointer is already hovering, so this just restarts it. */
       onClick={() => onActivate(index, ref.current)}
@@ -69,30 +71,102 @@ export default function TeamReel() {
   // so the scrim/label need a state-driven class instead.
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const rowRef = useRef<HTMLDivElement>(null);
-  const firstVideo = useRef<HTMLVideoElement | null>(null);
-  // Auto-advance pauses while a clip is playing and for a moment after the
-  // reader swipes, so it never fights them for control of the strip.
-  const paused = useRef(false);
+  // The six real cards, in order. Clones aren't registered — only the
+  // originals are ever played.
+  const videos = useRef<(HTMLVideoElement | null)[]>([]);
+  // While the reader is hovering or has just tapped, they're in charge.
+  // Hover is a boolean rather than a timed window: a pointer can rest on a
+  // card indefinitely, and any timeout long enough not to interrupt that
+  // would also stall the reel if mouseleave never arrived.
+  const manualUntil = useRef(0);
+  const hovering = useRef(false);
   const nudgedUntil = useRef(0);
 
-  /* The first clip plays by itself once the reel is on screen, so the section
-     has motion in it the moment the page opens rather than looking like a row
-     of stills waiting to be poked. Muted + playsInline, which is what mobile
-     browsers require before they'll allow autoplay. */
+  /* The reel introduces the team by itself — each clip plays for a few
+     seconds, then hands over to the next, looping round. Without this the
+     section is a row of stills waiting to be poked, which is dead on mobile
+     where there's no hover to discover. Muted + playsInline is what mobile
+     browsers require before they'll allow autoplay at all.
+     Only runs while the reel is actually on screen. */
   useEffect(() => {
     const row = rowRef.current;
     if (!row) return;
+
+    const CYCLE_MS = 3000;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    let idx = 0;
+    let running = false;
+
+    const pauseAll = (except: number) => {
+      videos.current.forEach((v, j) => { if (v && j !== except) v.pause(); });
+    };
+
+    const playAt = (i: number) => {
+      const v = videos.current[i];
+      if (!v) return;
+      pauseAll(i);
+      v.currentTime = 0;
+      v.play().catch(() => {});
+      setActiveIndex(i);
+      /* Warm the next clip so the handover isn't a black frame — the cards
+         load with preload="none" to keep six videos off the initial page. */
+      const next = videos.current[(i + 1) % PEOPLE.length];
+      if (next && next.preload !== 'auto') next.preload = 'auto';
+    };
+
+    const step = () => {
+      // Reader has the wheel — check back shortly rather than cutting in.
+      if (hovering.current || performance.now() < manualUntil.current) {
+        timer = setTimeout(step, 600);
+        return;
+      }
+      playAt(idx);
+      idx = (idx + 1) % PEOPLE.length;
+      timer = setTimeout(step, CYCLE_MS);
+    };
+
+    /* Start straight away and let the observer *pause* it when the reel
+       scrolls away, rather than relying on the observer to start it. If it
+       were the trigger, anything that stopped it firing would leave the reel
+       permanently frozen; this way the worst case is that it plays to an
+       empty screen for a moment. */
+    running = true;
+    step();
+
     const io = new IntersectionObserver(entries => {
       for (const e of entries) {
-        if (!e.isIntersecting) continue;
-        const v = firstVideo.current;
-        if (v) { v.play().then(() => setActiveIndex(0)).catch(() => {}); }
-        io.disconnect();
+        if (e.isIntersecting && !running) {
+          running = true;
+          step();
+        } else if (!e.isIntersecting && running) {
+          running = false;
+          clearTimeout(timer);
+          pauseAll(-1);
+          setActiveIndex(null);
+        }
       }
     }, { threshold: 0.35 });
     io.observe(row);
-    return () => io.disconnect();
+
+    return () => { io.disconnect(); clearTimeout(timer); };
   }, []);
+
+  // Hover takes over on desktop; the cycle resumes shortly after the pointer
+  // leaves. On touch there's no hover, so this never fires there.
+  const handleHover = (i: number) => {
+    hovering.current = true;
+    const v = videos.current[i];
+    if (!v) return;
+    videos.current.forEach((o, j) => { if (o && j !== i) o.pause(); });
+    v.currentTime = 0;
+    v.play().catch(() => {});
+    setActiveIndex(i);
+  };
+  const handleHoverEnd = (i: number) => {
+    hovering.current = false;
+    videos.current[i]?.pause();
+    manualUntil.current = performance.now() + 1200; // let the cycle pick up again
+  };
 
   /* Mobile strip drifts on its own. Driving scrollLeft rather than animating a
      transform keeps the container a real scroller, so a thumb-swipe still
@@ -115,7 +189,10 @@ export default function TeamReel() {
          of pixels in one frame. A cap of ~3 frames' worth just resumes. */
       const dt = Math.min((now - last) / 1000, 0.05);
       last = now;
-      if (!paused.current && now > nudgedUntil.current) {
+      /* Only a real touch stops the drift. It deliberately keeps moving while
+         the auto-cycle plays clips — those are two separate things, and
+         halting the strip for every clip would leave it stationary forever. */
+      if (now > nudgedUntil.current) {
         row.scrollLeft += SPEED * dt;
         const half = row.scrollWidth / 2;
         if (half > 0 && row.scrollLeft >= half) row.scrollLeft -= half;
@@ -135,10 +212,10 @@ export default function TeamReel() {
     };
   }, []);
 
-  // Hold the strip still while a clip is playing so it can actually be watched.
-  useEffect(() => { paused.current = activeIndex !== null; }, [activeIndex]);
-
   const activate = (i: number, el: HTMLVideoElement | null) => {
+    // A tap is a deliberate choice — hold the auto-cycle off for a while so
+    // it doesn't yank the reel onto someone else mid-watch.
+    manualUntil.current = performance.now() + 12_000;
     // One clip at a time — stop whatever else is running first.
     rowRef.current?.querySelectorAll('video').forEach(v => { if (v !== el) v.pause(); });
     if (!el) return;
@@ -228,7 +305,9 @@ export default function TeamReel() {
             total={PEOPLE.length}
             isActive={activeIndex === i}
             onActivate={activate}
-            videoRef={i === 0 ? el => { firstVideo.current = el; } : undefined}
+            videoRef={el => { videos.current[i] = el; }}
+            onHover={handleHover}
+            onHoverEnd={handleHoverEnd}
           />
         ))}
         {/* Second pass of the same faces. Only the phone layout shows it, and

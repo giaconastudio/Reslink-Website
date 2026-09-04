@@ -133,14 +133,19 @@ h1, h2, h3, h4 {
   .students-hero-btns,
   .vets-hero-btns,
   .co-hero-btns,
+  .uni-hero-btns,
   .ah-ctas {
     flex-direction: column;
     align-items: stretch;
+    /* Some of these sit inside a flex column that sizes children to their
+       content, which left the group narrower than the copy above it. */
+    align-self: stretch;
     gap: 10px;
   }
   .students-hero-btns > a,
   .vets-hero-btns > a,
   .co-hero-btns > a,
+  .uni-hero-btns > a,
   .ah-ctas > a {
     width: 100%;
     justify-content: center;

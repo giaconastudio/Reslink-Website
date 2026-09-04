@@ -73,10 +73,32 @@ export default function StoryTimeline() {
         .tl-nodepos { position: absolute; transform: translate(-50%, -50%); z-index: 3; }
         .tl-node { width: 26px; height: 26px; border-radius: 50%; background: #fff; border-style: solid; border-width: 4px; display: flex; align-items: center; justify-content: center; }
 
+        /* Mobile timeline — the desktop wave turned on its side.
+           A straight rail rather than a curve: card heights vary with their
+           copy, so a single curved path can't stay anchored to every node the
+           way the fixed-height desktop stage can. The choreography is what
+           carries the effect anyway — line draws down, node pops, card
+           arrives — and that's identical here. */
         .tl-mobile { display: none; }
         @media (max-width: 980px) {
           .tl-stage { display: none; }
-          .tl-mobile { display: flex; flex-direction: column; gap: 14px; max-width: 460px; margin: 0 auto; }
+          .tl-mobile { display: block; max-width: 460px; margin: 0 auto; }
+          .tl-mrow { display: grid; grid-template-columns: 26px 1fr; column-gap: 16px; }
+          .tl-mrow:not(:last-child) { padding-bottom: 14px; }
+          .tl-mrail { position: relative; }
+          /* Sits between one node and the next with an even gap at both ends. */
+          .tl-mline { position: absolute; left: 50%; width: 2px; margin-left: -1px; top: 44px; bottom: -22px; border-radius: 2px; transform-origin: top center; }
+          .tl-mnode {
+            /* The -50% centring lives on the motion style, not here: Framer
+               writes the whole transform when it animates scale, so a
+               transform declared in CSS would be dropped. */
+            position: absolute; left: 50%; top: 15px;
+            width: 22px; height: 22px; border-radius: 50%; background: #fff;
+            border-style: solid; border-width: 4px; box-sizing: border-box;
+          }
+          /* The card's own padding puts its date line ~20px down, which is
+             where the node sits, so the two line up without hard-coding. */
+          .tl-mobile .tl-card { padding: 16px 18px; }
         }
       `}</style>
 
@@ -159,19 +181,44 @@ export default function StoryTimeline() {
           ))}
         </div>
 
-        {/* ── Mobile: simple stacked cards ── */}
+        {/* ── Mobile: the same beats, running top to bottom ── */}
         <div className="tl-mobile">
-          {MS.map((m) => (
-            <motion.div
-              key={`m${m.xPct}`}
-              className={`tl-card${m.dark ? ' dark' : ''}`}
-              initial={{ opacity: 0, y: 16 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.15 + MS.indexOf(m) * 0.1, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <CardInner m={m} />
-            </motion.div>
-          ))}
+          {MS.map((m, i) => {
+            const next = MS[i + 1];
+            // Each milestone's own beat, staggered the way the desktop wave
+            // reaches its nodes one after another.
+            const t = 0.15 + i * 0.34;
+            return (
+              <div className="tl-mrow" key={`m${m.xPct}`}>
+                <div className="tl-mrail">
+                  {next && (
+                    <motion.div
+                      className="tl-mline"
+                      style={{ background: `linear-gradient(to bottom, ${m.color}, ${next.color})` }}
+                      initial={{ scaleY: 0 }}
+                      animate={inView ? { scaleY: 1 } : {}}
+                      transition={{ duration: 0.45, delay: t + 0.12, ease: [0.4, 0, 0.2, 1] }}
+                    />
+                  )}
+                  <motion.div
+                    className="tl-mnode"
+                    style={{ x: '-50%', borderColor: m.color, boxShadow: `0 0 0 5px ${m.halo}` }}
+                    initial={{ scale: 0 }}
+                    animate={inView ? { scale: 1 } : {}}
+                    transition={{ duration: 0.45, delay: t, ease: [0.34, 1.7, 0.6, 1] }}
+                  />
+                </div>
+                <motion.div
+                  className={`tl-card${m.dark ? ' dark' : ''}`}
+                  initial={{ opacity: 0, x: 14 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.5, delay: t + 0.08, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <CardInner m={m} />
+                </motion.div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

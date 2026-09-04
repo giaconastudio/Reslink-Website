@@ -96,7 +96,14 @@ export default function CTA({
            column makes them match whatever the labels are. */
         @media (max-width: 640px) {
           .cta-btns { flex-direction: column; align-items: stretch; gap: 10px; }
-          .cta-btn-primary, .cta-btn-secondary { width: 100%; justify-content: center; box-sizing: border-box; }
+          /* nowrap because the longest label here — "Add your school to the
+             waitlist" — otherwise broke over three lines and turned the
+             button into a 73px block. Padding tightens to buy it the room to
+             sit on one line at 375px. */
+          .cta-btn-primary, .cta-btn-secondary {
+            width: 100%; justify-content: center; box-sizing: border-box;
+            white-space: nowrap; padding: 14px 16px;
+          }
         }
       `}</style>
 

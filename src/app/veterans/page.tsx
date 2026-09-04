@@ -206,8 +206,17 @@ export default function VeteransPage() {
         {/* One link — dark navy with profile card */}
         <section style={{ background: '#061A3A', padding: 'clamp(72px, 9vw, 108px) 24px', overflow: 'hidden' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }} className="vets-pip-grid">
-            <style>{`@media (max-width: 820px) { .vets-pip-grid { grid-template-columns: 1fr !important; gap: 40px !important; } }`}</style>
-            <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
+            <style>{`@media (max-width: 820px) {
+              .vets-pip-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+              .vets-pip-grid > * { min-width: 0; }
+              /* Matches students: the only left-aligned section header once
+                 stacked, so it centres with the rest. */
+              .vets-pip-copy { text-align: center; }
+              /* Rows stay left-aligned so the tick icons line up; the block is
+                 what gets centred. */
+              .vets-pip-list { width: fit-content; margin-left: auto; margin-right: auto; text-align: left; }
+            }`}</style>
+            <motion.div className="vets-pip-copy" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Everything in one link</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 52px)', fontWeight: 900, color: '#fff', lineHeight: 0.93, letterSpacing: '-0.03em', marginBottom: '24px' }}>
                 Your Reslink is your{' '}<br className="br-desktop" /><span style={{ color: '#D7FF43' }}>first impression</span>
@@ -215,7 +224,7 @@ export default function VeteransPage() {
               <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', marginBottom: '28px' }}>
                 Your video sits at the top, your service record sits underneath, and every view comes back to you. One link, sent anywhere.
               </p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div className="vets-pip-list" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {['The scope a job title hides', 'Video and resume in one link', 'See who watched, and for how long'].map(item => (
                   <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <CheckCircle size={18} color="#061A3A" fill="#D7FF43" strokeWidth={2.5} style={{ flexShrink: 0 }} />

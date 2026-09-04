@@ -134,7 +134,7 @@ export default function CTA({
           <div className="cta-cards">
             <div className="cta-card cta-card-a">
               <div className="cta-vid">
-                <video src="/videos/cta-resume.mp4" poster="/videos/pip-person-poster.jpg" autoPlay muted loop playsInline />
+                <video src="/videos/cta-resume.mp4" poster="/videos/hero-cta-resume.jpg" autoPlay muted loop playsInline />
                 <span className="cta-vid-tag">Video intro</span>
                 <span className="cta-vid-dur">0:47</span>
                 <div className="cta-vid-cap">

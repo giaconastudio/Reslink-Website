@@ -281,6 +281,7 @@ export default function Hero() {
                 <video
                   ref={videoRef}
                   src="/videos/hero-pink.mp4"
+                  poster="/videos/hero-pink-poster.jpg"
                   autoPlay muted loop playsInline preload="auto"
                 />
                 <span className="hero-playing">

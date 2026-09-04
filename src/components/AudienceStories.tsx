@@ -105,7 +105,8 @@ function AccordionCard({ person, expanded, onEnter, onLeave }: {
       <video
         ref={videoRef}
         src={person.video}
-        autoPlay muted loop playsInline preload="auto"
+        poster={person.video.replace('.mp4', '-poster.jpg')}
+        autoPlay muted loop playsInline preload="metadata"
         onLoadedData={onLoadedData}
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: person.objectPosition }}
       />

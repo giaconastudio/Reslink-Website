@@ -210,7 +210,7 @@ export default function TemplatesPage() {
               </div>
               {/* video card (pink frame) */}
               <div style={{ position: 'absolute', top: 0, right: '2%', width: '54%', aspectRatio: '4 / 5', borderRadius: '20px', overflow: 'hidden', background: 'linear-gradient(155deg, #D63D9D 0%, #8E2467 62%, #5A1541 100%)', boxShadow: '0 26px 60px rgba(6,26,58,0.22)', border: '5px solid #fff' }}>
-                <video src="/videos/cta-resume.mp4" poster="/videos/pip-person-poster.jpg" autoPlay muted loop playsInline style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                <video src="/videos/cta-resume.mp4" poster="/videos/hero-cta-resume.jpg" autoPlay muted loop playsInline style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
                 <span style={{ position: 'absolute', top: '12px', left: '12px', zIndex: 2, display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(6,26,58,0.55)', backdropFilter: 'blur(6px)', color: '#fff', fontSize: '11px', fontWeight: 700, borderRadius: '100px', padding: '5px 11px', fontFamily: 'var(--font-body)' }}>
                   <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#D7FF43', display: 'inline-block' }} />Playing
                 </span>

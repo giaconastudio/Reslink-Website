@@ -131,7 +131,7 @@ function RightSide({ type }: { type: AccountType }) {
           ) : (
           <div style={{ background: '#fff', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 20px 50px rgba(0,0,0,0.35)', ...(isIndividual ? { flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 } : {}) }}>
             <div style={{ position: 'relative', background: '#C74FA0', overflow: 'hidden', ...(isIndividual ? { flex: 1, minHeight: '240px' } : videoOnly ? { height: '200px' } : { height: '138px' }) }}>
-              <video key={v.src} src={v.src} autoPlay muted loop playsInline
+              <video key={v.src} src={v.src} poster={v.src.replace('.mp4', '-poster.jpg')} autoPlay muted loop playsInline preload="metadata"
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: v.pos, transform: v.scale !== 1 ? `scale(${v.scale})` : undefined }} />
               {!videoOnly && (
                 <>

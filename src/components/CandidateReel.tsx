@@ -25,7 +25,8 @@ function FrozenFrame({ src, t = 1 }: { src: string; t?: number }) {
     if (v.readyState >= 2) seek();
     return () => v.removeEventListener('loadeddata', seek);
   }, [src, t]);
-  return <video ref={ref} src={src} muted playsInline preload="auto" className="reel-media" />;
+  const poster = src.replace('/videos/reel-', '/videos/hero-reel-').replace('.mp4', '.jpg');
+  return <video ref={ref} src={src} poster={poster} muted playsInline preload="auto" className="reel-media" />;
 }
 
 export default function CandidateReel() {
@@ -74,7 +75,7 @@ export default function CandidateReel() {
             {/* Persistent media base (scale-corrected by framer during the move) */}
             <motion.div layout className="reel-fill">
               <FrozenFrame src={c.video} t={c.frame} />
-              {isMain && <video key={ci} src={c.video} autoPlay muted loop playsInline className="reel-media reel-play" />}
+              {isMain && <video key={ci} src={c.video} poster={c.video.replace('/videos/reel-', '/videos/hero-reel-').replace('.mp4', '.jpg')} autoPlay muted loop playsInline preload="metadata" className="reel-media reel-play" />}
             </motion.div>
 
             {isMain ? (

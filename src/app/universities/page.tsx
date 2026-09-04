@@ -161,11 +161,12 @@ export default function UniversitiesPage() {
                       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
                       <video
                         src="/videos/company-student.mp4"
+                        poster="/videos/company-student-poster.jpg"
                         autoPlay
                         muted
                         loop
                         playsInline
-                        preload="auto"
+                        preload="metadata"
                         style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                       />
                       <div style={{ position: 'absolute', bottom: '8px', left: '10px', fontSize: '10px', color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)', background: 'rgba(0,0,0,0.45)', borderRadius: '4px', padding: '2px 6px' }}>0:47 · AI-graded pitch</div>

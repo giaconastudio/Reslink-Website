@@ -270,28 +270,26 @@ function FeatureShowcase() {
     return () => mq.removeEventListener('change', sync);
   }, []);
 
+  /* Position-driven rather than an IntersectionObserver band.
+     The band version reported several rows as intersecting in a single
+     callback and the last one won, so scrolling jumped straight to the final
+     feature. This asks a different question with one answer: which is the
+     last row whose top edge has passed the line? Monotonic, so it can only
+     ever move one step at a time. */
   useEffect(() => {
-    let obs: IntersectionObserver | null = null;
-    const build = () => {
-      obs?.disconnect();
-      /* Side by side, the row crossing the middle of the viewport wins.
-         Stacked, each open feature is tall — its copy plus its visual — so
-         the trigger sits nearer the top: a feature opens as its title comes
-         up the screen, and its visual then fills the space below it. */
-      const rootMargin = window.matchMedia('(max-width: 860px)').matches
-        ? '-26% 0px -64% 0px'
-        : '-48% 0px -48% 0px';
-      obs = new IntersectionObserver((entries) => {
-        entries.forEach((e) => { if (e.isIntersecting) setActive(Number((e.target as HTMLElement).dataset.idx)); });
-      }, { rootMargin });
-      rows.current.forEach((el) => el && obs!.observe(el));
+    const pick = () => {
+      const line = window.innerHeight * (stacked ? 0.34 : 0.5);
+      let idx = 0;
+      rows.current.forEach((el, i) => {
+        if (el && el.getBoundingClientRect().top <= line) idx = i;
+      });
+      setActive(idx);
     };
-    build();
-    let t: ReturnType<typeof setTimeout>;
-    const onResize = () => { clearTimeout(t); t = setTimeout(build, 200); };
-    window.addEventListener('resize', onResize);
-    return () => { window.removeEventListener('resize', onResize); clearTimeout(t); obs?.disconnect(); };
-  }, []);
+    pick();
+    window.addEventListener('scroll', pick, { passive: true });
+    window.addEventListener('resize', pick);
+    return () => { window.removeEventListener('scroll', pick); window.removeEventListener('resize', pick); };
+  }, [stacked]);
   // Move the rail's pink fill down to the active feature's dot (re-measure once
   // the expand/collapse animation settles so it lands exactly on the dot).
   useEffect(() => {
@@ -317,16 +315,23 @@ function FeatureShowcase() {
           const on = active === i;
           const done = i <= active;
           return (
-            <div key={r.title} data-idx={i} ref={(el) => { rows.current[i] = el; }} onMouseEnter={() => setActive(i)}
-              style={{ position: 'relative', padding: '15px 0', cursor: 'default', transform: on ? 'translateX(6px)' : 'none', opacity: on ? 1 : 0.5, transition: 'transform 0.35s ease, opacity 0.35s ease' }}>
+            <div key={r.title} data-idx={i} ref={(el) => { rows.current[i] = el; }} onMouseEnter={() => { if (!stacked) setActive(i); }}
+              style={{ position: 'relative', padding: stacked ? '18px 0 26px' : '15px 0', cursor: 'default',
+                transform: (on && !stacked) ? 'translateX(6px)' : 'none',
+                opacity: stacked ? 1 : (on ? 1 : 0.5),
+                transition: 'transform 0.35s ease, opacity 0.35s ease' }}>
               <span style={{ position: 'absolute', left: on ? '-31px' : '-25px', transform: 'translateX(-50%)', top: on ? '19px' : '21px', width: on ? '10px' : '8px', height: on ? '10px' : '8px', borderRadius: '50%', background: done ? '#D63D9D' : '#D3D8E0', boxShadow: on ? '0 0 0 3px #fff, 0 0 0 5px #D63D9D' : 'none', transition: 'all 0.35s ease' }} />
-              <p style={{ fontSize: on ? '18px' : '16px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', margin: 0, letterSpacing: '-0.01em', transition: 'font-size 0.3s ease' }}>{r.title}</p>
-              <div style={{ overflow: 'hidden', maxHeight: on ? (stacked ? '900px' : '200px') : '0px', opacity: on ? 1 : 0, transition: 'max-height 0.42s ease, opacity 0.35s ease' }}>
+              {/* Stacked, the size is fixed: animating it would reflow the whole
+                  column on every scroll tick, which is the shift this section
+                  was suffering from. */}
+              <p style={{ fontSize: stacked ? '17px' : (on ? '18px' : '16px'), fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', margin: 0, letterSpacing: '-0.01em', transition: stacked ? 'none' : 'font-size 0.3s ease' }}>{r.title}</p>
+              <div style={{ overflow: 'hidden', maxHeight: stacked ? 'none' : (on ? '200px' : '0px'), opacity: stacked ? 1 : (on ? 1 : 0), transition: stacked ? 'none' : 'max-height 0.42s ease, opacity 0.35s ease' }}>
                 <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', margin: 0, paddingTop: '8px' }}>
                   {r.body}{r.em && <><span style={{ color: '#D63D9D', fontWeight: 600 }}>{r.em}</span>{r.tail}</>}
                 </p>
-                {stacked && on && (
-                  <motion.div key={r.key} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}
+                {stacked && (
+                  <motion.div initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.4 }}
                     style={{ maxWidth: '300px', margin: '18px auto 4px' }}>
                     <FeatureVisual type={r.key} />
                   </motion.div>

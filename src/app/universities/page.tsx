@@ -298,7 +298,7 @@ export default function UniversitiesPage() {
                   <motion.div key={s.num} initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }} style={{ display: 'flex', gap: '24px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0, width: '52px' }}>
                       <div style={{ width: '52px', height: '52px', borderRadius: '50%', background: isLast ? '#D7FF43' : 'rgba(255,255,255,0.05)', border: isLast ? 'none' : '1.5px solid rgba(255,255,255,0.18)', boxShadow: isLast ? '0 0 0 6px rgba(215,255,67,0.12)' : 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                        <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: isLast ? '#061A3A' : '#fff', lineHeight: 1 }}>{i + 1}</span>
+                        <span className="step-num" style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: isLast ? '#061A3A' : '#fff', lineHeight: 1 }}>{i + 1}</span>
                       </div>
                       {!isLast && <div style={{ width: '2px', flex: 1, background: 'rgba(255,255,255,0.1)', marginTop: '8px', minHeight: '40px' }} />}
                     </div>

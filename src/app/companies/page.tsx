@@ -86,6 +86,7 @@ const FEATURE_TABS = [
     id: 'ai',
     icon: Zap,
     label: 'AI Screening',
+    soon: true,
     tagline: 'Your best candidates, ranked before you look.',
     desc: 'Reslink AI scores every applicant on video pitch quality, resume match, and role fit. Each candidate gets a grade from A+ to F with a full written breakdown. Open the dashboard to a ranked list, not a pile of applications.',
     img: '/feature-ai-screening.png',
@@ -106,6 +107,7 @@ const FEATURE_TABS = [
     id: 'pipeline',
     icon: List,
     label: 'Pipeline and Lists',
+    soon: true,
     tagline: 'Organize candidates. Stay in control.',
     desc: 'Build custom shortlists like Final Round, Strong Maybes, or Keep Warm and move people through your process in one click. No spreadsheets, no shared docs, no chaos.',
     img: '/feature-lists.png',
@@ -324,6 +326,14 @@ const [notifA, setNotifA] = useState(0);
           cursor: pointer; text-align: left; transition: color 0.18s;
         }
         .co-feat-navitem > * { position: relative; z-index: 1; }
+        /* Flags the features that won't ship on day one of the relaunch. */
+        .co-feat-soon {
+          margin-left: auto; flex-shrink: 0;
+          font-size: 9.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+          color: #9E2462; background: #FBEAF5; border: 1px solid #F3D2E6;
+          border-radius: 100px; padding: 3px 7px; font-family: var(--font-body); white-space: nowrap;
+        }
+        .co-feat-soon-lg { margin-left: 8px; font-size: 10px; padding: 4px 9px; vertical-align: middle; }
         .co-feat-navitem:hover:not(.active) { color: #061A3A; }
         .co-feat-navitem.active { color: #061A3A; font-weight: 700; }
         .co-feat-dot { width: 7px; height: 7px; border-radius: 50%; background: #C9CFD9; flex-shrink: 0; transition: background 0.18s; }
@@ -444,7 +454,7 @@ const [notifA, setNotifA] = useState(0);
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0, width: '52px' }}>
                     {/* Numbered node — the final step is filled lime to flag the payoff */}
                     <div style={{ width: '52px', height: '52px', borderRadius: '50%', background: isLast ? '#D7FF43' : 'rgba(255,255,255,0.05)', border: isLast ? 'none' : '1.5px solid rgba(255,255,255,0.18)', boxShadow: isLast ? '0 0 0 6px rgba(215,255,67,0.12)' : 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                      <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: isLast ? '#061A3A' : '#fff', lineHeight: 1 }}>{i + 1}</span>
+                      <span className="step-num" style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: isLast ? '#061A3A' : '#fff', lineHeight: 1 }}>{i + 1}</span>
                     </div>
                     {!isLast && (
                       <div style={{ width: '2px', flex: 1, background: 'rgba(255,255,255,0.1)', marginTop: '8px', minHeight: '40px' }} />
@@ -498,6 +508,7 @@ const [notifA, setNotifA] = useState(0);
                           {isActive && <motion.span layoutId="coFeatNavPill" transition={{ type: 'spring', stiffness: 450, damping: 38 }} style={{ position: 'absolute', inset: 0, background: '#EDF0F4', borderRadius: '10px', zIndex: 0 }} />}
                           <span className="co-feat-dot" />
                           <span>{t.label}</span>
+                          {'soon' in t && t.soon && <span className="co-feat-soon">Coming soon</span>}
                         </button>
                       );
                     })}
@@ -515,6 +526,7 @@ const [notifA, setNotifA] = useState(0);
                     <t.icon size={13} strokeWidth={2.4} />
                     {t.label}
                   </span>
+                  {'soon' in t && t.soon && <span className="co-feat-soon co-feat-soon-lg">Coming soon</span>}
                   {/* Screenshot — top margin keeps the -18px floating chips clear of the eyebrow */}
                   <div style={{ position: 'relative', marginTop: '14px' }}>
                     <motion.div

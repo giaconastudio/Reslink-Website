@@ -84,14 +84,14 @@ function Card({ t }: { t: typeof testimonials[0] }) {
         &ldquo;{t.quote}&rdquo;
       </p>
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <div style={{
+        <div className="testi-avatar" style={{
           width: '36px', height: '36px', borderRadius: '50%',
           background: t.color, display: 'flex', alignItems: 'center',
           justifyContent: 'center', color: '#fff', fontSize: '12px',
           fontWeight: 700, flexShrink: 0, fontFamily: 'var(--font-phudu)',
         }}>{t.initials}</div>
         <div>
-          <p style={{ fontSize: '13px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{t.name}</p>
+          <p className="testi-name" style={{ fontSize: '13px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{t.name}</p>
         </div>
       </div>
     </div>
@@ -120,12 +120,21 @@ export default function Testimonials() {
         @keyframes testi-scroll-rev { from { transform: translateX(-50%) } to { transform: translateX(0) } }
         .testi-track { animation: testi-scroll 22s linear infinite; display: flex; }
         .testi-track-rev { animation: testi-scroll-rev 26s linear infinite; display: flex; }
-        .testi-track:hover, .testi-track-rev:hover { animation-play-state: paused; }
+        /* Mice only — a tap sticks :hover on touch and freezes both rows. */
+        @media (hover: hover) and (pointer: fine) {
+          .testi-track:hover, .testi-track-rev:hover { animation-play-state: paused; }
+        }
         .testi-row-second { }
+        /* Both rows stay on phones, same as desktop — the second one used to
+           be dropped here. The cards shrink instead so two rows still fit
+           without the section running away vertically. */
         @media (max-width: 640px) {
-          .testi-row-second { display: none; }
-          .testi-card { width: 280px !important; padding: 18px 20px !important; }
-          .testi-track { animation-duration: 14s !important; }
+          .testi-card { width: 236px !important; padding: 15px 16px !important; border-radius: 13px !important; }
+          .testi-card p { font-size: 12.5px !important; line-height: 1.55 !important; margin-bottom: 13px !important; }
+          .testi-card .testi-name { font-size: 12px !important; }
+          .testi-avatar { width: 28px !important; height: 28px !important; font-size: 10.5px !important; }
+          .testi-track { animation-duration: 16s !important; }
+          .testi-track-rev { animation-duration: 19s !important; }
         }
       `}</style>
 

@@ -114,6 +114,40 @@ h1, h2, h3, h4 {
 
 }
 
+/* Step numbers sitting in a round node.
+   Flex centring centres the *line box*, not the digit. Phudu's digits carry
+   an ink ascent of 15.4 against a font box of 23 up / 4 down, and no
+   descender at all, so the painted digit lands about 0.08em below the
+   circle's middle — visible at these sizes. Nudging the glyph up by that
+   much centres the ink itself. Expressed in em so it holds at 20px and
+   22px alike. */
+.step-num {
+  transform: translateY(-0.08em);
+}
+
+/* Paired CTAs — "Get started for free" next to "See a real Reslink",
+   "Schedule a demo" next to "Sign up for free". Each button sizes to its own
+   label, so stacked on a phone they came out visibly different widths.
+   Stretching them in a column makes them match whatever the labels say. */
+@media (max-width: 640px) {
+  .students-hero-btns,
+  .vets-hero-btns,
+  .co-hero-btns,
+  .ah-ctas {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .students-hero-btns > a,
+  .vets-hero-btns > a,
+  .co-hero-btns > a,
+  .ah-ctas > a {
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+}
+
 /* Touch targets.
    Gated on the pointer, not the width: a tablet is finger-driven at 768px
    or 1024px just as much as a phone is at 375px, and width alone was

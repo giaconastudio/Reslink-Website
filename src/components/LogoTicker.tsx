@@ -48,9 +48,14 @@ export default function LogoTicker({ variant = 'company' }: Props) {
       <style>{`
         @keyframes ticker { from { transform: translateX(0) } to { transform: translateX(-25%) } }
         .ticker-track { display: flex; animation: ticker 36s linear infinite; }
-        .ticker-track:hover { animation-play-state: paused; }
         .ticker-logo { filter: grayscale(100%); opacity: 0.45; transition: filter 0.25s, opacity 0.25s; }
-        .ticker-logo:hover { filter: grayscale(0%); opacity: 1; }
+        /* Pause-on-hover is for mice only. A tap on a touch screen leaves the
+           element in :hover and the marquee stops for good, which is what made
+           this bar look frozen on phones. */
+        @media (hover: hover) and (pointer: fine) {
+          .ticker-track:hover { animation-play-state: paused; }
+          .ticker-logo:hover { filter: grayscale(0%); opacity: 1; }
+        }
         @media (max-width: 600px) {
           .ticker-logo { height: 60px !important; }
           .ticker-track { gap: 48px !important; }

@@ -80,6 +80,17 @@ export default function StudentsPage() {
               @media (max-width: 860px) { .students-hero-btns { flex-direction: column !important; align-self: stretch !important; } }
               @media (max-width: 860px) { .students-hero-btns a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; } }
               @media (max-width: 860px) { .students-hero-discount { display: block !important; align-self: stretch !important; } }
+              /* The banner reads "50% off" beside two lines of terms. Side by
+                 side in ~330px the number crowds the text into a narrow
+                 column, so on phones it sits above the terms instead. */
+              @media (max-width: 640px) {
+                .students-discount-head { flex-direction: column !important; align-items: flex-start !important; gap: 8px !important; }
+                .students-discount-num { font-size: 32px !important; }
+                /* Button matches the input's width rather than its own label. */
+                .students-elig-form { flex-direction: column !important; flex-wrap: nowrap !important; }
+                .students-elig-form > div { flex: 1 1 auto !important; width: 100% !important; box-sizing: border-box !important; }
+                .students-elig-btn { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; }
+              }
               @media (max-width: 480px) { .students-hero-section-inner { padding-top: 48px !important; padding-bottom: 24px !important; } }
               @media (max-width: 480px) { .students-cta-btn { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; } }
               @media (max-width: 480px) { .students-faq-box { padding: 0 16px !important; } }
@@ -107,15 +118,15 @@ export default function StudentsPage() {
 
               {/* Student pricing banner + inline eligibility checker */}
               <div className="students-hero-discount" style={{ marginTop: '30px', paddingTop: '26px', borderTop: '1px solid rgba(255,255,255,0.1)', display: 'block' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '18px', marginBottom: '16px' }}>
-                  <span style={{ fontFamily: 'var(--font-phudu)', fontWeight: 900, fontSize: '38px', color: '#fff', lineHeight: 1, letterSpacing: '-0.02em', whiteSpace: 'nowrap', flexShrink: 0 }}>50% off</span>
+                <div className="students-discount-head" style={{ display: 'flex', alignItems: 'center', gap: '18px', marginBottom: '16px' }}>
+                  <span className="students-discount-num" style={{ fontFamily: 'var(--font-phudu)', fontWeight: 900, fontSize: '38px', color: '#fff', lineHeight: 1, letterSpacing: '-0.02em', whiteSpace: 'nowrap', flexShrink: 0 }}>50% off</span>
                   <div>
                     <p style={{ fontSize: '15px', fontWeight: 700, color: '#D7FF43', fontFamily: 'var(--font-body)', lineHeight: 1.3, margin: 0 }}>$29/year with a valid .edu address</p>
                     <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Verified instantly, no code needed</p>
                   </div>
                 </div>
 
-                <form onSubmit={runChk} style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', maxWidth: '440px' }}>
+                <form onSubmit={runChk} className="students-elig-form" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', maxWidth: '440px' }}>
                   <div style={{ position: 'relative', flex: '1 1 200px', display: 'flex', alignItems: 'center', background: '#fff', borderRadius: '10px', border: chkStatus === 'error' ? '1.5px solid #F0997B' : '1.5px solid transparent', padding: '0 12px' }}>
                     <Mail size={16} color="#8A93A3" style={{ flexShrink: 0 }} />
                     <input type="email" value={chkEmail}
@@ -123,7 +134,7 @@ export default function StudentsPage() {
                       placeholder="you@university.ac.uk"
                       style={{ width: '100%', border: 'none', outline: 'none', background: 'transparent', padding: '12px 8px', fontSize: '14px', color: '#061A3A', fontFamily: 'var(--font-body)' }} />
                   </div>
-                  <button type="submit" disabled={chkStatus === 'checking'}
+                  <button type="submit" disabled={chkStatus === 'checking'} className="students-elig-btn"
                     style={{ flexShrink: 0, display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '12px 20px', background: '#D63D9D', color: '#fff', border: 'none', borderRadius: '10px', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: chkStatus === 'checking' ? 'default' : 'pointer', opacity: chkStatus === 'checking' ? 0.75 : 1 }}>
                     {chkStatus === 'checking'
                       ? <><motion.span animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 0.9, ease: 'linear' }} style={{ display: 'inline-flex' }}><Loader2 size={15} /></motion.span> Checking</>
@@ -244,7 +255,7 @@ export default function StudentsPage() {
                 <motion.div key={step.n} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: i * 0.08 }}>
                   <div style={{ background: '#fff', borderRadius: '16px', padding: '28px 24px', height: '100%', boxSizing: 'border-box', boxShadow: '0 1px 3px rgba(6,26,58,0.05)' }}>
                     <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: i === 3 ? '#D7FF43' : '#061A3A', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
-                      <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '20px', fontWeight: 900, color: i === 3 ? '#061A3A' : '#fff', lineHeight: 1 }}>{i + 1}</span>
+                      <span className="step-num" style={{ fontFamily: 'var(--font-phudu)', fontSize: '20px', fontWeight: 900, color: i === 3 ? '#061A3A' : '#fff', lineHeight: 1 }}>{i + 1}</span>
                     </div>
                     <p style={{ fontSize: '16px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>{step.title}</p>
                     <p style={{ fontSize: '14px', color: '#5C6070', lineHeight: 1.65, fontFamily: 'var(--font-body)' }}>{step.desc}</p>

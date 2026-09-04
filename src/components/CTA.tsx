@@ -90,6 +90,14 @@ export default function CTA({
           .cta-grid { grid-template-columns: 1fr; gap: 24px; }
           .cta-cards { display: none; }
         }
+        /* Stacked, the two buttons sized to their own labels — "Get started
+           for free" ended up noticeably wider than "See a real Reslink", and
+           the same mismatch hit every page using this block. Full-width in a
+           column makes them match whatever the labels are. */
+        @media (max-width: 640px) {
+          .cta-btns { flex-direction: column; align-items: stretch; gap: 10px; }
+          .cta-btn-primary, .cta-btn-secondary { width: 100%; justify-content: center; box-sizing: border-box; }
+        }
       `}</style>
 
       <motion.div className={`cta-box${onDark ? ' on-dark' : ''}`} style={boxBg ? { background: boxBg } : undefined} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>

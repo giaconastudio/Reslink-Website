@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const PEOPLE = [
   { name: 'Zara Mitchell', role: 'Frontend Engineer', video: '/videos/reel-d.mp4', poster: '/videos/hero-reel-d.jpg', pos: '50% 28%' },
@@ -14,13 +14,15 @@ const PEOPLE = [
 /** A single card: shows a frozen video frame (the "static image") and plays the
  *  clip on hover (desktop) or on tap (touch, where there is no hover). */
 function TeamCard({
-  person, index, total, isActive, onActivate,
+  person, index, total, isActive, onActivate, videoRef, clone,
 }: {
   person: (typeof PEOPLE)[number];
   index: number;
   total: number;
   isActive: boolean;
   onActivate: (i: number, el: HTMLVideoElement | null) => void;
+  videoRef?: (el: HTMLVideoElement | null) => void;
+  clone?: boolean;
 }) {
   const ref = useRef<HTMLVideoElement>(null);
   const mid = (total - 1) / 2;
@@ -28,7 +30,7 @@ function TeamCard({
 
   return (
     <div
-      className={`tr-card${isActive ? ' is-active' : ''}`}
+      className={`tr-card${isActive ? ' is-active' : ''}${clone ? ' tr-clone' : ''}`}
       style={{ ['--rot' as string]: `${rot}deg`, zIndex: index }}
       onMouseEnter={() => { const v = ref.current; if (v) { v.currentTime = 0; v.play().catch(() => {}); } }}
       onMouseLeave={() => { ref.current?.pause(); }}
@@ -40,11 +42,12 @@ function TeamCard({
       <img
         src={person.poster}
         alt={person.name}
+        loading={clone ? 'lazy' : undefined}
         className="tr-card-media"
         style={{ objectPosition: person.pos }}
       />
       <video
-        ref={ref}
+        ref={el => { ref.current = el; videoRef?.(el); }}
         src={person.video}
         muted loop playsInline preload="none"
         className="tr-card-media tr-card-vid"
@@ -66,6 +69,74 @@ export default function TeamReel() {
   // so the scrim/label need a state-driven class instead.
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const rowRef = useRef<HTMLDivElement>(null);
+  const firstVideo = useRef<HTMLVideoElement | null>(null);
+  // Auto-advance pauses while a clip is playing and for a moment after the
+  // reader swipes, so it never fights them for control of the strip.
+  const paused = useRef(false);
+  const nudgedUntil = useRef(0);
+
+  /* The first clip plays by itself once the reel is on screen, so the section
+     has motion in it the moment the page opens rather than looking like a row
+     of stills waiting to be poked. Muted + playsInline, which is what mobile
+     browsers require before they'll allow autoplay. */
+  useEffect(() => {
+    const row = rowRef.current;
+    if (!row) return;
+    const io = new IntersectionObserver(entries => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        const v = firstVideo.current;
+        if (v) { v.play().then(() => setActiveIndex(0)).catch(() => {}); }
+        io.disconnect();
+      }
+    }, { threshold: 0.35 });
+    io.observe(row);
+    return () => io.disconnect();
+  }, []);
+
+  /* Mobile strip drifts on its own. Driving scrollLeft rather than animating a
+     transform keeps the container a real scroller, so a thumb-swipe still
+     works and simply interrupts the drift. The card list is rendered twice;
+     rewinding by half the width at the seam makes the loop continuous. */
+  useEffect(() => {
+    const row = rowRef.current;
+    if (!row) return;
+    if (!window.matchMedia('(max-width: 640px)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let raf = 0;
+    let last = performance.now();
+    const SPEED = 26; // px per second
+
+    const tick = (now: number) => {
+      /* Clamped: browsers suspend rAF entirely while the tab is backgrounded,
+         so the first frame after the reader comes back reports however long
+         they were away. Unclamped that lurches the strip forward by hundreds
+         of pixels in one frame. A cap of ~3 frames' worth just resumes. */
+      const dt = Math.min((now - last) / 1000, 0.05);
+      last = now;
+      if (!paused.current && now > nudgedUntil.current) {
+        row.scrollLeft += SPEED * dt;
+        const half = row.scrollWidth / 2;
+        if (half > 0 && row.scrollLeft >= half) row.scrollLeft -= half;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+
+    // Any manual interaction wins for a few seconds.
+    const nudge = () => { nudgedUntil.current = performance.now() + 3500; };
+    row.addEventListener('touchstart', nudge, { passive: true });
+    row.addEventListener('touchmove', nudge, { passive: true });
+    return () => {
+      cancelAnimationFrame(raf);
+      row.removeEventListener('touchstart', nudge);
+      row.removeEventListener('touchmove', nudge);
+    };
+  }, []);
+
+  // Hold the strip still while a clip is playing so it can actually be watched.
+  useEffect(() => { paused.current = activeIndex !== null; }, [activeIndex]);
 
   const activate = (i: number, el: HTMLVideoElement | null) => {
     // One clip at a time — stop whatever else is running first.
@@ -85,6 +156,8 @@ export default function TeamReel() {
     <>
       <style>{`
         .tr-row { display: flex; justify-content: center; align-items: center; }
+        /* The duplicate pass exists only for the phone marquee's seam. */
+        .tr-clone { display: none; }
         .tr-card {
           position: relative; width: clamp(112px, 14vw, 180px); aspect-ratio: 3 / 4;
           border-radius: 18px; overflow: hidden; flex-shrink: 0;
@@ -131,6 +204,10 @@ export default function TeamReel() {
             overscroll-behavior-x: contain;
           }
           .tr-row::-webkit-scrollbar { display: none; }
+          .tr-clone { display: block; }
+          /* Snapping would fight the drift — it keeps yanking the strip back
+             to the nearest card. The reel scrolls freely instead. */
+          .tr-row { scroll-snap-type: none; }
           .tr-card {
             /* Bigger than the desktop clamp's 112px floor — at 375px that
                floor made each face tiny, which is what pushed the old layout
@@ -151,6 +228,20 @@ export default function TeamReel() {
             total={PEOPLE.length}
             isActive={activeIndex === i}
             onActivate={activate}
+            videoRef={i === 0 ? el => { firstVideo.current = el; } : undefined}
+          />
+        ))}
+        {/* Second pass of the same faces. Only the phone layout shows it, and
+            only so the auto-drift has something to run into at the seam. */}
+        {PEOPLE.map((p, i) => (
+          <TeamCard
+            key={`clone-${p.name}`}
+            person={p}
+            index={i}
+            total={PEOPLE.length}
+            isActive={false}
+            onActivate={activate}
+            clone
           />
         ))}
       </div>

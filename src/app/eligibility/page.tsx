@@ -147,11 +147,13 @@ export default function EligibilityPage() {
                   style={{ marginTop: '20px', background: '#EAF1FF', border: '1px solid #C9DDF8', borderRadius: '14px', padding: '20px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
                     <span style={{ width: '30px', height: '30px', borderRadius: '50%', background: '#1468E8', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><Shield size={16} color="#fff" /></span>
-                    <p style={{ fontSize: '16px', fontWeight: 800, color: '#0C447C', fontFamily: 'var(--font-body)', margin: 0 }}>You&apos;re still eligible — one quick step.</p>
+                    <p style={{ fontSize: '16px', fontWeight: 800, color: '#0C447C', fontFamily: 'var(--font-body)', margin: 0 }}>
+                      {kind === 'student' ? 'We\u2019ll need to check that one.' : 'You\u2019re still eligible \u2014 one quick step.'}
+                    </p>
                   </div>
                   <p style={{ fontSize: '13.5px', color: '#1B5299', fontFamily: 'var(--font-body)', lineHeight: 1.6, margin: '0 0 14px' }}>
                     {kind === 'student'
-                      ? "We don't recognise that domain automatically — plenty of universities don't use .edu or .ac.uk — so we'll confirm it after you sign up. The 50% discount still applies."
+                      ? "Plenty of universities don't use a .edu or .ac.uk style address, so we can't confirm this one automatically. Sign up and we'll verify it before the discount is applied."
                       : "That isn't a military email, so we'll confirm your service record at signup instead. It takes a minute and the 50% discount still applies."}
                   </p>
                   <Link href={`/get-started?type=${kind === 'student' ? 'student' : 'veteran'}`}

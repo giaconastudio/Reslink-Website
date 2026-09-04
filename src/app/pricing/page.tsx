@@ -349,7 +349,7 @@ export default function PricingPage() {
                       <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(40px, 5vw, 56px)', fontWeight: 900, color: '#9E2462', letterSpacing: '-0.03em', lineHeight: 1, flexShrink: 0 }}>50%</span>
                       <div>
                         <p style={{ fontSize: '15px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.3 }}>off for students and veterans</p>
-                        <p style={{ fontSize: '13.5px', color: '#8A6577', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Email verification coming soon. Until then we apply the discount manually after signup.</p>
+                        <p style={{ fontSize: '13.5px', color: '#8A6577', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Students can check if they&apos;re eligible. ID.me verification for veterans available soon.</p>
                       </div>
                     </div>
                     <Link href="/eligibility" className="tap-44" style={{ fontSize: '14px', fontWeight: 700, color: '#9E2462', fontFamily: 'var(--font-body)', textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0, display: 'inline-flex', alignItems: 'center', gap: '7px' }}>

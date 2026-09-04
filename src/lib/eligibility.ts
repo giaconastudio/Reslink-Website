@@ -7,15 +7,35 @@ export type Verdict = 'eligible' | 'no' | 'manual' | 'invalid';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-/* Domains we can recognise as academic on sight: .edu, .edu.au, .ac.uk,
-   .ac.jp, .sch.uk and so on.
+/* Academic suffixes we can confirm on sight, per the country list we work
+   from. A suffix here means "eligible immediately"; nothing else does.
 
-   This is a shortcut, not the definition of a student. Plenty of the world's
-   universities sit on an ordinary national domain — utoronto.ca, tum.de,
-   tudelft.nl, sorbonne-universite.fr, kth.se, polimi.it — and none of them
-   match anything here. Failing to match must therefore never mean "not a
-   student"; see checkEligibility. */
-const ACADEMIC_RE = /(?:\.edu|\.edu\.[a-z]{2,3}|\.ac\.[a-z]{2,3}|\.sch\.[a-z]{2,3}|\.uni\.[a-z]{2,3})$/i;
+   Deliberately an explicit list, not a .edu.xx / .ac.xx wildcard — the
+   wildcard matches suffixes that no country actually issues, which is how
+   addresses that aren't academic at all end up being waved through. */
+const ACADEMIC_SUFFIXES = [
+  '.edu',                                     // United States
+  '.ac.uk',                                   // United Kingdom
+  '.edu.au', '.ac.nz',                        // Australia, New Zealand
+  '.ac.in', '.edu.in',                        // India
+  '.edu.pk', '.edu.bd', '.ac.bd', '.ac.lk',   // Pakistan, Bangladesh, Sri Lanka
+  '.edu.sg', '.edu.my', '.edu.hk',            // Singapore, Malaysia, Hong Kong
+  '.edu.cn', '.edu.tw', '.ac.jp', '.ac.kr',   // China, Taiwan, Japan, South Korea
+  '.ac.id', '.ac.th', '.edu.vn', '.edu.ph',   // Indonesia, Thailand, Vietnam, Philippines
+  '.ac.za', '.ac.ke', '.edu.ng', '.edu.gh',   // South Africa, Kenya, Nigeria, Ghana
+  '.ac.ug', '.ac.tz', '.ac.zw',               // Uganda, Tanzania, Zimbabwe
+  '.edu.eg', '.edu.sa', '.ac.ae', '.ac.il',   // Egypt, Saudi Arabia, UAE, Israel
+  '.edu.tr',                                  // Turkey
+  '.edu.mx', '.edu.ar', '.edu.co', '.edu.pe', // Mexico, Argentina, Colombia, Peru
+  '.ac.be', '.ac.at',                         // Belgium, Austria (not universal there)
+];
+
+/* Countries with no academic suffix at all — Canada, Ireland, Brazil, Chile,
+   Spain, France, Germany, Italy, the Netherlands, Switzerland, the Nordics,
+   Poland, Czechia, Portugal — put their universities on ordinary national
+   domains (utoronto.ca, tum.de, tudelft.nl, polimi.it). Those can't be
+   confirmed from the address, so they go to manual review rather than being
+   either waved through or turned away. */
 
 // Military domains: army.mil, .mil.uk, mod.uk, .mod.uk
 const MILITARY_RE = /(?:^|\.)(?:mil(?:\.[a-z]{2,3})?|mod\.uk)$/i;
@@ -39,9 +59,13 @@ export function isValidEmail(value: string): boolean {
   return EMAIL_RE.test(value.trim());
 }
 
+function isAcademicDomain(domain: string): boolean {
+  return ACADEMIC_SUFFIXES.some(suffix => domain.endsWith(suffix));
+}
+
 export function isAcademicEmail(value: string): boolean {
   const domain = value.trim().toLowerCase().split('@')[1] || '';
-  return ACADEMIC_RE.test(domain);
+  return isAcademicDomain(domain);
 }
 
 function isConsumerEmail(domain: string): boolean {
@@ -55,7 +79,7 @@ export function checkEligibility(email: string, kind: Kind): Verdict {
 
   if (kind === 'student') {
     // Recognisably academic — confirm on the spot.
-    if (ACADEMIC_RE.test(domain)) return 'eligible';
+    if (isAcademicDomain(domain)) return 'eligible';
     // A personal mailbox is the one case we can fairly turn away.
     if (isConsumerEmail(domain)) return 'no';
     /* Anything else is most likely the institution's own domain, which is how

@@ -125,11 +125,11 @@ export default function StudentsPage() {
 
               {/* Student pricing banner + inline eligibility checker */}
               <div className="students-hero-discount" style={{ marginTop: '30px', paddingTop: '26px', borderTop: '1px solid rgba(255,255,255,0.1)', display: 'block' }}>
-                <div className="students-discount-head" style={{ display: 'flex', alignItems: 'center', gap: '18px', marginBottom: '16px' }}>
+                <div className="students-discount-head" style={{ display: 'flex', alignItems: 'center', gap: '30px', marginBottom: '16px' }}>
                   <span className="students-discount-num" style={{ fontFamily: 'var(--font-phudu)', fontWeight: 900, fontSize: '38px', color: '#fff', lineHeight: 1, letterSpacing: '-0.02em', whiteSpace: 'nowrap', flexShrink: 0 }}>50% off</span>
                   <div>
                     <p style={{ fontSize: '15px', fontWeight: 700, color: '#D7FF43', fontFamily: 'var(--font-body)', lineHeight: 1.3, margin: 0 }}>$29/year with your school email</p>
-                    <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Email verification coming soon — discount applied manually until then</p>
+                    <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Check your school email below to see if you qualify</p>
                   </div>
                 </div>
 
@@ -170,7 +170,7 @@ export default function StudentsPage() {
                     style={{ marginTop: '12px', maxWidth: '440px', display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(215,255,67,0.12)', border: '1px solid rgba(215,255,67,0.35)', borderRadius: '10px', padding: '11px 14px' }}>
                     <span style={{ width: '24px', height: '24px', borderRadius: '50%', background: '#D7FF43', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><CheckCircle size={14} color="#061A3A" strokeWidth={2.5} /></span>
                     <p style={{ fontSize: '13.5px', color: '#fff', fontFamily: 'var(--font-body)', margin: 0, lineHeight: 1.45 }}>
-                      Looks like a school address — we&apos;ll confirm it after you sign up, and the 50% still applies.
+                      We can&apos;t confirm that domain automatically. Sign up and we&apos;ll check it before the discount is applied.
                     </p>
                   </motion.div>
                 )}

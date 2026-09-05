@@ -101,15 +101,31 @@ export default function TeamReel() {
   const resumeFrom = useRef<number | null>(null);
   const nudgedUntil = useRef(0);
 
-  /* The reel introduces the team by itself — each clip plays for a few
-     seconds, then hands over to the next, looping round. Without this the
-     section is a row of stills waiting to be poked, which is dead on mobile
-     where there's no hover to discover. Muted + playsInline is what mobile
-     browsers require before they'll allow autoplay at all.
-     Only runs while the reel is actually on screen. */
+  /* The auto-cycle exists only because touch has no hover to discover the
+     clips with. Where there is a pointer, the reel stays as it was: still
+     faces that play when you hover one, and nothing moving on arrival.
+     Keyed off (hover: none) rather than a width, since that is the actual
+     reason the cycle is needed. */
+  const [autoCycles, setAutoCycles] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(hover: none)');
+    const sync = () => setAutoCycles(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
+
+  /* On touch, the reel introduces the team by itself — each clip plays for a
+     few seconds, then hands over to the next, looping round. Without it the
+     section is a row of stills waiting to be poked, and on a phone there is
+     no hover to reveal that they play at all. Muted + playsInline is what
+     mobile browsers require before they'll allow autoplay.
+     Only runs while the reel is on screen, and only where hover is absent. */
   useEffect(() => {
     const row = rowRef.current;
     if (!row) return;
+    // Pointer devices get hover, so there is nothing to start here.
+    if (!autoCycles) return;
 
     const CYCLE_MS = 4500; // long enough to actually take each person in
     let timer: ReturnType<typeof setTimeout> | undefined;
@@ -171,7 +187,7 @@ export default function TeamReel() {
     io.observe(row);
 
     return () => { io.disconnect(); clearTimeout(timer); };
-  }, []);
+  }, [autoCycles]);
 
   // Hover takes over on desktop; the cycle resumes shortly after the pointer
   // leaves. On touch there's no hover, so this never fires there.

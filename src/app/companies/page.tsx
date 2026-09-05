@@ -420,8 +420,8 @@ const [notifA, setNotifA] = useState(0);
                 <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                   Schedule a demo <ArrowRight size={16} />
                 </Link>
-                <Link href="/get-started?type=company" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                  Sign up for free
+                <Link href="/oliviastone" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                  See a real Reslink
                 </Link>
               </div>
             </motion.div>
@@ -678,9 +678,9 @@ const [notifA, setNotifA] = useState(0);
           body="See every applicant's video pitch, AI score, and role fit before you spend a minute on interviews."
           primaryLabel="Schedule a demo"
           primaryHref="/contact/sales"
-          secondaryLabel="Sign up for free"
-          secondaryHref="/get-started?type=company"
-          footnote="Free to start · 14-day trial · no card needed"
+          secondaryLabel="See a real Reslink"
+          secondaryHref="/oliviastone"
+          footnote="30-minute call · pricing for your team size · no card needed"
           sectionBg="#fff"
           visual={<CandidateScorecard />}
         />

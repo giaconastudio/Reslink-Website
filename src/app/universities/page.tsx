@@ -412,11 +412,11 @@ export default function UniversitiesPage() {
           eyebrow="For universities and career centers"
           heading={<>Give your students{' '}<br className="br-desktop" /><span>a real advantage.</span></>}
           body="Join hundreds of universities using Reslink to get their students hired at better companies, faster."
-          primaryLabel="Add your school to the waitlist"
-          primaryHref="/get-started?type=university"
-          secondaryLabel="Schedule a demo"
-          secondaryHref="/contact/sales"
-          footnote="Free for students · No credit card to join the waitlist"
+          primaryLabel="Schedule a demo"
+          primaryHref="/contact/sales"
+          secondaryLabel="See a student Reslink"
+          secondaryHref="/oliviastone"
+          footnote="30-minute call · free for your students · no card needed"
         />
 
       </main>

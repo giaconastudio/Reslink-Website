@@ -177,11 +177,11 @@ export default function AgenciesPage() {
                   Reslink gives every candidate you represent a video pitch your clients will actually remember. Shortlists that close. A presentation that no competing agency can match.
                 </p>
                 <div className="ag-hero-btns" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '32px' }}>
-                  <Link href="/get-started?type=agency" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 32px', background: '#061A3A', color: '#fff', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                    Get started free <ArrowRight size={16} />
+                  <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 32px', background: '#061A3A', color: '#fff', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                    Schedule a demo <ArrowRight size={16} />
                   </Link>
-                  <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 32px', background: '#F6F7F9', color: '#061A3A', border: '1.5px solid #E4E6EC', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                    Talk to sales
+                  <Link href="/oliviastone" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 32px', background: '#F6F7F9', color: '#061A3A', border: '1.5px solid #E4E6EC', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                    See a real Reslink
                   </Link>
                 </div>
                 <div className="ag-hero-inline-stats" style={{ display: 'flex', gap: '32px', flexWrap: 'wrap' }}>
@@ -444,11 +444,11 @@ export default function AgenciesPage() {
           eyebrow="For recruitment agencies"
           heading={<>Send a shortlist{' '}<br className="br-desktop" /><span>they can&apos;t forget.</span></>}
           body="Join 500+ agencies already using Reslink to close more placements and win more business."
-          primaryLabel="Get started free"
-          primaryHref="/get-started?type=agency"
-          secondaryLabel="Talk to sales"
-          secondaryHref="/contact/sales"
-          footnote="Free to start · No credit card required"
+          primaryLabel="Schedule a demo"
+          primaryHref="/contact/sales"
+          secondaryLabel="See a real Reslink"
+          secondaryHref="/oliviastone"
+          footnote="30-minute call · pricing for your roster size · no card needed"
         />
 
       </main>

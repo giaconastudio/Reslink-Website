@@ -228,11 +228,7 @@ function GetStartedForm() {
       <Navbar />
       <div className="gs-wrap" style={{ minHeight: '100vh', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '108px 24px 48px', boxSizing: 'border-box' }}>
         <style>{`
-          .gs-card { display: grid; grid-template-columns: 560px 1fr; width: 100%; max-width: 1120px; min-height: 600px; background: #fff; border-radius: 20px; box-shadow: 0 8px 48px rgba(6,26,58,0.13); overflow: hidden; }
-          /* The choices, the toggle and Continue are all 100% of this column,
-             so the column width is what sets them. At 460px with 40px padding
-             they had 380px to work with inside a 1040px card; 560px gives them
-             480px and leaves the right-hand visual 560px, still generous. */
+          .gs-card { display: grid; grid-template-columns: 460px 1fr; width: 100%; max-width: 1040px; min-height: 600px; background: #fff; border-radius: 20px; box-shadow: 0 8px 48px rgba(6,26,58,0.13); overflow: hidden; }
           .gs-left-col { padding: 44px 40px; }
           .gs-right-col { display: block; }
           @media (max-width: 800px) { .gs-card { grid-template-columns: 1fr !important; } .gs-right-col { min-height: 280px !important; border-radius: 0 !important; } }

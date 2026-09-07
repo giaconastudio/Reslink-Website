@@ -3,10 +3,16 @@
 import { useState } from 'react';
 import { CheckCircle, ArrowRight } from 'lucide-react';
 
-/* The book-a-demo lead form. Lives here rather than inline on the sales page
-   because organisations meet it in two places now: /contact/sales, and the
+/* The demo request form. Lives here rather than inline on the sales page
+   because organisations meet it in two places: /contact/sales, and the
    business branch of /get-started, where picking Company, Recruitment Agency
-   or University leads to a demo instead of a self-serve account. */
+   or University leads to a demo instead of a self-serve account.
+
+   Submitting sends us the details and nothing else — there is no scheduler on
+   the other side of it. The copy used to say "Pick a time on the next screen"
+   over a "Choose a time" button, so people expected a calendar and got a
+   confirmation notice instead. It now describes what actually happens: they
+   send the form, we email them a booking link. */
 
 export type OrgKind = 'company' | 'agency' | 'university';
 
@@ -38,8 +44,8 @@ function Chevron() {
 }
 
 export default function DemoRequestForm({
-  heading = 'Book your demo',
-  sub = 'Pick a time on the next screen. No back-and-forth.',
+  heading = 'Request a demo',
+  sub = 'Tell us about your team. We\'ll email you a link to book a time that suits you.',
   /** Preselects the organisation dropdown when the type is already known. */
   orgKind,
   /** Rendered under the submit button — e.g. a Back link in the signup flow. */
@@ -67,7 +73,7 @@ export default function DemoRequestForm({
         </div>
         <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: '26px', fontWeight: 900, color: '#061A3A', marginBottom: '10px' }}>Request received!</h3>
         <p style={{ fontSize: '14px', color: '#5C6070', fontFamily: 'var(--font-body)', lineHeight: 1.6 }}>
-          Check your email — we&apos;ll send a link to pick a time that works for you.
+          That&apos;s everything we need. We&apos;ll email you a link to book a time — usually within one working day.
         </p>
       </div>
     );
@@ -108,7 +114,7 @@ export default function DemoRequestForm({
           style={{ width: '100%', padding: '13px', background: '#1468E8', color: '#fff', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', transition: 'background 0.15s', marginTop: '4px' }}
           onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#0A52C4'; }}
           onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '#1468E8'; }}>
-          Choose a time <ArrowRight size={15} />
+          Send request <ArrowRight size={15} />
         </button>
         <p style={{ fontSize: '12px', color: '#9AA1AE', fontFamily: 'var(--font-body)', textAlign: 'center' }}>Takes about 40 seconds</p>
         {footer}

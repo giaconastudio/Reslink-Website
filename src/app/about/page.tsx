@@ -5,8 +5,8 @@ import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import StoryTimeline from '@/components/StoryTimeline';
-import CTA from '@/components/CTA';
 import CandidateReel from '@/components/CandidateReel';
+import CTA from '@/components/CTA';
 
 const TEAM = [
   {
@@ -225,7 +225,7 @@ export default function AboutPage() {
             }
           `}</style>
           <div style={{ maxWidth: '1120px', margin: '0 auto' }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.55 }}>
               <div className="ms-top">
                 <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(28px, 3.6vw, 44px)', fontWeight: 900, color: '#061A3A', lineHeight: 1.02, letterSpacing: '-0.03em' }}>
                   A resume tells you what{' '}<br className="br-desktop" />someone did. Never{' '}<br className="br-desktop" />who they are.
@@ -242,7 +242,7 @@ export default function AboutPage() {
                 { num: '16–18', label: 'average Reslinks to find the ideal applicant', bar: '#D63D9D' },
               ].map((s, i) => (
                 <motion.div key={s.label} className="ms-stat"
-                  initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 + i * 0.1 }}>
+                  initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.5, delay: 0.1 + i * 0.1 }}>
                   <div className="ms-stat-bar" style={{ background: s.bar }} />
                   <p className="ms-stat-num">{s.num}</p>
                   <p className="ms-stat-label">{s.label}</p>
@@ -259,7 +259,7 @@ export default function AboutPage() {
         <section style={{ background: '#061A3A', padding: 'clamp(72px, 9vw, 112px) 24px', overflow: 'hidden', position: 'relative' }}>
           <div style={{ position: 'absolute', top: '-40px', left: '50%', transform: 'translateX(-50%)', width: '820px', height: '420px', background: 'radial-gradient(ellipse at center, rgba(20,104,232,0.1), transparent 66%)', pointerEvents: 'none' }} />
           <div style={{ maxWidth: '1120px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.5 }}
               style={{ marginBottom: '56px', textAlign: 'center' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>What we stand for</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 58px)', fontWeight: 900, color: '#fff', lineHeight: 0.93, letterSpacing: '-0.03em' }}>
@@ -272,7 +272,7 @@ export default function AboutPage() {
                 @media (max-width: 640px) { .values-grid { grid-template-columns: 1fr !important; } }
               `}</style>
               {VALUES.map((v, i) => (
-                <motion.div key={v.num} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: i * 0.08 }}
+                <motion.div key={v.num} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.4, delay: i * 0.08 }}
                   style={{ padding: 'clamp(28px, 4vw, 44px)', borderBottom: i < 2 ? '1px solid rgba(255,255,255,0.07)' : 'none', borderRight: i % 2 === 0 ? '1px solid rgba(255,255,255,0.07)' : 'none' }}>
                   <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '14px', fontWeight: 900, color: '#D7FF43', letterSpacing: '0.08em', display: 'block', marginBottom: '16px' }}>{v.num}</span>
                   <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(22px, 2.5vw, 30px)', fontWeight: 900, color: '#fff', lineHeight: 1.05, letterSpacing: '-0.02em', marginBottom: '14px' }}>{v.title}</h3>
@@ -286,7 +286,7 @@ export default function AboutPage() {
         {/* ── Team ── */}
         <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
           <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.5 }}
               style={{ marginBottom: '56px', textAlign: 'center' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '16px', fontFamily: 'var(--font-body)' }}>The people behind it</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 58px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.93, letterSpacing: '-0.03em' }}>

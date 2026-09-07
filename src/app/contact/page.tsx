@@ -67,7 +67,7 @@ export default function ContactPage() {
                 @media (max-width: 760px) { .contact-cards { grid-template-columns: 1fr !important; transform: translateY(-40px) !important; } }
               `}</style>
               {OPTIONS.map((opt, i) => (
-                <motion.div key={opt.title} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: i * 0.08 }}>
+                <motion.div key={opt.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.4, delay: i * 0.08 }}>
                   <Link href={opt.href} style={{ textDecoration: 'none', display: 'block' }}>
                     <div style={{ background: '#fff', borderRadius: '18px', border: '1px solid #ECEEF1', padding: '28px', boxShadow: '0 2px 16px rgba(6,26,58,0.06)', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', transition: 'box-shadow 0.2s, transform 0.2s', cursor: 'pointer' }}
                       onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 32px rgba(6,26,58,0.12)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; }}
@@ -89,7 +89,7 @@ export default function ContactPage() {
             </div>
 
             {/* Join the team */}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.5 }}>
               <div style={{ background: '#061A3A', borderRadius: '20px', padding: 'clamp(36px, 5vw, 56px)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', alignItems: 'center' }} className="join-grid">
                 <style>{`@media (max-width: 640px) { .join-grid { grid-template-columns: 1fr !important; } }`}</style>
                 <div>

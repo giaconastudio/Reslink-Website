@@ -9,57 +9,58 @@ import Footer from '@/components/Footer';
 import LogoTicker from '@/components/LogoTicker';
 
 /* ─── Product explainer (what an affiliate is actually recommending) ─── */
-const RECOMMEND = [
-  { key: 'script', title: 'AI writes the script', body: 'PitchAI turns a resume into a 90-second script aimed at the specific role.', em: 'The blank page problem disappears', tail: ' — which is why most people never make a video in the first place.' },
-  { key: 'teleprompter', title: 'Teleprompter recording, in the browser', body: 'The script scrolls while they record on a laptop or phone. No editing software, no second-take anxiety, no download.' },
-  { key: 'onelink', title: 'Video and resume behind one link', body: 'Recruiters open one page and get both — in an application form, a LinkedIn bio, or an email signature.' },
-  { key: 'watched', title: 'They can see who watched', body: 'Who opened it, when, and how much they watched. ', em: 'This is the feature people pay for', tail: ' — job hunting is mostly silence, and this is the first thing that breaks it.' },
-  { key: 'ats', title: 'Works with any ATS', body: "It's a link, so it drops into any application system without breaking parsing. Nobody changes how they apply." },
+const RECOMMEND: { key: string; title: string; body: string; em?: string; tail?: string }[] = [
+  { key: 'script', title: 'AI writes the script', body: 'PitchAI turns a resume into a script aimed at the specific role. The blank page is why most people never make a video at all, and it disappears.' },
+  { key: 'teleprompter', title: 'Teleprompter recording, in the browser', body: 'The script scrolls while they record on a laptop or phone. No editing software, no download, no second-take anxiety.' },
+  { key: 'onelink', title: 'Video and resume behind one link', body: 'Recruiters open one page and get both. An application form, a LinkedIn bio, an email signature.' },
+  { key: 'watched', title: 'They can see who watched', body: 'Who opened it, when, and how much they watched. This is the feature people pay for. Job hunting is mostly silence, and this is the first thing that breaks it.' },
+  { key: 'ats', title: 'Works with any ATS', body: "It's a link, so it drops into any application system without breaking parsing. Nobody has to change how they apply." },
   { key: 'fast', title: 'Ready in about five minutes', body: 'Resume in, script out, record, share. Your audience can act on your recommendation the same day they hear it.' },
 ];
 
 /* ─── Recurring / compounding value ─── */
 const GAIN = [
-  { tag: 'RECURRING', title: 'Paid every month, not once', body: 'Most programmes pay a flat fee at signup and you start again from zero. Here, last quarter’s referrals are still paying you next year.' },
-  { tag: '24 MONTHS', title: 'Two full years per customer', body: 'Not six months, not twelve. Someone you refer today can pay you commission well into 2028.' },
-  { tag: '90 DAYS', title: 'A long window to convert', body: 'People rarely subscribe the day they hear about something. You still get credited up to three months later.' },
-  { tag: 'COMPOUNDING', title: 'It builds while you sleep', body: 'Refer five a month and by month twelve dozens of people are paying you, without you doing anything new that month.' },
+  { tag: 'RECURRING', title: 'Paid every month, not once', body: "A flat bounty at signup and you start again. Here, last quarter's referrals are still paying you next year." },
+  { tag: '24 MONTHS', title: 'Two years per customer', body: 'Not six months. Not twelve. Two years from the day they sign up.' },
+  { tag: '90 DAYS', title: 'Three months to convert', body: 'Almost nobody subscribes the day they hear about something. You still get credited when they do.' },
+  { tag: 'COMPOUNDING', title: 'It stacks quickly', body: 'Refer five a month. By month twelve, dozens of people are paying you for work you did in February.' },
 ];
 
 /* ─── What we hand the affiliate ─── */
 const GIVE = [
-  { icon: FileText, tag: 'ASSETS', title: "Copy that's ready to send", body: 'Email sequences, LinkedIn hooks, short-form scripts and banner sets. Use them as they are or rewrite them.' },
-  { icon: BarChart2, tag: 'TRACKING', title: 'A dashboard you can trust', body: 'Clicks, signups, conversions and pending commission, updated daily.' },
-  { icon: LifeBuoy, tag: 'SUPPORT', title: 'A person, not a portal', body: 'A named contact. Ask for a custom landing page, an audience discount code, or a co-hosted session.' },
-  { icon: Link2, tag: 'YOUR LINK', title: 'One link, any channel', body: 'Newsletter, bio, a slide at the end of a workshop, or a QR code at a careers fair.' },
-  { icon: Wallet, tag: 'PAYOUTS', title: 'Monthly, no chasing', body: "Paid on a monthly cycle once you pass the threshold. You can see what's due and when." },
-  { icon: Tag, tag: 'OFFERS', title: 'Something for your audience', body: 'Students and veterans already get half price, and larger partners get an audience-specific offer.' },
+  { icon: FileText, tag: 'ASSETS', title: 'Copy you can send today', body: 'Email sequences, LinkedIn hooks, short-form scripts and banners.' },
+  { icon: BarChart2, tag: 'TRACKING', title: 'Numbers you can check', body: 'Clicks, signups, conversions and pending commission, updated daily.' },
+  { icon: LifeBuoy, tag: 'SUPPORT', title: 'A person, not a portal', body: 'A named contact who answers. Ask for a landing page or a discount code.' },
+  { icon: Link2, tag: 'YOUR LINK', title: 'One link, anywhere', body: 'A newsletter footer, a bio, a workshop slide, a QR code at a fair.' },
+  { icon: Wallet, tag: 'PAYOUTS', title: 'Paid without asking', body: "Monthly, once you pass the threshold. You know what's due and when." },
+  { icon: Tag, tag: 'OFFERS', title: 'Something for your audience', body: 'Students and veterans get half price. Larger partners get their own.' },
 ];
 
 /* ─── Who this is actually for (added — qualifies the audience) ─── */
 const AUDIENCE = [
-  'Career creators & coaches',
-  'Newsletter & community owners',
-  'Bootcamps & educators',
-  'University career centres',
-  'Recruiters & HR voices',
-  'Anyone with a job-seeking audience',
+  'Career creators and coaches',
+  'Newsletter and community owners',
+  'Bootcamps and educators',
+  'University careers centres',
+  'Recruiters and HR voices',
+  'Anyone who talks to job seekers',
 ];
 
 /* ─── Proof ─── */
 const PROOF = [
-  { amount: '$1,240', unit: '/mo', who: 'Career newsletter', note: '11k subscribers · one dedicated send + a permanent footer link.', color: '#1468E8' },
-  { amount: '$860', unit: '/mo', who: 'Interview coach', note: 'Recommends it to every 1:1 client at the end of the first session.', color: '#D63D9D' },
-  { amount: '$430', unit: '/mo', who: 'Uni careers society', note: 'One workshop slide and a QR code at the autumn careers fair.', color: '#5B7A0F' },
+  { amount: '$1,240', unit: '/mo', who: 'Career newsletter', note: '11k subscribers. One dedicated send, then a permanent footer link.', color: '#1468E8' },
+  { amount: '$860', unit: '/mo', who: 'Interview coach', note: 'Mentions it to every client at the end of their first session.', color: '#D63D9D' },
+  { amount: '$430', unit: '/mo', who: 'University careers society', note: 'One workshop slide and a QR code at the autumn careers fair.', color: '#5B7A0F' },
 ];
 
 const FAQS = [
-  { q: 'What exactly do I earn commission on?', a: '45% of every payment a customer you referred makes, for up to 24 months from their first paid subscription. On the $14/month plan that’s $6.30 per customer, every month they stay.' },
-  { q: 'How long is the referral window (cookie)?', a: 'Ninety days. If someone clicks your link and subscribes any time in the next three months, the referral is credited to you.' },
+  { q: 'What exactly do I earn commission on?', a: "45% of every payment a customer you referred makes, for up to 24 months from their first paid subscription. On the $14 monthly plan that's $6.30 per customer, every month they stay. Annual subscribers pay $58, so commission on those works out lower." },
+  { q: 'How long is the referral window?', a: 'Ninety days. If someone clicks your link and subscribes any time in the next three months, the referral is credited to you.' },
   { q: 'When and how do I get paid?', a: 'Monthly, once your balance passes a small threshold. Payouts go out on a fixed cycle by bank transfer or PayPal, and pending vs. cleared commission is always visible in your dashboard.' },
+  { q: 'What happens if someone cancels or refunds?', a: "Commission is only paid on payments that actually clear. If a customer refunds, that payment is reversed; if they cancel, future months simply stop - but nothing you've already been paid is clawed back." },
   { q: 'Do audience discounts reduce my commission?', a: 'No. Commission is calculated on what the customer actually pays. If we give your audience a code, you still earn your full 45% recurring share.' },
-  { q: 'Can I refer myself or my own company?', a: 'Self-referrals don’t qualify, but referring your team, clients, students or community absolutely does.' },
-  { q: 'How long does approval take?', a: 'Usually within two working days. We keep the programme clean, so we do review applications — but if you have a real audience, you’re in.' },
+  { q: 'Can I refer myself or my own company?', a: "Self-referrals don't qualify, but referring your team, clients, students or community absolutely does." },
+  { q: 'How long does approval take?', a: "Usually within two working days. We keep the programme clean, so we do review applications - but if you have a real audience, you're in." },
 ];
 
 function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; toggle: () => void }) {
@@ -315,8 +316,8 @@ function FeatureShowcase() {
           const on = active === i;
           const done = i <= active;
           return (
-            <div key={r.title} data-idx={i} ref={(el) => { rows.current[i] = el; }} onMouseEnter={() => { if (!stacked) setActive(i); }}
-              style={{ position: 'relative', padding: stacked ? '18px 0 26px' : '15px 0', cursor: 'default',
+            <div key={r.title} data-idx={i} ref={(el) => { rows.current[i] = el; }}
+              style={{ position: 'relative', padding: stacked ? '18px 0 26px' : '30px 0', cursor: 'default',
                 transform: (on && !stacked) ? 'translateX(6px)' : 'none',
                 opacity: stacked ? 1 : (on ? 1 : 0.5),
                 transition: 'transform 0.35s ease, opacity 0.35s ease' }}>
@@ -331,7 +332,7 @@ function FeatureShowcase() {
                 </p>
                 {stacked && (
                   <motion.div initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.4 }}
+                    viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.4 }}
                     style={{ maxWidth: '300px', margin: '18px auto 4px' }}>
                     <FeatureVisual type={r.key} />
                   </motion.div>
@@ -362,6 +363,9 @@ export default function AffiliatesPage() {
     <>
       <Navbar />
       <style>{`
+        .af-apply-cta { transition: transform 0.15s ease, filter 0.15s ease; }
+        .af-apply-cta:hover { transform: translateY(-1px); filter: brightness(0.94); }
+        .af-apply-cta:active { transform: translateY(0) scale(0.98); }
         @media (max-width: 860px) {
           .af-hero-split { grid-template-columns: 1fr !important; }
           .af-hero-copy { text-align: center; }
@@ -395,7 +399,7 @@ export default function AffiliatesPage() {
               <p style={{ ...eyebrow('#1468E8'), marginBottom: '18px' }}>Affiliate programme</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(42px, 8vw, 92px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.94, letterSpacing: '-0.03em' }}>Get 45% on every customer <span style={{ background: 'linear-gradient(#D7FF43, #D7FF43) no-repeat', backgroundSize: '100% 0.34em', backgroundPosition: '0 calc(100% - 0.1em)', padding: '0 0.05em', WebkitBoxDecorationBreak: 'clone', boxDecorationBreak: 'clone' }}>you refer</span></h2>
               <p style={{ fontSize: 'clamp(16px, 2vw, 18px)', color: '#5C6070', lineHeight: 1.65, fontFamily: 'var(--font-body)', maxWidth: '540px', margin: '18px auto 0' }}>
-                Move the slider. This is the part most affiliate programmes don&apos;t want you to work out.
+                Move the slider. This is the part most affiliate programmes would rather you didn&apos;t work out.
               </p>
             </motion.div>
 
@@ -452,15 +456,23 @@ export default function AffiliatesPage() {
                 Based on the $14 monthly plan at 45% commission. Assumes referrals arrive evenly and stay for the period selected.
               </p>
             </motion.div>
+
+            {/* Hero CTA */}
+            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} style={{ textAlign: 'center', marginTop: '36px' }}>
+              <Link href="/get-started?type=affiliate" className="af-apply-cta" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '16px 32px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '16px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                Apply for the program <ArrowRight size={16} />
+              </Link>
+              <p style={{ fontSize: '13px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '14px' }}>Free to join · paid every month</p>
+            </motion.div>
           </div>
         </section>
 
         {/* ─── Why it converts ─── */}
         <section style={{ background: '#fff', padding: 'clamp(64px, 8vw, 100px) 24px' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '44px' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} style={{ textAlign: 'center', marginBottom: '44px' }}>
               <p style={eyebrow('#1468E8')}>Why it converts</p>
-              <h2 style={h2Style}>An easy thing to recommend.</h2>
+              <h2 style={h2Style}>An easy thing to recommend</h2>
               <p style={{ fontSize: '16px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '460px', margin: '16px auto 0' }}>
                 You&apos;re not asking your audience to gamble on an unknown tool at fifty dollars a month.
               </p>
@@ -468,10 +480,10 @@ export default function AffiliatesPage() {
             <div className="af-why-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
               {[
                 { stat: '$0', label: 'Free to start', color: '#1468E8', body: "Nobody spends anything to try it. That's the lowest-friction share in this category, and it's why click-to-signup holds up." },
-                { stat: '10,000+', label: 'Already in use', color: '#D63D9D', body: "You're recommending something with real users, not a beta. Your credibility is the thing you're actually lending." },
+                { stat: '8,000+', label: 'Already in use', color: '#D63D9D', body: "You're recommending something with real users, not a beta. Your credibility is the thing you're actually lending." },
                 { stat: '5 min', label: 'Immediate payoff', color: '#5B7A0F', body: 'People who finish a Reslink on day one are the ones who upgrade in week two. Speed to first value is what converts.' },
               ].map((c, i) => (
-                <motion.div key={c.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
+                <motion.div key={c.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ delay: i * 0.08 }}
                   style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', borderTop: `3px solid ${c.color}`, padding: '28px 26px' }}>
                   <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '38px', fontWeight: 900, color: c.color, lineHeight: 1, letterSpacing: '-0.03em', marginBottom: '10px' }}>{c.stat}</p>
                   <p style={{ fontSize: '16px', fontWeight: 800, color: '#061A3A', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>{c.label}</p>
@@ -485,9 +497,9 @@ export default function AffiliatesPage() {
         {/* ─── What you're recommending ─── */}
         <section style={{ background: '#fff', padding: 'clamp(56px, 7vw, 88px) 24px', borderTop: '1px solid #F0F2F5' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '44px' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} style={{ textAlign: 'center', marginBottom: '44px' }}>
               <p style={eyebrow('#D63D9D')}>What you&apos;re recommending</p>
-              <h2 style={h2Style}>One link instead of a PDF.</h2>
+              <h2 style={h2Style}>One link instead of a PDF</h2>
               <p style={{ fontSize: '16px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '520px', margin: '16px auto 0' }}>
                 Reslink puts a job seeker&apos;s video intro, their resume and live view analytics behind a single link they can drop into any application.
               </p>
@@ -500,17 +512,17 @@ export default function AffiliatesPage() {
         {/* ─── Example posts (Instagram reels) ─── */}
         <section style={{ background: '#F6F7F9', padding: 'clamp(64px, 8vw, 100px) 24px' }}>
           <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '44px' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} style={{ textAlign: 'center', marginBottom: '44px' }}>
               <p style={eyebrow('#D63D9D')}>Seen in the wild</p>
-              <h2 style={h2Style}>Real posts, real referrals.</h2>
+              <h2 style={h2Style}>Over a million impressions,<br />from posts like these</h2>
               <p style={{ fontSize: '16px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '480px', margin: '16px auto 0' }}>
-                A few of the ways partners put Reslink in front of their audience. Tap any one to watch it on Instagram.
+                Partners share it in one reel, one slide, or one line in a newsletter footer. Tap either to watch.
               </p>
             </motion.div>
             <div className="af-reels-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
               {['https://www.instagram.com/reel/Da3SrDOIEfi/', 'https://www.instagram.com/reel/DV9IIqkiABy/', 'https://www.instagram.com/reel/DRAiohZCECZ/'].map((url, i) => (
                 <motion.a key={url} href={url} target="_blank" rel="noopener noreferrer"
-                  initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
+                  initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ delay: i * 0.08 }}
                   style={{ display: 'block', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 14px 40px rgba(6,26,58,0.12)', border: '1px solid #ECEEF1', background: '#fff', textDecoration: 'none' }}>
                   <div style={{ position: 'relative', width: '100%', height: '540px', background: '#061A3A' }}>
                     <iframe src={`${url}embed`} title="Instagram reel" loading="lazy" scrolling="no"
@@ -526,22 +538,27 @@ export default function AffiliatesPage() {
                 </motion.a>
               ))}
             </div>
+            <div style={{ textAlign: 'center', marginTop: '44px' }}>
+              <Link href="/get-started?type=affiliate" className="af-apply-cta" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 30px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                Apply for the program <ArrowRight size={16} />
+              </Link>
+            </div>
           </div>
         </section>
 
         {/* ─── Income that keeps arriving ─── */}
         <section style={{ background: '#FBEEF5', padding: 'clamp(64px, 8vw, 100px) 24px' }}>
           <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '44px' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} style={{ textAlign: 'center', marginBottom: '44px' }}>
               <p style={eyebrow('#D63D9D')}>What you gain</p>
-              <h2 style={h2Style}>Income that keeps arriving.</h2>
-              <p style={{ fontSize: '16px', color: '#8A7A85', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '440px', margin: '16px auto 0' }}>
-                The difference between a one-off bounty and a recurring share compounds fast.
+              <h2 style={h2Style}>Post once. Get paid for two years</h2>
+              <p style={{ fontSize: '16px', color: '#8A7A85', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '600px', margin: '16px auto 0' }}>
+                Most programmes pay you once and put you back at zero.
               </p>
             </motion.div>
             <div className="af-gain-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
               {GAIN.map((g, i) => (
-                <motion.div key={g.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }}
+                <motion.div key={g.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ delay: i * 0.06 }}
                   style={{ background: '#fff', borderRadius: '16px', border: '1px solid #F3DCEA', boxShadow: '0 10px 30px rgba(214,61,157,0.06)', padding: '26px 28px' }}>
                   <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', color: '#D63D9D', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>{g.tag}</p>
                   <p style={{ fontSize: '17px', fontWeight: 800, color: '#061A3A', fontFamily: 'var(--font-body)', marginBottom: '10px' }}>{g.title}</p>
@@ -555,16 +572,16 @@ export default function AffiliatesPage() {
         {/* ─── Everything written for you ─── */}
         <section style={{ background: '#fff', padding: 'clamp(64px, 8vw, 100px) 24px' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '44px' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} style={{ textAlign: 'center', marginBottom: '44px' }}>
               <p style={eyebrow('#1468E8')}>What we give you</p>
-              <h2 style={h2Style}>Everything&apos;s written for you.</h2>
+              <h2 style={h2Style}>Everything&apos;s written for you</h2>
               <p style={{ fontSize: '16px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '460px', margin: '16px auto 0' }}>
-                You shouldn&apos;t have to invent the campaign as well as run it.
+                You bring the audience. We&apos;ll bring everything else.
               </p>
             </motion.div>
             <div className="af-give-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
               {GIVE.map((g, i) => (
-                <motion.div key={g.tag} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}
+                <motion.div key={g.tag} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ delay: i * 0.05 }}
                   style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '26px 24px' }}>
                   <div style={{ width: '42px', height: '42px', borderRadius: '11px', background: '#EAF1FF', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
                     <g.icon size={19} color="#1468E8" strokeWidth={1.9} />
@@ -575,6 +592,11 @@ export default function AffiliatesPage() {
                 </motion.div>
               ))}
             </div>
+            <div style={{ textAlign: 'center', marginTop: '44px' }}>
+              <Link href="/get-started?type=affiliate" className="af-apply-cta" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 30px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                Apply for the program <ArrowRight size={16} />
+              </Link>
+            </div>
           </div>
         </section>
 
@@ -583,9 +605,9 @@ export default function AffiliatesPage() {
           <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px)', backgroundSize: '24px 24px', pointerEvents: 'none' }} />
           <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative', zIndex: 1, textAlign: 'center' }}>
             <p style={eyebrow('#D7FF43')}>Who it&apos;s for</p>
-            <h2 style={{ ...h2Style, color: '#fff' }}>Made for people with an audience.</h2>
-            <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '460px', margin: '16px auto 36px' }}>
-              If people already trust your take on careers, this is the easiest thing you&apos;ll ever recommend.
+            <h2 style={{ ...h2Style, color: '#fff' }}>You don&apos;t need a following</h2>
+            <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '520px', margin: '16px auto 36px' }}>
+              A coach with ten clients earns on the same terms as a newsletter with ten thousand readers.
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', justifyContent: 'center' }}>
               {AUDIENCE.map(a => (
@@ -600,14 +622,14 @@ export default function AffiliatesPage() {
         {/* ─── Proof ─── */}
         <section style={{ background: '#F6F7F9', padding: 'clamp(64px, 8vw, 100px) 24px' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '44px' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} style={{ textAlign: 'center', marginBottom: '44px' }}>
               <p style={eyebrow('#D63D9D')}>From our partners</p>
-              <h2 style={h2Style}>People already earning from it.</h2>
-              <p style={{ fontSize: '13px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '14px' }}>Early-access partners. Figures self-reported, shown with permission.</p>
+              <h2 style={h2Style}>What people are actually earning</h2>
+              <p style={{ fontSize: '16px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '620px', margin: '16px auto 0' }}>Early-access partners. Figures self-reported, shown with permission.</p>
             </motion.div>
             <div className="af-proof-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
               {PROOF.map((p, i) => (
-                <motion.div key={p.who} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
+                <motion.div key={p.who} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ delay: i * 0.08 }}
                   style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '28px 26px' }}>
                   <p style={{ display: 'flex', alignItems: 'baseline', gap: '3px', marginBottom: '14px' }}>
                     <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '40px', fontWeight: 900, color: p.color, lineHeight: 1, letterSpacing: '-0.03em' }}>{p.amount}</span>
@@ -624,9 +646,9 @@ export default function AffiliatesPage() {
         {/* ─── FAQ ─── */}
         <section style={{ background: '#fff', padding: 'clamp(64px, 8vw, 96px) 24px' }}>
           <div style={{ maxWidth: '720px', margin: '0 auto' }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '40px' }}>
-              <p style={eyebrow('#1468E8')}>The details</p>
-              <h2 style={{ ...h2Style, fontSize: 'clamp(28px, 3.6vw, 44px)' }}>Questions affiliates ask.</h2>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} style={{ textAlign: 'center', marginBottom: '40px' }}>
+              <p style={eyebrow('#1468E8')}>Common questions</p>
+              <h2 style={{ ...h2Style, fontSize: 'clamp(28px, 3.6vw, 44px)' }}>Questions affiliates ask</h2>
             </motion.div>
             <div style={{ background: '#F6F7F9', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '0 28px' }}>
               {FAQS.map((f, i) => <FAQItem key={f.q} q={f.q} a={f.a} open={openFaq === i} toggle={() => setOpenFaq(openFaq === i ? null : i)} />)}
@@ -634,24 +656,25 @@ export default function AffiliatesPage() {
           </div>
         </section>
 
-        {/* ─── Final CTA ─── */}
-        <section style={{ background: '#061A3A', padding: 'clamp(72px, 10vw, 120px) 24px', position: 'relative', overflow: 'hidden', textAlign: 'center' }}>
-          <div style={{ position: 'absolute', top: '-20%', right: '-6%', width: '640px', height: '640px', background: 'radial-gradient(ellipse, rgba(214,61,157,0.24), transparent 62%)', pointerEvents: 'none' }} />
-          <div style={{ position: 'absolute', bottom: '-30%', left: '-6%', width: '560px', height: '560px', background: 'radial-gradient(ellipse, rgba(20,104,232,0.26), transparent 65%)', pointerEvents: 'none' }} />
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ maxWidth: '640px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-            <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(38px, 6vw, 74px)', fontWeight: 900, color: '#fff', lineHeight: 0.92, letterSpacing: '-0.035em', marginBottom: '20px' }}>
-              Start earning on{' '}<br className="br-desktop" /><span style={{ color: '#D7FF43' }}>every referral.</span>
-            </h2>
-            <p style={{ fontSize: '17px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, fontFamily: 'var(--font-body)', marginBottom: '36px' }}>
-              Free to join. Approval usually within two working days. Your first assets are waiting inside.
-            </p>
-            <div className="af-hero-btns" style={{ display: 'inline-flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <Link href="/get-started?type=affiliate" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '16px 32px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '16px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                Apply now <ArrowRight size={16} />
-              </Link>
-              <a href="#calculator" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '16px 32px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.16)', borderRadius: '10px', fontSize: '16px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                Work out your earnings
-              </a>
+        {/* ─── Final CTA (centered box, matches the other CTAs) ─── */}
+        <section style={{ background: '#fff', padding: 'clamp(40px, 6vw, 72px) 24px' }}>
+          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.5 }}
+            style={{ maxWidth: '1120px', margin: '0 auto', borderRadius: '28px', padding: 'clamp(36px, 5vw, 56px) clamp(28px, 5vw, 60px)', textAlign: 'center', position: 'relative', overflow: 'hidden', background: 'radial-gradient(ellipse 52% 64% at 93% 0%, rgba(214,61,157,0.42), transparent 52%), radial-gradient(ellipse 55% 70% at 6% 100%, rgba(20,104,232,0.3), transparent 55%), linear-gradient(140deg, #071B3D 0%, #05142C 100%)' }}>
+            <div style={{ position: 'relative', zIndex: 1, maxWidth: '640px', margin: '0 auto' }}>
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 3.8vw, 46px)', fontWeight: 900, color: '#fff', lineHeight: 0.96, letterSpacing: '-0.03em', marginBottom: '14px' }}>
+                Start earning on{' '}<br className="br-desktop" /><span style={{ color: '#D7FF43' }}>every referral</span>
+              </h2>
+              <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.6)', lineHeight: 1.55, fontFamily: 'var(--font-body)', marginBottom: '26px' }}>
+                Free to join, approved in about two days, and<br className="br-desktop" /> your assets are ready the moment you&apos;re in.
+              </p>
+              <div className="af-hero-btns" style={{ display: 'inline-flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                <Link href="/get-started?type=affiliate" className="af-apply-cta" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 28px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                  Apply for the program <ArrowRight size={16} />
+                </Link>
+                <a href="#calculator" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 28px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.16)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                  Work out your earnings
+                </a>
+              </div>
             </div>
           </motion.div>
         </section>

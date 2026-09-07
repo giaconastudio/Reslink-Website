@@ -1,9 +1,14 @@
 import React from 'react';
 import type { DastNode, ContentBlock } from '@/app/blog/queries';
 
-/** Slugify a heading into a stable anchor id for the table of contents. */
-export const toId = (s: string) =>
-  s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+/** Slugify a heading into a stable anchor id for the table of contents.
+ *  Headings often start with a number ("1. Introduction"), which yields an id
+ *  beginning with a digit — those break native fragment scrolling and CSS
+ *  selectors, so prefix a letter when that happens to keep the anchor valid. */
+export const toId = (s: string) => {
+  const base = s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  return /^[0-9]/.test(base) ? `s-${base}` : base;
+};
 
 /** Flatten a node's descendant text — used for heading anchors and the TOC. */
 export function nodeText(node: DastNode): string {

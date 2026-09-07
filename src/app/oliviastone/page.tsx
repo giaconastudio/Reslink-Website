@@ -343,7 +343,7 @@ export default function ExampleProfilePage() {
           <div className="ex-grid" style={{ marginTop: '24px' }}>
 
             {/* Live analytics */}
-            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.15 }}
+            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.45, delay: 0.15 }}
               style={{ display: 'flex', flexDirection: 'column', background: '#fff', borderRadius: '16px', border: '1px solid #E8EAF0', padding: 'clamp(22px, 3vw, 30px)' }}>
               {/* Header with prominent "what Olivia sees" cue */}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', marginBottom: '18px', flexWrap: 'wrap' }}>
@@ -374,7 +374,7 @@ export default function ExampleProfilePage() {
             </motion.div>
 
             {/* CTA card — matches analytics height */}
-            <motion.div initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.45, delay: 0.25 }}
+            <motion.div initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.45, delay: 0.25 }}
               style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', background: 'radial-gradient(ellipse 75% 95% at 92% 0%, rgba(168,72,214,0.42), transparent 55%), linear-gradient(140deg, #0A1E48 0%, #06122B 100%)', borderRadius: '16px', padding: 'clamp(26px, 3.2vw, 38px)', position: 'relative', overflow: 'hidden' }}>
               <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3.4vw, 34px)', fontWeight: 900, color: '#fff', lineHeight: 0.98, letterSpacing: '-0.02em', marginBottom: '14px', position: 'relative' }}>Create your{' '}<br className="br-desktop" />first Reslink</p>
               <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.55)', lineHeight: 1.6, fontFamily: 'var(--font-body)', marginBottom: '24px', position: 'relative' }}>

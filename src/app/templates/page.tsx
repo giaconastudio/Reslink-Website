@@ -142,7 +142,7 @@ export default function TemplatesPage() {
 
             <div className="tmpl-cards">
               {RESUME_CARDS.map((c, i) => (
-                <motion.div key={c.name} className="tmpl-resume-card" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} whileHover={{ y: -8, transition: { type: 'spring', stiffness: 300, damping: 20 } }} transition={{ duration: 0.45, delay: i * 0.08 }}
+                <motion.div key={c.name} className="tmpl-resume-card" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} whileHover={{ y: -8, transition: { type: 'spring', stiffness: 300, damping: 20 } }} transition={{ duration: 0.45, delay: i * 0.08 }}
                   style={{ ['--accent' as string]: c.accent, background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', boxShadow: '0 14px 40px rgba(6,26,58,0.08)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
                   {/* mock resume */}
                   <div className="tmpl-resume-body" style={{ padding: '24px 24px 26px', flex: 1 }}>
@@ -186,7 +186,7 @@ export default function TemplatesPage() {
             </motion.div>
 
             {/* Reslink video card */}
-            <motion.div className="tmpl-while-visual" initial={{ opacity: 0, scale: 0.96 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.55 }}
+            <motion.div className="tmpl-while-visual" initial={{ opacity: 0, scale: 0.96 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.55 }}
               style={{ position: 'relative', height: '340px' }}>
               {/* resume paper behind */}
               <div aria-hidden style={{ position: 'absolute', top: '15%', left: '0%', width: '48%', height: '76%', background: '#fff', borderRadius: '14px', boxShadow: '0 20px 46px rgba(6,26,58,0.12)', transform: 'rotate(-5deg)', padding: '18px 16px', overflow: 'hidden' }}>

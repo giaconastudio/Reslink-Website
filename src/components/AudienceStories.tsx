@@ -45,8 +45,8 @@ const B2B_PEOPLE: Person[] = [
     video: '/videos/agencies-office.mp4',
     objectPosition: '55% 35%',
     eyebrow: 'For recruitment agencies',
-    title: 'Placing candidates faster, with proof clients can watch.',
-    body: 'Screen and shortlist with video from day one, then hand clients a Reslink instead of a stack of PDFs they have to take your word for.',
+    title: 'Placing candidates faster,\nwith proof clients can watch',
+    body: 'You know the candidate is right.\nA Reslink is how the client sees it too.',
     href: '/agencies',
   },
   {
@@ -54,8 +54,8 @@ const B2B_PEOPLE: Person[] = [
     video: '/videos/universities-students.mp4',
     objectPosition: '50% 45%',
     eyebrow: 'For universities & career centers',
-    title: 'Giving every student a placement edge, at scale.',
-    body: 'Equip your career center with a tool that helps students stand out in a crowded market, and shows administrators the outcomes to prove it.',
+    title: 'Get more of your\nstudents hired',
+    body: 'Graduates all look the same on paper.\nA video is what changes that.',
     href: '/universities',
   },
 ];
@@ -143,7 +143,7 @@ export default function AudienceStories({ variant = 'jobseekers' }: Props) {
   const expandedIndex = hovered ?? 0;
   const people = variant === 'b2b' ? B2B_PEOPLE : JOBSEEKER_PEOPLE;
   const eyebrow = variant === 'b2b' ? 'Not hiring directly?' : 'Every path is different';
-  const heading = variant === 'b2b' ? 'We work with agencies and schools, too.' : 'Built for every\nkind of career';
+  const heading = variant === 'b2b' ? 'For agencies\nand universities' : 'Built for every\nkind of career';
 
   return (
     <section style={{ background: '#fff', padding: 'clamp(72px, 9vw, 112px) 24px' }}>

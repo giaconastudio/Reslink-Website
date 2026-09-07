@@ -46,7 +46,7 @@ const STEPS = [
     icon: UserPlus,
     num: '01',
     title: 'Create your account',
-    desc: 'Sign up in minutes. Add your company details, invite your hiring team, and get your branded job board live the same day.',
+    desc: 'Add your company details and invite your hiring team. Your branded job board goes live the same day, at no cost.',
     tag: 'Free to start',
     tagColor: 'rgba(255,255,255,0.1)',
     tagText: 'rgba(255,255,255,0.6)',
@@ -55,7 +55,7 @@ const STEPS = [
     icon: FilePlus,
     num: '02',
     title: 'Post your first role',
-    desc: 'Write your job post directly in Reslink or import from your existing tools. Your public board is instantly updated and shareable anywhere.',
+    desc: 'Write your job post in Reslink or import it from your existing tools. Your public board updates instantly and shares anywhere.',
     tag: '5 minutes',
     tagColor: 'rgba(255,255,255,0.1)',
     tagText: 'rgba(255,255,255,0.6)',
@@ -64,7 +64,7 @@ const STEPS = [
     icon: Zap,
     num: '03',
     title: 'Add Reslink Credits',
-    desc: 'Credits power AI screening. Each applicant consumes one credit to generate an AI score, video pitch analysis, resume match, and role fit breakdown. No credits, no AI magic.',
+    desc: 'One credit per applicant covers the AI score, video analysis, resume match and role-fit breakdown. Applications arrive either way.',
     tag: 'From $0.50 per applicant',
     tagColor: 'rgba(255,255,255,0.1)',
     tagText: 'rgba(255,255,255,0.6)',
@@ -73,7 +73,7 @@ const STEPS = [
     icon: Video,
     num: '04',
     title: 'Interview only your top picks',
-    desc: 'AI ranks every applicant. Your team reviews video pitches on their own schedule, aligns on a shortlist together, and books interviews only with the people worth talking to.',
+    desc: 'AI ranks every applicant. Your team reviews video pitches on their own schedule and agrees a shortlist without a meeting.',
     tag: 'Biggest time saving',
     tagColor: '#D7FF43',
     tagText: '#061A3A',
@@ -83,64 +83,66 @@ const STEPS = [
 /* ─── Feature tabs ─── */
 const FEATURE_TABS = [
   {
-    id: 'ai',
-    icon: Zap,
-    label: 'AI Screening',
-    soon: true,
-    tagline: 'Your best candidates, ranked before you look.',
-    desc: 'Reslink AI scores every applicant on video pitch quality, resume match, and role fit. Each candidate gets a grade from A+ to F with a full written breakdown. Open the dashboard to a ranked list, not a pile of applications.',
-    img: '/feature-ai-screening.png',
-    alt: 'AI-ranked applicants',
-    bullets: ['Candidates graded A through F with full AI breakdown', 'Scored on video pitch, resume match, and role fit', 'Top picks surfaced automatically at the top of your list'],
-  },
-  {
-    id: 'collab',
-    icon: Users,
-    label: 'Team Collaboration',
-    tagline: 'Everyone aligned before the first interview.',
-    desc: 'Every hiring manager sees the same candidate profile: resume, video, and AI score. Leave notes for your team, rate candidates, and reach consensus without a single meeting.',
-    img: '/feature-team-collaboration.png',
-    alt: 'Candidate profile with team notes',
-    bullets: ['Shared profiles with resume, video, and AI score', 'Team notes visible to everyone reviewing the role', 'Rate candidates and build consensus quickly'],
-  },
-  {
-    id: 'pipeline',
-    icon: List,
-    label: 'Pipeline and Lists',
-    soon: true,
-    tagline: 'Organize candidates. Stay in control.',
-    desc: 'Build custom shortlists like Final Round, Strong Maybes, or Keep Warm and move people through your process in one click. No spreadsheets, no shared docs, no chaos.',
-    img: '/feature-lists.png',
-    alt: 'Saved candidate lists',
-    bullets: ['Custom lists for every stage of your process', 'AI grade visible on every saved candidate', 'One click back to their full profile'],
-  },
-  {
     id: 'board',
     icon: Globe,
     label: 'Job Board',
     tagline: 'Your brand. Your roles. One link.',
-    desc: 'Every company gets a public Reslink job board at reslink.io/company/yourname. Share the link anywhere. Candidates apply with a video pitch built in and Reslink AI reviews every submission automatically.',
+    desc: '',
     img: '/feature-job-board.png',
     alt: 'Public branded job board',
-    bullets: ['Branded board with all your open roles in one place', 'Candidates apply with resume, video, and more', 'Sync open roles to Indeed, LinkedIn, and ZipRecruiter'],
+    bullets: ['Every open role on one branded board', 'Candidates apply with video built in', 'Syncs to Indeed, LinkedIn, ZipRecruiter'],
+  },
+  {
+    id: 'ai',
+    icon: Zap,
+    label: 'AI Screening',
+    soon: true,
+    tagline: 'Ranked on fit, not\non formatting',
+    desc: '',
+    img: '/feature-ai-screening.png',
+    alt: 'AI-ranked applicants',
+    bullets: ['Every applicant graded A+ to F', 'Scored on video, resume and role fit', 'Best candidates at the top by default'],
+  },
+  {
+    id: 'collab',
+    icon: Users,
+    label: 'Shared Profiles',
+    tagline: 'One profile,\none shared view',
+    desc: '',
+    img: '/feature-team-collaboration.png',
+    alt: 'Candidate profile with team notes',
+    bullets: ['Resume, video and score in one place', 'Notes and ratings the whole team sees', 'Agree a shortlist without a meeting'],
+  },
+  {
+    id: 'pipeline',
+    icon: List,
+    label: 'Shortlists',
+    soon: true,
+    tagline: 'Group candidates however you work',
+    desc: '',
+    img: '/feature-lists.png',
+    alt: 'Saved candidate lists',
+    bullets: ['Custom lists for every stage', 'Move candidates through in one click', 'AI grade on every saved candidate'],
   },
 ];
 
 /* Groups the features by where they sit in the hiring workflow (sidebar nav) */
 // Order must mirror FEATURE_TABS so the sidebar matches the stacked content.
 const FEATURE_GROUPS: { label: string; ids: string[] }[] = [
-  { label: 'Screen', ids: ['ai'] },
-  { label: 'Review', ids: ['collab', 'pipeline'] },
   { label: 'Source', ids: ['board'] },
+  { label: 'Screen', ids: ['ai'] },
+  { label: 'Decide', ids: ['collab', 'pipeline'] },
 ];
 
 /* ─── FAQs ─── */
 const FAQS = [
-  { q: 'How do companies access candidate Reslinks?', a: 'Candidates include their Reslink URL in their standard application. Your team clicks the link and watches their 60-second video pitch immediately. No account required for the hiring manager to view.' },
+  { q: 'Is there a free plan?', a: 'Yes. The Starter plan is free - one open role, your own branded job board, and access to the resource center, with no credit card required. You can upgrade whenever your hiring picks up.' },
   { q: 'Does Reslink replace our ATS?', a: 'No. Reslink sits alongside your existing ATS. Candidates apply through your normal channels and simply attach their Reslink link. It supplements your workflow without replacing anything.' },
-  { q: 'How long does onboarding take?', a: 'Most teams are up and running the same day. We provide a dedicated onboarding session and setup support. No IT involvement required.' },
+  { q: 'Do candidates need an account to apply?', a: 'Candidates create a free Reslink profile to record their video, which takes under 10 minutes. Your hiring team does not need an account to view it - you just click the link and watch.' },
   { q: 'Can we require all applicants to submit a Reslink?', a: 'Yes. You can include a Reslink prompt in your job postings or application instructions. Candidates create their profile in under 10 minutes for free.' },
-  { q: 'Is there a free trial?', a: 'Yes. We offer a 14-day free trial with full access to all hiring team features. No credit card required to start.' },
+  { q: 'What happens to candidate data?', a: 'Candidates own their profile and control what they share. You only see the Reslinks submitted to your roles, and candidate data is never sold or used to train models. Everything is handled in line with GDPR.' },
+  { q: 'What happens if we run out of credits?', a: 'Applications keep arriving - nothing is blocked. AI scoring and video analysis simply pause on new applicants until you top up or your monthly credits refresh. You can add credits at any time.' },
+  { q: 'How long does onboarding take?', a: 'Most teams are up and running the same day. We provide a dedicated onboarding session and setup support. No IT involvement required.' },
   { q: 'What does enterprise pricing look like?', a: 'Plans are based on team size and hiring volume. Book a demo and we will put together a custom proposal that fits your needs and budget.' },
 ];
 
@@ -169,12 +171,12 @@ const FEATURED = {
   quote: "We reviewed 40 Reslinks in an afternoon. Our whole hiring team was aligned on a shortlist before end of day. I haven't seen that happen in ten years of recruiting.",
   stat: '40 candidates reviewed in one afternoon',
   name: 'Head of Talent Acquisition', sub: 'Series B fintech · 40 hires a year',
-  avatar: 'radial-gradient(circle at 32% 28%, #F5A8D6, #D63D9D)',
+  avatar: '/avatars/testi-1.jpg',
 };
 const SIDE_QUOTES = [
-  { quote: 'Reslink cut our first-round phone screen volume by 60%. The candidates we do call are genuinely the right ones.', name: 'VP of People', sub: 'SaaS scale-up', avatar: 'radial-gradient(circle at 32% 28%, #8FB4FF, #4F6EF7)' },
-  { quote: 'Our time to hire dropped by nearly a third in the first quarter. The ROI was immediate.', name: 'Recruiting Manager', sub: 'Enterprise tech', avatar: 'radial-gradient(circle at 32% 28%, #F0A0D0, #D63D9D)' },
-  { quote: 'The analytics changed how I manage my team. We can see exactly where we lose candidates, and why.', name: 'Talent Lead', sub: 'Consumer internet', avatar: 'radial-gradient(circle at 32% 28%, #C3DD7E, #8BA353)' },
+  { quote: 'Reslink cut our first-round phone screen volume by 60%. The candidates we do call are genuinely the right ones.', name: 'VP of People', sub: 'SaaS scale-up', avatar: '/avatars/testi-2.jpg' },
+  { quote: 'Our time to hire dropped by nearly a third in the first quarter. The ROI was immediate.', name: 'Recruiting Manager', sub: 'Enterprise tech', avatar: '/avatars/testi-3.jpg' },
+  { quote: 'The analytics changed how I manage my team. We can see exactly where we lose candidates, and why.', name: 'Talent Lead', sub: 'Consumer internet', avatar: '/avatars/testi-4.jpg' },
 ];
 
 /* Candidate scorecard shown in the CTA — the recruiter's-eye view: a video
@@ -213,7 +215,7 @@ function CandidateScorecard() {
         .cs-short { background: #D7FF43; color: #061A3A; font-family: var(--font-body); font-weight: 800; font-size: 14px; border: none; border-radius: 11px; padding: 12px 0; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; transition: background 0.15s ease; }
         .cs-short:hover { background: #C2E532; }
       `}</style>
-      <motion.div className="cs-card" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
+      <motion.div className="cs-card" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.5 }}>
         <div className="cs-vid">
           <video src="/videos/pip-person-compressed.mp4" poster="/videos/pip-person-poster.jpg" autoPlay muted loop playsInline style={{ objectPosition: '50% 18%' }} />
           <span className="cs-tag">Video intro</span>
@@ -237,7 +239,7 @@ function CandidateScorecard() {
                 <span className="cs-metric-val">{m.value}</span>
               </div>
               <div className="cs-track">
-                <motion.div className="cs-fill" style={{ background: m.color }} initial={{ width: 0 }} whileInView={{ width: `${m.pct}%` }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.15 + i * 0.12, ease: 'easeOut' }} />
+                <motion.div className="cs-fill" style={{ background: m.color }} initial={{ width: 0 }} whileInView={{ width: `${m.pct}%` }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.8, delay: 0.15 + i * 0.12, ease: 'easeOut' }} />
               </div>
             </div>
           ))}
@@ -411,10 +413,10 @@ const [notifA, setNotifA] = useState(0);
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For companies</p>
               <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 7.5vw, 96px)', fontWeight: 900, color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '24px' }}>
-                Make better hiring{' '}<br className="br-desktop" />decisions, <span style={{ color: '#D7FF43' }}>faster.</span>
+                Find the right{' '}<br className="br-desktop" />candidate, <span style={{ color: '#D7FF43' }}>faster</span>
               </h1>
               <p style={{ fontSize: 'clamp(16px, 1.6vw, 18px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '520px', margin: '0 auto 36px' }}>
-                Ten thousand people have already stopped being a PDF.
+                A video tells you more than a resume ever could.
               </p>
               <div className="co-hero-btns" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '56px' }}>
                 <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
@@ -443,7 +445,7 @@ const [notifA, setNotifA] = useState(0);
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '64px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>How it works</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#fff', lineHeight: 0.93, letterSpacing: '-0.03em' }}>
-                Up and hiring in four steps.
+                Up and hiring in four steps
               </h2>
             </motion.div>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -481,7 +483,7 @@ const [notifA, setNotifA] = useState(0);
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '48px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Everything your team needs</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.95, letterSpacing: '-0.03em' }}>
-                Built for how great{' '}<br className="br-desktop" />teams hire.
+                Built for how teams{' '}<br className="br-desktop" />actually hire
               </h2>
             </motion.div>
 
@@ -565,8 +567,7 @@ const [notifA, setNotifA] = useState(0);
                   {/* Text content */}
                   <div className="co-feat-body">
                     <div>
-                      <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(22px, 2.8vw, 34px)', fontWeight: 900, color: '#061A3A', lineHeight: 1.0, letterSpacing: '-0.03em', marginBottom: '12px' }}>{t.tagline}</h3>
-                      <p style={{ fontSize: '15px', color: '#5C6070', lineHeight: 1.7, fontFamily: 'var(--font-body)' }}>{t.desc}</p>
+                      <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(22px, 2.8vw, 34px)', fontWeight: 900, color: '#061A3A', lineHeight: 1.05, letterSpacing: '-0.03em', margin: 0, whiteSpace: 'pre-line' }}>{t.tagline}</h3>
                     </div>
                     <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '14px', paddingTop: '4px' }}>
                       {t.bullets.map((b, bi) => (
@@ -593,8 +594,8 @@ const [notifA, setNotifA] = useState(0);
             <div className="co-stats-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '32px', textAlign: 'center' }}>
               {[
                 { value: '5x', label: 'better hire quality vs traditional screening' },
+                { value: '60%', label: 'fewer first-round phone screens' },
                 { value: '30%', label: 'average reduction in time to hire' },
-                { value: '91%', label: 'of hiring managers say video improves decisions' },
               ].map((s, i) => (
                 <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
                   <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(52px, 7vw, 80px)', fontWeight: 900, color: '#D7FF43', lineHeight: 1, letterSpacing: '-0.03em' }}><AnimatedStat value={s.value} /></p>
@@ -611,15 +612,14 @@ const [notifA, setNotifA] = useState(0);
         {/* ─── Testimonials ─── */}
         <section style={{ background: '#FBEEF5', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '48px' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} style={{ textAlign: 'center', marginBottom: '48px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D63D9D', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>What hiring teams say</p>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#061A3A', lineHeight: 0.98, marginBottom: '16px' }}>
-                Trusted by the teams{' '}<br className="br-desktop" />building great companies.
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#061A3A', lineHeight: 0.98 }}>
+                What changed for them
               </h2>
-              <p style={{ fontSize: '16px', color: '#8A7A85', fontFamily: 'var(--font-body)' }}>All early-access partners. Titles shown with permission.</p>
             </motion.div>
             <div className="co-testi-grid">
-              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }}>
                 <div style={{ background: '#061A3A', borderRadius: '24px', padding: 'clamp(32px, 4vw, 48px)', height: '100%', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                   <div style={{ position: 'absolute', top: '-15%', right: '-12%', width: '440px', height: '440px', background: 'radial-gradient(ellipse, rgba(170,72,214,0.34), transparent 62%)', pointerEvents: 'none' }} />
                   <div style={{ position: 'relative', zIndex: 1 }}>
@@ -629,10 +629,9 @@ const [notifA, setNotifA] = useState(0);
                   <div style={{ position: 'relative', zIndex: 1 }}>
                     <div style={{ borderTop: '1px solid rgba(255,255,255,0.12)', margin: '28px 0 22px' }} />
                     <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                      <div style={{ width: '52px', height: '52px', borderRadius: '50%', background: FEATURED.avatar, flexShrink: 0 }} />
+                      <img src={FEATURED.avatar} alt="" style={{ width: '52px', height: '52px', borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
                       <div>
                         <p style={{ fontSize: '16px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{FEATURED.name}</p>
-                        <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', marginTop: '2px' }}>{FEATURED.sub}</p>
                       </div>
                     </div>
                   </div>
@@ -640,14 +639,13 @@ const [notifA, setNotifA] = useState(0);
               </motion.div>
               <div className="co-testi-side">
                 {SIDE_QUOTES.map((q, i) => (
-                  <motion.div key={q.name} initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} style={{ flex: 1 }}>
+                  <motion.div key={q.name} initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ delay: i * 0.1 }} style={{ flex: 1 }}>
                     <div style={{ background: '#fff', borderRadius: '18px', border: '1px solid #F3DCEA', padding: '26px 28px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxSizing: 'border-box', boxShadow: '0 10px 30px rgba(214,61,157,0.06)' }}>
                       <p style={{ fontSize: '15px', color: '#2A3242', lineHeight: 1.6, fontFamily: 'var(--font-body)', marginBottom: '20px' }}>&ldquo;{q.quote}&rdquo;</p>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                        <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: q.avatar, flexShrink: 0 }} />
+                        <img src={q.avatar} alt="" style={{ width: '44px', height: '44px', borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
                         <div>
                           <p style={{ fontSize: '14px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{q.name}</p>
-                          <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px' }}>{q.sub}</p>
                         </div>
                       </div>
                     </div>

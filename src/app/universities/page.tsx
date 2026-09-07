@@ -13,21 +13,22 @@ import CTA from '@/components/CTA';
 
 /* ─── Student features (same tools as job seekers, framed for career centers) ─── */
 const FEATURES = [
-  { icon: Zap, color: '#1468E8', bg: '#EEF4FF', title: 'AI writes their pitch', body: 'PitchAI generates a personalized 90-second script from a student\'s resume, tailored to the roles they\'re targeting. No blank-page paralysis.' },
-  { icon: Video, color: '#1468E8', bg: '#EEF4FF', title: 'Teleprompter-guided recording', body: 'Students record on any device. The built-in teleprompter scrolls their script line by line so they stay on camera looking natural, not down at notes.' },
-  { icon: BarChart2, color: '#1468E8', bg: '#EEF4FF', title: 'Real-time view analytics', body: 'Every student can see when a recruiter opens their profile, how long they watched, and how many times. Anxiety replaced with data.' },
-  { icon: FileText, color: '#1468E8', bg: '#EEF4FF', title: 'Resume paired with video', body: 'A Reslink profile combines their video pitch with resume highlights in one clean page. Employers get the full picture without opening attachments.' },
-  { icon: Globe, color: '#1468E8', bg: '#EEF4FF', title: 'One link, everywhere', body: 'Students add their Reslink to LinkedIn, email signatures, career fair badges, and every application. One link works on every device.' },
-  { icon: Share2, color: '#1468E8', bg: '#EEF4FF', title: 'Impossible to ignore', body: 'A video profile link in an application email stands out before the recruiter even opens the resume. Most applications look identical. Reslinks don\'t.' },
+  { icon: Zap, color: '#1468E8', bg: '#EEF4FF', title: 'Coaching, not ghostwriting', body: 'PitchAI helps them shape their pitch. The words stay theirs.' },
+  { icon: Video, color: '#1468E8', bg: '#EEF4FF', title: 'Teleprompter-guided recording', body: 'The script scrolls while they record. Eyes on camera, not on notes.' },
+  { icon: BarChart2, color: '#1468E8', bg: '#EEF4FF', title: 'Real-time view analytics', body: 'Who opened it, how long they watched, how many times.' },
+  { icon: FileText, color: '#1468E8', bg: '#EEF4FF', title: 'Resume paired with video', body: 'Video pitch and resume highlights on one page, no attachments.' },
+  { icon: Globe, color: '#1468E8', bg: '#EEF4FF', title: 'One link, everywhere', body: 'LinkedIn, email signatures, career fair badges, every application.' },
+  { icon: Share2, color: '#1468E8', bg: '#EEF4FF', title: 'Ready in five minutes', body: 'No experience needed, no editing software, no second takes.' },
 ];
 
 /* ─── FAQs ─── */
 const FAQS = [
-  { q: 'How does a university get started with Reslink?', a: 'Schools schedule a demo with our team. We walk through how Reslink fits into your existing career services, then guide your team through setup and onboarding. Most career centers have students creating Reslinks within days.' },
   { q: 'Do students need to pay to use Reslink?', a: 'No. Student profiles are free to create. Schools access Reslink through an institutional plan. Students never pay to record, share, or update their video profile.' },
-  { q: 'Can Reslink be used in career fairs and workshops?', a: 'Yes. Reslink is built to integrate into your existing programs. Students can create their Reslink as part of a workshop and share it at career fairs, in applications, and on LinkedIn.' },
+  { q: 'How much work is this for our team?', a: 'Very little. We handle onboarding and hand over ready-to-use resources, so your team does not have to build anything. Students create their own Reslinks - your role is mainly pointing them to it and watching the results come in.' },
+  { q: 'What happens to student data?', a: 'Students own their profiles and control what they share. Their data is never sold or used to train models, and everything is handled in line with GDPR. You only see activity for students in your program, through your career center dashboard.' },
   { q: 'Can we use Reslink alongside our existing career platform?', a: 'Yes. Reslink does not replace your existing systems. Students add their Reslink link to any application. It works alongside every ATS and career portal.' },
   { q: 'How do we measure the impact on our career readiness program?', a: 'Your career center dashboard tracks student profile creation, employer views, application activity, and placement outcomes. We provide data for your annual employability reporting.' },
+  { q: 'Can Reslink be used at career fairs and workshops?', a: 'Yes. Reslink is built to integrate into your existing programs. Students can create their Reslink as part of a workshop and share it at career fairs, in applications, and on LinkedIn.' },
   { q: 'What does a completed student Reslink include?', a: 'A Reslink is a shareable profile with a 60-90 second video pitch, resume highlights, work samples, and view analytics. One link gives any employer a complete picture of the student.' },
 ];
 
@@ -65,9 +66,9 @@ const UNI_SIDE_QUOTES = [
 
 /* ─── How it works steps (canonical numbered-node list, matches companies) ─── */
 const UNI_STEPS = [
-  { num: '01', tag: 'Free consultation', tagColor: '#EAF1FF', tagText: '#1468E8', title: 'Schedule a demo', desc: 'Connect with our team to explore how Reslink fits into your career services, employability modules, or student success programs.' },
-  { num: '02', tag: 'Done in days, not months', tagColor: '#EAF3DE', tagText: '#3B6D11', title: 'Set up access for your students', desc: 'We guide your team through setup and onboarding with ready-to-use resources so students can start creating within days of sign-off.' },
-  { num: '03', tag: 'Where outcomes are built', tagColor: '#FBEAF5', tagText: '#9E2462', title: 'Students create. You track results.', desc: 'Students record their pitches, get AI coaching, and share their Reslink everywhere they apply. Your dashboard shows every view, every placement.' },
+  { num: '01', tag: 'Free consultation', tagColor: '#EAF1FF', tagText: '#1468E8', title: 'Schedule a demo', desc: "We'll look at how Reslink fits your careers service and what rollout would involve." },
+  { num: '02', tag: 'Days, not months', tagColor: '#EAF3DE', tagText: '#3B6D11', title: 'Set up access for your students', desc: 'We onboard your team and hand over the resources, so students can start within days.' },
+  { num: '03', tag: 'Ongoing', tagColor: '#FBEAF5', tagText: '#9E2462', title: 'Students create. You track results.', desc: 'They record and share. Your dashboard shows every view and every outcome.' },
 ];
 
 export default function UniversitiesPage() {
@@ -112,9 +113,9 @@ export default function UniversitiesPage() {
       <main style={{ paddingTop: '68px' }}>
 
         {/* ─── Hero ─── */}
-        <section style={{ background: '#061A3A', padding: 'clamp(48px, 6vw, 76px) 24px', position: 'relative', overflow: 'hidden' }}>
+        <section style={{ background: '#061A3A', padding: 'clamp(72px, 9vw, 120px) 24px clamp(96px, 12vw, 168px)', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', top: '-10%', left: '30%', width: '900px', height: '700px', background: 'radial-gradient(ellipse, rgba(20,104,232,0.22), transparent 60%)', pointerEvents: 'none' }} />
-          <div style={{ maxWidth: '1060px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+          <div style={{ maxWidth: '1120px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
             <div className="uni-hero-grid">
               <motion.div className="uni-hero-text" style={{ display: 'flex', flexDirection: 'column' }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For universities and career centers</p>
@@ -211,13 +212,13 @@ export default function UniversitiesPage() {
             <div className="uni-stats-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '24px', textAlign: 'center' }}>
               {[
                 { value: '200+', label: 'universities onboarded' },
-                { value: '34%', label: 'avg. placement rate increase' },
-                { value: '4x', label: 'employer engagement vs. resumes' },
+                { value: '34%', label: 'avg. placement\nrate increase' },
+                { value: '4,000+', label: 'students\nusing Reslink' },
                 { value: '85%', label: 'of students report more callbacks' },
               ].map((s, i) => (
-                <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}>
+                <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ delay: i * 0.08 }}>
                   <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(36px, 5vw, 60px)', fontWeight: 900, color: '#061A3A', lineHeight: 1, letterSpacing: '-0.03em' }}><AnimatedStat value={s.value} /></p>
-                  <p style={{ fontSize: '13px', color: '#8A7A85', fontFamily: 'var(--font-body)', lineHeight: 1.5, maxWidth: '140px', margin: '10px auto 0' }}>{s.label}</p>
+                  <p style={{ fontSize: '13px', color: '#8A7A85', fontFamily: 'var(--font-body)', lineHeight: 1.5, maxWidth: '140px', margin: '10px auto 0', whiteSpace: 'pre-line' }}>{s.label}</p>
                 </motion.div>
               ))}
             </div>
@@ -242,11 +243,11 @@ export default function UniversitiesPage() {
                 <p style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginBottom: '22px' }}>Without Reslink</p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
                   {[
-                    'Students submit identical PDF resumes',
-                    "No visibility into who's actually hiring",
                     'Placement data comes from self-reported surveys',
-                    'Career fairs rely on awkward cold introductions',
                     'Hard to prove the ROI of your program',
+                    "No visibility into who's actually hiring",
+                    'Students submit identical PDF resumes',
+                    'Career fairs rely on cold introductions',
                   ].map(item => (
                     <div key={item} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
                       <span style={{ width: '22px', height: '22px', borderRadius: '50%', background: '#E4E7EC', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '1px' }}>
@@ -263,11 +264,11 @@ export default function UniversitiesPage() {
                 <p style={{ position: 'relative', zIndex: 1, fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#D7FF43', fontFamily: 'var(--font-body)', marginBottom: '22px' }}>With Reslink</p>
                 <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: '18px' }}>
                   {[
-                    'Every student has a video pitch employers actually watch',
-                    'Dashboard shows recruiter views and engagement in real time',
-                    'Placement outcomes tracked automatically, no surveys needed',
-                    'Students share Reslinks at career fairs. Employers remember them',
-                    'Annual report pulls directly from your career center dashboard',
+                    'Outcomes tracked automatically, no surveys',
+                    'Annual report pulls straight from your dashboard',
+                    'See which employers are viewing your students',
+                    'Every student has a video pitch employers watch',
+                    'Students hand over a link and get remembered',
                   ].map(item => (
                     <div key={item} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
                       <span style={{ width: '22px', height: '22px', borderRadius: '50%', background: '#D7FF43', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '1px' }}>
@@ -289,7 +290,7 @@ export default function UniversitiesPage() {
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '56px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>How it works</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 900, color: '#fff', lineHeight: 0.93, letterSpacing: '-0.03em' }}>
-                Up and running{' '}<br className="br-desktop" />in three steps.
+                Up and running{' '}<br className="br-desktop" />in three steps
               </h2>
             </motion.div>
             <div style={{ maxWidth: '760px', margin: '0 auto', display: 'flex', flexDirection: 'column' }}>
@@ -324,7 +325,7 @@ export default function UniversitiesPage() {
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '56px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>What your students get access to</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 54px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.95, letterSpacing: '-0.03em' }}>
-                Every tool they need{' '}<br className="br-desktop" />to stand out and get hired.
+                Everything they need{' '}<br className="br-desktop" />to get hired
               </h2>
             </motion.div>
             <div className="uni-feat-grid">
@@ -346,15 +347,14 @@ export default function UniversitiesPage() {
         {/* ─── Testimonials ─── */}
         <section style={{ background: '#EEF4FF', padding: 'clamp(72px, 9vw, 112px) 24px' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '48px' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} style={{ textAlign: 'center', marginBottom: '48px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>From career centers</p>
-              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#061A3A', lineHeight: 0.98, marginBottom: '16px' }}>
-                Career centers that{' '}<br className="br-desktop" />get results.
+              <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#061A3A', lineHeight: 0.98 }}>
+                What changed for them
               </h2>
-              <p style={{ fontSize: '16px', color: '#7A85A0', fontFamily: 'var(--font-body)' }}>All pilot partners. Titles shown with permission.</p>
             </motion.div>
             <div className="uni-testi-grid">
-              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }}>
                 <div style={{ background: 'radial-gradient(ellipse 58% 62% at 94% 0%, rgba(214,61,157,0.34), transparent 55%), radial-gradient(ellipse 60% 60% at 4% 100%, rgba(20,104,232,0.3), transparent 55%), linear-gradient(140deg, #071B3D 0%, #05142C 100%)', borderRadius: '24px', padding: 'clamp(32px, 4vw, 48px)', height: '100%', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                   <div style={{ position: 'relative', zIndex: 1 }}>
                     <p style={{ fontSize: 'clamp(20px, 2.3vw, 27px)', color: '#fff', lineHeight: 1.45, fontFamily: 'var(--font-body)', fontWeight: 700, letterSpacing: '-0.01em', marginBottom: '26px' }}>&ldquo;{UNI_FEATURED.quote}&rdquo;</p>
@@ -367,7 +367,6 @@ export default function UniversitiesPage() {
                       <img src={UNI_FEATURED.avatar} alt="" style={{ width: '52px', height: '52px', borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
                       <div>
                         <p style={{ fontSize: '16px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{UNI_FEATURED.name}</p>
-                        <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', marginTop: '2px' }}>{UNI_FEATURED.sub}</p>
                       </div>
                     </div>
                   </div>
@@ -375,7 +374,7 @@ export default function UniversitiesPage() {
               </motion.div>
               <div className="uni-testi-side">
                 {UNI_SIDE_QUOTES.map((q, i) => (
-                  <motion.div key={q.name} initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} style={{ flex: 1 }}>
+                  <motion.div key={q.name} initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ delay: i * 0.1 }} style={{ flex: 1 }}>
                     <div style={{ background: '#fff', borderRadius: '18px', border: '1px solid #DCE8FB', padding: '26px 28px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxSizing: 'border-box', boxShadow: '0 10px 30px rgba(20,104,232,0.06)' }}>
                       <p style={{ fontSize: '15px', color: '#2A3242', lineHeight: 1.6, fontFamily: 'var(--font-body)', marginBottom: '20px' }}>&ldquo;{q.quote}&rdquo;</p>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -383,7 +382,6 @@ export default function UniversitiesPage() {
                         <img src={q.avatar} alt="" style={{ width: '44px', height: '44px', borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
                         <div>
                           <p style={{ fontSize: '14px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{q.name}</p>
-                          <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px' }}>{q.sub}</p>
                         </div>
                       </div>
                     </div>
@@ -410,7 +408,7 @@ export default function UniversitiesPage() {
         {/* ─── CTA ─── (shared component — pink-glow navy box, matches the rest of the site) */}
         <CTA
           eyebrow="For universities and career centers"
-          heading={<>Give your students{' '}<br className="br-desktop" /><span>a real advantage.</span></>}
+          heading={<>Give your students{' '}<br className="br-desktop" /><span>a real advantage</span></>}
           body="Join hundreds of universities using Reslink to get their students hired at better companies, faster."
           primaryLabel="Schedule a demo"
           primaryHref="/contact/sales"

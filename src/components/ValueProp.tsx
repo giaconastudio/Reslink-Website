@@ -103,7 +103,8 @@ export default function ValueProp() {
         {/* Centered headline */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.5 }}
           style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto 56px' }}
         >
@@ -125,7 +126,8 @@ export default function ValueProp() {
           <motion.div
             className="vp-before-col"
             initial={{ opacity: 0, x: -16 }}
-            animate={{ opacity: 1, x: 0 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <div className="vp-before-card" style={{ borderRadius: '22px', border: '1px solid #E8EAF0', padding: '24px', background: '#FAFBFC' }}>
@@ -188,7 +190,7 @@ export default function ValueProp() {
           <motion.div
             initial={{ scale: 0.97 }}
             whileInView={{ scale: 1 }}
-            viewport={{ once: true, margin: '-60px' }}
+            viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             style={{ position: 'relative' }}
           >
@@ -286,7 +288,8 @@ export default function ValueProp() {
         {/* Stats strip — tinted cards, one accent per card (blue / lime / magenta / navy) */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           <div className="vp-stats-grid">

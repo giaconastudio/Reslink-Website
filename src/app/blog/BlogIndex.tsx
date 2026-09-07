@@ -93,10 +93,10 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '18px', fontFamily: 'var(--font-body)' }}>The Reslink Blog</p>
               <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(48px, 7vw, 96px)', fontWeight: 900, color: '#fff', lineHeight: 0.88, letterSpacing: '-0.03em', marginBottom: '0' }}>
-                Getting seen,{' '}<br className="br-desktop" />Getting <span style={{ color: '#D7FF43' }}>hired</span>
+                Everything you{' '}<br className="br-desktop" />need to <span style={{ color: '#D7FF43' }}>get hired</span>
               </h1>
               <p style={{ fontSize: 'clamp(15px, 1.8vw, 18px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginTop: '40px', marginBottom: '36px', maxWidth: '560px', margin: '40px auto 36px' }}>
-                Practical advice on applications, interviews and getting noticed, from people who do this every day.
+                Resumes, applications, interviews and LinkedIn.
               </p>
 
               {/* Search bar */}
@@ -148,7 +148,7 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
                 {/* Featured */}
                 {featured && (
                   <>
-                    <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} style={{ marginBottom: '48px' }}>
+                    <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.4 }} style={{ marginBottom: '48px' }}>
                       <Link href={`/blog/${featured.slug}`} style={{ textDecoration: 'none', display: 'block' }}>
                         <div className="blog-card feat-card" style={{ background: '#fff', borderRadius: '20px', border: '1px solid #ECEEF1', overflow: 'hidden', boxShadow: '0 1px 8px rgba(6,26,58,0.04)', display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
                           <div style={{ position: 'relative', margin: '16px', borderRadius: '14px', overflow: 'hidden', minHeight: '236px' }}>
@@ -159,7 +159,7 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
                               <span className="tag-featured">Featured</span>
                               {featured.read && <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}><Clock size={12} /> {featured.read} read</span>}
                             </div>
-                            <h3 style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(22px, 2.6vw, 30px)', fontWeight: 800, color: '#061A3A', lineHeight: 1.2, letterSpacing: '-0.01em', marginBottom: '12px' }}>{featured.title}</h3>
+                            <h3 style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(19px, 2vw, 24px)', fontWeight: 800, color: '#061A3A', lineHeight: 1.3, letterSpacing: '-0.01em', marginBottom: '12px' }}>{featured.title}</h3>
                             <p style={{ fontSize: '15px', color: '#5C6070', lineHeight: 1.65, fontFamily: 'var(--font-body)', marginBottom: '24px' }}>{featured.excerpt}</p>
                             <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
                               <span style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{featured.date}</span>
@@ -180,7 +180,7 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
                     </p>
                     <div className="all-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
                       {rest.map((post, i) => (
-                        <motion.div key={post.slug} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay: i * 0.05 }}>
+                        <motion.div key={post.slug} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.35, delay: i * 0.05 }}>
                           <Link href={`/blog/${post.slug}`} style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
                             <div className="blog-card" style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', overflow: 'hidden', boxShadow: '0 1px 8px rgba(6,26,58,0.04)', height: '100%', display: 'flex', flexDirection: 'column' }}>
                               <div style={{ height: '190px', overflow: 'hidden', position: 'relative', flexShrink: 0 }}>
@@ -192,7 +192,7 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
                                 )}
                               </div>
                               <div style={{ padding: '18px 20px 20px', display: 'flex', flexDirection: 'column', flex: 1 }}>
-                                <h3 style={{ fontFamily: 'var(--font-body)', fontSize: '18px', fontWeight: 800, color: '#061A3A', lineHeight: 1.3, letterSpacing: '-0.01em', marginBottom: '10px' }}>{post.title}</h3>
+                                <h3 style={{ fontFamily: 'var(--font-body)', fontSize: '16px', fontWeight: 800, color: '#061A3A', lineHeight: 1.3, letterSpacing: '-0.01em', marginBottom: '10px' }}>{post.title}</h3>
                                 <p style={{ fontSize: '13.5px', color: '#5C6070', lineHeight: 1.6, fontFamily: 'var(--font-body)', marginBottom: '18px' }}>{post.excerpt.length > 110 ? post.excerpt.slice(0, 110) + '...' : post.excerpt}</p>
                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto', gap: '10px' }}>
                                   <span style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>{post.date}</span>

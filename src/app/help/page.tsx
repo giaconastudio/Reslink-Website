@@ -481,7 +481,7 @@ export default function HelpPage() {
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A9FA8" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
             </div>
 
-            <motion.div key={tab} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}>
+            <motion.div key={tab} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.25 }}>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '64px' }} className="help-cat-grid">
                 <style>{`
                   .help-cat-grid { }
@@ -491,7 +491,7 @@ export default function HelpPage() {
                 {cats.map((cat, ci) => {
                   const catStart = catBounds[ci].start;
                   return (
-                    <motion.div key={cat.title} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25, delay: ci * 0.04 }} style={{ height: '100%' }}>
+                    <motion.div key={cat.title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.25, delay: ci * 0.04 }} style={{ height: '100%' }}>
                       <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '24px', boxShadow: '0 1px 8px rgba(6,26,58,0.04)', transition: 'box-shadow 0.15s, transform 0.15s', height: '100%', boxSizing: 'border-box' }}
                         onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 20px rgba(6,26,58,0.09)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; }}
                         onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 1px 8px rgba(6,26,58,0.04)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; }}>

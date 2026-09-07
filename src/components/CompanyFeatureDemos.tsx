@@ -213,7 +213,10 @@ export function PipelineDemo({ active }: { active: boolean }) {
         ))}
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '7px' }}>
+      {/* Reserve the tallest state's height (Final Round open = the list with the
+          most candidates) so cycling which list is expanded never changes the
+          demo's overall height - the copy below stays put and nothing is clipped. */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '7px', minHeight: '298px' }}>
         {PIPELINE_LISTS.map(list => {
           const isExpanded = expandedId === list.id;
           return (

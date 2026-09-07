@@ -235,7 +235,7 @@ export default function StudentsPage() {
               { stat: '85%', label: 'avg. video watch rate', sub: 'recruiters watch almost every second' },
               { stat: '5 min', label: 'to your first Reslink', sub: 'AI does the hard part' },
             ].map((s, i) => (
-              <motion.div key={s.stat} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: i * 0.08 }}
+              <motion.div key={s.stat} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.4, delay: i * 0.08 }}
                 style={{ textAlign: 'center', padding: '8px' }}>
                 <p style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(40px, 4.5vw, 52px)', fontWeight: 900, color: '#fff', lineHeight: 1, letterSpacing: '-0.03em', marginBottom: '6px' }}><AnimatedStat value={s.stat} /></p>
                 <p style={{ fontSize: '14px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', fontFamily: 'var(--font-body)', marginBottom: '2px' }}>{s.label}</p>
@@ -251,7 +251,7 @@ export default function StudentsPage() {
         {/* How it works — grey */}
         <section style={{ background: '#F6F7F9', padding: 'clamp(72px, 9vw, 108px) 24px' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} style={{ textAlign: 'center', marginBottom: '56px' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.5 }} style={{ textAlign: 'center', marginBottom: '56px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>How it works</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4.5vw, 54px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.93, letterSpacing: '-0.03em' }}>
                 Ready in under five minutes
@@ -269,7 +269,7 @@ export default function StudentsPage() {
                 { n: '03', title: 'Share your link', desc: 'Add it to your applications, LinkedIn and email signature.' },
                 { n: '04', title: 'Track who watches', desc: 'Get notified the moment a recruiter opens it.' },
               ].map((step, i) => (
-                <motion.div key={step.n} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: i * 0.08 }}>
+                <motion.div key={step.n} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.4, delay: i * 0.08 }}>
                   <div style={{ background: '#fff', borderRadius: '16px', padding: '28px 24px', height: '100%', boxSizing: 'border-box', boxShadow: '0 1px 3px rgba(6,26,58,0.05)' }}>
                     <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: i === 3 ? '#D7FF43' : '#061A3A', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
                       <span className="step-num" style={{ fontFamily: 'var(--font-phudu)', fontSize: '20px', fontWeight: 900, color: i === 3 ? '#061A3A' : '#fff', lineHeight: 1 }}>{i + 1}</span>
@@ -299,7 +299,7 @@ export default function StudentsPage() {
               .students-pip-list { width: fit-content; margin-left: auto; margin-right: auto; text-align: left; }
             }`}</style>
             {/* Left: copy */}
-            <motion.div className="students-pip-copy" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
+            <motion.div className="students-pip-copy" initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.5 }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D7FF43', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Everything in one link</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4vw, 52px)', fontWeight: 900, color: '#fff', lineHeight: 0.93, letterSpacing: '-0.03em', marginBottom: '24px' }}>
                 Your Reslink is your{' '}<br className="br-desktop" /><span style={{ color: '#D7FF43' }}>first impression</span>
@@ -317,7 +317,7 @@ export default function StudentsPage() {
               </div>
             </motion.div>
             {/* Right: profile card with PIP */}
-            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.1 }} style={{ position: 'relative' }}>
+            <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.5, delay: 0.1 }} style={{ position: 'relative' }}>
               <div style={{ borderRadius: '18px', border: '2px solid #D7FF43', overflow: 'hidden', boxShadow: '0 24px 72px rgba(0,0,0,0.4)' }}>
                 {/* Profile header */}
                 <div style={{ background: '#0C1B3A', padding: '20px 22px' }}>
@@ -395,7 +395,7 @@ export default function StudentsPage() {
         {/* Features — pink */}
         <section style={{ background: '#FBEEF5', padding: 'clamp(72px, 9vw, 108px) 24px' }}>
           <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} style={{ textAlign: 'center', marginBottom: '52px' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.5 }} style={{ textAlign: 'center', marginBottom: '52px' }}>
               <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#D63D9D', marginBottom: '14px', fontFamily: 'var(--font-body)' }}>Everything you need</p>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(30px, 4.5vw, 54px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.93, letterSpacing: '-0.03em' }}>
                 Built for early careers
@@ -408,7 +408,7 @@ export default function StudentsPage() {
                 @media (max-width: 480px) { .students-feat-grid { grid-template-columns: 1fr !important; } }
               `}</style>
               {FEATURES.map((f, i) => (
-                <motion.div key={f.title} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: i * 0.06 }}>
+                <motion.div key={f.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.4, delay: i * 0.06 }}>
                   <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #F3DCEA', padding: '24px', height: '100%', boxSizing: 'border-box', boxShadow: '0 10px 30px rgba(214,61,157,0.06)' }}>
                     <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: '#FBEAF5', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
                       <f.icon size={20} color="#D63D9D" strokeWidth={1.8} />
@@ -425,7 +425,7 @@ export default function StudentsPage() {
         {/* FAQ */}
         <section style={{ background: '#fff', padding: 'clamp(64px, 8vw, 96px) 24px' }}>
           <div style={{ maxWidth: '720px', margin: '0 auto' }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} style={{ textAlign: 'center', marginBottom: '40px' }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.5 }} style={{ textAlign: 'center', marginBottom: '40px' }}>
               <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(26px, 3.5vw, 42px)', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.02em' }}>What students ask us</h2>
             </motion.div>
             <div className="students-faq-box" style={{ background: '#F6F7F9', borderRadius: '16px', border: '1px solid #ECEEF1', padding: '0 28px' }}>

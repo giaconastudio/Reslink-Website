@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { CheckCircle, ArrowRight } from 'lucide-react';
+import { CheckCircle, ArrowRight, Mail } from 'lucide-react';
 
 /* The demo request form. Lives here rather than inline on the sales page
    because organisations meet it in two places: /contact/sales, and the
@@ -50,11 +50,14 @@ export default function DemoRequestForm({
   orgKind,
   /** Rendered under the submit button — e.g. a Back link in the signup flow. */
   footer,
+  /** Fires once the request is sent, so the page around it can react. */
+  onSent,
 }: {
   heading?: string;
   sub?: string;
   orgKind?: OrgKind;
   footer?: React.ReactNode;
+  onSent?: () => void;
 } = {}) {
   const [sent, setSent] = useState(false);
   const [form, setForm] = useState({
@@ -66,15 +69,25 @@ export default function DemoRequestForm({
   });
 
   if (sent) {
+    /* Deliberately narrow and centred. This lands in a tall column, and left
+       to fill it the three lines drift apart and read as debris. */
     return (
-      <div style={{ textAlign: 'center', padding: '40px 0' }}>
-        <div style={{ width: '60px', height: '60px', borderRadius: '50%', background: '#D7FF43', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 18px' }}>
+      <div style={{ textAlign: 'center', maxWidth: '340px', margin: '0 auto', padding: '32px 0' }}>
+        <div style={{ width: '60px', height: '60px', borderRadius: '50%', background: '#D7FF43', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
           <CheckCircle size={28} color="#061A3A" strokeWidth={2.5} />
         </div>
-        <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: '26px', fontWeight: 900, color: '#061A3A', marginBottom: '10px' }}>Request received!</h3>
-        <p style={{ fontSize: '14px', color: '#5C6070', fontFamily: 'var(--font-body)', lineHeight: 1.6 }}>
-          That&apos;s everything we need. We&apos;ll email you a link to book a time — usually within one working day.
+        <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: '26px', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.02em', marginBottom: '10px' }}>Request received!</h3>
+        <p style={{ fontSize: '14px', color: '#5C6070', fontFamily: 'var(--font-body)', lineHeight: 1.65, margin: 0 }}>
+          That&apos;s everything we need. We&apos;ll email you a link to book a time, usually within one working day.
         </p>
+        {/* Says where it's going, so there's no doubt the right address was
+            typed — the one thing someone actually wants confirmed here. */}
+        {form.email && (
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginTop: '20px', padding: '9px 14px', background: '#F6F7F9', border: '1px solid #ECEEF1', borderRadius: '100px', maxWidth: '100%' }}>
+            <Mail size={14} color="#9AA1AE" style={{ flexShrink: 0 }} />
+            <span style={{ fontSize: '13px', color: '#3A4150', fontFamily: 'var(--font-body)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{form.email}</span>
+          </div>
+        )}
       </div>
     );
   }
@@ -83,7 +96,7 @@ export default function DemoRequestForm({
     <>
       <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: '24px', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.02em', marginBottom: '4px' }}>{heading}</h2>
       <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', lineHeight: 1.55, marginBottom: '16px' }}>{sub}</p>
-      <form onSubmit={e => { e.preventDefault(); setSent(true); }} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+      <form onSubmit={e => { e.preventDefault(); setSent(true); onSent?.(); }} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         <div className="demo-name-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
           <input type="text" placeholder="First name" value={form.firstName} onChange={e => setForm(p => ({ ...p, firstName: e.target.value }))} required style={inputStyle} />
           <input type="text" placeholder="Last name" value={form.lastName} onChange={e => setForm(p => ({ ...p, lastName: e.target.value }))} required style={inputStyle} />

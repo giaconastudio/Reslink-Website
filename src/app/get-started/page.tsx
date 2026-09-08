@@ -215,6 +215,10 @@ function GetStartedForm() {
      and University all book a demo instead, so step 2 hands them the sales
      lead form rather than the signup fields. */
   const isOrg = ORG_TYPES.some(t => t.id === selectedType);
+  /* Once the demo request is in, the left column is just a confirmation. The
+     audience chip above it belongs to the form it was labelling, so it goes
+     with it rather than floating over the acknowledgement on its own. */
+  const [demoSent, setDemoSent] = useState(false);
 
   const inputStyle: React.CSSProperties = {
     width: '100%', padding: '12px 14px', borderRadius: '10px',
@@ -317,12 +321,15 @@ function GetStartedForm() {
             <motion.div key="s2" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.3 }} className="gs-card">
               {/* Left */}
               <div className="gs-left-col" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#EEF4FF', borderRadius: '100px', padding: '5px 12px', marginBottom: '16px', width: 'fit-content' }}>
-                  {(() => { const t = ALL_TYPES.find(t => t.id === selectedType)!; const Icon = t.icon; return <><Icon size={12} color="#1468E8" /><span style={{ fontSize: '12px', fontWeight: 700, color: '#1468E8', fontFamily: 'var(--font-body)' }}>{t.label}</span></>; })()}
-                </div>
+                {!demoSent && (
+                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#EEF4FF', borderRadius: '100px', padding: '5px 12px', marginBottom: '16px', width: 'fit-content' }}>
+                    {(() => { const t = ALL_TYPES.find(t => t.id === selectedType)!; const Icon = t.icon; return <><Icon size={12} color="#1468E8" /><span style={{ fontSize: '12px', fontWeight: 700, color: '#1468E8', fontFamily: 'var(--font-body)' }}>{t.label}</span></>; })()}
+                  </div>
+                )}
 {isOrg ? (
                   <DemoRequestForm
                     orgKind={selectedType as OrgKind}
+                    onSent={() => setDemoSent(true)}
                     footer={
                       <button type="button" onClick={() => setStep(1)}
                         style={{ width: '100%', marginTop: '2px', padding: '12px', background: 'none', color: '#9A9FA8', border: 'none', borderRadius: '10px', fontSize: '13px', fontWeight: 600, fontFamily: 'var(--font-body)', cursor: 'pointer' }}>

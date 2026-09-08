@@ -163,16 +163,27 @@ export default function HowItWorks() {
         .hiw-rail-dot.active { background: var(--hiw-accent); height: 20px; border-radius: 3px; }
 
         @media (max-width: 860px) {
-          /* .hiw-sticky's top:68px (set in the base rule) docks it below the
-             navbar; subtract that same 68px here so the card stays within
-             the visible area instead of overflowing past the bottom. */
-          .hiw-sticky { padding: 8px; }
+          /* The base rule docks this at top:68px but leaves height:100vh, so
+             the box actually ran 68px past the bottom of the screen. Centring
+             inside it therefore put the card 68px below the real centre —
+             a wide band above, and the bottom edge running off screen.
+             Subtracting the offset makes the box exactly the visible area, so
+             centred means centred.
+             svh, not vh: on mobile Safari 100vh is the toolbar-hidden height,
+             so with the toolbar showing the card overflowed again. svh is the
+             toolbar-visible height, which is the one that always fits. The vh
+             line stays first as a fallback. */
+          .hiw-sticky {
+            padding: 8px;
+            height: calc(100vh - 68px);
+            height: calc(100svh - 68px);
+          }
           /* Height follows the content (capped to the screen) rather than
              being pinned to the full viewport. The fixed height left a big
              band of empty navy under step 4 on tall phones, and forced the
              video to be shrunk to fit a budget that was never actually
              tight — content here is ~200px shorter than the card was. */
-          .hiw-card { height: auto; max-height: calc(100vh - 68px - 16px); border-radius: 22px; }
+          .hiw-card { height: auto; max-height: calc(100vh - 68px - 16px); max-height: calc(100svh - 68px - 16px); border-radius: 22px; }
           /* Spacing is vh-relative so it opens right up on a tall phone (where
              the uncropped video leaves ~150px spare) and tightens by itself on
              short ones, instead of one hardcoded value that is either cramped
@@ -181,9 +192,11 @@ export default function HowItWorks() {
           .hiw-header { margin-bottom: clamp(14px, 2.8vh, 28px); }
           /* min-width:0 — grid items otherwise refuse to shrink below their
              content's intrinsic width and overflow the collapsed column. */
-          .hiw-grid { grid-template-columns: 1fr; gap: clamp(16px, 3vh, 30px); }
+          .hiw-grid { grid-template-columns: 1fr; gap: clamp(14px, 2.4vh, 24px); }
           .hiw-grid > * { min-width: 0; }
-          .hiw-list { gap: clamp(13px, 3.2vh, 30px); }
+          /* 3.2vh came out at 27px on a 844px phone, which read as four
+             separate items rather than one list. Tightened to ~17px there. */
+          .hiw-list { gap: clamp(10px, 2vh, 20px); }
           .hiw-stage-row { order: -1; }
           /* Native 1600x1040 aspect — do NOT crop this. A single sampled frame
              makes the videos look like they have wide dead margins, but they

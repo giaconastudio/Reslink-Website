@@ -416,7 +416,10 @@ const [notifA, setNotifA] = useState(0);
                 Find the right{' '}<br className="br-desktop" />candidate, <span style={{ color: '#D7FF43' }}>faster</span>
               </h1>
               <p style={{ fontSize: 'clamp(16px, 1.6vw, 18px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, fontFamily: 'var(--font-body)', maxWidth: '520px', margin: '0 auto 36px' }}>
-                A video tells you more than a resume ever could.
+                {/* Non-breaking space so "ever could." can't be split. Left to
+                    wrap freely at 390px it broke after "ever" and stranded
+                    "could." alone; this puts the break after "resume". */}
+                A video tells you more than a resume ever&nbsp;could.
               </p>
               <div className="co-hero-btns" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '56px' }}>
                 <Link href="/contact/sales" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>

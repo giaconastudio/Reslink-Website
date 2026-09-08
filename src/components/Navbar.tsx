@@ -280,8 +280,11 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
                           style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 4px', textDecoration: 'none' }}
                           onClick={() => setMobileOpen(false)}
                         >
-                          <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: isDark ? 'rgba(215,255,67,0.14)' : '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                            <Icon size={14} color={isDark ? '#D7FF43' : '#1468E8'} strokeWidth={2} />
+                          {/* Same blue chip the desktop dropdown uses. This used
+                              to go lime on the dark-nav pages, so the same menu
+                              items were blue on desktop and green on a phone. */}
+                          <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                            <Icon size={14} color="#1468E8" strokeWidth={2} />
                           </div>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '7px', flexWrap: 'wrap' }}>
                             <span style={{ fontSize: '14px', fontWeight: 500, color: isDark ? 'rgba(255,255,255,0.85)' : '#061A3A', fontFamily: 'var(--font-body)' }}>{item.label}</span>

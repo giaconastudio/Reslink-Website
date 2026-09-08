@@ -489,7 +489,7 @@ function BadgeVisual() {
   return (
     <div ref={rootRef} style={{ width: '100%', height: '100%', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px', background: '#F7F8FA', justifyContent: 'center', position: 'relative' }}>
       <div style={{ background: '#fff', borderRadius: '10px', border: '1px solid #E4E7EC', padding: '16px 18px', boxShadow: '0 4px 16px rgba(4,22,53,0.06)', position: 'relative' }}>
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '12px' }}>
+        <div className="feat-badge-head" style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '12px' }}>
           <div>
             <p style={{ fontSize: '16px', fontWeight: 800, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>First &amp; Last Name</p>
             <p style={{ fontSize: '10px', color: '#6B7280', fontFamily: 'var(--font-body)', marginTop: '3px' }}>City, State · 555-000-0000 · email@gmail.com</p>
@@ -504,12 +504,12 @@ function BadgeVisual() {
           <div style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', flexShrink: 0 }}>
             {!clicking && !playing && (
               <>
-                <motion.svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"
+                <motion.svg className="feat-play-cue" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"
                   animate={{ x: [-6, 2, -6], opacity: [0.4, 1, 0.4] }} transition={{ repeat: Infinity, duration: 1.4, ease: 'easeInOut' }}
                   style={{ position: 'absolute', left: '-22px', top: '50%', marginTop: '-6.5px' }}>
                   <polyline points="9 6 15 12 9 18" />
                 </motion.svg>
-                <motion.svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"
+                <motion.svg className="feat-play-cue" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"
                   animate={{ x: [6, -2, 6], opacity: [0.4, 1, 0.4] }} transition={{ repeat: Infinity, duration: 1.4, ease: 'easeInOut' }}
                   style={{ position: 'absolute', right: '-22px', top: '50%', marginTop: '-6.5px', rotate: 180 }}>
                   <polyline points="9 6 15 12 9 18" />
@@ -519,9 +519,10 @@ function BadgeVisual() {
             <motion.div
               animate={clicking ? { scale: 0.9 } : playing ? { scale: 1 } : { scale: [1, 1.035, 1] }}
               transition={clicking ? { duration: 0.15 } : playing ? { duration: 0.15 } : { repeat: Infinity, duration: 1.4, ease: 'easeInOut' }}
+              className="feat-play-btn"
               style={{ display: 'flex', alignItems: 'center', gap: '5px', background: '#0C63E3', borderRadius: '9px', padding: '7px 13px', cursor: 'pointer', position: 'relative' }}
             >
-              <svg width="9" height="9" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+              <svg className="feat-play-icon" width="9" height="9" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
               <span style={{ fontSize: '11px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-body)' }}>Play Intro</span>
               {/* Restrained click feedback — one soft white flash over the
                   button, not the loud multi-ring/glow effect from before. */}
@@ -794,6 +795,32 @@ export default function Features() {
            per row keeps every tile readable. */
         @media (max-width: 560px) {
           .insights-stat-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          /* The Play Intro pill is fixed px while the mock resume shrinks with
+             the viewport: 15% of the header row on desktop, 40% at 390px. Down
+             to about a third here so it sits in the mock rather than dominating
+             it. !important because the size is set inline. */
+          .feat-play-btn { padding: 5px 9px !important; gap: 4px !important; border-radius: 7px !important; }
+          .feat-play-btn span { font-size: 9px !important; }
+          .feat-play-icon { width: 8px !important; height: 8px !important; }
+          /* The drifting chevrons sit +/-22px outside the button. The row is
+             only 224px wide here, so the left one landed on top of the name and
+             the right one hung 22px past the card edge. There is no room for
+             them at this size, and no cursor to guide on touch anyway. */
+          .feat-play-cue { display: none !important; }
+          /* Without the chevrons the name block grows until it meets the
+             button; a small gap keeps the two from reading as one lump. */
+          .feat-badge-head { gap: 10px; }
+        }
+        /* Only the narrowest phones need this. At 375px and up the name and
+           the button still share the line comfortably; at 320px the row is
+           down to ~154px and the button hung 10px off the white card onto the
+           panel behind it. Wrapping puts it under the name there, which keeps
+           the label readable rather than shrinking it into an unreadable
+           chip. */
+        @media (max-width: 365px) {
+          .feat-badge-head { flex-wrap: wrap; row-gap: 8px; }
+        }
+        @media (max-width: 400px) {
           /* The intro bubble is a fixed 136px, but the resume card it sits on
              shrinks with the viewport — 21% of the card's width on desktop
              becomes 55% at 375px, which is why it swamped the card. Sized back

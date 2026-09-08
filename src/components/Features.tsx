@@ -491,7 +491,7 @@ function BadgeVisual() {
       <div style={{ background: '#fff', borderRadius: '10px', border: '1px solid #E4E7EC', padding: '16px 18px', boxShadow: '0 4px 16px rgba(4,22,53,0.06)', position: 'relative' }}>
         <div className="feat-badge-head" style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '12px' }}>
           <div>
-            <p style={{ fontSize: '16px', fontWeight: 800, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>First &amp; Last Name</p>
+            <p className="feat-badge-name" style={{ fontSize: '16px', fontWeight: 800, color: '#041635', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>First &amp; Last Name</p>
             <p style={{ fontSize: '10px', color: '#6B7280', fontFamily: 'var(--font-body)', marginTop: '3px' }}>City, State · 555-000-0000 · email@gmail.com</p>
             <p style={{ fontSize: '10px', color: '#6B7280', fontFamily: 'var(--font-body)', marginTop: '1px' }}>linkedin.com/in/name</p>
           </div>
@@ -501,7 +501,7 @@ function BadgeVisual() {
               higher-contrast this round, plus a small synced scale pulse on
               the button itself so the whole thing reads as one coordinated
               "look here, click here" gesture. */}
-          <div style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', flexShrink: 0 }}>
+          <div className="feat-play-wrap" style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', flexShrink: 0 }}>
             {!clicking && !playing && (
               <>
                 <motion.svg className="feat-play-cue" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0C63E3" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"
@@ -802,14 +802,38 @@ export default function Features() {
           .feat-play-btn { padding: 5px 9px !important; gap: 4px !important; border-radius: 7px !important; }
           .feat-play-btn span { font-size: 9px !important; }
           .feat-play-icon { width: 8px !important; height: 8px !important; }
-          /* The drifting chevrons sit +/-22px outside the button. The row is
-             only 224px wide here, so the left one landed on top of the name and
-             the right one hung 22px past the card edge. There is no room for
-             them at this size, and no cursor to guide on touch anyway. */
-          .feat-play-cue { display: none !important; }
-          /* Without the chevrons the name block grows until it meets the
-             button; a small gap keeps the two from reading as one lump. */
-          .feat-badge-head { gap: 10px; }
+          /* The cues stay, but at 13px with a +/-22px offset they needed 70px
+             of clear space either side of the button, which a 224px row does
+             not have — the left one sat on the name and the right one hung
+             past the card. Smaller and closer, with the row opened up and the
+             button pulled in off the right edge, they fit. */
+          .feat-play-cue { width: 8px !important; height: 8px !important; }
+          .feat-play-cue:first-of-type { left: -11px !important; margin-top: -4px !important; }
+          .feat-play-cue:nth-of-type(2) { right: -11px !important; margin-top: -4px !important; }
+          /* Room for the left cue between the name and the button, and for the
+             right one between the button and the card edge. */
+          .feat-badge-head { gap: 14px; }
+          .feat-play-wrap { margin-right: 13px; }
+          /* 16px is desktop's size in a 618px row; in a 224px one it is
+             proportionally more than twice that, and it left no width for the
+             name once the cues had their clearance — it wrapped to two lines.
+             13px is still proportionally larger here than 16px is on desktop. */
+          .feat-badge-name { font-size: 13px !important; }
+          /* The intro bubble is a fixed 136px while the resume card it sits on
+             shrinks with the viewport. This was capped at 400px, one breakpoint
+             narrower than the button above it, so on a 430px phone the button
+             scaled down and the bubble did not — small button, oversized
+             bubble. Same breakpoint now, and a little smaller with it.
+             Keeps the 136:148 aspect, and overhangs the corner rather than
+             sitting on the text. !important because size and position are
+             inline on the element. */
+          .feat-badge-pip {
+            width: 80px !important;
+            height: 87px !important;
+            top: 50px !important;
+            right: -8px !important;
+            border-radius: 11px !important;
+          }
         }
         /* Only the narrowest phones need this. At 375px and up the name and
            the button still share the line comfortably; at 320px the row is
@@ -820,22 +844,7 @@ export default function Features() {
         @media (max-width: 365px) {
           .feat-badge-head { flex-wrap: wrap; row-gap: 8px; }
         }
-        @media (max-width: 400px) {
-          /* The intro bubble is a fixed 136px, but the resume card it sits on
-             shrinks with the viewport — 21% of the card's width on desktop
-             becomes 55% at 375px, which is why it swamped the card. Sized back
-             to roughly a third here, keeping the 136:148 aspect, and pushed a
-             little further right so it overhangs the corner rather than
-             sitting on top of the text. !important because the position and
-             size are inline styles on the element. */
-          .feat-badge-pip {
-            width: 88px !important;
-            height: 96px !important;
-            top: 52px !important;
-            right: -10px !important;
-            border-radius: 12px !important;
-          }
-        }
+
         @media (max-width: 860px) {
           .feat-layout { grid-template-columns: 1fr; gap: 22px; }
           .feat-nav-col { position: sticky; top: 68px; z-index: 20; background: #F7F8FA; padding: 10px 0; margin: -10px 0 0; }

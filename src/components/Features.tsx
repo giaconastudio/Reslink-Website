@@ -140,17 +140,30 @@ function RowAction({ label, children }: { label: string; children: React.ReactNo
  *  visibility like the other animated visuals. */
 function AnalyticsVisual() {
   const [locExpanded, setLocExpanded] = useState(false);
+  const [panelOpen, setPanelOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const inView = useInView(rootRef, { amount: 0.4 });
 
+  /* The list starts closed and the Insights panel unfolds out of the active
+     row, rather than sitting open from the first frame. The panel being
+     already open showed the answer without showing that it came from the
+     row above it — the point of the card is that the numbers live behind
+     Insights on each Reslink. Locations then unfold inside it, so there are
+     two beats of motion instead of one. */
   useEffect(() => {
     if (!inView) return;
     let cancelled = false;
     const timers: ReturnType<typeof setTimeout>[] = [];
+    const at = (ms: number, fn: () => void) => timers.push(setTimeout(() => { if (!cancelled) fn(); }, ms));
+
     const runCycle = () => {
+      setPanelOpen(false);
       setLocExpanded(false);
-      timers.push(setTimeout(() => { if (!cancelled) setLocExpanded(true); }, 2600));
-      timers.push(setTimeout(() => { if (!cancelled) runCycle(); }, 2600 + 3400));
+      at(1100, () => setPanelOpen(true));
+      at(3400, () => setLocExpanded(true));
+      at(6600, () => setLocExpanded(false));
+      at(7300, () => setPanelOpen(false));
+      at(8400, runCycle);
     };
     runCycle();
     return () => { cancelled = true; timers.forEach(clearTimeout); };
@@ -171,7 +184,7 @@ function AnalyticsVisual() {
           (Copy / Download / Insights / View) and the views count moved into
           the Insights panel, so a header row had nothing left to head. */}
       {RESLINK_ROWS.map(row => (
-        <div key={row.title} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '9px 8px', borderTop: '1px solid #F0F1F4', borderRadius: row.expanded ? '8px 8px 0 0' : 0, background: row.expanded ? '#F7F9FC' : 'transparent' }}>
+        <div key={row.title} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '9px 8px', borderTop: '1px solid #F0F1F4', borderRadius: row.expanded && panelOpen ? '8px 8px 0 0' : 0, background: row.expanded && panelOpen ? '#F7F9FC' : 'transparent', transition: 'background 0.3s' }}>
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
               <span style={{ fontSize: '11px', fontWeight: 700, color: '#041635', fontFamily: 'var(--font-body)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{row.title}</span>
@@ -191,10 +204,14 @@ function AnalyticsVisual() {
           <span className="an-col-extra"><RowAction label="Copy"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></RowAction></span>
           <span className="an-col-extra"><RowAction label="Download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></RowAction></span>
 
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', fontSize: '9px', fontWeight: 600, color: row.expanded ? '#1468E8' : '#6B7280', background: row.expanded ? '#EEF4FF' : 'transparent', borderRadius: '6px', padding: '4px 7px', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', fontSize: '9px', fontWeight: 600, color: row.expanded && panelOpen ? '#1468E8' : '#6B7280', background: row.expanded && panelOpen ? '#EEF4FF' : 'transparent', borderRadius: '6px', padding: '4px 7px', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', transition: 'color 0.3s, background 0.3s' }}>
             <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
             Insights
-            <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points={row.expanded ? '18 15 12 9 6 15' : '6 9 12 15 18 9'} /></svg>
+            {/* The chevron turns over rather than swapping its points, so the
+                row visibly does the opening. */}
+            <motion.svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" animate={{ rotate: row.expanded && panelOpen ? 180 : 0 }} transition={{ duration: 0.3, ease: 'easeInOut' }}>
+              <polyline points="6 9 12 15 18 9" />
+            </motion.svg>
           </span>
 
           {/* Outlined, not solid blue — View is one action among several here
@@ -209,7 +226,17 @@ function AnalyticsVisual() {
           so the card smoothly grows/shrinks as locations unfold instead of
           the surrounding frame reserving a big fixed height that leaves
           empty gray space whenever it's collapsed. */}
-      <motion.div layout transition={{ layout: { duration: 0.35, ease: 'easeInOut' } }} style={{ background: '#F7F9FC', border: '1px solid #EDF0F4', borderTop: 'none', borderRadius: '0 0 10px 10px', padding: '12px', marginTop: '-2px' }}>
+      <AnimatePresence initial={false}>
+      {panelOpen && (
+      <motion.div
+        key="insights-panel"
+        layout
+        initial={{ opacity: 0, height: 0 }}
+        animate={{ opacity: 1, height: 'auto' }}
+        exit={{ opacity: 0, height: 0 }}
+        transition={{ height: { duration: 0.42, ease: [0.22, 1, 0.36, 1] }, opacity: { duration: 0.25 }, layout: { duration: 0.35, ease: 'easeInOut' } }}
+        style={{ background: '#F7F9FC', border: '1px solid #EDF0F4', borderTop: 'none', borderRadius: '0 0 10px 10px', padding: '12px', marginTop: '-2px', overflow: 'hidden' }}
+      >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
           <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '13px', fontWeight: 900, color: '#041635', letterSpacing: '-0.01em' }}>Performance</span>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '9px', color: '#3A3F4C', fontFamily: 'var(--font-body)', background: '#fff', border: '1px solid #E4E7EC', borderRadius: '6px', padding: '3px 8px' }}>
@@ -280,6 +307,8 @@ function AnalyticsVisual() {
           </div>
         </div>
       </motion.div>
+      )}
+      </AnimatePresence>
     </div>
   );
 }

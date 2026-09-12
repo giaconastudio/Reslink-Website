@@ -940,13 +940,14 @@ export default function Features() {
            mobile overrides below so it doesn't get silently beaten by them
            at narrow widths. */
         .feat-visual.tall { height: 420px; }
-        /* Insights reserves a fixed height sized to its fully-expanded state
-           (the Top Locations list animates open/closed on a loop). A fixed
-           frame keeps that animation clipped inside the visual so the height
-           never changes — otherwise the reflow shoved the heading and bullet
-           copy beneath it up and down. !important so it wins over the mobile
-           height overrides regardless of specificity/media-query order. */
-        .feat-visual.auto { height: 512px !important; }
+        /* Insights sizes to its content instead of reserving the expanded
+           height. It used to be pinned to the open state so the copy beneath
+           it never moved, but with the panel now starting closed that left a
+           screen of empty white under the three rows for most of the loop.
+           The frame hugs the list when closed and grows as the panel unfolds
+           — the motion.div inside animates its own height, so the frame
+           follows that easing rather than jumping. */
+        .feat-visual.auto { height: auto !important; }
         .feat-swipe-hint { display: none; }
         @media (max-width: 900px) {
           .feat-body { grid-template-columns: 1fr !important; }
@@ -955,13 +956,9 @@ export default function Features() {
              vertically inside a fixed height, that extra height was pushing the top
              of the resume mockup (the Play Intro pill) out of the clipped frame. */
           .feat-visual, .feat-visual.tall { height: 460px; }
-          .feat-visual.auto { height: 460px !important; }
         }
         @media (max-width: 420px) {
           .feat-visual, .feat-visual.tall { height: 520px; }
-          /* Taller than the desktop 444px because the stat tiles below go
-             two-per-row instead of four, which adds a row of height. */
-          .feat-visual.auto { height: 692px !important; }
         }
         /* Insights' four stat tiles get squeezed to ~65px each once the
            frame is full-width on a phone, which pushed the Top Locations

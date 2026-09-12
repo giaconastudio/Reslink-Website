@@ -68,10 +68,10 @@ const ALL_LOCATIONS = [
    the Reslink, versus clicks leaving it for somewhere else. Colour order
    matches the stacked bar above the legend. */
 const CLICK_SOURCES = [
-  { group: 'Inbound', label: 'Reslink', n: 168, color: '#1468E8' },
-  { group: 'Inbound', label: 'Badge', n: 24, color: '#D63D9D' },
-  { group: 'Outbound', label: 'Portfolio', n: 31, color: '#041635' },
-  { group: 'Outbound', label: 'LinkedIn', n: 19, color: '#9BBF2E' },
+  { group: 'Inbound', label: 'Reslink', n: 12, color: '#1468E8' },
+  { group: 'Inbound', label: 'Badge', n: 6, color: '#D63D9D' },
+  { group: 'Outbound', label: 'Portfolio', n: 5, color: '#041635' },
+  { group: 'Outbound', label: 'LinkedIn', n: 3, color: '#9BBF2E' },
 ];
 const CLICK_TOTAL = CLICK_SOURCES.reduce((sum, s) => sum + s.n, 0);
 
@@ -159,11 +159,14 @@ function AnalyticsVisual() {
     const runCycle = () => {
       setPanelOpen(false);
       setLocExpanded(false);
-      at(1100, () => setPanelOpen(true));
-      at(3400, () => setLocExpanded(true));
-      at(6600, () => setLocExpanded(false));
-      at(7300, () => setPanelOpen(false));
-      at(8400, runCycle);
+      at(1000, () => setPanelOpen(true));
+      at(3200, () => setLocExpanded(true));
+      /* The unfolded locations are the last beat, so the cycle ends there —
+         hold them long enough to read, then close and start over. Stepping
+         the list back down first only added a beat nobody was waiting for
+         and pushed the restart out past eight seconds. */
+      at(5800, () => setPanelOpen(false));
+      at(6700, runCycle);
     };
     runCycle();
     return () => { cancelled = true; timers.forEach(clearTimeout); };
@@ -177,7 +180,7 @@ function AnalyticsVisual() {
     <div ref={rootRef} style={{ width: '100%', height: 'auto', padding: '16px 18px', display: 'flex', flexDirection: 'column', gap: '2px', background: '#fff' }}>
       <div style={{ marginBottom: '6px' }}>
         <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '14px', fontWeight: 900, color: '#041635', letterSpacing: '-0.01em' }}>MY RESLINKS</p>
-        <p style={{ fontSize: '10px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '2px' }}>10 active · 12 total</p>
+        <p style={{ fontSize: '10px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '2px' }}>3 active · 5 total</p>
       </div>
 
       {/* No column headings any more: the actions carry their own labels
@@ -248,7 +251,7 @@ function AnalyticsVisual() {
         <div className="insights-stat-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '7px' }}>
           <div style={statCard}>
             <p style={statLabel}>Unique visitors</p>
-            <p style={{ ...statValue, color: '#D63D9D' }}><CountUp target={142} /></p>
+            <p style={{ ...statValue, color: '#D63D9D' }}><CountUp target={18} /></p>
             <Sparkline />
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '5px', fontSize: '8px', color: '#C2C7D0', fontFamily: 'var(--font-body)' }}>
               <span>5 Sep</span><span>11 Sep</span>

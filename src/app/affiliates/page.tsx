@@ -7,6 +7,7 @@ import { ArrowRight, Plus, Minus, FileText, BarChart2, LifeBuoy, Link2, Wallet, 
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import LogoTicker from '@/components/LogoTicker';
+import { AFFILIATE_SIGNUP_URL } from '@/lib/links';
 
 /* ─── Product explainer (what an affiliate is actually recommending) ─── */
 const RECOMMEND: { key: string; title: string; body: string; em?: string; tail?: string }[] = [
@@ -459,7 +460,7 @@ export default function AffiliatesPage() {
 
             {/* Hero CTA */}
             <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} style={{ textAlign: 'center', marginTop: '36px' }}>
-              <Link href="/get-started?type=affiliate" className="af-apply-cta" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '16px 32px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '16px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+              <Link href={AFFILIATE_SIGNUP_URL} className="af-apply-cta" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '16px 32px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '16px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                 Apply for the program <ArrowRight size={16} />
               </Link>
               <p style={{ fontSize: '13px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '14px' }}>Free to join · paid every month</p>
@@ -539,7 +540,7 @@ export default function AffiliatesPage() {
               ))}
             </div>
             <div style={{ textAlign: 'center', marginTop: '44px' }}>
-              <Link href="/get-started?type=affiliate" className="af-apply-cta" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 30px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+              <Link href={AFFILIATE_SIGNUP_URL} className="af-apply-cta" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 30px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                 Apply for the program <ArrowRight size={16} />
               </Link>
             </div>
@@ -593,7 +594,7 @@ export default function AffiliatesPage() {
               ))}
             </div>
             <div style={{ textAlign: 'center', marginTop: '44px' }}>
-              <Link href="/get-started?type=affiliate" className="af-apply-cta" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 30px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+              <Link href={AFFILIATE_SIGNUP_URL} className="af-apply-cta" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 30px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                 Apply for the program <ArrowRight size={16} />
               </Link>
             </div>
@@ -668,7 +669,7 @@ export default function AffiliatesPage() {
                 Free to join, approved in about two days, and<br className="br-desktop" /> your assets are ready the moment you&apos;re in.
               </p>
               <div className="af-hero-btns" style={{ display: 'inline-flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <Link href="/get-started?type=affiliate" className="af-apply-cta" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 28px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                <Link href={AFFILIATE_SIGNUP_URL} className="af-apply-cta" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 28px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                   Apply for the program <ArrowRight size={16} />
                 </Link>
                 <a href="#calculator" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 28px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.16)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>

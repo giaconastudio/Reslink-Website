@@ -16,3 +16,8 @@ export const APP_SIGNUP_URL = 'https://app.reslink.io/sign-up';
    returning users get routed on too. Split this out if the app grows a
    dedicated login route. */
 export const APP_LOGIN_URL = APP_SIGNUP_URL;
+
+/* The affiliate programme runs on FirstPromoter, not on our own signup —
+   affiliates get their dashboard, referral links and payouts there, so
+   "Apply for the program" leaves the site entirely. */
+export const AFFILIATE_SIGNUP_URL = 'https://reslink.firstpromoter.com';

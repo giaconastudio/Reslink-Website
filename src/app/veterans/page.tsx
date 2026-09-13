@@ -8,6 +8,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { AnimatedStat } from '@/components/CountUp';
 import CTA from '@/components/CTA';
+import { APP_SIGNUP_URL } from '@/lib/links';
 
 const FEATURES = [
   { icon: Zap, title: 'Translate the acronyms', body: 'PitchAI turns your service record into language a civilian hiring manager recognises.' },
@@ -101,7 +102,7 @@ export default function VeteransPage() {
               <div className="vets-hero-btns" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                 {/* Accounts for veterans aren't open yet — VA verification
                     comes first, so the primary action is the waitlist. */}
-                <Link href="/get-started?type=veteran" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 28px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                <Link href={APP_SIGNUP_URL} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 28px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                   Join the waitlist
                 </Link>
                 <Link href="/oliviastone" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
@@ -352,7 +353,7 @@ export default function VeteransPage() {
 
         {/* CTA — shared component, matches the home & students pages */}
         <CTA
-          primaryHref="/get-started?type=veteran"
+          primaryHref={APP_SIGNUP_URL}
           primaryLabel="Join the waitlist"
           footnote="VA verification opens soon · no card needed"
         />

@@ -7,6 +7,7 @@ import { CheckCircle, ArrowRight, GraduationCap, Shield, Mail, AlertCircle, Load
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { checkEligibility, type Kind } from '@/lib/eligibility';
+import { APP_SIGNUP_URL } from '@/lib/links';
 
 type Status = 'idle' | 'checking' | 'eligible' | 'no' | 'manual' | 'error';
 
@@ -119,7 +120,7 @@ export default function EligibilityPage() {
                   <p style={{ fontSize: '13.5px', color: '#4A6321', fontFamily: 'var(--font-body)', lineHeight: 1.55, margin: '0 0 14px' }}>
                     <strong>{email.trim()}</strong> checks out as {kind === 'student' ? 'a student email' : 'a service email'}. Automatic verification is coming very soon — join the waitlist and we&apos;ll email you the moment it opens, with your 50% off ready to go.
                   </p>
-                  <Link href={`/get-started?type=${kind === 'student' ? 'student' : 'veteran'}`}
+                  <Link href={APP_SIGNUP_URL}
                     style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', background: '#061A3A', color: '#fff', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', textDecoration: 'none', padding: '11px 18px', borderRadius: '10px' }}>
                     Join the waitlist <ArrowRight size={15} />
                   </Link>
@@ -156,7 +157,7 @@ export default function EligibilityPage() {
                       ? "Plenty of universities don't use a .edu or .ac.uk style address, so we can't confirm this one automatically. Join the waitlist and we'll verify it before your discount is applied."
                       : "That isn't a military email, so we'll confirm your service record when VA verification opens. Join the waitlist and the 50% discount still applies."}
                   </p>
-                  <Link href={`/get-started?type=${kind === 'student' ? 'student' : 'veteran'}`}
+                  <Link href={APP_SIGNUP_URL}
                     style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', background: '#061A3A', color: '#fff', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', textDecoration: 'none', padding: '11px 18px', borderRadius: '10px' }}>
                     Join the waitlist <ArrowRight size={15} />
                   </Link>

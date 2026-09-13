@@ -349,10 +349,7 @@ export default function PricingPage() {
                         <p style={{ fontSize: '13.5px', color: '#8A6577', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Student and VA verification coming soon.</p>
                       </div>
                     </div>
-                    {/* Goes to /get-started rather than a single audience's
-                        page: the banner covers students and veterans, and
-                        step 1 is where they say which one they are. */}
-                    <Link href="/get-started" className="tap-44" style={{ fontSize: '14px', fontWeight: 700, color: '#9E2462', fontFamily: 'var(--font-body)', textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0, display: 'inline-flex', alignItems: 'center', gap: '7px' }}>
+                    <Link href={APP_SIGNUP_URL} className="tap-44" style={{ fontSize: '14px', fontWeight: 700, color: '#9E2462', fontFamily: 'var(--font-body)', textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0, display: 'inline-flex', alignItems: 'center', gap: '7px' }}>
                       Join our waitlist
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </Link>

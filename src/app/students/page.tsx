@@ -9,6 +9,7 @@ import Footer from '@/components/Footer';
 import { AnimatedStat } from '@/components/CountUp';
 import LogoTicker from '@/components/LogoTicker';
 import CTA from '@/components/CTA';
+import { APP_SIGNUP_URL } from '@/lib/links';
 
 const FEATURES = [
   { icon: Zap, title: 'Enhance your pitch with AI', body: 'Paste the job description and get a script written from your own experience.' },
@@ -101,7 +102,7 @@ export default function StudentsPage() {
               <div className="students-hero-btns" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                 {/* Accounts for students aren't open yet — verification comes
                     first, so the primary action is the waitlist. */}
-                <Link href="/get-started?type=student" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 28px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                <Link href={APP_SIGNUP_URL} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 28px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                   Join the waitlist
                 </Link>
                 <Link href="/oliviastone" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
@@ -374,7 +375,7 @@ export default function StudentsPage() {
 
         {/* CTA — shared component, matches the home page */}
         <CTA
-          primaryHref="/get-started?type=student"
+          primaryHref={APP_SIGNUP_URL}
           primaryLabel="Join the waitlist"
           footnote="Student verification opens soon · no card needed"
         />

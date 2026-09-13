@@ -10,7 +10,7 @@ import {
   BookOpen, LayoutTemplate, LifeBuoy,
   Compass, Rocket, Phone,
 } from 'lucide-react';
-import { APP_LOGIN_URL } from '@/lib/links';
+import { APP_SIGNUP_URL, APP_LOGIN_URL } from '@/lib/links';
 
 const resources = [
   { label: 'Blog', href: '/blog', desc: 'Tips, guides and advice', icon: BookOpen },
@@ -58,14 +58,7 @@ function DropItem({ href, icon: Icon, label, desc, badge, onClick }: {
 
 /* The nav's "Get started for free" is the one signup link still pointing at
    this site's own flow — it's what keeps /get-started reachable. Every other
-   signup CTA hands off to the app. */
-
-// Maps the page a visitor is on to the matching account type on the sign-up
-// page, so "Get started" arrives with that audience already selected.
-const SIGNUP_TYPE_BY_PATH: Record<string, string> = {
-  '/veterans': 'veteran',
-  '/students': 'student',
-};
+   signup CTA, waitlist included, hands off to the app. */
 
 /* Organisations don't self-serve. On these pages the nav button asks for a
    demo instead of an account, so it matches the rest of the page. */
@@ -83,7 +76,9 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
   const joinsWaitlist = WAITLIST_PATHS.has(pathname);
   const signupHref = talksToSales
     ? '/contact/sales'
-    : (SIGNUP_TYPE_BY_PATH[pathname] ? `/get-started?type=${SIGNUP_TYPE_BY_PATH[pathname]}` : '/get-started');
+    : joinsWaitlist
+      ? APP_SIGNUP_URL
+      : '/get-started';
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);

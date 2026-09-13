@@ -57,10 +57,14 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={sectionRef} onMouseMove={onGlowMove} style={{ background: '#fff', position: 'relative', overflow: 'hidden', paddingBottom: '72px' }}>
+    <section ref={sectionRef} className="hero-section" onMouseMove={onGlowMove} style={{ background: '#fff', position: 'relative', overflow: 'hidden' }}>
       <motion.div style={{ position: 'absolute', top: '-10%', left: '50%', marginLeft: '-450px', width: '900px', height: '700px', background: 'radial-gradient(ellipse at center, rgba(20,104,232,0.08), transparent 65%)', pointerEvents: 'none', zIndex: 0, x: sGlowX, y: sGlowY }} />
 
       <style>{`
+        /* Was inline on the <section>, which no media query can override
+           without !important — and the phone layout needs to trim it, because
+           the co-sell link now sits inside this padding rather than after it. */
+        .hero-section { padding-bottom: 72px; }
         .hero-inner { max-width: 1120px; margin: 0 auto; padding: 120px 24px 0; text-align: center; position: relative; z-index: 1; }
         .hero-h1 {
           font-family: var(--font-phudu);
@@ -110,7 +114,17 @@ export default function Hero() {
         .hero-cosell-mobile { display: none; }
         @media (max-width: 760px) {
           .hero-proof-row .hero-cosell-link { display: none; }
-          .hero-cosell-mobile { display: flex; justify-content: center; margin: 26px 16px 0; }
+          /* Sat 26px under the stage but 72px above the logo bar, so it read
+             as hanging off the bottom of the card rather than standing on its
+             own. The 72 is the hero's own padding-bottom, set when the stage
+             was the last thing in here — the link now lives inside it. Evened
+             up: ~44px of clear air either side, taken out of that padding
+             rather than added to the page. */
+          .hero-cosell-mobile { display: flex; justify-content: center; margin: 44px 16px 0; }
+          /* 72 -> 44 so the air below the link matches the air above it. The
+             page doesn't get taller: the 28px comes out of the padding and
+             goes into the gap that was missing. */
+          .hero-section { padding-bottom: 44px; }
         }
 
         .hero-cobanner { display: flex; justify-content: center; margin-bottom: 40px; }

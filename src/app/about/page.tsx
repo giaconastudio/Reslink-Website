@@ -286,10 +286,20 @@ export default function AboutPage() {
               </h2>
             </motion.div>
 
-            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '24px', maxWidth: '972px', margin: '0 auto' }} className="team-grid">
+            <div style={{ display: 'grid', gap: '24px', margin: '0 auto' }} className="team-grid">
               <style>{`
-                .team-grid > div { flex: 0 1 300px; }
-                @media (max-width: 480px) { .team-grid > div { flex: 0 1 300px; } }
+                /* All four on one row. Wrapping left three up top and one
+                   stranded underneath, which read as a missing person rather
+                   than a deliberate layout. Fixed 300px cards couldn't fit
+                   four across, so the columns share the row instead and the
+                   container widens just enough that the longest name still
+                   sits on one line beside its two buttons.
+                   max-width lives here, not inline, so the breakpoints below
+                   can override it. */
+                .team-grid { grid-template-columns: repeat(4, 1fr); max-width: 1160px; }
+                /* Two on top, two on bottom before it ever drops to one. */
+                @media (max-width: 900px) { .team-grid { grid-template-columns: repeat(2, 1fr); max-width: 640px; } }
+                @media (max-width: 560px) { .team-grid { grid-template-columns: 1fr; max-width: 320px; } }
               `}</style>
               {TEAM.map((m) => <TeamCard key={m.name} member={m} />)}
             </div>

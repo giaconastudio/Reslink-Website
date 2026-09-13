@@ -75,13 +75,16 @@ export default function Hero() {
           color: #061A3A;
           margin-bottom: 24px;
         }
-        /* Smaller than it wants to be, deliberately. The headline is the
-           single biggest block above the fold on a phone, so a few vw off it
-           lifts the CTAs, the proof row and the animation up the screen — the
-           cheapest height in the hero. Tighter tracking keeps it reading as a
-           display face rather than just shrunken. */
+        /* Sized to the longest line, not to taste. With the break forced above,
+           "Resumes get ignored." has to fit on one line: measured against the
+           real Phudu face it wants 899px at 100px, so the ceiling is ~39px in
+           the 358px available at 390, and ~43px in 390px at 430. 10vw lands
+           just under both. Go bigger and the sentence wraps again, which is
+           the three-line layout this replaces.
+           The floor keeps 320px phones legible; there the line wraps rather
+           than shrinking into nothing. */
         @media (max-width: 520px) {
-          .hero-h1 { font-size: clamp(38px, 10.5vw, 50px); line-height: 0.98; letter-spacing: -0.025em; }
+          .hero-h1 { font-size: clamp(32px, 10vw, 44px); line-height: 1.0; letter-spacing: -0.025em; }
         }
         .hero-sub {
           font-size: clamp(16px, 2vw, 20px);
@@ -239,7 +242,12 @@ export default function Hero() {
       <div className="hero-inner">
         {/* Headline */}
         <h1 className="hero-h1 hero-reveal" style={{ ['--hero-reveal-y' as string]: '18px', ['--hero-reveal-delay' as string]: '0.05s' }}>
-          <span style={{ color: '#9CA3AF' }}>Resumes get ignored.</span>{' '}<br className="br-desktop" />
+          {/* Breaks on every width, not just desktop. The two sentences are
+              the whole structure of this headline, and left to wrap on its own
+              a phone broke it mid-sentence — "ignored. Reslinks" sharing a
+              line — which reads as one run-on rather than a contrast. The size
+              below is set so each sentence actually fits the line it's given. */}
+          <span style={{ color: '#9CA3AF' }}>Resumes get ignored.</span>{' '}<br />
           Reslinks get{' '}
           <span style={{ background: 'linear-gradient(#D7FF43, #D7FF43) no-repeat', backgroundSize: '100% 0.34em', backgroundPosition: '0 calc(100% - 0.1em)', padding: '0 0.05em', WebkitBoxDecorationBreak: 'clone', boxDecorationBreak: 'clone' }}>watched.</span>
         </h1>

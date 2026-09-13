@@ -141,7 +141,10 @@ export default function PricingPage() {
 
   /* Job seekers are monthly or annual only — there is no quarterly plan to
      sell them, so the page no longer offers one. */
-  const seekerPrice = billing === 'monthly' ? 14 : 5;
+  const seekerPrice = billing === 'monthly' ? 14.5 : 5;
+  /* 14.5 has to read as "14.50", but running both through toFixed(2) would
+     turn the annual card into "$5.00" — cents only where there are cents. */
+  const seekerPriceLabel = Number.isInteger(seekerPrice) ? String(seekerPrice) : seekerPrice.toFixed(2);
   const seekerBilledLine = billing === 'annual' ? 'Billed $58 per year' : null;
   const seekerSaveLabel = billing === 'annual' ? 'Save 64%' : null;
 
@@ -294,7 +297,7 @@ export default function PricingPage() {
                           <AnimatePresence mode="wait">
                             <motion.span key={seekerPrice} initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 6 }} transition={{ duration: 0.15 }}
                               style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(44px, 5.5vw, 56px)', fontWeight: 900, color: '#fff', lineHeight: 1, letterSpacing: '-0.03em', display: 'block' }}>
-                              ${seekerPrice}
+                              ${seekerPriceLabel}
                             </motion.span>
                           </AnimatePresence>
                           <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', marginBottom: '8px' }}>/month</span>

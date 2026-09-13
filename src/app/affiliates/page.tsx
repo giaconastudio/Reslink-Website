@@ -54,7 +54,7 @@ const PROOF = [
 ];
 
 const FAQS = [
-  { q: 'What exactly do I earn commission on?', a: "45% of every payment a customer you referred makes, for up to 24 months from their first paid subscription. On the $14 monthly plan that's $6.30 per customer, every month they stay. Annual subscribers pay $58, so commission on those works out lower." },
+  { q: 'What exactly do I earn commission on?', a: "45% of every payment a customer you referred makes, for up to 24 months from their first paid subscription. On the $14.50 monthly plan that's $6.53 per customer, every month they stay. Annual subscribers pay $58, so commission on those works out lower." },
   { q: 'How long is the referral window?', a: 'Ninety days. If someone clicks your link and subscribes any time in the next three months, the referral is credited to you.' },
   { q: 'When and how do I get paid?', a: 'Monthly, once your balance passes a small threshold. Payouts go out on a fixed cycle by bank transfer or PayPal, and pending vs. cleared commission is always visible in your dashboard.' },
   { q: 'What happens if someone cancels or refunds?', a: "Commission is only paid on payments that actually clear. If a customer refunds, that payment is reversed; if they cancel, future months simply stop - but nothing you've already been paid is clawed back." },
@@ -351,8 +351,8 @@ export default function AffiliatesPage() {
   const [refers, setRefers] = useState(25);
   const [retention, setRetention] = useState(12);
 
-  // Commission maths: $14 plan × 45% = $6.30 per customer, per month.
-  const RATE = 14 * 0.45;
+  // Commission maths: $14.50 plan × 45% = $6.53 per customer, per month.
+  const RATE = 14.5 * 0.45;
   const activeAfter12 = refers * Math.min(12, retention);
   const monthlyAfter12 = activeAfter12 * RATE;
   const yearOne = Array.from({ length: 12 }, (_, i) => refers * Math.min(i + 1, retention) * RATE).reduce((a, b) => a + b, 0);
@@ -453,7 +453,7 @@ export default function AffiliatesPage() {
               </div>
 
               <p style={{ padding: '16px clamp(28px, 4vw, 40px)', borderTop: '1px solid #ECEEF1', fontSize: '12px', color: '#9AA1AE', fontFamily: 'var(--font-body)', lineHeight: 1.6 }}>
-                Based on the $14 monthly plan at 45% commission. Assumes referrals arrive evenly and stay for the period selected.
+                Based on the $14.50 monthly plan at 45% commission. Assumes referrals arrive evenly and stay for the period selected.
               </p>
             </motion.div>
 

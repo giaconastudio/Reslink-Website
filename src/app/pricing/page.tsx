@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Check, X, Zap, Star, Minus, Plus, Briefcase, Building2, Users, ShieldCheck, Globe, Lock, RefreshCw, ArrowRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { APP_SIGNUP_URL } from '@/lib/links';
 
 /* ─── Job seeker plan features ─── */
 const SEEKER_FREE = [
@@ -282,7 +283,7 @@ export default function PricingPage() {
                       <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '36px', flex: 1 }}>
                         {SEEKER_FREE.map(f => <CheckItem key={f} label={f} />)}
                       </ul>
-                      <Link href="/get-started" className="pr-cta-outline" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#fff', color: '#061A3A', fontWeight: 700, fontSize: '15px', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)', border: '1.5px solid #E4E6EC' }}>
+                      <Link href={APP_SIGNUP_URL} className="pr-cta-outline" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#fff', color: '#061A3A', fontWeight: 700, fontSize: '15px', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)', border: '1.5px solid #E4E6EC' }}>
                         Get started free
                       </Link>
                     </div>

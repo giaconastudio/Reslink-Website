@@ -8,6 +8,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import StructuredText, { collectHeadings } from '@/components/StructuredText';
 import type { Post } from '../queries';
+import { APP_SIGNUP_URL } from '@/lib/links';
 
 export default function ArticleView({ post, related }: { post: Post; related: Post[] }) {
   const headings = collectHeadings(post.document);
@@ -137,7 +138,7 @@ export default function ArticleView({ post, related }: { post: Post; related: Po
                       One link with your video intro, your resume and your work. And you see exactly who opens it.
                     </p>
                     <div className="blog-cta-btns">
-                      <Link href="/get-started" style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '11px 20px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '13.5px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                      <Link href={APP_SIGNUP_URL} style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '11px 20px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '13.5px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                         Get started for free <ArrowRight size={14} />
                       </Link>
                       <Link href="/oliviastone" style={{ display: 'inline-flex', alignItems: 'center', padding: '11px 20px', background: 'rgba(255,255,255,0.12)', color: '#fff', border: '1px solid rgba(255,255,255,0.28)', borderRadius: '10px', fontSize: '13.5px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>

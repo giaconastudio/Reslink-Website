@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import StoryTimeline from '@/components/StoryTimeline';
 import CandidateReel from '@/components/CandidateReel';
 import CTA from '@/components/CTA';
+import { APP_SIGNUP_URL } from '@/lib/links';
 
 const TEAM = [
   {
@@ -180,7 +181,7 @@ export default function AboutPage() {
                   At Reslink, we help candidates show who they really are, and give companies a way to see it.
                 </p>
                 <div className="ah-ctas">
-                  <a href="/get-started" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
+                  <a href={APP_SIGNUP_URL} className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
                     Get started for free
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
                   </a>

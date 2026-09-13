@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { Eye, EyeOff, ArrowRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { APP_SIGNUP_URL } from '@/lib/links';
 
 export default function LoginPage() {
   const [showPw, setShowPw] = useState(false);
@@ -41,7 +42,7 @@ export default function LoginPage() {
               <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: '32px', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.03em', marginBottom: '6px', textAlign: 'center' }}>Log in to your account</h1>
               <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginBottom: '32px', textAlign: 'center' }}>
                 New here?{' '}
-                <Link href="/get-started" className="tap-44" style={{ color: '#1468E8', textDecoration: 'none', fontWeight: 700 }}>Create an account</Link>
+                <Link href={APP_SIGNUP_URL} className="tap-44" style={{ color: '#1468E8', textDecoration: 'none', fontWeight: 700 }}>Create an account</Link>
               </p>
 
               {/* Google SSO */}

@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import { APP_SIGNUP_URL } from '@/lib/links';
 
 // Per-step background — the whole card changes colour as you move through the
 // steps. Dark grounds so the white text and the lime accent stay readable on
@@ -290,7 +291,7 @@ export default function HowItWorks() {
             <div className="hiw-header">
               <p className="hiw-eyebrow">How it works</p>
               <h2 className="hiw-title">Five minutes, start to finish</h2>
-              <Link href="/get-started" className="btn-primary hiw-cta">
+              <Link href={APP_SIGNUP_URL} className="btn-primary hiw-cta">
                 Get started for free
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
               </Link>

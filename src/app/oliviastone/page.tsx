@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, Play, Pause, Download, MapPin, Mail, Eye, Clock, MousePointerClick, Globe } from 'lucide-react';
+import { APP_SIGNUP_URL } from '@/lib/links';
 
 function LinkedinIcon({ size = 14 }: { size?: number }) {
   return (
@@ -96,7 +97,7 @@ export default function ExampleProfilePage() {
               <motion.span className="ex-banner-dot" animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 1.4 }} style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#5B7A0F', flexShrink: 0 }} />
               <span><strong style={{ color: '#061A3A', fontWeight: 700 }}>Example Reslink.</strong> This is exactly what recruiters see.</span>
             </p>
-            <Link href="/get-started" className="ex-banner-cta" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '6px', background: '#061A3A', color: '#fff', fontSize: '12.5px', fontWeight: 700, borderRadius: '100px', padding: '9px 18px', textDecoration: 'none', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', flexShrink: 0 }}>
+            <Link href={APP_SIGNUP_URL} className="ex-banner-cta" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '6px', background: '#061A3A', color: '#fff', fontSize: '12.5px', fontWeight: 700, borderRadius: '100px', padding: '9px 18px', textDecoration: 'none', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', flexShrink: 0 }}>
               Create yours <ArrowRight size={13} strokeWidth={2.5} />
             </Link>
           </div>
@@ -380,7 +381,7 @@ export default function ExampleProfilePage() {
               <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.55)', lineHeight: 1.6, fontFamily: 'var(--font-body)', marginBottom: '24px', position: 'relative' }}>
                 One link with your resume, your video pitch, and live analytics on everyone who views it.
               </p>
-              <Link href="/get-started" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', fontSize: '15px', fontWeight: 800, padding: '17px 26px', background: '#D7FF43', color: '#061A3A', borderRadius: '12px', textDecoration: 'none', fontFamily: 'var(--font-body)', position: 'relative', width: '100%', boxSizing: 'border-box' }}>
+              <Link href={APP_SIGNUP_URL} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', fontSize: '15px', fontWeight: 800, padding: '17px 26px', background: '#D7FF43', color: '#061A3A', borderRadius: '12px', textDecoration: 'none', fontFamily: 'var(--font-body)', position: 'relative', width: '100%', boxSizing: 'border-box' }}>
                 Get started for free <ArrowRight size={15} />
               </Link>
               <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', textAlign: 'center', marginTop: '12px', position: 'relative' }}>Free · under 5 minutes</p>

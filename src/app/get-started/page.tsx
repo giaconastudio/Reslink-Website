@@ -9,6 +9,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import DemoRequestForm, { type OrgKind } from '@/components/DemoRequestForm';
 import WaitlistForm, { type WaitlistKind } from '@/components/WaitlistForm';
+import { APP_LOGIN_URL } from '@/lib/links';
 
 type AccountType = 'seeker' | 'student' | 'veteran' | 'company' | 'agency' | 'university';
 
@@ -314,7 +315,7 @@ function GetStartedForm() {
                   </button>
                   <p style={{ textAlign: 'center', fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)' }}>
                     Already have an account?{' '}
-                    <Link href="/login" style={{ color: '#1468E8', textDecoration: 'none', fontWeight: 700 }}>Log in</Link>
+                    <Link href={APP_LOGIN_URL} style={{ color: '#1468E8', textDecoration: 'none', fontWeight: 700 }}>Log in</Link>
                   </p>
                 </div>
               </div>

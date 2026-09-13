@@ -10,6 +10,7 @@ import {
   BookOpen, LayoutTemplate, LifeBuoy,
   Compass, Rocket, Phone,
 } from 'lucide-react';
+import { APP_SIGNUP_URL, APP_LOGIN_URL } from '@/lib/links';
 
 const resources = [
   { label: 'Blog', href: '/blog', desc: 'Tips, guides and advice', icon: BookOpen },
@@ -78,7 +79,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
   const joinsWaitlist = WAITLIST_PATHS.has(pathname);
   const signupHref = talksToSales
     ? '/contact/sales'
-    : (SIGNUP_TYPE_BY_PATH[pathname] ? `/get-started?type=${SIGNUP_TYPE_BY_PATH[pathname]}` : '/get-started');
+    : (SIGNUP_TYPE_BY_PATH[pathname] ? `/get-started?type=${SIGNUP_TYPE_BY_PATH[pathname]}` : APP_SIGNUP_URL);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
@@ -237,7 +238,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
 
           {/* Right CTAs */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }} className="desktop-nav">
-            <Link href="/login" style={{ fontSize: '14px', fontWeight: 500, color: linkColor, textDecoration: 'none', padding: '8px 14px', borderRadius: '8px', transition: 'background 0.15s, color 0.15s', fontFamily: 'var(--font-body)' }}
+            <Link href={APP_LOGIN_URL} style={{ fontSize: '14px', fontWeight: 500, color: linkColor, textDecoration: 'none', padding: '8px 14px', borderRadius: '8px', transition: 'background 0.15s, color 0.15s', fontFamily: 'var(--font-body)' }}
               onMouseEnter={e => { (e.currentTarget.style.background = linkHoverBg); (e.currentTarget.style.color = linkActiveColor); }}
               onMouseLeave={e => { (e.currentTarget.style.background = 'transparent'); (e.currentTarget.style.color = linkColor); }}
             >Log in</Link>

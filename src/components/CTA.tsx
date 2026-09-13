@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { APP_SIGNUP_URL } from '@/lib/links';
 
 interface CTAProps {
   /** Small uppercase label above the headline. */
@@ -29,7 +30,10 @@ export default function CTA({
   heading,
   body = 'One link with your video intro, your resume and your work. And you see exactly who opens it.',
   primaryLabel = 'Get started for free',
-  primaryHref = '/get-started',
+  /* Defaults to the app's sign-up. Pages with a flow that still lives on the
+     marketing site — the student and veteran waitlist — pass their own
+     primaryHref and are unaffected. */
+  primaryHref = APP_SIGNUP_URL,
   secondaryLabel = 'See a real Reslink',
   secondaryHref = '/oliviastone',
   footnote = 'Free to start · under 5 minutes · no card needed',

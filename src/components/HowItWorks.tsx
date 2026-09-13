@@ -106,7 +106,13 @@ export default function HowItWorks() {
            uneven, sometimes very large gap at the bottom on taller screens
            since the content block is shorter than the card's max-height.
            Centering balances the slack evenly on any screen height. */
+        /* iOS inflates text in some layouts (and honours Dynamic Type), which
+           this card cannot absorb: it is overflow:hidden against a viewport
+           cap, so anything the inflation adds is silently cut off the bottom —
+           taking the scroll chevron with it. Pinning the adjust keeps the
+           measured budget the real one on a phone too. */
         .hiw-card {
+          -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
           position: relative; width: 100%; max-width: 1180px; height: calc(100vh - 68px - 32px); max-height: 700px;
           border-radius: 32px; overflow: hidden;
           background: linear-gradient(160deg, #0A1E44 0%, #05173A 52%, #061A3A 100%);
@@ -161,12 +167,19 @@ export default function HowItWorks() {
         /* Step indicator — a thin rail of dots right beside the stage */
         /* Desktop only — below 901px the .hiw-row-scroll chevron under the
            step list already does this job, and two cues would compete. */
+        /* Stacked, not inline: label over chevron points downward as a shape,
+           which is most of the signal — read at a glance it's an arrow with a
+           caption, not a sentence with a glyph stuck on the end.
+           Quiet by design (10px, 32% white, wide tracking) so it reads as a
+           margin note; the chevron carries the accent and the motion, which is
+           the part that has to be noticeable. */
         .hiw-scroll-cue {
-          display: flex; align-items: center; justify-content: center; gap: 8px;
-          margin-top: clamp(14px, 2.6vh, 26px);
-          font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
-          color: rgba(255,255,255,0.45); font-family: var(--font-body);
-          user-select: none;
+          display: flex; flex-direction: column; align-items: center; gap: 7px;
+          margin-top: clamp(20px, 3.4vh, 36px);
+          font-size: 10px; font-weight: 700; letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.32); font-family: var(--font-body);
+          user-select: none; pointer-events: none;
         }
         @media (max-width: 900px) { .hiw-scroll-cue { display: none; } }
         .hiw-rail { display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
@@ -199,11 +212,17 @@ export default function HowItWorks() {
              the uncropped video leaves ~150px spare) and tightens by itself on
              short ones, instead of one hardcoded value that is either cramped
              or overflowing depending on the device. */
-          .hiw-inner { padding: clamp(18px, 3vh, 34px) 16px; }
-          .hiw-header { margin-bottom: clamp(14px, 2.8vh, 28px); }
+          /* Asymmetric and more generous up top. The eyebrow was sitting 26px
+             off the card's edge on a 844px phone and 29px on a 932px one,
+             which read as the title being jammed against the corner. There is
+             room for it: at 430x932 the card came to 720px inside an 848px
+             cap, so ~128px of height was going unused. Still vh-relative, so
+             short phones tighten themselves rather than overflowing. */
+          .hiw-inner { padding: clamp(26px, 4.4vh, 46px) 16px clamp(20px, 3.2vh, 34px); }
+          .hiw-header { margin-bottom: clamp(16px, 3.2vh, 32px); }
           /* min-width:0 — grid items otherwise refuse to shrink below their
              content's intrinsic width and overflow the collapsed column. */
-          .hiw-grid { grid-template-columns: 1fr; gap: clamp(14px, 2.4vh, 24px); }
+          .hiw-grid { grid-template-columns: 1fr; gap: clamp(16px, 2.9vh, 30px); }
           .hiw-grid > * { min-width: 0; }
           /* 3.2vh came out at 27px on a 844px phone, which read as four
              separate items rather than one list. Tightened to ~17px there. */
@@ -272,8 +291,11 @@ export default function HowItWorks() {
            shrink on its own — tighten the spacing and cap the stage far
            harder here, rather than letting the card clip its own content. */
         @media (max-width: 860px) and (max-height: 760px) {
-          .hiw-inner { padding: 16px 20px; }
-          .hiw-header { margin-bottom: 12px; }
+          /* Short phones have far less to give — 32px of slack at 390x667
+             against 128px on a tall one — so this only buys the title a few
+             px rather than matching the taller breakpoint. */
+          .hiw-inner { padding: 22px 20px 18px; }
+          .hiw-header { margin-bottom: 13px; }
           .hiw-title { font-size: 19px; }
           .hiw-cta { margin-top: 10px; padding: 9px 16px !important; font-size: 12.5px !important; }
           .hiw-grid { gap: 12px; }
@@ -382,8 +404,8 @@ export default function HowItWorks() {
                 reads as the card's own footer. */}
             <div className="hiw-scroll-cue" aria-hidden="true">
               <span>Scroll to continue</span>
-              <motion.span animate={{ y: [0, 4, 0] }} transition={{ repeat: Infinity, duration: 1.3 }} style={{ display: 'inline-flex' }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={activeAccent} strokeWidth="2.8" style={{ transition: 'stroke 0.4s ease' }}>
+              <motion.span animate={{ y: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }} style={{ display: 'inline-flex' }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={activeAccent} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ transition: 'stroke 0.4s ease' }}>
                   <polyline points="6 9 12 15 18 9" />
                 </svg>
               </motion.span>

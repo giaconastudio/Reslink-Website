@@ -24,7 +24,7 @@ const FAQS = [
   { q: 'What if I\'m not confident on camera yet?', a: 'The teleprompter scrolls your script while you record, so you can just read it and look straight at the camera. Most veterans feel natural after a take or two.' },
   { q: 'Can I use Reslink before I\'ve separated?', a: 'Yes. Plenty of service members build their Reslink while still in, so it\'s ready the day they start applying. Nothing stops you from setting it up early.' },
   { q: 'Will this work alongside my resume and LinkedIn?', a: 'Yes. Reslink sits alongside your resume and LinkedIn, it doesn\'t replace them. You still submit your PDF, and you add your Reslink to applications, your email and your LinkedIn profile.' },
-  { q: 'Is Reslink free for veterans?', a: 'Yes. You can create and share a full Reslink for free. Pro features are half price for veterans. ID.me verification is available soon; until it launches, sign up and contact support with your service email.' },
+  { q: 'Is Reslink free for veterans?', a: 'Yes — a full Reslink is free to create and share, and Pro features are half price for veterans. Veteran accounts are not open just yet: they unlock when ID.me verification goes live, which is very soon. Join the waitlist and we will email you the moment it does, with your 50% off ready to go.' },
   { q: 'How long should my video be?', a: 'Aim for 60 to 90 seconds. Enough to introduce yourself, cover two or three strengths, and show you want the role. Short, direct and confident.' },
 ];
 
@@ -99,8 +99,10 @@ export default function VeteransPage() {
                 Civilian recruiters don&apos;t always know what your title meant. Reslink lets you explain it yourself, in your own words, before they open your resume.
               </p>
               <div className="vets-hero-btns" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                {/* Accounts for veterans aren't open yet — ID.me verification
+                    comes first, so the primary action is the waitlist. */}
                 <Link href="/get-started?type=veteran" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 28px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                  Get started for free
+                  Join the waitlist
                 </Link>
                 <Link href="/oliviastone" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                   See a real Reslink
@@ -349,7 +351,11 @@ export default function VeteransPage() {
         </section>
 
         {/* CTA — shared component, matches the home & students pages */}
-        <CTA primaryHref="/get-started?type=veteran" />
+        <CTA
+          primaryHref="/get-started?type=veteran"
+          primaryLabel="Join the waitlist"
+          footnote="ID.me verification opens soon · no card needed"
+        />
 
       </main>
       <Footer />

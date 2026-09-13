@@ -117,11 +117,11 @@ export default function EligibilityPage() {
                     <p style={{ fontSize: '16px', fontWeight: 800, color: '#2C4D08', fontFamily: 'var(--font-body)', margin: 0 }}>You&apos;re eligible for 50% off.</p>
                   </div>
                   <p style={{ fontSize: '13.5px', color: '#4A6321', fontFamily: 'var(--font-body)', lineHeight: 1.55, margin: '0 0 14px' }}>
-                    <strong>{email.trim()}</strong> checks out as {kind === 'student' ? 'a student email' : 'a service email'}. Automatic verification is coming soon — for now, sign up and contact support from this address and we&apos;ll apply the discount to your account.
+                    <strong>{email.trim()}</strong> checks out as {kind === 'student' ? 'a student email' : 'a service email'}. Automatic verification is coming very soon — join the waitlist and we&apos;ll email you the moment it opens, with your 50% off ready to go.
                   </p>
                   <Link href={`/get-started?type=${kind === 'student' ? 'student' : 'veteran'}`}
                     style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', background: '#061A3A', color: '#fff', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', textDecoration: 'none', padding: '11px 18px', borderRadius: '10px' }}>
-                    Continue to sign up <ArrowRight size={15} />
+                    Join the waitlist <ArrowRight size={15} />
                   </Link>
                 </motion.div>
               )}
@@ -153,12 +153,12 @@ export default function EligibilityPage() {
                   </div>
                   <p style={{ fontSize: '13.5px', color: '#1B5299', fontFamily: 'var(--font-body)', lineHeight: 1.6, margin: '0 0 14px' }}>
                     {kind === 'student'
-                      ? "Plenty of universities don't use a .edu or .ac.uk style address, so we can't confirm this one automatically. Sign up and we'll verify it before the discount is applied."
-                      : "That isn't a military email, so we'll confirm your service record at signup instead. It takes a minute and the 50% discount still applies."}
+                      ? "Plenty of universities don't use a .edu or .ac.uk style address, so we can't confirm this one automatically. Join the waitlist and we'll verify it before your discount is applied."
+                      : "That isn't a military email, so we'll confirm your service record when ID.me verification opens. Join the waitlist and the 50% discount still applies."}
                   </p>
                   <Link href={`/get-started?type=${kind === 'student' ? 'student' : 'veteran'}`}
                     style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', background: '#061A3A', color: '#fff', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', textDecoration: 'none', padding: '11px 18px', borderRadius: '10px' }}>
-                    Continue and verify <ArrowRight size={15} />
+                    Join the waitlist <ArrowRight size={15} />
                   </Link>
                 </motion.div>
               )}

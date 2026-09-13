@@ -66,9 +66,16 @@ const SIGNUP_TYPE_BY_PATH: Record<string, string> = {
    demo instead of an account, so it matches the rest of the page. */
 const SALES_PATHS = new Set(['/companies', '/agencies', '/universities']);
 
+/* Students and veterans can't open an account until verification ships, so on
+   their pages the nav button offers the waitlist rather than promising a
+   signup it can't deliver — it already deep-links to those types, which would
+   otherwise land someone on a waitlist after clicking "Get started for free". */
+const WAITLIST_PATHS = new Set(['/students', '/veterans']);
+
 export default function Navbar({ dark = false, blue = false }: { dark?: boolean; blue?: boolean }) {
   const pathname = usePathname();
   const talksToSales = SALES_PATHS.has(pathname);
+  const joinsWaitlist = WAITLIST_PATHS.has(pathname);
   const signupHref = talksToSales
     ? '/contact/sales'
     : (SIGNUP_TYPE_BY_PATH[pathname] ? `/get-started?type=${SIGNUP_TYPE_BY_PATH[pathname]}` : '/get-started');
@@ -235,14 +242,14 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
               onMouseLeave={e => { (e.currentTarget.style.background = 'transparent'); (e.currentTarget.style.color = linkColor); }}
             >Log in</Link>
             <Link href={signupHref} className="btn-primary" style={{ padding: '9px 18px', fontSize: '14px' }}>
-              {talksToSales ? 'Schedule a demo' : 'Get started for free'}
+              {talksToSales ? 'Schedule a demo' : joinsWaitlist ? 'Join the waitlist' : 'Get started for free'}
             </Link>
           </div>
 
           {/* Mobile: Get started + toggle */}
           <div style={{ display: 'none', alignItems: 'center', gap: '8px' }} className="mobile-toggle">
             <Link href={signupHref} className="btn-primary" style={{ padding: '8px 14px', fontSize: '13px', fontWeight: 700 }}>
-              {talksToSales ? 'Book a demo' : 'Get started'}
+              {talksToSales ? 'Book a demo' : joinsWaitlist ? 'Join waitlist' : 'Get started'}
             </Link>
             <button onClick={() => { setMobileOpen(!mobileOpen); setMobileExpanded(null); }} style={{ width: '44px', height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'none', border: 'none', cursor: 'pointer', color: isDark ? '#fff' : '#061A3A', flexShrink: 0 }}>
               {mobileOpen ? <X size={20} /> : <Menu size={20} />}
@@ -301,7 +308,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
           ))}
 
           <Link href="/pricing" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#061A3A', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => setMobileOpen(false)}>Pricing</Link>
-          <Link href={signupHref} className="btn-primary" style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }} onClick={() => setMobileOpen(false)}>{talksToSales ? 'Schedule a demo' : 'Get started for free'}</Link>
+          <Link href={signupHref} className="btn-primary" style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }} onClick={() => setMobileOpen(false)}>{talksToSales ? 'Schedule a demo' : joinsWaitlist ? 'Join the waitlist' : 'Get started for free'}</Link>
         </div>
       )}
 

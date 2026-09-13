@@ -115,8 +115,10 @@ export default function StudentsPage() {
                 Land internships and first jobs by showing recruiters who you actually are, not just a list of coursework.
               </p>
               <div className="students-hero-btns" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                {/* Accounts for students aren't open yet — verification comes
+                    first, so the primary action is the waitlist. */}
                 <Link href="/get-started?type=student" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 28px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '15px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                  Get started for free
+                  Join the waitlist
                 </Link>
                 <Link href="/oliviastone" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 26px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '10px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                   See a real Reslink
@@ -160,7 +162,7 @@ export default function StudentsPage() {
                     style={{ marginTop: '12px', maxWidth: '440px', display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(215,255,67,0.12)', border: '1px solid rgba(215,255,67,0.35)', borderRadius: '10px', padding: '11px 14px' }}>
                     <span style={{ width: '24px', height: '24px', borderRadius: '50%', background: '#D7FF43', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><CheckCircle size={14} color="#061A3A" strokeWidth={2.5} /></span>
                     <p style={{ fontSize: '13.5px', color: '#fff', fontFamily: 'var(--font-body)', margin: 0, lineHeight: 1.45 }}>
-                      You&apos;re eligible — 50% off applies when you sign up below.
+                      You&apos;re eligible — join the waitlist and your 50% off is ready the day verification opens.
                     </p>
                   </motion.div>
                 )}
@@ -170,7 +172,7 @@ export default function StudentsPage() {
                     style={{ marginTop: '12px', maxWidth: '440px', display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(215,255,67,0.12)', border: '1px solid rgba(215,255,67,0.35)', borderRadius: '10px', padding: '11px 14px' }}>
                     <span style={{ width: '24px', height: '24px', borderRadius: '50%', background: '#D7FF43', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><CheckCircle size={14} color="#061A3A" strokeWidth={2.5} /></span>
                     <p style={{ fontSize: '13.5px', color: '#fff', fontFamily: 'var(--font-body)', margin: 0, lineHeight: 1.45 }}>
-                      We can&apos;t confirm that domain automatically. Sign up and we&apos;ll check it before the discount is applied.
+                      We can&apos;t confirm that domain automatically. Join the waitlist and we&apos;ll check it before your discount is applied.
                     </p>
                   </motion.div>
                 )}
@@ -435,7 +437,11 @@ export default function StudentsPage() {
         </section>
 
         {/* CTA — shared component, matches the home page */}
-        <CTA primaryHref="/get-started?type=student" />
+        <CTA
+          primaryHref="/get-started?type=student"
+          primaryLabel="Join the waitlist"
+          footnote="Student verification opens soon · no card needed"
+        />
 
       </main>
       <Footer />

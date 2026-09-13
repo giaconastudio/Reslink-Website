@@ -20,11 +20,25 @@ import { submitDemoRequest } from '@/app/actions/hubspot';
 
 export type OrgKind = 'company' | 'agency' | 'university';
 
-const ORG_LABEL: Record<OrgKind, string> = {
-  company: 'Company',
-  agency: 'Recruitment agency',
-  university: 'University',
+/* Label is what the dropdown shows; value is what HubSpot stores. They differ
+   for the agency ("Recruitment Agency"), and the two must not be conflated:
+   `which_best_describes_your_organization_` is an enumeration over exactly
+   these values in the CRM, and the app's own demo forms submit them. Send the
+   label instead and the write is rejected. */
+const ORG_OPTION: Record<OrgKind, { label: string; value: string }> = {
+  company: { label: 'Company', value: 'Company' },
+  agency: { label: 'Recruitment agency', value: 'Recruitment Agency' },
+  university: { label: 'University', value: 'University' },
 };
+
+/* Same story for `how_will_you_use_reslink_` — short codes in the CRM, a
+   readable sentence in the dropdown. */
+const ROLES_OPTIONS: { label: string; value: string }[] = [
+  { label: 'For 1-10 roles', value: '1-10' },
+  { label: 'For 10-100 roles', value: '10-100' },
+  { label: 'For >100 roles', value: '>100' },
+  { label: 'Not sure yet', value: 'not-sure' },
+];
 
 const inputStyle: React.CSSProperties = {
   width: '100%', padding: '11px 13px', borderRadius: '10px',
@@ -70,7 +84,7 @@ export default function DemoRequestForm({
     firstName: '', lastName: '', email: '', rolesCount: '',
     // Already answered by the card they picked on the previous step, so it
     // starts filled in rather than asking them the same thing twice.
-    orgType: orgKind ? ORG_LABEL[orgKind] : '',
+    orgType: orgKind ? ORG_OPTION[orgKind].value : '',
     message: '', hearAbout: '',
   });
 
@@ -140,19 +154,14 @@ export default function DemoRequestForm({
         <div style={{ position: 'relative' }}>
           <select value={form.rolesCount} onChange={e => setForm(p => ({ ...p, rolesCount: e.target.value }))} required style={selectStyle(form.rolesCount)}>
             <option value="" disabled>How many roles / students will you use Reslink for?</option>
-            <option>For 1-10 roles</option>
-            <option>For 10-100 roles</option>
-            <option>For &gt;100 roles</option>
-            <option>Not sure yet</option>
+            {ROLES_OPTIONS.map(({ label, value }) => <option key={value} value={value}>{label}</option>)}
           </select>
           <Chevron />
         </div>
         <div style={{ position: 'relative' }}>
           <select value={form.orgType} onChange={e => setForm(p => ({ ...p, orgType: e.target.value }))} required style={selectStyle(form.orgType)}>
             <option value="" disabled>Which best describes your organization?</option>
-            <option>Company</option>
-            <option>Recruitment agency</option>
-            <option>University</option>
+            {Object.values(ORG_OPTION).map(({ label, value }) => <option key={value} value={value}>{label}</option>)}
           </select>
           <Chevron />
         </div>

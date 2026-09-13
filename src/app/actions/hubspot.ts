@@ -6,10 +6,11 @@
 
    These mirror `contactSalesForm.ts`, `contactSupportForm.ts`,
    `contactFreeResoursesForm.ts` and `subscribe.ts` in the main Reslink app
-   (Reslink-Backend-Nest/apps/web) —
-   same properties, same contact_source values, same ticket subjects — so a
-   lead that arrives from the marketing site is indistinguishable in HubSpot
-   from one that arrives from the product.
+   (Reslink-Backend-Nest/apps/web) — same properties, same contact_source
+   values, same ticket subjects, same enumeration values — so a lead that
+   arrives from the marketing site is indistinguishable in HubSpot from one
+   that arrives from the product. Treat all of those as a contract with the
+   CRM rather than as details free to drift.
 
    Every action returns a result object instead of throwing: the forms need to
    tell someone their message didn't send, and an unhandled server action
@@ -99,8 +100,11 @@ export async function submitDemoRequest(data: DemoRequest): Promise<FormResult> 
     if (existingContact) await updateContact(contact.id, contactProperties);
     if (existingCompany) await updateCompany(company.id, companyProperties);
 
+    /* Subject built from the contact record's email rather than the typed
+       one, matching the app — HubSpot lower-cases what it stores, so tickets
+       raised either side read the same for someone who capitalised it. */
     await createTicket({
-      subject: `Schedule a demo from - ${data.email}`,
+      subject: `Schedule a demo from - ${contact.properties?.email ?? data.email}`,
       content: data.comment,
       contactId: contact.id,
       companyId: company.id,
@@ -149,11 +153,13 @@ export async function submitSupportRequest(data: SupportRequest): Promise<FormRe
 
     if (existingContact) await updateContact(contact.id, contactProperties);
 
-    /* The topic goes in the subject rather than a property: it's what tells
-       whoever picks the ticket up whether it's theirs. */
+    /* This form asks one thing the app's support form doesn't — "What's this
+       about?" — so the topic has to go somewhere. It goes in the body, not
+       the subject: the subject is the field views and workflows filter on,
+       and it stays byte-identical to the app's. */
     await createTicket({
-      subject: `Support Request from user - ${data.email}${data.topic ? ` (${data.topic})` : ''}`,
-      content: data.comment,
+      subject: `Support Request from user - ${contact.properties?.email ?? data.email}`,
+      content: data.topic ? `Topic: ${data.topic}\n\n${data.comment}` : data.comment,
       contactId: contact.id,
     });
 

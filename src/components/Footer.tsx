@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import SubscribeBox from './SubscribeBox';
 
 type Item = { label: string; href: string; pill?: string };
 
@@ -64,7 +65,10 @@ export default function Footer() {
         .footer-input::placeholder { color: rgba(255,255,255,0.35); }
         .footer-input:focus { border-color: rgba(215,255,67,0.6); }
         .footer-sub-btn { flex-shrink: 0; background: #D7FF43; color: #061A3A; border: none; border-radius: 9px; padding: 11px 22px; font-size: 14px; font-weight: 700; font-family: var(--font-body); cursor: pointer; transition: background 0.15s; }
-        .footer-sub-btn:hover { background: #E4FF63; }
+        .footer-sub-btn:hover:not(:disabled) { background: #E4FF63; }
+        .footer-sub-btn:disabled { opacity: 0.65; cursor: wait; }
+        .footer-subscribed { font-size: 14px; color: #D7FF43; font-family: var(--font-body); line-height: 1.6; max-width: 380px; margin-bottom: 26px; }
+        .footer-sub-error { font-size: 13px; color: #FF9B9B; font-family: var(--font-body); line-height: 1.5; max-width: 380px; margin: -16px 0 26px; }
 
         .footer-socials { display: flex; gap: 10px; }
         .footer-social { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.07); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.85); transition: background 0.15s, color 0.15s; }
@@ -117,11 +121,10 @@ export default function Footer() {
               Subscribe to our newsletter for exclusive product updates and career tips.
             </p>
 
-            {/* Subscribe box (presentational — not wired to a backend yet) */}
-            <div className="footer-sub">
-              <input className="footer-input" type="email" placeholder="example@mail.com" aria-label="Email address" />
-              <button className="footer-sub-btn" type="button">Subscribe</button>
-            </div>
+            {/* Wired to HubSpot; its own client island so the footer stays
+                a server component. Its styles live with the rest of the
+                footer's, in the block above. */}
+            <SubscribeBox />
 
             <div className="footer-socials">
               {SOCIALS.map(s => (

@@ -6,6 +6,7 @@ import { Check } from 'lucide-react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { submitFreeResources } from '@/app/actions/hubspot';
 
 const HERO_CHECKS = [
   { label: 'Parser-safe by default', desc: 'no columns, tables or text boxes' },
@@ -34,6 +35,29 @@ const RESUME_CARDS = [
 export default function TemplatesPage() {
   const [form, setForm] = useState({ firstName: '', email: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (sending) return;
+    setSending(true);
+    setError(null);
+
+    const result = await submitFreeResources({
+      firstName: form.firstName,
+      email: form.email,
+    });
+
+    setSending(false);
+
+    if (!result.success) {
+      setError(result.message ?? 'Something went wrong. Please try again.');
+      return;
+    }
+
+    setSubmitted(true);
+  }
 
   return (
     <>
@@ -108,18 +132,30 @@ export default function TemplatesPage() {
                   <>
                     <h3 style={{ fontFamily: 'var(--font-phudu)', fontSize: '22px', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.02em', marginBottom: '6px', textAlign: 'center' }}>Get the templates</h3>
                     <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', textAlign: 'center', marginBottom: '22px' }}>One email, three templates, no follow-up spam.</p>
-                    <input className="tmpl-form-input" type="text" placeholder="First name" value={form.firstName} onChange={e => setForm(f => ({ ...f, firstName: e.target.value }))} style={{ marginBottom: '10px' }} />
-                    <input className="tmpl-form-input" type="email" placeholder="Email address" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} style={{ marginBottom: '16px' }} />
+                    {/* A real form now, rather than a button with an onClick:
+                        the required attributes give the same "both fields or
+                        nothing" guard the old handler did by hand, and Enter
+                        submits. */}
+                    <form onSubmit={handleSubmit}>
+                    <input className="tmpl-form-input" type="text" placeholder="First name" value={form.firstName} onChange={e => setForm(f => ({ ...f, firstName: e.target.value }))} required style={{ marginBottom: '10px' }} />
+                    <input className="tmpl-form-input" type="email" placeholder="Email address" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} required style={{ marginBottom: '16px' }} />
+                    {error && (
+                      <p role="alert" style={{ fontSize: '13px', color: '#C0392B', fontFamily: 'var(--font-body)', lineHeight: 1.5, margin: '-6px 0 12px' }}>{error}</p>
+                    )}
                     <button
-                      onClick={() => { if (form.firstName && form.email) setSubmitted(true); }}
-                      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)'; (e.currentTarget as HTMLElement).style.filter = 'brightness(0.94)'; }}
+                      type="submit"
+                      disabled={sending}
+                      onMouseEnter={e => { if (!sending) { (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)'; (e.currentTarget as HTMLElement).style.filter = 'brightness(0.94)'; } }}
                       onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; (e.currentTarget as HTMLElement).style.filter = 'none'; }}
                       onMouseDown={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(0) scale(0.98)'; }}
                       onMouseUp={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)'; }}
-                      style={{ width: '100%', padding: '15px', background: '#D7FF43', color: '#061A3A', border: 'none', borderRadius: '12px', fontSize: '15px', fontWeight: 800, fontFamily: 'var(--font-body)', cursor: 'pointer', marginBottom: '14px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', transition: 'transform 0.15s ease, filter 0.15s ease' }}>
-                      Send me the templates
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                      style={{ width: '100%', padding: '15px', background: '#D7FF43', color: '#061A3A', border: 'none', borderRadius: '12px', fontSize: '15px', fontWeight: 800, fontFamily: 'var(--font-body)', cursor: sending ? 'wait' : 'pointer', opacity: sending ? 0.7 : 1, marginBottom: '14px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', transition: 'transform 0.15s ease, filter 0.15s ease' }}>
+                      {sending ? 'Sending…' : <>
+                        Send me the templates
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                      </>}
                     </button>
+                    </form>
                     <p style={{ fontSize: '12px', color: '#9A9FA8', fontFamily: 'var(--font-body)', textAlign: 'center', marginBottom: '14px' }}>Arrives in about 30 seconds</p>
                     <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', lineHeight: 1.6, textAlign: 'center' }}>
                       We&apos;ll also send occasional job-search tips. Unsubscribe in one click. <a href="/privacy" style={{ color: '#061A3A', fontWeight: 700 }}>Privacy policy</a>.

@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { Search, Clock, ArrowLeft, ArrowRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import NewsletterForm from '@/components/NewsletterForm';
 import type { Post } from './queries';
 
 const CATS: { key: string; label: string; color: string | null; activeBg: string; activeText: string }[] = [
@@ -247,10 +248,7 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
                 </p>
               </div>
               <div className="blog-news-col" style={{ flexShrink: 0 }}>
-                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                  <input type="email" placeholder="example@mail.com" style={{ width: '300px', maxWidth: '100%', padding: '15px 18px', borderRadius: '12px', border: 'none', background: '#fff', color: '#061A3A', fontSize: '15px', fontFamily: 'var(--font-body)', outline: 'none' }} />
-                  <button style={{ padding: '15px 28px', background: '#D7FF43', color: '#061A3A', border: 'none', borderRadius: '12px', fontSize: '15px', fontWeight: 800, fontFamily: 'var(--font-body)', cursor: 'pointer', whiteSpace: 'nowrap' }}>Subscribe</button>
-                </div>
+                <NewsletterForm variant="inline" />
                 <p style={{ marginTop: '12px', fontSize: '12px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)' }}>Join 10,000+ job seekers already subscribed.</p>
               </div>
             </div>

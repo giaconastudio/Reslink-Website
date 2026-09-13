@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { CheckCircle, ArrowRight, Mail } from 'lucide-react';
+import { submitDemoRequest } from '@/app/actions/hubspot';
 
 /* The demo request form. Lives here rather than inline on the sales page
    because organisations meet it in two places: /contact/sales, and the
@@ -12,15 +13,32 @@ import { CheckCircle, ArrowRight, Mail } from 'lucide-react';
    the other side of it. The copy used to say "Pick a time on the next screen"
    over a "Choose a time" button, so people expected a calendar and got a
    confirmation notice instead. It now describes what actually happens: they
-   send the form, we email them a booking link. */
+   send the form, we email them a booking link.
+
+   Submissions go to HubSpot as a contact + company + demo ticket, the same
+   shape the product's own contact-sales form files them in. */
 
 export type OrgKind = 'company' | 'agency' | 'university';
 
-const ORG_LABEL: Record<OrgKind, string> = {
-  company: 'Company',
-  agency: 'Recruitment agency',
-  university: 'University',
+/* Label is what the dropdown shows; value is what HubSpot stores. They differ
+   for the agency ("Recruitment Agency"), and the two must not be conflated:
+   `which_best_describes_your_organization_` is an enumeration over exactly
+   these values in the CRM, and the app's own demo forms submit them. Send the
+   label instead and the write is rejected. */
+const ORG_OPTION: Record<OrgKind, { label: string; value: string }> = {
+  company: { label: 'Company', value: 'Company' },
+  agency: { label: 'Recruitment agency', value: 'Recruitment Agency' },
+  university: { label: 'University', value: 'University' },
 };
+
+/* Same story for `how_will_you_use_reslink_` — short codes in the CRM, a
+   readable sentence in the dropdown. */
+const ROLES_OPTIONS: { label: string; value: string }[] = [
+  { label: 'For 1-10 roles', value: '1-10' },
+  { label: 'For 10-100 roles', value: '10-100' },
+  { label: 'For >100 roles', value: '>100' },
+  { label: 'Not sure yet', value: 'not-sure' },
+];
 
 const inputStyle: React.CSSProperties = {
   width: '100%', padding: '11px 13px', borderRadius: '10px',
@@ -60,13 +78,44 @@ export default function DemoRequestForm({
   onSent?: () => void;
 } = {}) {
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState({
     firstName: '', lastName: '', email: '', rolesCount: '',
     // Already answered by the card they picked on the previous step, so it
     // starts filled in rather than asking them the same thing twice.
-    orgType: orgKind ? ORG_LABEL[orgKind] : '',
+    orgType: orgKind ? ORG_OPTION[orgKind].value : '',
     message: '', hearAbout: '',
   });
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (sending) return;
+    setSending(true);
+    setError(null);
+
+    const result = await submitDemoRequest({
+      firstName: form.firstName,
+      lastName: form.lastName,
+      email: form.email,
+      organizationType: form.orgType,
+      howPlanToUse: form.rolesCount,
+      comment: form.message,
+      howDidYouHear: form.hearAbout,
+    });
+
+    setSending(false);
+
+    /* Only claim we've got it once HubSpot actually has it — a confirmation
+       over a dropped request is how a demo request quietly disappears. */
+    if (!result.success) {
+      setError(result.message ?? 'Something went wrong. Please try again.');
+      return;
+    }
+
+    setSent(true);
+    onSent?.();
+  }
 
   if (sent) {
     /* Deliberately narrow and centred. This lands in a tall column, and left
@@ -96,7 +145,7 @@ export default function DemoRequestForm({
     <>
       <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: '24px', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.02em', marginBottom: '4px' }}>{heading}</h2>
       <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', lineHeight: 1.55, marginBottom: '16px' }}>{sub}</p>
-      <form onSubmit={e => { e.preventDefault(); setSent(true); onSent?.(); }} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         <div className="demo-name-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
           <input type="text" placeholder="First name" value={form.firstName} onChange={e => setForm(p => ({ ...p, firstName: e.target.value }))} required style={inputStyle} />
           <input type="text" placeholder="Last name" value={form.lastName} onChange={e => setForm(p => ({ ...p, lastName: e.target.value }))} required style={inputStyle} />
@@ -105,29 +154,27 @@ export default function DemoRequestForm({
         <div style={{ position: 'relative' }}>
           <select value={form.rolesCount} onChange={e => setForm(p => ({ ...p, rolesCount: e.target.value }))} required style={selectStyle(form.rolesCount)}>
             <option value="" disabled>How many roles / students will you use Reslink for?</option>
-            <option>For 1-10 roles</option>
-            <option>For 10-100 roles</option>
-            <option>For &gt;100 roles</option>
-            <option>Not sure yet</option>
+            {ROLES_OPTIONS.map(({ label, value }) => <option key={value} value={value}>{label}</option>)}
           </select>
           <Chevron />
         </div>
         <div style={{ position: 'relative' }}>
           <select value={form.orgType} onChange={e => setForm(p => ({ ...p, orgType: e.target.value }))} required style={selectStyle(form.orgType)}>
             <option value="" disabled>Which best describes your organization?</option>
-            <option>Company</option>
-            <option>Recruitment agency</option>
-            <option>University</option>
+            {Object.values(ORG_OPTION).map(({ label, value }) => <option key={value} value={value}>{label}</option>)}
           </select>
           <Chevron />
         </div>
         <textarea placeholder="How can we help you?" rows={3} value={form.message} onChange={e => setForm(p => ({ ...p, message: e.target.value }))} style={{ ...inputStyle, resize: 'vertical' } as React.CSSProperties} />
         <input type="text" placeholder="How did you hear about Reslink?" value={form.hearAbout} onChange={e => setForm(p => ({ ...p, hearAbout: e.target.value }))} style={inputStyle} />
-        <button type="submit"
-          style={{ width: '100%', padding: '13px', background: '#1468E8', color: '#fff', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', transition: 'background 0.15s', marginTop: '4px' }}
-          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#0A52C4'; }}
+        {error && (
+          <p role="alert" style={{ fontSize: '13px', color: '#C0392B', fontFamily: 'var(--font-body)', lineHeight: 1.5, margin: 0 }}>{error}</p>
+        )}
+        <button type="submit" disabled={sending}
+          style={{ width: '100%', padding: '13px', background: '#1468E8', color: '#fff', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: sending ? 'wait' : 'pointer', opacity: sending ? 0.7 : 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', transition: 'background 0.15s', marginTop: '4px' }}
+          onMouseEnter={e => { if (!sending) (e.currentTarget as HTMLElement).style.background = '#0A52C4'; }}
           onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '#1468E8'; }}>
-          Send request <ArrowRight size={15} />
+          {sending ? 'Sending\u2026' : <>Send request <ArrowRight size={15} /></>}
         </button>
         <p style={{ fontSize: '12px', color: '#9AA1AE', fontFamily: 'var(--font-body)', textAlign: 'center' }}>Takes about 40 seconds</p>
         {footer}

@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, ArrowRight, Plus, Minus } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { submitSupportRequest } from '@/app/actions/hubspot';
 
 const TABS = [
   { id: 'help', label: 'I need help' },
@@ -54,9 +55,39 @@ function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; 
 
 export default function SupportPage() {
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [tab, setTab] = useState('help');
   const [form, setForm] = useState({ firstName: '', lastName: '', email: '', message: '' });
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (sending) return;
+    setSending(true);
+    setError(null);
+
+    /* The dropdown's id is an internal value; HubSpot gets the label, which is
+       what whoever picks the ticket up actually reads. */
+    const result = await submitSupportRequest({
+      firstName: form.firstName,
+      lastName: form.lastName,
+      email: form.email,
+      topic: TABS.find(t => t.id === tab)?.label ?? '',
+      comment: form.message,
+    });
+
+    setSending(false);
+
+    /* Never show "Message sent!" over a message that didn't send — this page
+       promises a reply, and a silent drop means nobody ever gets one. */
+    if (!result.success) {
+      setError(result.message ?? 'Something went wrong. Please try again.');
+      return;
+    }
+
+    setSent(true);
+  }
 
   const inputStyle: React.CSSProperties = {
     width: '100%', padding: '11px 13px', borderRadius: '10px',
@@ -129,7 +160,7 @@ export default function SupportPage() {
                     <>
                       <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: '24px', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.02em', marginBottom: '4px' }}>Send us a message</h2>
                       <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', lineHeight: 1.5, marginBottom: '16px' }}>The more detail the better, it saves a round trip.</p>
-                      <form onSubmit={e => { e.preventDefault(); setSent(true); }} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                           <div>
                             <label style={labelStyle}>First name</label>
@@ -158,11 +189,14 @@ export default function SupportPage() {
                           <label style={labelStyle}>What&apos;s going on?</label>
                           <textarea placeholder="Describe the issue or question..." rows={3} value={form.message} onChange={e => setForm(p => ({ ...p, message: e.target.value }))} required style={{ ...inputStyle, resize: 'vertical' } as React.CSSProperties} />
                         </div>
-                        <button type="submit"
-                          style={{ width: '100%', padding: '13px', background: '#9E2462', color: '#fff', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', transition: 'background 0.15s', marginTop: '2px' }}
-                          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#831C51'; }}
+                        {error && (
+                          <p role="alert" style={{ fontSize: '13px', color: '#C0392B', fontFamily: 'var(--font-body)', lineHeight: 1.5, margin: 0 }}>{error}</p>
+                        )}
+                        <button type="submit" disabled={sending}
+                          style={{ width: '100%', padding: '13px', background: '#9E2462', color: '#fff', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: sending ? 'wait' : 'pointer', opacity: sending ? 0.7 : 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', transition: 'background 0.15s', marginTop: '2px' }}
+                          onMouseEnter={e => { if (!sending) (e.currentTarget as HTMLElement).style.background = '#831C51'; }}
                           onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '#9E2462'; }}>
-                          Send message <ArrowRight size={15} />
+                          {sending ? 'Sending\u2026' : <>Send message <ArrowRight size={15} /></>}
                         </button>
                         <p style={{ fontSize: '12px', color: '#9AA1AE', fontFamily: 'var(--font-body)', textAlign: 'center' }}>We&apos;ll reply to this address. Nothing else, no lists.</p>
                       </form>

@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { Clock, ArrowLeft, ArrowRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import NewsletterForm from '@/components/NewsletterForm';
 import StructuredText, { collectHeadings } from '@/components/StructuredText';
 import type { Post } from '../queries';
 import { APP_SIGNUP_URL } from '@/lib/links';
@@ -192,8 +193,7 @@ export default function ArticleView({ post, related }: { post: Post; related: Po
                 <p style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#D7FF43', fontFamily: 'var(--font-body)', marginBottom: '8px' }}>Newsletter</p>
                 <p style={{ fontFamily: 'var(--font-phudu)', fontSize: '19px', fontWeight: 900, color: '#fff', letterSpacing: '-0.02em', lineHeight: 0.98, marginBottom: '8px' }}>Stay in the loop</p>
                 <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)', lineHeight: 1.5, marginBottom: '14px' }}>Weekly job-search tips, straight to your inbox.</p>
-                <input type="email" placeholder="Your email" className="toc-news-input" style={{ width: '100%', padding: '10px 12px', borderRadius: '9px', border: '1.5px solid rgba(255,255,255,0.16)', background: 'rgba(255,255,255,0.08)', color: '#fff', fontSize: '13px', fontFamily: 'var(--font-body)', boxSizing: 'border-box', outline: 'none', marginBottom: '8px' }} />
-                <button style={{ width: '100%', padding: '11px', background: '#D7FF43', color: '#061A3A', border: 'none', borderRadius: '9px', fontSize: '13px', fontWeight: 800, fontFamily: 'var(--font-body)', cursor: 'pointer' }}>Subscribe</button>
+                <NewsletterForm variant="stacked" />
               </div>
             </aside>
           </div>

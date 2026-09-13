@@ -100,6 +100,19 @@ export default function Hero() {
         .hero-cosell-link strong { color: #061A3A; font-weight: 700; }
         .hero-cosell-link:hover, .hero-cosell-link:hover strong { color: #1468E8; }
 
+        /* Phones: the "Hiring?" line moves out of the proof row to below the
+           stage, just above the logo bar. In the row it sits between the CTAs
+           and the animation — and since the row stacks to a column here, it
+           was costing the stage its own height plus the row's 14px gap, which
+           is exactly the space the animation wanted. It's a second copy gated
+           by breakpoint rather than a moved node, so the desktop row is
+           untouched. */
+        .hero-cosell-mobile { display: none; }
+        @media (max-width: 760px) {
+          .hero-proof-row .hero-cosell-link { display: none; }
+          .hero-cosell-mobile { display: flex; justify-content: center; margin: 26px 16px 0; }
+        }
+
         .hero-cobanner { display: flex; justify-content: center; margin-bottom: 40px; }
         .hero-cobanner-inner {
           display: inline-flex; align-items: center; gap: 14px; max-width: 100%;
@@ -344,6 +357,16 @@ export default function Hero() {
         </div>
       </div>
       </motion.div>
+
+      {/* Mobile-only twin of the proof row's "Hiring?" link — see the note by
+          .hero-cosell-mobile. Sits last in the hero, so it lands directly
+          above the logo bar, which is the next sibling on the page. */}
+      <div className="hero-cosell-mobile">
+        <Link href="/companies" className="hero-cosell-link">
+          <strong>Hiring?</strong> See how teams screen with Reslink
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </Link>
+      </div>
     </section>
   );
 }

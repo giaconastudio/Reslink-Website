@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowRight, Play, Pause, Download, MapPin, Mail, Eye, Clock, MousePointerClick, Globe } from 'lucide-react';
+import { ArrowRight, Play, Pause, Download, MapPin, Mail, Eye, Globe } from 'lucide-react';
 import { APP_SIGNUP_URL } from '@/lib/links';
 
 function LinkedinIcon({ size = 14 }: { size?: number }) {
@@ -51,12 +51,19 @@ const ACHIEVEMENTS = [
   { title: 'Revenue growth', desc: 'Successfully implemented a new pricing strategy at HubSpot, increasing average deal size by 15% and generating an additional £750k in revenue within a year.' },
 ];
 
-const ANALYTICS_TILES = [
-  { icon: Eye, value: '12', label: 'Reslink views' },
-  { icon: Clock, value: '0:58', label: 'Avg. watch time' },
-  { icon: Download, value: '3', label: 'Resume downloads' },
-  { icon: MousePointerClick, value: '9', label: 'Link clicks' },
+/* Olivia's analytics, matching what the product's Insights panel actually
+   reports: visitors, watch time against the intro's own length, and clicks
+   split by where they came from and where they went. Locations are not
+   tracked yet, so that tile says so rather than inventing three cities. */
+const VISITOR_TREND = [10, 14, 9, 15, 19, 24, 26];
+
+const OLIVIA_CLICKS = [
+  { group: 'Inbound', label: 'Reslink', n: 7, color: '#1468E8' },
+  { group: 'Inbound', label: 'Badge', n: 4, color: '#D63D9D' },
+  { group: 'Outbound', label: 'Resume', n: 3, color: '#041635' },
+  { group: 'Outbound', label: 'LinkedIn', n: 2, color: '#9BBF2E' },
 ];
+const OLIVIA_CLICK_TOTAL = OLIVIA_CLICKS.reduce((sum, c) => sum + c.n, 0);
 
 export default function ExampleProfilePage() {
   const pipRef = useRef<HTMLVideoElement>(null);
@@ -357,20 +364,72 @@ export default function ExampleProfilePage() {
                 </span>
               </div>
 
-              {/* 2×2 stat tiles */}
+              {/* Visitors and watch time side by side, then clicks across the
+                  full width — the same three measures the product's Insights
+                  panel reports, at the scale one person's profile actually
+                  sees rather than an account's worth of traffic. */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '10px' }}>
-                {ANALYTICS_TILES.map(({ value, label }) => (
-                  <div key={label} style={{ background: '#F7F9FC', border: '1px solid #EDF0F5', borderRadius: '12px', padding: '16px' }}>
-                    <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '26px', fontWeight: 900, color: '#061A3A', lineHeight: 1, letterSpacing: '-0.02em', display: 'block', marginBottom: '8px' }}>{value}</span>
-                    <p style={{ fontSize: '12px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>{label}</p>
+                <div style={{ background: '#F7F9FC', border: '1px solid #EDF0F5', borderRadius: '12px', padding: '16px' }}>
+                  <p style={{ fontSize: '12px', color: '#5C6070', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Unique visitors</p>
+                  <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '26px', fontWeight: 900, color: '#D63D9D', lineHeight: 1, letterSpacing: '-0.02em', display: 'block', marginTop: '6px' }}>12</span>
+                  <div style={{ display: 'flex', alignItems: 'flex-end', gap: '3px', height: '26px', marginTop: '10px' }}>
+                    {VISITOR_TREND.map((h, i) => (
+                      <div key={i} style={{ flex: 1, height: `${h}px`, borderRadius: '3px', background: '#D63D9D' }} />
+                    ))}
                   </div>
-                ))}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px', fontSize: '10px', color: '#B4BAC4', fontFamily: 'var(--font-body)' }}>
+                    <span>7 Sep</span><span>13 Sep</span>
+                  </div>
+                </div>
+
+                <div style={{ background: '#F7F9FC', border: '1px solid #EDF0F5', borderRadius: '12px', padding: '16px' }}>
+                  <p style={{ fontSize: '12px', color: '#5C6070', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Average watch time</p>
+                  <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '26px', fontWeight: 900, color: '#061A3A', lineHeight: 1, letterSpacing: '-0.02em', display: 'block', marginTop: '6px' }}>0:58</span>
+                  {/* The ring answers "58 seconds out of what?" — the number
+                      means nothing without the intro's own length. */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '10px' }}>
+                    <div style={{ position: 'relative', width: '50px', height: '50px', flexShrink: 0 }}>
+                      <svg width="50" height="50" viewBox="0 0 50 50" style={{ transform: 'rotate(-90deg)' }}>
+                        <circle cx="25" cy="25" r="21" fill="none" stroke="#E6EAF0" strokeWidth="6" />
+                        <circle cx="25" cy="25" r="21" fill="none" stroke="#9BBF2E" strokeWidth="6" strokeLinecap="round"
+                          strokeDasharray={2 * Math.PI * 21} strokeDashoffset={2 * Math.PI * 21 * 0.08} />
+                      </svg>
+                      <span style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 800, color: '#061A3A', fontFamily: 'var(--font-body)' }}>92%</span>
+                    </div>
+                    <p style={{ fontSize: '11px', color: '#5C6070', fontFamily: 'var(--font-body)', lineHeight: 1.45 }}>of a 63 second intro, for viewers who pressed play</p>
+                  </div>
+                </div>
               </div>
 
-              {/* Locations bar */}
-              <div style={{ background: '#F7F9FC', border: '1px solid #EDF0F5', borderRadius: '12px', padding: '14px 16px', marginTop: 'auto' }}>
+              <div style={{ background: '#F7F9FC', border: '1px solid #EDF0F5', borderRadius: '12px', padding: '16px', marginBottom: '10px' }}>
+                <p style={{ fontSize: '12px', color: '#5C6070', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Clicks</p>
+                <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '26px', fontWeight: 900, color: '#061A3A', lineHeight: 1, letterSpacing: '-0.02em', display: 'block', marginTop: '6px' }}>{OLIVIA_CLICK_TOTAL}</span>
+                <div style={{ display: 'flex', gap: '3px', height: '6px', marginTop: '10px' }}>
+                  {OLIVIA_CLICKS.map(c => (
+                    <div key={c.label} style={{ flex: c.n, background: c.color, borderRadius: '3px' }} />
+                  ))}
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 18px', marginTop: '10px' }}>
+                  {(['Inbound', 'Outbound'] as const).map(group => (
+                    <div key={group}>
+                      <p style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#9AA1AE', fontFamily: 'var(--font-body)' }}>{group}</p>
+                      {OLIVIA_CLICKS.filter(c => c.group === group).map(c => (
+                        <div key={c.label} style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '4px' }}>
+                          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: c.color, flexShrink: 0 }} />
+                          <span style={{ fontSize: '11px', color: '#3A4150', fontFamily: 'var(--font-body)' }}>{c.label}</span>
+                          <span style={{ marginLeft: 'auto', fontSize: '11px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)' }}>{c.n}</span>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Locations aren't tracked yet, so this says so rather than
+                  showing three cities nobody actually measured. */}
+              <div style={{ background: '#F7F9FC', border: '1px solid #EDF0F5', borderRadius: '12px', padding: '14px 16px', marginTop: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Top viewer locations</p>
-                <p style={{ fontSize: '11px', color: '#9A9FA8', fontFamily: 'var(--font-body)', marginTop: '2px' }}>London · New York · Berlin</p>
+                <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase', color: '#5C6070', background: '#E8EBF0', borderRadius: '100px', padding: '4px 10px', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>Coming soon</span>
               </div>
             </motion.div>
 

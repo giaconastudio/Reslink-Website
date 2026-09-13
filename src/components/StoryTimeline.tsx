@@ -30,7 +30,7 @@ const MS = [
     xPct: 87.5, nodeY: 308, color: '#C2E532', halo: 'rgba(194,229,50,0.30)',
     date: '2026', chip: 'Next', chipBg: '#D7FF43', chipFg: '#061A3A',
     title: "Building for what's next", dark: true, nodeDelay: 1.44, connDelay: 1.54, cardDelay: 1.6,
-    body: <>Dan London joined as COO and Taylor Bagwell as CTO, and Reslink 2.0 launched: candidates make their case, companies see who&rsquo;s worth meeting.</>,
+    body: <>Dan London joined as COO, and Reslink 2.0 launched: candidates make their case, companies see who&rsquo;s worth meeting.</>,
   },
 ];
 

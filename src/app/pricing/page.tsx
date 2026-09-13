@@ -139,13 +139,11 @@ export default function PricingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const doubled = [...TESTIMONIALS, ...TESTIMONIALS];
 
-  const seekerPrice = billing === 'monthly' ? 14 : billing === 'quarterly' ? 10 : 5;
-  const seekerBilledLine =
-    billing === 'quarterly' ? 'Billed $29 every 3 months' :
-    billing === 'annual' ? 'Billed $58 per year' : null;
-  const seekerSaveLabel =
-    billing === 'quarterly' ? 'Save 29%' :
-    billing === 'annual' ? 'Save 64%' : null;
+  /* Job seekers are monthly or annual only — there is no quarterly plan to
+     sell them, so the page no longer offers one. */
+  const seekerPrice = billing === 'monthly' ? 14 : 5;
+  const seekerBilledLine = billing === 'annual' ? 'Billed $58 per year' : null;
+  const seekerSaveLabel = billing === 'annual' ? 'Save 64%' : null;
 
   const agencyPrice = agencyBilling === 'monthly' ? 249 : agencyBilling === 'quarterly' ? 209 : 199;
   const agencyBilledLine =
@@ -194,7 +192,10 @@ export default function PricingPage() {
           .audience-card-icon { width: 32px !important; height: 32px !important; border-radius: 8px !important; }
           .audience-card-label { font-size: 11px !important; line-height: 1.25 !important; word-break: normal !important; overflow-wrap: break-word !important; }
           .audience-card-desc { display: none !important; }
-          .billing-seg { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; width: 100% !important; }
+          /* Auto-flow rather than a fixed 3 columns: the seeker toggle has two
+             options and the agency one has three, and a hard-coded third
+             column left the seeker pill with a dead empty slot. */
+          .billing-seg { display: grid !important; grid-auto-flow: column !important; grid-auto-columns: 1fr !important; width: 100% !important; }
           .billing-seg button { padding: 10px 4px !important; font-size: 11px !important; justify-content: center !important; flex-direction: column !important; gap: 3px !important; min-height: 54px !important; }
           .billing-badge { display: inline-block !important; font-size: 9px !important; padding: 2px 5px !important; }
         }
@@ -252,7 +253,6 @@ export default function PricingPage() {
                     <div className="billing-seg" style={{ display: 'inline-flex', background: '#F0F2F5', borderRadius: '100px', border: '1px solid #ECEEF1', padding: '4px', gap: '3px' }}>
                       {([
                         { key: 'monthly' as BillingCycle, label: 'Monthly' },
-                        { key: 'quarterly' as BillingCycle, label: 'Quarterly', badge: 'Save 29%' },
                         { key: 'annual' as BillingCycle, label: 'Annual', badge: 'Save 64%' },
                       ]).map(({ key, label, badge }) => (
                         <button key={key} onClick={() => setBilling(key)}

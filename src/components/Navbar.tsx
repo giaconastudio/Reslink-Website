@@ -56,9 +56,11 @@ function DropItem({ href, icon: Icon, label, desc, badge, onClick }: {
   );
 }
 
-/* The nav's "Get started for free" is the one signup link still pointing at
-   this site's own flow — it's what keeps /get-started reachable. Every other
-   signup CTA, waitlist included, hands off to the app. */
+/* Every signup route out of the nav now lands in the app: "Get started for
+   free", "Join the waitlist" on the student and veteran pages, and "Log in".
+   Only the sales pages stay on this site, because /contact/sales is ours.
+   Nothing links to /get-started or /login any more — both still build and
+   respond, but only to someone typing the URL. */
 
 /* Organisations don't self-serve. On these pages the nav button asks for a
    demo instead of an account, so it matches the rest of the page. */
@@ -76,9 +78,7 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
   const joinsWaitlist = WAITLIST_PATHS.has(pathname);
   const signupHref = talksToSales
     ? '/contact/sales'
-    : joinsWaitlist
-      ? APP_SIGNUP_URL
-      : '/get-started';
+    : APP_SIGNUP_URL;
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);

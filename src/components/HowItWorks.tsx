@@ -159,6 +159,16 @@ export default function HowItWorks() {
         .hiw-stage-badge span { font-size: 12px; font-weight: 700; color: #fff; font-family: var(--font-body); letter-spacing: 0.02em; }
 
         /* Step indicator — a thin rail of dots right beside the stage */
+        /* Desktop only — below 901px the .hiw-row-scroll chevron under the
+           step list already does this job, and two cues would compete. */
+        .hiw-scroll-cue {
+          display: flex; align-items: center; justify-content: center; gap: 8px;
+          margin-top: clamp(14px, 2.6vh, 26px);
+          font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
+          color: rgba(255,255,255,0.45); font-family: var(--font-body);
+          user-select: none;
+        }
+        @media (max-width: 900px) { .hiw-scroll-cue { display: none; } }
         .hiw-rail { display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
         .hiw-rail-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.18); transition: background 0.3s, height 0.3s; }
         .hiw-rail-dot.active { background: var(--hiw-accent); height: 20px; border-radius: 3px; }
@@ -362,6 +372,21 @@ export default function HowItWorks() {
                   ))}
                 </div>
               </div>
+            </div>
+
+            {/* Desktop-only "keep scrolling" cue. This section pins and
+                advances its steps on scroll, which is invisible if you don't
+                already know it — on a phone the chevron under the list says
+                so, but on a desktop the card just sat there looking finished.
+                Sits under the whole grid rather than under the list, so it
+                reads as the card's own footer. */}
+            <div className="hiw-scroll-cue" aria-hidden="true">
+              <span>Scroll to continue</span>
+              <motion.span animate={{ y: [0, 4, 0] }} transition={{ repeat: Infinity, duration: 1.3 }} style={{ display: 'inline-flex' }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={activeAccent} strokeWidth="2.8" style={{ transition: 'stroke 0.4s ease' }}>
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </motion.span>
             </div>
 
           </div>

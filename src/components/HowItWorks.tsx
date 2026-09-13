@@ -227,18 +227,29 @@ export default function HowItWorks() {
              This is invisible in a desktop emulator, where vh === svh.
              vh line first as the fallback for anything without svh. */
           .hiw-inner { padding: clamp(26px, 4.4vh, 46px) 16px clamp(20px, 3.2vh, 34px); }
-          .hiw-inner { padding: clamp(22px, 4.4svh, 44px) 16px clamp(16px, 3.2svh, 32px); }
+          /* Bottom padding is smaller than the top on purpose. The chevron
+             already carries its own margin above it, so the card's own bottom
+             inset is doing less work than the top one — and the toolbar-
+             visible case needs every px it can find without touching the top
+             breathing room. */
+          .hiw-inner { padding: clamp(22px, 4.4svh, 44px) 16px clamp(8px, 1.4svh, 16px); }
           .hiw-header { margin-bottom: clamp(16px, 3.2vh, 32px); }
-          .hiw-header { margin-bottom: clamp(14px, 3.2svh, 30px); }
+          .hiw-header { margin-bottom: clamp(9px, 1.9svh, 20px); }
           /* min-width:0 — grid items otherwise refuse to shrink below their
              content's intrinsic width and overflow the collapsed column. */
           .hiw-grid { grid-template-columns: 1fr; gap: clamp(16px, 2.9vh, 30px); }
-          .hiw-grid { gap: clamp(14px, 2.9svh, 28px); }
+          .hiw-grid { gap: clamp(8px, 1.2svh, 16px); }
           .hiw-grid > * { min-width: 0; }
           /* 3.2vh came out at 27px on a 844px phone, which read as four
              separate items rather than one list. Tightened to ~17px there. */
+          /* The step gaps are what pay for the video. The stage is width-bound
+             on a phone, so the only way to make it bigger is to free height,
+             and these three gaps are the only slack that isn't the top
+             breathing room or the chevron's clearance. ~7px between rows still
+             reads as one list — the rows have their own 44px touch height, so
+             they stay comfortably tappable. */
           .hiw-list { gap: clamp(10px, 2vh, 20px); }
-          .hiw-list { gap: clamp(9px, 2svh, 18px); }
+          .hiw-list { gap: clamp(6px, 1.05svh, 10px); }
           .hiw-stage-row { order: -1; }
           /* Native 1600x1040 aspect — do NOT crop this. A single sampled frame
              makes the videos look like they have wide dead margins, but they
@@ -276,7 +287,11 @@ export default function HowItWorks() {
              floating in the card's bottom padding — ended up drawn over step
              4's label. In flow it simply cannot overlap anything. */
           .hiw-row-scroll { display: flex; position: static; margin: clamp(12px, 2.4vh, 22px) auto 0; }
-          .hiw-row-scroll { margin: clamp(10px, 2.4svh, 20px) auto 0; }
+          /* The last few px the toolbar-visible case needs. The chevron keeps
+             its own clearance from the card edge via the inner's bottom
+             padding, so trimming the margin above it costs separation from the
+             step list rather than making it look clipped. */
+          .hiw-row-scroll { margin: clamp(8px, 1.3svh, 14px) auto 0; }
         }
 
         /* Phones only. The card is ~370px wide here, so width is the single
@@ -302,7 +317,16 @@ export default function HowItWorks() {
              stage insets a little instead of pushing the chevron off the
              bottom. */
           .hiw-stage { max-width: none; border-radius: 0; border-left: none; border-right: none; }
-          .hiw-stage { max-width: min(100%, 52svh); }
+          /* With the gaps above paying for it this resolves to 100% whenever
+             there's room, so the video is full-bleed on a tall phone — bigger
+             than before any of this, not just bigger than the capped version.
+             64svh, not 68: at 68 the toolbar-visible case measured 609px of
+             content against a 608px cap. One pixel over is still a clipped
+             card, and it leaves nothing for a description that wraps to an
+             extra line, so the video gives back a few px to buy real
+             tolerance. The svh term binds first on short screens, where the
+             video yields rather than the card clipping. */
+          .hiw-stage { max-width: min(100%, 64svh); }
           /* The in-card CTA is dropped on phones. It duplicates the "Get
              started" button in the sticky navbar, which is on screen the
              whole time this section is pinned, and reclaiming its ~50px is
@@ -335,7 +359,9 @@ export default function HowItWorks() {
              the toolbar-hidden height, making the video taller than the whole
              card had to spend. */
           .hiw-stage { max-width: min(340px, 40vh); border-radius: 14px; border-left: 1px solid rgba(255,255,255,0.12); border-right: 1px solid rgba(255,255,255,0.12); }
-          .hiw-stage { max-width: min(340px, 38svh); }
+          /* Short screens: the freed gaps buy the video here too, but height
+             genuinely binds at this size, so the cap stays real. */
+          .hiw-stage { max-width: min(340px, 46svh); }
           .hiw-rowlabel { font-size: 15px; }
           .hiw-rowdesc p { font-size: 12.5px; }
           .hiw-stepnum-value { font-size: 18px; }

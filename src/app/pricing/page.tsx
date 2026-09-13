@@ -317,7 +317,7 @@ export default function PricingPage() {
                             ...group.items.map(f => <CheckItem key={f} label={f} dark />),
                           ])}
                         </ul>
-                        <Link href="/signup?plan=premium" className="pr-cta" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#D7FF43', color: '#061A3A', fontWeight: 700, fontSize: '15px', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                        <Link href={APP_SIGNUP_URL} className="pr-cta" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#D7FF43', color: '#061A3A', fontWeight: 700, fontSize: '15px', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                           Get Reslink Premium
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                         </Link>
@@ -456,7 +456,7 @@ export default function PricingPage() {
                           </div>
                         ))}
                       </div>
-                      <Link href="/signup?plan=agency-starter" className="pr-cta-outline" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#fff', color: '#061A3A', fontWeight: 700, fontSize: '14px', padding: '12px 20px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)', border: '1.5px solid #E4E6EC' }}>
+                      <Link href={APP_SIGNUP_URL} className="pr-cta-outline" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#fff', color: '#061A3A', fontWeight: 700, fontSize: '14px', padding: '12px 20px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)', border: '1.5px solid #E4E6EC' }}>
                         Start free trial
                       </Link>
                     </div>
@@ -484,7 +484,7 @@ export default function PricingPage() {
                             </div>
                           ))}
                         </div>
-                        <Link href="/signup?plan=agency-growth" className="pr-cta" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#D7FF43', color: '#061A3A', fontWeight: 700, fontSize: '14px', padding: '13px 20px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                        <Link href={APP_SIGNUP_URL} className="pr-cta" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#D7FF43', color: '#061A3A', fontWeight: 700, fontSize: '14px', padding: '13px 20px', borderRadius: '8px', textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                           Get started
                           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                         </Link>

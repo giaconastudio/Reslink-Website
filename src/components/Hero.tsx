@@ -75,8 +75,13 @@ export default function Hero() {
           color: #061A3A;
           margin-bottom: 24px;
         }
+        /* Smaller than it wants to be, deliberately. The headline is the
+           single biggest block above the fold on a phone, so a few vw off it
+           lifts the CTAs, the proof row and the animation up the screen — the
+           cheapest height in the hero. Tighter tracking keeps it reading as a
+           display face rather than just shrunken. */
         @media (max-width: 520px) {
-          .hero-h1 { font-size: clamp(48px, 13vw, 60px); line-height: 0.96; letter-spacing: -0.02em; }
+          .hero-h1 { font-size: clamp(38px, 10.5vw, 50px); line-height: 0.98; letter-spacing: -0.025em; }
         }
         .hero-sub {
           font-size: clamp(16px, 2vw, 20px);
@@ -103,29 +108,6 @@ export default function Hero() {
         @media (max-width: 640px) { .hero-cosell-link { min-height: 44px; } }
         .hero-cosell-link strong { color: #061A3A; font-weight: 700; }
         .hero-cosell-link:hover, .hero-cosell-link:hover strong { color: #1468E8; }
-
-        /* Phones: the "Hiring?" line moves out of the proof row to below the
-           stage, just above the logo bar. In the row it sits between the CTAs
-           and the animation — and since the row stacks to a column here, it
-           was costing the stage its own height plus the row's 14px gap, which
-           is exactly the space the animation wanted. It's a second copy gated
-           by breakpoint rather than a moved node, so the desktop row is
-           untouched. */
-        .hero-cosell-mobile { display: none; }
-        @media (max-width: 760px) {
-          .hero-proof-row .hero-cosell-link { display: none; }
-          /* Sat 26px under the stage but 72px above the logo bar, so it read
-             as hanging off the bottom of the card rather than standing on its
-             own. The 72 is the hero's own padding-bottom, set when the stage
-             was the last thing in here — the link now lives inside it. Evened
-             up: ~44px of clear air either side, taken out of that padding
-             rather than added to the page. */
-          .hero-cosell-mobile { display: flex; justify-content: center; margin: 44px 16px 0; }
-          /* 72 -> 44 so the air below the link matches the air above it. The
-             page doesn't get taller: the 28px comes out of the padding and
-             goes into the gap that was missing. */
-          .hero-section { padding-bottom: 44px; }
-        }
 
         .hero-cobanner { display: flex; justify-content: center; margin-bottom: 40px; }
         .hero-cobanner-inner {
@@ -371,16 +353,6 @@ export default function Hero() {
         </div>
       </div>
       </motion.div>
-
-      {/* Mobile-only twin of the proof row's "Hiring?" link — see the note by
-          .hero-cosell-mobile. Sits last in the hero, so it lands directly
-          above the logo bar, which is the next sibling on the page. */}
-      <div className="hero-cosell-mobile">
-        <Link href="/companies" className="hero-cosell-link">
-          <strong>Hiring?</strong> See how teams screen with Reslink
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </Link>
-      </div>
     </section>
   );
 }

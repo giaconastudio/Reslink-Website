@@ -218,15 +218,27 @@ export default function HowItWorks() {
              room for it: at 430x932 the card came to 720px inside an 848px
              cap, so ~128px of height was going unused. Still vh-relative, so
              short phones tighten themselves rather than overflowing. */
+          /* svh, not vh. The card's budget is svh-based (max-height below),
+             but every vh inside it resolves against the TOOLBAR-HIDDEN
+             height, which on iOS Safari is ~160pt taller than what the card
+             actually gets. So the padding, gaps and stage were all sized for
+             a viewport that isn't there, and overflow:hidden ate the
+             difference off the bottom — which is where the chevron lives.
+             This is invisible in a desktop emulator, where vh === svh.
+             vh line first as the fallback for anything without svh. */
           .hiw-inner { padding: clamp(26px, 4.4vh, 46px) 16px clamp(20px, 3.2vh, 34px); }
+          .hiw-inner { padding: clamp(22px, 4.4svh, 44px) 16px clamp(16px, 3.2svh, 32px); }
           .hiw-header { margin-bottom: clamp(16px, 3.2vh, 32px); }
+          .hiw-header { margin-bottom: clamp(14px, 3.2svh, 30px); }
           /* min-width:0 — grid items otherwise refuse to shrink below their
              content's intrinsic width and overflow the collapsed column. */
           .hiw-grid { grid-template-columns: 1fr; gap: clamp(16px, 2.9vh, 30px); }
+          .hiw-grid { gap: clamp(14px, 2.9svh, 28px); }
           .hiw-grid > * { min-width: 0; }
           /* 3.2vh came out at 27px on a 844px phone, which read as four
              separate items rather than one list. Tightened to ~17px there. */
           .hiw-list { gap: clamp(10px, 2vh, 20px); }
+          .hiw-list { gap: clamp(9px, 2svh, 18px); }
           .hiw-stage-row { order: -1; }
           /* Native 1600x1040 aspect — do NOT crop this. A single sampled frame
              makes the videos look like they have wide dead margins, but they
@@ -264,6 +276,7 @@ export default function HowItWorks() {
              floating in the card's bottom padding — ended up drawn over step
              4's label. In flow it simply cannot overlap anything. */
           .hiw-row-scroll { display: flex; position: static; margin: clamp(12px, 2.4vh, 22px) auto 0; }
+          .hiw-row-scroll { margin: clamp(10px, 2.4svh, 20px) auto 0; }
         }
 
         /* Phones only. The card is ~370px wide here, so width is the single
@@ -277,7 +290,19 @@ export default function HowItWorks() {
              full-width, so only the height needs a floor. */
           .hiw-row { min-height: 44px; align-items: center; }
           .hiw-stage-row { margin: 0 -16px; }
+          /* min(), so this is only a cap when it needs to be. The stage's only
+             other height limit lives behind (max-height: 760px), and media
+             queries resolve against the toolbar-HIDDEN viewport — so on a tall
+             phone that block never matches, the stage stays full-bleed at its
+             widest, and the card is left trying to fit ~280px of video into an
+             svh-sized budget. Capping the WIDTH keeps the 1600x1040 ratio
+             intact (no cropping, which the note above rightly forbids).
+             With the toolbar hidden 52svh exceeds the card, so 100% wins and
+             full-bleed is preserved exactly as designed; with it showing, the
+             stage insets a little instead of pushing the chevron off the
+             bottom. */
           .hiw-stage { max-width: none; border-radius: 0; border-left: none; border-right: none; }
+          .hiw-stage { max-width: min(100%, 52svh); }
           /* The in-card CTA is dropped on phones. It duplicates the "Get
              started" button in the sticky navbar, which is on screen the
              whole time this section is pinned, and reclaiming its ~50px is
@@ -306,7 +331,11 @@ export default function HowItWorks() {
              stays a smaller inset panel — which means putting back the radius
              and side borders the full-bleed rule above removes. */
           .hiw-stage-row { margin: 0; }
+          /* 40vh was the worst offender: on a real phone it resolved against
+             the toolbar-hidden height, making the video taller than the whole
+             card had to spend. */
           .hiw-stage { max-width: min(340px, 40vh); border-radius: 14px; border-left: 1px solid rgba(255,255,255,0.12); border-right: 1px solid rgba(255,255,255,0.12); }
+          .hiw-stage { max-width: min(340px, 38svh); }
           .hiw-rowlabel { font-size: 15px; }
           .hiw-rowdesc p { font-size: 12.5px; }
           .hiw-stepnum-value { font-size: 18px; }

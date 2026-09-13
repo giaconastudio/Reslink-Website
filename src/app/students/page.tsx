@@ -3,8 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Video, BarChart2, Zap, Globe, FileText, Share2, Plus, Minus, Play, CheckCircle, Eye, Mail, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
-import { checkEligibility } from '@/lib/eligibility';
+import { Video, BarChart2, Zap, Globe, FileText, Share2, Plus, Minus, Play, CheckCircle, Eye } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { AnimatedStat } from '@/components/CountUp';
@@ -52,17 +51,6 @@ function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; 
 
 export default function StudentsPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [chkEmail, setChkEmail] = useState('');
-  const [chkStatus, setChkStatus] = useState<'idle' | 'checking' | 'eligible' | 'no' | 'manual' | 'error'>('idle');
-
-  const runChk = (e: React.FormEvent) => {
-    e.preventDefault();
-    const verdict = checkEligibility(chkEmail, 'student');
-    if (verdict === 'invalid') { setChkStatus('error'); return; }
-    setChkStatus('checking');
-    window.setTimeout(() => setChkStatus(verdict), 850);
-  };
-
   return (
     <>
       <Navbar dark />
@@ -93,10 +81,6 @@ export default function StudentsPage() {
                   text-transform: uppercase; background: #D7FF43; color: #061A3A !important;
                   border-radius: 100px; padding: 9px 20px; line-height: 1 !important;
                 }
-                /* Button matches the input's width rather than its own label. */
-                .students-elig-form { flex-direction: column !important; flex-wrap: nowrap !important; }
-                .students-elig-form > div { flex: 1 1 auto !important; width: 100% !important; box-sizing: border-box !important; }
-                .students-elig-btn { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; }
               }
               @media (max-width: 480px) { .students-hero-section-inner { padding-top: 48px !important; padding-bottom: 24px !important; } }
               @media (max-width: 480px) { .students-cta-btn { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; } }
@@ -125,67 +109,19 @@ export default function StudentsPage() {
                 </Link>
               </div>
 
-              {/* Student pricing banner + inline eligibility checker */}
-              <div className="students-hero-discount" style={{ marginTop: '30px', paddingTop: '26px', borderTop: '1px solid rgba(255,255,255,0.1)', display: 'block' }}>
-                <div className="students-discount-head" style={{ display: 'flex', alignItems: 'center', gap: '30px', marginBottom: '16px' }}>
+              {/* Student pricing banner. The inline eligibility checker that
+                  used to sit here is gone: with accounts closed until student
+                  verification ships, checking an address only told someone they
+                  qualified for something they couldn't act on yet. This now
+                  matches the veterans banner — the rate, and what it waits on. */}
+              <div className="students-hero-discount" style={{ marginTop: '30px', paddingTop: '26px', borderTop: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', gap: '30px' }}>
+                <div className="students-discount-head" style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
                   <span className="students-discount-num" style={{ fontFamily: 'var(--font-phudu)', fontWeight: 900, fontSize: '38px', color: '#fff', lineHeight: 1, letterSpacing: '-0.02em', whiteSpace: 'nowrap', flexShrink: 0 }}>50% off</span>
                   <div>
                     <p style={{ fontSize: '15px', fontWeight: 700, color: '#D7FF43', fontFamily: 'var(--font-body)', lineHeight: 1.3, margin: 0 }}>$29/year with your school email</p>
-                    <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Check your school email below to see if you qualify</p>
+                    <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Student verification coming soon.</p>
                   </div>
                 </div>
-
-                <form onSubmit={runChk} className="students-elig-form" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', maxWidth: '440px' }}>
-                  <div style={{ position: 'relative', flex: '1 1 200px', display: 'flex', alignItems: 'center', background: '#fff', borderRadius: '10px', border: chkStatus === 'error' ? '1.5px solid #F0997B' : '1.5px solid transparent', padding: '0 12px' }}>
-                    <Mail size={16} color="#8A93A3" style={{ flexShrink: 0 }} />
-                    <input type="email" value={chkEmail}
-                      onChange={(e) => { setChkEmail(e.target.value); if (chkStatus !== 'idle') setChkStatus('idle'); }}
-                      placeholder="Your school email address"
-                      style={{ width: '100%', border: 'none', outline: 'none', background: 'transparent', padding: '12px 8px', fontSize: '14px', color: '#061A3A', fontFamily: 'var(--font-body)' }} />
-                  </div>
-                  <button type="submit" disabled={chkStatus === 'checking'} className="students-elig-btn"
-                    style={{ flexShrink: 0, display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '12px 20px', background: '#D63D9D', color: '#fff', border: 'none', borderRadius: '10px', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', cursor: chkStatus === 'checking' ? 'default' : 'pointer', opacity: chkStatus === 'checking' ? 0.75 : 1 }}>
-                    {chkStatus === 'checking'
-                      ? <><motion.span animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 0.9, ease: 'linear' }} style={{ display: 'inline-flex' }}><Loader2 size={15} /></motion.span> Checking</>
-                      : <>Check eligibility <ArrowRight size={15} /></>}
-                  </button>
-                </form>
-
-                {chkStatus === 'error' && (
-                  <p style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: '#F0997B', fontFamily: 'var(--font-body)', margin: '10px 0 0' }}>
-                    <AlertCircle size={14} /> Enter a valid email address.
-                  </p>
-                )}
-
-                {chkStatus === 'eligible' && (
-                  <motion.div key="s-ok" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}
-                    style={{ marginTop: '12px', maxWidth: '440px', display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(215,255,67,0.12)', border: '1px solid rgba(215,255,67,0.35)', borderRadius: '10px', padding: '11px 14px' }}>
-                    <span style={{ width: '24px', height: '24px', borderRadius: '50%', background: '#D7FF43', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><CheckCircle size={14} color="#061A3A" strokeWidth={2.5} /></span>
-                    <p style={{ fontSize: '13.5px', color: '#fff', fontFamily: 'var(--font-body)', margin: 0, lineHeight: 1.45 }}>
-                      You&apos;re eligible — join the waitlist and your 50% off is ready the day verification opens.
-                    </p>
-                  </motion.div>
-                )}
-
-                {chkStatus === 'manual' && (
-                  <motion.div key="s-manual" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}
-                    style={{ marginTop: '12px', maxWidth: '440px', display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(215,255,67,0.12)', border: '1px solid rgba(215,255,67,0.35)', borderRadius: '10px', padding: '11px 14px' }}>
-                    <span style={{ width: '24px', height: '24px', borderRadius: '50%', background: '#D7FF43', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><CheckCircle size={14} color="#061A3A" strokeWidth={2.5} /></span>
-                    <p style={{ fontSize: '13.5px', color: '#fff', fontFamily: 'var(--font-body)', margin: 0, lineHeight: 1.45 }}>
-                      We can&apos;t confirm that domain automatically. Join the waitlist and we&apos;ll check it before your discount is applied.
-                    </p>
-                  </motion.div>
-                )}
-
-                {chkStatus === 'no' && (
-                  <motion.div key="s-no" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}
-                    style={{ marginTop: '12px', maxWidth: '440px', display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.14)', borderRadius: '10px', padding: '11px 14px' }}>
-                    <span style={{ width: '24px', height: '24px', borderRadius: '50%', background: 'rgba(240,153,123,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><AlertCircle size={14} color="#F0997B" /></span>
-                    <p style={{ fontSize: '13.5px', color: 'rgba(255,255,255,0.75)', fontFamily: 'var(--font-body)', margin: 0, lineHeight: 1.45 }}>
-                      That looks like a personal address. Use the email your school issued you and we can confirm the discount.
-                    </p>
-                  </motion.div>
-                )}
               </div>
             </motion.div>
             {/* Right: student photo */}

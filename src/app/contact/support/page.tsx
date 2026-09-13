@@ -27,7 +27,7 @@ const FAQS = [
   { q: 'My analytics aren\'t showing any views', a: 'Views can take a few minutes to appear, and your own visits are not counted. If a recruiter has opened your link but nothing shows after an hour, let us know and we will check it.' },
   { q: 'How do I cancel or change my plan?', a: 'Go to Billing in your account settings to upgrade, downgrade or cancel. If you cancel a paid plan, your access stays active until the end of the billing period.' },
   { q: 'How do I delete my Reslink or my account?', a: 'You can delete an individual Reslink from your dashboard, or delete your whole account from account settings. Deleting your account permanently removes your data - reach out first if you would like a hand.' },
-  { q: 'My student or veteran discount hasn\'t applied', a: 'Discounts apply once your student or service email is verified (through ID.me for veterans). Make sure you verified with the right email, and if it still has not applied, message us and we will fix it manually.' },
+  { q: 'My student or veteran discount hasn\'t applied', a: 'Student and VA verification are coming very soon, and the 50% discount applies automatically once you are verified. Until then, join the waitlist from the students or veterans page and we will email you the moment it opens.' },
   { q: 'A recruiter says my link doesn\'t work.', a: 'Check that your Reslink is set to Active in your dashboard - an inactive link will not open. Confirm they are using your full link, and if it is active and still not loading, send it to us and we will investigate.' },
 ];
 

@@ -154,7 +154,7 @@ export default function EligibilityPage() {
                   <p style={{ fontSize: '13.5px', color: '#1B5299', fontFamily: 'var(--font-body)', lineHeight: 1.6, margin: '0 0 14px' }}>
                     {kind === 'student'
                       ? "Plenty of universities don't use a .edu or .ac.uk style address, so we can't confirm this one automatically. Join the waitlist and we'll verify it before your discount is applied."
-                      : "That isn't a military email, so we'll confirm your service record when ID.me verification opens. Join the waitlist and the 50% discount still applies."}
+                      : "That isn't a military email, so we'll confirm your service record when VA verification opens. Join the waitlist and the 50% discount still applies."}
                   </p>
                   <Link href={`/get-started?type=${kind === 'student' ? 'student' : 'veteran'}`}
                     style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', background: '#061A3A', color: '#fff', fontSize: '14px', fontWeight: 700, fontFamily: 'var(--font-body)', textDecoration: 'none', padding: '11px 18px', borderRadius: '10px' }}>

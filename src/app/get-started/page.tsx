@@ -218,7 +218,7 @@ function GetStartedForm() {
   const isOrg = ORG_TYPES.some(t => t.id === selectedType);
   /* Students and veterans can't open an account at launch. Half price depends
      on proving you study or that you served, and neither check (school email,
-     ID.me) is live yet — so step 2 puts them on a waitlist rather than
+     VA verification) is live yet — so step 2 puts them on a waitlist rather than
      creating an account that couldn't carry the discount they came for. */
   const isWaitlist = selectedType === 'student' || selectedType === 'veteran';
   /* Once the demo request or waitlist signup is in, the left column is just a

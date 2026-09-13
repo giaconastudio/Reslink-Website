@@ -7,7 +7,7 @@ import { CheckCircle, ArrowRight, Mail } from 'lucide-react';
 
    Neither audience can create an account at launch: the half-price rate
    depends on proving you're a student or that you served, and that
-   verification (school email for students, ID.me for veterans) isn't live
+   verification (school email for students, VA verification for veterans) isn't live
    yet. Rather than let someone sign up and then discover the discount can't
    be applied, both types collect an email here and hear from us the day
    verification opens.
@@ -25,8 +25,8 @@ const COPY: Record<WaitlistKind, { sub: string; success: string; extraLabel: str
     extraPlaceholder: 'School or university (optional)',
   },
   veteran: {
-    sub: 'ID.me verification is coming very soon. Leave your email and we\'ll tell you the moment it opens — with your 50% off ready to go.',
-    success: 'We\'ll email you the moment ID.me verification goes live, and your 50% off will be waiting.',
+    sub: 'VA verification is coming very soon. Leave your email and we\'ll tell you the moment it opens — with your 50% off ready to go.',
+    success: 'We\'ll email you the moment VA verification goes live, and your 50% off will be waiting.',
     extraLabel: 'Where did you serve?',
     extraPlaceholder: 'Branch of service (optional)',
   },

@@ -66,7 +66,7 @@ const FAQS = [
   { group: 'personal', q: 'Do I need a card to start?', a: 'No. The free plan needs no card at all. You only add a payment method if and when you decide to upgrade to Premium.' },
   { group: 'personal', q: 'Can I cancel anytime?', a: 'Absolutely. Cancel any time from your account settings. Your Premium access stays active until the end of the billing period, no matter which cycle you chose.' },
   { group: 'personal', q: 'What happens to my Reslinks if I downgrade?', a: "Your Reslinks stay live. If you have more than 2, they remain accessible via direct link but you'll need Premium to create new ones." },
-  { group: 'personal', q: 'How does the student and veteran discount work?', a: 'Students and veterans get 50% off Premium. Verification — your school email for students, ID.me for veterans — is coming very soon, and student and veteran accounts open when it does. Join the waitlist from the students or veterans page and we will email you the moment it opens, with your 50% off ready to go.' },
+  { group: 'personal', q: 'How does the student and veteran discount work?', a: 'Students and veterans get 50% off Premium. Verification — your school email for students, VA verification for veterans — is coming very soon, and student and veteran accounts open when it does. Join the waitlist from the students or veterans page and we will email you the moment it opens, with your 50% off ready to go.' },
   { group: 'business', q: 'How does company pricing work?', a: 'Companies start with a 14-day free trial on the Growth plan, no card required. Paid plans scale with your open job postings and team seats, and Enterprise is tailored to your hiring volume - just request a demo.' },
   { group: 'business', q: 'What are Reslink Credits, and what happens if I run out?', a: 'Credits power AI screening. Each applicant you screen uses one credit to generate an AI score, video pitch analysis, resume match and role-fit breakdown, from $0.50 per applicant. If you run out, AI screening simply pauses - your postings and candidates stay put - and you can top up any time to switch it back on.' },
   { group: 'business', q: 'Do you offer invoicing or annual contracts?', a: 'Yes. Growth and Enterprise plans can be billed annually, and Enterprise customers can pay by invoice with custom contract terms. Talk to sales and we will set it up.' },
@@ -345,11 +345,14 @@ export default function PricingPage() {
                       <span style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(40px, 5vw, 56px)', fontWeight: 900, color: '#9E2462', letterSpacing: '-0.03em', lineHeight: 1, flexShrink: 0 }}>50%</span>
                       <div>
                         <p style={{ fontSize: '15px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.3 }}>off for students and veterans</p>
-                        <p style={{ fontSize: '13.5px', color: '#8A6577', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Students can check if they&apos;re eligible. ID.me verification for veterans available soon.</p>
+                        <p style={{ fontSize: '13.5px', color: '#8A6577', fontFamily: 'var(--font-body)', marginTop: '3px' }}>Student and VA verification coming soon.</p>
                       </div>
                     </div>
-                    <Link href="/eligibility" className="tap-44" style={{ fontSize: '14px', fontWeight: 700, color: '#9E2462', fontFamily: 'var(--font-body)', textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0, display: 'inline-flex', alignItems: 'center', gap: '7px' }}>
-                      See if you qualify
+                    {/* Goes to /get-started rather than a single audience's
+                        page: the banner covers students and veterans, and
+                        step 1 is where they say which one they are. */}
+                    <Link href="/get-started" className="tap-44" style={{ fontSize: '14px', fontWeight: 700, color: '#9E2462', fontFamily: 'var(--font-body)', textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0, display: 'inline-flex', alignItems: 'center', gap: '7px' }}>
+                      Join our waitlist
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </Link>
                   </div>

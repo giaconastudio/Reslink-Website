@@ -190,3 +190,20 @@ h1, h2, h3, h4 {
   align-items: center;
   width: max-content;
 }
+
+/* Audience hero headlines, phones only.
+   Each of these pages sets its own font-size inline, with a different desktop
+   cap (96px companies, 56px students/veterans, 78px agencies/universities).
+   Below 520px those clamps all bottom out at their floor — 48px or 44px —
+   while the home hero tops out at 39px, because "Reslinks get watched." is
+   simply a longer line than "Find the right candidate, faster" and needs
+   431px at 48px where a 390px phone offers 358px. The home page can't come
+   up to meet them, so they come down to meet it.
+   Same expression as .hero-h1 uses, so every hero reads identically at every
+   phone width: 39px at 390, 43px at 430. Desktop is untouched — this stops
+   at 520px, above which each page's own clamp takes over again.
+   !important because the declaration it overrides is an inline style, which
+   no media query can beat otherwise. */
+@media (max-width: 520px) {
+  .audience-hero-h1 { font-size: clamp(32px, 10vw, 44px) !important; }
+}

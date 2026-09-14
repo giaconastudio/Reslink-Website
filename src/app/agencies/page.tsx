@@ -220,7 +220,7 @@ export default function AgenciesPage() {
             <div className="ag-hero-grid">
               <motion.div className="ag-hero-text" style={{ display: 'flex', flexDirection: 'column' }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                 <p style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#1468E8', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>For recruitment agencies</p>
-                <h1 style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(44px, 6.6vw, 78px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.92, letterSpacing: '-0.03em', marginBottom: '26px' }}>
+                <h1 className="audience-hero-h1" style={{ fontFamily: 'var(--font-phudu)', fontSize: 'clamp(44px, 6.6vw, 78px)', fontWeight: 900, color: '#061A3A', lineHeight: 0.92, letterSpacing: '-0.03em', marginBottom: '26px' }}>
                   Send more{' '}<br className="br-desktop" />
                   than a <span style={{ background: 'linear-gradient(#D7FF43, #D7FF43) no-repeat', backgroundSize: '100% 0.34em', backgroundPosition: '0 calc(100% - 0.1em)', padding: '0 0.05em', WebkitBoxDecorationBreak: 'clone', boxDecorationBreak: 'clone' }}>resume</span>
                 </h1>

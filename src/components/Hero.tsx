@@ -275,11 +275,22 @@ export default function Hero() {
           to { opacity: 1; transform: translateY(0); }
         }
         .hero-reveal { opacity: 0; animation: heroReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: var(--hero-reveal-delay, 0s); }
+        /* Transform-only on purpose — do NOT add opacity back.
+
+           WebKit permits muted autoplay only while the element is actually
+           visible, and it applies that test the moment autoplay is attempted.
+           This wrapper is an ancestor of the hero video, so fading it in from
+           opacity: 0 meant the video was invisible for the first 300ms of every
+           cold load and Safari refused to start it. Chrome has no such rule,
+           which is why it only ever showed up in Safari.
+
+           The slide-and-scale still reads as a reveal without ever making the
+           video untouchable to the autoplay check. */
         @keyframes heroStageReveal {
-          from { opacity: 0; transform: translateY(60px) rotateX(6deg) scale(0.96); }
-          to { opacity: 1; transform: translateY(0) rotateX(0) scale(1); }
+          from { transform: translateY(60px) rotateX(6deg) scale(0.96); }
+          to { transform: translateY(0) rotateX(0) scale(1); }
         }
-        .hero-stage-reveal { opacity: 0; animation: heroStageReveal 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards; animation-delay: 0.3s; }
+        .hero-stage-reveal { animation: heroStageReveal 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards; animation-delay: 0.3s; }
         @media (prefers-reduced-motion: reduce) {
           .hero-reveal, .hero-stage-reveal { animation: none; opacity: 1; transform: none; }
         }

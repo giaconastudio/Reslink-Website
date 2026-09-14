@@ -51,6 +51,34 @@ export default function VideoAutoplay() {
 
     kick();
 
+    /* The one that matters on a cold Safari load.
+
+       WebKit permits muted autoplay only while the element is genuinely
+       visible in the viewport, and it does not queue a retry for one that
+       isn't. On a page like the home page, where 8 of the 10 videos start
+       below the fold, that means almost every video is denied at load and
+       stays denied — which is exactly the "everything frozen until I click"
+       report, since a gesture lifts the restriction for all of them at once.
+
+       So mirror WebKit's own model: attempt playback when a video actually
+       scrolls into view. This is also just better behaviour in every browser —
+       nothing below the fold decodes until you reach it. */
+    let io: IntersectionObserver | null = null;
+    if (typeof IntersectionObserver !== 'undefined') {
+      io = new IntersectionObserver(
+        entries => entries.forEach(e => {
+          if (!e.isIntersecting) return;
+          const v = e.target as HTMLVideoElement;
+          if (!v.paused) return;
+          v.muted = true;
+          const p = v.play();
+          if (p && typeof p.catch === 'function') p.catch(() => { /* still gated — a gesture retries */ });
+        }),
+        { threshold: 0.15 },
+      );
+      document.querySelectorAll<HTMLVideoElement>(SELECTOR).forEach(v => io?.observe(v));
+    }
+
     /* The listeners stay for the life of the page rather than detaching after
        the first hit. They're passive and cost nothing, and leaving them on is
        what covers videos mounted later by a client-side navigation, plus tabs
@@ -63,6 +91,7 @@ export default function VideoAutoplay() {
     window.addEventListener('pageshow', kick);
 
     return () => {
+      io?.disconnect();
       gestures.forEach(e => window.removeEventListener(e, kick));
       document.removeEventListener('visibilitychange', kick);
       window.removeEventListener('pageshow', kick);

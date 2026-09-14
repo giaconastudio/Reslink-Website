@@ -309,6 +309,12 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
 
           <Link href="/pricing" style={{ display: 'block', padding: '13px 0', fontSize: '15px', fontWeight: 600, color: isDark ? '#fff' : '#061A3A', textDecoration: 'none', borderBottom: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F3F4F6', fontFamily: 'var(--font-body)' }} onClick={() => setMobileOpen(false)}>Pricing</Link>
           <Link href={signupHref} className="btn-primary" style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }} onClick={() => setMobileOpen(false)}>{talksToSales ? 'Schedule a demo' : joinsWaitlist ? 'Join the waitlist' : 'Get started for free'}</Link>
+          {/* The desktop nav has always carried "Log in" beside the signup
+              button, but this drawer only had the signup CTA — so on a phone
+              there was no way to reach the login page at all. Secondary
+              styling keeps signup the primary action; 13px vertical padding
+              matches the nav rows above for a comfortable tap target. */}
+          <Link href={APP_LOGIN_URL} style={{ display: 'block', textAlign: 'center', padding: '13px 0', marginTop: '4px', fontSize: '15px', fontWeight: 600, color: isDark ? 'rgba(255,255,255,0.72)' : '#3A4A63', textDecoration: 'none', fontFamily: 'var(--font-body)' }} onClick={() => setMobileOpen(false)}>Log in</Link>
         </div>
       )}
 

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <!-- Reslink mark, lifted from public/reslink-logo.svg.
+
+       That file is the full lockup (334x78, plane + RESLINK wordmark), which
+       is illegible at 16px — the wordmark collapses to a smear. This is the
+       plane alone: the two paths that make it, translated so their bounding
+       box (x 1.48-65.16, y 17.66-68.84) is centred in a square with even
+       padding, so the mark reads as large as it can at tab size.
+
+       The lockup's clipPath is dropped rather than carried over: its rect
+       fully contains the mark, so it was never clipping anything here.
+
+       Next serves this as the <link rel="icon"> automatically because it
+       lives at src/app/icon.svg. -->
+  <g transform="translate(6.68, -3.25)">
+    <path d="M64.7208 18.1607C64.2289 17.6632 63.5002 17.4792 62.8327 17.6917L2.77305 36.7144C2.06297 36.9395 1.55682 37.566 1.48173 38.3063C1.40865 39.0495 1.78473 39.761 2.43464 40.12L16.802 48.0417L54.2707 25.9429L23.723 51.8554L47.8018 65.1311C47.9813 65.2283 48.1757 65.2979 48.3761 65.3332C48.7085 65.3918 49.0544 65.3595 49.3763 65.2349C49.8907 65.0332 50.2901 64.6122 50.4651 64.0911L65.16 20.0578C65.3809 19.391 65.2123 18.6607 64.7208 18.1607Z" fill="#0C63E3"/>
+    <path d="M25.082 55.3447L23.0831 66.6811C22.9435 67.4731 23.3282 68.2642 24.0371 68.6463C24.2145 68.7406 24.4024 68.804 24.5931 68.8376C25.165 68.9384 25.7648 68.767 26.2013 68.3499L34.4237 60.4951L25.082 55.3447Z" fill="#0C63E3"/>
+  </g>
+</svg>

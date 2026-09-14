@@ -854,11 +854,15 @@ const FEATURE_GROUPS: { label: string; ids: string[] }[] = [
 // Per-feature accent colours — card 1 blue, cards 2 & 3 pink, card 4 green.
 // `badge`/`badgeBg` colour the eyebrow pill; `bullet`/`check` colour the
 // checkmark circle and its tick in the bullet list.
-const ACCENT: Record<string, { badge: string; badgeBg: string; bullet: string; check: string }> = {
-  analytics:    { badge: '#1468E8', badgeBg: '#EAF1FF', bullet: '#1468E8', check: '#fff' },
-  pitchai:      { badge: '#D63D9D', badgeBg: '#FBEAF5', bullet: '#D63D9D', check: '#fff' },
-  teleprompter: { badge: '#D63D9D', badgeBg: '#FBEAF5', bullet: '#D63D9D', check: '#fff' },
-  badge:        { badge: '#5B7A0F', badgeBg: '#EEF7CF', bullet: '#C2E532', check: '#041635' },
+/* `halo` is `badge` at 30% — the ring behind the active nav dot. Stored
+   rather than derived because CSS needs it as an rgba string and the hex is
+   all that's written here; one field beats a conversion helper for four
+   values that never change. */
+const ACCENT: Record<string, { badge: string; badgeBg: string; bullet: string; check: string; halo: string }> = {
+  analytics:    { badge: '#1468E8', badgeBg: '#EAF1FF', bullet: '#1468E8', check: '#fff',    halo: 'rgba(20,104,232,0.30)' },
+  pitchai:      { badge: '#D63D9D', badgeBg: '#FBEAF5', bullet: '#D63D9D', check: '#fff',    halo: 'rgba(214,61,157,0.30)' },
+  teleprompter: { badge: '#D63D9D', badgeBg: '#FBEAF5', bullet: '#D63D9D', check: '#fff',    halo: 'rgba(214,61,157,0.30)' },
+  badge:        { badge: '#5B7A0F', badgeBg: '#EEF7CF', bullet: '#C2E532', check: '#041635', halo: 'rgba(91,122,15,0.30)' },
 };
 
 export default function Features() {
@@ -917,7 +921,15 @@ export default function Features() {
         .feat-navitem:hover:not(.active) { color: #041635; }
         .feat-navitem.active { color: #041635; font-weight: 700; }
         .feat-dot { width: 7px; height: 7px; border-radius: 50%; background: #C9CFD9; flex-shrink: 0; transition: background 0.18s; }
-        .feat-navitem.active .feat-dot { background: #D8F950; box-shadow: 0 0 0 3px rgba(216,249,80,0.35); }
+        /* The active dot takes its group's colour — blue under Track, pink
+           under Create, olive under Share — so it agrees with the heading
+           above it instead of being lime everywhere. Driven by a variable set
+           per item; the lime stays as the fallback so a feature id that isn't
+           in ACCENT still renders a visible dot rather than none. */
+        .feat-navitem.active .feat-dot {
+          background: var(--feat-dot, #D8F950);
+          box-shadow: 0 0 0 3px var(--feat-dot-halo, rgba(216,249,80,0.35));
+        }
         .feat-card {
           background: #fff; border: 1px solid #E6E9EF; border-radius: 22px;
           padding: clamp(18px, 2.4vw, 30px);
@@ -1082,7 +1094,7 @@ export default function Features() {
                       return (
                         <button key={t.id} ref={(el: HTMLButtonElement | null) => { navRefs.current[i] = el; }} onClick={() => goToFeature(i)} className={`feat-navitem${isActive ? ' active' : ''}`} aria-current={isActive}>
                           {isActive && <motion.span layoutId="featNavPill" transition={{ type: 'spring', stiffness: 450, damping: 38 }} style={{ position: 'absolute', inset: 0, background: '#EDF0F4', borderRadius: '10px', zIndex: 0 }} />}
-                          <span className="feat-dot" />
+                          <span className="feat-dot" style={{ ['--feat-dot' as string]: ACCENT[t.id]?.badge, ['--feat-dot-halo' as string]: ACCENT[t.id]?.halo }} />
                           <span>{t.label}</span>
                         </button>
                       );

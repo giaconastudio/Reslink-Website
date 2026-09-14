@@ -1,7 +1,7 @@
 /* Where the marketing site hands off to the product.
 
    Signing up and logging in both happen in the app, not here, so every
-   "Get started for free" and "Log in" points at this one URL. Keeping it in
+   "Get started for free" and "Log in" points at the app. Keeping the URLs in
    one place means the handoff moves with a single edit rather than a sweep
    through every hero, navbar and CTA block.
 
@@ -12,10 +12,10 @@
 
 export const APP_SIGNUP_URL = 'https://app.reslink.io/sign-up';
 
-/* Log in points at the same place for now: the app's sign-up page is where
-   returning users get routed on too. Split this out if the app grows a
-   dedicated login route. */
-export const APP_LOGIN_URL = APP_SIGNUP_URL;
+/* Returning users get the app's own sign-in page. This aliased APP_SIGNUP_URL
+   while the app had no dedicated login route, which meant anyone clicking
+   "Log in" landed on sign-up; it has one now, so the two are separate. */
+export const APP_LOGIN_URL = 'https://app.reslink.io/sign-in';
 
 /* The affiliate programme runs on FirstPromoter, not on our own signup —
    affiliates get their dashboard, referral links and payouts there, so

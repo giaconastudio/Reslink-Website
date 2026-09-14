@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Phudu } from 'next/font/google';
 import './globals.css';
 import ScrollToTop from '@/components/ScrollToTop';
+import VideoAutoplay from '@/components/VideoAutoplay';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${phudu.variable} antialiased`}>
-      <body><ScrollToTop />{children}</body>
+      <body><ScrollToTop /><VideoAutoplay />{children}</body>
     </html>
   );
 }

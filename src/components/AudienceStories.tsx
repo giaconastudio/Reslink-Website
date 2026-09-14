@@ -107,6 +107,12 @@ function AccordionCard({ person, expanded, onEnter, onLeave }: {
         src={person.video}
         poster={person.video.replace('.mp4', '-poster.jpg')}
         autoPlay muted loop playsInline preload="metadata"
+        /* This card drives its own play/pause (expanded plays, collapsed
+           freezes at 1.2s), but still needs autoPlay to force a first decode
+           on mobile. The site-wide kicker in VideoAutoplay.tsx re-runs on
+           every gesture, so without this opt-out it would keep restarting the
+           collapsed cards. */
+        data-autoplay-managed
         onLoadedData={onLoadedData}
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: person.objectPosition }}
       />

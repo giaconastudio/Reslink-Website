@@ -50,25 +50,18 @@ export default function Hero() {
   /* The hero video card autoplays muted/looping. If the file isn't present yet
      the pink gradient + placeholder figure behind it shows through instead.
 
-     One play() on mount isn't enough on desktop Safari, and the reason is
-     visibility, not buffering. This video lives inside .hero-stage-reveal,
-     which paints at opacity: 0 and doesn't start revealing until its 0.3s
-     animation-delay elapses. WebKit refuses muted autoplay for an element that
-     isn't actually being rendered — opacity: 0 qualifies — and, unlike Chrome,
-     it does not re-evaluate once the element becomes visible. So the mount call
-     and every readiness retry land inside that dead window, all get rejected,
-     and nothing tries again: the poster sits frozen.
+     One play() on mount isn't enough on a slow first load, so this retries on
+     each readiness event and when the reveal animation ends.
 
-     That's also why any navigation "fixes" it. Come back to this route and the
-     reveal animation has already run, so the element is visible at mount and
-     the first attempt sticks — even clicking the logo, which only re-renders
-     this same page. Chrome autoplays regardless of opacity; mobile Safari gets
-     a user gesture almost immediately. Hence desktop-Safari-only.
+     What this is NOT: the desktop-Safari "everything frozen until you click"
+     bug. That one was never hero-specific — every video on the page was frozen
+     and a single gesture released all of them, including videos whose wrappers
+     never go transparent. It's page-level autoplay gating on user activation,
+     and it's handled site-wide in components/VideoAutoplay.tsx. An earlier pass
+     (485ee10) blamed this component's opacity: 0 reveal window and was wrong;
+     the animationend retry below is kept because it's a cheap extra shot at a
+     genuinely useful moment, not because it fixes that.
 
-     So: attempt on mount, on each readiness event, and — the one that actually
-     lands here — when the reveal animation ends and the element is provably
-     visible. Under prefers-reduced-motion the rule sets `animation: none;
-     opacity: 1`, so no animationend fires but the mount attempt already works.
      Each attempt is cheap and a play() on an already-playing element is a
      no-op, so the worst case is a few redundant calls. */
   useEffect(() => {
@@ -91,10 +84,8 @@ export default function Hero() {
     const events = ['loadeddata', 'canplay', 'canplaythrough'] as const;
     events.forEach(e => v.addEventListener(e, attempt));
 
-    /* The attempt that actually succeeds on a cold desktop Safari load: once
-       the reveal animation finishes, the element is genuinely visible and
-       WebKit will accept play(). Found via closest() rather than a threaded
-       ref so the reveal stays a pure CSS concern. */
+    /* One more shot once the reveal animation finishes. Found via closest()
+       rather than a threaded ref so the reveal stays a pure CSS concern. */
     const stage = v.closest('.hero-stage-reveal');
     stage?.addEventListener('animationend', attempt);
 

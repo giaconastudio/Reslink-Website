@@ -211,7 +211,12 @@ export default function UniversitiesPage() {
           <div style={{ maxWidth: '900px', margin: '0 auto' }}>
             <div className="uni-stats-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '24px', textAlign: 'center' }}>
               {[
-                { value: '200+', label: 'universities onboarded' },
+                /* Was "200+ universities onboarded", which we can't stand
+                   behind at two. This is a property of the product rather
+                   than a count of usage, so it's true today and stays true —
+                   and it's the only stat here about effort, where the other
+                   three are adoption and outcomes. */
+                { value: '5 min', label: 'to onboard\na student' },
                 { value: '34%', label: 'avg. placement\nrate increase' },
                 { value: '4,000+', label: 'students\nusing Reslink' },
                 { value: '85%', label: 'of students report more callbacks' },

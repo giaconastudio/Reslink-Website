@@ -188,7 +188,20 @@ export default function PricingPage() {
           .featured-scale { transform: none !important; }
         }
         @media (max-width: 560px) {
+          /* Stacking alone wasn't enough. The text block carries
+             flex: 1 1 320px, and flex-basis applies to the MAIN axis — so the
+             moment this becomes a column, that 320px stops being a width and
+             becomes a height request. It was reserving 320px for 68px of
+             text: 252px of empty navy, which is the hole in the middle of
+             this card. Basis back to auto so it takes the height it needs.
+             The footnote keeps its desktop right-alignment otherwise, which
+             reads as stranded once it's under the heading rather than beside
+             it — and its group is narrower than the banner, so left is where
+             it belongs here. */
           .pr-demo-banner { flex-direction: column !important; align-items: flex-start !important; }
+          .pr-demo-banner > div:first-child { flex: 1 1 auto !important; }
+          .pr-demo-banner > div:last-child { width: 100%; justify-content: flex-start; gap: 16px !important; }
+          .pr-demo-banner > div:last-child > p { text-align: left !important; }
         }
         @media (max-width: 560px) {
           .audience-grid { gap: 6px !important; }

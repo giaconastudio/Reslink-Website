@@ -15,7 +15,7 @@ const TEAM = [
     initials: 'DG',
     color: '#1468E8',
     title: 'Co-founder & CEO',
-    bio: 'Dominic built Reslink after experiencing firsthand how qualified candidates get overlooked because a PDF can\'t capture who they really are. He\'s obsessed with giving every job seeker the same shot as the one with the insider referral.',
+    bio: 'Dominic served three tours in the military. He learned firsthand how hard it is to stand out and explain a skill set to a hiring manager on a PDF. So he built the first version of Reslink, using the technical background he\'d picked up over a decade in startups.',
     linkedin: 'https://www.linkedin.com/in/dominicgiacona/',
     photo: '/team/dominic.webp',
   },

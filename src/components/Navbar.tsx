@@ -311,10 +311,25 @@ export default function Navbar({ dark = false, blue = false }: { dark?: boolean;
           <Link href={signupHref} className="btn-primary" style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }} onClick={() => setMobileOpen(false)}>{talksToSales ? 'Schedule a demo' : joinsWaitlist ? 'Join the waitlist' : 'Get started for free'}</Link>
           {/* The desktop nav has always carried "Log in" beside the signup
               button, but this drawer only had the signup CTA — so on a phone
-              there was no way to reach the login page at all. Secondary
-              styling keeps signup the primary action; 13px vertical padding
-              matches the nav rows above for a comfortable tap target. */}
-          <Link href={APP_LOGIN_URL} style={{ display: 'block', textAlign: 'center', padding: '13px 0', marginTop: '4px', fontSize: '15px', fontWeight: 600, color: isDark ? 'rgba(255,255,255,0.72)' : '#3A4A63', textDecoration: 'none', fontFamily: 'var(--font-body)' }} onClick={() => setMobileOpen(false)}>Log in</Link>
+              there was no way to reach the login page at all.
+
+              Outlined rather than bare text: as plain text under a full-width
+              filled button it read as a caption rather than an action. This
+              reuses .btn-outline for geometry, so it inherits the same 13px/24px
+              padding and 8px radius as .btn-primary above and the two line up at
+              matching height and width. The border is tinted to the same blue as
+              the label so the outline reads as deliberate, and the lighter
+              weight keeps signup the primary action. */}
+          <Link
+            href={APP_LOGIN_URL}
+            className="btn-outline"
+            /* 11.5px vertical rather than .btn-outline's 13px: the 1.5px border
+               adds 3px of height that the filled button doesn't carry, which
+               left this one 52px against its 49px. Trimming the padding by the
+               border width makes the two exactly equal. */
+            style={{ display: 'flex', justifyContent: 'center', marginTop: '10px', padding: '11.5px 24px', color: isDark ? '#fff' : '#1468E8', borderColor: isDark ? 'rgba(255,255,255,0.45)' : '#1468E8' }}
+            onClick={() => setMobileOpen(false)}
+          >Log in</Link>
         </div>
       )}
 

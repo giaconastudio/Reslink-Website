@@ -39,11 +39,29 @@ const STATS = [
 export default function ValueProp() {
   const pipRef = useRef<HTMLVideoElement>(null);
 
+  /* Same single-shot problem the hero had: one play() on mount loses the race
+     against a cold download in Safari, the rejection went nowhere, and the
+     clip sat on its first frame. Retry on readiness instead. */
   useEffect(() => {
     const v = pipRef.current;
     if (!v) return;
     v.muted = true;
-    v.play().catch(() => {});
+
+    let done = false;
+    const attempt = () => {
+      if (done || !v.paused) return;
+      const p = v.play();
+      if (p && typeof p.then === 'function') {
+        p.then(() => { done = true; }).catch(() => {});
+      } else {
+        done = true;
+      }
+    };
+
+    attempt();
+    const events = ['loadeddata', 'canplay', 'canplaythrough'] as const;
+    events.forEach(e => v.addEventListener(e, attempt));
+    return () => events.forEach(e => v.removeEventListener(e, attempt));
   }, []);
 
   return (

@@ -47,13 +47,39 @@ export default function Hero() {
     glowY.set((e.clientY - r.top - 300) * 0.15);
   };
 
-  // The hero video card autoplays muted/looping. If the file isn't present yet
-  // the pink gradient + placeholder figure behind it shows through instead.
+  /* The hero video card autoplays muted/looping. If the file isn't present yet
+     the pink gradient + placeholder figure behind it shows through instead.
+
+     One play() on mount isn't enough on desktop Safari. This clip is 11MB, and
+     on a cold first load play() is called while the file is still arriving:
+     Safari rejects the promise, the old .catch(() => {}) swallowed it, and
+     nothing ever tried again — so the poster sat there frozen. Come back to the
+     page and it plays, because by then it's cached and the one attempt lands.
+     Chrome retries on its own, which is why it only showed up in Safari.
+
+     So: attempt on mount, and again on each readiness event, until one sticks.
+     Each attempt is cheap and a play() on an already-playing element is a
+     no-op, so the worst case is a few redundant calls. */
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
     v.muted = true;
-    v.play().catch(() => {});
+
+    let done = false;
+    const attempt = () => {
+      if (done || !v.paused) return;
+      const p = v.play();
+      if (p && typeof p.then === 'function') {
+        p.then(() => { done = true; }).catch(() => { /* not ready yet — a later event retries */ });
+      } else {
+        done = true;
+      }
+    };
+
+    attempt();
+    const events = ['loadeddata', 'canplay', 'canplaythrough'] as const;
+    events.forEach(e => v.addEventListener(e, attempt));
+    return () => events.forEach(e => v.removeEventListener(e, attempt));
   }, []);
 
   return (

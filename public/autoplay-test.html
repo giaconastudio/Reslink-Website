@@ -1,0 +1,46 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Autoplay test</title>
+<style>
+  body { font-family: -apple-system, system-ui, sans-serif; max-width: 620px; margin: 40px auto; padding: 0 20px; color: #061A3A; }
+  video { width: 100%; border-radius: 12px; background: #000; }
+  #verdict { font-size: 20px; font-weight: 700; padding: 14px 16px; border-radius: 10px; margin: 18px 0; }
+  .ok { background: #E7F8E7; color: #12610F; }
+  .bad { background: #FDE8E8; color: #8A1111; }
+  code { background: #F1F3F7; padding: 2px 6px; border-radius: 4px; }
+</style>
+
+<h1>Autoplay test</h1>
+<p>One muted video. Nothing else on the page &mdash; no React, no animations,
+   no other media. <strong>Do not click anything.</strong> Just load the page and read the box.</p>
+
+<div id="verdict">Checking&hellip;</div>
+
+<video id="v" src="/videos/cta-resume.mp4" poster="/videos/hero-cta-resume.jpg"
+       autoplay muted loop playsinline preload="auto"></video>
+
+<p id="detail" style="color:#56637A;font-size:14px"></p>
+
+<script>
+  var v = document.getElementById('v');
+  var box = document.getElementById('verdict');
+  var detail = document.getElementById('detail');
+
+  setTimeout(function () {
+    if (!v.paused && v.currentTime > 0) {
+      box.className = 'ok';
+      box.textContent = 'PLAYING — autoplay works here.';
+      detail.textContent = 'currentTime ' + v.currentTime.toFixed(2) + 's · readyState ' + v.readyState +
+        '. If this plays but the home page does not, the problem is our page and I will keep digging.';
+    } else {
+      box.className = 'bad';
+      box.textContent = 'FROZEN — this browser is blocking muted autoplay.';
+      v.play().then(function () {
+        detail.textContent = 'play() succeeded on retry · readyState ' + v.readyState + '.';
+      }).catch(function (e) {
+        detail.textContent = 'play() rejected: ' + e.name + ' — ' + e.message +
+          '  ·  readyState ' + v.readyState + ' · error ' + (v.error ? v.error.code : 'none');
+      });
+    }
+  }, 4000);
+</script>

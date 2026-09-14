@@ -12,7 +12,9 @@ const APP = "https://app.reslink.io";
 // URLs users shared with each other, so they must keep resolving indefinitely.
 const productRedirects = [
   // Public reslink share links. /reslink/:id is the legacy form; the app
-  // redirects it on to /r/:handle/:slug itself.
+  // redirects it on to /r/:handle/:slug itself. /r/ can never be retired:
+  // badged CVs bake `${APP_FRONT_URL}/r/...?src=badge` into the printed PDF,
+  // so every CV generated before the move carries a hardcoded apex URL.
   { source: "/r/:path*", destination: `${APP}/r/:path*` },
   { source: "/reslink/:id", destination: `${APP}/reslink/:id` },
 
@@ -23,7 +25,8 @@ const productRedirects = [
   { source: "/application/:id", destination: `${APP}/application/:id` },
 
   // Signed-in surfaces. Bookmarks rather than shared links, but they were
-  // reachable on the apex for years.
+  // reachable on the apex for years. (/password is the in-app reset screen —
+  // reset emails send a code, not a link, so nothing external points here.)
   { source: "/dashboard", destination: `${APP}/dashboard` },
   { source: "/settings", destination: `${APP}/settings` },
   { source: "/profile", destination: `${APP}/profile` },
@@ -32,14 +35,15 @@ const productRedirects = [
   { source: "/create/:path*", destination: `${APP}/create/:path*` },
   { source: "/record-video", destination: `${APP}/record-video` },
   { source: "/deactivated-reslink", destination: `${APP}/deactivated-reslink` },
-
-  // Auth. /password is the reset-flow landing page; older reset emails were
-  // sent with apex links and are still sitting in inboxes.
   { source: "/sign-in", destination: `${APP}/sign-in` },
   { source: "/sign-up", destination: `${APP}/sign-up` },
   { source: "/password", destination: `${APP}/password` },
-  { source: "/auth/:path*", destination: `${APP}/auth/:path*` },
 ];
+
+// Deliberately NOT redirected: /auth/socialite/callback. The API builds that
+// URL fresh from APP_FRONT_URL on every OAuth round-trip, and that value is
+// already app.reslink.io — so nothing durable points at the apex version. The
+// only exposure was a flow in flight during the cutover itself.
 
 // Marketing pages that survived the move but changed slug. Redirected to
 // preserve inbound links and search ranking.

@@ -21,3 +21,8 @@ export const APP_LOGIN_URL = APP_SIGNUP_URL;
    affiliates get their dashboard, referral links and payouts there, so
    "Apply for the program" leaves the site entirely. */
 export const AFFILIATE_SIGNUP_URL = 'https://reslink.firstpromoter.com';
+
+/* Open roles live on our own Reslink company page — we hire through the
+   product. Every "Careers" and "See open positions" link points here, which
+   leaves the in-repo /careers page with no inbound links. */
+export const CAREERS_URL = 'https://app.reslink.io/company/reslink';

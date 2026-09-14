@@ -7,7 +7,7 @@ import Footer from '@/components/Footer';
 import StoryTimeline from '@/components/StoryTimeline';
 import CandidateReel from '@/components/CandidateReel';
 import CTA from '@/components/CTA';
-import { APP_SIGNUP_URL } from '@/lib/links';
+import { APP_SIGNUP_URL, CAREERS_URL } from '@/lib/links';
 
 const TEAM = [
   {
@@ -315,7 +315,7 @@ export default function AboutPage() {
           heading={<>Come build{' '}<br className="br-desktop" />it with us</>}
           body="We're a small team solving something that affects almost everyone at some point. If that sounds like your kind of problem, we'd like to meet you."
           primaryLabel="See open positions"
-          primaryHref="/careers"
+          primaryHref={CAREERS_URL}
           secondaryLabel=""
           footnote=""
           visual={

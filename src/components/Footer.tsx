@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { CAREERS_URL } from '@/lib/links';
 import SubscribeBox from './SubscribeBox';
 
 type Item = { label: string; href: string; pill?: string };
@@ -35,7 +36,7 @@ const COLS: { heading: string; items: Item[] }[] = [
     items: [
       { label: 'About', href: '/about' },
       { label: 'Affiliates', href: '/affiliates' },
-      { label: 'Careers', href: '/careers', pill: "we're hiring" },
+      { label: 'Careers', href: CAREERS_URL, pill: "we're hiring" },
       { label: 'Contact', href: '/contact' },
     ],
   },

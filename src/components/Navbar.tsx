@@ -10,7 +10,7 @@ import {
   BookOpen, LayoutTemplate, LifeBuoy,
   Compass, Rocket, Phone,
 } from 'lucide-react';
-import { APP_SIGNUP_URL, APP_LOGIN_URL } from '@/lib/links';
+import { APP_SIGNUP_URL, APP_LOGIN_URL, CAREERS_URL } from '@/lib/links';
 
 const resources = [
   { label: 'Blog', href: '/blog', desc: 'Tips, guides and advice', icon: BookOpen },
@@ -20,7 +20,7 @@ const resources = [
 
 const company = [
   { label: 'About Us', href: '/about', desc: 'How we got here', icon: Compass, badge: null },
-  { label: 'Careers', href: '/careers', desc: 'See open roles', icon: Rocket, badge: "we're hiring" },
+  { label: 'Careers', href: CAREERS_URL, desc: 'See open roles', icon: Rocket, badge: "we're hiring" },
   { label: 'Contact Us', href: '/contact', desc: 'Get in touch with our team', icon: Phone, badge: null },
 ];
 

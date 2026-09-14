@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight, Calendar, HelpCircle, MessageSquare, Rocket } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { CAREERS_URL } from '@/lib/links';
 
 const OPTIONS = [
   {
@@ -102,7 +103,7 @@ export default function ContactPage() {
                   <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)', lineHeight: 1.7, marginBottom: '24px' }}>
                     We're a small team working on the moment a stranger decides whether you're worth meeting. If that's a problem you'd like to spend your time on, we'd like to hear from you.
                   </p>
-                  <Link href="/careers" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 24px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '14px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                  <Link href={CAREERS_URL} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '13px 24px', background: '#D7FF43', color: '#061A3A', borderRadius: '10px', fontSize: '14px', fontWeight: 700, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
                     See open positions <ArrowUpRight size={15} />
                   </Link>
                 </div>

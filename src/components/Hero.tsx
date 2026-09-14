@@ -79,7 +79,22 @@ export default function Hero() {
     attempt();
     const events = ['loadeddata', 'canplay', 'canplaythrough'] as const;
     events.forEach(e => v.addEventListener(e, attempt));
-    return () => events.forEach(e => v.removeEventListener(e, attempt));
+
+    /* Retrying on readiness only helps when the problem IS readiness. Desktop
+       Safari can refuse muted autoplay outright — Low Power Mode, or an
+       Auto-Play setting of "Never Auto-Play" — and then every attempt is
+       rejected no matter how much data has arrived. What lifts it is user
+       activation, which is why clicking anything (even the logo, which just
+       re-renders this same page) makes it play.
+       So the first interaction anywhere gets one more attempt. Listeners are
+       passive and the `done` flag makes them no-ops once it's playing. */
+    const gestures = ['pointerdown', 'keydown', 'touchstart', 'scroll'] as const;
+    gestures.forEach(e => window.addEventListener(e, attempt, { passive: true }));
+
+    return () => {
+      events.forEach(e => v.removeEventListener(e, attempt));
+      gestures.forEach(e => window.removeEventListener(e, attempt));
+    };
   }, []);
 
   return (

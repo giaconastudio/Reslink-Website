@@ -61,7 +61,16 @@ export default function ValueProp() {
     attempt();
     const events = ['loadeddata', 'canplay', 'canplaythrough'] as const;
     events.forEach(e => v.addEventListener(e, attempt));
-    return () => events.forEach(e => v.removeEventListener(e, attempt));
+
+    /* Same gesture fallback as the hero — see the note there. Safari can deny
+       muted autoplay by policy, and only user activation lifts it. */
+    const gestures = ['pointerdown', 'keydown', 'touchstart', 'scroll'] as const;
+    gestures.forEach(e => window.addEventListener(e, attempt, { passive: true }));
+
+    return () => {
+      events.forEach(e => v.removeEventListener(e, attempt));
+      gestures.forEach(e => window.removeEventListener(e, attempt));
+    };
   }, []);
 
   return (

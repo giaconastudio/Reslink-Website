@@ -138,7 +138,10 @@ export default function CTA({
           <div className="cta-cards">
             <div className="cta-card cta-card-a">
               <div className="cta-vid">
-                <video src="/videos/cta-resume.mp4" poster="/videos/hero-cta-resume.jpg" autoPlay muted loop playsInline />
+                {/* preload was missing entirely, which browsers read as "auto"
+                    — so this fetched eagerly on every page carrying the CTA,
+                    alongside the 11MB hero. It sits well below the fold. */}
+                <video src="/videos/cta-resume.mp4" poster="/videos/hero-cta-resume.jpg" autoPlay muted loop playsInline preload="metadata" />
                 <span className="cta-vid-tag">Video intro</span>
                 <span className="cta-vid-dur">0:47</span>
                 <div className="cta-vid-cap">

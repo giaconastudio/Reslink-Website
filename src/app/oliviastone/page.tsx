@@ -53,8 +53,8 @@ const ACHIEVEMENTS = [
 
 /* Olivia's analytics, matching what the product's Insights panel actually
    reports: visitors, watch time against the intro's own length, and clicks
-   split by where they came from and where they went. Locations are not
-   tracked yet, so that tile says so rather than inventing three cities. */
+   split by where they came from and where they went, and where the viewers
+   were. */
 const VISITOR_TREND = [10, 14, 9, 15, 19, 24, 26];
 
 const OLIVIA_CLICKS = [
@@ -64,6 +64,19 @@ const OLIVIA_CLICKS = [
   { group: 'Outbound', label: 'LinkedIn', n: 2, color: '#9BBF2E' },
 ];
 const OLIVIA_CLICK_TOTAL = OLIVIA_CLICKS.reduce((sum, c) => sum + c.n, 0);
+
+/* Location tracking is live now, so this tile shows real cities instead of a
+   "coming soon" badge. The counts deliberately total 12 — the unique-visitor
+   figure in the tile above — so the card is consistent when read as a whole,
+   and the cities match the set the Insights mock in Features.tsx uses. */
+const OLIVIA_LOCATIONS = [
+  { city: 'San Francisco, CA', n: 4 },
+  { city: 'New York, NY', n: 3 },
+  { city: 'Austin, TX', n: 2 },
+  { city: 'Seattle, WA', n: 2 },
+  { city: 'Chicago, IL', n: 1 },
+];
+const OLIVIA_LOCATION_MAX = Math.max(...OLIVIA_LOCATIONS.map(l => l.n));
 
 export default function ExampleProfilePage() {
   const pipRef = useRef<HTMLVideoElement>(null);
@@ -197,6 +210,14 @@ export default function ExampleProfilePage() {
           @media (max-width: 860px) { .ex-resume-scroll { max-height: 620px; } }
           @media (max-width: 640px) { .ex-resume-scroll { max-height: 520px; } }
           .ex-sidebar { display: flex; flex-direction: column; gap: 16px; }
+          /* The analytics tiles sit two-up, which is right on desktop but not
+             on a phone: at 375px each tile is 136px wide, which overflowed the
+             clicks legend and clipped "San Francisco, CA" to an ellipsis. One
+             per row below 620px gives each the full width instead.
+             !important because the columns are set inline. */
+          @media (max-width: 620px) {
+            .ex-metric-row { grid-template-columns: 1fr !important; }
+          }
         `}</style>
 
         <div style={{ maxWidth: '1020px', margin: '0 auto', padding: '32px 24px 80px' }}>
@@ -364,12 +385,12 @@ export default function ExampleProfilePage() {
                 </span>
               </div>
 
-              {/* Visitors and watch time side by side, then clicks across the
-                  full width — the same three measures the product's Insights
+              {/* Two rows of two: visitors and watch time, then clicks and
+                  locations — the same four measures the product's Insights
                   panel reports, at the scale one person's profile actually
                   sees rather than an account's worth of traffic. */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '10px' }}>
-                <div style={{ background: '#F7F9FC', border: '1px solid #EDF0F5', borderRadius: '12px', padding: '16px' }}>
+              <div className="ex-metric-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '10px' }}>
+                <div style={{ background: '#F7F9FC', border: '1px solid #EDF0F5', borderRadius: '12px', padding: '16px', minWidth: 0 }}>
                   <p style={{ fontSize: '12px', color: '#5C6070', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Unique visitors</p>
                   <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '26px', fontWeight: 900, color: '#D63D9D', lineHeight: 1, letterSpacing: '-0.02em', display: 'block', marginTop: '6px' }}>12</span>
                   <div style={{ display: 'flex', alignItems: 'flex-end', gap: '3px', height: '26px', marginTop: '10px' }}>
@@ -401,7 +422,14 @@ export default function ExampleProfilePage() {
                 </div>
               </div>
 
-              <div style={{ background: '#F7F9FC', border: '1px solid #EDF0F5', borderRadius: '12px', padding: '16px', marginBottom: '10px' }}>
+              {/* Second row. marginTop:auto keeps this pinned to the bottom of
+                  the card so it still lines up with the CTA panel beside it. */}
+              <div className="ex-metric-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginTop: 'auto' }}>
+              {/* minWidth: 0 on both tiles because a grid item defaults to
+                  min-width: auto — the clicks legend refused to shrink below
+                  its own content and took 182px against the locations tile's
+                  145px at narrow widths, instead of the two splitting evenly. */}
+              <div style={{ background: '#F7F9FC', border: '1px solid #EDF0F5', borderRadius: '12px', padding: '16px', minWidth: 0 }}>
                 <p style={{ fontSize: '12px', color: '#5C6070', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Clicks</p>
                 <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '26px', fontWeight: 900, color: '#061A3A', lineHeight: 1, letterSpacing: '-0.02em', display: 'block', marginTop: '6px' }}>{OLIVIA_CLICK_TOTAL}</span>
                 <div style={{ display: 'flex', gap: '3px', height: '6px', marginTop: '10px' }}>
@@ -425,11 +453,27 @@ export default function ExampleProfilePage() {
                 </div>
               </div>
 
-              {/* Locations aren't tracked yet, so this says so rather than
-                  showing three cities nobody actually measured. */}
-              <div style={{ background: '#F7F9FC', border: '1px solid #EDF0F5', borderRadius: '12px', padding: '14px 16px', marginTop: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>
-                <p style={{ fontSize: '12px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Top viewer locations</p>
-                <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase', color: '#5C6070', background: '#E8EBF0', borderRadius: '100px', padding: '4px 10px', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>Coming soon</span>
+              {/* Locations are tracked now, so this shows the cities rather
+                  than a "coming soon" badge. Bars are scaled to the top city
+                  instead of to the visitor total — at these counts, scaling to
+                  12 would leave every bar a stub. */}
+              <div style={{ background: '#F7F9FC', border: '1px solid #EDF0F5', borderRadius: '12px', padding: '16px', minWidth: 0 }}>
+                <p style={{ fontSize: '12px', color: '#5C6070', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Top viewer locations</p>
+                <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '26px', fontWeight: 900, color: '#061A3A', lineHeight: 1, letterSpacing: '-0.02em', display: 'block', marginTop: '6px' }}>{OLIVIA_LOCATIONS.length}</span>
+                <div style={{ marginTop: '10px' }}>
+                  {OLIVIA_LOCATIONS.map(l => (
+                    <div key={l.city} style={{ marginTop: '6px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '3px' }}>
+                        <span style={{ fontSize: '11px', color: '#3A4150', fontFamily: 'var(--font-body)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{l.city}</span>
+                        <span style={{ marginLeft: 'auto', fontSize: '11px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)' }}>{l.n}</span>
+                      </div>
+                      <div style={{ height: '3px', borderRadius: '2px', background: '#E6EAF0' }}>
+                        <div style={{ width: `${(l.n / OLIVIA_LOCATION_MAX) * 100}%`, height: '100%', borderRadius: '2px', background: '#D63D9D' }} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
               </div>
             </motion.div>
 

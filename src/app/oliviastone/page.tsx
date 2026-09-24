@@ -77,6 +77,10 @@ const OLIVIA_LOCATIONS = [
   { city: 'Chicago, IL', n: 1 },
 ];
 const OLIVIA_LOCATION_MAX = Math.max(...OLIVIA_LOCATIONS.map(l => l.n));
+/* Only the top three are listed, with a "Load more" beneath. Five rows made
+   this tile noticeably taller than the clicks tile beside it; three plus the
+   affordance keeps the card compact and still shows the product has more. */
+const OLIVIA_LOCATIONS_SHOWN = 3;
 
 export default function ExampleProfilePage() {
   const pipRef = useRef<HTMLVideoElement>(null);
@@ -461,7 +465,7 @@ export default function ExampleProfilePage() {
                 <p style={{ fontSize: '12px', color: '#5C6070', fontFamily: 'var(--font-body)', lineHeight: 1.2 }}>Top viewer locations</p>
                 <span style={{ fontFamily: 'var(--font-phudu)', fontSize: '26px', fontWeight: 900, color: '#061A3A', lineHeight: 1, letterSpacing: '-0.02em', display: 'block', marginTop: '6px' }}>{OLIVIA_LOCATIONS.length}</span>
                 <div style={{ marginTop: '10px' }}>
-                  {OLIVIA_LOCATIONS.map(l => (
+                  {OLIVIA_LOCATIONS.slice(0, OLIVIA_LOCATIONS_SHOWN).map(l => (
                     <div key={l.city} style={{ marginTop: '6px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '3px' }}>
                         <span style={{ fontSize: '11px', color: '#3A4150', fontFamily: 'var(--font-body)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{l.city}</span>
@@ -472,6 +476,17 @@ export default function ExampleProfilePage() {
                       </div>
                     </div>
                   ))}
+                  {/* Decorative, like the rest of this card — the whole panel is
+                      a picture of the product, so this doesn't expand.
+
+                      Deliberately NOT a <button>: a real control that does
+                      nothing is worse than none, because keyboard and screen
+                      reader users would tab to it and get no response. A plain
+                      span, hidden from assistive tech, reads as part of the
+                      mock. Add an onClick and it should become a real button. */}
+                  <span aria-hidden="true" style={{ display: 'block', marginTop: '10px', textAlign: 'center', fontSize: '11px', fontWeight: 700, color: '#1468E8', fontFamily: 'var(--font-body)', userSelect: 'none' }}>
+                    Load more
+                  </span>
                 </div>
               </div>
               </div>

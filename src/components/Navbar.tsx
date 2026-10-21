@@ -59,8 +59,8 @@ function DropItem({ href, icon: Icon, label, desc, badge, onClick }: {
 /* Every signup route out of the nav now lands in the app: "Get started for
    free", "Join the waitlist" on the student and veteran pages, and "Log in".
    Only the sales pages stay on this site, because /contact/sales is ours.
-   Nothing links to /get-started or /login any more — both still build and
-   respond, but only to someone typing the URL. */
+   Nothing links to /get-started any more — it still builds and responds, but
+   only to someone typing the URL. */
 
 /* Organisations don't self-serve. On these pages the nav button asks for a
    demo instead of an account, so it matches the rest of the page. */

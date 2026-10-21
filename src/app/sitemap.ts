@@ -6,9 +6,8 @@ import { SITE_URL } from '@/lib/links';
 // newly published article shows up here as soon as its page does.
 export const revalidate = 300;
 
-/* Every indexable marketing page. Left out on purpose:
-   - /login — a leftover mock; every "Log in" now goes to the app's sign-in.
-   - /careers — orphaned; open roles live on the app's company page.
+/* Every indexable marketing page. /careers is left out on purpose: it's
+   orphaned, since open roles live on the app's company page.
    Add new pages here when you add them under src/app. */
 const STATIC_PATHS = [
   '/',

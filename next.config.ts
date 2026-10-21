@@ -36,6 +36,8 @@ const productRedirects = [
   { source: "/record-video", destination: `${APP}/record-video` },
   { source: "/deactivated-reslink", destination: `${APP}/deactivated-reslink` },
   { source: "/sign-in", destination: `${APP}/sign-in` },
+  // This site's own mock login page, retired once "Log in" pointed at the app.
+  { source: "/login", destination: `${APP}/sign-in` },
   { source: "/sign-up", destination: `${APP}/sign-up` },
   { source: "/password", destination: `${APP}/password` },
 ];

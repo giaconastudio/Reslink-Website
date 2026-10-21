@@ -34,6 +34,7 @@ export type DatoPostRecord = {
   readTimeline: string | null;
   isPrivate: boolean;
   _firstPublishedAt: string | null;
+  _updatedAt: string | null;
   coverImage: { url: string; responsiveImage: DatoImage } | null;
   tags: DatoTag[];
   content?: { value: { document: DastNode }; blocks: ContentBlock[] } | null;
@@ -54,6 +55,8 @@ export type Post = {
   tagColor: string;
   tagBg: string;
   date: string;
+  /** Raw ISO timestamp of the last CMS edit — feeds the sitemap's <lastmod>. */
+  updatedAt: string | null;
   read: string;
   image: string;
   imageFull: string;
@@ -69,6 +72,7 @@ const POST_FIELDS = `
   readTimeline
   isPrivate
   _firstPublishedAt
+  _updatedAt
   coverImage {
     url
     responsiveImage(imgixParams: { fit: crop, w: 900, h: 560, auto: format }) {
@@ -140,6 +144,7 @@ function toPost(r: DatoPostRecord): Post {
     tagColor: tagStyle?.text ?? category?.textColor ?? '#5C6070',
     tagBg: tagStyle?.bg ?? category?.bgColor ?? '#ECEEF1',
     date: formatDate(r._firstPublishedAt),
+    updatedAt: r._updatedAt,
     read: r.readTimeline ?? '',
     image: cover,
     imageFull: r.coverImage?.url ?? cover,

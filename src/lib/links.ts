@@ -12,6 +12,10 @@
 
 export const APP_SIGNUP_URL = 'https://app.reslink.io/sign-up';
 
+/* The marketing site's own canonical origin. Vercel 308s the apex to www, so
+   anything handed to crawlers (sitemap, robots) uses www to skip the hop. */
+export const SITE_URL = 'https://www.reslink.io';
+
 /* Returning users get the app's own sign-in page. This aliased APP_SIGNUP_URL
    while the app had no dedicated login route, which meant anyone clicking
    "Log in" landed on sign-up; it has one now, so the two are separate. */

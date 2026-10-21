@@ -28,7 +28,6 @@ const STATIC_PATHS = [
   '/contact/sales',
   '/contact/support',
   '/get-started',
-  '/eligibility',
   '/privacy',
   '/terms',
 ];

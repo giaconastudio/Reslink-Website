@@ -58,12 +58,19 @@ const renamedMarketingRedirects = [
   { source: "/resume-templates", destination: "/templates" },
 ];
 
+// Marketing pages retired outright. Sent to the closest live page rather than
+// left to 404, in case anyone bookmarked or shared them.
+const retiredMarketingRedirects = [
+  // A mocked discount checker; pricing explains the student/veteran rate.
+  { source: "/eligibility", destination: "/pricing" },
+];
+
 const nextConfig: NextConfig = {
   images: {
     qualities: [75, 100],
   },
   async redirects() {
-    return [...productRedirects, ...renamedMarketingRedirects].map((r) => ({
+    return [...productRedirects, ...renamedMarketingRedirects, ...retiredMarketingRedirects].map((r) => ({
       ...r,
       permanent: true,
     }));

@@ -21,8 +21,11 @@ export default function ApplyNothing() {
 
         .an-squares { display: grid; grid-template-columns: repeat(${COLS}, 1fr); gap: 7px; }
         .an-sq { aspect-ratio: 1; border-radius: 6px; border: 1px solid rgba(255,255,255,0.11); background: rgba(255,255,255,0.02); }
-        .an-sq.on { background: #D7FF43; border-color: #D7FF43; animation: an-pulse 1.9s ease-in-out infinite; }
-        @keyframes an-pulse { 0%, 100% { box-shadow: 0 0 11px rgba(215,255,67,0.3); } 50% { box-shadow: 0 0 22px rgba(215,255,67,0.7); } }
+        .an-sq.on { position: relative; z-index: 2; background: #D7FF43; border-color: #D7FF43; animation: an-pulse 1.8s ease-in-out infinite; }
+        /* An expanding ring radiating out of the single reply — radar-ping. */
+        .an-sq.on::after { content: ''; position: absolute; inset: -1px; border-radius: 7px; border: 2px solid #D7FF43; opacity: 0; animation: an-ping 1.8s ease-out infinite; pointer-events: none; }
+        @keyframes an-pulse { 0%, 100% { box-shadow: 0 0 13px rgba(215,255,67,0.45); } 50% { box-shadow: 0 0 30px rgba(215,255,67,0.9); } }
+        @keyframes an-ping { 0% { transform: scale(1); opacity: 0.85; } 70% { opacity: 0; } 100% { transform: scale(2.8); opacity: 0; } }
         .an-legend { display: flex; gap: 26px; margin-top: 22px; align-items: center; flex-wrap: wrap; }
         .an-leg { display: inline-flex; align-items: center; gap: 9px; font-size: 13px; color: rgba(255,255,255,0.55); font-family: var(--font-body); }
         .an-leg b { color: #fff; font-weight: 700; }
@@ -34,8 +37,8 @@ export default function ApplyNothing() {
       <motion.div className="an-card" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.5 }}>
         <div className="an-grid">
           <div>
-            <h2 className="an-h2">You apply, and<br />then nothing</h2>
-            <p className="an-sub">Most resumes are never opened. You don’t get rejected, you just get nothing back. So you never learn what to fix.</p>
+            <h2 className="an-h2">Applying for more<br />jobs won’t help</h2>
+            <p className="an-sub">Every resume looks the same, and most are never opened. In this market, it’s not about applying more, it’s about applying better.</p>
           </div>
           <div>
             <motion.div

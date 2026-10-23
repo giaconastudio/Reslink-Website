@@ -256,7 +256,7 @@ export default function Hero() {
         .hero-notif-bar > span { display: block; height: 100%; width: 87%; background: linear-gradient(90deg, #1468E8, #D63D9D); border-radius: 100px; }
         .hero-notif-stat { font-size: 12.5px; font-weight: 700; color: #1468E8; font-family: var(--font-body); }
         @media (max-width: 760px) {
-          .hero-inner { padding: 96px 20px 0; }
+          .hero-inner { padding: 124px 20px 0; }
           .hero-proof-row { flex-direction: column; gap: 14px; margin-bottom: 32px; }
           .hero-ctas { gap: 10px; }
           .hero-ctas > div { width: 100%; }
@@ -267,7 +267,7 @@ export default function Hero() {
           .hero-pill { font-size: 11px !important; padding: 5px 12px 5px 6px !important; gap: 7px !important; }
         }
         @media (max-width: 400px) {
-          .hero-inner { padding: 84px 16px 0; }
+          .hero-inner { padding: 112px 16px 0; }
         }
 
         @keyframes heroReveal {
@@ -314,7 +314,7 @@ export default function Hero() {
           {/* Non-breaking space so "your work" can't be split. Left to wrap on
               its own at 375px it broke after "your", stranding "work." alone on
               the second line; this makes the line end on the comma instead. */}
-          One link. Your video intro, your resume, your&nbsp;work.
+          One link. Your video intro,<br className="br-mobile" />your resume, your&nbsp;work.
         </p>
 
         {/* CTAs */}

@@ -60,9 +60,9 @@ const INDIVIDUAL_PANEL = {
 // The candidate banner under the video — one person per individual type, matched
 // to the face in that type's video and the example profile on its page.
 const INDIVIDUAL_BANNER: Record<'seeker' | 'student' | 'veteran', { name: string; role: string; watch: string }> = {
-  seeker: { name: 'Amara Okafor', role: 'Supply Chain Specialist · New York', watch: 'Recruiter at HubSpot watched 87%' },
-  student: { name: 'Zara Johnson', role: 'Marketing · Class of 2025', watch: 'Recruiter at Google watched 92%' },
-  veteran: { name: 'Jordan Hayes', role: 'Operations · US Marines Veteran', watch: 'Recruiter at Deloitte watched 90%' },
+  seeker: { name: 'Amara Okafor', role: 'Supply Chain Specialist · New York', watch: '87% average watch rate' },
+  student: { name: 'Zara Johnson', role: 'Marketing · Class of 2025', watch: '92% average watch rate' },
+  veteran: { name: 'Jordan Hayes', role: 'Operations · US Marines Veteran', watch: '90% average watch rate' },
 };
 
 const PANELS: Record<AccountType, {

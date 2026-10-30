@@ -68,14 +68,13 @@ export default function Hero() {
 
         /* Floating notification */
         .tf-note { position: absolute; bottom: -28px; right: -16px; width: 306px; background: #fff; border-radius: 16px; box-shadow: 0 24px 58px rgba(6,26,58,0.2); border: 1px solid #EEF0F3; padding: 15px 17px; z-index: 4; }
-        .tf-note-top { display: flex; align-items: center; gap: 11px; margin-bottom: 12px; }
-        .tf-note-av { width: 38px; height: 38px; border-radius: 50%; background: #635BFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .tf-note-av span { color: #fff; font-weight: 800; font-size: 10px; font-family: var(--font-body); letter-spacing: -0.03em; }
-        .tf-note-t { font-size: 13px; font-weight: 700; color: #061A3A; font-family: var(--font-body); line-height: 1.3; }
-        .tf-note-s { font-size: 11.5px; color: #9AA1AE; font-family: var(--font-body); margin-top: 3px; }
-        .tf-note-bar { height: 6px; border-radius: 100px; background: #E7EDF6; overflow: hidden; margin-bottom: 8px; }
-        .tf-note-bar > span { display: block; height: 100%; width: 87%; background: linear-gradient(90deg, #1468E8, #D63D9D); border-radius: 100px; }
-        .tf-note-stat { font-size: 12.5px; font-weight: 700; color: #1468E8; font-family: var(--font-body); }
+        .tf-note-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #9AA1AE; font-family: var(--font-body); margin-bottom: 12px; }
+        .tf-note-row { display: flex; align-items: center; gap: 15px; }
+        .tf-ring { position: relative; width: 62px; height: 62px; flex-shrink: 0; }
+        .tf-ring svg { display: block; width: 62px; height: 62px; }
+        .tf-ring-val { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; color: #9E2462; font-family: var(--font-body); letter-spacing: -0.02em; }
+        .tf-note-t { font-size: 15px; font-weight: 700; color: #061A3A; font-family: var(--font-body); line-height: 1.25; }
+        .tf-note-s { font-size: 12px; color: #9AA1AE; font-family: var(--font-body); margin-top: 2px; }
 
         @media (max-width: 920px) {
           .tf-hero-grid { grid-template-columns: 1fr; gap: 36px; text-align: center; min-height: 0; padding: clamp(44px, 7vw, 68px) 24px clamp(40px, 7vw, 60px); }
@@ -174,15 +173,21 @@ export default function Hero() {
 
             {/* Watched notification */}
             <motion.div className="tf-note" animate={{ y: [0, -6, 0] }} transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}>
-              <div className="tf-note-top">
-                <span className="tf-note-av"><span>stripe</span></span>
+              <p className="tf-note-eyebrow">Your Reslink</p>
+              <div className="tf-note-row">
+                <div className="tf-ring">
+                  <svg viewBox="0 0 72 72" aria-hidden="true">
+                    <circle cx="36" cy="36" r="30" fill="none" stroke="#F0E6EC" strokeWidth="9" />
+                    <circle cx="36" cy="36" r="30" fill="none" stroke="#9E2462" strokeWidth="9" strokeLinecap="round" strokeDasharray="188.5" strokeDashoffset="24.5" transform="rotate(-90 36 36)" />
+                  </svg>
+                  <span className="tf-ring-val">87%</span>
+                </div>
                 <div>
-                  <p className="tf-note-t">Recruiter at Stripe opened your Reslink</p>
-                  <p className="tf-note-s">2 minutes ago</p>
+                  <p className="tf-note-t">Average watched</p>
+                  <p className="tf-note-s">across 6 plays</p>
+                  <p className="tf-note-s">last 7 days</p>
                 </div>
               </div>
-              <div className="tf-note-bar"><span /></div>
-              <p className="tf-note-stat">Watched 87% · 52s of 60s</p>
             </motion.div>
           </div>
         </motion.div>

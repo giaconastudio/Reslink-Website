@@ -145,23 +145,21 @@ export default function CTA({
             </div>
 
             <div className="cta-card cta-card-b">
-              <div className="top">
-                <span className="cta-note-av">
-                  <svg width="19" height="19" viewBox="0 0 32 32" fill="none" aria-label="HubSpot">
-                    <path d="M8.6 9.4 L16.5 15.8 M24 8 L20.6 13.4 M13 25 L16.4 20.4" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" />
-                    <circle cx="18.6" cy="17.4" r="4.7" stroke="#fff" strokeWidth="3" fill="none" />
-                    <circle cx="7" cy="8" r="3.1" fill="#fff" />
-                    <circle cx="25" cy="6.2" r="2.5" fill="#fff" />
-                    <circle cx="11.6" cy="26.4" r="3" fill="#fff" />
+              <p style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginBottom: '12px' }}>Your Reslink</p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                <div style={{ position: 'relative', width: '62px', height: '62px', flexShrink: 0 }}>
+                  <svg viewBox="0 0 72 72" width="62" height="62" aria-hidden="true">
+                    <circle cx="36" cy="36" r="30" fill="none" stroke="#F0E6EC" strokeWidth="9" />
+                    <circle cx="36" cy="36" r="30" fill="none" stroke="#9E2462" strokeWidth="9" strokeLinecap="round" strokeDasharray="188.5" strokeDashoffset="24.5" transform="rotate(-90 36 36)" />
                   </svg>
-                </span>
+                  <span style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '15px', fontWeight: 800, color: '#9E2462', fontFamily: 'var(--font-body)', letterSpacing: '-0.02em' }}>87%</span>
+                </div>
                 <div>
-                  <p className="cta-note-t">Recruiter at HubSpot viewed you</p>
-                  <p className="cta-note-s">2 minutes ago</p>
+                  <p style={{ fontSize: '15px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.25 }}>Average watched</p>
+                  <p style={{ fontSize: '12px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '2px' }}>across 6 plays</p>
+                  <p style={{ fontSize: '12px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '2px' }}>last 7 days</p>
                 </div>
               </div>
-              <div className="cta-note-bar"><span /></div>
-              <p className="cta-note-stat">Watched 87% · 52s of 60s</p>
             </div>
           </div>
           )}

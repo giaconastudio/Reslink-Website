@@ -405,15 +405,21 @@ export default function Hero() {
 
           {/* Floating recruiter notification */}
           <motion.div className="hero-notif" animate={{ y: [0, -6, 0] }} transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}>
-            <div className="hero-notif-top">
-              <span className="hero-notif-av"><span>stripe</span></span>
+            <p style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginBottom: '12px' }}>Your Reslink</p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+              <div style={{ position: 'relative', width: '62px', height: '62px', flexShrink: 0 }}>
+                <svg viewBox="0 0 72 72" width="62" height="62" aria-hidden="true">
+                  <circle cx="36" cy="36" r="30" fill="none" stroke="#F0E6EC" strokeWidth="9" />
+                  <circle cx="36" cy="36" r="30" fill="none" stroke="#9E2462" strokeWidth="9" strokeLinecap="round" strokeDasharray="188.5" strokeDashoffset="24.5" transform="rotate(-90 36 36)" />
+                </svg>
+                <span style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '15px', fontWeight: 800, color: '#9E2462', fontFamily: 'var(--font-body)', letterSpacing: '-0.02em' }}>87%</span>
+              </div>
               <div>
-                <p className="hero-notif-title">Recruiter at Stripe opened your Reslink</p>
-                <p className="hero-notif-time">2 minutes ago</p>
+                <p style={{ fontSize: '15px', fontWeight: 700, color: '#061A3A', fontFamily: 'var(--font-body)', lineHeight: 1.25 }}>Average watched</p>
+                <p style={{ fontSize: '12px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '2px' }}>across 6 plays</p>
+                <p style={{ fontSize: '12px', color: '#9AA1AE', fontFamily: 'var(--font-body)', marginTop: '2px' }}>last 7 days</p>
               </div>
             </div>
-            <div className="hero-notif-bar"><span /></div>
-            <p className="hero-notif-stat">Watched 87% · 52s of 60s</p>
           </motion.div>
         </div>
       </div>

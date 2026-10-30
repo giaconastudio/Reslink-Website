@@ -156,7 +156,7 @@ function FeatureVisual({ type }: { type: string }) {
           <div style={{ background: '#F6F7F9', border: '1px solid #ECEEF1', borderRadius: '8px', padding: '8px 12px', fontSize: '12px', color: '#5C6070', fontFamily: 'monospace', marginBottom: '12px' }}>reslink.io/<span style={{ color: '#061A3A', fontWeight: 700 }}>oliviastone</span></div>
           <p style={{ display: 'flex', alignItems: 'center', gap: '7px', fontSize: '12px', color: '#3A4150', fontFamily: 'var(--font-body)', background: '#FAFFF0', border: '1px solid #EEF7CF', borderRadius: '8px', padding: '8px 12px', margin: 0 }}>
             <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#5B7A0F', flexShrink: 0 }} />
-            Recruiter at Stripe watched 87%
+            87% average watch rate
           </p>
         </div>
       </div>

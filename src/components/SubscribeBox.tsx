@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { subscribe } from '@/app/actions/hubspot';
+import Honeypot, { honeypotValue } from '@/components/Honeypot';
 
 /* The footer newsletter box. Split out of Footer so the footer itself stays a
    server component — only this small island needs to be interactive.
@@ -23,7 +24,7 @@ export default function SubscribeBox() {
     setSending(true);
     setError(null);
 
-    const result = await subscribe(email);
+    const result = await subscribe(email, honeypotValue(e));
 
     setSending(false);
 
@@ -48,6 +49,7 @@ export default function SubscribeBox() {
   return (
     <>
       <form className="footer-sub" onSubmit={handleSubmit}>
+        <Honeypot />
         <input
           className="footer-input"
           type="email"

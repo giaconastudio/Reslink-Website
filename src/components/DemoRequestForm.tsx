@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { CheckCircle, ArrowRight, Mail } from 'lucide-react';
 import { submitDemoRequest } from '@/app/actions/hubspot';
+import Honeypot, { honeypotValue } from '@/components/Honeypot';
 
 /* The demo request form. Lives here rather than inline on the sales page
    because organisations meet it in two places: /contact/sales, and the
@@ -102,7 +103,7 @@ export default function DemoRequestForm({
       howPlanToUse: form.rolesCount,
       comment: form.message,
       howDidYouHear: form.hearAbout,
-    });
+    }, honeypotValue(e));
 
     setSending(false);
 
@@ -146,6 +147,7 @@ export default function DemoRequestForm({
       <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: '24px', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.02em', marginBottom: '4px' }}>{heading}</h2>
       <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', lineHeight: 1.55, marginBottom: '16px' }}>{sub}</p>
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        <Honeypot />
         <div className="demo-name-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
           <input type="text" placeholder="First name" value={form.firstName} onChange={e => setForm(p => ({ ...p, firstName: e.target.value }))} required style={inputStyle} />
           <input type="text" placeholder="Last name" value={form.lastName} onChange={e => setForm(p => ({ ...p, lastName: e.target.value }))} required style={inputStyle} />

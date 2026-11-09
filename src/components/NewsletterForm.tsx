@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { subscribe } from '@/app/actions/hubspot';
+import Honeypot, { honeypotValue } from '@/components/Honeypot';
 
 /* The newsletter signup that appears on the blog — once under the index, once
    in every article's sidebar. Both sit on the same navy panel and differ only
@@ -69,7 +70,7 @@ export default function NewsletterForm({
     setSending(true);
     setError(null);
 
-    const result = await subscribe(email);
+    const result = await subscribe(email, honeypotValue(e));
 
     setSending(false);
 
@@ -98,6 +99,7 @@ export default function NewsletterForm({
   return (
     <>
       <form onSubmit={handleSubmit} style={formStyle[variant]}>
+        <Honeypot />
         <input
           type="email"
           placeholder={placeholder}

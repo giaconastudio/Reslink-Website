@@ -16,6 +16,7 @@
    tell someone their message didn't send, and an unhandled server action
    error would only give them a generic failure. */
 
+import { checkBotId } from 'botid/server';
 import {
   NEWSLETTER_ID,
   createCompany,
@@ -36,6 +37,34 @@ const OK: FormResult = { success: true };
 /** Same wording everywhere: what went wrong upstream is our problem, not
  *  something to explain to the person filling in the form. */
 const FAILED = 'Something went wrong on our end. Please try again, or email us directly.';
+
+/**
+ * Keeps junk out of the CRM: a filled-in honeypot, or a request BotID calls a
+ * bot. Callers answer with FAILED rather than a fake success, so anyone real
+ * caught by mistake still knows to email us.
+ *
+ * Runs before the `hubspotEnabled()` guard so a preview deploy, which has no
+ * CRM token, exercises it without writing anything.
+ *
+ * If BotID itself errors (say the project's OIDC setting is off) the
+ * submission goes through and the error is logged: a misconfiguration
+ * shouldn't turn away every real lead.
+ */
+async function isSpam(honeypot?: string): Promise<boolean> {
+  if (honeypot) {
+    console.warn('Blocked form submission: honeypot filled');
+    return true;
+  }
+
+  try {
+    const { isBot } = await checkBotId();
+    if (isBot) console.warn('Blocked form submission: BotID');
+    return isBot;
+  } catch (error) {
+    console.error('BotID check failed, allowing submission:', error);
+    return false;
+  }
+}
 
 export type DemoRequest = {
   firstName: string;
@@ -59,8 +88,9 @@ export type DemoRequest = {
  * newsletter last month has a contact but no company — so all four
  * combinations are handled rather than blindly creating duplicates.
  */
-export async function submitDemoRequest(data: DemoRequest): Promise<FormResult> {
+export async function submitDemoRequest(data: DemoRequest, honeypot?: string): Promise<FormResult> {
   if (!data.email) return { success: false, message: 'Email is required' };
+  if (await isSpam(honeypot)) return { success: false, message: FAILED };
   if (!hubspotEnabled()) return OK;
 
   const contactProperties = {
@@ -130,8 +160,9 @@ export type SupportRequest = {
  * Support form. No company record here — support answers people, not
  * organisations — just a contact and a ticket on the same queue.
  */
-export async function submitSupportRequest(data: SupportRequest): Promise<FormResult> {
+export async function submitSupportRequest(data: SupportRequest, honeypot?: string): Promise<FormResult> {
   if (!data.email) return { success: false, message: 'Email is required' };
+  if (await isSpam(honeypot)) return { success: false, message: FAILED };
   if (!hubspotEnabled()) return OK;
 
   const contactProperties = {
@@ -185,8 +216,9 @@ export type FreeResourcesRequest = {
  * the lead; it does not send anything. The templates themselves have no
  * delivery mechanism on this site yet.
  */
-export async function submitFreeResources(data: FreeResourcesRequest): Promise<FormResult> {
+export async function submitFreeResources(data: FreeResourcesRequest, honeypot?: string): Promise<FormResult> {
   if (!data.email) return { success: false, message: 'Email is required' };
+  if (await isSpam(honeypot)) return { success: false, message: FAILED };
   if (!hubspotEnabled()) return OK;
 
   const contactProperties = { contact_source: 'Free Resources Form' };
@@ -238,8 +270,9 @@ async function subscribeContact(email: string) {
  * Footer newsletter box. Creates the contact if we've never seen the address,
  * then subscribes it either way.
  */
-export async function subscribe(email: string): Promise<FormResult> {
+export async function subscribe(email: string, honeypot?: string): Promise<FormResult> {
   if (!email) return { success: false, message: 'Email is required' };
+  if (await isSpam(honeypot)) return { success: false, message: FAILED };
   if (!hubspotEnabled()) return OK;
 
   try {

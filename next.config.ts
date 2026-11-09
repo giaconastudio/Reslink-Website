@@ -36,6 +36,8 @@ const productRedirects = [
   { source: "/record-video", destination: `${APP}/record-video` },
   { source: "/deactivated-reslink", destination: `${APP}/deactivated-reslink` },
   { source: "/sign-in", destination: `${APP}/sign-in` },
+  // This site's own mock login page, retired once "Log in" pointed at the app.
+  { source: "/login", destination: `${APP}/sign-in` },
   { source: "/sign-up", destination: `${APP}/sign-up` },
   { source: "/password", destination: `${APP}/password` },
 ];
@@ -56,12 +58,19 @@ const renamedMarketingRedirects = [
   { source: "/resume-templates", destination: "/templates" },
 ];
 
+// Marketing pages retired outright. Sent to the closest live page rather than
+// left to 404, in case anyone bookmarked or shared them.
+const retiredMarketingRedirects = [
+  // A mocked discount checker; pricing explains the student/veteran rate.
+  { source: "/eligibility", destination: "/pricing" },
+];
+
 const nextConfig: NextConfig = {
   images: {
     qualities: [75, 100],
   },
   async redirects() {
-    return [...productRedirects, ...renamedMarketingRedirects].map((r) => ({
+    return [...productRedirects, ...renamedMarketingRedirects, ...retiredMarketingRedirects].map((r) => ({
       ...r,
       permanent: true,
     }));

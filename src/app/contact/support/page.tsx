@@ -7,6 +7,7 @@ import { CheckCircle, ArrowRight, Plus, Minus } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { submitSupportRequest } from '@/app/actions/hubspot';
+import Honeypot, { honeypotValue } from '@/components/Honeypot';
 
 const TABS = [
   { id: 'help', label: 'I need help' },
@@ -75,7 +76,7 @@ export default function SupportPage() {
       email: form.email,
       topic: TABS.find(t => t.id === tab)?.label ?? '',
       comment: form.message,
-    });
+    }, honeypotValue(e));
 
     setSending(false);
 
@@ -161,6 +162,7 @@ export default function SupportPage() {
                       <h2 style={{ fontFamily: 'var(--font-phudu)', fontSize: '24px', fontWeight: 900, color: '#061A3A', letterSpacing: '-0.02em', marginBottom: '4px' }}>Send us a message</h2>
                       <p style={{ fontSize: '13px', color: '#9A9FA8', fontFamily: 'var(--font-body)', lineHeight: 1.5, marginBottom: '16px' }}>The more detail the better, it saves a round trip.</p>
                       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                        <Honeypot />
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                           <div>
                             <label style={labelStyle}>First name</label>

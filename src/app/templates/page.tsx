@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { submitFreeResources } from '@/app/actions/hubspot';
+import Honeypot, { honeypotValue } from '@/components/Honeypot';
 
 const HERO_CHECKS = [
   { label: 'Parser-safe by default', desc: 'no columns, tables or text boxes' },
@@ -47,7 +48,7 @@ export default function TemplatesPage() {
     const result = await submitFreeResources({
       firstName: form.firstName,
       email: form.email,
-    });
+    }, honeypotValue(e));
 
     setSending(false);
 
@@ -137,6 +138,7 @@ export default function TemplatesPage() {
                         nothing" guard the old handler did by hand, and Enter
                         submits. */}
                     <form onSubmit={handleSubmit}>
+                    <Honeypot />
                     <input className="tmpl-form-input" type="text" placeholder="First name" value={form.firstName} onChange={e => setForm(f => ({ ...f, firstName: e.target.value }))} required style={{ marginBottom: '10px' }} />
                     <input className="tmpl-form-input" type="email" placeholder="Email address" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} required style={{ marginBottom: '16px' }} />
                     {error && (

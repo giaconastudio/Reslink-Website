@@ -158,6 +158,10 @@ export default function Footer() {
           <div className="footer-legal">
             <Link href="/terms" className="footer-legal-link">Terms of Service</Link>
             <Link href="/privacy" className="footer-legal-link">Privacy Policy</Link>
+            {/* Termly opens its consent preferences when this class is clicked */}
+            {process.env.NEXT_PUBLIC_TERMLY_WEBSITE_UUID && (
+              <a href="#" className="footer-legal-link termly-display-preferences">Cookie Preferences</a>
+            )}
           </div>
         </div>
       </div>

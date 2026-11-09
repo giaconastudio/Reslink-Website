@@ -29,7 +29,7 @@ const maxLengthFor = (key: StringKey) => (key === 'fbclid' ? MAX_FBCLID_LENGTH :
  */
 export function parsePaidClick(url: URL, now: number): AttributionPayload | null {
   const params = url.searchParams;
-  const isPaid = params.has('fbclid') || params.get('utm_medium') === 'paid_social';
+  const isPaid = Boolean(params.get('fbclid')) || params.get('utm_medium') === 'paid_social';
   if (!isPaid) return null;
   if (url.pathname.length > MAX_PATH_LENGTH) return null;
 

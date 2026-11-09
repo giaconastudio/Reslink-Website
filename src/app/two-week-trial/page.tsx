@@ -25,7 +25,7 @@ export default function TwoWeekTrial() {
   return (
     <>
       <TrialClickTracker />
-      <Navbar />
+      <Navbar signupHref="/go/two-week-trial" />
       <main>
         <Hero />
         <LogoTicker />

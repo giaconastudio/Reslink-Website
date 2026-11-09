@@ -1,8 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Link from 'next/link';
-import { APP_SIGNUP_URL } from '@/lib/links';
 
 // Four steps as a row of equal, dark demo panels. Each panel is a static,
 // legible illustration of the step (no video) with its own hover animation.
@@ -220,10 +218,10 @@ export default function HowItWorks() {
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: 'clamp(34px, 4vw, 52px)' }}>
-          <Link href={APP_SIGNUP_URL} className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
+          <a href="/go/try-free" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
             Create your free Reslink
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
-          </Link>
+          </a>
         </div>
       </motion.div>
     </section>

@@ -5,7 +5,10 @@ import { usePathname } from 'next/navigation';
 
 declare global {
   interface Window {
-    Termly?: { initialize: () => void };
+    Termly?: {
+      initialize: () => void;
+      getConsentState?: () => { advertising?: boolean; analytics?: boolean } | undefined;
+    };
   }
 }
 

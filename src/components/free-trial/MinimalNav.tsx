@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { APP_SIGNUP_URL } from '@/lib/links';
 
 /* Logo-left, CTA-right header for the /try-free landing page — no nav links
    and no mobile menu, just the brand and the primary call to action. Fixed at
@@ -22,9 +21,9 @@ export default function MinimalNav() {
         <Link href="/" aria-label="Reslink home" className="mn-logo" style={{ display: 'inline-flex', alignItems: 'center' }}>
           <Image src="/reslink-og.svg" alt="Reslink" width={140} height={36} priority />
         </Link>
-        <Link href={APP_SIGNUP_URL} className="btn-primary mn-cta">
+        <a href="/go/free-trial" className="btn-primary mn-cta">
           Start your 14-day free trial
-        </Link>
+        </a>
       </div>
     </header>
   );

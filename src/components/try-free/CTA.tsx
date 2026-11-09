@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { APP_SIGNUP_URL } from '@/lib/links';
 
 interface CTAProps {
   /** Small uppercase label above the headline. */
@@ -33,7 +32,7 @@ export default function CTA({
   /* Defaults to the app's sign-up. Pages with a flow that still lives on the
      marketing site — the student and veteran waitlist — pass their own
      primaryHref and are unaffected. */
-  primaryHref = APP_SIGNUP_URL,
+  primaryHref = '/go/try-free',
   footnote = 'Free to start · under 5 minutes · no card needed',
   sectionBg = '#F6F7F9',
   boxBg = 'radial-gradient(ellipse 52% 64% at 93% 0%, rgba(214,61,157,0.42), transparent 52%), linear-gradient(140deg, #071B3D 0%, #05142C 100%)',

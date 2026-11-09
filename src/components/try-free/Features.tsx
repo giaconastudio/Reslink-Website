@@ -3,8 +3,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { BarChart3, Sparkles, Video, Link2, Zap } from 'lucide-react';
-import Link from 'next/link';
-import { APP_SIGNUP_URL } from '@/lib/links';
 
 /** Counts 0 → target with an ease-out, holds, then loops — so a card that's
  *  scrolled back into view still reads as "live" instead of a frozen number.
@@ -1155,10 +1153,10 @@ export default function Features() {
           </div>
         </div>
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: 'clamp(44px, 5vw, 68px)' }}>
-          <Link href={APP_SIGNUP_URL} className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
+          <a href="/go/try-free" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
             Create your free Reslink
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
-          </Link>
+          </a>
         </div>
       </div>
     </section>

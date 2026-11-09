@@ -43,12 +43,15 @@ export function parsePaidClick(url: URL, now: number): AttributionPayload | null
 
 /**
  * Decodes an `rl_attr` cookie value. Any malformed, tampered or oversized value yields null so a
- * bad cookie can never break the page that reads it.
+ * bad cookie can never break the page that reads it. The raw header value is URL-encoded, but
+ * Next's cookie API hands server code the already-decoded JSON, where a literal `%` (say in a
+ * campaign name) would make a second decode throw; decoded JSON always starts with `{`, which
+ * an encoded value never does, so that is the cue to skip the decode.
  */
 export function readAttribution(raw: string | undefined): AttributionPayload | null {
   if (!raw) return null;
   try {
-    const parsed: unknown = JSON.parse(decodeURIComponent(raw));
+    const parsed: unknown = JSON.parse(raw.startsWith('{') ? raw : decodeURIComponent(raw));
     if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) return null;
     const record = parsed as Record<string, unknown>;
 

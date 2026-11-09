@@ -10,9 +10,12 @@ import FAQ from '@/components/try-free/FAQ';
 import CTA from '@/components/try-free/CTA';
 import MinimalFooter from '@/components/try-free/MinimalFooter';
 
+import TrialClickTracker from '@/components/TrialClickTracker';
+
 export default function TryFree() {
   return (
     <>
+      <TrialClickTracker />
       <MinimalNav />
       <main style={{ paddingTop: '68px' }}>
         <Hero />

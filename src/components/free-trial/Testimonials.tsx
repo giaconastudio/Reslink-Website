@@ -2,8 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
-import Link from 'next/link';
-import { APP_SIGNUP_URL } from '@/lib/links';
 
 const testimonials = [
   {
@@ -166,10 +164,10 @@ export default function Testimonials() {
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: 'clamp(48px, 6vw, 72px)', padding: '0 24px' }}>
-        <Link href={APP_SIGNUP_URL} className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
+        <a href="/go/free-trial" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
           Start your 14-day free trial
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
-        </Link>
+        </a>
       </div>
     </section>
   );

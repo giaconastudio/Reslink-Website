@@ -7,6 +7,7 @@ import ScrollToTop from '@/components/ScrollToTop';
 import VideoAutoplay from '@/components/VideoAutoplay';
 import MetaPixelPageView from '@/components/MetaPixelPageView';
 import TermlyRouteSync from '@/components/TermlyRouteSync';
+import ConsentMirror from '@/components/ConsentMirror';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -61,7 +62,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               src={`https://app.termly.io/resource-blocker/${encodeURIComponent(termlyUuid)}?autoBlock=on`}
               strategy="beforeInteractive"
             />
+            {/* Registers for Termly's events before React hydrates, since `initialized` fires
+                as soon as Termly loads. ConsentMirror drains the queue once it mounts. */}
+            <Script id="termly-events" strategy="beforeInteractive">
+              {`window.__rlTermlyEvents=[];if(window.Termly&&window.Termly.on){['initialized','consent'].forEach(function(e){window.Termly.on(e,function(){window.__rlTermlyEvents.push(e)})})}`}
+            </Script>
             <TermlyRouteSync />
+            <ConsentMirror />
           </>
         )}
         <ScrollToTop />

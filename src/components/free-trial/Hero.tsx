@@ -1,9 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import { MapPin, Mail, Globe, Link2, Pause, Download } from 'lucide-react';
-import { APP_SIGNUP_URL } from '@/lib/links';
 
 const LIME_HIGHLIGHT = {
   background: 'linear-gradient(#D7FF43, #D7FF43) no-repeat',
@@ -105,10 +103,10 @@ export default function Hero() {
           </h1>
           <p className="tf-sub">Add a 60-second video to every application, and find out who actually watched.</p>
           <div>
-            <Link href={APP_SIGNUP_URL} className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
+            <a href="/go/free-trial" className="btn-primary" style={{ fontSize: '15px', padding: '14px 28px' }}>
               Start your 14-day free trial
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
-            </Link>
+            </a>
           </div>
           <div className="tf-proof">
             <div className="tf-proof-avatars">

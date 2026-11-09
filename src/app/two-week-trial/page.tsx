@@ -19,9 +19,12 @@ import Testimonials from '@/components/two-week-trial/Testimonials';
 import FAQ from '@/components/two-week-trial/FAQ';
 import CTA from '@/components/two-week-trial/CTA';
 
+import TrialClickTracker from '@/components/TrialClickTracker';
+
 export default function TwoWeekTrial() {
   return (
     <>
+      <TrialClickTracker />
       <Navbar />
       <main>
         <Hero />

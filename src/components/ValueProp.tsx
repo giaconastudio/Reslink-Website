@@ -116,7 +116,7 @@ export default function ValueProp() {
              their content's intrinsic width, so these columns overflowed the
              collapsed single-column track and got clipped. */
           .vp-compare > * { min-width: 0; }
-          .vp-before-col { order: 2; }
+          .vp-before-col { order: 0; }
           .vp-stats-grid { grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 44px; }
           .vp-stat-cell { padding: 18px; border-radius: 16px; }
           .vp-pip { top: -12px !important; right: -12px !important; width: 88px !important; height: 88px !important; border-radius: 12px !important; }

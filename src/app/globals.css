@@ -98,9 +98,16 @@ h1, h2, h3, h4 {
    naturally to whatever width it actually has.
    .br-desktop opts the same behaviour into non-heading copy that does the
    same thing. */
+/* Inverse of .br-desktop: a break that only applies on mobile, so a line can
+   be forced to wrap on a phone while staying on one line on desktop. */
+.br-mobile { display: none !important; }
 @media (max-width: 640px) {
   .br-desktop {
     display: none;
+  }
+
+  .br-mobile {
+    display: inline !important;
   }
 
   /* Once the forced breaks are gone the headings wrap naturally, and natural
